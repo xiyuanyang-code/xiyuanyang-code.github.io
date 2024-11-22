@@ -1,0 +1,706 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="C语言 入门中的入门笔者的第一门博客，就献给C语言叭~ -1 目标群体 对编程和计算机语言完全没有基础的萌新小白。 闲的蛋疼的帅哥美女们。  注意：这篇文章只适合作为入门导论使用，目的在于让完全萌新的小白们在短时间内获得对C语言的宏观初步了解，不涉及任何具体代码层面的细节知识。如果读者已经对C的语法基本掌握，想要跟上一层楼的话，请另寻他路~（或者点个关注等我更新（bushi）） ​	 \begin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Introduction_to_C">
+<meta property="og:url" content="http://example.com/2024/11/21/Introduction-to-C/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="C语言 入门中的入门笔者的第一门博客，就献给C语言叭~ -1 目标群体 对编程和计算机语言完全没有基础的萌新小白。 闲的蛋疼的帅哥美女们。  注意：这篇文章只适合作为入门导论使用，目的在于让完全萌新的小白们在短时间内获得对C语言的宏观初步了解，不涉及任何具体代码层面的细节知识。如果读者已经对C的语法基本掌握，想要跟上一层楼的话，请另寻他路~（或者点个关注等我更新（bushi）） ​	 \begin">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:\Users\29349\Blog\source_posts\Introduction-to-C\%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80.png">
+<meta property="og:image" content="c:\Users\29349\Blog\source_posts\Introduction-to-C\TIOBE.jpg">
+<meta property="og:image" content="c:\Users\29349\Blog\source_posts\Introduction-to-C\%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80.png">
+<meta property="og:image" content="c:\Users\29349\Blog\source_posts\Introduction-to-C\OIP-C.jpg">
+<meta property="article:published_time" content="2024-11-21T02:13:31.000Z">
+<meta property="article:modified_time" content="2024-11-21T02:37:38.677Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="Code">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="c:\Users\29349\Blog\source_posts\Introduction-to-C\%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Introduction_to_C - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Introduction_to_C"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-21 10:13" pubdate>
+          November 21, 2024 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 mins
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Introduction_to_C</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="C语言-入门中的入门"><a href="#C语言-入门中的入门" class="headerlink" title="C语言 入门中的入门"></a>C语言 入门中的入门</h1><p>笔者的第一门博客，就献给C语言叭~</p>
+<h2 id="1-目标群体"><a href="#1-目标群体" class="headerlink" title="-1 目标群体"></a>-1 目标群体</h2><ul>
+<li><strong>对编程和计算机语言完全没有基础的萌新小白</strong>。</li>
+<li>闲的蛋疼的帅哥美女们。</li>
+</ul>
+<p><strong>注意：</strong>这篇文章只适合作为入门导论使用，目的在于让完全萌新的小白们在短时间内获得对C语言的宏观初步了解，<strong>不涉及任何具体代码层面的细节知识</strong>。如果读者已经对C的语法基本掌握，想要跟上一层楼的话，请另寻他路~（或者点个关注等我更新（bushi））</p>
+<p>​	</p>
+<h2 id="begin-document"><a href="#begin-document" class="headerlink" title="\begin{document}"></a>\begin{document}</h2><h2 id="0-为什么我们要选择C语言"><a href="#0-为什么我们要选择C语言" class="headerlink" title="0 为什么我们要选择C语言"></a>0 为什么我们要选择C语言</h2><p>​	如果你不幸选到了<del>天坑专业</del>——<code>计算机科学与技术</code>，一般来说，学校都会把C语言作为同学们需要学习的<strong>第一门现代编程语言</strong>。</p>
+<h3 id="Question1-什么叫语言？"><a href="#Question1-什么叫语言？" class="headerlink" title="Question1 什么叫语言？"></a>Question1 什么叫<strong>语言</strong>？</h3><p>​	区别与我们日常说话的<strong>自然语言</strong>，<strong>编程语言</strong>是一种用于描述计算机程序的形式语言。它提供了一组符号和规则，用于描述程序的结构、功能和行为。程序员可以使用编程语言来编写计算机程序，这些程序可以在计算机上执行，从而实现特定的任务或实现特定的功能。</p>
+<p>​	通俗来说，你可以把程序想象成一个“机器人”，他完全按照工程师输入给他的指令进行工作。那对于开发机器人的工程师而言，他与机器人对话的语言（即编程语言）必须具备<strong>严谨，高效，无二义性</strong>的特征：即每一条语句都可以发挥作用；每一条语句只能表达一种指令（不然机器人就要犯迷糊了）；每一条语句在逻辑上必须完全严谨。</p>
+<p>​	再引入第二个概念，<strong>高级编程语言</strong>和<strong>低级编程语言</strong>，在以前，机器人所交流的语言（例如机器语言和汇编语言，这两种语言被称为低级编程语言）在提升严谨性的基础之上牺牲了<strong>可读性</strong>，而高级编程语言通过编译器、解释器等种种方式，将程序中”机器人看的懂，人看不懂“的部分（低级编程语言）隐藏起来，使代码更容易理解。而我们的C语言，<strong>就是一种经典的高级编程语言</strong>。</p>
+<p><img src="C:\Users\29349\Blog\source_posts\Introduction-to-C\高级编程语言.png" srcset="/img/loading.gif" lazyload alt="高级编程语言"></p>
+<p>[图片来源](<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42727710/article/details/121900806">编译型语言（Compile）和解释型语言（Interpreter）的区别_compilation interpretation-CSDN博客</a>)</p>
+<blockquote>
+<p>对这一块感兴趣的读者可以自行查阅有关机器语言，汇编语言，编译器，解释器等相关资料。深入了解这块内容需要涉及到二进制的基础知识和一些艰深复杂的语法规则，此处不再涉及。</p>
+</blockquote>
+<blockquote>
+<p>在人工智能的时代，The best programming language is English！</p>
+</blockquote>
+<h3 id="Question2-为什么是C语言？"><a href="#Question2-为什么是C语言？" class="headerlink" title="Question2 为什么是C语言？"></a>Question2 为什么是<strong>C语言</strong>？</h3><p>​	<strong>对于这个结论，我们不妨先摆事实，再探求原理。</strong></p>
+<p>​	下图是<a target="_blank" rel="noopener" href="https://www.tiobe.com/tiobe-index/">TIOBE</a>对市场上主流的编程语言所占市场份额的统计（数据截至2024年10月），我们亲爱的C语言排在了第四位，占比8.38%。</p>
+<p><img src="C:\Users\29349\Blog\source_posts\Introduction-to-C\TIOBE.jpg" srcset="/img/loading.gif" lazyload alt="TIOBE"></p>
+<p>​	或许到这里你可能会问，占比甚至不到二成，<strong>看着也不是很流行啊！</strong>不过，请看接下来的两组数据：</p>
+<ul>
+<li>市面上流行的C-like语言（即与C语言具有相似的底层架构和语法规则）包括：C++、C#、Objective-C、Go、Java、JavaScript和Swift等等等等，这样一来，<strong>C-like 语言的市场份额达到了40%以上</strong>。</li>
+<li>Python作为一种<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%A7%A3%E9%87%8A%E5%9E%8B%E8%AF%AD%E8%A8%80/8888952">解释型语言</a>，底层原理和C（C是一种编译型语言，后面会讲）存在差异，但Python中的许多语法规则都继承自C语言，同时，Python中各种库的底层都是用C&#x2F;C++编写的！</li>
+</ul>
+<blockquote>
+<p>The Zen of Python, by Tim Peters</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs applescript">Beautiful <span class="hljs-keyword">is</span> better than ugly.<br>Explicit <span class="hljs-keyword">is</span> better than implicit.<br>Simple <span class="hljs-keyword">is</span> better than complex.<br>Complex <span class="hljs-keyword">is</span> better than complicated.<br>Flat <span class="hljs-keyword">is</span> better than nested.<br>Sparse <span class="hljs-keyword">is</span> better than dense.<br>Readability counts.<br>Special cases aren&#x27;t special enough <span class="hljs-keyword">to</span> break <span class="hljs-keyword">the</span> rules.<br>Although practicality beats purity.<br>Errors should never pass silently.<br>Unless explicitly silenced.<br>In <span class="hljs-keyword">the</span> face <span class="hljs-keyword">of</span> ambiguity, refuse <span class="hljs-keyword">the</span> temptation <span class="hljs-keyword">to</span> guess.<br>There should be one<span class="hljs-comment">-- and preferably only one --obvious way to do it.</span><br>Although <span class="hljs-keyword">that</span> way may <span class="hljs-keyword">not</span> be obvious <span class="hljs-keyword">at</span> <span class="hljs-keyword">first</span> unless you&#x27;re Dutch.<br>Now <span class="hljs-keyword">is</span> better than never.<br>Although never <span class="hljs-keyword">is</span> often better than *right* now.<br>If <span class="hljs-keyword">the</span> implementation <span class="hljs-keyword">is</span> hard <span class="hljs-keyword">to</span> explain, <span class="hljs-keyword">it</span>&#x27;s a bad idea.<br>If <span class="hljs-keyword">the</span> implementation <span class="hljs-keyword">is</span> easy <span class="hljs-keyword">to</span> explain, <span class="hljs-keyword">it</span> may be a good idea.<br>Namespaces are one honking great idea <span class="hljs-comment">-- let&#x27;s do more of those!</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> this<br><span class="hljs-comment">#在Python中写入这行代码，运行就会输出上述结果(The Zen of Python)，这些思想很大程度上都继承自C的简洁性和高效性！</span><br></code></pre></td></tr></table></figure>
+</blockquote>
+<p>​	对此，我们惊讶的发现，<strong>C语言无处不在！</strong></p>
+<p>​	接下来，让我们进入C语言的世界叭！</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/145852301">C语言的历史，补充阅读</a></p>
+</blockquote>
+<h2 id="1-再谈C语言的工作原理——编译型语言"><a href="#1-再谈C语言的工作原理——编译型语言" class="headerlink" title="1 再谈C语言的工作原理——编译型语言"></a>1 再谈C语言的工作原理——编译型语言</h2><p>​	在这个部分，我们将要重点讨论：一个C语言文件是怎么来的？</p>
+<p>​	让我们再回到这张图片：</p>
+<p><img src="C:\Users\29349\Blog\source_posts\Introduction-to-C\高级编程语言.png" srcset="/img/loading.gif" lazyload alt="高级编程语言"></p>
+<p>​	很明显，左边的高级语言（C）（或者叫做<strong>源代码</strong>）更加具备可读性，但你的电脑只能识别并运行右边的Low level language，也就是完全由二进制编码的文件，<strong>叫做可执行文件</strong>。在Windows系统下，<code>.exe</code>文件就是一种可执行文件。</p>
+<p>​	中间的转换被隐藏了，这便是<strong>编译器</strong>的作用，C<strong>通过编译器将源代码转化成机器语言</strong>，这就是一种<strong>编译型语言</strong>。那编译器具体是怎么实现的呢？具体而言涉及到两个过程：<strong>编译和链接</strong>，笔者可以大概扫一眼留个印象，相信我，你会回来的。</p>
+<p><img src="C:\Users\29349\Blog\source_posts\Introduction-to-C\OIP-C.jpg" srcset="/img/loading.gif" lazyload alt="OIP-C"></p>
+<blockquote>
+<p>concrete.c是<strong>源代码文件</strong>，就是我们所谓“敲代码”敲出来的东西，经过编译器，.c的源文件被转化成那个.o的目标代码，到这里就已经变成了机器语言了，但是此时这个程序“缺了一些东西”，<strong>即库代码和启动代码</strong>，这个时候链接器把这三个部分（库代码，启动代码，目标代码）组装起来，形成了最终可运行的.exe文件。</p>
+</blockquote>
+<p>图片摘自C语言经典著作：《C Primer Plus》</p>
+<h2 id="2-入门C语言"><a href="#2-入门C语言" class="headerlink" title="2 入门C语言"></a>2 入门C语言</h2><h3 id="2-1-第一个C语言程序"><a href="#2-1-第一个C语言程序" class="headerlink" title="2.1 第一个C语言程序"></a>2.1 第一个C语言程序</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br>&#123;<br>	<span class="hljs-type">int</span> n=<span class="hljs-number">5</span>;<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello,world!\n&quot;</span>);<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>,n);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey"><span class="hljs-built_in">Hello,</span>world!<br><span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+
+<p>​	这就是你看到的第一个C语言程序（.c的源文件）！他实现了很简单的功能，打印一些“东西”，包括一些字符和数字。接下来，让我们逐行解释输出内容是怎么来的（这部分内容需要结合上一章节C语言工作原理食用）。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>​	<strong>这个语句叫做预处理器指令</strong>，我们知道，程序可以实现各种各样的功能，但是总有一些底层原理是所有程序共有的（就像社会上每个人都不一样，但每个人都有吃喝拉撒等最基本的生理活动）。于是，C语言将一些常见的功能打包封装起来，通过<strong>导入库文件的方式</strong>，把轮子造好，让程序员可以开箱即用！在这里，include命令就告诉了程序我需要导入C自带库文件<code>stdio.h</code>的相关内容。</p>
+<blockquote>
+<p>这个工作由谁实现呢？<strong>是链接器</strong>，将库代码和目标结合。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-2-基本数据类型"><a href="#2-2-基本数据类型" class="headerlink" title="2.2 基本数据类型"></a>2.2 基本数据类型</h3><h3 id="2-3-数组"><a href="#2-3-数组" class="headerlink" title="2.3 数组"></a>2.3 数组</h3><h2 id="3-初见C语言的基本语法规则"><a href="#3-初见C语言的基本语法规则" class="headerlink" title="3 初见C语言的基本语法规则"></a>3 初见C语言的基本语法规则</h2><h3 id="3-1-控制结构——分支"><a href="#3-1-控制结构——分支" class="headerlink" title="3.1 控制结构——分支"></a>3.1 控制结构——分支</h3><h3 id="3-2-控制结构——循环"><a href="#3-2-控制结构——循环" class="headerlink" title="3.2 控制结构——循环"></a>3.2 控制结构——循环</h3><h3 id="3-3-表达式和语句"><a href="#3-3-表达式和语句" class="headerlink" title="3.3 表达式和语句"></a>3.3 表达式和语句</h3><h2 id="4-函数！"><a href="#4-函数！" class="headerlink" title="4 函数！"></a>4 函数！</h2><h2 id="5-指针！"><a href="#5-指针！" class="headerlink" title="5 指针！"></a>5 指针！</h2><h2 id="6-一些更加高级的操作"><a href="#6-一些更加高级的操作" class="headerlink" title="6 一些更加高级的操作"></a>6 一些更加高级的操作</h2><h3 id="6-1-内存管理"><a href="#6-1-内存管理" class="headerlink" title="6.1 内存管理"></a>6.1 内存管理</h3><h3 id="6-2-文件I-O"><a href="#6-2-文件I-O" class="headerlink" title="6.2 文件I&#x2F;O"></a>6.2 文件I&#x2F;O</h3><h3 id="6-3-结构体"><a href="#6-3-结构体" class="headerlink" title="6.3 结构体"></a>6.3 结构体</h3><h3 id="6-4-高级数据表示和ADT"><a href="#6-4-高级数据表示和ADT" class="headerlink" title="6.4 高级数据表示和ADT"></a>6.4 高级数据表示和ADT</h3><h2 id="7-谈谈C"><a href="#7-谈谈C" class="headerlink" title="7 谈谈C++"></a>7 谈谈C++</h2><h3 id="7-1-什么是-？"><a href="#7-1-什么是-？" class="headerlink" title="7.1 什么是++？"></a>7.1 什么是++？</h3><h3 id="7-2-OOP初探"><a href="#7-2-OOP初探" class="headerlink" title="7.2 OOP初探"></a>7.2 OOP初探</h3><h2 id="8-写在最后的话"><a href="#8-写在最后的话" class="headerlink" title="8 写在最后的话"></a>8 写在最后的话</h2><h2 id="end-document"><a href="#end-document" class="headerlink" title="\end{document}"></a>\end{document}</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Introduction_to_C</div>
+      <div>http://example.com/2024/11/21/Introduction-to-C/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>November 21, 2024</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>November 21, 2024</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/11/22/about-LaTeX/" title="about-LaTeX">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">about-LaTeX</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/11/19/Programming-of-Leetcode-1-5/" title="Programming of Leetcode 1-5">
+                        <span class="hidden-mobile">Programming of Leetcode 1-5</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

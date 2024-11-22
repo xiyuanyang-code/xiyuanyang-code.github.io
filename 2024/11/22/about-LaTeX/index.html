@@ -1,0 +1,825 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="About LaTeX​	LaTeX是一个用于排版文档的软件系统。LaTeX 标记描述文档的内容和布局，而不是Google Docs 、 LibreOffice Writer和Microsoft Word等所见即所得文字处理程序中的格式化文本。在接下来的时光里，就让我们一起走进LaTeX的世界。  参考文献TeX - Wikipedia LaTeX - Wikipedia Overleaf, On">
+<meta property="og:type" content="article">
+<meta property="og:title" content="about-LaTeX">
+<meta property="og:url" content="http://example.com/2024/11/22/about-LaTeX/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="About LaTeX​	LaTeX是一个用于排版文档的软件系统。LaTeX 标记描述文档的内容和布局，而不是Google Docs 、 LibreOffice Writer和Microsoft Word等所见即所得文字处理程序中的格式化文本。在接下来的时光里，就让我们一起走进LaTeX的世界。  参考文献TeX - Wikipedia LaTeX - Wikipedia Overleaf, On">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2024/11/19/hello-world/LaTeX.png">
+<meta property="og:image" content="http://example.com/2024/11/19/hello-world/Knuth.jpg">
+<meta property="og:image" content="http://example.com/2024/11/19/hello-world/theartofprogramming.png">
+<meta property="og:image" content="http://example.com/2024/11/19/hello-world/QianJianTec1732279187844.png">
+<meta property="og:image" content="http://example.com/2024/11/19/hello-world/s1.png">
+<meta property="og:image" content="http://example.com/2024/11/19/hello-world/image_9.png">
+<meta property="og:image" content="http://example.com/2024/11/19/hello-world/image_11.png">
+<meta property="og:image" content="http://example.com/2024/11/19/hello-world/image_12.png">
+<meta property="og:image" content="http://example.com/2024/11/19/hello-world/image_13.png">
+<meta property="og:image" content="http://example.com/2024/11/19/hello-world/image_14.png">
+<meta property="og:image" content="http://example.com/2024/11/19/hello-world/image_15.png">
+<meta property="og:image" content="http://example.com/2024/11/19/hello-world/image_16.png">
+<meta property="article:published_time" content="2024-11-22T12:01:06.000Z">
+<meta property="article:modified_time" content="2024-11-22T15:20:54.113Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="Code">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2024/11/19/hello-world/LaTeX.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>about-LaTeX - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="about-LaTeX"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-22 20:01" pubdate>
+          November 22, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          27 mins
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">about-LaTeX</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="About-LaTeX"><a href="#About-LaTeX" class="headerlink" title="About LaTeX"></a>About LaTeX</h1><p>​	LaTeX是一个用于排版文档的软件系统。LaTeX 标记描述文档的内容和布局，而不是<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Google_Docs">Google Docs</a> 、 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/LibreOffice_Writer">LibreOffice Writer</a>和<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Microsoft_Word">Microsoft Word</a>等所见即所得文字处理程序中的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Formatted_text">格式化文本</a>。在接下来的时光里，就让我们一起走进LaTeX的世界。</p>
+<p><img src="/2024/11/19/hello-world/LaTeX.png" srcset="/img/loading.gif" lazyload alt="LaTeX"></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/TeX">TeX - Wikipedia</a></p>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/LaTeX">LaTeX - Wikipedia</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.overleaf.com/">Overleaf, Online LaTeX Editor</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.latex-project.org/">LaTeX - A document preparation system</a></p>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h2><p><strong>又来到了讲故事环节，可跳过</strong></p>
+<p>​	在开始我们今天的话题之前，我想先向各位介绍一位老先生，<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Donald_Knuth">Donald Knuth</a></p>
+<p><img src="/2024/11/19/hello-world/Knuth.jpg" srcset="/img/loading.gif" lazyload alt="Knuth"></p>
+<p>​	先来看看他到底有多牛逼，这是维基百科对这位老爷爷（还没有去世哦）的评价：He is the 1974 recipient of <strong>the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Acm_Turing_award">ACM Turing Award</a></strong>, informally considered the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Nobel_Prize">Nobel Prize</a> of computer science. Knuth has been called the “<strong>father of the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Analysis_of_algorithms">analysis of algorithms</a></strong>“. <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Donald_Knuth">原文</a></p>
+<p>​	ACM图灵奖不必多说，能拿奖的都是计算机科学领域大牛中的大牛，他甚至还有第二个称号，<strong>the father of the analysis of algorithms</strong>, 算法分析之父！更不可思议的是，他的主要贡献竟然是一系列至今尚未完篇的鸿篇巨著：*<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/The_Art_of_Computer_Programming">The Art of Computer Programming</a><em>。《<strong>计算机程序设计艺术</strong>》（英语：</em>The Art of Computer Programming* ），简称TAOCP，是美国计算机科学家<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%AB%98%E5%BE%B7%E7%BA%B3">高德纳</a>（Donald Ervin Knuth）编著的关于计算机程序设计之七卷本著作。作者并因此获得美国计算机协会1974年<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%9B%BE%E7%81%B5%E5%A5%96">图灵奖</a>。</p>
+<blockquote>
+<p>对我来说，读完这本书不仅花了好几个月，而且还要求我有极高的自律性。如果你能读完这本书，不妨给我发个简历。——Bill Gates</p>
+</blockquote>
+<p>​	这一套书涵盖了计算机领域几乎所有的底层知识，目录如下：</p>
+<p><img src="/2024/11/19/hello-world/theartofprogramming.png" srcset="/img/loading.gif" lazyload alt="theartofprogramming"></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF">计算机程序设计艺术 - 维基百科，自由的百科全书</a></p>
+<p>​	这本书的具体内容我们不做过多的介绍，那这位老者和LaTeX有什么关系呢？<strong>他是LaTeX的前身——TeX的发明者！</strong></p>
+<p>​	维基百科在这一块写的比较含蓄哈哈哈：</p>
+<blockquote>
+<p>In 1977, he decided to spend some time <strong>creating something more suitable</strong>. Eight years later, he returned with <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/TeX">TEX</a>, which is currently used for all volumes.</p>
+</blockquote>
+<p>什么是<strong>something more suitable</strong>？Maybe the LaTeX！</p>
+<h2 id="2-LaTeX"><a href="#2-LaTeX" class="headerlink" title="2 LaTeX"></a>2 LaTeX</h2><p>​	举一个非常简单的例子，你想在word文档中输入这样一个公式：</p>
+<p><img src="/2024/11/19/hello-world/QianJianTec1732279187844.png" srcset="/img/loading.gif" lazyload alt="QianJianTec1732279187844"></p>
+<blockquote>
+<p>这是机器学习中梯度下降的基本数学原理。</p>
+</blockquote>
+<p>​	我们来看看word是怎么编辑公式的：</p>
+
+
+<p>​	word等文字编辑器始终秉持着一种<strong>所见即所得</strong>的思想，我打出一个字符，这个字符就实时的反映在我的文本文档中，至于图片缩放，表格插入，文字大小，排版，以及以上所涉及的数学符号等等，在word中虽然能实现，但是调试的时间成本非常高，难度非常大，而且十分的低效！笔者在高中时期曾经有过写数学小论文卡在编辑公式和统一插入图片的格式等细枝末节的小事上的惨痛的回忆。(不过好像现在word也支持LaTeX了)</p>
+<p>​	但是在LaTeX中，我们可以利用下面的代码生成：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;aligned&#125;<br><span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;j&#125;:=<span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;j&#125;- <span class="hljs-built_in">&amp;</span> <span class="hljs-keyword">\alpha</span> <span class="hljs-keyword">\frac</span>&#123;<span class="hljs-keyword">\partial</span>&#125;&#123;<span class="hljs-keyword">\partial</span> <span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;j&#125;&#125; J(<span class="hljs-keyword">\theta</span>) <span class="hljs-keyword">\\</span><br><span class="hljs-keyword">\frac</span>&#123;<span class="hljs-keyword">\partial</span>&#125;&#123;<span class="hljs-keyword">\partial</span> <span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;j&#125;&#125; J(<span class="hljs-keyword">\theta</span>) <span class="hljs-built_in">&amp;</span> =<span class="hljs-keyword">\frac</span>&#123;<span class="hljs-keyword">\partial</span>&#125;&#123;<span class="hljs-keyword">\partial</span> <span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;j&#125;&#125; <span class="hljs-keyword">\frac</span>&#123;1&#125;&#123;2&#125;<span class="hljs-keyword">\left</span>(h<span class="hljs-built_in">_</span>&#123;<span class="hljs-keyword">\theta</span>&#125;(x)-y<span class="hljs-keyword">\right</span>)<span class="hljs-built_in">^</span>&#123;2&#125; <span class="hljs-keyword">\\</span><br><span class="hljs-built_in">&amp;</span> =2 <span class="hljs-keyword">\cdot</span> <span class="hljs-keyword">\frac</span>&#123;1&#125;&#123;2&#125;<span class="hljs-keyword">\left</span>(h<span class="hljs-built_in">_</span>&#123;<span class="hljs-keyword">\theta</span>&#125;(x)-y<span class="hljs-keyword">\right</span>) <span class="hljs-keyword">\cdot</span> <span class="hljs-keyword">\frac</span>&#123;<span class="hljs-keyword">\partial</span>&#125;&#123;<span class="hljs-keyword">\partial</span> <span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;j&#125;&#125;<span class="hljs-keyword">\left</span>(h<span class="hljs-built_in">_</span>&#123;<span class="hljs-keyword">\theta</span>&#125;(x)-y<span class="hljs-keyword">\right</span>) <span class="hljs-keyword">\\</span><br><span class="hljs-built_in">&amp;</span> =<span class="hljs-keyword">\left</span>(h<span class="hljs-built_in">_</span>&#123;<span class="hljs-keyword">\theta</span>&#125;(x)-y<span class="hljs-keyword">\right</span>) <span class="hljs-keyword">\cdot</span> <span class="hljs-keyword">\frac</span>&#123;<span class="hljs-keyword">\partial</span>&#125;&#123;<span class="hljs-keyword">\partial</span> <span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;j&#125;&#125;<span class="hljs-keyword">\left</span>(<span class="hljs-keyword">\sum</span><span class="hljs-built_in">_</span>&#123;i=0&#125;<span class="hljs-built_in">^</span>&#123;n&#125; <span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;i&#125; x<span class="hljs-built_in">_</span>&#123;i&#125;-y<span class="hljs-keyword">\right</span>) <span class="hljs-keyword">\\</span><br><span class="hljs-built_in">&amp;</span> =<span class="hljs-keyword">\left</span>(h<span class="hljs-built_in">_</span>&#123;<span class="hljs-keyword">\theta</span>&#125;(x)-y<span class="hljs-keyword">\right</span>) x<span class="hljs-built_in">_</span>&#123;j&#125;<br><span class="hljs-keyword">\end</span>&#123;aligned&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-LaTeX-入门"><a href="#3-LaTeX-入门" class="headerlink" title="3 LaTeX 入门"></a>3 LaTeX 入门</h2><p>​	由上面的示例我们可以看出，<strong>LaTeX可以生成极为精美的文档，涵盖公式，表格，图片等等各种形式（你甚至可以用他来做PPT！后面会讲到）</strong>，但代价就是<strong>LaTeX牺牲了市面上主流文本编辑器的”所见即所得”的思想</strong>，他将所有文字和图片的生成都转化为了一种规则和<strong>编程语言</strong>，初学者入门可能会很吃力，但相信我，熟练后你会爱上他的！</p>
+<h3 id="3-1-开始你的第一篇LaTeX文档！"><a href="#3-1-开始你的第一篇LaTeX文档！" class="headerlink" title="3.1 开始你的第一篇LaTeX文档！"></a>3.1 开始你的第一篇LaTeX文档！</h3><p>​	LaTeX需要下载比较专业的编辑器才能够使用，一般来说配置环境有两种方式：</p>
+<ul>
+<li>本地环境配置：<a target="_blank" rel="noopener" href="https://www.tug.org/texlive/">TeX Live - TeX Users Group</a>需要安装textlive软件，可以在编辑器vscode中使用，具体的操作方法笔者可以自行搜索，网上有很多保姆级的环境搭建教程。（<strong>个人建议是等上手熟悉了之后再考虑是否安装，配环境报错真的能把人给烦死</strong>）</li>
+<li><strong>推荐：</strong>使用LaTeX在线网站，例如<a target="_blank" rel="noopener" href="https://www.overleaf.com/">Overleaf</a>，国内有些高校也会开通自己的LaTeX平台。在线网站更加轻量化，隐藏了配置环境的细节，注册一个账号就可以使用，<strong>非常推荐新手小白使用！</strong></li>
+</ul>
+<h3 id="3-2-建立一个模版"><a href="#3-2-建立一个模版" class="headerlink" title="3.2 建立一个模版"></a>3.2 建立一个模版</h3><p><img src="/2024/11/19/hello-world/s1.png" srcset="/img/loading.gif" lazyload alt="s1"></p>
+<p>​	点击左上角的new project——然后有四个选项( Blank project（完全的空文本）, Example Project（模版）, Upload Project（上传本地项目，通常是压缩包形式）, Import Project（从Github引入）)，在这里我们选择Example Project。输入自己的Project Name(建议英文)。</p>
+<h3 id="3-3-探索LaTeX模版！"><a href="#3-3-探索LaTeX模版！" class="headerlink" title="3.3 探索LaTeX模版！"></a>3.3 探索LaTeX模版！</h3><p><img src="/2024/11/19/hello-world/image_9.png" srcset="/img/loading.gif" lazyload alt="image_9"></p>
+<p>​	当你看到一只经典的绿色小青蛙时，恭喜你，你已经成功创建了第一个LaTeX文档！</p>
+<blockquote>
+<p>没有看到？试试点一下右上侧绿色的recompile按钮试试看，可能要等一会。</p>
+</blockquote>
+<p>​	简单介绍一下各模块都是干啥用的：</p>
+<ul>
+<li>最左边：文件栏和File outline<ul>
+<li>文件栏可以理解为<strong>一个存放这个LaTeX文档所有资源的文件夹</strong>。我们现在中间所打开的就是文件夹中的main.tex文件，这也是LaTeX文档的核心部分。还有一些附属的资源也会存放在文件栏中，包括插入的图片，还有参考文献(.bib)。目前大家知道这些就足够了</li>
+<li>File Outline 不必多说，展示文章大纲的地方。</li>
+</ul>
+</li>
+<li>正中间：文本编辑区：也就是敲代码的地方</li>
+<li>最右边：视图区：当你点击<strong>Recompile</strong>的按钮之后，<strong>编译器</strong>（点击左上方的menu可以查看，<strong>新手不要改变这一项！</strong>）会根据main.tex只的代码以及一些附属文件（frog.jpg）生成最终的LaTeX文档（PDF），在右侧可以预览。</li>
+</ul>
+<p><img src="/2024/11/19/hello-world/image_11.png" srcset="/img/loading.gif" lazyload alt="image_11"></p>
+<ul>
+<li>上方一栏的一些工具看名字应该就知道是干什么的了，和普通的文本编辑器差不太多，都是一些附加功能，读者可以自己来探索。</li>
+</ul>
+<h3 id="3-4-进入main-tex"><a href="#3-4-进入main-tex" class="headerlink" title="3.4 进入main.tex"></a>3.4 进入main.tex</h3><p>​	接下来，让我们把重点放在main.tex的代码上。</p>
+<h4 id="3-4-1-整体架构"><a href="#3-4-1-整体架构" class="headerlink" title="3.4.1 整体架构"></a>3.4.1 整体架构</h4><p>​	一篇标准的LaTeX代码架构如下：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\documentclass</span>&#123;article&#125;<br><br><br><span class="hljs-keyword">\usepackage</span>[english]&#123;babel&#125;<br><span class="hljs-keyword">\usepackage</span>[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]&#123;geometry&#125;<br><span class="hljs-keyword">\usepackage</span>&#123;amsmath&#125;<br><span class="hljs-keyword">\usepackage</span>&#123;graphicx&#125;<br><span class="hljs-keyword">\usepackage</span>[colorlinks=true, allcolors=blue]&#123;hyperref&#125;<br><br><span class="hljs-keyword">\title</span>&#123;Your Paper&#125;<br><span class="hljs-keyword">\author</span>&#123;You&#125;<br><br><span class="hljs-keyword">\begin</span>&#123;document&#125;<br><span class="hljs-comment">%正文</span><br><span class="hljs-keyword">\end</span>&#123;document&#125;<br></code></pre></td></tr></table></figure>
+
+<p>​	<code>\</code>在LaTeX中是非常重要的一个字符，类似于C&#x2F;C++中的转义字符，在后面跟着的都是<strong>LaTeX的关键词和命令</strong>，我们需要学习的也就是这些命令代表什么意思，以及使用方法有哪些。</p>
+<p>​	首先，我们来介绍LaTeX中的<strong>导言区</strong>，即<code>\begin&#123;document&#125;</code>之前的部分。</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\documentclass</span>&#123;article&#125;<br><span class="hljs-comment">% 注释</span><br><span class="hljs-comment">%这行代码指定了文档的类型为 article，即文章类型。LaTeX 中有几种文档类型（如 report、book 等），article 是最常用的一种，适用于论文、报告、演讲稿等。</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs LaTeX"><span class="hljs-comment">% Language setting</span><br><span class="hljs-comment">% Replace `english&#x27; with e.g. `spanish&#x27; to change the document language</span><br><span class="hljs-keyword">\usepackage</span>[english]&#123;babel&#125;<br><span class="hljs-comment">% Useful packages</span><br><span class="hljs-keyword">\usepackage</span>&#123;amsmath&#125;<br><span class="hljs-keyword">\usepackage</span>&#123;graphicx&#125;<br><span class="hljs-keyword">\usepackage</span>[colorlinks=true, allcolors=blue]&#123;hyperref&#125;<br><br><span class="hljs-comment">% 在LaTeX，几乎所有的高级操作都是建立在导入宏包的基础之上完成的，类似于C++中的#include和Python中的import，导入宏包可以帮助让你的LaTeX代码变的更加强大。在此处导入的三个常用宏包分别用于数学公式(amsmath)，图形处理(graphix)和引用(hyperref)。</span><br><span class="hljs-comment">% 在之后的设定中，你需要根据需求自己导入特定的宏包，不过别担心，后面会具体教你怎么做的。</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\title</span>&#123;Your Paper&#125;<br><span class="hljs-keyword">\author</span>&#123;You&#125;<br><span class="hljs-comment">% 作者的信息和文章标题，这一块也可以自己魔改（属于高级功能）</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;document&#125;<br><span class="hljs-comment">%正文</span><br><span class="hljs-keyword">\end</span>&#123;document&#125;<br></code></pre></td></tr></table></figure>
+
+<p>​	夹在<code>\begin&#123;document&#125;</code>和<code>\end&#123;document&#125;</code>之间的是文章的正文部分，<strong>任何你想在最后PDF出现的内容，无论是图片，文字，都需要在<code>\begin&#123;document&#125;</code>和<code>\end&#123;document&#125;</code>之间通过命令表达出来！</strong></p>
+<h4 id="3-4-2-正文部分①——文字"><a href="#3-4-2-正文部分①——文字" class="headerlink" title="3.4.2 正文部分①——文字"></a>3.4.2 正文部分①——文字</h4><blockquote>
+<p>在这里为了方便演示，我创建了一个新的空白文档，读者可以自行尝试修改一些内容~</p>
+</blockquote>
+<p>正文的代码开始看不懂了？别着急，先来看看我写的简化版的</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;document&#125;<br><span class="hljs-keyword">\maketitle</span><br><br><span class="hljs-keyword">\begin</span>&#123;abstract&#125;<br>Your abstract.<br><span class="hljs-keyword">\end</span>&#123;abstract&#125;<br><span class="hljs-keyword">\section</span>&#123;introducccction&#125;<br><span class="hljs-keyword">\section</span>&#123;Part1&#125;<br><span class="hljs-keyword">\subsection</span>&#123;hello&#125;<br>Hello, this is a test file.<br>is this a new paragraph?<br><br>is this a new paragraph?<br><span class="hljs-keyword">\subsection</span>&#123;world!&#125;<br><span class="hljs-keyword">\subsubsection</span>&#123;hahah&#125;<br><span class="hljs-keyword">\subsubsection</span>&#123;hahahahahah&#125;<br>i know you are very smart!<br><span class="hljs-keyword">\section</span>&#123;Part22&#125;<br><span class="hljs-keyword">\begin</span>&#123;enumerate&#125;<br>    <span class="hljs-keyword">\item</span> this is the firrst point<br>    <span class="hljs-keyword">\item</span> this is the 2nd points<br><span class="hljs-keyword">\end</span>&#123;enumerate&#125;<br><span class="hljs-keyword">\section</span>&#123;p3&#125;<br><span class="hljs-keyword">\section</span>&#123;Conclusion&#125;<br><br><span class="hljs-keyword">\end</span>&#123;document&#125;<br></code></pre></td></tr></table></figure>
+
+<p>包含一些必要的文件准备工作，这份PDF输出如下：</p>
+<p><img src="/2024/11/19/hello-world/image_12.png" srcset="/img/loading.gif" lazyload alt="image_12"></p>
+<blockquote>
+<p>为了让读者明确那边对应那边，我故意拼错了许多单词，请勿模仿</p>
+</blockquote>
+<ul>
+<li><p><code>\maketitle</code>命令首先输出文章的标题（包括作者信息和时间），如果不会修改的务必不要删除。</p>
+</li>
+<li><p>摘要（abstract）</p>
+<ul>
+<li>论文的一个组成部分，<code>\begin&#123;abstract&#125;</code>和<code>\end&#123;abstract&#125;</code>包裹</li>
+</ul>
+</li>
+<li><p><code>\section</code>,<code>\subsection</code>,<code>\subsubsection</code></p>
+<ul>
+<li>类似于论文中1,2,3级小标题的概念，读者可以将代码中的文字和最终输出在PDF中的位置对应起来，应该很快就能够理解。</li>
+<li>这就是LaTeX的强大之处，可能用起来没有word可视化，但是他省去了很多文字排版以及大小调整优化的工作，实际上大大地提高了工作效率。</li>
+</ul>
+</li>
+<li><p>正文</p>
+<ul>
+<li><p>文章中i know you are very smart! 和Hello, this is a test file.is this a new paragraph? 都是正文语句，不会加粗。</p>
+</li>
+<li><p>有关<strong>缩进</strong>的问题：LaTeX默认模版中首段不缩进，第二段才缩进，如果想更改这个设置，可以在导言区加入命令：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\usepackage</span>&#123;indentfirst&#125;<br><span class="hljs-comment">% 这是你加入的第一个宏包！快来compile一下看看有什么变化吧！</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2024/11/19/hello-world/image_13.png" srcset="/img/loading.gif" lazyload alt="image_13"></p>
+<p>你会发现，第一段也缩进啦！</p>
+</li>
+<li><p>有关<strong>换行</strong>的问题：</p>
+<ul>
+<li><p>第一个雷点：<strong>在LaTeX中换行并不代表真的换行了！</strong>比如第一个is this a new paragraph和Hello, this is a test file.分属两行，但他们实际输出上只在一行上面。</p>
+</li>
+<li><p>最简单的换行方法：<strong>直接在段落中添加一个空行，即按下两个回车键</strong>，这样就能成功实现换行。</p>
+<p><strong>以下内容新手自动跳过！</strong></p>
+</li>
+<li><p>使用<code>\\</code>换行，一种更紧凑的写法（但有风险）</p>
+</li>
+</ul>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs LaTeX">This is the first line.<span class="hljs-keyword">\\</span><br>This is the second line.<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>其他换行方法：都是通过一些命令实现，可以作补充了解</li>
+</ul>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs latex">This is the first line.<br><span class="hljs-keyword">\newline</span><br>This is the second line.<br><span class="hljs-comment">% 类比的，你应该就知道命令</span><br><span class="hljs-keyword">\newpage</span><br><span class="hljs-comment">% 是什么意思了吧！</span><br></code></pre></td></tr></table></figure>
+
+<p>注意，使用<code>\\</code>和<code>\newline</code>进行强制换行时，两行之间没有额外的垂直间距！格式会有差异，<strong>建议非必要不要使用强制换行符</strong>。</p>
+<p><img src="/2024/11/19/hello-world/image_14.png" srcset="/img/loading.gif" lazyload alt="image_14"></p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-comment">% 一些补充命令：</span><br><br><span class="hljs-comment">%有垂直间距的换行</span><br>This is the first line.<br><span class="hljs-keyword">\vspace</span>&#123;1cm&#125;<br><br>This is the second line.<br><br><span class="hljs-comment">%无垂直间距的换行</span><br>This is the first line.<br><span class="hljs-keyword">\noindent</span><br><br>This is the second line without extra space.<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2024/11/19/hello-world/image_15.png" srcset="/img/loading.gif" lazyload alt="image_15"></p>
+</li>
+</ul>
+</li>
+<li><p><code>enumerate</code></p>
+<ul>
+<li>中文翻译“枚举”，用于文章中生成小标号，不作为小标题出现</li>
+</ul>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\section</span>&#123;Part22&#125;<br><span class="hljs-keyword">\begin</span>&#123;enumerate&#125;<br>    <span class="hljs-keyword">\item</span> this is the firrst point<br>    <span class="hljs-keyword">\item</span> this is the 2nd points<br><span class="hljs-keyword">\end</span>&#123;enumerate&#125;<br><span class="hljs-comment">% 注意一个begin对应一个end，不然会报错！</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2024/11/19/hello-world/image_16.png" srcset="/img/loading.gif" lazyload alt="image_16"></p>
+<ul>
+<li>可以和一些指令搭配使用，例如加粗<code>\textbf&#123;&#125;</code>等等，可以自行探索。</li>
+</ul>
+</li>
+<li><p>文本美化：</p>
+<blockquote>
+<p>这里的演示都是比较简单的，大家可以自行尝试~</p>
+</blockquote>
+<ul>
+<li>加粗命令</li>
+</ul>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\textbf</span>&#123;This text is bold.&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>斜线命令</li>
+</ul>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\textit</span>&#123;This text is italic.&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>下划线命令</li>
+</ul>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\underline</span>&#123;This text is underlined.&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>等宽字体</li>
+</ul>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\texttt</span>&#123;This text is in typewriter font.&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>​	<strong>Congratulations！到现在为止，你已经能够处理一篇最基本的latex的90%的内容了！你学习了如何编辑正文中的文字部分（这常常占了文章的大头，不是吗？）</strong></p>
+<p>​	接下来的旅程会变的更复杂，也更有趣，我们将继续向我们的latex中添加更多有趣的东西！</p>
+<h4 id="3-4-3-正文部分②——图片和图表"><a href="#3-4-3-正文部分②——图片和图表" class="headerlink" title="3.4.3 正文部分②——图片和图表"></a>3.4.3 正文部分②——图片和图表</h4><p>​	数据可视化在一篇论文中是非常重要的。因此，你需要再适当的位置添加你的图表！</p>
+<ul>
+<li>插入图片</li>
+<li>插入统计图</li>
+<li>插入统计表</li>
+</ul>
+<p>（2024.11.22）笔者累啦，之后会更新的！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>about-LaTeX</div>
+      <div>http://example.com/2024/11/22/about-LaTeX/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>November 22, 2024</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>November 22, 2024</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/11/21/Introduction-to-C/" title="Introduction_to_C">
+                        <span class="hidden-mobile">Introduction_to_C</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
