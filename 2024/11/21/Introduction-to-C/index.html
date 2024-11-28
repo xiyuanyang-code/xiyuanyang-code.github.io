@@ -26,16 +26,16 @@
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
 <meta property="og:description" content="C语言 入门中的入门笔者的第一门博客，就献给C语言叭~ -1 目标群体 对编程和计算机语言完全没有基础的萌新小白。 闲的蛋疼的帅哥美女们。  注意：这篇文章只适合作为入门导论使用，目的在于让完全萌新的小白们在短时间内获得对C语言的宏观初步了解，不涉及任何具体代码层面的细节知识。如果读者已经对C的语法基本掌握，想要跟上一层楼的话，请另寻他路~（或者点个关注等我更新（bushi）） ​	 \begin">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2024/11/19/hello-world/-to-C/%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80.png">
-<meta property="og:image" content="http://example.com/2024/11/19/hello-world/-to-C/TIOBE.jpg">
-<meta property="og:image" content="http://example.com/2024/11/19/hello-world/-to-C/%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80.png">
-<meta property="og:image" content="http://example.com/2024/11/19/hello-world/-to-C/OIP-C.jpg">
+<meta property="og:image" content="http://example.com/2024/11/21/Introduction-to-C/%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80.png">
+<meta property="og:image" content="http://example.com/2024/11/21/Introduction-to-C/TIOBE.jpg">
+<meta property="og:image" content="http://example.com/2024/11/21/Introduction-to-C/%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80.png">
+<meta property="og:image" content="http://example.com/2024/11/21/Introduction-to-C/OIP-C.jpg">
 <meta property="article:published_time" content="2024-11-21T02:13:31.000Z">
 <meta property="article:modified_time" content="2024-11-22T15:42:14.152Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Code">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2024/11/19/hello-world/-to-C/%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80.png">
+<meta name="twitter:image" content="http://example.com/2024/11/21/Introduction-to-C/%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -303,7 +303,7 @@
 <h3 id="Question1-什么叫语言？"><a href="#Question1-什么叫语言？" class="headerlink" title="Question1 什么叫语言？"></a>Question1 什么叫<strong>语言</strong>？</h3><p>​	区别与我们日常说话的<strong>自然语言</strong>，<strong>编程语言</strong>是一种用于描述计算机程序的形式语言。它提供了一组符号和规则，用于描述程序的结构、功能和行为。程序员可以使用编程语言来编写计算机程序，这些程序可以在计算机上执行，从而实现特定的任务或实现特定的功能。</p>
 <p>​	通俗来说，你可以把程序想象成一个“机器人”，他完全按照工程师输入给他的指令进行工作。那对于开发机器人的工程师而言，他与机器人对话的语言（即编程语言）必须具备<strong>严谨，高效，无二义性</strong>的特征：即每一条语句都可以发挥作用；每一条语句只能表达一种指令（不然机器人就要犯迷糊了）；每一条语句在逻辑上必须完全严谨。</p>
 <p>​	再引入第二个概念，<strong>高级编程语言</strong>和<strong>低级编程语言</strong>，在以前，机器人所交流的语言（例如机器语言和汇编语言，这两种语言被称为低级编程语言）在提升严谨性的基础之上牺牲了<strong>可读性</strong>，而高级编程语言通过编译器、解释器等种种方式，将程序中”机器人看的懂，人看不懂“的部分（低级编程语言）隐藏起来，使代码更容易理解。而我们的C语言，<strong>就是一种经典的高级编程语言</strong>。</p>
-<p><img src="/2024/11/19/hello-world/-to-C/%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80.png" srcset="/img/loading.gif" lazyload alt="高级编程语言"></p>
+<p><img src="/2024/11/21/Introduction-to-C/%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80.png" srcset="/img/loading.gif" lazyload alt="高级编程语言"></p>
 <p>[图片来源](<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42727710/article/details/121900806">编译型语言（Compile）和解释型语言（Interpreter）的区别_compilation interpretation-CSDN博客</a>)</p>
 <blockquote>
 <p>对这一块感兴趣的读者可以自行查阅有关机器语言，汇编语言，编译器，解释器等相关资料。深入了解这块内容需要涉及到二进制的基础知识和一些艰深复杂的语法规则，此处不再涉及。</p>
@@ -313,7 +313,7 @@
 </blockquote>
 <h3 id="Question2-为什么是C语言？"><a href="#Question2-为什么是C语言？" class="headerlink" title="Question2 为什么是C语言？"></a>Question2 为什么是<strong>C语言</strong>？</h3><p>​	<strong>对于这个结论，我们不妨先摆事实，再探求原理。</strong></p>
 <p>​	下图是<a target="_blank" rel="noopener" href="https://www.tiobe.com/tiobe-index/">TIOBE</a>对市场上主流的编程语言所占市场份额的统计（数据截至2024年10月），我们亲爱的C语言排在了第四位，占比8.38%。</p>
-<p><img src="/2024/11/19/hello-world/-to-C/TIOBE.jpg" srcset="/img/loading.gif" lazyload alt="TIOBE"></p>
+<p><img src="/2024/11/21/Introduction-to-C/TIOBE.jpg" srcset="/img/loading.gif" lazyload alt="TIOBE"></p>
 <p>​	或许到这里你可能会问，占比甚至不到二成，<strong>看着也不是很流行啊！</strong>不过，请看接下来的两组数据：</p>
 <ul>
 <li>市面上流行的C-like语言（即与C语言具有相似的底层架构和语法规则）包括：C++、C#、Objective-C、Go、Java、JavaScript和Swift等等等等，这样一来，<strong>C-like 语言的市场份额达到了40%以上</strong>。</li>
@@ -332,10 +332,10 @@
 </blockquote>
 <h2 id="1-再谈C语言的工作原理——编译型语言"><a href="#1-再谈C语言的工作原理——编译型语言" class="headerlink" title="1 再谈C语言的工作原理——编译型语言"></a>1 再谈C语言的工作原理——编译型语言</h2><p>​	在这个部分，我们将要重点讨论：一个C语言文件是怎么来的？</p>
 <p>​	让我们再回到这张图片：</p>
-<p><img src="/2024/11/19/hello-world/-to-C/%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80.png" srcset="/img/loading.gif" lazyload alt="高级编程语言"></p>
+<p><img src="/2024/11/21/Introduction-to-C/%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80.png" srcset="/img/loading.gif" lazyload alt="高级编程语言"></p>
 <p>​	很明显，左边的高级语言（C）（或者叫做<strong>源代码</strong>）更加具备可读性，但你的电脑只能识别并运行右边的Low level language，也就是完全由二进制编码的文件，<strong>叫做可执行文件</strong>。在Windows系统下，<code>.exe</code>文件就是一种可执行文件。</p>
 <p>​	中间的转换被隐藏了，这便是<strong>编译器</strong>的作用，C<strong>通过编译器将源代码转化成机器语言</strong>，这就是一种<strong>编译型语言</strong>。那编译器具体是怎么实现的呢？具体而言涉及到两个过程：<strong>编译和链接</strong>，笔者可以大概扫一眼留个印象，相信我，你会回来的。</p>
-<p><img src="/2024/11/19/hello-world/-to-C/OIP-C.jpg" srcset="/img/loading.gif" lazyload alt="OIP-C"></p>
+<p><img src="/2024/11/21/Introduction-to-C/OIP-C.jpg" srcset="/img/loading.gif" lazyload alt="OIP-C"></p>
 <blockquote>
 <p>concrete.c是<strong>源代码文件</strong>，就是我们所谓“敲代码”敲出来的东西，经过编译器，.c的源文件被转化成那个.o的目标代码，到这里就已经变成了机器语言了，但是此时这个程序“缺了一些东西”，<strong>即库代码和启动代码</strong>，这个时候链接器把这三个部分（库代码，启动代码，目标代码）组装起来，形成了最终可运行的.exe文件。</p>
 </blockquote>
