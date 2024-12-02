@@ -19,13 +19,15 @@
   <meta name="author" content="Xiyuan Yang">
   <meta name="keywords" content="Code">
   
-    <meta name="description" content="Y love Y">
+    <meta name="description" content="nihao">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Archives">
-<meta property="og:url" content="http://example.com/archives/2024/index.html">
+<meta property="og:title" content="example">
+<meta property="og:url" content="http://example.com/example/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
-<meta property="og:description" content="Y love Y">
+<meta property="og:description" content="nihao">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-01T16:16:38.000Z">
+<meta property="article:modified_time" content="2024-12-01T16:17:46.860Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Code">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,11 +36,17 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Archives - Xiyuan Yang&#39;s Blog</title>
+  <title>example - Xiyuan Yang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
 
@@ -206,7 +214,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Archives"></span>
+            <span id="subtitle" data-typed-text="test"></span>
           
         </div>
 
@@ -233,51 +241,40 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">6 posts in total</p>
-  <hr>
-  
-  
-    
-      
-      <p class="h5">2024</p>
-    
-    <a href="/2024/11/28/Algorithm-tutorial-section1/" class="list-group-item list-group-item-action">
-      <time>11-28</time>
-      <div class="list-group-item-title">Algorithm_tutorial_section1</div>
-    </a>
-  
-    
-    <a href="/2024/11/22/LaTeX_tutorial/" class="list-group-item list-group-item-action">
-      <time>11-22</time>
-      <div class="list-group-item-title">LaTeX_tutorial</div>
-    </a>
-  
-    
-    <a href="/2024/11/21/Introduction-to-C/" class="list-group-item list-group-item-action">
-      <time>11-21</time>
-      <div class="list-group-item-title">Introduction_to_C</div>
-    </a>
-  
-    
-    <a href="/2024/11/19/Programming-of-Leetcode-1-5/" class="list-group-item list-group-item-action">
-      <time>11-19</time>
-      <div class="list-group-item-title">Programming of Leetcode 1-5</div>
-    </a>
-  
-    
-    <a href="/2024/11/19/A-test/" class="list-group-item list-group-item-action">
-      <time>11-19</time>
-      <div class="list-group-item-title">A test!</div>
-    </a>
-  
-    
-    <a href="/2024/11/19/hello-world/" class="list-group-item list-group-item-action">
-      <time>11-19</time>
-      <div class="list-group-item-title">Hello World</div>
-    </a>
-  
+<article class="page-content">
+  <div class="markdown-body">
+    nihao
 </div>
+
+
+
+  
+
+</article>
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
 
 
 
@@ -380,6 +377,59 @@
 
 
 
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
 
   <script  src="/js/local-search.js" ></script>
 
