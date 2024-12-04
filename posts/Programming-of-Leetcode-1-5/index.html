@@ -22,7 +22,7 @@
     <meta name="description" content="程设错题总结 1~51.Leetcode202 Happynumber 1.使用快慢指针解决循环问题 当快指针追上慢指针时，代表完成了一次循环。 123456789101112131415161718192021222324class Solution &#123;public:    int happynumber(int n)&#123;        int sum&#x3D;0;        wh">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Programming of Leetcode 1-5">
-<meta property="og:url" content="http://example.com/2024/11/19/Programming-of-Leetcode-1-5/index.html">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Programming-of-Leetcode-1-5/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
 <meta property="og:description" content="程设错题总结 1~51.Leetcode202 Happynumber 1.使用快慢指针解决循环问题 当快指针追上慢指针时，代表完成了一次循环。 123456789101112131415161718192021222324class Solution &#123;public:    int happynumber(int n)&#123;        int sum&#x3D;0;        wh">
 <meta property="og:locale" content="en_US">
@@ -32,9 +32,11 @@
 <meta property="og:image" content="c:\Users\29349\AppData\Roaming\Typora\typora-user-images\image-20241014133831155.png">
 <meta property="og:image" content="c:\Users\29349\AppData\Roaming\Typora\typora-user-images\image-20241014191357986.png">
 <meta property="article:published_time" content="2024-11-19T09:05:02.000Z">
-<meta property="article:modified_time" content="2024-11-19T09:06:01.151Z">
+<meta property="article:modified_time" content="2024-12-04T13:39:20.907Z">
 <meta property="article:author" content="Xiyuan Yang">
-<meta property="article:tag" content="Code">
+<meta property="article:tag" content="Leetcode notes">
+<meta property="article:tag" content="algorithm">
+<meta property="article:tag" content="C&#x2F;C++">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="c:\Users\29349\AppData\Roaming\Typora\typora-user-images\image-20241015001727914.png">
   
@@ -80,7 +82,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -150,7 +152,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                <span>Archives</span>
+                <span>Archive</span>
               </a>
             </li>
           
@@ -162,7 +164,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>Categories</span>
+                <span>Category</span>
               </a>
             </li>
           
@@ -174,7 +176,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                <span>Tags</span>
+                <span>Tag</span>
               </a>
             </li>
           
@@ -392,6 +394,38 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Algorithm/" class="category-chain-item">Algorithm</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Leetcode-notes/" class="print-no-link">#Leetcode notes</a>
+      
+        <a href="/tags/algorithm/" class="print-no-link">#algorithm</a>
+      
+        <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+    </div>
   
 </div>
 
@@ -402,7 +436,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Programming of Leetcode 1-5</div>
-      <div>http://example.com/2024/11/19/Programming-of-Leetcode-1-5/</div>
+      <div>https://xiyuanyang-code.github.io/posts/Programming-of-Leetcode-1-5/</div>
     </div>
     <div class="license-meta">
       
@@ -420,7 +454,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>November 19, 2024</div>
+          <div>December 4, 2024</div>
         </div>
       
       
@@ -451,7 +485,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/11/21/Introduction-to-C/" title="Introduction_to_C">
+                      <a href="/posts/Introduction-to-C/" title="Introduction_to_C">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">Introduction_to_C</span>
                         <span class="visible-mobile">Previous</span>
@@ -461,7 +495,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/19/Life-musings/" title="Life-musings">
+                      <a href="/posts/Life-musings/" title="Life-musings">
                         <span class="hidden-mobile">Life-musings</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
