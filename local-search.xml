@@ -4,6 +4,39 @@
   
   
   <entry>
+    <title>AI-indepth-reading-AlexNet</title>
+    <link href="/posts/AI-indepth-reading-AlexNet/"/>
+    <url>/posts/AI-indepth-reading-AlexNet/</url>
+    
+    <content type="html"><![CDATA[<h1 id="ImageNet-Classification-with-Deep-Convolutional-Neural-Networks"><a href="#ImageNet-Classification-with-Deep-Convolutional-Neural-Networks" class="headerlink" title="ImageNet Classification with Deep Convolutional Neural Networks"></a>ImageNet Classification with Deep Convolutional Neural Networks</h1><p>【写在前面的话】</p><p>本文是AI论文精读计划的第一篇！在本频道中我将采用<strong>双语</strong>模式力求用准确且逻辑清晰的语言复述表达论文作者的核心观点和细节实现，同时配上一些配图。希望大家喜欢</p><p>今天分享的文章是 <a href="https://dl.acm.org/doi/10.1145/3065386">ImageNet Classification with Deep Convolutional Neural Networks</a>，作者是 <a href="https://dl.acm.org/doi/10.1145/3065386#">Alex Krizhevsky</a> ， <a href="https://dl.acm.org/doi/10.1145/3065386#">Ilya Sutskever</a> 和 <a href="https://dl.acm.org/doi/10.1145/3065386#">Geoffrey E. Hinton</a> （今年诺奖得主）。<strong>这篇文章创新性地将卷积神经网络高效地应用到图像识别领域，在当年的ILSVRC比赛中以极大的优势斩获头名，同时也掀起了神经网络复兴和深度学习的浪潮。</strong></p><blockquote><p>This is the first article in our <strong>In-Depth Reading of AI Papers</strong> series! In this channel, I will use a <strong>bilingual</strong> approach to restate and explain the core ideas and implementation details of the paper’s authors with accuracy and clear logic, accompanied by some illustrations. I hope you enjoy it.</p><p>Today’s paper is “<a href="https://dl.acm.org/doi/10.1145/3065386">ImageNet Classification with Deep Convolutional Neural Networks</a>“, authored by <a href="https://dl.acm.org/doi/10.1145/3065386#">Alex Krizhevsky</a>, <a href="https://dl.acm.org/doi/10.1145/3065386#">Ilya Sutskever</a>, and <a href="https://dl.acm.org/doi/10.1145/3065386#">Geoffrey E. Hinton</a> (this year’s Nobel Prize winner). <strong>This article innovatively and efficiently applied convolutional neural networks to the field of image recognition, winning first place in the ILSVRC competition that year by a significant margin, and sparked the resurgence of neural networks and the wave of deep learning.</strong></p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>Frontier and Classic Papers in AI</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Convolutional Neural Networks</tag>
+      
+      <tag>Artificial Intelligence</tag>
+      
+      <tag>AlexNet</tag>
+      
+      <tag>Image Clssification</tag>
+      
+      <tag>Deep Learning</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Above-All</title>
     <link href="/posts/Above-All/"/>
     <url>/posts/Above-All/</url>
