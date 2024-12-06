@@ -31,8 +31,11 @@
 <meta property="og:image" content="https://xiyuanyang-code.github.io/posts/Above-All/mory-and-Classes/3.png">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/posts/Above-All/mory-and-Classes/input2.png">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/posts/Above-All/mory-and-Classes/4.png">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/posts/Above-All/mory-and-Classes/example1.png">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/posts/Above-All/mory-and-Classes/example2.png">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/posts/Above-All/mory-and-Classes/%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0.png">
 <meta property="article:published_time" content="2024-12-05T07:16:05.000Z">
-<meta property="article:modified_time" content="2024-12-06T11:55:53.414Z">
+<meta property="article:modified_time" content="2024-12-06T15:52:52.381Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -287,7 +290,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.5k words
+          5.5k words
         
       </span>
     
@@ -298,7 +301,7 @@
         
         
         
-          30 mins
+          47 mins
         
       </span>
     
@@ -444,7 +447,94 @@
 
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// sayings1.cpp -- using expanded String class</span><br><span class="hljs-comment">// compile with string1.cpp</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;string1.h&quot;</span> </span><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> ArSize = <span class="hljs-number">10</span>;<br><span class="hljs-type">const</span> <span class="hljs-type">int</span> MaxLen =<span class="hljs-number">81</span>;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">using</span> std::cout;<br>    <span class="hljs-keyword">using</span> std::cin;<br>    <span class="hljs-keyword">using</span> std::endl;<br>    String name;<br>    cout &lt;&lt;<span class="hljs-string">&quot;Hi, what&#x27;s your name?\n&gt;&gt; &quot;</span>;<br>    cin &gt;&gt; name;<br><br>    cout &lt;&lt; name &lt;&lt; <span class="hljs-string">&quot;, please enter up to &quot;</span> &lt;&lt; ArSize<br>        &lt;&lt; <span class="hljs-string">&quot; short sayings &lt;empty line to quit&gt;:\n&quot;</span>;<br>    String sayings[ArSize];     <span class="hljs-comment">// array of objects</span><br>    <span class="hljs-type">char</span> temp[MaxLen];          <span class="hljs-comment">// temporary string storage</span><br>    <span class="hljs-type">int</span> i;<br>    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; ArSize; i++)<br>    &#123;<br>        cout &lt;&lt; i<span class="hljs-number">+1</span> &lt;&lt; <span class="hljs-string">&quot;: &quot;</span>;<br>        cin.<span class="hljs-built_in">get</span>(temp, MaxLen);<br>        <span class="hljs-keyword">while</span> (cin &amp;&amp; cin.<span class="hljs-built_in">get</span>() != <span class="hljs-string">&#x27;\n&#x27;</span>)<br>            <span class="hljs-keyword">continue</span>;<br>        <span class="hljs-keyword">if</span> (!cin || temp[<span class="hljs-number">0</span>] == <span class="hljs-string">&#x27;\0&#x27;</span>)    <span class="hljs-comment">// empty line?</span><br>            <span class="hljs-keyword">break</span>;              <span class="hljs-comment">// i not incremented</span><br>        <span class="hljs-keyword">else</span><br>            sayings[i] = temp;  <span class="hljs-comment">// overloaded assignment</span><br>    &#125;<br>    <span class="hljs-type">int</span> total = i;              <span class="hljs-comment">// total # of lines read</span><br><br>    <span class="hljs-keyword">if</span> ( total &gt; <span class="hljs-number">0</span>)<br>    &#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;Here are your sayings:\n&quot;</span>;<br>        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; total; i++)<br>            cout &lt;&lt; sayings[i][<span class="hljs-number">0</span>] &lt;&lt; <span class="hljs-string">&quot;: &quot;</span> &lt;&lt; sayings[i] &lt;&lt; endl;<br><br>        <span class="hljs-type">int</span> shortest = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> first = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">1</span>; i &lt; total; i++)<br>        &#123;<br>            <span class="hljs-keyword">if</span> (sayings[i].<span class="hljs-built_in">length</span>() &lt; sayings[shortest].<span class="hljs-built_in">length</span>())<br>                shortest = i;<br>            <span class="hljs-keyword">if</span> (sayings[i] &lt; sayings[first])<br>                first = i;<br>        &#125;<br>        cout &lt;&lt; <span class="hljs-string">&quot;Shortest saying:\n&quot;</span> &lt;&lt; sayings[shortest] &lt;&lt; endl;;<br>        cout &lt;&lt; <span class="hljs-string">&quot;First alphabetically:\n&quot;</span> &lt;&lt; sayings[first] &lt;&lt; endl;<br>        cout &lt;&lt; <span class="hljs-string">&quot;This program used &quot;</span>&lt;&lt; String::<span class="hljs-built_in">HowMany</span>() <br>             &lt;&lt; <span class="hljs-string">&quot; String objects. Bye.\n&quot;</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>        cout &lt;&lt; <span class="hljs-string">&quot;No input! Bye.\n&quot;</span>;<br><span class="hljs-comment">// keep window open </span><br><span class="hljs-comment">/*    if (!cin)</span><br><span class="hljs-comment">        cin.clear();</span><br><span class="hljs-comment">    while (cin.get() != &#x27;\n&#x27;)</span><br><span class="hljs-comment">        continue; */</span> <br>   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <br>&#125;<br><br></code></pre></td></tr></table></figure>
 
-<h2 id="类中动态内存的使用"><a href="#类中动态内存的使用" class="headerlink" title="类中动态内存的使用"></a>类中动态内存的使用</h2><p>通过string类的实现，我们不难发现<strong>动态内存</strong>在类中的使用既便捷，又危险。</p>
+<h2 id="类中动态内存的使用"><a href="#类中动态内存的使用" class="headerlink" title="类中动态内存的使用"></a>类中动态内存的使用</h2><p>通过string类的实现，我们不难发现<strong>动态内存</strong>在类中的使用既便捷，又危险。下文总结了在类与对象定义过程中应当注意的易错点：</p>
+<ul>
+<li><p>使用<code>new</code>创建指针成员，应该在析构函数中使用<code>delete</code></p>
+<ul>
+<li><p><strong>注意点：尽量不要定义类中的静态指针成员，若需要请额外关注其生命周期！</strong></p>
+</li>
+<li><p>在C++中，如果你在类中定义了一个静态指针成员变量，你需要特别注意其生命周期的管理，因为静态成员变量在程序的整个生命周期内只存在一个实例。这意味着：</p>
+<ol>
+<li><strong>初始化</strong>：静态成员变量需要在类外进行初始化。</li>
+<li><strong>内存管理</strong>：如果你使用了动态分配内存（例如，使用<code>new</code>关键字），你需要确保在程序结束之前手动释放这块内存。</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-type">static</span> <span class="hljs-type">int</span>* staticPointer;<br>&#125;;<br><br><span class="hljs-comment">// 类外初始化</span><br><span class="hljs-type">int</span>* MyClass::staticPointer = <span class="hljs-literal">nullptr</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>程序结束之前</strong>：静态成员变量的生命周期与程序相同，因此在程序结束之前，你应该确保所有动态分配的内存被正确释放。这通常意味着在<code>main</code>函数结束之前或在某个全局清理函数中进行<code>delete</code>操作。</p>
+</li>
+<li><p><strong>自定义的清理函数</strong>：如果你希望在程序结束之前明确地控制删除静态成员变量的时间，你可以创建一个函数来执行清理操作：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">cleanup</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">delete</span> MyClass::staticPointer;<br>    MyClass::staticPointer = <span class="hljs-literal">nullptr</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// 程序运行...</span><br>    <span class="hljs-built_in">cleanup</span>(); <span class="hljs-comment">// 在程序结束前调用</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用智能指针</strong>：为了避免手动管理内存，可以考虑使用智能指针（例如<code>std::unique_ptr</code>或<code>std::shared_ptr</code>）来管理静态成员变量的生命周期。这样，内存管理将由智能指针自动处理：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;memory&gt;</span></span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-type">static</span> std::unique_ptr&lt;<span class="hljs-type">int</span>&gt; staticPointer;<br>&#125;;<br><br><span class="hljs-comment">// 初始化</span><br>std::unique_ptr&lt;<span class="hljs-type">int</span>&gt; MyClass::staticPointer = std::<span class="hljs-built_in">make_unique</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">10</span>);<br></code></pre></td></tr></table></figure>
+
+<p>在这种情况下，你不需要手动<code>delete</code>，因为<code>unique_ptr</code>会在超出作用域时自动释放内存。</p>
+</li>
+<li><p><strong>避免重复删除</strong>：确保你不会多次<code>delete</code>同一个指针，因为这会导致未定义行为。</p>
+</li>
+<li><p>**检查指针是否为<code>nullptr</code>**：在删除静态指针前，检查它是否已经指向了有效的内存地址，防止对<code>nullptr</code>进行<code>delete</code>操作。</p>
+</li>
+</ul>
+</li>
+<li><p>推荐使用C++中的新的关键字<code>nullptr</code>（来替代C风格的<code>NULL</code>）</p>
+</li>
+</ul>
+</li>
+<li><p>注意C++中自动提供的若干<strong>特殊成员函数</strong></p>
+<ul>
+<li>默认构造函数</li>
+<li>默认析构函数</li>
+<li>（隐式）的复制构造函数</li>
+<li>赋值运算符</li>
+<li>地址运算符</li>
+<li><strong>注意：如果你设计的类成员中存在指针等，请务必手动构建显式的成员函数！！！否则会因为按值传递和按址传递的冲突导致很多奇奇怪怪的问题（尤其在赋值和动态内存的手动管理上）</strong></li>
+</ul>
+</li>
+<li><p><code>new</code>和<code>delete</code>很危险，但请踏出使用他们的第一步！</p>
+</li>
+</ul>
+<p>例如，原书给出了三个定义构造函数的实例：</p>
+<p><img src="/posts/Above-All/mory-and-Classes/example1.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/posts/Above-All/mory-and-Classes/example2.png" srcset="/img/loading.gif" lazyload alt="Standard Practices for Using Dynamic Memory"></p>
+<h2 id="返回对象"><a href="#返回对象" class="headerlink" title="返回对象"></a>返回对象</h2><h3 id="返回类的引用"><a href="#返回类的引用" class="headerlink" title="返回类的引用"></a>返回类的引用</h3><p>在C++中，引用同样也是奉行“按址传递”思想的一大有力武器。在类中，返回引用不用拷贝一个类（这会消耗额外的内存），自然也不会调用复制构造函数。下文将介绍在类中返回引用的一些基础知识：</p>
+<ul>
+<li><p>使用<code>const</code>引用，效率更高，但同时需要注意匹配问题：</p>
+<ul>
+<li>如果形式参数是<code>const</code>对象的话，返回值也应该是<code>const</code>对象！</li>
+</ul>
+</li>
+<li><p>返回指向非const对象的引用</p>
+<ul>
+<li>重载赋值运算符</li>
+</ul>
+<p>例如，我想实现一个连续赋值的操作：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++">string s1=<span class="hljs-string">&quot;Hello world&quot;</span>;<br>string s2,s3;<br>s3=s2=s1;<br><span class="hljs-comment">//第三行代码等价于</span><br>s3=(s2=s1);<br></code></pre></td></tr></table></figure>
+
+<p>首先执行赋值语句 <code>s2=s1</code>，问题来了，表达式的返回值是什么？对于基本数据类型而言，赋值表达式的返回类型是左操作数（即被赋值变量）的引用类型。例如，如果<code>a</code>是一个<code>int</code>变量，那么<code>a = b</code>的返回类型就是<code>int&amp;</code>。如果是自定义类，就需要我们 <strong>关注赋值运算符重载的返回类型、即返回一个自定义类的非const引用</strong>，示例代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// 其他成员变量和成员函数...</span><br><br>    <span class="hljs-comment">// 赋值运算符重载</span><br>    MyClass&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-type">const</span> MyClass&amp; other) &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> != &amp;other) &#123; <span class="hljs-comment">// 自赋值检查，防止自我复制</span><br>            <span class="hljs-comment">// 执行实际的赋值操作</span><br>            <span class="hljs-comment">// 例如：</span><br>            <span class="hljs-comment">// this-&gt;data = other.data;</span><br>            <span class="hljs-comment">// ...</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>; <span class="hljs-comment">// 返回当前对象的引用</span><br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-comment">// 私有成员变量</span><br>    <span class="hljs-type">int</span> data;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    MyClass a, b, c;<br>    <span class="hljs-comment">// 链式赋值</span><br>    a = b = c; <span class="hljs-comment">// 这将按预期工作</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>为什么是自身类型的非const引用？一方面，为了连续链式赋值的合法性，我们必须保证首先执行的赋值语句的返回值能够作为参数传入下一个赋值语句，例如在上面的代码中，首先执行的<code>s2=s1</code>，返回值是对s2的引用，而这正好能作为参数传入到下一个赋值语句（将<code>s2</code>的值传递给<code>s3</code>，在这里是s2的引用）。另一方面，由于赋值会改变对象的值，因此不可以使用const引用，故返回一个<strong>自身类型的非const引用</strong>。</p>
+</blockquote>
+<ul>
+<li><code>&lt;&lt;</code>运算符</li>
+</ul>
+<p>这其实和赋值运算符的本质差不多，运算符的本质还是一个<strong>函数</strong>，所以运算（表达式）一定会有返回值（<strong>这个观点非常重要，对我们后续学习运算符重载有很大的帮助</strong>）。我们知道，<strong>流输出运算符的返回值是对流对象的引用</strong>，例如<code>cout&lt;&lt;&quot;Hello&quot;&lt;&lt;&quot;World&quot;;</code>返回的对象是<code>std::ostream&amp;</code>。</p>
+<blockquote>
+<p>还记得第一堂C++课的时候笔者接触到cin和cout，感叹其功能强大之处。但在之后的coding过程中，各种花里胡哨的输入输出类型让笔者恼羞成怒，甚至在一段时间内换回了C风格的<code>printf()</code>和<code>scanf()</code>。但是随着学习的深入，当我们对<strong>流</strong>和引用，类，对象等C++的新概念有了更深刻的理解之后，我们便能体会到cin和cout的强大究竟是如何实现的！</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="返回局部变量：返回对象"><a href="#返回局部变量：返回对象" class="headerlink" title="返回局部变量：返回对象"></a>返回局部变量：返回对象</h3><p>考虑到局部变量的作用域，我们不应该在函数中返回一个局部变量的引用（否则会产生悬挂指针等非常严重的问题）。因此，我们需要<strong>返回一个对象</strong>。看下面的代码示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++">Vector Vector::operater+(<span class="hljs-type">const</span> Vector &amp; b) <span class="hljs-type">const</span>&#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">Vector</span>(x+b.x,y+b.y);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>Vector</code>（向量）相信大家不陌生，在这里重载了算数运算符<code>+</code>，将两个矢量的和储存在一个新的临时对象中，作为函数的返回值之后再进行相关的赋值操作，最后被丢弃。<strong>在这里会不可避免的使用到复制构造函数，所以务必小心。</strong></p>
+<p>为了保证安全性，可以返回一个<strong>const 对象</strong>，这样可以保证生成的临时对象的值不会被赋值运算符修改。</p>
+<h2 id="使用指向对象的指针"><a href="#使用指向对象的指针" class="headerlink" title="使用指向对象的指针"></a>使用指向对象的指针</h2><h3 id="基本用法回顾"><a href="#基本用法回顾" class="headerlink" title="基本用法回顾"></a>基本用法回顾</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// use pointers to keep track of shortest, first strings</span><br>    String * shortest = &amp;sayings[<span class="hljs-number">0</span>]; <span class="hljs-comment">// initialize to first object</span><br>    String * first = &amp;sayings[<span class="hljs-number">0</span>];<br>    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">1</span>; i &lt; total; i++)<br>    &#123;<br>        <span class="hljs-keyword">if</span> (sayings[i].<span class="hljs-built_in">length</span>() &lt; shortest-&gt;<span class="hljs-built_in">length</span>())<br>            shortest = &amp;sayings[i];<br>        <span class="hljs-keyword">if</span> (sayings[i] &lt; *first)     <span class="hljs-comment">// compare values</span><br>            first = &amp;sayings[i];     <span class="hljs-comment">// assign address</span><br>    &#125;<br>    cout &lt;&lt; <span class="hljs-string">&quot;Shortest saying:\n&quot;</span> &lt;&lt; * shortest &lt;&lt; endl;<br>    cout &lt;&lt; <span class="hljs-string">&quot;First alphabetically:\n&quot;</span> &lt;&lt; * first &lt;&lt; endl;<br><br>    <span class="hljs-built_in">srand</span>(<span class="hljs-built_in">time</span>(<span class="hljs-number">0</span>));<br>    <span class="hljs-type">int</span> choice = <span class="hljs-built_in">rand</span>() % total; <span class="hljs-comment">// pick index at random</span><br><br><br><br><span class="hljs-comment">// use new to create, initialize new String object</span><br>    String * favorite = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>(sayings[choice]);<br>    cout &lt;&lt; <span class="hljs-string">&quot;My favorite saying:\n&quot;</span> &lt;&lt; *favorite &lt;&lt; endl;<br>    <span class="hljs-keyword">delete</span> favorite;<br>&#125;<br><span class="hljs-keyword">else</span><br>    cout &lt;&lt; <span class="hljs-string">&quot;Not much to say, eh?\n&quot;</span>;<br>cout &lt;&lt; <span class="hljs-string">&quot;Bye.\n&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>代码的第一部分是指向对象指针的常见用法，包括<code>-&gt;</code>运算符，常见的取址和解引用运算。代码的第二部分涉及到<code>new</code>和<code>delete</code>操作。</p>
+<h3 id="一些高级用法"><a href="#一些高级用法" class="headerlink" title="一些高级用法"></a>一些高级用法</h3><h4 id="何时使用析构函数？"><a href="#何时使用析构函数？" class="headerlink" title="何时使用析构函数？"></a>何时使用析构函数？</h4><p><img src="/posts/Above-All/mory-and-Classes/%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0.png" srcset="/img/loading.gif" lazyload alt="析构函数"></p>
 <blockquote>
 <p>更新日期 2024&#x2F;12&#x2F;5</p>
 <p>希望不要烂尾。。。</p>
