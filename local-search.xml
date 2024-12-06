@@ -4,9 +4,9 @@
   
   
   <entry>
-    <title>C++-Primer-Plus-tutorial</title>
-    <link href="/posts/C-Primer-Plus-tutorial/"/>
-    <url>/posts/C-Primer-Plus-tutorial/</url>
+    <title>C-plus-plus-Primer-Plus-tutorial</title>
+    <link href="/posts/C-plus-plus-Primer-Plus-tutorial/"/>
+    <url>/posts/C-plus-plus-Primer-Plus-tutorial/</url>
     
     <content type="html"><![CDATA[<h1 id="C-Primer-Plus-tutorial"><a href="#C-Primer-Plus-tutorial" class="headerlink" title="C++ Primer Plus tutorial"></a>C++ Primer Plus tutorial</h1><h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>笔者又来开新坑啦！</p><p>之前看到一个很讽刺的笑话：<strong>大多数国内高校学生学到的C++只是C语言+cin&#x2F;cout</strong>。这当然只是一句玩笑话，但很深刻地反映出对于C++精髓<strong>面向对象编程</strong>的忽视。</p><p>这是有理可依的：<strong>编程语言的学习本身就和传统的课堂授课模式存在较大的出入</strong>，编程重视实践，枯燥的语法讲解如同天书一般晦涩难懂，更不用提OOP所涉及的都是比较大规模的项目工程，如果只是在课堂上乏味地讲解“什么是析构函数，什么是继承，什么是多态···”，很容易将C++学成死记硬背的无聊学科。</p><p>因此，笔者在课堂学习之余，<strong>同步学习了世界经典C++教材——《C++ Primer Plus》的相关内容</strong>。经典不愧为经典！</p><p>但是，针对我个人而言，我认为C++ Primer Plus有以下问题：（其实也不算是问题啦，就是和普通在校大学生存在一些“冲突”）</p><ul><li>一共678页，并且全是密密麻麻的字，阅读周期长，读完需要很大的意志力（对于自学者）。</li><li>由于翻译等种种的原因，在很多地方的解释并不清晰（作为一本C++的入门书籍体量有些大了，而且涉及到很多专业的名词，看得让人头大）</li></ul><p>因此，笔者希望通过博客的方式，记录自己的C++ Primer Plus学习笔记，并上传到网络上供一同学习的小伙伴参考。</p><p>博客立志于：</p><ul><li>记录自己的C++学习过程</li><li>对本人认为的C++学习中的一些重难点做一些额外的解释</li><li>尝试用简单清晰的语言梳理逻辑脉络</li></ul><h2 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h2><ul><li><strong>Chapter10 对象和类</strong></li><li><strong>Chapter11 使用类</strong></li><li><strong>Chapter12 类和动态内存分配</strong></li><li><strong>Chapter13 类继承</strong></li><li><strong>Chapter14 代码重用</strong></li><li><strong>Chapter15 友元，异常和其他</strong></li><li><strong>Chapter16 string类的标准模板库</strong></li></ul><p>（目前更新计划主要分布在OOP的章节，之后的其他章节看情况更新~）</p><h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>本博客系列使用的大部分代码都摘自《C++ Primer Plus》，并非原创。相当于为《C++ Primer Plus》添加一下自己的注解和所思所想。</p>]]></content>
     
