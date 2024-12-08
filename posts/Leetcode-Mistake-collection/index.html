@@ -1,0 +1,824 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="This blog introduces a new update plan. I will share the mistakes I made while solving LeetCode algorithm problems, along with reposting correct solutions and my organized notes.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode-Mistake-collection">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Leetcode-Mistake-collection/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="This blog introduces a new update plan. I will share the mistakes I made while solving LeetCode algorithm problems, along with reposting correct solutions and my organized notes.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Leetcode.png">
+<meta property="article:published_time" content="2024-12-08T12:06:17.000Z">
+<meta property="article:modified_time" content="2024-12-08T12:48:26.467Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="Announcement">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="Leetcode notes">
+<meta property="article:tag" content="algorithm">
+<meta property="article:tag" content="Finished">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/Leetcode.png">
+  
+  
+  
+  <title>Leetcode-Mistake-collection - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/above/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tag</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/FAQ/" target="_self">
+                <i class="iconfont icon-bug"></i>
+                <span>FAQ</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Leetcode-Mistake-collection"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-08 20:06" pubdate>
+          December 8, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          801 words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          7 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Leetcode-Mistake-collection</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Leetcode-Mistake-collection"><a href="#Leetcode-Mistake-collection" class="headerlink" title="Leetcode-Mistake-collection"></a>Leetcode-Mistake-collection</h1><p>笔者又来开新坑啦！</p>
+<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>在笔者刚刚步入大一时（也就是这学期），仗着自己暑假为数不多的C语言语法存货，觉得学校C++的课程进度有些落后，便在网上寻寻觅觅，想通过<strong>刷题</strong>的方式提升自己的代码水平。</p>
+<p>当在网上搜索“新手小白刷编程题什么网站上最好”，十有八九跳出来的都是<strong>Leetcode</strong>。确实，<a target="_blank" rel="noopener" href="https://leetcode.cn/">Leetcode</a>可以算作是数一数二优秀的编程训练网站了，各种界面设计也很符合我的审美。（就像他自己说的，<strong>全球极客挚爱的技术成长平台</strong>）。但是，对于当时习惯于把所有代码全部放进一个臃肿的<code>main</code>函数的我来说，Leetcode犹如一座高不可攀的山峰，好不容易弄懂了什么叫<strong>函数封装</strong>，竭尽全力也没办法做出 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">第一道题</a>。🤡</p>
+<p>之后在看 <a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_hello_algo/">Hello 算法</a>的时候在序言看到了一段感同身受的话：</p>
+<blockquote>
+<p>两眼一抹黑地刷题似乎是最受欢迎的方法，简单、直接且有效。然而刷题就如同玩“扫雷”游戏，自学能力强的人能够顺利将地雷逐个排掉，而基础不足的人很可能被炸得满头是包，并在挫折中步步退缩。通读教材也是一种常见做法，但对于面向求职的人来说，毕业论文、投递简历、准备笔试和面试已经消耗了大部分精力，啃厚重的书往往变成了一项艰巨的挑战。</p>
+</blockquote>
+<p>回想自己Leetcode的刷题之旅，真的是<strong>痛并快乐着</strong>，痛在算法题冷酷无情，将你所有的bug暴露无遗，根本不给你侥幸的机会，快乐在钻研一道题后终于看见<strong>超过了100%的人</strong>，快乐在从一开始的举步维艰，到逐渐能够尝试黄色中档题，再到得心应手，心平气和。</p>
+<p><strong>因此，我在此开坑，将自己过去，现在以及将来在Leetcode上所做的好题，错题，看到的优秀题解以及我自己整理一些笔记等等整理成博客的形式，一篇博客五道题，希望以此留作纪念，并能够给有相同志向的小伙伴们一点鼓励和指引。</strong></p>
+<h2 id="内容（实时更新）"><a href="#内容（实时更新）" class="headerlink" title="内容（实时更新）"></a>内容（实时更新）</h2><h3 id="第一学期（主要以语法题和最基本的算法题为主）"><a href="#第一学期（主要以语法题和最基本的算法题为主）" class="headerlink" title="第一学期（主要以语法题和最基本的算法题为主）"></a>第一学期（主要以语法题和最基本的算法题为主）</h3><ul>
+<li>基本语法题<ul>
+<li>数组、引用和指针的相关操作</li>
+<li>OOP</li>
+<li>STL入门</li>
+</ul>
+</li>
+<li>基本算法入门<ul>
+<li>排序算法</li>
+<li>分治算法</li>
+<li>回溯算法和递归算法</li>
+<li>动态规划</li>
+<li>贪心算法</li>
+</ul>
+</li>
+</ul>
+<h3 id="第二学期（重点：数据结构）"><a href="#第二学期（重点：数据结构）" class="headerlink" title="第二学期（重点：数据结构）"></a>第二学期（重点：数据结构）</h3><p>（期待一波来年开春的疯狂更新~）</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/u/affectionate-hamiltonyhv/">我的Leetcode主页</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/">Leetcode</a></p>
+<p><a target="_blank" rel="noopener" href="https://books.halfrost.com/leetcode/">Leetcode Cookbook</a></p>
+<hr>
+<blockquote>
+<p>English Version</p>
+</blockquote>
+<h1 id="Starting-a-New-Adventure-Again"><a href="#Starting-a-New-Adventure-Again" class="headerlink" title="Starting a New Adventure Again!"></a>Starting a New Adventure Again!</h1><h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>When I first started university (this semester), armed with my limited knowledge of C language syntax from a short summer learning stint, I felt the pace of my C++ course at school was a bit slow. So, I searched online for ways to improve my coding skills through <strong>problem-solving practice</strong>.</p>
+<p>When looking up “best websites for beginners to practice coding,” <strong>LeetCode</strong> popped up in most results. Indeed, <a target="_blank" rel="noopener" href="https://leetcode.cn/">LeetCode</a> is one of the best programming training platforms, and its interface design aligns perfectly with my aesthetic (as they call themselves, <strong>“The beloved tech growth platform for geeks worldwide”</strong>). However, for someone like me who used to put all the code into one bloated <code>main</code> function, LeetCode seemed like an insurmountable mountain. After finally understanding what <strong>function encapsulation</strong> was, I still couldn’t manage to solve <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">the first problem</a>. 🤡</p>
+<p>While reading <a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_hello_algo/">Hello Algorithm</a>, I came across a sentiment in the preface that resonated deeply with me:</p>
+<blockquote>
+<p>Diving blindly into problem-solving is perhaps the most popular method—it’s simple, direct, and effective. However, it’s like playing a “Minesweeper” game: self-learners with a strong foundation can defuse the mines one by one, while those lacking fundamentals might get blown up and retreat in frustration. Reading textbooks is another common approach, but for job seekers, writing theses, submitting resumes, and preparing for tests and interviews consume most of their energy, making heavy textbooks a daunting challenge.</p>
+</blockquote>
+<p>Looking back on my LeetCode journey, it truly has been a mix of <strong>pain and joy</strong>. The pain lies in the ruthless nature of algorithm problems, exposing all your bugs without mercy, leaving no room for luck. The joy comes from finally solving a problem and seeing <strong>“outperformed 100% of users”</strong>, from struggling with initial problems to tackling mid-level yellow questions, and eventually solving problems calmly and confidently.</p>
+<p><strong>That’s why I’m starting this series—to document the good problems, mistakes, excellent solutions, and notes from my past, present, and future LeetCode journey in the form of blog posts. Each post will include five problems, serving as a record and hopefully providing encouragement and guidance to like-minded peers.</strong></p>
+<hr>
+<h2 id="Content-Updated-in-Real-Time"><a href="#Content-Updated-in-Real-Time" class="headerlink" title="Content (Updated in Real-Time)"></a>Content (Updated in Real-Time)</h2><h3 id="First-Semester-Primarily-syntax-and-basic-algorithm-problems"><a href="#First-Semester-Primarily-syntax-and-basic-algorithm-problems" class="headerlink" title="First Semester (Primarily syntax and basic algorithm problems)"></a>First Semester (Primarily syntax and basic algorithm problems)</h3><ul>
+<li><strong>Basic Syntax Problems</strong><ul>
+<li>Array, reference, and pointer operations</li>
+<li>OOP (Object-Oriented Programming)</li>
+<li>Intro to STL (Standard Template Library)</li>
+</ul>
+</li>
+<li><strong>Basic Algorithms</strong><ul>
+<li>Sorting algorithms</li>
+<li>Divide-and-conquer</li>
+<li>Backtracking and recursion</li>
+<li>Dynamic programming</li>
+<li>Greedy algorithms</li>
+</ul>
+</li>
+</ul>
+<h3 id="Second-Semester-Focus-Data-Structures"><a href="#Second-Semester-Focus-Data-Structures" class="headerlink" title="Second Semester (Focus: Data Structures)"></a>Second Semester (Focus: Data Structures)</h3><p><em>(Looking forward to some crazy updates next spring!)</em></p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/u/affectionate-hamiltonyhv/">My LeetCode Profile</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/">LeetCode</a></li>
+<li><a target="_blank" rel="noopener" href="https://books.halfrost.com/leetcode/">LeetCode Cookbook</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Algorithm/" class="category-chain-item">Algorithm</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Announcement/" class="print-no-link">#Announcement</a>
+      
+        <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/tags/Leetcode-notes/" class="print-no-link">#Leetcode notes</a>
+      
+        <a href="/tags/algorithm/" class="print-no-link">#algorithm</a>
+      
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Leetcode-Mistake-collection</div>
+      <div>https://xiyuanyang-code.github.io/posts/Leetcode-Mistake-collection/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>December 8, 2024</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>December 8, 2024</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Linked-List-Implementation-Based-on-Structs/" title="Linked-List-Implementation-Based-on-Structs">
+                        <span class="hidden-mobile">Linked-List-Implementation-Based-on-Structs</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
