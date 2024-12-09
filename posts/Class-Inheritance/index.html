@@ -1,0 +1,867 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="This blog reveals common pitfalls when using dynamic memory in classes and more advanced skills in memory management, focusing on how to cautiously use dynamic memory allocation.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Class-Inheritance">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Class-Inheritance/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="This blog reveals common pitfalls when using dynamic memory in classes and more advanced skills in memory management, focusing on how to cautiously use dynamic memory allocation.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/dynamic.png">
+<meta property="article:published_time" content="2024-12-09T06:02:57.000Z">
+<meta property="article:modified_time" content="2024-12-09T11:08:26.182Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="OOP">
+<meta property="article:tag" content="C++ Primer Plus">
+<meta property="article:tag" content="Dynamic Memory">
+<meta property="article:tag" content="Finished">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/dynamic.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Class-Inheritance - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/above/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tag</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/FAQ/" target="_self">
+                <i class="iconfont icon-bug"></i>
+                <span>FAQ</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Class-Inheritance"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-09 14:02" pubdate>
+          December 9, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 mins
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Class-Inheritance</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="C-Primer-Plus-Tutorial-13"><a href="#C-Primer-Plus-Tutorial-13" class="headerlink" title="C++ Primer Plus Tutorial-13"></a>C++ Primer Plus Tutorial-13</h1><center><p style="color: red;"><b><font size=6.5>Chapter 13 Class Inheritance</font></b></p></center>
+
+<center><p style="color: red;"><b><font size=6.5>类的继承</font></b></p></center>
+
+<p>【写在前面的话】</p>
+<p><a href="https://xiyuanyang-code.github.io/posts/C-Primer-Plus-tutorial/">C++ Primer Plus Tutorial</a></p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>在程序设计中，代码的重用是非常重要的，这一点在面向对象编程也不例外。一种最简单的“代码重用”是最简单的<code>Ctrl-C,Ctrl-V</code>程序员，手动修改代码实现重用（乐）。那么，我们如何在不修改代码的基础上实现代码（对于OOP而言，主要是类和对象）的重用呢？这便是<strong>类的继承</strong>：从已有的类（基类）将特征和方法继承给一个新的类（派生类）。同时，类的继承也保证了安全性，派生类可以提供新特性，甚至不需要访问源代码就可以派生出类，实现<strong>数据的封装</strong>。（这不正是OOP的核心和精髓吗）</p>
+<p>接下来的一章，让我们走进类继承的世界。</p>
+<p>在这章你将学到：</p>
+<p>- </p>
+<h2 id="Example-Base-class-and-derived-class"><a href="#Example-Base-class-and-derived-class" class="headerlink" title="Example: Base class and derived class"></a>Example: Base class and derived class</h2><p>文章首先给出一个比较简单的基类</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// tabtenn0.h -- a table-tennis base class</span><br><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> TABTENN0_H_</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> TABTENN0_H_</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><span class="hljs-keyword">using</span> std::string;<br><span class="hljs-comment">// simple base class</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TableTennisPlayer</span><br>&#123;<br><span class="hljs-keyword">private</span>:<br>    string firstname;<br>    string lastname;<br>    <span class="hljs-type">bool</span> hasTable;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">TableTennisPlayer</span> (<span class="hljs-type">const</span> string &amp; fn = <span class="hljs-string">&quot;none&quot;</span>,<span class="hljs-type">const</span> string &amp; ln = <span class="hljs-string">&quot;none&quot;</span>, <span class="hljs-type">bool</span> ht = <span class="hljs-literal">false</span>);<br>    <span class="hljs-comment">//默认构造函数</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Name</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;<br>    <span class="hljs-comment">//输出会员的姓名</span><br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">HasTable</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123; <span class="hljs-keyword">return</span> hasTable; &#125;;<br>    <span class="hljs-comment">//判断会员是否有球桌</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">ResetTable</span><span class="hljs-params">(<span class="hljs-type">bool</span> v)</span> </span>&#123; hasTable = v; &#125;;<br>    <span class="hljs-comment">//重设球桌状态</span><br>&#125;;<br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//tabtenn0.cpp -- simple base-class methods</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;tabtenn0.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br>TableTennisPlayer::<span class="hljs-built_in">TableTennisPlayer</span> (<span class="hljs-type">const</span> string &amp; fn, <br>    <span class="hljs-type">const</span> string &amp; ln, <span class="hljs-type">bool</span> ht) : <span class="hljs-built_in">firstname</span>(fn),<span class="hljs-built_in">lastname</span>(ln), <span class="hljs-built_in">hasTable</span>(ht) &#123;&#125;<br>    <br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">TableTennisPlayer::Name</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span><br><span class="hljs-function"></span>&#123;<br>    std::cout &lt;&lt; lastname &lt;&lt; <span class="hljs-string">&quot;, &quot;</span> &lt;&lt; firstname;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// usett0.cpp -- using a base class</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;tabtenn0.h&quot;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span> <span class="hljs-params">( <span class="hljs-type">void</span> )</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">using</span> std::cout;<br>    <span class="hljs-function">TableTennisPlayer <span class="hljs-title">player1</span><span class="hljs-params">(<span class="hljs-string">&quot;Chuck&quot;</span>, <span class="hljs-string">&quot;Blizzard&quot;</span>, <span class="hljs-literal">true</span>)</span></span>;<br>    <span class="hljs-function">TableTennisPlayer <span class="hljs-title">player2</span><span class="hljs-params">(<span class="hljs-string">&quot;Tara&quot;</span>, <span class="hljs-string">&quot;Boomdea&quot;</span>, <span class="hljs-literal">false</span>)</span></span>;<br>    player<span class="hljs-number">1.</span><span class="hljs-built_in">Name</span>();<br>    <span class="hljs-keyword">if</span> (player<span class="hljs-number">1.</span><span class="hljs-built_in">HasTable</span>())<br>        cout &lt;&lt; <span class="hljs-string">&quot;: has a table.\n&quot;</span>;<br>    <span class="hljs-keyword">else</span><br>        cout &lt;&lt; <span class="hljs-string">&quot;: hasn&#x27;t a table.\n&quot;</span>;<br>    player<span class="hljs-number">2.</span><span class="hljs-built_in">Name</span>();<br>    <span class="hljs-keyword">if</span> (player<span class="hljs-number">2.</span><span class="hljs-built_in">HasTable</span>())<br>        cout &lt;&lt; <span class="hljs-string">&quot;: has a table&quot;</span>;<br>    <span class="hljs-keyword">else</span><br>        cout &lt;&lt; <span class="hljs-string">&quot;: hasn&#x27;t a table.\n&quot;</span>;<br>    <span class="hljs-comment">// std::cin.get();</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>现在，我要在这个类的基础之上派生出一个新的类，来记录乒乓球运动员在比赛中的得分。</p>
+<p>先来看写好的头文件，再来逐行解析：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// tabtenn1.h -- a table-tennis base class</span><br><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> TABTENN1_H_</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> TABTENN1_H_</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><span class="hljs-keyword">using</span> std::string;<br><span class="hljs-comment">// simple base class</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TableTennisPlayer</span><br>&#123;<br><span class="hljs-keyword">private</span>:<br>    string firstname;<br>    string lastname;<br>    <span class="hljs-type">bool</span> hasTable;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">TableTennisPlayer</span> (<span class="hljs-type">const</span> string &amp; fn = <span class="hljs-string">&quot;none&quot;</span>,<span class="hljs-type">const</span> string &amp; ln = <span class="hljs-string">&quot;none&quot;</span>, <span class="hljs-type">bool</span> ht = <span class="hljs-literal">false</span>);<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Name</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">HasTable</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123; <span class="hljs-keyword">return</span> hasTable; &#125;;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">ResetTable</span><span class="hljs-params">(<span class="hljs-type">bool</span> v)</span> </span>&#123; hasTable = v; &#125;;<br>&#125;;<br><br><span class="hljs-comment">// simple derived class</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">RatedPlayer</span> : <span class="hljs-keyword">public</span> TableTennisPlayer<br>&#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> rating;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">RatedPlayer</span> (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> r = <span class="hljs-number">0</span>, <span class="hljs-type">const</span> string &amp; fn = <span class="hljs-string">&quot;none&quot;</span>,<br>                 <span class="hljs-type">const</span> string &amp; ln = <span class="hljs-string">&quot;none&quot;</span>, <span class="hljs-type">bool</span> ht = <span class="hljs-literal">false</span>);<br>    <span class="hljs-built_in">RatedPlayer</span>(<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> r, <span class="hljs-type">const</span> TableTennisPlayer &amp; tp);<br>    <span class="hljs-function"><span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> <span class="hljs-title">Rating</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123; <span class="hljs-keyword">return</span> rating; &#125;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">ResetRating</span> <span class="hljs-params">(<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> r)</span> </span>&#123;rating = r;&#125;<br>&#125;;<br><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br><br></code></pre></td></tr></table></figure>
+
+<p>很容易的看出，<code>RatedPlayer</code>是从<code>TableTennisPlayer</code>派生出来的派生类。最基本的语法定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">RatedPlayer</span> : <span class="hljs-keyword">public</span> TableTennisPlayer<br>&#123;<br><span class="hljs-keyword">private</span>:<br><span class="hljs-comment">//your Declaration here</span><br><span class="hljs-keyword">public</span>:<br><span class="hljs-comment">//your Declaration here</span><br>&#125;;<br><br></code></pre></td></tr></table></figure>
+
+<p>冒号指出 <code>RatedPlayer</code> 类的基类是 <code>TableTennisplayer</code> 类。上述特殊的声明头表明 <code>TableTennisPlayer</code> 是一个<strong>公有基类</strong>，这被称为<strong>公有派生</strong>。<strong>派生类对象包含基类对象</strong>。使用公有派生，<strong>基类的公有成员将成为派生类的公有成员</strong>；<strong>基类的私有部分也将成为派生类的一部分</strong>，但只能通过基类的公有和保护方法访问（稍后将介绍保护成员）。</p>
+<p><code>Ratedplayer</code>对象将具有以下特征：</p>
+<ul>
+<li>派生类对象存储了基类的数据成员（派生类继承了基类的实现）；</li>
+<li>派生类对象可以使用基类的方法（派生类继承了基类的接口）。</li>
+</ul>
+<blockquote>
+<p>派生类就像基类的“儿子”，子承父业，可以直接继承父亲的所有遗产。</p>
+</blockquote>
+<p>这是<strong>继承</strong>的部分，同时，派生类也可以实现自己的新方法和新成员，这也在3~6行的代码处定义。</p>
+<ul>
+<li>派生类<strong>需要</strong>自己的构造函数（<strong>这很重要！</strong>）</li>
+<li>派生类可以添加额外的数据方法和数据成员。</li>
+</ul>
+<h3 id="派生类的构造函数：访问权限的考虑"><a href="#派生类的构造函数：访问权限的考虑" class="headerlink" title="派生类的构造函数：访问权限的考虑"></a>派生类的构造函数：访问权限的考虑</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-built_in">RatedPlayer</span> (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> r = <span class="hljs-number">0</span>, <span class="hljs-type">const</span> string &amp; fn = <span class="hljs-string">&quot;none&quot;</span>,<br>             <span class="hljs-type">const</span> string &amp; ln = <span class="hljs-string">&quot;none&quot;</span>, <span class="hljs-type">bool</span> ht = <span class="hljs-literal">false</span>);<br><span class="hljs-built_in">RatedPlayer</span>(<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> r, <span class="hljs-type">const</span> TableTennisPlayer &amp; tp);<br></code></pre></td></tr></table></figure>
+
+<p>上文代码是派生类中实现的两个构造函数，可以看出，构造函数要同时定义<strong>原有基类的数据成员和新添加的数据成员</strong>（第一个构造函数）。当然，偷懒一点也是可以的，可以在构造函数中使用到<strong>基类的对象</strong>（第二个构造函数）。</p>
+<p>但是，构造函数的设计并不是像想象的那么简单。前文的<code>Introduction</code>讲过，派生类甚至可以在不访问基类的情况下实现继承。实际上，<strong>派生类不可以直接访问基类的私有成员，而必须通过基类定义的方法进行访问（和外部的函数一样，只能通过接口进行访问）</strong>，换句话来说，<strong>派生类构造函数必须使用基类构造函数</strong>。</p>
+<h4 id="第一种构造函数"><a href="#第一种构造函数" class="headerlink" title="第一种构造函数"></a>第一种构造函数</h4><p>这点就显得非常矛盾了，因为从上文第一个构造函数的视角看过去，我们貌似<strong>给派生类的每一个私有成员提供了数据，貌似可以直接访问所有的私有成员，包括基类和派生类</strong>。实际上，并不是这样，下面我们来详细解释这一点。</p>
+<p>我们更进一步，给出第一个构造函数的声明和定义：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//函数声明</span><br><span class="hljs-built_in">RatedPlayer</span> (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> r = <span class="hljs-number">0</span>, <span class="hljs-type">const</span> string &amp; fn = <span class="hljs-string">&quot;none&quot;</span>, <span class="hljs-type">const</span> string &amp; ln = <span class="hljs-string">&quot;none&quot;</span>, <span class="hljs-type">bool</span> ht = <span class="hljs-literal">false</span>);<br><br><span class="hljs-comment">//函数定义</span><br>RatedPlayer::<span class="hljs-built_in">RatedPlayer</span>(<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> r, <span class="hljs-type">const</span> string &amp; fn,<span class="hljs-type">const</span> string &amp; ln, <span class="hljs-type">bool</span> ht) : <span class="hljs-built_in">TableTennisPlayer</span>(fn, ln, ht)<br>&#123;<br>    rating = r;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在创建派生类对象时，程序首先会创建<strong>基类对象</strong>。因此，在使用派生类对象的构造函数时，对应的基类对象已经存在。</p>
+<blockquote>
+<p>这很好理解，儿子出生之前，爸爸肯定得出生。</p>
+</blockquote>
+<p>理解了这一点后，我们再来看函数的定义，我们会发现很独特的一行，<code>TableTennisPlayer(fn, ln, ht)</code>。这行代码叫<strong>成员初始化列表</strong>，是可执行的代码，用来调用基类<code>TableTennisPlayer</code>的构造函数。<code>fn, ln, ht</code>作为三个形式参数，接受实参并将其本身传递给<code>TableTennisPlayer</code>构造函数的形式参数，后者将创建一个<strong>嵌套的基类对象</strong>（先创建爸爸），接着，进入派生类函数的函数体，完成对派生类对象的创建。（再创建儿子）</p>
+<p>如果省略了成员初始化列表，那么程序会调用<strong>默认的构造函数</strong>创建一个基类对象，而无法使用显式的构造函数，程序就无法读取到我们希望赋给对象的数据。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//没有成员初始化列表的情况</span><br>RatedPlayer::<span class="hljs-built_in">RatedPlayer</span>(<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> r, <span class="hljs-type">const</span> string &amp; fn,<span class="hljs-type">const</span> string &amp; ln, <span class="hljs-type">bool</span> ht) : <br>&#123;<br>    rating = r;<br>&#125;<br><br><span class="hljs-comment">//与下面的代码等效</span><br>RatedPlayer::<span class="hljs-built_in">RatedPlayer</span>(<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> r, <span class="hljs-type">const</span> string &amp; fn,<span class="hljs-type">const</span> string &amp; ln, <span class="hljs-type">bool</span> ht) : <br><span class="hljs-built_in">TableTennisPlayer</span>()<br><span class="hljs-comment">//使用无参数的默认构造函数</span><br>&#123;<br>    rating = r;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="第二种构造函数"><a href="#第二种构造函数" class="headerlink" title="第二种构造函数"></a>第二种构造函数</h4><p>接下来，我们来看第二种更加简洁的构造函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//函数声明</span><br><span class="hljs-built_in">RatedPlayer</span>(<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> r, <span class="hljs-type">const</span> TableTennisPlayer &amp; tp);<br><br><span class="hljs-comment">//函数定义</span><br>RatedPlayer::<span class="hljs-built_in">RatedPlayer</span>(<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> r, <span class="hljs-type">const</span> TableTennisPlayer &amp; tp)<br>    : <span class="hljs-built_in">TableTennisPlayer</span>(tp)<br>&#123;<br>        rating=r;<br>&#125;<br><br><span class="hljs-comment">//函数定义的等价形式</span><br>RatedPlayer::<span class="hljs-built_in">RatedPlayer</span>(<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> r, <span class="hljs-type">const</span> TableTennisPlayer &amp; tp)<br>    : <span class="hljs-built_in">TableTennisPlayer</span>(tp), <span class="hljs-built_in">rating</span>(r)<br>&#123;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>来看这里的初始化成员列表，传入的参数是一个<code>const TableTennisPlayer &amp;</code>类型，因此，系统会调用默认的<strong>复制构造函数</strong>（这是个很有趣的问题，我们在<a href="https://xiyuanyang-code.github.io/posts/Dynamic-Memory-and-Classes/">第十二章</a>的时候重点讨论了，这里使用默认的复制构造函数是不会产生任何问题的）。</p>
+<p>当然，我们也可以对<strong>派生类成员使用初始化列表</strong>，在这种情况下，应该使用成员名而不是类名。</p>
+<blockquote>
+<p>释放对象的顺序与创建对象的顺序相反，即首先执行派生类的析构函数，然后自动调用基类的析构函数。  </p>
+</blockquote>
+<div class="note note-success">
+            <p><strong>小总结</strong>： 创建派生类对象时，程序首先<strong>调用基类构造函数</strong>，然后再<strong>调用派生类构造函数</strong>。基类构造函数负责初始化继承的数据成员；派生类构造函数主要用于初始化新增的数据成员。派生类的构造函数总是调用一个基类构造函数。可以使用初始化器列表语法指明要使用的基类构造函数，否则将使用默认的基类构造函数。派生类对象过期时，程序将首先调用派生类析构函数，然后再调用基类析构函数。</p>
+          </div>
+
+<p>现在，我们可以给出派生类的全部函数定义：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//tabtenn1.cpp -- simple base-class methods</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;tabtenn1.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br>TableTennisPlayer::<span class="hljs-built_in">TableTennisPlayer</span> (<span class="hljs-type">const</span> string &amp; fn, <br>    <span class="hljs-type">const</span> string &amp; ln, <span class="hljs-type">bool</span> ht) : <span class="hljs-built_in">firstname</span>(fn),<span class="hljs-built_in">lastname</span>(ln), <span class="hljs-built_in">hasTable</span>(ht) &#123;&#125;<br>    <br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">TableTennisPlayer::Name</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span><br><span class="hljs-function"></span>&#123;<br>    std::cout &lt;&lt; lastname &lt;&lt; <span class="hljs-string">&quot;, &quot;</span> &lt;&lt; firstname;<br>&#125;<br><br><span class="hljs-comment">// RatedPlayer methods</span><br>RatedPlayer::<span class="hljs-built_in">RatedPlayer</span>(<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> r, <span class="hljs-type">const</span> string &amp; fn,<br>    <span class="hljs-type">const</span> string &amp; ln, <span class="hljs-type">bool</span> ht) : <span class="hljs-built_in">TableTennisPlayer</span>(fn, ln, ht)<br>&#123;<br>    rating = r;<br>&#125;<br><br>RatedPlayer::<span class="hljs-built_in">RatedPlayer</span>(<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> r, <span class="hljs-type">const</span> TableTennisPlayer &amp; tp)<br>    : <span class="hljs-built_in">TableTennisPlayer</span>(tp), <span class="hljs-built_in">rating</span>(r)<br>&#123;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="使用派生类"><a href="#使用派生类" class="headerlink" title="使用派生类"></a>使用派生类</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// usett1.cpp -- using base class and derived class</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;tabtenn1.h&quot;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span> <span class="hljs-params">( <span class="hljs-type">void</span> )</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">using</span> std::cout;<br>    <span class="hljs-keyword">using</span> std::endl;<br>    <span class="hljs-function">TableTennisPlayer <span class="hljs-title">player1</span><span class="hljs-params">(<span class="hljs-string">&quot;Tara&quot;</span>, <span class="hljs-string">&quot;Boomdea&quot;</span>, <span class="hljs-literal">false</span>)</span></span>;<br>    <span class="hljs-function">RatedPlayer <span class="hljs-title">rplayer1</span><span class="hljs-params">(<span class="hljs-number">1140</span>, <span class="hljs-string">&quot;Mallory&quot;</span>, <span class="hljs-string">&quot;Duck&quot;</span>, <span class="hljs-literal">true</span>)</span></span>;<br>    rplayer<span class="hljs-number">1.</span><span class="hljs-built_in">Name</span>();          <span class="hljs-comment">// derived object uses base method</span><br>    <span class="hljs-keyword">if</span> (rplayer<span class="hljs-number">1.</span><span class="hljs-built_in">HasTable</span>())<br>        cout &lt;&lt; <span class="hljs-string">&quot;: has a table.\n&quot;</span>;<br>    <span class="hljs-keyword">else</span><br>        cout &lt;&lt; <span class="hljs-string">&quot;: hasn&#x27;t a table.\n&quot;</span>;<br>    player<span class="hljs-number">1.</span><span class="hljs-built_in">Name</span>();           <span class="hljs-comment">// base object uses base method</span><br>    <span class="hljs-keyword">if</span> (player<span class="hljs-number">1.</span><span class="hljs-built_in">HasTable</span>())<br>        cout &lt;&lt; <span class="hljs-string">&quot;: has a table&quot;</span>;<br>    <span class="hljs-keyword">else</span><br>        cout &lt;&lt; <span class="hljs-string">&quot;: hasn&#x27;t a table.\n&quot;</span>;<br>    cout &lt;&lt; <span class="hljs-string">&quot;Name: &quot;</span>;<br>    rplayer<span class="hljs-number">1.</span><span class="hljs-built_in">Name</span>();<br>    cout &lt;&lt; <span class="hljs-string">&quot;; Rating: &quot;</span> &lt;&lt; rplayer<span class="hljs-number">1.</span><span class="hljs-built_in">Rating</span>() &lt;&lt; endl;<br><span class="hljs-comment">// initialize RatedPlayer using TableTennisPlayer object</span><br>    <span class="hljs-function">RatedPlayer <span class="hljs-title">rplayer2</span><span class="hljs-params">(<span class="hljs-number">1212</span>, player1)</span></span>;<br>    cout &lt;&lt; <span class="hljs-string">&quot;Name: &quot;</span>;<br>    rplayer<span class="hljs-number">2.</span><span class="hljs-built_in">Name</span>();<br>    cout &lt;&lt; <span class="hljs-string">&quot;; Rating: &quot;</span> &lt;&lt; rplayer<span class="hljs-number">2.</span><span class="hljs-built_in">Rating</span>() &lt;&lt; endl;<br>    <span class="hljs-comment">// std::cin.get();</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="派生类和基类的特殊关系"><a href="#派生类和基类的特殊关系" class="headerlink" title="派生类和基类的特殊关系"></a>派生类和基类的特殊关系</h3><p>用形象的话说，派生类是儿子，继承自基类（爸爸）的方法和数据成员。但是，基类又有自己的“隐私”，派生类是能通过公共接口实现对基类的访问，即无法直接访问其私有成员。</p>
+<blockquote>
+<p>派生类相当于一种<strong>在定义和结构上</strong>获得“权限”的类，权限在于可以直接继承基类所定义好的成员和方法（在定义层面的<strong>继承</strong>），但是<strong>在操作上</strong>，派生类并没有从基类处获得任何特权，不能访问的还是不能访问。</p>
+</blockquote>
+<p>从这条出发，我们可以归纳派生类和基类之间的特殊关系：</p>
+<ul>
+<li>派生类对象可以使用基类的方法，条件是<strong>方法不是私有的</strong>。</li>
+<li><strong>基类指针可以在不进行显示转换的情况下指向派生类对象。</strong></li>
+<li><strong>基类引用可以在不进行显示转换的情况下引用派生类对象。</strong></li>
+</ul>
+<h4 id="基类指针可以在不进行显示转换的情况下指向派生类对象"><a href="#基类指针可以在不进行显示转换的情况下指向派生类对象" class="headerlink" title="基类指针可以在不进行显示转换的情况下指向派生类对象"></a>基类指针可以在不进行显示转换的情况下指向派生类对象</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Base</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span> </span>&#123; cout &lt;&lt; <span class="hljs-string">&quot;Base class&quot;</span> &lt;&lt; endl; &#125;<br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Derived</span> : <span class="hljs-keyword">public</span> Base &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span> <span class="hljs-keyword">override</span> </span>&#123; cout &lt;&lt; <span class="hljs-string">&quot;Derived class&quot;</span> &lt;&lt; endl; &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    Derived d;<br>    Base* basePtr = &amp;d; <span class="hljs-comment">// 基类指针指向派生类对象</span><br>    basePtr-&gt;<span class="hljs-built_in">display</span>(); <span class="hljs-comment">// 输出: Derived class (多态行为)</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="基类引用可以在不进行显示转换的情况下引用派生类对象。"><a href="#基类引用可以在不进行显示转换的情况下引用派生类对象。" class="headerlink" title="基类引用可以在不进行显示转换的情况下引用派生类对象。"></a>基类引用可以在不进行显示转换的情况下引用派生类对象。</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Base</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span> </span>&#123; cout &lt;&lt; <span class="hljs-string">&quot;Base class&quot;</span> &lt;&lt; endl; &#125;<br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Derived</span> : <span class="hljs-keyword">public</span> Base &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span> <span class="hljs-keyword">override</span> </span>&#123; cout &lt;&lt; <span class="hljs-string">&quot;Derived class&quot;</span> &lt;&lt; endl; &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    Derived d;<br>    Base&amp; baseRef = d; <span class="hljs-comment">// 基类引用绑定到派生类对象</span><br>    baseRef.<span class="hljs-built_in">display</span>(); <span class="hljs-comment">// 输出: Derived class (多态行为)</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意关键词<code>virtual</code>，之后会讲到，否则会发生静态绑定现象。</p>
+</blockquote>
+<div class="note note-warning">
+            <ul><li>基类指针和引用只能调用基类方法，而不可以调用派生类的方法。<ul><li>因为派生类允许添加新的数据成员，如果允许调用会产生很多奇怪的问题。</li></ul></li><li>基类指针和应用可以指向派生类的对象<ul><li><a target="_blank" rel="noopener" href="https://blog.csdn.net/goodgoodstudy___/article/details/124905482">这篇讲的很清楚</a></li><li>这里涉及到一些有关虚函数的知识点，暂时先跳过。</li></ul></li><li><strong>基类对象也可以被初始化（或被赋值）为派生类对象</strong></li></ul><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function">RatedPlayer <span class="hljs-title">player1</span><span class="hljs-params">(<span class="hljs-number">1840</span>,<span class="hljs-string">&quot;o1&quot;</span>,<span class="hljs-string">&quot;Loaf&quot;</span>,<span class="hljs-literal">true</span>)</span></span>;<br><span class="hljs-function">TableTennisPlayer <span class="hljs-title">player2</span><span class="hljs-params">(player1)</span></span>;    <span class="hljs-comment">//VALID</span><br></code></pre></td></tr></table></figure><p>可以用<strong>引用兼容性</strong>的属性来解释这个问题，调用基类的构造函数时不存在匹配的构造函数，故会调用隐式复制构造函数<code>TableTennisPlayer(const TableTennisPlayer&amp;)</code>，形参是<strong>对基类的引用</strong>，<strong>可以在不进行显式转换的</strong>情况下引用派生类对象<code>player1</code>。因此，复制构造函数将嵌套在<code>player1</code>基类中的<code>TableTennisPlayer</code>赋值给了<code>player2</code>。</p>
+          </div>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Code/" class="category-chain-item">Code</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+      
+        <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/tags/OOP/" class="print-no-link">#OOP</a>
+      
+        <a href="/tags/C-Primer-Plus/" class="print-no-link">#C++ Primer Plus</a>
+      
+        <a href="/tags/Dynamic-Memory/" class="print-no-link">#Dynamic Memory</a>
+      
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Class-Inheritance</div>
+      <div>https://xiyuanyang-code.github.io/posts/Class-Inheritance/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>December 9, 2024</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>December 9, 2024</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Leetcode-Mistake-collection/" title="Leetcode-Mistake-collection">
+                        <span class="hidden-mobile">Leetcode-Mistake-collection</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
