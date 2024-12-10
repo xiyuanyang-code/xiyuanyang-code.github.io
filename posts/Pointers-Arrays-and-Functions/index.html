@@ -27,7 +27,7 @@
 <meta property="og:description" content="函数、数组和指针Abstract在C++中，函数，数组和指针是三个非常重要的概念，他们是C++实现许多高级功能（例如STL，OOP）的基石。同时，这三者之间又有着密不可分的联系。本文将主要从指针的角度出发，深入探究内存的本质，并在此基础之上探寻一些指针的高级功能。  In C++, functions, arrays, and pointers are three essential concep">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-12-09T14:45:20.000Z">
-<meta property="article:modified_time" content="2024-12-09T15:33:50.000Z">
+<meta property="article:modified_time" content="2024-12-10T07:08:29.213Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Code">
 <meta name="twitter:card" content="summary_large_image">
@@ -279,7 +279,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          893 words
+          1.1k words
         
       </span>
     
@@ -290,7 +290,7 @@
         
         
         
-          8 mins
+          10 mins
         
       </span>
     
@@ -370,6 +370,14 @@
 <li>指针在内存中存储的大小和<strong>指针指向数据类型的大小无关</strong>。（这一点很重要，稍后会解释）</li>
 <li><strong>指向不同数据类型的指针，对于同一块内存解引用所得到的是完全不同的值</strong>！</li>
 </ul>
+<p>换句话说，指针的类型不会改变指针在内存中的存储和指针的值，只会影响指针在<strong>解引用时</strong>对内存的解释（即如何将0&#x2F;1的比特位转换成有效数据）。</p>
+<p>因此，<strong>Types of pointers matters！</strong>实际上，如果不进行强制类型的转换，编译器面对不匹配的指针类型的时候也会报错。</p>
+<blockquote>
+<p>以上两个章节是对指针和内存一些基础知识的回顾，接下来，我们正式进入指针的高级操作</p>
+</blockquote>
+<h2 id="Advanced-Technique-1-指针数组、数组指针和二级指针"><a href="#Advanced-Technique-1-指针数组、数组指针和二级指针" class="headerlink" title="Advanced Technique 1 指针数组、数组指针和二级指针"></a>Advanced Technique 1 指针数组、数组指针和二级指针</h2><h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p>数组指针：数组指针是<strong>指向数组的指针</strong>。</p>
+<p>指针数组：是一个数组，数组的每个元素都是<strong>指针</strong>。</p>
+<p>定义还是非常直白的，<strong>数组指针是指针，指针数组是数组。</strong></p>
 
                 
               </div>
@@ -406,7 +414,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 9, 2024</div>
+          <div>December 10, 2024</div>
         </div>
       
       
