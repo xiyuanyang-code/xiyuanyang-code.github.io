@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>Data-Structure-Tutorial</title>
+    <link href="/posts/Data-Structure-Tutorial/"/>
+    <url>/posts/Data-Structure-Tutorial/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Data-Structure-Tutorial"><a href="#Data-Structure-Tutorial" class="headerlink" title="Data Structure Tutorial"></a>Data Structure Tutorial</h1><p>在本文将要系统梳理之后笔者将要学习的数据结构的内容，这是笔者<strong>遇到的第一门难度较大且较为重要的专业课程</strong>，将成为笔者2025年的更新重点之一。</p><h2 id="Before-Reading"><a href="#Before-Reading" class="headerlink" title="Before Reading"></a>Before Reading</h2><p>在阅读这一系列博客之前，你需要掌握以下知识：</p><ul><li>C++的基本语法（Necessary！）<ul><li><strong>面向过程</strong></li><li><strong>面向对象</strong></li></ul></li><li>Python的基本语法（Optional）</li><li>掌握一些基本的关于算法的基础知识<ul><li>递归算法</li><li>迭代算法</li><li><strong>STL的一些基本知识</strong>（会使用一些基本的接口）</li></ul></li></ul><h2 id="参考教材"><a href="#参考教材" class="headerlink" title="参考教材"></a>参考教材</h2><ul><li>入门教材：<a href="https://www.hello-algo.com/">Hello 算法</a><ul><li>非常经典且优质的一本教材，有在线学习的网站，并且开源了书中所有代码示例。</li><li>内容相对较少，但是都是基础中的基础，非常适合新手的快速入门，<strong>在一轮过后再深入学习一些更深入的知识</strong>。</li></ul></li><li>主力教材：<strong>《数据结构：思想与实现》——翁慧玉，俞勇</strong><ul><li>经典教材！</li><li>但是教材的难度较大，是笔者下学期上课的教材，也会作为更新的重点。</li></ul></li><li>其他参考教材：<ul><li>图解算法（<strong>可视化做的很好</strong>）</li><li><strong>《大话数据结构》</strong></li><li><strong>《数据结构和算法分析——C语言描述》</strong></li></ul></li></ul><blockquote><p><strong>注：示例代码主要都以C++或者Python代码给出。</strong></p></blockquote><p>更新内容</p><ul><li>导论（在本篇发表之前已经更新）<ul><li>数据结构和算法</li><li>算法的时间复杂度，空间复杂度</li></ul></li><li>线性结构<ul><li>线性表<ul><li>线性表的顺序实现（数组）</li><li>线性表的链接实现（链表）</li></ul></li><li>栈</li><li>队列</li><li>字符串</li></ul></li><li>树状结构<ul><li>二叉树</li><li>哈夫曼树</li><li>优先级队列</li></ul></li><li>集合结构<ul><li>集合与静态查找表</li><li>动态查找表<ul><li>二叉查找树</li><li>AVL树</li><li>红黑树</li><li>AA树</li><li>伸展树</li><li>散列表（哈希表）</li></ul></li><li><strong>算法应用：排序</strong><ul><li>插入排序</li><li>选择排序</li><li>交换排序</li><li>归并排序</li><li>基数排序</li><li>外部查找和排序<ul><li>B树</li><li>B+树</li></ul></li></ul></li></ul></li><li>图状结构<ul><li>图</li><li>最小生成树</li><li><strong>算法应用问题：最短路径问题</strong></li></ul></li><li>算法设计基础<ul><li>枚举法</li><li>贪婪法</li><li>分治法</li><li>动态规划</li><li>回溯法</li><li>随机算法</li></ul></li></ul><p><img src="/posts/Above-All/ture-Tutorial/1.png" alt="图片来源于网络"></p><blockquote><p>笔者在这个学期期末周会有一场<strong>下学期数据结构</strong>的拔高选拔测试😅😅😅真是无语了，希望能过吧。Anyway，与各位共勉！</p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>Algorithm</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>tutorial</tag>
+      
+      <tag>C/C++</tag>
+      
+      <tag>Finished</tag>
+      
+      <tag>Data Structure</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>CMake-tutorial-episode2</title>
     <link href="/posts/CMake-tutorial-episode2/"/>
     <url>/posts/CMake-tutorial-episode2/</url>
