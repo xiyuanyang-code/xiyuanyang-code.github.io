@@ -1,0 +1,989 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="This article introduces the basic data structure of linear tables, including their sequential and linked implementations. The article also introduces the linear tables in STL like vector and list.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DataStructure-LinearList">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/DataStructure-LinearList/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="This article introduces the basic data structure of linear tables, including their sequential and linked implementations. The article also introduces the linear tables in STL like vector and list.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/list.png">
+<meta property="article:published_time" content="2024-12-18T14:07:11.000Z">
+<meta property="article:modified_time" content="2024-12-18T14:16:13.069Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="Finished">
+<meta property="article:tag" content="Data Structure">
+<meta property="article:tag" content="Linear List">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/list.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>DataStructure-LinearList - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/above/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tag</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/FAQ/" target="_self">
+                <i class="iconfont icon-bug"></i>
+                <span>FAQ</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="DataStructure-LinearList"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-18 22:07" pubdate>
+          December 18, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.2k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          36 mins
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">DataStructure-LinearList</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="数据结构——线性表"><a href="#数据结构——线性表" class="headerlink" title="数据结构——线性表"></a>数据结构——线性表</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_73616913/article/details/130185228">封面图片出处</a></p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>This article introduces the basic data structure of linear tables, including their sequential and linked implementations. At the same time, this paper gives the definitions of the abstract base class of linear tables and the header files and member functions of the derived classes of two linear tables, and finally introduces the linear tables in STL.</p>
+<p>接下来，我们来看数据结构中第一种数据结构，也是最简单的一种数据结构——<strong>线性结构</strong></p>
+<div class="note note-primary">
+            <p><strong>前置知识回顾</strong></p><p><strong>数据结构：建模——求解（基于数据结构的算法）</strong></p><ul><li>数据元素的存储：内置类型和结构体类型</li><li>数据关系的<strong>存储</strong>：<ul><li>顺序</li><li>链接</li><li>散列</li><li>索引</li></ul></li></ul>
+          </div>
+
+<h2 id="线性结构"><a href="#线性结构" class="headerlink" title="线性结构"></a>线性结构</h2><p>特点：一对一，有序</p>
+<blockquote>
+<p>Definition：<strong>具有相同特征的节点构成的有序序列</strong></p>
+</blockquote>
+<p>首节点，尾节点，前继节点，后继结点</p>
+<p><strong>分类</strong>：</p>
+<ul>
+<li>线性表（相对位置）</li>
+<li>时间有序表（时间先后）<ul>
+<li>栈（3）</li>
+<li>队列（4）</li>
+</ul>
+</li>
+<li>频率有序表（频率先后）</li>
+<li>排序表（关键字值 Key）<ul>
+<li>排序</li>
+</ul>
+</li>
+</ul>
+<h2 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h2><p><strong>仅有节点的相互位置</strong>来确定节点的关系。0,1,2,3,4,5…，n-1,n</p>
+<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><ul>
+<li>创建线性表</li>
+<li>清除线性表</li>
+<li>求长度</li>
+<li>插入节点，删除节点，搜索节点：O（N）</li>
+<li>扩充数组<ul>
+<li>申请一个更大规模的动态数组</li>
+<li>将原数组的内容拷贝到新的动态数组上</li>
+<li>delete掉原来的数组</li>
+<li>将新数组作为新的存储区</li>
+</ul>
+</li>
+<li>索引</li>
+<li>按序遍历访问</li>
+</ul>
+<h3 id="线性表的实现"><a href="#线性表的实现" class="headerlink" title="线性表的实现"></a>线性表的实现</h3><h4 id="顺序实现（数组）"><a href="#顺序实现（数组）" class="headerlink" title="顺序实现（数组）"></a>顺序实现（数组）</h4><p><img src="https://www.hello-algo.com/chapter_array_and_linkedlist/array.assets/array_definition.png" srcset="/img/loading.gif" lazyload alt="数组定义与存储方式"></p>
+<p><strong>使用物理位置的邻接关系表示逻辑的邻接关系</strong></p>
+<p>优点：</p>
+<ul>
+<li>无需增加额外的存储空间</li>
+<li>方便访问表中的任意节点</li>
+</ul>
+<p>缺点：<strong>插入和删除的操作效率低，空间浪费</strong></p>
+<ul>
+<li>指向线性表元素类型的指针</li>
+<li>数组规模（最大的元素个数）</li>
+<li>数组中的元素个数</li>
+</ul>
+<h4 id="链接实现（链表-）"><a href="#链接实现（链表-）" class="headerlink" title="链接实现（链表 ）"></a>链接实现（链表 ）</h4><p><img src="https://www.hello-algo.com/chapter_array_and_linkedlist/linked_list.assets/linkedlist_definition.png" srcset="/img/loading.gif" lazyload alt="链表定义与存储方式"></p>
+<ul>
+<li>单链表，双链表，循环链表</li>
+<li><strong>头结点</strong>：保证不用对首元素进行特殊讨论</li>
+</ul>
+<h2 id="线性表的类的实现"><a href="#线性表的类的实现" class="headerlink" title="线性表的类的实现"></a>线性表的类的实现</h2><ul>
+<li>线性表的抽象类</li>
+<li><strong>顺序表类</strong></li>
+<li><strong>链接表类</strong></li>
+</ul>
+<h3 id="线性表的抽象类"><a href="#线性表的抽象类" class="headerlink" title="线性表的抽象类"></a>线性表的抽象类</h3><p><strong>类模板</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">List</span><br>&#123;<br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-keyword">virtual</span> ~<span class="hljs-built_in">List</span>() &#123;&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">clear</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">int</span> <span class="hljs-title">length</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-type">int</span> index, <span class="hljs-type">const</span> ElementType&amp; element)</span> </span>= <span class="hljs-number">0</span>;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(<span class="hljs-type">int</span> index)</span> </span>= <span class="hljs-number">0</span>;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-type">const</span> ElementType&amp; element)</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> ElementType <span class="hljs-title">fetch</span><span class="hljs-params">(<span class="hljs-type">int</span> index)</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">traverse</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<div class="note note-primary">
+            <p>有关线性表抽象基类的若干说明：</p><ul><li><code>=0</code>代表在<strong>抽象基类</strong>中函数在基类中不实现，只在派生类中实现。（这也符合抽象基类的设计原理）<ul><li><code>=0</code>代表这是所有派生类的共同特征，但是在不同的派生类中又有各自不同的实现方式</li></ul></li><li><code>const</code>代表不可以修改<strong>数据成员</strong></li><li>在抽象基类中并未定义数据成员，因为不同的线性表的实现方式中，节点的定义是不同的：<ul><li>在顺序表类中，节点就是直接的数据存储</li><li>在链接表类中，节点还需要包括指针（前驱指针和后继指针）</li></ul></li></ul>
+          </div>
+
+<h3 id="顺序表类"><a href="#顺序表类" class="headerlink" title="顺序表类"></a>顺序表类</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;Exception.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;List.h&quot;</span></span><br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SequentialList</span> : <span class="hljs-keyword">public</span> List&lt;ElementType&gt;<br>&#123;<br><span class="hljs-keyword">private</span>:<br>	ElementType* elementData;<br>	<span class="hljs-type">int</span> currentLength, totalCapacity;<br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">expand</span><span class="hljs-params">()</span></span>;<br><br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-built_in">SequentialList</span>(<span class="hljs-type">int</span> size = <span class="hljs-number">10</span>);<br>	~<span class="hljs-built_in">SequentialList</span>();<br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">clear</span><span class="hljs-params">()</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">length</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">capacity</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-type">int</span> index, <span class="hljs-type">const</span> ElementType&amp; element)</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(<span class="hljs-type">int</span> index)</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-type">const</span> ElementType&amp; element)</span> <span class="hljs-type">const</span></span>;<br>	<span class="hljs-function">ElementType <span class="hljs-title">fetch</span><span class="hljs-params">(<span class="hljs-type">int</span> index)</span> <span class="hljs-type">const</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">traverse</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;<br>	<span class="hljs-function">ElementType <span class="hljs-title">back</span><span class="hljs-params">()</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">append</span><span class="hljs-params">(<span class="hljs-type">const</span> ElementType&amp; element)</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">cancel</span><span class="hljs-params">()</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">resize</span><span class="hljs-params">(<span class="hljs-type">int</span> size)</span></span>;<br>	ElementType&amp; <span class="hljs-keyword">operator</span>[](<span class="hljs-type">int</span> index);<br>	ElementType&amp; <span class="hljs-keyword">operator</span>[](<span class="hljs-type">int</span> index) <span class="hljs-type">const</span>;<br>&#125;;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-comment">//expand the list for a larger memory</span><br><span class="hljs-type">void</span> SequentialList&lt;ElementType&gt;::<span class="hljs-built_in">expand</span>()<br>&#123;<br>	ElementType* tempData = elementData;<br>	totalCapacity *= <span class="hljs-number">2</span>;<br>	elementData = <span class="hljs-keyword">new</span> ElementType[totalCapacity];<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; currentLength; i++)<br>		elementData[i] = tempData[i];<br>	<span class="hljs-keyword">delete</span>[] tempData;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-comment">//constructor function</span><br>SequentialList&lt;ElementType&gt;::<span class="hljs-built_in">SequentialList</span>(<span class="hljs-type">int</span> size)<br>&#123;<br>	currentLength = <span class="hljs-number">0</span>;<br>	totalCapacity = size;<br>	elementData = <span class="hljs-keyword">new</span> ElementType[size];<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-comment">//destructor function</span><br>SequentialList&lt;ElementType&gt;::~<span class="hljs-built_in">SequentialList</span>()<br>&#123;<br>	<span class="hljs-keyword">delete</span>[] elementData;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-comment">//clear the list</span><br><span class="hljs-type">void</span> SequentialList&lt;ElementType&gt;::<span class="hljs-built_in">clear</span>()<br>&#123;<br>	currentLength = <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-comment">//the const means the function cannot modify the value of the statics of the object</span><br><span class="hljs-type">int</span> SequentialList&lt;ElementType&gt;::<span class="hljs-built_in">length</span>() <span class="hljs-type">const</span><br>&#123;<br>	<span class="hljs-keyword">return</span> currentLength;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-type">int</span> SequentialList&lt;ElementType&gt;::<span class="hljs-built_in">capacity</span>() <span class="hljs-type">const</span><br>&#123;<br>	<span class="hljs-keyword">return</span> totalCapacity;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-comment">//insert the value on a certain index</span><br><span class="hljs-type">void</span> SequentialList&lt;ElementType&gt;::<span class="hljs-built_in">insert</span>(<span class="hljs-type">int</span> index, <span class="hljs-type">const</span> ElementType&amp; element)<br>&#123;<br>	<span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">0</span> || index &gt; currentLength)<span class="hljs-comment">//the index is INVALID</span><br>		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">IndexExceed</span>();<br>	<span class="hljs-keyword">if</span> (currentLength == totalCapacity)<br>		<span class="hljs-built_in">expand</span>();<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = currentLength; i &gt; index; i--)<br>		elementData[i] = elementData[i - <span class="hljs-number">1</span>];<br>    <span class="hljs-comment">//move each element backwards</span><br>	elementData[index] = element;<br>	currentLength++;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-comment">//delete the element on a certain index</span><br><span class="hljs-type">void</span> SequentialList&lt;ElementType&gt;::<span class="hljs-built_in">remove</span>(<span class="hljs-type">int</span> index)<br>&#123;<br>	<span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">0</span> || index &gt;= currentLength)<br>		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">IndexExceed</span>();<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = index; i &lt; currentLength - <span class="hljs-number">1</span>; i++)<br>		elementData[i] = elementData[i + <span class="hljs-number">1</span>];<br>	currentLength--;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-type">int</span> SequentialList&lt;ElementType&gt;::<span class="hljs-built_in">find</span>(<span class="hljs-type">const</span> ElementType&amp; element) <span class="hljs-type">const</span><br>&#123;<br>	<span class="hljs-type">int</span> i;<br>	<span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; currentLength &amp;&amp; elementData[i] != element; i++)<br>		;<br>    <span class="hljs-comment">//the loop end if the tarverse ends or the target element has been found</span><br>	<span class="hljs-keyword">if</span> (i == currentLength)<br>		<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>	<span class="hljs-keyword">else</span><br>		<span class="hljs-keyword">return</span> i;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br>ElementType SequentialList&lt;ElementType&gt;::<span class="hljs-built_in">fetch</span>(<span class="hljs-type">int</span> index) <span class="hljs-type">const</span><br>&#123;<br>	<span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">0</span> || index &gt;= currentLength)<br>		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">IndexExceed</span>();<br>	<span class="hljs-keyword">return</span> elementData[index];<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-type">void</span> SequentialList&lt;ElementType&gt;::<span class="hljs-built_in">traverse</span>() <span class="hljs-type">const</span><br>&#123;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; currentLength; i++)<br>		std::cout &lt;&lt; elementData[i] &lt;&lt; <span class="hljs-string">&quot;\t&quot;</span>;<br>	std::cout &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br>ElementType SequentialList&lt;ElementType&gt;::<span class="hljs-built_in">back</span>()<br>    <span class="hljs-comment">//return the last element</span><br>&#123;<br>	<span class="hljs-keyword">return</span> elementData[currentLength - <span class="hljs-number">1</span>];<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-type">void</span> SequentialList&lt;ElementType&gt;::<span class="hljs-built_in">append</span>(<span class="hljs-type">const</span> ElementType&amp; element)<br>&#123;<br>	<span class="hljs-built_in">insert</span>(currentLength, element);<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-type">void</span> SequentialList&lt;ElementType&gt;::<span class="hljs-built_in">cancel</span>()<br>&#123;<br>	<span class="hljs-built_in">remove</span>(currentLength - <span class="hljs-number">1</span>);<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-type">void</span> SequentialList&lt;ElementType&gt;::<span class="hljs-built_in">resize</span>(<span class="hljs-type">int</span> size)<br>&#123;<br>	<span class="hljs-keyword">if</span> (size &lt;= totalCapacity)<br>		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">InvalidModify</span>();<br>	ElementType* tempData = elementData;<br>	totalCapacity = size;<br>	elementData = <span class="hljs-keyword">new</span> ElementType[totalCapacity];<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; currentLength; i++)<br>		elementData[i] = tempData[i];<br>	<span class="hljs-keyword">delete</span>[] tempData;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br>ElementType&amp; SequentialList&lt;ElementType&gt;::<span class="hljs-keyword">operator</span>[](<span class="hljs-type">int</span> index)<br>&#123;<br>	<span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">0</span> || index &gt;= currentLength)<br>		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">IndexExceed</span>();<br>	<span class="hljs-keyword">return</span> elementData[index];<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br>ElementType&amp; SequentialList&lt;ElementType&gt;::<span class="hljs-keyword">operator</span>[](<span class="hljs-type">int</span> index) <span class="hljs-type">const</span><br>    <span class="hljs-comment">//Operator Overloading with const</span><br>&#123;<br>	<span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">0</span> || index &gt;= currentLength)<br>		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">IndexExceed</span>();<br>	<span class="hljs-keyword">return</span> elementData[index];<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="单链表类"><a href="#单链表类" class="headerlink" title="单链表类"></a>单链表类</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;Exception.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;List.h&quot;</span></span><br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SingleLinkedList</span> : <span class="hljs-keyword">public</span> List&lt;ElementType&gt;<br>&#123;<br><span class="hljs-keyword">private</span>:<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">ListNode</span><br>	&#123;<br>		ElementType data;<br>		ListNode* next;<br>		<span class="hljs-built_in">ListNode</span>() : <span class="hljs-built_in">data</span>(), <span class="hljs-built_in">next</span>(<span class="hljs-literal">nullptr</span>) &#123;&#125;<br>		<span class="hljs-built_in">ListNode</span>(<span class="hljs-type">const</span> ElementType&amp; _data, ListNode* _next = <span class="hljs-literal">nullptr</span>) : <span class="hljs-built_in">data</span>(_data), <span class="hljs-built_in">next</span>(_next) &#123;&#125;<br>        <span class="hljs-comment">//constructor</span><br>		~<span class="hljs-built_in">ListNode</span>() &#123;&#125;<br>        <span class="hljs-comment">//destructor</span><br>	&#125;;<br>	ListNode* head;<br>	<span class="hljs-type">int</span> currentLength;<br>	<span class="hljs-function">ListNode* <span class="hljs-title">place</span><span class="hljs-params">(<span class="hljs-type">int</span> index)</span> <span class="hljs-type">const</span></span>;<br><br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-built_in">SingleLinkedList</span>();<br>	~<span class="hljs-built_in">SingleLinkedList</span>();<br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">clear</span><span class="hljs-params">()</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">length</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-type">int</span> index, <span class="hljs-type">const</span> ElementType&amp; element)</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(<span class="hljs-type">int</span> index)</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-type">const</span> ElementType&amp; element)</span> <span class="hljs-type">const</span></span>;<br>	<span class="hljs-function">ElementType <span class="hljs-title">fetch</span><span class="hljs-params">(<span class="hljs-type">int</span> index)</span> <span class="hljs-type">const</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">traverse</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">append</span><span class="hljs-params">(<span class="hljs-type">const</span> ElementType&amp; element)</span></span>;<br>	<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">erase</span><span class="hljs-params">(<span class="hljs-type">int</span> index)</span></span>;<br>&#125;;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-keyword">typename</span> SingleLinkedList&lt;ElementType&gt;::ListNode* SingleLinkedList&lt;ElementType&gt;::<span class="hljs-built_in">place</span>(<span class="hljs-type">int</span> index) <span class="hljs-type">const</span><br>&#123;<br>	ListNode* p = head;<br>	<span class="hljs-keyword">while</span> (index &gt;= <span class="hljs-number">0</span>)<br>	&#123;<br>		index--;<br>		p = p-&gt;next;<br>	&#125;<br>	<span class="hljs-keyword">return</span> p;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br>SingleLinkedList&lt;ElementType&gt;::<span class="hljs-built_in">SingleLinkedList</span>()<br>&#123;<br>	head = <span class="hljs-keyword">new</span> ListNode;<br>	currentLength = <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br>SingleLinkedList&lt;ElementType&gt;::~<span class="hljs-built_in">SingleLinkedList</span>()<br>&#123;<br>	<span class="hljs-built_in">clear</span>();<br>	<span class="hljs-keyword">delete</span> head;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-type">void</span> SingleLinkedList&lt;ElementType&gt;::<span class="hljs-built_in">clear</span>()<br>&#123;<br>	ListNode* p = head-&gt;next, * q;<br>	head-&gt;next = <span class="hljs-literal">nullptr</span>;<br>	<span class="hljs-keyword">while</span> (p != <span class="hljs-literal">nullptr</span>)<br>	&#123;<br>		q = p-&gt;next;<br>		<span class="hljs-keyword">delete</span> p;<br>		p = q;<br>	&#125;<br>	currentLength = <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-type">int</span> SingleLinkedList&lt;ElementType&gt;::<span class="hljs-built_in">length</span>() <span class="hljs-type">const</span><br>&#123;<br>	<span class="hljs-keyword">return</span> currentLength;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-type">void</span> SingleLinkedList&lt;ElementType&gt;::<span class="hljs-built_in">insert</span>(<span class="hljs-type">int</span> index, <span class="hljs-type">const</span> ElementType&amp; element)<br>&#123;<br>	<span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">0</span> || index &gt; currentLength)<br>		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">IndexExceed</span>();<br>	ListNode* p = <span class="hljs-built_in">place</span>(index - <span class="hljs-number">1</span>);<br>	p-&gt;next = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(element, p-&gt;next);<br>	currentLength++;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-type">void</span> SingleLinkedList&lt;ElementType&gt;::<span class="hljs-built_in">remove</span>(<span class="hljs-type">int</span> index)<br>&#123;<br>	<span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">0</span> || index &gt;= currentLength)<br>		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">IndexExceed</span>();<br>	ListNode* p = <span class="hljs-built_in">place</span>(index - <span class="hljs-number">1</span>), * q = p-&gt;next;<br>	p-&gt;next = q-&gt;next;<br>	<span class="hljs-keyword">delete</span> q;<br>	currentLength--;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-type">int</span> SingleLinkedList&lt;ElementType&gt;::<span class="hljs-built_in">find</span>(<span class="hljs-type">const</span> ElementType&amp; element) <span class="hljs-type">const</span><br>&#123;<br>	ListNode* p = head-&gt;next;<br>	<span class="hljs-type">int</span> index = <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">while</span> (p != <span class="hljs-literal">nullptr</span> &amp;&amp; p-&gt;data != element)<br>	&#123;<br>		p = p-&gt;next;<br>		index++;<br>	&#125;<br>	<span class="hljs-keyword">if</span> (p == <span class="hljs-literal">nullptr</span>)<br>		<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>	<span class="hljs-keyword">else</span><br>		<span class="hljs-keyword">return</span> index;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br>ElementType SingleLinkedList&lt;ElementType&gt;::<span class="hljs-built_in">fetch</span>(<span class="hljs-type">int</span> index) <span class="hljs-type">const</span><br>&#123;<br>	<span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">0</span> || index &gt;= currentLength)<br>		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">IndexExceed</span>();<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">place</span>(index)-&gt;data;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-type">void</span> SingleLinkedList&lt;ElementType&gt;::<span class="hljs-built_in">traverse</span>() <span class="hljs-type">const</span><br>&#123;<br>	ListNode* p = head-&gt;next;<br>	<span class="hljs-keyword">while</span> (p != <span class="hljs-literal">nullptr</span>)<br>	&#123;<br>		std::cout &lt;&lt; p-&gt;data &lt;&lt; <span class="hljs-string">&quot;\t&quot;</span>;<br>		p = p-&gt;next;<br>	&#125;<br>	std::cout &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-type">void</span> SingleLinkedList&lt;ElementType&gt;::<span class="hljs-built_in">append</span>(<span class="hljs-type">const</span> ElementType&amp; element)<br>&#123;<br>	<span class="hljs-built_in">insert</span>(currentLength, element);<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-type">void</span> SingleLinkedList&lt;ElementType&gt;::<span class="hljs-built_in">erase</span>(<span class="hljs-type">int</span> index)<br>&#123;<br>	<span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">0</span> || index &gt;= currentLength)<br>		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">IndexExceed</span>();<br>	ListNode* p = <span class="hljs-built_in">place</span>(index - <span class="hljs-number">1</span>), * q = p-&gt;next;<br>	ElementType target = q-&gt;data;<br>	p-&gt;next = q-&gt;next;<br>	<span class="hljs-keyword">delete</span> q;<br>	<span class="hljs-type">int</span> count = <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">for</span> (p = head; p-&gt;next != <span class="hljs-literal">nullptr</span>;)<br>	&#123;<br>		<span class="hljs-keyword">if</span> (p-&gt;next-&gt;data == target)<br>		&#123;<br>			q = p-&gt;next;<br>			p-&gt;next = q-&gt;next;<br>			<span class="hljs-keyword">delete</span> q;<br>			count++;<br>		&#125;<br>		<span class="hljs-keyword">else</span><br>			p = p-&gt;next;<br>	&#125;<br>	currentLength -= count;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="STL：Standard-Template-Library"><a href="#STL：Standard-Template-Library" class="headerlink" title="STL：Standard Template Library"></a>STL：Standard Template Library</h2><p><strong>泛型思想</strong>：</p>
+<ul>
+<li>把算法和数据类型分离：<strong>模版函数</strong></li>
+<li>把算法和容器分离：<strong>STL和迭代器</strong></li>
+<li>把容器和数据类型分离：<strong>模板类</strong></li>
+</ul>
+<p>容器，迭代器，算法</p>
+<p><strong>迭代器</strong>：为每一种容器定义的表示其元素相对位置的类型，迭代器对象相当于指向容器中指向对象的指针，他将容器中对象的位置信息封装了起来。<strong>从使用者的角度而言，可以把迭代器当作一种抽象的指针。</strong></p>
+<p>每个容器提供两种迭代器，<code>const</code>和非<code>const</code></p>
+<div class="note note-info">
+            <p><strong>补充知识点：迭代器中重载的常见运算符</strong></p><p>在 C++ 中，迭代器通常会重载一组运算符，以便像指针一样使用它们。这些运算符使得迭代器能够在容器中进行遍历、索引以及修改数据。具体来说，常见的迭代器会重载以下运算符：</p><ol><li><strong>解引用运算符 <code>\*</code></strong></li></ol><ul><li><p><strong>作用</strong>：访问迭代器当前指向的元素。</p></li><li><p>示例</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp">std::vector&lt;<span class="hljs-type">int</span>&gt; v = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;<br><span class="hljs-keyword">auto</span> it = v.<span class="hljs-built_in">begin</span>();<br>std::cout &lt;&lt; *it;  <span class="hljs-comment">// 输出 1，指向第一个元素</span><br></code></pre></td></tr></table></figure></li></ul><ol start="2"><li><strong>箭头运算符 <code>-&gt;</code></strong></li></ol><ul><li><p><strong>作用</strong>：通过迭代器访问指向对象的成员（适用于指向对象的迭代器，如 <code>std::map</code>、<code>std::unordered_map</code> 等）。</p></li><li><p>示例</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp">std::vector&lt;std::pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&gt; v = &#123;&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>&#125;, &#123;<span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;&#125;;<br><span class="hljs-keyword">auto</span> it = v.<span class="hljs-built_in">begin</span>();<br>std::cout &lt;&lt; it-&gt;first &lt;&lt; <span class="hljs-string">&quot;, &quot;</span> &lt;&lt; it-&gt;second;  <span class="hljs-comment">// 输出 1, 2</span><br></code></pre></td></tr></table></figure></li></ul><ol start="3"><li><strong>前置递增运算符 <code>++</code></strong></li></ol><ul><li><p><strong>作用</strong>：将迭代器向前移动一个位置，指向容器中的下一个元素。</p></li><li><p>示例</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp">std::vector&lt;<span class="hljs-type">int</span>&gt; v = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;<br><span class="hljs-keyword">auto</span> it = v.<span class="hljs-built_in">begin</span>();<br>++it;  <span class="hljs-comment">// 将迭代器移动到第二个元素</span><br>std::cout &lt;&lt; *it;  <span class="hljs-comment">// 输出 2</span><br></code></pre></td></tr></table></figure></li></ul><ol start="4"><li><strong>后置递增运算符 <code>++</code></strong></li></ol><ul><li><p><strong>作用</strong>：与前置递增运算符类似，但它会返回移动前的迭代器，通常用于赋值操作中。</p></li><li><p>示例</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp">std::vector&lt;<span class="hljs-type">int</span>&gt; v = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;<br><span class="hljs-keyword">auto</span> it = v.<span class="hljs-built_in">begin</span>();<br><span class="hljs-keyword">auto</span> it_copy = it++;  <span class="hljs-comment">// it_copy 是移动前的迭代器，it 会向前移动</span><br>std::cout &lt;&lt; *it_copy;  <span class="hljs-comment">// 输出 1</span><br>std::cout &lt;&lt; *it;       <span class="hljs-comment">// 输出 2</span><br></code></pre></td></tr></table></figure></li></ul><ol start="5"><li><strong>前置递减运算符 <code>--</code></strong></li></ol><ul><li><p><strong>作用</strong>：将迭代器向后移动一个位置，指向容器中的前一个元素。</p></li><li><p>示例</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp">std::vector&lt;<span class="hljs-type">int</span>&gt; v = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;<br><span class="hljs-keyword">auto</span> it = v.<span class="hljs-built_in">end</span>();<br>--it;  <span class="hljs-comment">// 将迭代器移动到最后一个元素</span><br>std::cout &lt;&lt; *it;  <span class="hljs-comment">// 输出 4</span><br></code></pre></td></tr></table></figure></li></ul><ol start="6"><li><strong>后置递减运算符 <code>--</code></strong></li></ol><ul><li><p><strong>作用</strong>：与前置递减运算符类似，但它会返回移动前的迭代器。</p></li><li><p>示例</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp">std::vector&lt;<span class="hljs-type">int</span>&gt; v = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;<br><span class="hljs-keyword">auto</span> it = v.<span class="hljs-built_in">end</span>();<br><span class="hljs-keyword">auto</span> it_copy = it--;  <span class="hljs-comment">// it_copy 是移动前的迭代器，it 会向后移动</span><br>std::cout &lt;&lt; *it_copy;  <span class="hljs-comment">// 输出 4</span><br>std::cout &lt;&lt; *it;       <span class="hljs-comment">// 输出 3</span><br></code></pre></td></tr></table></figure></li></ul><ol start="7"><li><strong>比较运算符 <code>==</code> 和 <code>!=</code></strong></li></ol><ul><li><p><strong>作用</strong>：比较两个迭代器是否相等。对于容器中的元素，迭代器 <code>==</code> 表示它们指向同一个位置，<code>!=</code> 表示它们指向不同的位置。</p></li><li><p>示例</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp">std::vector&lt;<span class="hljs-type">int</span>&gt; v = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;<br><span class="hljs-keyword">auto</span> it1 = v.<span class="hljs-built_in">begin</span>();<br><span class="hljs-keyword">auto</span> it2 = v.<span class="hljs-built_in">begin</span>();<br><span class="hljs-keyword">auto</span> it3 = v.<span class="hljs-built_in">end</span>();<br><br>std::cout &lt;&lt; (it1 == it2);  <span class="hljs-comment">// 输出 1 (true)</span><br>std::cout &lt;&lt; (it1 != it3);  <span class="hljs-comment">// 输出 1 (true)</span><br></code></pre></td></tr></table></figure></li></ul><ol start="8"><li><strong>加法运算符 <code>+</code>（某些迭代器）</strong></li></ol><ul><li><p><strong>作用</strong>：允许迭代器跳过多个元素，通常返回一个新的迭代器。</p></li><li><p>示例</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp">std::vector&lt;<span class="hljs-type">int</span>&gt; v = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;<br><span class="hljs-keyword">auto</span> it = v.<span class="hljs-built_in">begin</span>();<br>it = it + <span class="hljs-number">2</span>;  <span class="hljs-comment">// 跳过两个元素，指向第三个元素</span><br>std::cout &lt;&lt; *it;  <span class="hljs-comment">// 输出 3</span><br></code></pre></td></tr></table></figure></li></ul><ol start="9"><li><strong>减法运算符 <code>-</code>（某些迭代器）</strong></li></ol><ul><li><p><strong>作用</strong>：允许迭代器向回跳过多个元素。</p></li><li><p>示例</p><p>（对于随机访问迭代器，如 <code>std::vector</code>）</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp">std::vector&lt;<span class="hljs-type">int</span>&gt; v = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;<br><span class="hljs-keyword">auto</span> it = v.<span class="hljs-built_in">end</span>();<br>it = it - <span class="hljs-number">2</span>;  <span class="hljs-comment">// 向回跳过两个元素，指向第三个元素</span><br>std::cout &lt;&lt; *it;  <span class="hljs-comment">// 输出 3</span><br></code></pre></td></tr></table></figure></li></ul><ol start="10"><li><strong>加法赋值运算符 <code>+=</code> 和 减法赋值运算符 <code>-=</code></strong></li></ol><ul><li><p><strong>作用</strong>：使迭代器向前或向后移动指定的步数。</p></li><li><p>示例</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp">std::vector&lt;<span class="hljs-type">int</span>&gt; v = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;<br><span class="hljs-keyword">auto</span> it = v.<span class="hljs-built_in">begin</span>();<br>it += <span class="hljs-number">2</span>;  <span class="hljs-comment">// 向前移动两个位置，指向第三个元素</span><br>std::cout &lt;&lt; *it;  <span class="hljs-comment">// 输出 3</span><br>it -= <span class="hljs-number">1</span>;  <span class="hljs-comment">// 向后移动一个位置</span><br>std::cout &lt;&lt; *it;  <span class="hljs-comment">// 输出 2</span><br></code></pre></td></tr></table></figure></li></ul><ol start="11"><li><strong>下标运算符 <code>[]</code>（适用于随机访问迭代器）</strong></li></ol><ul><li><p><strong>作用</strong>：通过下标访问迭代器当前所指向的元素。</p></li><li><p>示例</p><p>（对于随机访问迭代器，如 <code>std::vector</code>）：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp">std::vector&lt;<span class="hljs-type">int</span>&gt; v = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;<br><span class="hljs-keyword">auto</span> it = v.<span class="hljs-built_in">begin</span>();<br>std::cout &lt;&lt; it[<span class="hljs-number">2</span>];  <span class="hljs-comment">// 输出 3</span><br></code></pre></td></tr></table></figure></li></ul><p><strong>注意：8,9,10,11一般适用于随机访问迭代器（支持任意位置的跳跃访问和直接跳转，因此可以实现高效的前后移动），对应的容器有线性容器，如 <code>std::vector</code>、<code>std::deque</code>、<code>std::array</code> 和 <code>std::string</code><strong>，而</strong><code>std::set</code></strong> 和 **<code>std::map</code>**（以及它们的 <code>unordered</code> 版本），这些容器的迭代器也不支持随机访问，因为它们通常是基于树或哈希表的结构。</p>
+          </div>
+
+<h3 id="STL中的线性表"><a href="#STL中的线性表" class="headerlink" title="STL中的线性表"></a>STL中的线性表</h3><p>在 C++ 标准库中，<code>std::vector</code> 和 <code>std::list</code> 是两个常用的容器类，它们分别代表动态数组和双向链表。虽然它们都实现了 <code>std::container</code> 的接口，但它们的内部结构和适用场景不同，因此提供的库函数也有所不同。</p>
+<h4 id="1-std-vector-类的常见库函数"><a href="#1-std-vector-类的常见库函数" class="headerlink" title="1. std::vector 类的常见库函数"></a>1. <code>std::vector</code> 类的常见库函数</h4><p><code>std::vector</code> 是一个动态数组容器，支持随机访问。它非常适合用来存储需要频繁随机访问的数据。常见的成员函数包括：</p>
+<h5 id="1-1-构造函数和赋值操作"><a href="#1-1-构造函数和赋值操作" class="headerlink" title="1.1 构造函数和赋值操作"></a>1.1 构造函数和赋值操作</h5><ul>
+<li>**<code>vector()</code>**：默认构造函数，创建一个空的 <code>vector</code>。</li>
+<li>**<code>vector(n)</code>**：构造一个包含 <code>n</code> 个默认值的 <code>vector</code>。</li>
+<li>**<code>vector(n, value)</code>**：构造一个包含 <code>n</code> 个值为 <code>value</code> 的 <code>vector</code>。</li>
+<li>**<code>vector(begin, end)</code>**：使用范围 <code>[begin, end)</code> 的元素来构造 <code>vector</code>。</li>
+<li>**<code>operator=</code>**：赋值操作符，用于将一个 <code>vector</code> 赋值给另一个。</li>
+</ul>
+<h5 id="1-2-元素访问"><a href="#1-2-元素访问" class="headerlink" title="1.2 元素访问"></a>1.2 元素访问</h5><ul>
+<li>**<code>operator[]</code>**：通过下标访问元素。</li>
+<li>**<code>at()</code>**：通过下标访问元素，但会进行边界检查。</li>
+<li>**<code>front()</code>**：返回第一个元素。</li>
+<li>**<code>back()</code>**：返回最后一个元素。</li>
+<li>**<code>data()</code>**：返回指向第一个元素的指针。</li>
+</ul>
+<h5 id="1-3-容量操作"><a href="#1-3-容量操作" class="headerlink" title="1.3 容量操作"></a>1.3 容量操作</h5><ul>
+<li>**<code>size()</code>**：返回 <code>vector</code> 中元素的个数。</li>
+<li>**<code>capacity()</code>**：返回 <code>vector</code> 的容量（即 <code>vector</code> 可以存储的最大元素个数，不一定等于 <code>size()</code>）。</li>
+<li>**<code>empty()</code>**：检查 <code>vector</code> 是否为空。</li>
+<li>**<code>reserve()</code>**：预留至少可以容纳 <code>n</code> 个元素的空间。</li>
+<li>**<code>shrink_to_fit()</code>**：请求减少 <code>vector</code> 的容量，使其尽可能接近 <code>size()</code>，但不保证立即生效。</li>
+</ul>
+<h5 id="1-4-修改操作"><a href="#1-4-修改操作" class="headerlink" title="1.4 修改操作"></a>1.4 修改操作</h5><ul>
+<li>**<code>push_back()</code>**：在 <code>vector</code> 的末尾添加元素。</li>
+<li>**<code>pop_back()</code>**：删除 <code>vector</code> 中的最后一个元素。</li>
+<li>**<code>insert()</code>**：在指定位置插入元素。</li>
+<li>**<code>erase()</code>**：删除指定位置的元素。</li>
+<li>**<code>clear()</code>**：删除 <code>vector</code> 中的所有元素。</li>
+</ul>
+<h5 id="1-5-迭代器和算法"><a href="#1-5-迭代器和算法" class="headerlink" title="1.5 迭代器和算法"></a>1.5 迭代器和算法</h5><ul>
+<li>**<code>begin()</code>**：返回指向 <code>vector</code> 第一个元素的迭代器。</li>
+<li>**<code>end()</code>**：返回指向 <code>vector</code> 末尾元素之后位置的迭代器。</li>
+<li>**<code>rbegin()</code>**：返回指向 <code>vector</code> 最后一个元素的反向迭代器。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    std::vector&lt;<span class="hljs-type">int</span>&gt; v = &#123;<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>, <span class="hljs-number">50</span>&#125;;<br><br>    <span class="hljs-comment">// 使用反向迭代器进行遍历</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> it = v.<span class="hljs-built_in">rbegin</span>(); it != v.<span class="hljs-built_in">rend</span>(); ++it) &#123;<br>        std::cout &lt;&lt; *it &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;  <span class="hljs-comment">// 输出: 50 40 30 20 10</span><br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>rend()</code>**：返回指向 <code>vector</code> 第一个元素之前的反向迭代器。</li>
+</ul>
+<h5 id="1-6-其他操作"><a href="#1-6-其他操作" class="headerlink" title="1.6 其他操作"></a>1.6 其他操作</h5><ul>
+<li>**<code>swap()</code>**：交换两个 <code>vector</code> 的内容。</li>
+<li>**<code>resize()</code>**：改变 <code>vector</code> 的大小，如果新大小大于当前大小，新增的元素会用默认值初始化。</li>
+<li>**<code>emplace_back()</code>**：在 <code>vector</code> 末尾构造一个元素。</li>
+<li>**<code>emplace()</code>**：在指定位置构造一个元素。</li>
+</ul>
+<h3 id="2-std-list-类的常见库函数"><a href="#2-std-list-类的常见库函数" class="headerlink" title="2. std::list 类的常见库函数"></a>2. <code>std::list</code> 类的常见库函数</h3><p><code>std::list</code> 是一个双向链表容器，适合用来执行大量的插入和删除操作。由于是链表结构，<code>std::list</code> 不支持随机访问，只能进行顺序访问。常见的成员函数包括：</p>
+<h5 id="2-1-构造函数和赋值操作"><a href="#2-1-构造函数和赋值操作" class="headerlink" title="2.1 构造函数和赋值操作"></a>2.1 构造函数和赋值操作</h5><ul>
+<li>**<code>list()</code>**：默认构造函数，创建一个空的 <code>list</code>。</li>
+<li>**<code>list(n)</code>**：构造一个包含 <code>n</code> 个默认值的 <code>list</code>。</li>
+<li>**<code>list(n, value)</code>**：构造一个包含 <code>n</code> 个值为 <code>value</code> 的 <code>list</code>。</li>
+<li>**<code>list(begin, end)</code>**：使用范围 <code>[begin, end)</code> 的元素来构造 <code>list</code>。</li>
+<li>**<code>operator=</code>**：赋值操作符，用于将一个 <code>list</code> 赋值给另一个。</li>
+</ul>
+<h5 id="2-2-元素访问"><a href="#2-2-元素访问" class="headerlink" title="2.2 元素访问"></a>2.2 元素访问</h5><ul>
+<li>**<code>front()</code>**：返回 <code>list</code> 中的第一个元素。</li>
+<li>**<code>back()</code>**：返回 <code>list</code> 中的最后一个元素。</li>
+</ul>
+<h5 id="2-3-容量操作"><a href="#2-3-容量操作" class="headerlink" title="2.3 容量操作"></a>2.3 容量操作</h5><ul>
+<li>**<code>size()</code>**：返回 <code>list</code> 中元素的个数。</li>
+<li>**<code>empty()</code>**：检查 <code>list</code> 是否为空。</li>
+</ul>
+<h5 id="2-4-修改操作"><a href="#2-4-修改操作" class="headerlink" title="2.4 修改操作"></a>2.4 修改操作</h5><ul>
+<li>**<code>push_front()</code>**：将元素添加到 <code>list</code> 的前面。</li>
+<li>**<code>push_back()</code>**：将元素添加到 <code>list</code> 的末尾。</li>
+<li>**<code>pop_front()</code>**：删除 <code>list</code> 中的第一个元素。</li>
+<li>**<code>pop_back()</code>**：删除 <code>list</code> 中的最后一个元素。</li>
+<li>**<code>insert()</code>**：在指定位置插入一个元素。</li>
+<li>**<code>erase()</code>**：删除指定位置的元素。</li>
+<li>**<code>remove()</code>**：删除所有等于指定值的元素。</li>
+<li>**<code>clear()</code>**：删除 <code>list</code> 中的所有元素。</li>
+</ul>
+<h5 id="2-5-迭代器和算法"><a href="#2-5-迭代器和算法" class="headerlink" title="2.5 迭代器和算法"></a>2.5 迭代器和算法</h5><ul>
+<li>**<code>begin()</code>**：返回指向 <code>list</code> 第一个元素的迭代器。</li>
+<li>**<code>end()</code>**：返回指向 <code>list</code> 末尾元素之后位置的迭代器。</li>
+<li>**<code>rbegin()</code>**：返回指向 <code>list</code> 最后一个元素的反向迭代器。</li>
+<li>**<code>rend()</code>**：返回指向 <code>list</code> 第一个元素之前的反向迭代器。</li>
+</ul>
+<h5 id="2-6-其他操作"><a href="#2-6-其他操作" class="headerlink" title="2.6 其他操作"></a>2.6 其他操作</h5><ul>
+<li>**<code>swap()</code>**：交换两个 <code>list</code> 的内容。</li>
+<li>**<code>resize()</code>**：改变 <code>list</code> 的大小。如果新大小大于当前大小，新增的元素会使用默认值初始化。</li>
+<li>**<code>unique()</code>**：删除 <code>list</code> 中相邻的重复元素。</li>
+</ul>
+<h3 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h3><table>
+<thead>
+<tr>
+<th>操作</th>
+<th><code>std::vector</code></th>
+<th><code>std::list</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>构造函数</strong></td>
+<td><code>vector()</code>, <code>vector(n)</code>, <code>vector(n, value)</code></td>
+<td><code>list()</code>, <code>list(n)</code>, <code>list(n, value)</code></td>
+</tr>
+<tr>
+<td><strong>访问元素</strong></td>
+<td><code>operator[]</code>, <code>at()</code>, <code>front()</code>, <code>back()</code></td>
+<td><code>front()</code>, <code>back()</code></td>
+</tr>
+<tr>
+<td><strong>容量操作</strong></td>
+<td><code>size()</code>, <code>capacity()</code>, <code>reserve()</code>, <code>shrink_to_fit()</code></td>
+<td><code>size()</code>, <code>empty()</code></td>
+</tr>
+<tr>
+<td><strong>修改操作</strong></td>
+<td><code>push_back()</code>, <code>pop_back()</code>, <code>insert()</code>, <code>erase()</code>, <code>clear()</code></td>
+<td><code>push_front()</code>, <code>push_back()</code>, <code>pop_front()</code>, <code>pop_back()</code>, <code>insert()</code>, <code>erase()</code>, <code>clear()</code></td>
+</tr>
+<tr>
+<td><strong>迭代器操作</strong></td>
+<td><code>begin()</code>, <code>end()</code>, <code>rbegin()</code>, <code>rend()</code></td>
+<td><code>begin()</code>, <code>end()</code>, <code>rbegin()</code>, <code>rend()</code></td>
+</tr>
+<tr>
+<td><strong>其他操作</strong></td>
+<td><code>resize()</code>, <code>swap()</code>, <code>emplace_back()</code>, <code>emplace()</code></td>
+<td><code>swap()</code>, <code>resize()</code>, <code>unique()</code>, <code>remove()</code></td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong><code>std::vector</code></strong> 适合频繁的随机访问操作和需要动态扩展大小的场景，但在插入或删除操作上可能效率较低。</li>
+<li><strong><code>std::list</code></strong> 适合需要频繁插入和删除操作的场景，尤其是在容器中间的位置，虽然其访问速度较慢。</li>
+</ul>
+<p>选择使用哪个容器，取决于应用场景的需求：如果需要高效的随机访问，使用 <code>std::vector</code>；如果需要频繁地在容器中间插入和删除元素，使用 <code>std::list</code>。</p>
+<h2 id="线性表的应用"><a href="#线性表的应用" class="headerlink" title="线性表的应用"></a>线性表的应用</h2><h3 id="大整数处理"><a href="#大整数处理" class="headerlink" title="大整数处理"></a>大整数处理</h3><h3 id="多项式求和"><a href="#多项式求和" class="headerlink" title="多项式求和"></a>多项式求和</h3><h3 id="约瑟夫环问题"><a href="#约瑟夫环问题" class="headerlink" title="约瑟夫环问题"></a>约瑟夫环问题</h3><h3 id="动态内存管理"><a href="#动态内存管理" class="headerlink" title="动态内存管理"></a>动态内存管理</h3>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Algorithm/" class="category-chain-item">Algorithm</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+      
+        <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
+        <a href="/tags/Data-Structure/" class="print-no-link">#Data Structure</a>
+      
+        <a href="/tags/Linear-List/" class="print-no-link">#Linear List</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>DataStructure-LinearList</div>
+      <div>https://xiyuanyang-code.github.io/posts/DataStructure-LinearList/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>December 18, 2024</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>December 18, 2024</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Introduction-to-OOP/" title="Introduction-to-OOP">
+                        <span class="hidden-mobile">Introduction-to-OOP</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
