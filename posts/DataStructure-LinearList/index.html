@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/list.png">
 <meta property="article:published_time" content="2024-12-18T14:07:11.000Z">
-<meta property="article:modified_time" content="2024-12-18T14:16:13.069Z">
+<meta property="article:modified_time" content="2024-12-19T02:26:20.530Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -285,7 +285,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.2k words
+          5.2k words
         
       </span>
     
@@ -296,7 +296,7 @@
         
         
         
-          36 mins
+          44 mins
         
       </span>
     
@@ -412,6 +412,9 @@
 <li><strong>顺序表类</strong></li>
 <li><strong>链接表类</strong></li>
 </ul>
+<blockquote>
+<p>小tips：为了方便管理，以下的类实现都会使用<strong>动态内存分配</strong>到<strong>堆</strong>上，但实际上，堆的内存更容易碎片化，效率没有栈高</p>
+</blockquote>
 <h3 id="线性表的抽象类"><a href="#线性表的抽象类" class="headerlink" title="线性表的抽象类"></a>线性表的抽象类</h3><p><strong>类模板</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> ElementType&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">List</span><br>&#123;<br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-keyword">virtual</span> ~<span class="hljs-built_in">List</span>() &#123;&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">clear</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">int</span> <span class="hljs-title">length</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-type">int</span> index, <span class="hljs-type">const</span> ElementType&amp; element)</span> </span>= <span class="hljs-number">0</span>;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(<span class="hljs-type">int</span> index)</span> </span>= <span class="hljs-number">0</span>;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-type">const</span> ElementType&amp; element)</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> ElementType <span class="hljs-title">fetch</span><span class="hljs-params">(<span class="hljs-type">int</span> index)</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">traverse</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
@@ -563,6 +566,10 @@
 <li><strong><code>std::list</code></strong> 适合需要频繁插入和删除操作的场景，尤其是在容器中间的位置，虽然其访问速度较慢。</li>
 </ul>
 <p>选择使用哪个容器，取决于应用场景的需求：如果需要高效的随机访问，使用 <code>std::vector</code>；如果需要频繁地在容器中间插入和删除元素，使用 <code>std::list</code>。</p>
+<div class="note note-info">
+            <p><strong>补充知识：内存和缓存：从硬件视角看数据结构的选择</strong></p><blockquote><p>以下内容整理自《Hello 算法》</p></blockquote><p>首先抛出观点：<strong>物理结构在很大程度上决定了程序对内存和缓存的使用效率。</strong></p><ul><li>计算机存储设备</li></ul><p>计算机中包括三种类型的存储设备：硬盘（hard disk）、内存（random-access memory, RAM）、缓存（cache memory）。表 4-2 展示了它们在计算机系统中的不同角色和性能特点。</p><p><a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_array_and_linkedlist/ram_and_cache/">表 4-2  计算机的存储设备</a></p><table><thead><tr><th align="left"></th><th align="left">硬盘</th><th align="left">内存</th><th align="left">缓存</th></tr></thead><tbody><tr><td align="left">用途</td><td align="left">长期存储数据，包括操作系统、程序、文件等</td><td align="left"><strong>临时存储当前运行的程序和正在处理的数据</strong></td><td align="left"><strong>存储经常访问的数据和指令，减少 CPU 访问内存的次数</strong></td></tr><tr><td align="left">易失性</td><td align="left">断电后数据不会丢失</td><td align="left">断电后数据会丢失</td><td align="left">断电后数据会丢失</td></tr><tr><td align="left">容量</td><td align="left">较大，TB 级别</td><td align="left">较小，GB 级别</td><td align="left">非常小，MB 级别</td></tr><tr><td align="left">速度</td><td align="left">较慢，几百到几千 MB&#x2F;s</td><td align="left">较快，几十 GB&#x2F;s</td><td align="left">非常快，几十到几百 GB&#x2F;s</td></tr><tr><td align="left">价格</td><td align="left">较便宜，几毛到几元 &#x2F; GB</td><td align="left">较贵，几十到几百元 &#x2F; GB</td><td align="left">非常贵，随 CPU 打包计价</td></tr></tbody></table><p><img src="https://www.hello-algo.com/chapter_array_and_linkedlist/ram_and_cache.assets/storage_pyramid.png" srcset="/img/loading.gif" lazyload alt="计算机存储系统 Hello算法"></p><p><strong>计算机的存储层次结构体现了在速度，容量和成本三者之间的精妙平衡</strong>。</p><ul><li>数据结构的<strong>内存效率</strong></li></ul><p>在上文我们已经比较过数组和链表在内存角度的优缺点：</p><ol><li>数组元素在内存上排列紧密，但是需要一整块内存进行存储。查找效率高但插入，删除效率低。</li><li>链表元素在内存上分散排布，但需要额外储存指针的值。插入、删除效率高但遍历效率低。<ul><li><strong>链表</strong>还有一个比较大的弊端：如果在链表中频繁的插入和删除，会导致<strong>内存的碎片化</strong>，是内存的使用效率降低。</li></ul></li></ol><ul><li>数据结构的<strong>缓存效率</strong>（Additional）</li></ul><p>缓存虽然在空间容量上远小于内存，但它比内存快得多，在程序执行速度上起着至关重要的作用。由于缓存的容量有限，只能存储一小部分频繁访问的数据，因此当 CPU 尝试访问的数据不在缓存中时，就会发生缓存未命中（cache miss），此时 CPU 不得不从速度较慢的内存中加载所需数据。</p><p>显然，<strong>“缓存未命中”越少，CPU 读写数据的效率就越高</strong>，程序性能也就越好。我们将 CPU 从缓存中成功获取数据的比例称为缓存命中率（cache hit rate），这个指标通常用来衡量缓存效率。</p><p>实际上，<strong>数组和链表对缓存的利用效率是不同的</strong>，主要体现在以下几个方面。</p><ul><li><strong>占用空间</strong>：链表元素比数组元素占用空间更多，导致缓存中容纳的有效数据量更少。</li><li><strong>缓存行</strong>：链表数据分散在内存各处，而缓存是“按行加载”的，因此加载到无效数据的比例更高。</li><li><strong>预取机制</strong>：数组比链表的数据访问模式更具“可预测性”，即系统更容易猜出即将被加载的数据。</li><li><strong>空间局部性</strong>：数组被存储在集中的内存空间中，因此被加载数据附近的数据更有可能即将被访问。</li></ul><p>总体而言，<strong>数组具有更高的缓存命中率，因此它在操作效率上通常优于链表</strong>。这使得在解决算法问题时，基于数组实现的数据结构往往更受欢迎。</p>
+          </div>
+
 <h2 id="线性表的应用"><a href="#线性表的应用" class="headerlink" title="线性表的应用"></a>线性表的应用</h2><h3 id="大整数处理"><a href="#大整数处理" class="headerlink" title="大整数处理"></a>大整数处理</h3><h3 id="多项式求和"><a href="#多项式求和" class="headerlink" title="多项式求和"></a>多项式求和</h3><h3 id="约瑟夫环问题"><a href="#约瑟夫环问题" class="headerlink" title="约瑟夫环问题"></a>约瑟夫环问题</h3><h3 id="动态内存管理"><a href="#动态内存管理" class="headerlink" title="动态内存管理"></a>动态内存管理</h3>
                 
               </div>
@@ -635,7 +642,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 18, 2024</div>
+          <div>December 19, 2024</div>
         </div>
       
       
@@ -665,6 +672,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/posts/DataStructure-Stack/" title="DataStructure-Stack">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">DataStructure-Stack</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
