@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Stack.jpg">
 <meta property="article:published_time" content="2024-12-12T02:13:03.000Z">
-<meta property="article:modified_time" content="2024-12-13T09:33:05.856Z">
+<meta property="article:modified_time" content="2024-12-20T12:15:45.801Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -348,7 +348,14 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Code-Reuse-in-OOP"><a href="#Code-Reuse-in-OOP" class="headerlink" title="Code Reuse in OOP"></a>Code Reuse in OOP</h1><p>C++的一个主要目标是促进代码重用。公有继承是实现这种目标的机制之一，但并不是唯一的机制。本章将介绍其他方法，其中之一是使用这样的类成员：本身是另一个类的对象。这种方法称为<strong>包含（containment）、组合（composition）或层次化（layering）</strong>。另一种方法是使用私有或保护继承。通常，<strong>包含、私有继承和保护继承</strong>用于实现 <strong>has-a</strong> 关系，即新的类将包含另一个类的对象。多重继承使得能够使用两个或更多的基类派生出新的类，将基类的功能组合在一起。</p>
+                <h1 id="Code-Reuse-in-OOP"><a href="#Code-Reuse-in-OOP" class="headerlink" title="Code Reuse in OOP"></a>Code Reuse in OOP</h1><h1 id="C-Primer-Plus-Tutorial-15"><a href="#C-Primer-Plus-Tutorial-15" class="headerlink" title="C++ Primer Plus Tutorial-15"></a>C++ Primer Plus Tutorial-15</h1><h1 id="面向对象编程教程——Section④"><a href="#面向对象编程教程——Section④" class="headerlink" title="面向对象编程教程——Section④"></a>面向对象编程教程——Section④</h1><center><p style="color: red;"><b><font size=6.5>Chapter 15 Code Reuse in OOP</font></b></p></center>
+
+<center><p style="color: red;"><b><font size=6.5>面向对象编程中的代码重用</font></b></p></center>
+
+<p>【写在前面的话】</p>
+<p><a href="https://xiyuanyang-code.github.io/posts/C-plus-plus-Primer-Plus-tutorial/">C++ Primer Plus Tutorial</a></p>
+<p><a href="https://xiyuanyang-code.github.io/tags/OOP/">系列文章</a></p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>C++的一个主要目标是促进代码重用。公有继承是实现这种目标的机制之一，但并不是唯一的机制。本章将介绍其他方法，其中之一是使用这样的类成员：本身是另一个类的对象。这种方法称为<strong>包含（containment）、组合（composition）或层次化（layering）</strong>。另一种方法是使用私有或保护继承。通常，<strong>包含、私有继承和保护继承</strong>用于实现 <strong>has-a</strong> 关系，即新的类将包含另一个类的对象。多重继承使得能够使用两个或更多的基类派生出新的类，将基类的功能组合在一起。</p>
 <p>同时，本章将介绍<strong>类模板</strong>——另一种重用代码的方法。类模板使我们能够使用通用术语定义类，然后使用模板来创建针对特定类型定义的特殊类。</p>
 <blockquote>
 <p>One of the main goals of C++ is to promote code reuse. Public inheritance is one of the mechanisms to achieve this goal, but not the only one. This chapter will introduce other methods, one of which is to use class members that are themselves objects of another class. This method is called containment, composition, or layering. Another method is to use private or protected inheritance. Generally, containment, private inheritance, and protected inheritance are used to implement the has - a relationship, that is, the new class will contain an object of another class. Multiple inheritance enables new classes to be derived from two or more base classes, combining the functionality of the base classes.</p>
@@ -518,7 +525,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 13, 2024</div>
+          <div>December 20, 2024</div>
         </div>
       
       
