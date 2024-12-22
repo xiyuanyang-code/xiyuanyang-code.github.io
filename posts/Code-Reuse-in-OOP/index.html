@@ -28,12 +28,13 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Stack.jpg">
 <meta property="article:published_time" content="2024-12-12T02:13:03.000Z">
-<meta property="article:modified_time" content="2024-12-21T11:44:22.074Z">
+<meta property="article:modified_time" content="2024-12-22T05:52:50.995Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="OOP">
 <meta property="article:tag" content="C++ Primer Plus">
+<meta property="article:tag" content="Finished">
 <meta property="article:tag" content="Inheritance">
 <meta property="article:tag" content="Code Reuse">
 <meta name="twitter:card" content="summary_large_image">
@@ -286,7 +287,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.8k words
+          12k words
         
       </span>
     
@@ -297,7 +298,7 @@
         
         
         
-          66 mins
+          98 mins
         
       </span>
     
@@ -361,7 +362,12 @@
 <p>One of the main goals of C++ is to promote code reuse. Public inheritance is one of the mechanisms to achieve this goal, but not the only one. This chapter will introduce other methods, one of which is to use class members that are themselves objects of another class. This method is called containment, composition, or layering. Another method is to use private or protected inheritance. Generally, containment, private inheritance, and protected inheritance are used to implement the has - a relationship, that is, the new class will contain an object of another class. Multiple inheritance enables new classes to be derived from two or more base classes, combining the functionality of the base classes.</p>
 <p>At the same time, this chapter will introduce class templates - another method of reusing code. Class templates enable us to define classes in general terms and then use the templates to create special classes defined for specific types.</p>
 </blockquote>
-<h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><h2 id="Containment-Composition-Layering"><a href="#Containment-Composition-Layering" class="headerlink" title="Containment Composition Layering"></a>Containment Composition Layering</h2><h3 id="valarray"><a href="#valarray" class="headerlink" title="valarray"></a><code>valarray</code></h3><p><code>valarray</code>被定义为一个模板类，能够处理不同的数据类型。</p>
+<h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><ul>
+<li>Containment Composition Layering</li>
+<li>Multiple Inheritance</li>
+<li>Class Template</li>
+</ul>
+<h2 id="Containment-Composition-Layering"><a href="#Containment-Composition-Layering" class="headerlink" title="Containment Composition Layering"></a>Containment Composition Layering</h2><h3 id="valarray"><a href="#valarray" class="headerlink" title="valarray"></a><code>valarray</code></h3><p><code>valarray</code>被定义为一个模板类，能够处理不同的数据类型。</p>
 <p>下面来看<code>valarray</code>的基本操作：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;valarray&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-function">valarray&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">list</span><span class="hljs-params">(<span class="hljs-number">10</span>,<span class="hljs-number">8</span>)</span></span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> num:list)&#123;<br>        cout&lt;&lt;num&lt;&lt;endl;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
@@ -467,7 +473,164 @@
 <p>输出：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Bash">Generic version<br>Specialized version <span class="hljs-keyword">for</span> pointer and int<br></code></pre></td></tr></table></figure>
 
-<h4 id="成员模版"><a href="#成员模版" class="headerlink" title="成员模版"></a>成员模版</h4><h4 id="将模板用作参数"><a href="#将模板用作参数" class="headerlink" title="将模板用作参数"></a>将模板用作参数</h4><h4 id="模板类和友元"><a href="#模板类和友元" class="headerlink" title="模板类和友元"></a>模板类和友元</h4><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2>
+<h4 id="成员模版"><a href="#成员模版" class="headerlink" title="成员模版"></a>成员模版</h4><p>模板可用作<strong>结构、类或模板类的成员</strong>。要完全实现 STL 的设计，必须使用这项特性。  </p>
+<p><strong>成员模板（Member Template）</strong>是 C++ 中的一种功能，允许<strong>在类中定义模板成员函数</strong>。这样，类的成员函数可以根据调用时的类型自动实例化，具备模板的灵活性。</p>
+<p>成员模板的主要作用是实现根据不同类型提供不同实现的功能，而不需要为每种类型手动编写多个成员函数。成员模板与类模板的结合使用，可以让类对不同类型的对象和数据进行通用处理。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// 成员模板函数</span><br>    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> U&gt;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">print</span><span class="hljs-params">(U value)</span> </span>&#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;Value: &quot;</span> &lt;&lt; value &lt;&lt; endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    MyClass&lt;<span class="hljs-type">int</span>&gt; obj;<br>    obj.<span class="hljs-built_in">print</span>(<span class="hljs-number">42</span>);       <span class="hljs-comment">// 传入 int 类型</span><br>    obj.<span class="hljs-built_in">print</span>(<span class="hljs-number">3.14</span>);     <span class="hljs-comment">// 传入 double 类型</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>MyClass</code> 是一个类模板，接受一个类型 <code>T</code>。</li>
+<li><code>print</code> 是一个成员模板函数，接受任意类型 <code>U</code> 的参数。</li>
+<li>在 <code>main</code> 函数中，分别用 <code>int</code> 和 <code>double</code> 类型调用 <code>print</code>，成员模板会根据传入类型进行实例化。</li>
+</ul>
+<ol>
+<li><strong>模板参数化成员函数</strong>：成员模板使得同一个成员函数可以根据调用的类型实例化不同的实现。</li>
+<li><strong>灵活性</strong>：可以使类的成员函数适应多种不同的数据类型，而不需要手动为每种类型编写重载函数。</li>
+<li><strong>与类模板配合使用</strong>：通常<strong>成员模板</strong>是与<strong>类模板</strong>配合使用的，使得类和其成员函数都可以泛化。</li>
+</ol>
+<blockquote>
+<p>成员模版相当于对类中的成员函数使用<strong>函数模版</strong>。C++泛型的两种<strong>模板机制</strong>在此刻得到了统一。</p>
+</blockquote>
+<p>我们来看一个更加复杂的例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// tempmemb.cpp -- template members</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> std::cout;<br><span class="hljs-keyword">using</span> std::endl;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">beta</span><br>&#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> V&gt;  <span class="hljs-comment">// nested template class member</span><br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">hold</span><br>    &#123;<br>    <span class="hljs-keyword">private</span>:<br>        V val;<br>    <span class="hljs-keyword">public</span>:<br>        <span class="hljs-built_in">hold</span>(V v  = <span class="hljs-number">0</span>) : <span class="hljs-built_in">val</span>(v) &#123;&#125;<br>        <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123; cout &lt;&lt; val &lt;&lt; endl; &#125;<br>        <span class="hljs-function">V <span class="hljs-title">Value</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123; <span class="hljs-keyword">return</span> val; &#125;<br>    &#125;;<br>    hold&lt;T&gt; q;             <span class="hljs-comment">// template object</span><br>    hold&lt;<span class="hljs-type">int</span>&gt; n;           <span class="hljs-comment">// template object</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">beta</span>( T t, <span class="hljs-type">int</span> i) : <span class="hljs-built_in">q</span>(t), <span class="hljs-built_in">n</span>(i) &#123;&#125;<br>    <span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> U&gt;   <span class="hljs-comment">// template method</span><br>    <span class="hljs-function">U <span class="hljs-title">blab</span><span class="hljs-params">(U u, T t)</span> </span>&#123; <span class="hljs-keyword">return</span> (n.<span class="hljs-built_in">Value</span>() + q.<span class="hljs-built_in">Value</span>()) * u / t; &#125;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Show</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123; q.<span class="hljs-built_in">show</span>(); n.<span class="hljs-built_in">show</span>();&#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">beta&lt;<span class="hljs-type">double</span>&gt; <span class="hljs-title">guy</span><span class="hljs-params">(<span class="hljs-number">3.5</span>, <span class="hljs-number">3</span>)</span></span>;<br>    cout &lt;&lt; <span class="hljs-string">&quot;T was set to double\n&quot;</span>;<br>    guy.<span class="hljs-built_in">Show</span>();<br>    cout &lt;&lt; <span class="hljs-string">&quot;V was set to T, which is double, then V was set to int\n&quot;</span>;<br>    cout &lt;&lt; guy.<span class="hljs-built_in">blab</span>(<span class="hljs-number">10</span>, <span class="hljs-number">2.3</span>) &lt;&lt; endl;<br>    cout &lt;&lt; <span class="hljs-string">&quot;U was set to int\n&quot;</span>;<br>    cout &lt;&lt; guy.<span class="hljs-built_in">blab</span>(<span class="hljs-number">10.0</span>, <span class="hljs-number">2.3</span>) &lt;&lt; endl;<br>    cout &lt;&lt; <span class="hljs-string">&quot;U was set to double\n&quot;</span>;<br>    cout &lt;&lt; <span class="hljs-string">&quot;Done\n&quot;</span>;<br>    <span class="hljs-comment">// std::cin.get();</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>输出示例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs Bash">T was <span class="hljs-built_in">set</span> to double<br>3.5<br>3<br>V was <span class="hljs-built_in">set</span> to T, <span class="hljs-built_in">which</span> is double, <span class="hljs-keyword">then</span> V was <span class="hljs-built_in">set</span> to int<br>28<br>U was <span class="hljs-built_in">set</span> to int<br>28.2609<br>U was <span class="hljs-built_in">set</span> to double<br>Done<br></code></pre></td></tr></table></figure>
+
+<p>模板类<code>hold</code>是<code>beta</code>类的私有成员，在此处一共定义了三个<strong>模版参数</strong>T，V和U，在main函数中，语句<code> beta&lt;double&gt; guy(3.5, 3);</code>将T设置为<code>double</code>类型，因此在guy（是一个beta类）中有两个数据成员：<code>hold&lt;double&gt;</code>和<code>hold&lt;int&gt;</code>。（在这里模版参数V先后被<strong>隐式实例化</strong>为<code>int</code>和<code>double</code>）接下来执行语句<code>guy.blab(10, 2.3)</code>，模版参数U被<strong>隐式实例化</strong>为<code>int</code>（<code>guy.blab(10, 2.3)</code>时也类似）。</p>
+<h4 id="将模板用作参数"><a href="#将模板用作参数" class="headerlink" title="将模板用作参数"></a>将模板用作参数</h4><p>将模板用作参数（Template as a Parameter）是 C++ 中的一种技术，允许将模板本身作为函数、类或其他模板的参数。这种技术通常被称为 <strong>模板模板参数</strong>。它使得可以灵活地将一个模板传递给另一个模板，从而实现高度的泛化和定制化。</p>
+<p>当你将模板用作参数时，你可以传递<strong>一个模板的类型</strong>，而不是实际的类型。这对于处理模板类或函数更加灵活，允许<strong>模板参数不仅是类型，还可以是其他模板类型</strong>。</p>
+<blockquote>
+<p>有一点套娃的感觉</p>
+</blockquote>
+<p><strong>示例 1：将模板作为函数参数</strong></p>
+<p>下面的例子展示了如何将一个模板类作为另一个模板函数的参数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-comment">// 模板类</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    T value;<br>    <span class="hljs-built_in">MyClass</span>(T v) : <span class="hljs-built_in">value</span>(v) &#123;&#125;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span> </span>&#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;Value: &quot;</span> &lt;&lt; value &lt;&lt; endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">// 一个函数模板，接受模板类作为参数</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span>&gt; <span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br>    <span class="hljs-comment">//这里模版参数T代表一个模版类(在后续main函数中，T被隐式实例化为MyClass这个模板类)</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">callTemplateClass</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">T&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">obj</span><span class="hljs-params">(<span class="hljs-number">42</span>)</span></span>;  <span class="hljs-comment">// 使用模板类 MyClass&lt;int&gt;</span><br>    obj.<span class="hljs-built_in">print</span>();     <span class="hljs-comment">// 输出 &quot;Value: 42&quot;</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-built_in">callTemplateClass</span>&lt;MyClass&gt;();  <span class="hljs-comment">// 调用时传递 MyClass 作为模板</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Value: 42<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>MyClass</code> 是一个模板类，接受一个类型 <code>T</code>。</li>
+<li><code>callTemplateClass</code> 是一个<strong>模板函数，接受一个模板类作为参数</strong>。<code>template &lt;template &lt;typename&gt; class T&gt;</code> 表示 <code>T</code> 是一个<strong>模板模板参数</strong>。</li>
+<li>在 <code>main</code> 函数中，我们调用 <code>callTemplateClass&lt;MyClass&gt;()</code>，将 <code>MyClass</code> 作为模板传递给 <code>callTemplateClass</code> 函数。</li>
+</ul>
+<blockquote>
+<p>这种规则本质上增添了<strong>模版参数的多样性和灵活性</strong>。</p>
+</blockquote>
+<p><strong>示例 2：将模板作为类参数</strong></p>
+<p>模板也可以作为类的成员，允许类在定义时接受模板作为参数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-comment">// 定义一个模板类</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    T value;<br>    <span class="hljs-built_in">MyClass</span>(T v) : <span class="hljs-built_in">value</span>(v) &#123;&#125;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span> </span>&#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;Value: &quot;</span> &lt;&lt; value &lt;&lt; endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">// 定义一个类模板，接受模板作为参数</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span>&gt; <span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Wrapper</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    T&lt;<span class="hljs-type">int</span>&gt; obj;  <span class="hljs-comment">// 用 T&lt;int&gt; 来实例化模板类</span><br>    <span class="hljs-built_in">Wrapper</span>(<span class="hljs-type">int</span> v) : <span class="hljs-built_in">obj</span>(v) &#123;&#125;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span> </span>&#123;<br>        obj.<span class="hljs-built_in">print</span>();<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">Wrapper&lt;MyClass&gt; <span class="hljs-title">w</span><span class="hljs-params">(<span class="hljs-number">10</span>)</span></span>;  <span class="hljs-comment">// 传递 MyClass 作为模板</span><br>    w.<span class="hljs-built_in">print</span>();  <span class="hljs-comment">// 输出 &quot;Value: 10&quot;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Wrapper</code> 是一个模板类，接受一个模板类作为参数（<code>template &lt;template &lt;typename&gt; class T&gt;</code>）。</li>
+<li><code>Wrapper</code> 类使用 <code>T&lt;int&gt;</code> 来实例化模板类，并通过 <code>obj.print()</code> 来调用它的成员函数。</li>
+<li>在 <code>main</code> 函数中，我们创建了 <code>Wrapper&lt;MyClass&gt;</code> 对象，将 <code>MyClass</code> 作为模板传递给 <code>Wrapper</code>。</li>
+</ul>
+<p><strong>使用模板作为参数的优点</strong></p>
+<ol>
+<li><strong>高度灵活性</strong>：允许传递不同的模板类或函数，增强代码的复用性。</li>
+<li><strong>避免代码重复</strong>：通过接受模板模板参数，可以减少对同类逻辑的多次实现，只需一个模板就能处理不同的类型或类。</li>
+<li><strong>泛化</strong>：通过使用模板模板参数，可以让代码对更多的类型和模板更加通用。</li>
+</ol>
+<h4 id="模板类和友元"><a href="#模板类和友元" class="headerlink" title="模板类和友元"></a>模板类和友元</h4><p>模板类声明也可以有友元。模板的友元分 3 类：</p>
+<ul>
+<li><strong>非模板友元</strong>；</li>
+<li><strong>约束（bound）模板友元</strong>，即友元的类型取决于类被<strong>实例化</strong>时的类型；</li>
+<li><strong>非约束（unbound）模板友元</strong>，即友元的所有具体化都是类的每一个具体化的友元。</li>
+</ul>
+<h5 id="非模版友元"><a href="#非模版友元" class="headerlink" title="非模版友元"></a>非模版友元</h5><p>在 C++ 中，<strong>模板类的非模板友元函数</strong>是指一个<strong>非模板函数</strong>被声明为一个模板类的友元。这样，非模板友元函数可以访问模板类的私有和保护成员。与普通的友元函数类似，非模板友元函数允许特定的函数访问类的内部实现，但在模板类中，它们<strong>并不依赖于模板参数</strong>。</p>
+<p>假设我们有一个模板类 <code>MyClass</code>，其中包含一个私有成员 <code>value</code>，并希望定义一个非模板函数来访问它。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    T value;<br>    <br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">MyClass</span>(T v) : <span class="hljs-built_in">value</span>(v) &#123;&#125;<br><br>    <span class="hljs-comment">// 声明一个非模板友元函数</span><br>    <span class="hljs-function"><span class="hljs-keyword">friend</span> <span class="hljs-type">void</span> <span class="hljs-title">printValue</span><span class="hljs-params">(<span class="hljs-type">const</span> MyClass&lt;<span class="hljs-type">int</span>&gt;&amp; obj)</span></span>;  <span class="hljs-comment">// 只对 MyClass&lt;int&gt; 类型的对象有效</span><br>&#125;;<br><br><span class="hljs-comment">// 非模板友元函数</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">printValue</span><span class="hljs-params">(<span class="hljs-type">const</span> MyClass&lt;<span class="hljs-type">int</span>&gt;&amp; obj)</span> </span>&#123;<br>    cout &lt;&lt; <span class="hljs-string">&quot;Value: &quot;</span> &lt;&lt; obj.value &lt;&lt; endl;  <span class="hljs-comment">// 可以访问 MyClass&lt;int&gt; 的私有成员</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">MyClass&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">obj</span><span class="hljs-params">(<span class="hljs-number">42</span>)</span></span>;  <span class="hljs-comment">// 创建一个 MyClass&lt;int&gt; 类型的对象</span><br>    <span class="hljs-built_in">printValue</span>(obj);       <span class="hljs-comment">// 调用非模板友元函数，打印值</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li><code>MyClass</code> 是一个模板类，接受类型 <code>T</code> 作为模板参数，并包含一个私有成员 <code>value</code>。</li>
+<li><code>printValue</code> 是一个非模板函数，它被声明为 <code>MyClass&lt;int&gt;</code> 的友元函数。由于 <code>printValue</code> 只与 <code>MyClass&lt;int&gt;</code> 相关，因此它的参数类型为 <code>MyClass&lt;int&gt;</code>，而不是模板类型 <code>T</code>。</li>
+<li>在 <code>main</code> 函数中，我们创建了一个 <code>MyClass&lt;int&gt;</code> 类型的对象，并通过 <code>printValue</code> 访问其私有成员。</li>
+</ol>
+<p><strong>注意点</strong></p>
+<ul>
+<li><strong>非模板友元函数的类型限定</strong>：非模板友元函数只能访问<strong>特定模板实例化的类的成员</strong>。在上述例子中，<code>printValue</code> 只能作为 <code>MyClass&lt;int&gt;</code> 的友元函数，而无法访问其他类型实例化的 <code>MyClass</code> 对象（例如 <code>MyClass&lt;double&gt;</code>）。</li>
+<li><strong>模板类和非模板友元函数的结合</strong>：非模板友元函数与模板类的结合需要对特定类型的模板实例进行访问，因此它通常不如模板友元函数灵活。但它在某些场景中非常有用，例如当<strong>你只希望特定类型的模板类暴露内部实现时</strong>。</li>
+</ul>
+<blockquote>
+<p>一般来说，非模版友元函数和普通的友元函数没有区别（针对<strong>特定实例化后的友元函数</strong>），这样做一定程度上牺牲了泛型编程的<strong>通用性</strong>，但可以对特定类型做<strong>更精细的操作</strong>。</p>
+</blockquote>
+<h5 id="约束友元"><a href="#约束友元" class="headerlink" title="约束友元"></a>约束友元</h5><p>为约束模板友元作准备，要使<strong>类的每一个具体化都获得与友元匹配的具体化</strong>。这比非模板友元复杂些。包含以下三步：</p>
+<ul>
+<li>在类定义的前面声明每个模板函数  <ul>
+<li><code>template &lt;typename T&gt; void counts();</code></li>
+<li><code>template &lt;typename T&gt; void report(T &amp;);</code></li>
+</ul>
+</li>
+<li>在函数中再次将模板声明为友元。这些语句根据类模板参数的类型声明具体化  <ul>
+<li><code>template &lt;typename TT&gt;</code>（类模版的模版参数声明）</li>
+<li><code> friend void counts&lt;TT&gt;();</code></li>
+<li>声明中的<code>&lt;&gt;</code>指出这是模板具体化。对于<code>report()</code>， <code>&lt;&gt;</code>可以为空，因为可以从函数参数推断出。</li>
+</ul>
+</li>
+<li>为友元提供模板定义 <ul>
+<li><code>template &lt;typename T&gt;   void counts()</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// tmp2tmp.cpp -- template friends to a template class</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> std::cout;<br><span class="hljs-keyword">using</span> std::endl;<br><br><span class="hljs-comment">// template prototypes</span><br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">report</span><span class="hljs-params">(T &amp;)</span></span>;<br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">counts</span><span class="hljs-params">()</span></span>;<br><br><span class="hljs-comment">// template class</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> TT&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">HasFriendT</span><br>&#123;<br><span class="hljs-keyword">private</span>:<br>    TT item;<br>    <span class="hljs-type">static</span> <span class="hljs-type">int</span> ct;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">HasFriendT</span>(<span class="hljs-type">const</span> TT &amp; i) : <span class="hljs-built_in">item</span>(i) &#123;ct++;&#125;<br>    ~<span class="hljs-built_in">HasFriendT</span>() &#123; ct--; &#125;<br>    <span class="hljs-keyword">friend</span> <span class="hljs-type">void</span> <span class="hljs-built_in">counts</span>&lt;TT&gt;();<br>    <span class="hljs-keyword">friend</span> <span class="hljs-type">void</span> report&lt;&gt;(HasFriendT&lt;TT&gt; &amp;);<br>&#125;;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-type">int</span> HasFriendT&lt;T&gt;::ct = <span class="hljs-number">0</span>;<br><br><span class="hljs-comment">// template friend functions definitions</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">counts</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cout &lt;&lt; <span class="hljs-string">&quot;template size: &quot;</span> &lt;&lt; <span class="hljs-built_in">sizeof</span>(HasFriendT&lt;T&gt;) &lt;&lt; <span class="hljs-string">&quot;; &quot;</span>;<br>    cout &lt;&lt; <span class="hljs-string">&quot;template counts(): &quot;</span> &lt;&lt; HasFriendT&lt;T&gt;::ct &lt;&lt; endl;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">report</span><span class="hljs-params">(T &amp; hf)</span></span><br><span class="hljs-function"></span>&#123;<br>    cout &lt;&lt; hf.item &lt;&lt; endl;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">counts</span>&lt;<span class="hljs-type">int</span>&gt;();<br>    <span class="hljs-function">HasFriendT&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">hfi1</span><span class="hljs-params">(<span class="hljs-number">10</span>)</span></span>;<br>    <span class="hljs-function">HasFriendT&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">hfi2</span><span class="hljs-params">(<span class="hljs-number">20</span>)</span></span>;<br>    <span class="hljs-function">HasFriendT&lt;<span class="hljs-type">double</span>&gt; <span class="hljs-title">hfdb</span><span class="hljs-params">(<span class="hljs-number">10.5</span>)</span></span>;<br>    <span class="hljs-built_in">report</span>(hfi1);  <span class="hljs-comment">// generate report(HasFriendT&lt;int&gt; &amp;)</span><br>    <span class="hljs-built_in">report</span>(hfi2);  <span class="hljs-comment">// generate report(HasFriendT&lt;int&gt; &amp;)</span><br>    <span class="hljs-built_in">report</span>(hfdb);  <span class="hljs-comment">// generate report(HasFriendT&lt;double&gt; &amp;)</span><br>    cout &lt;&lt; <span class="hljs-string">&quot;counts&lt;int&gt;() output:\n&quot;</span>;<br>    <span class="hljs-built_in">counts</span>&lt;<span class="hljs-type">int</span>&gt;();<br>    cout &lt;&lt; <span class="hljs-string">&quot;counts&lt;double&gt;() output:\n&quot;</span>;<br>    <span class="hljs-built_in">counts</span>&lt;<span class="hljs-type">double</span>&gt;();<br>    <span class="hljs-comment">// std::cin.get();</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-number">10</span><br><span class="hljs-number">20</span><br><span class="hljs-number">10.5</span><br>counts&lt;int&gt;() output:<br>template size: <span class="hljs-number">4</span>; template counts(): <span class="hljs-number">2</span><br>counts&lt;double&gt;() output:<br>template size: <span class="hljs-number">8</span>; template counts(): <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="非约束友元"><a href="#非约束友元" class="headerlink" title="非约束友元"></a>非约束友元</h5><p>前一节中的约束模板友元函数是在<strong>类外面声明的模板的具体化</strong>。 int 类具体化获得 int 函数具体化，依此类推。通过在类内部声明模板，可以<strong>创建非约束友元函数</strong>，即每个函数具体化都是每个类具体化的友元。对于非约束友元，友元模板类型参数与模板类类型参数是不同的。</p>
+<p><strong>非约束友元</strong>指的是模板类的友元函数或类没有任何类型约束，它们可以接受任何类型的模板实例化，并且不对模板参数施加限制。</p>
+<p>特点：</p>
+<ul>
+<li>友元函数可以访问模板类的私有成员。</li>
+<li>友元函数没有模板参数的约束，因此可以接受任何类型的模板实例化。</li>
+<li>没有额外的限制条件，适用性广泛。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// manyfrnd.cpp -- unbound template friend to a template class</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> std::cout;<br><span class="hljs-keyword">using</span> std::endl;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ManyFriend</span><br>&#123;<br><span class="hljs-keyword">private</span>:<br>    T item;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">ManyFriend</span>(<span class="hljs-type">const</span> T &amp; i) : <span class="hljs-built_in">item</span>(i) &#123;&#125;<br>    <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> C, <span class="hljs-keyword">typename</span> D&gt; <span class="hljs-function"><span class="hljs-keyword">friend</span> <span class="hljs-type">void</span> <span class="hljs-title">show2</span><span class="hljs-params">(C &amp;, D &amp;)</span></span>;<br>&#125;;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> C, <span class="hljs-keyword">typename</span> D&gt;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">show2</span><span class="hljs-params">(C &amp; c, D &amp; d)</span></span><br><span class="hljs-function"></span>&#123;<br>    cout &lt;&lt; c.item &lt;&lt; <span class="hljs-string">&quot;, &quot;</span> &lt;&lt; d.item &lt;&lt; endl;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">ManyFriend&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">hfi1</span><span class="hljs-params">(<span class="hljs-number">10</span>)</span></span>;<br>    <span class="hljs-function">ManyFriend&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">hfi2</span><span class="hljs-params">(<span class="hljs-number">20</span>)</span></span>;<br>    <span class="hljs-function">ManyFriend&lt;<span class="hljs-type">double</span>&gt; <span class="hljs-title">hfdb</span><span class="hljs-params">(<span class="hljs-number">10.5</span>)</span></span>;<br>    cout &lt;&lt; <span class="hljs-string">&quot;hfi1, hfi2: &quot;</span>;<br>    <span class="hljs-built_in">show2</span>(hfi1, hfi2);<br>    cout &lt;&lt; <span class="hljs-string">&quot;hfdb, hfi2: &quot;</span>;<br>    <span class="hljs-built_in">show2</span>(hfdb, hfi2);<br>    <span class="hljs-comment">// std::cin.get();</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell">hfi1, hfi2: <span class="hljs-number">10</span>, <span class="hljs-number">20</span><br>hfdb, hfi2: <span class="hljs-number">10.5</span>, <span class="hljs-number">20</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>非约束友元 vs 约束友元</strong></p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>非约束友元</th>
+<th>约束友元</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>定义</strong></td>
+<td>不对模板参数进行类型约束</td>
+<td>对<strong>模板参数进行类型约束</strong>（如通过概念、<code>enable_if</code>）</td>
+</tr>
+<tr>
+<td><strong>适用性</strong></td>
+<td>可以接受任何类型的模板实例</td>
+<td>只能接受符合约束条件的模板实例</td>
+</tr>
+<tr>
+<td><strong>类型安全性</strong></td>
+<td>没有类型限制，可能出现不安全的用法</td>
+<td>强制类型安全，只有符合特定条件的类型才能使用</td>
+</tr>
+<tr>
+<td><strong>灵活性</strong></td>
+<td>更加灵活，不限制类型</td>
+<td>更加严格，只能与特定类型一起使用</td>
+</tr>
+<tr>
+<td><strong>示例</strong></td>
+<td><code>friend void printValue(const MyClass&lt;T&gt;&amp; obj);</code></td>
+<td><code>friend void printValue(const MyClass&lt;T&gt;&amp; obj) requires IntegralType&lt;T&gt;;</code></td>
+</tr>
+</tbody></table>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>C++提供了几种重用代码的手段。第 13 章介绍的公有继承能够建立 is-a 关系，这样派生类可以重用基类的代码。私有继承和保护继承也使得能够重用基类的代码，但建立的是 has-a 关系。使用私有继承时，基类的公有成员和保护成员将成为派生类的私有成员；使用保护继承时，基类的公有成员和保护成员将成为派生类的保护成员。无论使用哪种继承，基类的公有接口都将成为派生类的内部接口。这有时候被称为继承实现，但并不继承接口，因为派生类对象不能显式地使用基类的接口。因此，不能将派生对象看作是一种基类对象。由于这个原因，在不进行显式类型转换的情况下，基类指针或引用将不能指向派生类对象。</p>
+<p>还可以通过开发包含对象成员的类来重用类代码。这种方法被称为包含、层次化或组合，它建立的也是has-a 关系。与私有继承和保护继承相比，包含更容易实现和使用，所以通常优先采用这种方式。然而，私有继承和保护继承比包含有一些不同的功能。例如，继承允许派生类访问基类的保护成员；还允许派生类重新定义从基类那里继承的虚函数。因为包含不是继承，所以通过包含来重用类代码时，不能使用这些功能。另一方面，如果需要使用某个类的几个对象，则用包含更适合。例如， State 类可以包含一组 County对象。</p>
+<p>多重继承（MI）使得能够在类设计中重用多个类的代码。私有 MI 或保护 MI 建立 has-a 关系，而公有MI 建立 is-a 关系。 MI 会带来一些问题，即多次定义同一个名称，继承多个基类对象。可以使用类限定符来解决名称二义性的问题，使用虚基类来避免继承多个基类对象的问题。但使用虚基类后，就需要为编写构造函数初始化列表以及解决二义性问题引入新的规则。</p>
+<p>类模板使得能够创建通用的类设计，其中类型（通常是成员类型）由类型参数表示。</p>
+<blockquote>
+<p>END For OOP</p>
+</blockquote>
+
                 
               </div>
             
@@ -508,6 +671,8 @@
       
         <a href="/tags/C-Primer-Plus/" class="print-no-link">#C++ Primer Plus</a>
       
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
         <a href="/tags/Inheritance/" class="print-no-link">#Inheritance</a>
       
         <a href="/tags/Code-Reuse/" class="print-no-link">#Code Reuse</a>
@@ -541,7 +706,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 21, 2024</div>
+          <div>December 22, 2024</div>
         </div>
       
       
