@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Stack2.png">
 <meta property="article:published_time" content="2024-12-19T02:06:53.000Z">
-<meta property="article:modified_time" content="2024-12-22T13:48:59.350Z">
+<meta property="article:modified_time" content="2024-12-28T13:38:18.244Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -285,7 +285,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k words
+          3.2k words
         
       </span>
     
@@ -296,7 +296,7 @@
         
         
         
-          21 mins
+          27 mins
         
       </span>
     
@@ -426,7 +426,29 @@
 <blockquote>
 <p>虽然相差只是几个字节的差距，但是<strong>一旦递归深度变大且数据类型本身所占内存数变多</strong>，这个开销将会大大的增长。</p>
 </blockquote>
-<h3 id="括号配对"><a href="#括号配对" class="headerlink" title="括号配对"></a>括号配对</h3><h3 id="简单的计算器"><a href="#简单的计算器" class="headerlink" title="简单的计算器"></a>简单的计算器</h3>
+<h3 id="括号配对"><a href="#括号配对" class="headerlink" title="括号配对"></a>括号配对</h3><p>在敲代码的过程中，相信大家都会遇到过<strong>括号太多或者括号不匹配</strong>的情况。编译器需要检查<strong>括号匹配</strong>的情况，并在发现异常时及时地报错。但是，括号具有多种类型：<code>()``[]``&#123;&#125;</code>，并且有些相互匹配的括号之间的间隔非常遥远。我们能够仅在<strong>一次扫描的过程中</strong>完成对括号配对的检查？</p>
+<p>下面为了方便，我们将<code>([&#123;</code>称为开括号，将<code>)]&#125;</code>称为闭括号。</p>
+<p>这个问题使用<strong>栈</strong>，可以很高效地解决。基本思路是：<strong>遇到闭括号时，将与最近遇到的且尚未被匹配的开括号进行匹配。</strong></p>
+<blockquote>
+<p>“<strong>最近遇到的</strong>的括号”和<strong>栈</strong>的LIFO特性不谋而合！</p>
+</blockquote>
+<p>确定基本算法的思想后，我们来细分到每一个步骤的实现：</p>
+<div class="note note-primary">
+            <ul><li>创建一个栈来维护括号的存储。（更具体来说：<strong>维护开括号的存储</strong>）</li><li>如果读取到一个开括号，进栈。<ul><li>因为<strong>匹配工作是依据闭括号来进行的，所以开括号进栈的时候不需要额外的操作。</strong></li></ul></li><li>如果读取到一个闭括号，则与栈顶的开括号进行匹配。（位于栈顶的开括号就是最近遇到的且尚未被匹配的开括号）<ul><li>如果匹配成功，那么这一对括号匹配成功，将开括号弹出栈。</li><li><strong>如果匹配失败，说明无法匹配。（例如<code>[{(}]</code>)，直接<code>return false</code>。</strong></li><li>如果此时栈已空，则说明不匹配。（闭括号的数量多于开括号的数量）</li></ul></li><li>完成所有的扫描后，若栈非空，则说明开括号的数量多于闭括号的数量。匹配失败。</li></ul>
+          </div>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stack&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">judgethemarkers</span><span class="hljs-params">(string s)</span></span>&#123;<br>    stack&lt;<span class="hljs-type">char</span>&gt; themarker;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> ch:s)&#123;<br>        <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;(&#x27;</span>||ch==<span class="hljs-string">&#x27;[&#x27;</span>||ch==<span class="hljs-string">&#x27;&#123;&#x27;</span>)&#123;<br>            themarker.<span class="hljs-built_in">push</span>(ch);<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">if</span>(themarker.<span class="hljs-built_in">empty</span>()) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            <span class="hljs-type">char</span> check=themarker.<span class="hljs-built_in">top</span>();<br>            <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;]&#x27;</span>&amp;&amp;check==<span class="hljs-string">&#x27;[&#x27;</span>) themarker.<span class="hljs-built_in">pop</span>();<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;)&#x27;</span>&amp;&amp;check==<span class="hljs-string">&#x27;(&#x27;</span>) themarker.<span class="hljs-built_in">pop</span>();<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;&#125;&#x27;</span>&amp;&amp;check==<span class="hljs-string">&#x27;&#123;&#x27;</span>) themarker.<span class="hljs-built_in">pop</span>();<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span>(!themarker.<span class="hljs-built_in">empty</span>()) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    string s;<br>    cin&gt;&gt;s;<br>    cout&lt;&lt;(<span class="hljs-built_in">judgethemarkers</span>(s)?<span class="hljs-string">&quot;Successful&quot;</span>:<span class="hljs-string">&quot;Unsuccessful&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>至此，栈的扫描功能已经完全实现，但是还有很多细节需要被优化：</p>
+<ul>
+<li>当括号出现在<strong>字符串，字符常量，注释</strong>中时，我们不希望括号被统计。</li>
+<li>实现更高级的功能，例如定位到具体哪个位置的括号匹配出现问题。</li>
+</ul>
+<p>为此，我们实现一个更加复杂的<code>balance</code>类，作为一个检查文件中代码括号匹配的工具。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;fstream&gt;</span>  <span class="hljs-comment">// for file input handling</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">balance</span><br>&#123;<br><span class="hljs-keyword">private</span>:<br>    ifstream fin;      <span class="hljs-comment">// File stream to be checked</span><br>    <span class="hljs-type">int</span> currentLine;   <span class="hljs-comment">// Current line being processed</span><br>    <span class="hljs-type">int</span> Errors;        <span class="hljs-comment">// Count of errors found</span><br><br>    <span class="hljs-comment">// Structure representing a symbol and its line number</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Symbol</span> &#123;<br>        <span class="hljs-type">char</span> Token;     <span class="hljs-comment">// Character token (e.g., braces, parentheses)</span><br>        <span class="hljs-type">int</span> TheLine;    <span class="hljs-comment">// Line number where the token is found</span><br>    &#125;;<br><br>    <span class="hljs-comment">// Enum for comment types</span><br>    <span class="hljs-keyword">enum</span> <span class="hljs-title class_">CommentType</span> &#123;<br>        SlashSlash,     <span class="hljs-comment">// C++ style comment (//)</span><br>        SlashStar       <span class="hljs-comment">// C style comment (/* */)</span><br>    &#125;;<br><br>    <span class="hljs-comment">// Utility functions for CheckBalance</span><br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">CheckMatch</span><span class="hljs-params">(<span class="hljs-type">char</span> Symb1, <span class="hljs-type">char</span> Symb2, <span class="hljs-type">int</span> Line1, <span class="hljs-type">int</span> Line2)</span></span>; <span class="hljs-comment">// Check if two symbols match (e.g., &#x27;(&#x27; and &#x27;)&#x27;)</span><br>    <span class="hljs-function"><span class="hljs-type">char</span> <span class="hljs-title">GetNextSymbol</span><span class="hljs-params">()</span></span>;          <span class="hljs-comment">// Get the next valid symbol from the input</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">PutBackChar</span><span class="hljs-params">(<span class="hljs-type">char</span> ch)</span></span>;     <span class="hljs-comment">// Push back a character to the input stream</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">SkipComment</span><span class="hljs-params">(<span class="hljs-keyword">enum</span> CommentType type)</span></span>; <span class="hljs-comment">// Skip over comments (C or C++ style)</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">SkipQuote</span><span class="hljs-params">(<span class="hljs-type">char</span> type)</span></span>;     <span class="hljs-comment">// Skip over quoted strings or characters</span><br>    <span class="hljs-function"><span class="hljs-type">char</span> <span class="hljs-title">NextChar</span><span class="hljs-params">()</span></span>;               <span class="hljs-comment">// Get the next character from the input file</span><br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// Constructor: Opens the file for checking</span><br>    <span class="hljs-built_in">balance</span>(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s);<br><br>    <span class="hljs-comment">// Check if the brackets/parentheses in the file are balanced</span><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">CheckBalance</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">noFile</span>&#123;&#125;;<span class="hljs-comment">//for the exception</span><br>&#125;;<br><br></code></pre></td></tr></table></figure>
+
+<p>除了构造函数之外，公有函数只有<code>CheckBalance</code>，其他工具函数全部为私有函数的形式，用户不需要直接调用。（<strong>对用户而言只提供唯一的接口，对程序员而言将不同的子功能在内部封装。</strong>）</p>
+<h3 id="简单的计算器"><a href="#简单的计算器" class="headerlink" title="简单的计算器"></a>简单的计算器</h3>
                 
               </div>
             
@@ -498,7 +520,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 22, 2024</div>
+          <div>December 28, 2024</div>
         </div>
       
       
@@ -528,6 +550,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-plus-plus">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Input-and-Output-in-C-plus-plus</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
