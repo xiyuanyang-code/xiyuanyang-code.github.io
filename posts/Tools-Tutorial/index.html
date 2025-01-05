@@ -19,28 +19,27 @@
   <meta name="author" content="Xiyuan Yang">
   <meta name="keywords" content="Code">
   
-    <meta name="description" content="In this article, You will learn how to use CMake to compile a more complex multi-file C++ program in Clion, together with some advice regarding building a formal cpp project with the help of CMake Too">
+    <meta name="description" content="In this article, you will learn a set of methodologies that teach you how to master the use of tools through practical approaches, while continuously improving your skills through ongoing practice.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CMake-tutorial-episode2">
-<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/CMake-tutorial-episode2/index.html">
+<meta property="og:title" content="Tools-Tutorial">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Tools-Tutorial/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
-<meta property="og:description" content="In this article, You will learn how to use CMake to compile a more complex multi-file C++ program in Clion, together with some advice regarding building a formal cpp project with the help of CMake Too">
+<meta property="og:description" content="In this article, you will learn a set of methodologies that teach you how to master the use of tools through practical approaches, while continuously improving your skills through ongoing practice.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/cmake.jpg">
-<meta property="article:published_time" content="2024-12-15T11:58:01.000Z">
-<meta property="article:modified_time" content="2024-12-15T12:02:32.026Z">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/tools.png">
+<meta property="article:published_time" content="2025-01-05T01:38:42.000Z">
+<meta property="article:modified_time" content="2025-01-05T02:21:07.176Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
-<meta property="article:tag" content="Finished">
-<meta property="article:tag" content="CMake">
+<meta property="article:tag" content="Methodologies">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/cmake.jpg">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/tools.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>CMake-tutorial-episode2 - Xiyuan Yang&#39;s Blog</title>
+  <title>Tools-Tutorial - Xiyuan Yang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -255,7 +254,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CMake-tutorial-episode2"></span>
+            <span id="subtitle" data-typed-text="Tools-Tutorial"></span>
           
         </div>
 
@@ -271,8 +270,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-12-15 19:58" pubdate>
-          December 15, 2024 pm
+        <time datetime="2025-01-05 09:38" pubdate>
+          January 5, 2025 am
         </time>
       </span>
     
@@ -378,7 +377,7 @@
       
         <a href="/posts/CMake-tutorial-episode2/" title="CMake-tutorial-episode2"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">CMake-tutorial-episode2</span>
         </a>
       
@@ -387,7 +386,7 @@
       
         <a href="/posts/Tools-Tutorial/" title="Tools-Tutorial"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">Tools-Tutorial</span>
         </a>
       
@@ -410,66 +409,84 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CMake-tutorial-episode2</h1>
+            <h1 id="seo-header">Tools-Tutorial</h1>
             
             
               <div class="markdown-body">
                 
-                <h3 id="CMake-编译多文件-C-程序：项目指南"><a href="#CMake-编译多文件-C-程序：项目指南" class="headerlink" title="CMake 编译多文件 C++ 程序：项目指南"></a>CMake 编译多文件 C++ 程序：项目指南</h3><p>本指南将帮助你使用 CMake 构建一个包含多个 <code>.cpp</code> 文件的 C++ 项目。我们将逐步介绍如何配置 <code>CMakeLists.txt</code> 文件，以及如何管理项目中的源文件和头文件。</p>
-<hr>
-<h3 id="1-项目结构"><a href="#1-项目结构" class="headerlink" title="1. 项目结构"></a>1. 项目结构</h3><p>假设我们有以下项目结构：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cmake">/<span class="hljs-keyword">project</span><br>  ├── CMakeLists.txt      <span class="hljs-comment"># 项目根目录的 CMake 配置文件</span><br>  ├── src/                <span class="hljs-comment"># 源代码文件夹</span><br>  │   ├── main.cpp        <span class="hljs-comment"># 主程序文件</span><br>  │   ├── foo.cpp         <span class="hljs-comment"># 其他源文件</span><br>  │   └── bar.cpp         <span class="hljs-comment"># 其他源文件</span><br>  ├── <span class="hljs-keyword">include</span>/            <span class="hljs-comment"># 头文件文件夹</span><br>  │   ├── foo.h           <span class="hljs-comment"># foo 的头文件</span><br>  │   └── bar.h           <span class="hljs-comment"># bar 的头文件</span><br>  └── CMakeLists.txt      <span class="hljs-comment"># src 子目录中的 CMake 配置文件</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="2-创建-CMake-配置文件"><a href="#2-创建-CMake-配置文件" class="headerlink" title="2. 创建 CMake 配置文件"></a>2. 创建 CMake 配置文件</h3><h4 id="2-1-根目录的-CMakeLists-txt"><a href="#2-1-根目录的-CMakeLists-txt" class="headerlink" title="2.1 根目录的 CMakeLists.txt"></a>2.1 根目录的 <code>CMakeLists.txt</code></h4><p>在项目的根目录下创建一个 <code>CMakeLists.txt</code> 文件，配置全局设置和添加子目录。</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 设置 CMake 最低版本要求</span><br><span class="hljs-keyword">cmake_minimum_required</span>(VERSION <span class="hljs-number">3.10</span>)<br><br><span class="hljs-comment"># 设置项目名称</span><br><span class="hljs-keyword">project</span>(MyMultiFileProject)<br><br><span class="hljs-comment"># 设置 C++ 标准</span><br><span class="hljs-keyword">set</span>(CMAKE_CXX_STANDARD <span class="hljs-number">11</span>)<br><br><span class="hljs-comment"># 添加 src 目录作为子目录</span><br><span class="hljs-keyword">add_subdirectory</span>(src)<br></code></pre></td></tr></table></figure>
-
-<h4 id="2-2-src-CMakeLists-txt"><a href="#2-2-src-CMakeLists-txt" class="headerlink" title="2.2 src/CMakeLists.txt"></a>2.2 <code>src/CMakeLists.txt</code></h4><p>在 <code>src/</code> 目录下创建另一个 <code>CMakeLists.txt</code> 文件，用于配置源文件的编译规则。</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 查找 src 目录及其子目录中的所有 .cpp 文件</span><br><span class="hljs-keyword">file</span>(GLOB_RECURSE SOURCES <span class="hljs-string">&quot;*.cpp&quot;</span>)<br><br><span class="hljs-comment"># 创建可执行文件</span><br><span class="hljs-keyword">add_executable</span>(MyExecutable <span class="hljs-variable">$&#123;SOURCES&#125;</span>)<br><br><span class="hljs-comment"># 设置头文件搜索路径</span><br><span class="hljs-keyword">target_include_directories</span>(MyExecutable PRIVATE ../<span class="hljs-keyword">include</span>)<br></code></pre></td></tr></table></figure>
+                <h1 id="Tools-Tutorial-for-Computer-Science"><a href="#Tools-Tutorial-for-Computer-Science" class="headerlink" title="Tools Tutorial for Computer Science"></a>Tools Tutorial for Computer Science</h1><p><a target="_blank" rel="noopener" href="https://developerguru.in/full_stack_development.php"><strong>封面出处</strong></a></p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>In this article, you will learn a set of <strong>methodologies</strong> for using tools in computer science. It will teach you how to quickly get started and master the use of tools through <strong>practical approaches</strong>, while continuously improving your skills through ongoing practice.</p>
+<h2 id="Table-of-contents"><a href="#Table-of-contents" class="headerlink" title="Table of contents"></a>Table of contents</h2><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>笔者今年作为刚刚入门计算机行业的小白，可谓是世界观发生了翻天覆地的变化。（<strong>这并不所言非虚</strong>）在开发者的世界中遨游探索，让我能够快速的成长。但是笔者在学习的过程中发现：<strong>工具的使用和学习</strong>成为了许多初学者的“拦路虎”，亦或者许多初学者在学习工具时仍然保持着过去固有的学习习惯，导致学习的效率非常的低下。</p>
+<p>高考提分和使用工具，两者的底层逻辑是截然不同的：<strong>学习传统基础学科（高考）重视基础原理，在巩固基础原理的基础之上再去做延伸和拓展</strong>，但是<strong>学习工具的使用重视上手实践，根本目的在于提高效率，重视实用性</strong>。</p>
+<blockquote>
+<p>举个例子，大学有一门很重要的数学课叫<strong>线性代数</strong>（Linear Algebra）。如果把它当做一门基础学科去学习，应该重点学习的是<strong>线性变换，线性空间</strong>等反映代数学本质原理的抽象概念和定理，但如果把它当做一个工具，应该重点学习的是<strong>如何使用Python，MATLAB等工具</strong>计算矩阵乘法，求行列式，求特征值。</p>
+</blockquote>
+<p>底层逻辑的差异自然会带来学习方法上的不同，一味地继承传统的学习方法而不加以变通只能是低效且无用的。因此，本文立志阐释清楚学习工具使用的基本逻辑和学习流程，并且会以<strong>git</strong>的学习历程做示范。</p>
+<h2 id="Basic-Principles"><a href="#Basic-Principles" class="headerlink" title="Basic Principles"></a>Basic Principles</h2><p>在开始今天的博客之前，笔者想先送给各位<strong>12字箴言</strong>：</p>
+<p>
+    <strong style="color: red;
+    font-size: 60px;
+    "><b>提高效率，实践为王，二八法则。</b></strong></p>
 
 <ul>
-<li><code>file(GLOB_RECURSE ...)</code>：递归查找 <code>src/</code> 目录及其子目录下的所有 <code>.cpp</code> 文件。</li>
-<li><code>add_executable(MyExecutable $&#123;SOURCES&#125;)</code>：将所有 <code>.cpp</code> 文件编译成一个可执行文件 <code>MyExecutable</code>。</li>
-<li><code>target_include_directories(MyExecutable PRIVATE ../include)</code>：设置 <code>MyExecutable</code> 可执行文件的头文件搜索路径，指向项目的 <code>include/</code> 目录。</li>
+<li>提高效率：这是<strong>工具使用的基本原理</strong>。</li>
+<li><strong>实践为王</strong>：工具使用的落脚点不是纸上谈兵而是具体落地到项目中去使用。</li>
+<li><strong>二八法则</strong>：这其实还是<strong>提高效率</strong>的另一种表达：花较短的时间学习工具20%的功能，便可以解决80%的问题。</li>
 </ul>
-<h3 id="3-自动查找源文件"><a href="#3-自动查找源文件" class="headerlink" title="3. 自动查找源文件"></a>3. 自动查找源文件</h3><p>如果源文件数量较多，手动列出每个源文件可能比较麻烦。可以使用 <code>file(GLOB ...)</code> 或 <code>file(GLOB_RECURSE ...)</code> 自动查找 <code>.cpp</code> 文件。</p>
-<h4 id="3-1-查找当前目录下的-cpp-文件"><a href="#3-1-查找当前目录下的-cpp-文件" class="headerlink" title="3.1 查找当前目录下的 .cpp 文件"></a>3.1 查找当前目录下的 <code>.cpp</code> 文件</h4><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">file</span>(GLOB SOURCES <span class="hljs-string">&quot;*.cpp&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="Overall-Perception"><a href="#Overall-Perception" class="headerlink" title="Overall Perception"></a>Overall Perception</h2><p>重点解决问题：</p>
+<p><span style="font-size: 18pt;"><strong><font  color="red">感知新内容的基本信息&amp;初步构建较为完整的知识网络</font></strong></span></p>
 
-<p><code>file(GLOB ...)</code> 会查找当前目录下所有 <code>.cpp</code> 文件，并将它们添加到 <code>SOURCES</code> 变量中。</p>
-<h4 id="3-2-查找子目录中的-cpp-文件"><a href="#3-2-查找子目录中的-cpp-文件" class="headerlink" title="3.2 查找子目录中的 .cpp 文件"></a>3.2 查找子目录中的 <code>.cpp</code> 文件</h4><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">file</span>(GLOB_RECURSE SOURCES <span class="hljs-string">&quot;*.cpp&quot;</span>)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>这是什么？<ul>
+<li>能否用已有的知识进行表述？</li>
+<li>可以用来解决现阶段什么样的问题？</li>
+</ul>
+</li>
+<li>最基本的操作有哪些？<ul>
+<li>重点：<strong>梳理出一条学习的脉络和线索</strong></li>
+<li>知其然而不知其所以然即可</li>
+</ul>
+</li>
+<li>重点在于<strong>大量的浅层的输入</strong></li>
+</ul>
+<h2 id="Quick-Start-for-a-project"><a href="#Quick-Start-for-a-project" class="headerlink" title="Quick Start for a project"></a>Quick Start for a project</h2><ul>
+<li><p>借助他人使用的轮子的力量</p>
+</li>
+<li><p>借助典型示例快速上手一个project</p>
+</li>
+<li><p><strong>最重要的部分</strong></p>
+<p><span style="font-size: 18pt;"><strong><font  color="red">以实战项目为最好的教材，在实践中学习代码（知识）是怎么实现的</font></strong></span></p></li>
+</ul>
+<h2 id="From-imitating-to-modifying-and-enhancing"><a href="#From-imitating-to-modifying-and-enhancing" class="headerlink" title="From imitating to modifying and enhancing"></a>From imitating to modifying and enhancing</h2><ul>
+<li>在精读完示例project后，可以尝试开始 <strong>模仿</strong></li>
+<li><strong>模仿————修改————优化</strong></li>
+<li>不断地发现问题，解决问题！</li>
+</ul>
+<h2 id="Diving-into-principles"><a href="#Diving-into-principles" class="headerlink" title="Diving into principles"></a>Diving into principles</h2><ul>
+<li>在这个阶段，已经初步具备构建工程的基本能力，但仍需要进一步掌握<strong>底层原理和一些更高级更进阶的用法（自主性和创新性）</strong></li>
+<li>可以在开源网站上学习他人的成果</li>
+<li>尝试阅读官方文件或者一些底层文件</li>
+<li>对底层原理的学习往往是枯燥的，<strong>对于工程实践来说初期永远是实践最重要，对于原理层面起到锦上添花的作用，目的在于为我们后续的个性化创新奠定基础。</strong></li>
+</ul>
+<h2 id="Occasional-Backtracking"><a href="#Occasional-Backtracking" class="headerlink" title="Occasional Backtracking"></a>Occasional Backtracking</h2><ul>
+<li><strong>经典回读</strong>！！！</li>
+<li>1-2-3-4往往是循环的过程，在哪一步都会受挫，理性分析，适当求助，疯狂拷打ChatGPT</li>
+</ul>
+<h2 id="Conclusion-and-Notice"><a href="#Conclusion-and-Notice" class="headerlink" title="Conclusion and Notice"></a>Conclusion and Notice</h2><ul>
+<li>该学习方法不适应于逻辑性比较强的理科</li>
+<li>该学习方法不适用于底层的基础学科</li>
+<li>该学习方法适用于已经存在一定迁移基础的新学科，不适合完全未曾涉猎的学科</li>
+</ul>
+<p style="text-align: center;">
+    <span style="font-size: 30pt;">
+        <strong>
+            <font  color="red">
+                做一名终身的学习者
+            </font>
+        </strong>
+    </span>
+</p>
 
-<p><code>file(GLOB_RECURSE ...)</code> 会递归地查找指定目录及其所有子目录中的 <code>.cpp</code> 文件。</p>
-<h3 id="4-构建和编译"><a href="#4-构建和编译" class="headerlink" title="4. 构建和编译"></a>4. 构建和编译</h3><h4 id="4-1-生成构建目录"><a href="#4-1-生成构建目录" class="headerlink" title="4.1 生成构建目录"></a>4.1 生成构建目录</h4><p>在项目根目录下创建一个 <code>build</code> 目录，并进入该目录：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> build<br><span class="hljs-built_in">cd</span> build<br></code></pre></td></tr></table></figure>
-
-<h4 id="4-2-运行-CMake-配置"><a href="#4-2-运行-CMake-配置" class="headerlink" title="4.2 运行 CMake 配置"></a>4.2 运行 CMake 配置</h4><p>在 <code>build</code> 目录中运行 CMake，指定项目的根目录作为源目录：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">cmake ..<br></code></pre></td></tr></table></figure>
-
-<p>这将配置项目并生成适合你平台的构建系统。</p>
-<h4 id="4-3-编译项目"><a href="#4-3-编译项目" class="headerlink" title="4.3 编译项目"></a>4.3 编译项目</h4><p>使用 CMake 生成的构建系统来编译项目。如果你使用 Makefiles，可以运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">make<br></code></pre></td></tr></table></figure>
-
-<p>如果使用其他构建系统（如 Visual Studio），可以直接在 IDE 中进行编译。</p>
-<h4 id="4-4-运行程序"><a href="#4-4-运行程序" class="headerlink" title="4.4 运行程序"></a>4.4 运行程序</h4><p>编译完成后，你可以在 <code>build</code> 目录中找到生成的可执行文件 <code>MyExecutable</code>，然后运行它：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./MyExecutable<br></code></pre></td></tr></table></figure>
-
-<h3 id="5-处理大型项目结构"><a href="#5-处理大型项目结构" class="headerlink" title="5. 处理大型项目结构"></a>5. 处理大型项目结构</h3><p>对于大型项目，你可能会将源文件和头文件拆分成多个子目录。在这种情况下，可以使用 <code>add_subdirectory()</code> 将各个子目录包含进来，每个子目录都可以有自己的 <code>CMakeLists.txt</code> 文件。</p>
-<h4 id="示例：子目录结构"><a href="#示例：子目录结构" class="headerlink" title="示例：子目录结构"></a>示例：子目录结构</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs stylus">/project<br>  ├── CMakeLists<span class="hljs-selector-class">.txt</span><br>  ├── <span class="hljs-attribute">src</span>/<br>  │   ├── CMakeLists<span class="hljs-selector-class">.txt</span><br>  │   ├── <span class="hljs-selector-tag">main</span><span class="hljs-selector-class">.cpp</span><br>  │   ├── foo<span class="hljs-selector-class">.cpp</span><br>  │   └── bar<span class="hljs-selector-class">.cpp</span><br>  └── include/<br>      ├── foo<span class="hljs-selector-class">.h</span><br>      └── bar.h<br></code></pre></td></tr></table></figure>
-
-<p>根目录的 <code>CMakeLists.txt</code> 文件：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">cmake_minimum_required</span>(VERSION <span class="hljs-number">3.10</span>)<br><br><span class="hljs-keyword">project</span>(MyMultiFileProject)<br><br><span class="hljs-keyword">set</span>(CMAKE_CXX_STANDARD <span class="hljs-number">11</span>)<br><br><span class="hljs-comment"># 添加 src 子目录</span><br><span class="hljs-keyword">add_subdirectory</span>(src)<br></code></pre></td></tr></table></figure>
-
-<p><code>src/CMakeLists.txt</code> 文件：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 查找 src 目录及其子目录中的所有 .cpp 文件</span><br><span class="hljs-keyword">file</span>(GLOB_RECURSE SOURCES <span class="hljs-string">&quot;*.cpp&quot;</span>)<br><br><span class="hljs-comment"># 创建可执行文件</span><br><span class="hljs-keyword">add_executable</span>(MyExecutable <span class="hljs-variable">$&#123;SOURCES&#125;</span>)<br><br><span class="hljs-comment"># 设置头文件搜索路径</span><br><span class="hljs-keyword">target_include_directories</span>(MyExecutable PRIVATE ../<span class="hljs-keyword">include</span>)<br></code></pre></td></tr></table></figure>
-
-<h3 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h3><p>通过以上步骤，你可以使用 CMake 管理多源文件的 C++ 项目：</p>
-<ol>
-<li>在项目根目录创建一个 <code>CMakeLists.txt</code> 文件，配置全局项目设置。</li>
-<li>在 <code>src/</code> 目录创建子目录的 <code>CMakeLists.txt</code> 文件，自动查找 <code>.cpp</code> 文件。</li>
-<li>使用 <code>file(GLOB ...)</code> 或 <code>file(GLOB_RECURSE ...)</code> 自动查找源文件。</li>
-<li>配置头文件搜索路径，确保程序能找到必要的头文件。</li>
-<li>使用 <code>cmake</code> 和 <code>make</code> 命令构建项目，并生成可执行文件。</li>
-</ol>
-<p>这样，你就能高效地管理和构建多个源文件的 C++ 项目，同时也能确保项目结构清晰，易于扩展和维护。</p>
 
                 
               </div>
@@ -505,9 +522,7 @@
       
         <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
       
-        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
-      
-        <a href="/tags/CMake/" class="print-no-link">#CMake</a>
+        <a href="/tags/Methodologies/" class="print-no-link">#Methodologies</a>
       
     </div>
   
@@ -519,8 +534,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CMake-tutorial-episode2</div>
-      <div>https://xiyuanyang-code.github.io/posts/CMake-tutorial-episode2/</div>
+      <div>Tools-Tutorial</div>
+      <div>https://xiyuanyang-code.github.io/posts/Tools-Tutorial/</div>
     </div>
     <div class="license-meta">
       
@@ -532,13 +547,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>December 15, 2024</div>
+          <div>January 5, 2025</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 15, 2024</div>
+          <div>January 5, 2025</div>
         </div>
       
       
@@ -569,18 +584,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/Data-Structure-Tutorial/" title="Data-Structure-Tutorial">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Data-Structure-Tutorial</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/CMake-tutorial1/" title="CMake-tutorial1">
-                        <span class="hidden-mobile">CMake-tutorial1</span>
+                      <a href="/posts/Jotting-References-and-Encapsulation-in-OOP/" title="Jotting-References-and-Encapsulation-in-OOP">
+                        <span class="hidden-mobile">Jotting-References-and-Encapsulation-in-OOP</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
