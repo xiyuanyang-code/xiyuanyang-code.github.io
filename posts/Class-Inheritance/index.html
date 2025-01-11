@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/inheritance.png">
 <meta property="article:published_time" content="2024-12-08T06:02:57.000Z">
-<meta property="article:modified_time" content="2024-12-20T12:16:21.508Z">
+<meta property="article:modified_time" content="2025-01-11T06:44:10.205Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -703,8 +703,8 @@
             <ul><li><p>在基类方法的声明中使用关键字 <code>virtual</code> 可使该方法在基类以及所有的派生类（包括从派生类派生出来的类）中是虚的。</p></li><li><p>如果使用指向对象的引用或指针来调用虚方法，程序将使用为对象类型定义的方法，而不使用为引用或指针类型定义的方法。这称为动态联编或晚期联编。这种行为非常重要，因为这样<strong>基类指针或引用可以指向派生类对象</strong>。</p></li><li><p>如果定义的类将被用作基类，则应将那些要在派生类中重新定义的类方法声明为虚的。</p></li><li><p>构造函数不能是虚函数。</p><ul><li>创建派生类对象时会调用基类的构造函数，所以没啥意义。（反正肯定会被调用）</li></ul></li><li><p><strong>析构函数应当是虚函数。</strong></p><ul><li>如果派生类新定义了动态内存分配，那么在调用时如果基类的析构函数不是虚函数，那么如果一个基类指针指向了派生类对象，在调用析构函数的时候会<strong>调用基类的析构函数</strong>，这在派生类中新定义的成员不会被<code>delete</code>掉，产生内存泄漏。</li></ul></li><li><p>友元不能是虚函数（友元不是类成员）</p></li><li><p>重新定义的问题</p><ul><li><p>如果派生类没有重新定义函数，就直接使用基类的版本。</p></li><li><p>如果派生类位于派生链中（一串派生类），那么使用<strong>最新的虚函数版本</strong>。</p></li><li><p><strong>重新定义基类的方法不是重载。</strong>如果在派生类中重新定义函数，将不是使用相同的函数特征标覆盖基类声明，而是隐藏同名的基类方法，不管参数特征标如何。</p><ul><li><p>如果重新定义继承的方法，应确保与原来的原型完全相同，但如果返回类型是基类引用或指针，则可以修改为指向派生类的引用或指针（这种例外是新出现的）。这种特性被称为返回类型协变（covariance of return type），因为允许返回类型随类类型的变化而变化。</p></li><li><p>如果基类声明被重载，应该在派生类中重新定义所有的基类版本。</p></li></ul></li></ul></li></ul>
           </div>
 
-<p><img src="/posts/Above-All/ritance/covirance-of-return-type.png" srcset="/img/loading.gif" lazyload alt="Covirance of Return Type"></p>
-<p><img src="/posts/Above-All/ritance/chongzai.png" srcset="/img/loading.gif" lazyload alt="基类声明被重载"></p>
+<p><img src="https://ooo.0x0.ooo/2025/01/11/OEfRai.png" srcset="/img/loading.gif" lazyload alt="Covirance of Return Type"></p>
+<p><img src="https://ooo.0x0.ooo/2025/01/11/OEftNX.png" srcset="/img/loading.gif" lazyload alt="基类声明被重载"></p>
 <h2 id="Protected"><a href="#Protected" class="headerlink" title="Protected"></a>Protected</h2><p>我们使用<code>public</code>和<code>private</code>来实现对类成员访问权限的控制。同时，我们存在<code>protected</code>关键词。</p>
 <ul>
 <li>与<code>private</code>相比，<code>protected</code>可以被派生类成员直接访问。</li>
@@ -734,14 +734,14 @@
 
 <h2 id="继承和动态内存分配"><a href="#继承和动态内存分配" class="headerlink" title="继承和动态内存分配"></a>继承和动态内存分配</h2><p>在阅读这一部分之前，建议读者先阅读<a href="https://xiyuanyang-code.github.io/posts/Dynamic-Memory-and-Classes/">第十二章</a>了解有关C++中的复制构造函数，析构函数，赋值运算符等等相关知识。本部分将继续围绕在类的继承背景下，如何实现动态内存分配。</p>
 <h3 id="派生类不使用new"><a href="#派生类不使用new" class="headerlink" title="派生类不使用new"></a>派生类不使用<code>new</code></h3><p>先来看这样一个使用动态内存分配的基类：</p>
-<p><img src="/posts/Above-All/ritance/baseDMA.png" srcset="/img/loading.gif" lazyload alt="baseDMA"></p>
+<p><img src="https://ooo.0x0.ooo/2025/01/11/OEfJdL.png" srcset="/img/loading.gif" lazyload alt="baseDMA"></p>
 <p>这个基类动态分配内存给一个指向字符的指针（<strong>涉及到了按址传递，故使用默认的复制构造函数会存在风险</strong>），同时也手动定义了显式的赋值运算符，复制构造函数和析构函数。那么，如果以此为基类的派生类没有使用动态内存分配，便<strong>不需要再为派生类显式地定义显式析构函数，复制构造函数和重载赋值运算符。</strong></p>
 <blockquote>
 <p>为什么？你当然可以显式定义，但没有任何的必要。因为默认的赋值运算符和复制构造函数都是在使用动态内存时会产生冲突，基类的动态内存已经手动显示定义，故不存在隐患。</p>
 <p>在复制类所继承的类组件时，会优先使用被继承类的显式构造函数。（对赋值同样也是如此）</p>
 </blockquote>
 <h3 id="派生类使用new"><a href="#派生类使用new" class="headerlink" title="派生类使用new"></a>派生类使用<code>new</code></h3><p>这便是更加复杂的情况，我们来看一个使用动态内存的派生类：</p>
-<p><img src="/posts/Above-All/ritance/derived-class-with-DMA.png" srcset="/img/loading.gif" lazyload alt="derived-class-with-DMA"></p>
+<p><img src="https://ooo.0x0.ooo/2025/01/11/OEfJdL.png" srcset="/img/loading.gif" lazyload alt="Derived Class with DMA.png"></p>
 <div class="note note-danger">
             <p><strong>在这种情况下，必须为派生类定义显式析构函数、复制构造函数和赋值运算符 。</strong>因为派生类添加了新的数据成员使用动态内存分配，而基类的方法中并不包含这个成员的操作。因此需要额外定义来防止内存泄漏等严重问题。</p>
           </div>
@@ -803,7 +803,7 @@
 <li>公有继承的<strong>is-a</strong>关系</li>
 <li>继承函数的体系就是这一章节的目录（不再归纳）</li>
 </ul>
-<p><img src="/posts/Above-All/ritance/Conclusion.png" srcset="/img/loading.gif" lazyload alt="Conclusion"></p>
+<p><img src="https://ooo.0x0.ooo/2025/01/11/OEf4Et.png" srcset="/img/loading.gif" lazyload alt="Conclusion"></p>
 </li>
 </ul>
 <p>当然，OOP的精神远不止于此！在接下来的第十四章，我们将更加深入的探寻<strong>C++中的其他继承关系和代码重用问题。</strong></p>
@@ -888,7 +888,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 20, 2024</div>
+          <div>January 11, 2025</div>
         </div>
       
       
