@@ -1,0 +1,956 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="This Blog focuses on the use of Queue.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DataStructure-Queue">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/DataStructure-Queue/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="This Blog focuses on the use of Queue.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/queue.jpg">
+<meta property="article:published_time" content="2025-01-22T06:41:08.000Z">
+<meta property="article:modified_time" content="2025-01-22T10:23:45.867Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="Data Structure">
+<meta property="article:tag" content="Queue">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/queue.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>DataStructure-Queue - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/above/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tag</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/FAQ/" target="_self">
+                <i class="iconfont icon-bug"></i>
+                <span>FAQ</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="DataStructure-Queue"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-01-22 14:41" pubdate>
+          January 22, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Algorithm"
+        id="heading-4afa80e77a07f7488ce4d1bdd8c4977a" role="tab" data-toggle="collapse" href="#collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+        aria-expanded="true"
+      >
+        Algorithm
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+           role="tabpanel" aria-labelledby="heading-4afa80e77a07f7488ce4d1bdd8c4977a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Algorithm-tutorial-section1/" title="Algorithm_tutorial_section1"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm_tutorial_section1</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Linked-List-Implementation-Based-on-Structs/" title="Linked-List-Implementation-Based-on-Structs"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linked-List-Implementation-Based-on-Structs</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection/" title="Leetcode-Mistake-collection"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-collection</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection-1-10/" title="Leetcode-Mistake-collection-1-10"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-collection-1-10</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection-11-20/" title="Leetcode-Mistake-collection-11-20"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-collection-11-20</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection-21-30/" title="Leetcode-Mistake-collection-21-30"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-collection-21-30</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection-31-40/" title="Leetcode-Mistake-collection-31-40"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-collection-31-40</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Data-Structure-Tutorial/" title="Data-Structure-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Data-Structure-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-LinearList/" title="DataStructure-LinearList"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-LinearList</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Stack/" title="DataStructure-Stack"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Stack</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Queue/" title="DataStructure-Queue"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">DataStructure-Queue</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">DataStructure-Queue</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Data-Structure-Queue"><a href="#Data-Structure-Queue" class="headerlink" title="Data_Structure Queue"></a>Data_Structure Queue</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>在之前的学习过程中，我们主要介绍了<strong>线性数据结构</strong>——线性表，同时介绍了一种非常特殊的线性表：<strong>栈</strong>。栈的关键在于<strong>约束了数据结构输入数据和输出数据的顺序</strong>：即<strong>LIFO</strong>的顺序。（不过有个前提，栈是线性的数据结构，因此数据结构的排列一定是线性的）</p>
+<p><strong>LIFO</strong>的顺序可以帮助我们完成很多事，例如在上一讲的末尾：<strong>括号匹配器和简单的计算器（中缀转后缀）</strong>，尤其在<strong>输入和输出顺序不一致的情况下</strong>，栈可以发挥很大的作用。</p>
+<blockquote>
+<p>这再次印证了那句话：数据结构的本质是对实际情形的抽象数据建模。</p>
+</blockquote>
+<p>我们可以沿着这条线继续思考，我们是否可以人为更改<strong>输入数据顺序和输出数据顺序的约束</strong>，而创建新的数据类型？答案当然是肯定的，今天，我们来介绍一种新的数据结构——队列（Queue）</p>
+<h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p><strong>栈</strong>：元素的插入和删除操作只能在<strong>栈的一端</strong>进行，这一端称为 <strong>栈顶（Top）</strong>，另一端称为 <strong>栈底（Bottom）</strong>。</p>
+<p><strong>队列</strong>：元素的插入操作在队列的一端进行，称为 <strong>队尾（Rear）</strong>，删除操作在另一端进行，称为 <strong>队头（Front）</strong>。</p>
+<blockquote>
+<p>双向队列是一种允许在 <strong>两端</strong> 进行插入和删除操作的线性数据结构。它结合了栈和队列的特性，既可以从队头操作，也可以从队尾操作。</p>
+<p>双向队列即有栈的性质，也有队列的性质，后续会专门花一讲的时间辨析这三者使用上的区别。</p>
+</blockquote>
+<p><img src="https://www.hello-algo.com/chapter_stack_and_queue/queue.assets/queue_operations.png" srcset="/img/loading.gif" lazyload alt="队列的先入先出规则 Hello算法"></p>
+<p>形象化理解非常的容易，就像元素在<strong>排队一样</strong>，满足先来后到的顺序，这也是队列区别于栈的最显著的差别，也是队列最核心的性质：<strong>FIFO (First in First out)<strong>，也就是说，</strong>队列不会导致输入顺序和输出顺序的差异</strong>。</p>
+<h2 id="Basic-Usage"><a href="#Basic-Usage" class="headerlink" title="Basic Usage"></a>Basic Usage</h2><p>和栈类似，队列的基本操作如下：</p>
+<ul>
+<li>创建一个队列<code>create()</code></li>
+<li>入队<code>push(const T&amp; value)</code>：将<code>value</code>插入成为<strong>队尾元素</strong></li>
+<li>出队<code>pop()</code>：使队头元素出队并且返回这个元素的值。</li>
+<li>读队头元素<code>getHead()</code></li>
+<li>判断队空<code>isEmpty()</code></li>
+</ul>
+<p>下文代码是实现该定义的抽象基类：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">//Abstract class</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">queue</span>&#123;<br>    <span class="hljs-keyword">public</span>:<br>        <span class="hljs-keyword">virtual</span> ~<span class="hljs-built_in">queue</span>()&#123;&#125;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">bool</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>=<span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> T <span class="hljs-title">getHead</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>=<span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> T <span class="hljs-title">pop</span><span class="hljs-params">()</span></span>=<span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-type">const</span> T&amp; value)</span></span>=<span class="hljs-number">0</span>;<br>&#125;;<br><span class="hljs-comment">//抽象基类仅仅定义接口，没有具体的数据成员</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><h3 id="Sequential-Implementation"><a href="#Sequential-Implementation" class="headerlink" title="Sequential Implementation"></a>Sequential Implementation</h3><blockquote>
+<p>下面的思考和优化过程非常的精彩，请反复回味。</p>
+</blockquote>
+<p>下文实现队列的顺序实现，即使用<strong>一块动态内存来存储线性的所有数据</strong>。在栈中，由于所有的操作都是在栈顶完成的，因此，我们只需要<strong>对栈顶元素进行操作</strong>，时间复杂度为O(1)。但是，在队列中<strong>涉及双端操作：即输入端和输出端不在一起</strong>。这就会带来时间复杂度上的提升：例如固定队首元素，并且将此作为<strong>出队口</strong>，（就像超市结账人们在收银台处排队一样），入队的操作复杂度为O(1)，但是出队的时候所有元素都要前移一格，时间复杂度为O(n)。</p>
+<p>这并不符合我们的预期——<strong>我们希望出队和入队都达到最简单的O（1）时间复杂度</strong>，如何优化？</p>
+<p>这就是第一个优化策略：<strong>维护一个类似于头指针的东西</strong>，在顺序实现中，就是一个<code>int</code>值<code>front</code>来<strong>维护队头元素的索引</strong>。同时我们也会维护一个<code>int</code>值<code>rear</code>来锚定队尾元素。在队列为空的时候，设置<code>front</code>和<code>rear</code>均为-1。</p>
+<p><img src="https://www.hello-algo.com/chapter_stack_and_queue/queue.assets/array_queue_step1.png" srcset="/img/loading.gif" lazyload alt="基于数组实现队列的入队出队操作"></p>
+<p>这样很好的解决了我们的问题，实现了入队和出队的时间复杂度均为常数时间复杂度。但是这有一个很隐蔽的问题：空间利用率问题。<strong>出队是数组元素没有移动而是索引<code>front</code>向后移动</strong>，这样会造成空间上的浪费，<code>front</code>索引之前的部分无法再存储新的数据元素，这样的情况会随着出队元素的不断增多而更加凸显出来。</p>
+<p>于是，我们需要第二个优化策略：<strong>循环队列</strong>。那这样两个索引在分配的内存上无论怎么移动都不会造成空间使用上的浪费了，具体实现也很简单：<strong>使用取余操作</strong>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">//非循环队列的入队操作：</span><br>rear++;<br><span class="hljs-comment">//循环队列的入队操作：</span><br>rear=(rear<span class="hljs-number">+1</span>)%Maxsize;<br><br><span class="hljs-comment">//非循环队列的出队操作:</span><br>front++;<br><span class="hljs-comment">//循环队列的出队操作：</span><br>front=(front<span class="hljs-number">+1</span>)%MAxsize;<br></code></pre></td></tr></table></figure>
+
+<p><strong>使用取余操作可以保证<code>rear</code>和<code>front</code>这两个索引值始终都在<code>[0,Maxsize-1]</code>这个区间范围内</strong>。</p>
+<p>这样看似就没有问题了！真的如此吗？</p>
+<p>我们重新回看<code>rear</code>和<code>front</code>这两个索引值，这两个索引值表示的是什么？<code>front</code>指向的是首元素，而<code>rear</code>指向的是尾元素+1。当初始建队时，这两个值都设置为0，如果不断入队，rear不断递增直到走完了一个周期，取余后<strong>和front重合</strong>，此时队列的元素达到了<strong>100%<strong>的空间利用率，但是无法判断</strong>队满还是队空</strong>。</p>
+<p>因此，一定的牺牲肯定是必要的，就像链表中的头结点不储存值一样，<strong>循环队列需要保证rear索引所在的地方不存储值</strong>，即理论上队列的最大存储值的个数是<code>Maxsize-1</code>个。</p>
+<p><img src="https://docs.oldtimes.me/c.biancheng.net/cpp/uploads/allimg/140713/1-140G32234251B.jpg" srcset="/img/loading.gif" lazyload alt="循环队列"></p>
+<blockquote>
+<p>教材上设置的是<strong>front</strong>不存储值，没有太大的影响。</p>
+</blockquote>
+<p>做了这样的规定之后，我们就能确定队满和队空了。</p>
+<blockquote>
+<p>实际上还有一种操作，维护一个int值表示队列的长度，此时就可以达到100%的空间利用率</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">//队满的判定条件：</span><br>(rear<span class="hljs-number">+1</span>) % Maxsize == front;<br>    <span class="hljs-comment">//注意这里是对rear做操作而不是front，因为对rear做操作代表着入队操作。</span><br><span class="hljs-comment">//队空的判定条件：</span><br>front == rear;<br></code></pre></td></tr></table></figure>
+
+<p>理解了上面精彩的演绎推理过程，我们轻而易举的可以实现队列的顺序实现：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * @Author: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-comment"> * @Date: 2025-01-22 15:06:31</span><br><span class="hljs-comment"> * @LastEditors: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-comment"> * @LastEditTime: 2025-01-22 17:23:51</span><br><span class="hljs-comment"> * @FilePath: \CODE_for_Vscode\Data_structure\Class_implementation\Stack.cpp</span><br><span class="hljs-comment"> * @Description: </span><br><span class="hljs-comment"> * Do you code and make progress today?</span><br><span class="hljs-comment"> * Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved. </span><br><span class="hljs-comment"> */</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">This is the implementation of the stack</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">pragma</span> once</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdexcept&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><br><span class="hljs-comment">//Abstract class</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">queue</span>&#123;<br>    <span class="hljs-keyword">public</span>:<br>        <span class="hljs-keyword">virtual</span> ~<span class="hljs-built_in">queue</span>()&#123;&#125;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">bool</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>=<span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> T <span class="hljs-title">getHead</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>=<span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> T <span class="hljs-title">pop</span><span class="hljs-params">()</span></span>=<span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-type">const</span> T&amp; value)</span></span>=<span class="hljs-number">0</span>;<br>&#125;;<br><span class="hljs-comment">//抽象基类仅仅定义接口，没有具体的数据成员</span><br><br><span class="hljs-comment">//Sequential Implementation of stack</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">seqQueue</span>:<span class="hljs-keyword">public</span> queue&lt;T&gt;&#123;<br>    <span class="hljs-keyword">private</span>:<br>        T* elem;<span class="hljs-comment">//the elements</span><br>        <span class="hljs-type">int</span> maxsize;<br>        <span class="hljs-type">int</span> front,rear;<br>        <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">DoubleSpace</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//Tool functions for space extensions</span><br>    <span class="hljs-keyword">public</span>:<br>        <span class="hljs-built_in">seqQueue</span>(<span class="hljs-type">int</span> size=<span class="hljs-number">10</span>);<br>        ~<span class="hljs-built_in">seqQueue</span>();<br>        <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;<br>        <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-type">const</span> T&amp; value)</span></span>;<br>        <span class="hljs-function">T <span class="hljs-title">getHead</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;<br>        <span class="hljs-function">T <span class="hljs-title">pop</span><span class="hljs-params">()</span></span>;<br><br>        <span class="hljs-comment">//Only for debugging</span><br>        <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;<br>        <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">length</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;<br>&#125;;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br>seqQueue&lt;T&gt;::<span class="hljs-built_in">seqQueue</span>(<span class="hljs-type">int</span> size):<span class="hljs-built_in">maxsize</span>(size)&#123;<br>    elem = <span class="hljs-keyword">new</span> T[maxsize];<br>    <span class="hljs-comment">//but the maximum capacity is maxsize-1</span><br>    front = rear =<span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br>seqQueue&lt;T&gt;::~<span class="hljs-built_in">seqQueue</span>()&#123;<br>    <span class="hljs-keyword">delete</span>[] elem;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br>T seqQueue&lt;T&gt;::<span class="hljs-built_in">getHead</span>() <span class="hljs-type">const</span>&#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isEmpty</span>()) &#123;<br>        <span class="hljs-keyword">throw</span> std::<span class="hljs-built_in">runtime_error</span>(<span class="hljs-string">&quot;Queue is empty&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">return</span> elem[front];<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br><span class="hljs-type">bool</span> seqQueue&lt;T&gt;::<span class="hljs-built_in">isEmpty</span>() <span class="hljs-type">const</span>&#123;<br>    <span class="hljs-keyword">return</span> front==rear;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br><span class="hljs-type">void</span> seqQueue&lt;T&gt;::<span class="hljs-built_in">push</span>(<span class="hljs-type">const</span> T&amp; value)&#123;<br>    <span class="hljs-comment">//入队操作，需要对rear操作</span><br>    <span class="hljs-keyword">if</span>((rear<span class="hljs-number">+1</span>) % maxsize == front)&#123;<br>        <span class="hljs-comment">//judge if the queue is full</span><br>        <span class="hljs-built_in">DoubleSpace</span>();<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        elem[rear]=value;<br>        rear=(rear<span class="hljs-number">+1</span>)%maxsize;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br>T seqQueue&lt;T&gt;::<span class="hljs-built_in">pop</span>()&#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isEmpty</span>()) &#123;<br>        <span class="hljs-keyword">throw</span> std::<span class="hljs-built_in">runtime_error</span>(<span class="hljs-string">&quot;Queue is empty&quot;</span>);<br>    &#125;<br>    <span class="hljs-comment">//出队操作，对front操作</span><br>    T temp = elem[front];<span class="hljs-comment">//the top element of the queue</span><br>    front = (front<span class="hljs-number">+1</span>)%maxsize;<br>    <span class="hljs-keyword">return</span> temp;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br><span class="hljs-type">void</span> seqQueue&lt;T&gt;::<span class="hljs-built_in">DoubleSpace</span>()&#123;<br>    <span class="hljs-comment">//double the space of the queue</span><br>    T* tmp=elem;<br>    elem = <span class="hljs-keyword">new</span> T[<span class="hljs-number">2</span>*maxsize];<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;maxsize<span class="hljs-number">-1</span>;i++)&#123;<br>        elem[i] = tmp[(front+i)%maxsize];<br>        <span class="hljs-comment">//you only need to copy maxsize-1 elements!</span><br>    &#125;<br>    front = <span class="hljs-number">0</span>;<br>    rear = maxsize<span class="hljs-number">-1</span>;<br>    maxsize*=<span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">delete</span>[] tmp;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br><span class="hljs-type">void</span> seqQueue&lt;T&gt;::<span class="hljs-built_in">print</span>()<span class="hljs-type">const</span> &#123;<br>    <span class="hljs-comment">//print the whole queue</span><br>    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">isEmpty</span>())&#123;<br>        cout&lt;&lt;<span class="hljs-string">&quot;The queue is empty!&quot;</span>&lt;&lt;endl;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        cout&lt;&lt;<span class="hljs-string">&quot;The queue has &quot;</span>&lt;&lt;<span class="hljs-built_in">length</span>()&lt;&lt;<span class="hljs-string">&quot; members.&quot;</span>&lt;&lt;endl;<br>        <span class="hljs-type">int</span> index = front;<br>        <span class="hljs-keyword">while</span>(index != rear)&#123;<br>            cout&lt;&lt;elem[index]&lt;&lt;<span class="hljs-string">&quot; &quot;</span>;<br>            index = (index<span class="hljs-number">+1</span>)%maxsize;<br>        &#125;<br>        cout&lt;&lt;endl;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br><span class="hljs-type">int</span> seqQueue&lt;T&gt;::<span class="hljs-built_in">length</span>() <span class="hljs-type">const</span>&#123;<br>    <span class="hljs-keyword">if</span>(rear &gt;= front) <span class="hljs-keyword">return</span> rear-front;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> rear+maxsize-front;<br>&#125;<br><span class="hljs-comment">//The following function implements some small debugging features.</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    seqQueue&lt;<span class="hljs-type">int</span>&gt; list;<br>    list.<span class="hljs-built_in">print</span>();<br>    list.<span class="hljs-built_in">push</span>(<span class="hljs-number">2</span>);<br>    list.<span class="hljs-built_in">push</span>(<span class="hljs-number">5</span>);<br>    cout&lt;&lt;list.<span class="hljs-built_in">isEmpty</span>()&lt;&lt;endl;<br>    list.<span class="hljs-built_in">print</span>();<br>    cout&lt;&lt;list.<span class="hljs-built_in">pop</span>();<br>    cout&lt;&lt;list.<span class="hljs-built_in">pop</span>();<br>    cout&lt;&lt;list.<span class="hljs-built_in">isEmpty</span>()&lt;&lt;endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="Linked-Implementation"><a href="#Linked-Implementation" class="headerlink" title="Linked Implementation"></a>Linked Implementation</h3>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Algorithm/" class="category-chain-item">Algorithm</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+      
+        <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/tags/Data-Structure/" class="print-no-link">#Data Structure</a>
+      
+        <a href="/tags/Queue/" class="print-no-link">#Queue</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>DataStructure-Queue</div>
+      <div>https://xiyuanyang-code.github.io/posts/DataStructure-Queue/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 22, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>January 22, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Python-Update-Learning/" title="Python-Update-Learning">
+                        <span class="hidden-mobile">Python-Update-Learning</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
