@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/OOP.jpg">
 <meta property="article:published_time" content="2024-12-04T11:36:23.000Z">
-<meta property="article:modified_time" content="2024-12-24T06:19:46.480Z">
+<meta property="article:modified_time" content="2025-01-23T07:46:10.524Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -251,7 +251,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/pink.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -743,7 +743,7 @@
 <li><p>例：P297</p>
 </li>
 </ul>
-<p><img src="/posts/Above-All/on-to-OOP/const.png" srcset="/img/loading.gif" lazyload alt="This Pointer"></p>
+<p><img src="https://ooo.0x0.ooo/2025/01/23/OG7ceI.png" srcset="/img/loading.gif" lazyload alt="This pointer"></p>
 <p>即需要一个指向“自身”的隐式指针——<strong>this 指针</strong>！</p>
 <p>故缺失的代码为：<code>return *this</code></p>
 <h3 id="有关this-指针的相关注意点"><a href="#有关this-指针的相关注意点" class="headerlink" title="有关this 指针的相关注意点"></a>有关this 指针的相关注意点</h3><ul>
@@ -770,7 +770,7 @@
 <h2 id="对象数组"><a href="#对象数组" class="headerlink" title="对象数组"></a>对象数组</h2><ul>
 <li>创建对象数组的格式和基本数组相同</li>
 </ul>
-<p><img src="/posts/Above-All/on-to-OOP/create.png" srcset="/img/loading.gif" lazyload alt="构造函数"></p>
+<p><img src="https://ooo.0x0.ooo/2025/01/23/OG7s3F.png" srcset="/img/loading.gif" lazyload alt="Constructor"></p>
 <p>也可以使用不同的构造函数</p>
 <ul>
 <li><strong>要创建类对象数组，必须应有类的默认构造函数（显示&amp;隐式）</strong>，因为在初始化对象数组的时候首先使用默认构造函数创建数组元素，接着再创建临时对象并对值进行覆盖。</li>
@@ -864,7 +864,7 @@
 </li>
 <li><strong>只有在函数声明的时候需要加上friend关键词，在函数定义时不可以</strong></li>
 </ul>
-<p><img src="/posts/Above-All/on-to-OOP/vector.png" srcset="/img/loading.gif" lazyload alt="vector"></p>
+<p><img src="https://ooo.0x0.ooo/2025/01/23/OG7Yh6.png" srcset="/img/loading.gif" lazyload alt="Vector"></p>
 <h3 id="友元函数和在成员函数中运算符重载的区别"><a href="#友元函数和在成员函数中运算符重载的区别" class="headerlink" title="友元函数和在成员函数中运算符重载的区别"></a>友元函数和在成员函数中运算符重载的区别</h3><p>在成员函数中实现运算符重载</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Complex</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    Complex <span class="hljs-keyword">operator</span>+(<span class="hljs-type">const</span> Complex&amp; other) <span class="hljs-type">const</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Complex</span>(real + other.real, imag + other.imag);<br>    &#125;<br>    <span class="hljs-comment">//成员函数重载运算符中，所需的参数数目比运算符使用的参数数目少一个，其中一个是被隐式传递的调用对象(this 指针)</span><br>    <span class="hljs-comment">// 其它成员函数和数据成员</span><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">double</span> real;<br>    <span class="hljs-type">double</span> imag;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
 
@@ -954,7 +954,7 @@
 <blockquote>
 <p>运算符重载也可以看做是OOP<strong>多态</strong>精神的一部分，标准库中每个运算符都有自己的定义，现在我们在此基础之上新定义新的语法规则。</p>
 </blockquote>
-<p><img src="/posts/Above-All/on-to-OOP/operator.png" srcset="/img/loading.gif" lazyload alt="operator"></p>
+<p><img src="https://ooo.0x0.ooo/2025/01/23/OG7ftP.png" srcset="/img/loading.gif" lazyload alt="Operator"></p>
 <ul>
 <li><p>可以实现运算符重载的运算符</p>
 </li>
@@ -1011,7 +1011,7 @@
 
 <h3 id="输入-输出运算符的重载"><a href="#输入-输出运算符的重载" class="headerlink" title="输入&#x2F;输出运算符的重载"></a>输入&#x2F;输出运算符的重载</h3><h4 id="重新认识运算符"><a href="#重新认识运算符" class="headerlink" title="重新认识&lt;&lt;和&gt;&gt;运算符"></a>重新认识<code>&lt;&lt;</code>和<code>&gt;&gt;</code>运算符</h4><p>在笔者的第一堂C++启蒙课上，笔者便体会到了<strong>流操作</strong>的精妙和便捷。（相比于<code>printf()</code>和<code>scanf()</code>的冗长语法）但是，当时笔者只是把<code>cin/cout</code>当做一个普通的函数来使用，并不知道其背后深层次的原理。下面，我们先来重新认识一下cin&#x2F;cout的真面目。</p>
 <h5 id="istream和ostream"><a href="#istream和ostream" class="headerlink" title="istream和ostream"></a><code>istream</code>和<code>ostream</code></h5><p>在 C++ 中，<strong>流类（如 <code>std::istream</code> 和 <code>std::ostream</code>）是处理输入输出操作的核心类</strong>，它们为程序提供了与数据流进行交互的功能。这些类是 C++ 标准库的一部分，用于简化与文件、控制台、字符串等设备的交互。</p>
-<p><img src="/posts/Above-All/on-to-OOP/iostream.png" srcset="/img/loading.gif" lazyload alt="iostream"></p>
+<p><img src="https://ooo.0x0.ooo/2025/01/23/OG7l2b.png" srcset="/img/loading.gif" lazyload alt="IOstream"></p>
 <ol>
 <li><strong><code>std::istream</code> 类</strong></li>
 </ol>
@@ -1118,7 +1118,7 @@
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">Stonewt</span><span class="hljs-params">(<span class="hljs-type">double</span> lbs)</span></span><br></code></pre></td></tr></table></figure>
 
-<p><img src="/posts/Above-All/on-to-OOP/explicit.png" srcset="/img/loading.gif" lazyload alt="explicit"></p>
+<p><img src="https://ooo.0x0.ooo/2025/01/23/OG7jWl.png" srcset="/img/loading.gif" lazyload alt="Explicit"></p>
 <ul>
 <li><p>转换函数：将类转换为基本的数据类型</p>
 <ul>
@@ -1128,11 +1128,11 @@
 <li><p>定义</p>
 </li>
 </ul>
-<p><img src="/posts/Above-All/on-to-OOP/definition.png" srcset="/img/loading.gif" lazyload alt="definition"></p>
+<p><img src="https://ooo.0x0.ooo/2025/01/23/OG72gg.png" srcset="/img/loading.gif" lazyload alt="Definition"></p>
 <ul>
 <li>优化：进行显示转换</li>
 </ul>
-<p><img src="/posts/Above-All/on-to-OOP/modification.png" srcset="/img/loading.gif" lazyload alt="modification"></p>
+<p><img src="https://ooo.0x0.ooo/2025/01/23/OG76VB.png" srcset="/img/loading.gif" lazyload alt="Modofication"></p>
 <ul>
 <li><strong>警告：使用过多的转换函数可能会导致二义性冲突</strong>。</li>
 </ul>
@@ -1215,7 +1215,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 24, 2024</div>
+          <div>January 23, 2025</div>
         </div>
       
       
