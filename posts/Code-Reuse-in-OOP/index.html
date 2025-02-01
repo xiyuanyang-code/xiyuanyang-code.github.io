@@ -30,11 +30,11 @@
 <meta property="article:published_time" content="2024-12-12T02:13:03.000Z">
 <meta property="article:modified_time" content="2024-12-24T06:47:29.710Z">
 <meta property="article:author" content="Xiyuan Yang">
-<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="Finished">
 <meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="OOP">
 <meta property="article:tag" content="C++ Primer Plus">
-<meta property="article:tag" content="Finished">
+<meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Inheritance">
 <meta property="article:tag" content="Code Reuse">
 <meta name="twitter:card" content="summary_large_image">
@@ -348,7 +348,7 @@
         aria-expanded="true"
       >
         Code
-        <span class="list-group-count">(13)</span>
+        <span class="list-group-count">(14)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -362,10 +362,10 @@
     
       
       
-        <a href="/posts/C-plus-plus-Primer-Plus-tutorial/" title="C-plus-plus-Primer-Plus-tutorial"
+        <a href="/posts/C-plus-plus-Primer-Plus-tutorial/" title="C-Plus-Plus-Primer-Plus-Tutorial"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">C-plus-plus-Primer-Plus-tutorial</span>
+          <span class="category-post">C-Plus-Plus-Primer-Plus-Tutorial</span>
         </a>
       
     
@@ -407,10 +407,10 @@
     
       
       
-        <a href="/posts/Exception-Handling-in-C-plus-plus/" title="Exception-Handling-in-C-plus-plus"
+        <a href="/posts/Exception-Handling-in-C-plus-plus/" title="Exception-Handling-in-C-Plus-Plus"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Exception-Handling-in-C-plus-plus</span>
+          <span class="category-post">Exception-Handling-in-C-Plus-Plus</span>
         </a>
       
     
@@ -425,10 +425,10 @@
     
       
       
-        <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-plus-plus"
+        <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-Plus-Plus"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Input-and-Output-in-C-plus-plus</span>
+          <span class="category-post">Input-and-Output-in-C-Plus-Plus</span>
         </a>
       
     
@@ -474,6 +474,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">Python-Update-Learning</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Regular-Expression/" title="Regular-Expression"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Regular-Expression</span>
         </a>
       
     
@@ -545,7 +554,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// studenti.h -- defining a Student class using private inheritance</span><br><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> STUDENTC_H_</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> STUDENTC_H_</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;valarray&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span>   </span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> : <span class="hljs-keyword">private</span> std::string, <span class="hljs-keyword">private</span> std::valarray&lt;<span class="hljs-type">double</span>&gt;<br>&#123;   <br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">typedef</span> std::valarray&lt;<span class="hljs-type">double</span>&gt; ArrayDb;<br>    <span class="hljs-comment">// private method for scores output</span><br>    <span class="hljs-function">std::ostream &amp; <span class="hljs-title">arr_out</span><span class="hljs-params">(std::ostream &amp; os)</span> <span class="hljs-type">const</span></span>;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">Student</span>() : std::<span class="hljs-built_in">string</span>(<span class="hljs-string">&quot;Null Student&quot;</span>), <span class="hljs-built_in">ArrayDb</span>() &#123;&#125;<br>    <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">Student</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string &amp; s)</span></span><br><span class="hljs-function">            : std::string(s), ArrayDb() &#123;</span>&#125;<br>    <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">Student</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> : std::string(<span class="hljs-string">&quot;Nully&quot;</span>), ArrayDb(n) &#123;</span>&#125;<br>    <span class="hljs-built_in">Student</span>(<span class="hljs-type">const</span> std::string &amp; s, <span class="hljs-type">int</span> n)<br>            : std::<span class="hljs-built_in">string</span>(s), <span class="hljs-built_in">ArrayDb</span>(n) &#123;&#125;<br>    <span class="hljs-built_in">Student</span>(<span class="hljs-type">const</span> std::string &amp; s, <span class="hljs-type">const</span> ArrayDb &amp; a)<br>            : std::<span class="hljs-built_in">string</span>(s), <span class="hljs-built_in">ArrayDb</span>(a) &#123;&#125;<br>    <span class="hljs-built_in">Student</span>(<span class="hljs-type">const</span> <span class="hljs-type">char</span> * str, <span class="hljs-type">const</span> <span class="hljs-type">double</span> * pd, <span class="hljs-type">int</span> n)<br>            : std::<span class="hljs-built_in">string</span>(str), <span class="hljs-built_in">ArrayDb</span>(pd, n) &#123;&#125;<br>    ~<span class="hljs-built_in">Student</span>() &#123;&#125;<br>    <span class="hljs-function"><span class="hljs-type">double</span> <span class="hljs-title">Average</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;<br>    <span class="hljs-type">double</span> &amp; <span class="hljs-keyword">operator</span>[](<span class="hljs-type">int</span> i);<br>    <span class="hljs-type">double</span> <span class="hljs-keyword">operator</span>[](<span class="hljs-type">int</span> i) <span class="hljs-type">const</span>;<br>    <span class="hljs-function"><span class="hljs-type">const</span> std::string &amp; <span class="hljs-title">Name</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;<br><span class="hljs-comment">// friends</span><br>    <span class="hljs-comment">// input</span><br>    <span class="hljs-keyword">friend</span> std::istream &amp; <span class="hljs-keyword">operator</span>&gt;&gt;(std::istream &amp; is,<br>                                     Student &amp; stu);  <span class="hljs-comment">// 1 word</span><br>    <span class="hljs-function"><span class="hljs-keyword">friend</span> std::istream &amp; <span class="hljs-title">getline</span><span class="hljs-params">(std::istream &amp; is,</span></span><br><span class="hljs-params"><span class="hljs-function">                                  Student &amp; stu)</span></span>;     <span class="hljs-comment">// 1 line</span><br>    <span class="hljs-comment">// output</span><br>    <span class="hljs-keyword">friend</span> std::ostream &amp; <span class="hljs-keyword">operator</span>&lt;&lt;(std::ostream &amp; os,<br>                                     <span class="hljs-type">const</span> Student &amp; stu);<br>&#125;;<br><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br><br></code></pre></td></tr></table></figure>
 
 <h2 id="Multiple-Inheritance"><a href="#Multiple-Inheritance" class="headerlink" title="Multiple Inheritance"></a>Multiple Inheritance</h2><p>从单继承，我们很容易的推理出多重继承（Multiple Inheritance），简称MI。</p>
-<p><img src="/posts/Above-All/-in-OOP/MI.png" srcset="/img/loading.gif" lazyload alt="Multiple Inheritance"></p>
+<p><img src="/posts/Code-Reuse-in-OOP/MI.png" srcset="/img/loading.gif" lazyload alt="Multiple Inheritance"></p>
 <div class="note note-danger">
             <p><strong>注意！！！多重继承在一定程度上大大提高了继承的复杂性！一定要慎用！（笔者建议能使用单继承就使用单继承）</strong></p>
           </div>
@@ -594,7 +603,7 @@
 <li><strong><code>T</code><strong>：这是一个</strong>类型模板参数</strong>（Type Template Parameter），表示一个类型，通常用来代表类、结构体、函数等的类型。</li>
 <li><strong><code>n</code><strong>：这是一个</strong>非类型模板参数</strong>（Non-type Template Parameter），表示一个常量值，通常是整数、指针、引用或其他常量值。</li>
 </ul>
-<p><img src="/posts/Above-All/-in-OOP/biaodashi.png" srcset="/img/loading.gif" lazyload alt="表达式参数"></p>
+<p><img src="/posts/Code-Reuse-in-OOP/biaodashi.png" srcset="/img/loading.gif" lazyload alt="表达式参数"></p>
 <p>缺点是，在<code>n</code>不相同的情况下，编译器会生成两种不同的模版（<strong>哪怕非类型模版参数是相同的</strong>）。非类型参数的使用本质是更改了内存的存储方式，在提升效率的同时牺牲了部分的通用性。（无法创建数组大小可变的类了）</p>
 <h4 id="递归使用模板"><a href="#递归使用模板" class="headerlink" title="递归使用模板"></a>递归使用模板</h4><p><code>ArrayTP&lt; ArrayTP&lt;int,5&gt;, 10&gt; twodee;</code></p>
 <h4 id="pair类"><a href="#pair类" class="headerlink" title="pair类"></a>pair类</h4><div class="note note-info">
@@ -786,9 +795,9 @@
 </blockquote>
 <h4 id="互为友元"><a href="#互为友元" class="headerlink" title="互为友元"></a>互为友元</h4><p>除本章前面讨论的，还有其他友元和类的组合形式，下面简要地介绍其中的一些。</p>
 <p>假设由于技术进步，出现了交互式遥控器。例如，交互式遥控器让您能够回答电视节目中的问题，如果回答错误，电视将在控制器上产生嗡嗡声。忽略电视使用这种设施安排观众进入节目的可能性，我们只看 C++的编程方面。新的方案将受益于相互的友情，一些 Remote 方法能够像前面那样影响 Tv 对象，而一些 Tv 方法也能影响 Remote 对象。这可以通过让<strong>类彼此成为对方的友元</strong>来实现，即除了 Remote 是 Tv 的友元外， Tv还是 Remote 的友元。需要记住的一点是，对于使用 Remote 对象的 Tv 方法，其原型可在 Remote 类声明之前声明，但必须在 Remote 类声明之后定义，以便编译器有足够的信息来编译该方法。</p>
-<p><img src="/posts/Above-All/-in-OOP/friend.png" srcset="/img/loading.gif" lazyload alt="互为友元"></p>
+<p><img src="/posts/Code-Reuse-in-OOP/friend.png" srcset="/img/loading.gif" lazyload alt="互为友元"></p>
 <h4 id="共同的友元"><a href="#共同的友元" class="headerlink" title="共同的友元"></a>共同的友元</h4><p>需要使用友元的另一种情况是，<strong>函数需要访问两个类的私有数据</strong>。从逻辑上看，这样的函数应是每个类的成员函数，但这是不可能的。它可以是一个类的成员，同时是另一个类的友元，但有时<strong>将函数作为两个类的友元更合理</strong>。例如，假定有一个 Probe 类和一个 Analyzer 类，前者表示某种可编程的测量设备，后者表示某种可编程的分析设备。  </p>
-<p><img src="/posts/Above-All/-in-OOP/frineds.png" srcset="/img/loading.gif" lazyload alt="共同的友元"></p>
+<p><img src="/posts/Code-Reuse-in-OOP/frineds.png" srcset="/img/loading.gif" lazyload alt="共同的友元"></p>
 <h3 id="模板类和友元"><a href="#模板类和友元" class="headerlink" title="模板类和友元"></a>模板类和友元</h3><p>模板类声明也可以有友元。模板的友元分 3 类：</p>
 <ul>
 <li><strong>非模板友元</strong>；</li>
@@ -921,7 +930,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
       
         <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
       
@@ -929,7 +938,7 @@
       
         <a href="/tags/C-Primer-Plus/" class="print-no-link">#C++ Primer Plus</a>
       
-        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
       
         <a href="/tags/Inheritance/" class="print-no-link">#Inheritance</a>
       
@@ -995,9 +1004,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/Exception-Handling-in-C-plus-plus/" title="Exception-Handling-in-C-plus-plus">
+                      <a href="/posts/Exception-Handling-in-C-plus-plus/" title="Exception-Handling-in-C-Plus-Plus">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Exception-Handling-in-C-plus-plus</span>
+                        <span class="hidden-mobile">Exception-Handling-in-C-Plus-Plus</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -1005,8 +1014,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/Leetcode-Mistake-collection-31-40/" title="Leetcode-Mistake-collection-31-40">
-                        <span class="hidden-mobile">Leetcode-Mistake-collection-31-40</span>
+                      <a href="/posts/Leetcode-Mistake-collection-31-40/" title="Leetcode-Mistake-Collection-31-40">
+                        <span class="hidden-mobile">Leetcode-Mistake-Collection-31-40</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -21,7 +21,7 @@
   
     <meta name="description" content="This blog focuses on C++ stream-based input and output, including console-based, file-based, and string-based and share advanced techniques for custom IO, including the use of the iomanip library.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Input-and-Output-in-C-plus-plus">
+<meta property="og:title" content="Input-and-Output-in-C-Plus-Plus">
 <meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Input-and-Output-in-C-plus-plus/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
 <meta property="og:description" content="This blog focuses on C++ stream-based input and output, including console-based, file-based, and string-based and share advanced techniques for custom IO, including the use of the iomanip library.">
@@ -30,9 +30,9 @@
 <meta property="article:published_time" content="2024-12-28T05:04:27.000Z">
 <meta property="article:modified_time" content="2025-01-04T15:42:39.090Z">
 <meta property="article:author" content="Xiyuan Yang">
-<meta property="article:tag" content="tutorial">
-<meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="Finished">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="IO">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/stream.jpg">
@@ -41,7 +41,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Input-and-Output-in-C-plus-plus - Xiyuan Yang&#39;s Blog</title>
+  <title>Input-and-Output-in-C-Plus-Plus - Xiyuan Yang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -256,7 +256,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Input-and-Output-in-C-plus-plus"></span>
+            <span id="subtitle" data-typed-text="Input-and-Output-in-C-Plus-Plus"></span>
           
         </div>
 
@@ -345,7 +345,7 @@
         aria-expanded="true"
       >
         Code
-        <span class="list-group-count">(13)</span>
+        <span class="list-group-count">(14)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -359,10 +359,10 @@
     
       
       
-        <a href="/posts/C-plus-plus-Primer-Plus-tutorial/" title="C-plus-plus-Primer-Plus-tutorial"
+        <a href="/posts/C-plus-plus-Primer-Plus-tutorial/" title="C-Plus-Plus-Primer-Plus-Tutorial"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">C-plus-plus-Primer-Plus-tutorial</span>
+          <span class="category-post">C-Plus-Plus-Primer-Plus-Tutorial</span>
         </a>
       
     
@@ -404,10 +404,10 @@
     
       
       
-        <a href="/posts/Exception-Handling-in-C-plus-plus/" title="Exception-Handling-in-C-plus-plus"
+        <a href="/posts/Exception-Handling-in-C-plus-plus/" title="Exception-Handling-in-C-Plus-Plus"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Exception-Handling-in-C-plus-plus</span>
+          <span class="category-post">Exception-Handling-in-C-Plus-Plus</span>
         </a>
       
     
@@ -422,10 +422,10 @@
     
       
       
-        <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-plus-plus"
+        <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-Plus-Plus"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">Input-and-Output-in-C-plus-plus</span>
+          <span class="category-post">Input-and-Output-in-C-Plus-Plus</span>
         </a>
       
     
@@ -474,6 +474,15 @@
         </a>
       
     
+      
+      
+        <a href="/posts/Regular-Expression/" title="Regular-Expression"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Regular-Expression</span>
+        </a>
+      
+    
   </div>
 
         
@@ -492,7 +501,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Input-and-Output-in-C-plus-plus</h1>
+            <h1 id="seo-header">Input-and-Output-in-C-Plus-Plus</h1>
             
             
               <div class="markdown-body">
@@ -507,7 +516,7 @@
 </li>
 </ul>
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>在<strong>冯诺依曼体系结构</strong>中，计算机通过输入设备向电脑输入信息，经过运算后由输出设备输出。由此可见，输入输出是<strong>程序与外部进行数据通信的重要枢纽</strong>。在过往C++的学习中，我们已经掌握了一些有关输入输出的基本知识（<code>cin</code>和<code>cout</code>）。本章节将从更加底层的视角介绍C++中常见的三种输入输出：**基于控制台的输入输出类型<code>iostream</code>、基于文件的输入输出类型<code>fstream</code>和基于字符串的输入输出类型<code>sstream</code>**。</p>
-<p><img src="/posts/Above-All/Output-in-C-plus-plus/fnym.png" srcset="/img/loading.gif" lazyload alt="冯诺依曼体系结构"></p>
+<p><img src="/posts/Input-and-Output-in-C-plus-plus/fnym.png" srcset="/img/loading.gif" lazyload alt="冯诺依曼体系结构"></p>
 <h2 id="Several-Basic-Concepts"><a href="#Several-Basic-Concepts" class="headerlink" title="Several Basic Concepts"></a>Several Basic Concepts</h2><p>在正式开始我们的内容之前，我们需要做一些准备工作，下文将向读者介绍四个基本概念：<strong>流、控制台、缓冲区和IO标准库</strong>。</p>
 <h3 id="Streams"><a href="#Streams" class="headerlink" title="Streams"></a>Streams</h3><p>在计算机编程中，<strong>流(Stream)<strong>是一种用于输入和输出（I&#x2F;O）操作的抽象。流可以看作是数据元素的序列，这些数据元素</strong>按时间顺序可供程序读取或写入</strong>，通常用于在程序与外部源（如文件、网络连接或控制台）之间传输数据。</p>
 <p>具体到C++的输入输出中，C++的输入&#x2F;输出是以<strong>一连串字节流的方式</strong>进行的。在输入操作中，字节从<strong>设备（如键盘、磁盘）流向内存</strong>，称为<strong>输入流</strong>。在输出操作中，字节<strong>从内存流向设备（如显示器、打印机、磁盘等）</strong>，称为<strong>输出流</strong>。 C++同时提供“低层次”和“高层次”的输入&#x2F;输出。低层次的输入&#x2F;输出直接<strong>处理字节流中的一个个字节</strong>，把每个字节仅看成一个二进制比特串。高层次的输入&#x2F;输出可以将字节组合成有意义的单位，如<strong>整型数、浮点数及自定义类型的值进行操作</strong>。  </p>
@@ -573,7 +582,7 @@
 <li><code>&lt;fstream&gt;</code>：文件流（如 <code>std::ifstream</code>、<code>std::ofstream</code>）。</li>
 <li><code>&lt;sstream&gt;</code>：字符串流（如 <code>std::istringstream</code>、<code>std::ostringstream</code>）。</li>
 </ul>
-<p><img src="/posts/Above-All/Output-in-C-plus-plus/iostream.png" srcset="/img/loading.gif" lazyload alt="iostream"></p>
+<p><img src="/posts/Input-and-Output-in-C-plus-plus/iostream.png" srcset="/img/loading.gif" lazyload alt="iostream"></p>
 <table>
 <thead>
 <tr>
@@ -671,7 +680,7 @@
 </blockquote>
 <h2 id="File-based-input-and-output"><a href="#File-based-input-and-output" class="headerlink" title="File-based input and output"></a>File-based input and output</h2><h3 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h3><p>在我们之前所遇到的程序中，程序的输入都指的是<strong>键盘的手动输入</strong>，这种输入方式灵活便捷但具有局限性。（例如我编写了一个程序需要统计公司所有员工的考勤记录，如果把所有数据全部手敲进终端中无疑是费时费力的。）因此，<strong>文件的输入输出</strong>在某些情况下相比于控制台的输入输出有着得天独厚的优越性。</p>
 <p>为了展示文件输入输出的强大之处，先向笔者展示以下的程序：</p>
-<p><img src="/posts/Above-All/Output-in-C-plus-plus/Bash.png" srcset="/img/loading.gif" lazyload alt="File-based input and output"></p>
+<p><img src="/posts/Input-and-Output-in-C-plus-plus/Bash.png" srcset="/img/loading.gif" lazyload alt="File-based input and output"></p>
 <blockquote>
 <p>上图的命令行使用Bash语言，感兴趣的读者可自行学习，笔者这里使用的是GitBash（Powershell就是💩）</p>
 </blockquote>
@@ -871,11 +880,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
       
         <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
       
-        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
       
         <a href="/tags/IO/" class="print-no-link">#IO</a>
       
@@ -889,7 +898,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Input-and-Output-in-C-plus-plus</div>
+      <div>Input-and-Output-in-C-Plus-Plus</div>
       <div>https://xiyuanyang-code.github.io/posts/Input-and-Output-in-C-plus-plus/</div>
     </div>
     <div class="license-meta">

@@ -28,14 +28,14 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/dynamic.png">
 <meta property="article:published_time" content="2024-12-05T07:16:05.000Z">
-<meta property="article:modified_time" content="2024-12-20T12:16:08.666Z">
+<meta property="article:modified_time" content="2024-12-21T08:03:34.550Z">
 <meta property="article:author" content="Xiyuan Yang">
-<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="Finished">
 <meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="OOP">
 <meta property="article:tag" content="C++ Primer Plus">
+<meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Dynamic Memory">
-<meta property="article:tag" content="Finished">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/dynamic.png">
   
@@ -347,7 +347,7 @@
         aria-expanded="true"
       >
         Code
-        <span class="list-group-count">(13)</span>
+        <span class="list-group-count">(14)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -361,10 +361,10 @@
     
       
       
-        <a href="/posts/C-plus-plus-Primer-Plus-tutorial/" title="C-plus-plus-Primer-Plus-tutorial"
+        <a href="/posts/C-plus-plus-Primer-Plus-tutorial/" title="C-Plus-Plus-Primer-Plus-Tutorial"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">C-plus-plus-Primer-Plus-tutorial</span>
+          <span class="category-post">C-Plus-Plus-Primer-Plus-Tutorial</span>
         </a>
       
     
@@ -406,10 +406,10 @@
     
       
       
-        <a href="/posts/Exception-Handling-in-C-plus-plus/" title="Exception-Handling-in-C-plus-plus"
+        <a href="/posts/Exception-Handling-in-C-plus-plus/" title="Exception-Handling-in-C-Plus-Plus"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Exception-Handling-in-C-plus-plus</span>
+          <span class="category-post">Exception-Handling-in-C-Plus-Plus</span>
         </a>
       
     
@@ -424,10 +424,10 @@
     
       
       
-        <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-plus-plus"
+        <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-Plus-Plus"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Input-and-Output-in-C-plus-plus</span>
+          <span class="category-post">Input-and-Output-in-C-Plus-Plus</span>
         </a>
       
     
@@ -476,6 +476,15 @@
         </a>
       
     
+      
+      
+        <a href="/posts/Regular-Expression/" title="Regular-Expression"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Regular-Expression</span>
+        </a>
+      
+    
   </div>
 
         
@@ -519,8 +528,8 @@
 
 <p>以上代码实现了一个对字符串类<code>StringBad</code>类的声明与定义，代码示例参见注释，不做解释。</p>
 <p>以下是原书给出的输出示例：</p>
-<p><img src="/posts/Above-All/mory-and-Classes/input1.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="/posts/Above-All/mory-and-Classes/input2.png" srcset="/img/loading.gif" lazyload alt="Output"></p>
+<p><img src="/posts/Dynamic-Memory-and-Classes/input1.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/posts/Dynamic-Memory-and-Classes/input2.png" srcset="/img/loading.gif" lazyload alt="Output"></p>
 <h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>通过输出可以大致判断<code>stringbad</code>类出现奇怪问题的原因可能如下：</p>
 <ul>
 <li>静态变量<code>num_strings</code>出现了负值，说明在程序中<strong>使用析构函数的次数</strong>多于<strong>使用构造函数的次数</strong></li>
@@ -581,17 +590,17 @@
 <p>更严重地，在后续<code>delete``sports.str</code>的时候，相当于程序对同一块内存连续delete两次，这会导致程序的异常终止。</p>
 <h4 id="solution-1"><a href="#solution-1" class="headerlink" title="solution"></a>solution</h4><p>按值传递更加直观，易于理解，但是，一旦程序涉及于指针和内存管理相关的操作时，<strong>按值传递和按址传递（指针）会产生冲突</strong>。因此，手动构建一个显式的复制构造函数迫在眉睫。</p>
 <p>这是原书给出的显示复制构造函数（深拷贝），手动使用 <code>strcpy</code>函数实现字符串的拷贝（按址拷贝）。</p>
-<p><img src="/posts/Above-All/mory-and-Classes/3.png" srcset="/img/loading.gif" lazyload alt="Explicit Copy Constructor"></p>
+<p><img src="/posts/Dynamic-Memory-and-Classes/3.png" srcset="/img/loading.gif" lazyload alt="Explicit Copy Constructor"></p>
 <h3 id="问题还未被解决…"><a href="#问题还未被解决…" class="headerlink" title="问题还未被解决…"></a>问题还未被解决…</h3><p>我们已经解决了因为<strong>隐式复制构造函数</strong>带来的一些问题，其中，问题②主要是因为浅拷贝的<strong>赋值操作</strong>导致的<strong>按值传递与按址传递的冲突</strong>。请看下面的代码：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++">StringBad sailor = sports;<br><br>StringBad knot;<br>knot = headline1;<br></code></pre></td></tr></table></figure>
 
 <p><code>sailor</code>使用复制构造函数，将<code>sports</code>对象的临时拷贝<strong>赋值</strong>给<code>sailor</code>完成初始化。<code>knot</code>在初始化时使用了默认构造函数，但是也免不了<code>knot = headline1</code>中对其的<strong>赋值操作</strong>，<strong>按值传递与按址传递的冲突</strong>仍然存在！</p>
-<p><img src="/posts/Above-All/mory-and-Classes/input2.png" srcset="/img/loading.gif" lazyload alt="Output"></p>
+<p><img src="/posts/Dynamic-Memory-and-Classes/input2.png" srcset="/img/loading.gif" lazyload alt="Output"></p>
 <p>输出示例验证了我们的猜想，在析构时，<code>knot</code>先被<code>delete</code>，因此在最后<code>delete</code> <code>headline1</code>时，字符串呈现乱码。也就是说，<strong>C++默认的对对象的赋值运算符依旧使用按值传递</strong>，即<strong>类重载赋值运算符</strong>。下面是这种运算符的函数原型：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++">Class_name &amp; Class_name::<span class="hljs-keyword">operator</span>=(<span class="hljs-type">const</span> Class_name &amp;)<br></code></pre></td></tr></table></figure>
 
 <p>因此，解决问题的方式也显而易见了：手动定义赋值运算符的重载，和复制构造函数的定义基本相同。书中实现了运算符重载的代码示例：</p>
-<p><img src="/posts/Above-All/mory-and-Classes/4.png" srcset="/img/loading.gif" lazyload alt="Explicit Overloading of Assignment Operator"></p>
+<p><img src="/posts/Dynamic-Memory-and-Classes/4.png" srcset="/img/loading.gif" lazyload alt="Explicit Overloading of Assignment Operator"></p>
 <h3 id="特殊成员函数"><a href="#特殊成员函数" class="headerlink" title="特殊成员函数"></a>特殊成员函数</h3><p>StringBad 类的问题是由特殊成员函数引起的。这些成员函数是自动定义的，就 StringBad 而言，这些函数的行为与类设计不符。具体地说， C++自动提供了下面这些成员函数：</p>
 <ul>
 <li><strong>默认构造函数，如果没有定义构造函数；</strong></li>
@@ -657,8 +666,8 @@
 </li>
 </ul>
 <p>例如，原书给出了三个定义构造函数的实例：</p>
-<p><img src="/posts/Above-All/mory-and-Classes/example1.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="/posts/Above-All/mory-and-Classes/example2.png" srcset="/img/loading.gif" lazyload alt="Standard Practices for Using Dynamic Memory"></p>
+<p><img src="/posts/Dynamic-Memory-and-Classes/example1.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/posts/Dynamic-Memory-and-Classes/example2.png" srcset="/img/loading.gif" lazyload alt="Standard Practices for Using Dynamic Memory"></p>
 <h2 id="返回对象"><a href="#返回对象" class="headerlink" title="返回对象"></a>返回对象</h2><h3 id="返回类的引用"><a href="#返回类的引用" class="headerlink" title="返回类的引用"></a>返回类的引用</h3><p>在C++中，引用同样也是奉行“按址传递”思想的一大有力武器。在类中，返回引用不用拷贝一个类（这会消耗额外的内存），自然也不会调用复制构造函数。下文将介绍在类中返回引用的一些基础知识：</p>
 <ul>
 <li><p>使用<code>const</code>引用，效率更高，但同时需要注意匹配问题：</p>
@@ -696,7 +705,7 @@
 <h2 id="使用指向对象的指针"><a href="#使用指向对象的指针" class="headerlink" title="使用指向对象的指针"></a>使用指向对象的指针</h2><h3 id="基本用法回顾"><a href="#基本用法回顾" class="headerlink" title="基本用法回顾"></a>基本用法回顾</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs C++">  <span class="hljs-comment">// use pointers to keep track of shortest, first strings</span><br>      String * shortest = &amp;sayings[<span class="hljs-number">0</span>]; <span class="hljs-comment">// initialize to first object</span><br>      String * first = &amp;sayings[<span class="hljs-number">0</span>];<br>      <span class="hljs-keyword">for</span> (i = <span class="hljs-number">1</span>; i &lt; total; i++)<br>      &#123;<br>          <span class="hljs-keyword">if</span> (sayings[i].<span class="hljs-built_in">length</span>() &lt; shortest-&gt;<span class="hljs-built_in">length</span>())<br>              shortest = &amp;sayings[i];<br>          <span class="hljs-keyword">if</span> (sayings[i] &lt; *first)     <span class="hljs-comment">// compare values</span><br>              first = &amp;sayings[i];     <span class="hljs-comment">// assign address</span><br>      &#125;<br>      cout &lt;&lt; <span class="hljs-string">&quot;Shortest saying:\n&quot;</span> &lt;&lt; * shortest &lt;&lt; endl;<br>      cout &lt;&lt; <span class="hljs-string">&quot;First alphabetically:\n&quot;</span> &lt;&lt; * first &lt;&lt; endl;<br><br>      <span class="hljs-built_in">srand</span>(<span class="hljs-built_in">time</span>(<span class="hljs-number">0</span>));<br>      <span class="hljs-type">int</span> choice = <span class="hljs-built_in">rand</span>() % total; <span class="hljs-comment">// pick index at random</span><br><br><br><br>  <span class="hljs-comment">// use new to create, initialize new String object</span><br>      String * favorite = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>(sayings[choice]);<br><span class="hljs-comment">//这里会调用相应的构造函数</span><br>      cout &lt;&lt; <span class="hljs-string">&quot;My favorite saying:\n&quot;</span> &lt;&lt; *favorite &lt;&lt; endl;<br>      <span class="hljs-keyword">delete</span> favorite;<br>  &#125;<br>  <span class="hljs-keyword">else</span><br>      cout &lt;&lt; <span class="hljs-string">&quot;Not much to say, eh?\n&quot;</span>;<br>  cout &lt;&lt; <span class="hljs-string">&quot;Bye.\n&quot;</span>;<br></code></pre></td></tr></table></figure>
 
 <p>代码的第一部分是指向对象指针的常见用法，包括<code>-&gt;</code>运算符，常见的取址和解引用运算。代码的第二部分涉及到<code>new</code>和<code>delete</code>操作。</p>
-<h3 id="一些高级用法"><a href="#一些高级用法" class="headerlink" title="一些高级用法"></a>一些高级用法</h3><h4 id="何时使用析构函数？"><a href="#何时使用析构函数？" class="headerlink" title="何时使用析构函数？"></a>何时使用析构函数？</h4><p><img src="/posts/Above-All/mory-and-Classes/%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0.png" srcset="/img/loading.gif" lazyload alt="析构函数"></p>
+<h3 id="一些高级用法"><a href="#一些高级用法" class="headerlink" title="一些高级用法"></a>一些高级用法</h3><h4 id="何时使用析构函数？"><a href="#何时使用析构函数？" class="headerlink" title="何时使用析构函数？"></a>何时使用析构函数？</h4><p><img src="/posts/Dynamic-Memory-and-Classes/%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0.png" srcset="/img/loading.gif" lazyload alt="析构函数"></p>
 <p>在下述情况下析构函数将被调用（参见图 12.4）。</p>
 <ul>
 <li>如果对象是动态变量，则当<strong>执行完定义该对象的程序块</strong>时，将调用该对象的析构函数。</li>
@@ -796,7 +805,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
       
         <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
       
@@ -804,9 +813,9 @@
       
         <a href="/tags/C-Primer-Plus/" class="print-no-link">#C++ Primer Plus</a>
       
-        <a href="/tags/Dynamic-Memory/" class="print-no-link">#Dynamic Memory</a>
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
       
-        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+        <a href="/tags/Dynamic-Memory/" class="print-no-link">#Dynamic Memory</a>
       
     </div>
   
@@ -837,7 +846,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 20, 2024</div>
+          <div>December 21, 2024</div>
         </div>
       
       
@@ -878,8 +887,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/AI-indepth-reading-AlexNet/" title="AI-indepth-reading-AlexNet">
-                        <span class="hidden-mobile">AI-indepth-reading-AlexNet</span>
+                      <a href="/posts/AI-indepth-reading-AlexNet/" title="AI-Indepth-Reading-AlexNet">
+                        <span class="hidden-mobile">AI-Indepth-Reading-AlexNet</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

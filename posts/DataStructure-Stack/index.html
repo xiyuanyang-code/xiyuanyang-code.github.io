@@ -30,9 +30,9 @@
 <meta property="article:published_time" content="2024-12-19T02:06:53.000Z">
 <meta property="article:modified_time" content="2025-01-21T16:16:19.218Z">
 <meta property="article:author" content="Xiyuan Yang">
-<meta property="article:tag" content="tutorial">
-<meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="Finished">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Data Structure">
 <meta property="article:tag" content="Stack">
 <meta name="twitter:card" content="summary_large_image">
@@ -378,46 +378,46 @@
     
       
       
-        <a href="/posts/Leetcode-Mistake-collection/" title="Leetcode-Mistake-collection"
+        <a href="/posts/Leetcode-Mistake-collection/" title="Leetcode-Mistake-Collection"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Leetcode-Mistake-collection</span>
+          <span class="category-post">Leetcode-Mistake-Collection</span>
         </a>
       
     
       
       
-        <a href="/posts/Leetcode-Mistake-collection-1-10/" title="Leetcode-Mistake-collection-1-10"
+        <a href="/posts/Leetcode-Mistake-collection-1-10/" title="Leetcode-Mistake-Collection-1-10"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Leetcode-Mistake-collection-1-10</span>
+          <span class="category-post">Leetcode-Mistake-Collection-1-10</span>
         </a>
       
     
       
       
-        <a href="/posts/Leetcode-Mistake-collection-11-20/" title="Leetcode-Mistake-collection-11-20"
+        <a href="/posts/Leetcode-Mistake-collection-11-20/" title="Leetcode-Mistake-Collection-11-20"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Leetcode-Mistake-collection-11-20</span>
+          <span class="category-post">Leetcode-Mistake-Collection-11-20</span>
         </a>
       
     
       
       
-        <a href="/posts/Leetcode-Mistake-collection-21-30/" title="Leetcode-Mistake-collection-21-30"
+        <a href="/posts/Leetcode-Mistake-collection-21-30/" title="Leetcode-Mistake-Collection-21-30"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Leetcode-Mistake-collection-21-30</span>
+          <span class="category-post">Leetcode-Mistake-Collection-21-30</span>
         </a>
       
     
       
       
-        <a href="/posts/Leetcode-Mistake-collection-31-40/" title="Leetcode-Mistake-collection-31-40"
+        <a href="/posts/Leetcode-Mistake-collection-31-40/" title="Leetcode-Mistake-Collection-31-40"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Leetcode-Mistake-collection-31-40</span>
+          <span class="category-post">Leetcode-Mistake-Collection-31-40</span>
         </a>
       
     
@@ -530,7 +530,7 @@
 <li><strong>自动管理</strong>：栈内存的分配和释放由系统自动管理，通常是函数的调用和返回过程中，栈帧（stack frame）的创建和销毁。</li>
 <li><strong>空间有限</strong>：栈的大小通常是固定的，超过限制时会发生栈溢出（stack overflow）。</li>
 </ul>
-<p><img src="/posts/Above-All/ure-Stack/Recursion.png" srcset="/img/loading.gif" lazyload alt="Recursion"></p>
+<p><img src="/posts/DataStructure-Stack/Recursion.png" srcset="/img/loading.gif" lazyload alt="Recursion"></p>
 <p>我们先来看一种比较特殊的情况，<strong>函数的嵌套调用</strong>。在<code>main</code>函数中，函数调用<code>max</code>函数，在<code>max</code>函数中，函数调用<code>p</code>函数，形成了函数调用的一种<strong>三层嵌套</strong>。上文讲过，<strong>函数体内部的局部变量</strong>通常是存储在栈内存上的。这些局部变量在函数调用时被创建，并在函数返回时自动销毁（具体的过程如上图右侧所演示）。也就是说，当函数嵌套的层数变多时，系统执行这一个过程所需的<strong>最大栈内存</strong>会不断递增。</p>
 <p>回到递归的例子，当递归层数增多时，在<strong>栈内存</strong>上的<strong>栈帧空间</strong>会不断变大（因为上一级的函数没有返回对应的值，函数的调用没有结束，所有栈内存上会一直保留着函数的上下文）。<strong>这会带来极大的内存消耗！！！</strong></p>
 <blockquote>
@@ -674,11 +674,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
       
         <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
       
-        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
       
         <a href="/tags/Data-Structure/" class="print-no-link">#Data Structure</a>
       
@@ -744,9 +744,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-plus-plus">
+                      <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-Plus-Plus">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Input-and-Output-in-C-plus-plus</span>
+                        <span class="hidden-mobile">Input-and-Output-in-C-Plus-Plus</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     

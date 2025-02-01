@@ -30,9 +30,9 @@
 <meta property="article:published_time" content="2024-12-07T11:55:20.000Z">
 <meta property="article:modified_time" content="2024-12-20T12:34:21.551Z">
 <meta property="article:author" content="Xiyuan Yang">
-<meta property="article:tag" content="tutorial">
-<meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="Finished">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Linked list">
 <meta property="article:tag" content="Structs">
 <meta name="twitter:card" content="summary_large_image">
@@ -378,46 +378,46 @@
     
       
       
-        <a href="/posts/Leetcode-Mistake-collection/" title="Leetcode-Mistake-collection"
+        <a href="/posts/Leetcode-Mistake-collection/" title="Leetcode-Mistake-Collection"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Leetcode-Mistake-collection</span>
+          <span class="category-post">Leetcode-Mistake-Collection</span>
         </a>
       
     
       
       
-        <a href="/posts/Leetcode-Mistake-collection-1-10/" title="Leetcode-Mistake-collection-1-10"
+        <a href="/posts/Leetcode-Mistake-collection-1-10/" title="Leetcode-Mistake-Collection-1-10"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Leetcode-Mistake-collection-1-10</span>
+          <span class="category-post">Leetcode-Mistake-Collection-1-10</span>
         </a>
       
     
       
       
-        <a href="/posts/Leetcode-Mistake-collection-11-20/" title="Leetcode-Mistake-collection-11-20"
+        <a href="/posts/Leetcode-Mistake-collection-11-20/" title="Leetcode-Mistake-Collection-11-20"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Leetcode-Mistake-collection-11-20</span>
+          <span class="category-post">Leetcode-Mistake-Collection-11-20</span>
         </a>
       
     
       
       
-        <a href="/posts/Leetcode-Mistake-collection-21-30/" title="Leetcode-Mistake-collection-21-30"
+        <a href="/posts/Leetcode-Mistake-collection-21-30/" title="Leetcode-Mistake-Collection-21-30"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Leetcode-Mistake-collection-21-30</span>
+          <span class="category-post">Leetcode-Mistake-Collection-21-30</span>
         </a>
       
     
       
       
-        <a href="/posts/Leetcode-Mistake-collection-31-40/" title="Leetcode-Mistake-collection-31-40"
+        <a href="/posts/Leetcode-Mistake-collection-31-40/" title="Leetcode-Mistake-Collection-31-40"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Leetcode-Mistake-collection-31-40</span>
+          <span class="category-post">Leetcode-Mistake-Collection-31-40</span>
         </a>
       
     
@@ -573,7 +573,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">LinkedList</span> &#123;<br>    <span class="hljs-comment">// By default, construct a sentinel node that does not store any value, and its reference points to the first element of the list</span><br>    <span class="hljs-comment">// Initially, it points to nullptr</span><br>    ListNode* sentinel;<br>    <span class="hljs-type">int</span> size = <span class="hljs-number">0</span>;<br>    <span class="hljs-comment">//size represents the number of nodes in the Linkedlist</span><br><br>    <span class="hljs-comment">// Constructor: Initialize the sentinel node, allocate memory on the heap for it</span><br>    <span class="hljs-built_in">LinkedList</span>(): <span class="hljs-built_in">sentinel</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>()), <span class="hljs-built_in">size</span>(<span class="hljs-number">0</span>) &#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;Created successfully&quot;</span> &lt;&lt; endl;<br>    &#125;;<br><br>    <span class="hljs-comment">// Destructor: Iteratively delete all nodes (including the memory pointed to by the sentinel node initially)</span><br>    <span class="hljs-comment">// Once the sentinel points to a null pointer, the destruction process is complete</span><br>    ~<span class="hljs-built_in">LinkedList</span>() &#123;<br>        <span class="hljs-keyword">while</span> (sentinel != <span class="hljs-literal">nullptr</span>) &#123;<br>            ListNode* temp = sentinel;<br>            sentinel = sentinel-&gt;next;<br>            <span class="hljs-keyword">delete</span> temp;<br>        &#125;<br>        cout &lt;&lt; <span class="hljs-string">&quot;Destroyed successfully&quot;</span> &lt;&lt; endl;<br>    &#125;<br></code></pre></td></tr></table></figure>
 
 <h4 id="单链表的插入"><a href="#单链表的插入" class="headerlink" title="单链表的插入"></a>单链表的插入</h4><p>我们先来看一种比较原始的插入方式：</p>
-<p><img src="/posts/Above-All/t-Implementation-Based-on-Structs/Insert.png" srcset="/img/loading.gif" lazyload alt="Insert"></p>
+<p><img src="/posts/Linked-List-Implementation-Based-on-Structs/Insert.png" srcset="/img/loading.gif" lazyload alt="Insert"></p>
 <p>由上图可知，如果要再节点p的后面插入一个新的节点temp，需要完成以下几件事：</p>
 <ul>
 <li>修改节点p中指向下一个节点的指针，使其指向新节点temp的地址</li>
@@ -597,7 +597,7 @@
 <p>因此，我们实现了链表的插入操作的函数，用于不同的功能：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//插入函数</span><br>    <span class="hljs-comment">// 在链表头部插入节点</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">insertAtHead</span><span class="hljs-params">(<span class="hljs-type">int</span> value)</span> </span>&#123;<br>        Node* newNode = <span class="hljs-keyword">new</span> Node&#123;value, head&#125;; <span class="hljs-comment">// 使用初始化列表来初始化新节点</span><br>        head = newNode;<br>    &#125;<br><br>    <span class="hljs-comment">// 在指定节点之后插入新节点</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">insertAfter</span><span class="hljs-params">(Node* current, <span class="hljs-type">int</span> value)</span> </span>&#123;<br>        <span class="hljs-comment">// 如果当前节点为空，直接返回或抛出异常</span><br>        <span class="hljs-keyword">if</span> (current == <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-keyword">throw</span> std::<span class="hljs-built_in">invalid_argument</span>(<span class="hljs-string">&quot;Current node is null&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-comment">// 创建新节点</span><br>        Node* newNode = <span class="hljs-keyword">new</span> Node&#123;value, current-&gt;next&#125;;<br>        <span class="hljs-comment">// 将新节点插入到当前节点之后</span><br>        current-&gt;next = newNode;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">insertAtPosition</span><span class="hljs-params">(<span class="hljs-type">int</span> value, <span class="hljs-type">int</span> position)</span> </span>&#123;<br>        <span class="hljs-comment">// 如果位置是0或链表为空，则在头部插入</span><br>        <span class="hljs-keyword">if</span> (position == <span class="hljs-number">0</span> || head == <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-built_in">insertAtHead</span>(value);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        Node* current = head;<br>        <span class="hljs-type">int</span> currentPosition = <span class="hljs-number">0</span>;<br>        <span class="hljs-comment">//设置一个指针，开始执行遍历</span><br>    <br>    <br>        <span class="hljs-comment">// 找到插入位置的前一个节点</span><br>        <span class="hljs-keyword">while</span> (current-&gt;next != <span class="hljs-literal">nullptr</span> &amp;&amp; currentPosition &lt; position - <span class="hljs-number">1</span>) &#123;<br>            current = current-&gt;next;<br>            currentPosition++;<br>        &#125;<br><br>        <span class="hljs-comment">// 如果位置超出了链表的末尾，则在末尾插入</span><br>        <span class="hljs-keyword">if</span> (currentPosition &lt; position - <span class="hljs-number">1</span>) &#123;<br>            Node* newNode = <span class="hljs-keyword">new</span> Node&#123;value, <span class="hljs-literal">nullptr</span>&#125;;<br>            current-&gt;next = newNode;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 插入新节点</span><br>            <span class="hljs-comment">//current代表的是n-1索引上的节点，插入到他的后面就是需要达到的目标索引</span><br>            <span class="hljs-built_in">insertAfter</span>(current, value);<br>        &#125;<br>    &#125;<br>    <br></code></pre></td></tr></table></figure>
 
-<h4 id="单链表的删除"><a href="#单链表的删除" class="headerlink" title="单链表的删除"></a>单链表的删除</h4><p><img src="/posts/Above-All/t-Implementation-Based-on-Structs/erase.png" srcset="/img/loading.gif" lazyload alt="erase"></p>
+<h4 id="单链表的删除"><a href="#单链表的删除" class="headerlink" title="单链表的删除"></a>单链表的删除</h4><p><img src="/posts/Linked-List-Implementation-Based-on-Structs/erase.png" srcset="/img/loading.gif" lazyload alt="erase"></p>
 <p>原理和单链表的插入大同小异：</p>
 <ul>
 <li>将<code>delPtr</code>前面的一个节点p的引用更改，使其直接指向后面的一个节点即可</li>
@@ -734,11 +734,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
       
         <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
       
-        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
       
         <a href="/tags/Linked-list/" class="print-no-link">#Linked list</a>
       
