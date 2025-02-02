@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=light>
+<html lang="en" >
 
 
 
@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
-  <meta name="theme-color" content="#2f4154">
+  <meta name="theme-color" content="#c30000">
   <meta name="author" content="Xiyuan Yang">
   <meta name="keywords" content="Code">
   
@@ -57,8 +57,6 @@
 
   <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
 
 
 
@@ -66,7 +64,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -223,12 +221,6 @@
           
         
         
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -239,7 +231,7 @@
 <div id="banner" class="banner" parallax=true
      style="background: url('/img/pink.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
@@ -275,7 +267,7 @@
                 
 
 <div class="text-center tagcloud">
-  <a href="/tags/AlexNet/" style="font-size: 15px; color: #bbe">AlexNet</a> <a href="/tags/Announcement/" style="font-size: 20px; color: #8ea5dc">Announcement</a> <a href="/tags/Artificial-Intelligence/" style="font-size: 15px; color: #bbe">Artificial Intelligence</a> <a href="/tags/Bash/" style="font-size: 15px; color: #bbe">Bash</a> <a href="/tags/C-Primer-Plus/" style="font-size: 25px; color: #6090c9">C++ Primer Plus</a> <a href="/tags/C-C/" style="font-size: 27.5px; color: #4a85c0">C/C++</a> <a href="/tags/CMake/" style="font-size: 17.5px; color: #a4b0e5">CMake</a> <a href="/tags/Code-Reuse/" style="font-size: 15px; color: #bbe">Code Reuse</a> <a href="/tags/Convolutional-Neural-Networks/" style="font-size: 15px; color: #bbe">Convolutional Neural Networks</a> <a href="/tags/Data-Structure/" style="font-size: 20px; color: #8ea5dc">Data Structure</a> <a href="/tags/Deep-Learning/" style="font-size: 15px; color: #bbe">Deep Learning</a> <a href="/tags/Dynamic-Memory/" style="font-size: 15px; color: #bbe">Dynamic Memory</a> <a href="/tags/Exception-Handling/" style="font-size: 15px; color: #bbe">Exception Handling</a> <a href="/tags/Files/" style="font-size: 15px; color: #bbe">Files</a> <a href="/tags/Finished/" style="font-size: 30px; color: #337ab7">Finished</a> <a href="/tags/Hello-algorithm-tutorial/" style="font-size: 15px; color: #bbe">Hello-algorithm-tutorial</a> <a href="/tags/IO/" style="font-size: 15px; color: #bbe">IO</a> <a href="/tags/Image-Clssification/" style="font-size: 15px; color: #bbe">Image Clssification</a> <a href="/tags/Inheritance/" style="font-size: 17.5px; color: #a4b0e5">Inheritance</a> <a href="/tags/Jotting/" style="font-size: 15px; color: #bbe">Jotting</a> <a href="/tags/LaTeX/" style="font-size: 15px; color: #bbe">LaTeX</a> <a href="/tags/Leetcode-notes/" style="font-size: 22.5px; color: #779bd3">Leetcode notes</a> <a href="/tags/Linear-List/" style="font-size: 15px; color: #bbe">Linear List</a> <a href="/tags/Linked-list/" style="font-size: 15px; color: #bbe">Linked list</a> <a href="/tags/Linux/" style="font-size: 15px; color: #bbe">Linux</a> <a href="/tags/Methodologies/" style="font-size: 15px; color: #bbe">Methodologies</a> <a href="/tags/OOP/" style="font-size: 25px; color: #6090c9">OOP</a> <a href="/tags/Python/" style="font-size: 22.5px; color: #779bd3">Python</a> <a href="/tags/Queue/" style="font-size: 15px; color: #bbe">Queue</a> <a href="/tags/Recursion/" style="font-size: 15px; color: #bbe">Recursion</a> <a href="/tags/Stack/" style="font-size: 15px; color: #bbe">Stack</a> <a href="/tags/Structs/" style="font-size: 15px; color: #bbe">Structs</a> <a href="/tags/Time-and-Space-Complexity/" style="font-size: 15px; color: #bbe">Time and Space Complexity</a> <a href="/tags/Tutorial/" style="font-size: 20px; color: #8ea5dc">Tutorial</a> <a href="/tags/Updating/" style="font-size: 17.5px; color: #a4b0e5">Updating</a> <a href="/tags/Vim/" style="font-size: 15px; color: #bbe">Vim</a> <a href="/tags/algorithm/" style="font-size: 22.5px; color: #779bd3">algorithm</a> <a href="/tags/functions/" style="font-size: 15px; color: #bbe">functions</a> <a href="/tags/life/" style="font-size: 15px; color: #bbe">life</a> <a href="/tags/pointers/" style="font-size: 15px; color: #bbe">pointers</a> <a href="/tags/regular-expression/" style="font-size: 15px; color: #bbe">regular expression</a> <a href="/tags/speech-recognition/" style="font-size: 15px; color: #bbe">speech recognition</a> <a href="/tags/string/" style="font-size: 15px; color: #bbe">string</a> <a href="/tags/tutorial/" style="font-size: 27.5px; color: #4a85c0">tutorial</a>
+  <a href="/tags/AlexNet/" style="font-size: 15px; color: #bbe">AlexNet</a> <a href="/tags/Announcement/" style="font-size: 21px; color: #85a1d8">Announcement</a> <a href="/tags/Artificial-Intelligence/" style="font-size: 15px; color: #bbe">Artificial Intelligence</a> <a href="/tags/Bash/" style="font-size: 15px; color: #bbe">Bash</a> <a href="/tags/C-Primer-Plus/" style="font-size: 27px; color: #4e87c2">C++ Primer Plus</a> <a href="/tags/C-C/" style="font-size: 30px; color: #337ab7">C/C++</a> <a href="/tags/CMake/" style="font-size: 18px; color: #a0aee3">CMake</a> <a href="/tags/Code-Reuse/" style="font-size: 15px; color: #bbe">Code Reuse</a> <a href="/tags/Convolutional-Neural-Networks/" style="font-size: 15px; color: #bbe">Convolutional Neural Networks</a> <a href="/tags/Data-Structure/" style="font-size: 24px; color: #6994cd">Data Structure</a> <a href="/tags/Deep-Learning/" style="font-size: 15px; color: #bbe">Deep Learning</a> <a href="/tags/Dynamic-Memory/" style="font-size: 15px; color: #bbe">Dynamic Memory</a> <a href="/tags/Exception-Handling/" style="font-size: 15px; color: #bbe">Exception Handling</a> <a href="/tags/Files/" style="font-size: 15px; color: #bbe">Files</a> <a href="/tags/Finished/" style="font-size: 30px; color: #337ab7">Finished</a> <a href="/tags/Hello-algorithm-tutorial/" style="font-size: 15px; color: #bbe">Hello-algorithm-tutorial</a> <a href="/tags/IO/" style="font-size: 15px; color: #bbe">IO</a> <a href="/tags/Image-Clssification/" style="font-size: 15px; color: #bbe">Image Clssification</a> <a href="/tags/Inheritance/" style="font-size: 18px; color: #a0aee3">Inheritance</a> <a href="/tags/Jotting/" style="font-size: 15px; color: #bbe">Jotting</a> <a href="/tags/LaTeX/" style="font-size: 15px; color: #bbe">LaTeX</a> <a href="/tags/Leetcode-notes/" style="font-size: 24px; color: #6994cd">Leetcode notes</a> <a href="/tags/Linear-List/" style="font-size: 15px; color: #bbe">Linear List</a> <a href="/tags/Linked-list/" style="font-size: 15px; color: #bbe">Linked list</a> <a href="/tags/Linux/" style="font-size: 15px; color: #bbe">Linux</a> <a href="/tags/Methodologies/" style="font-size: 15px; color: #bbe">Methodologies</a> <a href="/tags/OOP/" style="font-size: 27px; color: #4e87c2">OOP</a> <a href="/tags/Python/" style="font-size: 24px; color: #6994cd">Python</a> <a href="/tags/Queue/" style="font-size: 15px; color: #bbe">Queue</a> <a href="/tags/Recursion/" style="font-size: 15px; color: #bbe">Recursion</a> <a href="/tags/Stack/" style="font-size: 15px; color: #bbe">Stack</a> <a href="/tags/Structs/" style="font-size: 15px; color: #bbe">Structs</a> <a href="/tags/Time-and-Space-Complexity/" style="font-size: 15px; color: #bbe">Time and Space Complexity</a> <a href="/tags/Tutorial/" style="font-size: 21px; color: #85a1d8">Tutorial</a> <a href="/tags/Updating/" style="font-size: 18px; color: #a0aee3">Updating</a> <a href="/tags/Vim/" style="font-size: 15px; color: #bbe">Vim</a> <a href="/tags/algorithm/" style="font-size: 24px; color: #6994cd">algorithm</a> <a href="/tags/functions/" style="font-size: 15px; color: #bbe">functions</a> <a href="/tags/life/" style="font-size: 15px; color: #bbe">life</a> <a href="/tags/pointers/" style="font-size: 15px; color: #bbe">pointers</a> <a href="/tags/regular-expression/" style="font-size: 15px; color: #bbe">regular expression</a> <a href="/tags/speech-recognition/" style="font-size: 15px; color: #bbe">speech recognition</a> <a href="/tags/string/" style="font-size: 18px; color: #a0aee3">string</a> <a href="/tags/tutorial/" style="font-size: 30px; color: #337ab7">tutorial</a>
 </div>
 
               </div>
