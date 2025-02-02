@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/vim.png">
 <meta property="article:published_time" content="2025-01-23T04:59:07.000Z">
-<meta property="article:modified_time" content="2025-01-23T05:09:09.467Z">
+<meta property="article:modified_time" content="2025-02-02T08:33:59.269Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Vim">
@@ -282,7 +282,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          420 words
+          3.3k words
         
       </span>
     
@@ -432,18 +432,32 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Vim-Basic-Learning-Notes"><a href="#Vim-Basic-Learning-Notes" class="headerlink" title="Vim Basic Learning Notes"></a>Vim Basic Learning Notes</h1><blockquote>
-<p>This is the previous Learning notes of vim myself.</p>
-<p>I will modify it more logically in the near future.</p>
-<p>Just wait~</p>
+                <h1 id="Vim-Basic-Learning-Notes"><a href="#Vim-Basic-Learning-Notes" class="headerlink" title="Vim Basic Learning Notes"></a>Vim Basic Learning Notes</h1><p>The Learning curve for vim is too damn steep! I have tried several times trying to get used to using vim. :cry:</p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>This document provides a comprehensive guide to the <strong>basic functionalities of Vim</strong>, a powerful text editor. It covers essential commands and modes, including Command Line, Normal Mode, Visual Mode, and Insert Mode. The guide also includes common shortcuts and tips for efficient text editing, such as moving within documents, searching, copying, cutting, and pasting text.</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="What-is-Vim"><a href="#What-is-Vim" class="headerlink" title="What is Vim"></a>What is Vim</h3><p><strong>Vim</strong> is a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Free_and_open-source">free and open-source</a>, <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Screen-based_text_editor">screen-based text editor</a> program.</p>
+<p>Just like the powerful <code>Vscode</code>, which is the most popular code editor used in <strong>GUI</strong>, <strong>vim</strong> is the most powerful text editor used in <strong>Command Line</strong>.</p>
+<p>We will not discuss how powerful Vim is in the text, because <strong>Vim is a text editor</strong>. You can also implement the same tasks without using vim, with the expense of sacrificing a huge amount of time.</p>
+<p>Before diving deeply into Vim’s world, we need to ensure the <strong>core principle of Vim</strong>: <strong>make all the operations executed in the keyboard, not with the mouse.</strong></p>
+<p><strong>Vim’s interface is a programming language</strong>!</p>
+<blockquote>
+<p>So you’ve better not type too slowly in English. You need to ensure typing letters is more efficient for you than moving mouse to everywhere!</p>
 </blockquote>
-<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>This document provides a comprehensive guide to the basic functionalities of Vim, a powerful text editor. It covers essential commands and modes, including Command Line, Normal Mode, Visual Mode, and Insert Mode. The guide also includes common shortcuts and tips for efficient text editing, such as moving within documents, searching, copying, cutting, and pasting text. Whether you’re a beginner or looking to refine your Vim skills, this document serves as a valuable resource for mastering Vim’s core features.</p>
-<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>What is Vim?</strong></p>
-<h2 id="Modes-in-Vim"><a href="#Modes-in-Vim" class="headerlink" title="Modes in Vim"></a>Modes in Vim</h2><h3 id="Command-Line"><a href="#Command-Line" class="headerlink" title="Command Line"></a>Command Line</h3><p>Command mode can be entered by typing <code>:</code> in Normal mode. Your cursor will jump to the command line at the bottom of the screen upon pressing <code>:</code>. This mode has many functionalities, including opening, saving, and closing files, and <a target="_blank" rel="noopener" href="https://twitter.com/iamdevloper/status/435555976687923200">quitting Vim</a>.</p>
+<h2 id="Modes-in-Vim"><a href="#Modes-in-Vim" class="headerlink" title="Modes in Vim"></a>Modes in Vim</h2><ul>
+<li>normal mode</li>
+<li>insert mode (<code>i</code>)</li>
+<li>replace mode (<code>R</code>)</li>
+<li>visual mode (<code>v</code>)<ul>
+<li>visual line (<code>S-V</code>)</li>
+<li>visual block (<code>C-V</code>)</li>
+</ul>
+</li>
+<li>command line mode (<code>:</code>)</li>
+</ul>
+<h3 id="Command-Line-Mode"><a href="#Command-Line-Mode" class="headerlink" title="Command Line Mode"></a>Command Line Mode</h3><p>Command mode can be entered by typing <code>:</code> in Normal mode. Your cursor will jump to the command line at the bottom of the screen upon pressing <code>:</code>. This mode has many functionalities, including opening, saving, and closing files, and <a target="_blank" rel="noopener" href="https://twitter.com/iamdevloper/status/435555976687923200">quitting Vim</a>.</p>
 <ul>
 <li><code>:q</code> quit (close window)</li>
 <li><code>:w</code> save (“write”)</li>
-<li><code>:wq</code> save and quit</li>
+<li><code>:wq</code>  save and quit</li>
 <li><code>:e &#123;name of file&#125;</code> open file for editing</li>
 <li><code>:ls</code> show open buffers</li>
 <li><code>:help &#123;topic&#125;</code> open help<ul>
@@ -452,104 +466,282 @@
 </ul>
 </li>
 </ul>
-<h3 id="Normal-Mode"><a href="#Normal-Mode" class="headerlink" title="Normal Mode"></a>Normal Mode</h3><ol>
-<li><p>Document Movement Sequence</p>
+<h3 id="Normal-Mode"><a href="#Normal-Mode" class="headerlink" title="Normal Mode"></a>Normal Mode</h3><h4 id="Movement"><a href="#Movement" class="headerlink" title="Movement"></a>Movement</h4><p>In vim, you cannot simply click the mouse to certain positions to change where the cursor is. <strong>In normal mode</strong>, you can implement this using several keys to efficiently move your cursor to everywhere you want!</p>
+<p>Based on <strong>precision</strong>, Vim’s movement keys can be divided into different categories.</p>
 <ul>
-<li>Vertical Movement (gg, G, ^u, ^d, HEL)</li>
-<li>Horizontal Movement (0, ^, $, w, b, e)</li>
-<li>High-Precision Movement (HJKL)</li>
+<li><p><strong>Movement in characters</strong></p>
+<ul>
+<li><code>hjkl</code> (left, down, up, right)</li>
 </ul>
 </li>
-<li><p>Content Search&#x2F;Jump (%, f, F, t, T, &#x2F;)</p>
-</li>
-</ol>
+<li><p><strong>Movement in words</strong></p>
 <ul>
-<li>Basic movement: <code>hjkl</code> (left, down, up, right)</li>
-<li>Words: <code>w</code> (next word), <code>b</code> (beginning of word), <code>e</code> (end of word)</li>
-<li>Lines: <code>0</code> (beginning of line), <code>^</code> (first non-blank character), <code>$</code> (end of line)</li>
-<li>Screen: <code>H</code> (top of screen), <code>M</code> (middle of screen), <code>L</code> (bottom of screen)<ul>
-<li>This command allows for quick document navigation.</li>
+<li><code>w</code> : to the next word</li>
+<li><code>b</code> : <strong>Beginning of the word</strong></li>
+<li><code>e</code> : <strong>End of the word</strong></li>
 </ul>
 </li>
-<li>Scroll: <code>Ctrl-u</code> (up), <code>Ctrl-d</code> (down)</li>
-<li>File: <code>gg</code> (beginning of file), <code>G</code> (end of file)<ul>
+<li><p><strong>Movement in lines</strong></p>
+<ul>
+<li><p><code>0</code> : (beginning of line) </p>
+<ul>
+<li>The combination <code>j+0</code> : move to the beginning of next line.</li>
+<li>The combination <code>k+0</code> : move to the beginning of last line.</li>
+</ul>
+</li>
+<li><p><code>Enter</code> : <strong>The beginning of next line</strong></p>
+</li>
+<li><p><code>^</code> : (first non-blank character)</p>
+</li>
+<li><p><code>$</code> : (end of line)</p>
+</li>
+<li><p><code>+</code> : The first non-blank character of next line</p>
+</li>
+<li><p><code>&#123;</code> and <code>&#125;</code> : move to the next empty line</p>
+</li>
+<li><p>Line numbers: <code>:&#123;number&#125;&lt;CR&gt;</code> or <code>&#123;number&#125;G</code> (line {number})</p>
+<blockquote>
+<p><code>&lt;CR&gt;</code> means press the <code>Enter</code> key.</p>
+</blockquote>
+<ul>
+<li><strong><code>:&#123;number&#125;&lt;CR&gt;</code></strong>: Enter command mode, type the line number, and press <code>Enter</code> to jump to that line.</li>
+<li><strong><code>&#123;number&#125;G</code></strong>: Directly jump to the specified line number (e.g., <code>10G</code> goes to line 10).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Movement in screens</strong></p>
+<ul>
+<li><code>H</code> : (top of screen)</li>
+<li><code>M</code> : (middle of screen)</li>
+<li><code>L</code> : (bottom of screen)</li>
+<li><strong>scrolling</strong><ul>
+<li>(I often use my touchpad)</li>
+<li><code>Ctrl-u</code> : scrolls the screen <strong>up by half a page</strong> while keeping the cursor in place.</li>
+<li><code>Ctrl-d</code> : scrolls the screen <strong>down by half a page</strong> while keeping the cursor in place.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Movement in files</strong></p>
+<ul>
+<li><code>gg</code> (beginning of file), <code>G</code> (end of file)</li>
 <li>You can also use <code>]]</code> (top) and <code>[[</code> (end) commands.</li>
+<li><strong><code>%</code></strong>: Jump to the corresponding matching item (e.g., between <code>()</code>, <code>&#123;&#125;</code>, <code>[]</code>, etc.)<ul>
+<li><strong>This is quite useful while coding in Vim!</strong></li>
 </ul>
 </li>
-<li>Line numbers: <code>:&#123;number&#125;&lt;CR&gt;</code> or <code>&#123;number&#125;G</code> (line {number})</li>
-<li>Misc: <code>%</code> (corresponding item)<ul>
-<li>Automatically jumps to the first matching point in the current file (e.g., between parentheses <code>()</code> or brackets <code>[]</code>).</li>
 </ul>
 </li>
-<li>Find:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">f&#123;character&#125;, t&#123;character&#125;, F&#123;character&#125;, T&#123;character&#125;<br></code></pre></td></tr></table></figure>
+</ul>
+<h4 id="Navigation"><a href="#Navigation" class="headerlink" title="Navigation"></a>Navigation</h4><p>In Vim, the <code>f</code>, <code>t</code>, <code>F</code>, and <code>T</code> commands are used for <strong>character-based navigation within the current line</strong>. </p>
 <ul>
-<li>Find&#x2F;to forward&#x2F;backward {character} on the current line.</li>
-<li><code>,</code> &#x2F; <code>;</code> for navigating matches.</li>
+<li><p><strong><code>f</code></strong>: Move to the next character.</p>
+</li>
+<li><p><strong><code>t</code></strong>: Move just before the next character.</p>
+</li>
+<li><p><strong><code>F</code></strong>: Move to the previous character.</p>
+</li>
+<li><p><strong><code>T</code></strong>: Move just after the previous character.</p>
+</li>
+<li><p><strong><code>,</code></strong>: Repeat the last find command in reverse.</p>
+</li>
+<li><p><strong><code>;</code></strong>: Repeat the last find command forward.</p>
+</li>
+</ul>
+<ol>
+<li><p><strong>Find Character on the Current Line</strong></p>
+<ul>
+<li><p><strong><code>f&#123;character&#125;</code></strong>:  </p>
+<ul>
+<li>Moves the cursor <strong>to</strong> the next occurrence of <code>&#123;character&#125;</code> <strong>on the current line</strong>.  </li>
+<li>Example: <code>fa</code> moves the cursor to the next <code>a</code> on the line.</li>
 </ul>
 </li>
-<li>Search: <code>/&#123;regex&#125;</code>, <code>n</code> &#x2F; <code>N</code> for navigating matches.</li>
+<li><p><strong><code>t&#123;character&#125;</code></strong>:  </p>
+<ul>
+<li>Moves the cursor <strong>just before</strong> (up to) the next occurrence of <code>&#123;character&#125;</code> on the current line.  </li>
+<li>Example: <code>ta</code> moves the cursor to the character right before the next <code>a</code>.</li>
 </ul>
-<h3 id="Visual-Mode"><a href="#Visual-Mode" class="headerlink" title="Visual Mode"></a>Visual Mode</h3><ul>
-<li>Visual: <code>v</code></li>
-<li>Visual Line: <code>V</code></li>
-<li>Visual Block: <code>Ctrl-v</code></li>
-<li><code>d</code>, <code>c</code>, <code>y</code> for delete, change, and yank (copy) operations.</li>
+</li>
 </ul>
-<p>In Vim, Visual mode provides an intuitive way to select text. Here are the three main Visual modes and their uses:</p>
-<h4 id="1-Visual-Mode-v"><a href="#1-Visual-Mode-v" class="headerlink" title="1. Visual Mode (v)"></a>1. <strong>Visual Mode (<code>v</code>)</strong></h4><ul>
-<li><strong>Enter</strong>: Press <code>v</code> to enter Visual mode.</li>
-<li><strong>Use</strong>: Selects text at the character level.</li>
-<li><strong>Example</strong>: Move the cursor to select text, then use operators like <code>d</code> (delete), <code>c</code> (change), or <code>y</code> (yank) on the selected text.</li>
+</li>
+<li><p><strong>Find Character Backward on the Current Line</strong></p>
+<ul>
+<li><p><strong><code>F&#123;character&#125;</code></strong>:  </p>
+<ul>
+<li>Moves the cursor <strong>to</strong> the previous occurrence of <code>&#123;character&#125;</code> on the current line (backward search).  </li>
+<li>Example: <code>Fa</code> moves the cursor to the previous <code>a</code> on the line.</li>
 </ul>
-<h4 id="2-Visual-Line-Mode-V"><a href="#2-Visual-Line-Mode-V" class="headerlink" title="2. Visual Line Mode (V)"></a>2. <strong>Visual Line Mode (<code>V</code>)</strong></h4><ul>
-<li><strong>Enter</strong>: Press <code>V</code> (Shift + v) to enter Visual Line mode.</li>
-<li><strong>Use</strong>: Selects entire lines of text.</li>
-<li><strong>Example</strong>: Move the cursor up or down to select multiple lines, then perform line-level operations like deleting (<code>d</code>) or copying (<code>y</code>).</li>
+</li>
+<li><p><strong><code>T&#123;character&#125;</code></strong>:  </p>
+<ul>
+<li>Moves the cursor <strong>just after</strong> (up to) the previous occurrence of <code>&#123;character&#125;</code> on the current line (backward search).  </li>
+<li>Example: <code>Ta</code> moves the cursor to the character right after the previous <code>a</code>.</li>
 </ul>
-<h4 id="3-Visual-Block-Mode-Ctrl-v"><a href="#3-Visual-Block-Mode-Ctrl-v" class="headerlink" title="3. Visual Block Mode (Ctrl-v)"></a>3. <strong>Visual Block Mode (<code>Ctrl-v</code>)</strong></h4><ul>
-<li><strong>Enter</strong>: Press <code>Ctrl + v</code> to enter Visual Block mode.</li>
-<li><strong>Use</strong>: Selects a rectangular block of text, useful for editing tables or performing the same operation on multiple lines.</li>
-<li><strong>Example</strong>: Select a rectangular area, then insert (<code>I</code> or <code>A</code>), change (<code>c</code>), or delete (<code>d</code>) text within the block.</li>
+</li>
 </ul>
-<h4 id="General-Operations"><a href="#General-Operations" class="headerlink" title="General Operations:"></a>General Operations:</h4><ul>
-<li><strong>Exit Visual Mode</strong>: Press <code>Esc</code> or <code>Ctrl + [</code> to exit any Visual mode.</li>
-<li><strong>Extend Selection</strong>: Continue moving the cursor to expand the selection.</li>
-<li><strong>Shrink Selection</strong>: Press <code>o</code> to switch the cursor to the other end of the selection, then move the cursor to shrink the selection.</li>
-<li><strong>Operate on Selected Text</strong>: Once text is selected, use standard Vim operators like <code>d</code> (delete), <code>y</code> (yank), or <code>c</code> (change) on the selected text.</li>
+</li>
+<li><p><strong>Navigating Between Matches</strong></p>
+<ul>
+<li><p><strong><code>,</code> (comma)</strong>:  </p>
+<ul>
+<li>Repeats the last <code>f</code>, <code>t</code>, <code>F</code>, or <code>T</code> command in the <strong>reverse direction</strong>.  </li>
+<li>Example: If you used <code>fa</code> to move to the next <code>a</code>, pressing <code>,</code> will move to the previous <code>a</code>.</li>
 </ul>
-<h4 id="Pasting-in-Visual-Mode"><a href="#Pasting-in-Visual-Mode" class="headerlink" title="Pasting in Visual Mode:"></a>Pasting in Visual Mode:</h4><ol>
-<li><strong>Select Text</strong>: Enter Visual mode (<code>v</code>, <code>V</code>, or <code>Ctrl + v</code>) and select the target area.</li>
-<li><strong>Copy Text</strong>: In Normal mode, use <code>y</code> to yank (copy) the selected text.</li>
-<li><strong>Paste Text</strong>: In Visual mode, press <code>p</code> to paste after the selection or <code>P</code> to paste before the selection.</li>
+</li>
+<li><p><strong><code>;</code> (semicolon)</strong>:  </p>
+<ul>
+<li>Repeats the last <code>f</code>, <code>t</code>, <code>F</code>, or <code>T</code> command in the <strong>same direction</strong>.  </li>
+<li>Example: If you used <code>fa</code> to move to the next <code>a</code>, pressing <code>;</code> will move to the next <code>a</code> after that.</li>
+</ul>
+</li>
+</ul>
+</li>
 </ol>
-<h3 id="4-Insert-Mode"><a href="#4-Insert-Mode" class="headerlink" title="4. Insert Mode"></a>4. Insert Mode</h3><p>Everything that you used to do with the mouse, you now do with the keyboard using editing commands that compose with movement commands. Here’s where Vim’s interface starts to look like a programming language. Vim’s editing commands are also called “verbs”, because verbs act on nouns.</p>
+<h4 id="Searching"><a href="#Searching" class="headerlink" title="Searching"></a>Searching</h4><ol>
+<li><p><strong>Search Forward</strong></p>
+<ul>
+<li><strong><code>/&#123;regex&#125;&lt;CR&gt;</code></strong>:  <ul>
+<li>Searches forward in the file for the specified regular expression (<code>&#123;regex&#125;</code>).  </li>
+<li>Example: <code>/hello&lt;CR&gt;</code> searches for the next occurrence of the word <code>hello</code>.  </li>
+<li>After pressing <code>Enter</code>, the cursor jumps to the first match.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Navigate Matches</strong></p>
+<ul>
+<li><p><strong><code>n</code></strong>:  </p>
+<ul>
+<li>Moves the cursor to the <strong>next match</strong> of the search pattern.  </li>
+<li>Example: After searching for <code>/hello</code>, pressing <code>n</code> jumps to the next occurrence of <code>hello</code>.</li>
+</ul>
+</li>
+<li><p><strong><code>N</code></strong>:  </p>
+<ul>
+<li>Moves the cursor to the <strong>previous match</strong> of the search pattern.  </li>
+<li>Example: After searching for <code>/hello</code>, pressing <code>N</code> jumps to the previous occurrence of <code>hello</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Search Backward</strong></p>
+<ul>
+<li><strong><code>?&#123;regex&#125;&lt;CR&gt;</code></strong>:  <ul>
+<li>Searches backward in the file for the specified regular expression (<code>&#123;regex&#125;</code>).  </li>
+<li>Example: <code>?hello&lt;CR&gt;</code> searches for the previous occurrence of the word <code>hello</code>.  </li>
+<li>After pressing <code>Enter</code>, the cursor jumps to the first match.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Additional Tips</strong></p>
+<ul>
+<li><strong>Highlight Matches</strong>:  <ul>
+<li>Use <code>:set hlsearch</code> to highlight all matches of the search pattern.  <ul>
+<li>This can be written into <code>~/.vimrc</code> file to become global settings.</li>
+</ul>
+</li>
+<li>Use <code>:nohlsearch</code> (or <code>:noh</code>) to temporarily disable highlighting.</li>
+</ul>
+</li>
+<li><strong>Case Sensitivity</strong>:  <ul>
+<li>Use <code>:set ignorecase</code> (<code>:set ic</code>) to make searches case-insensitive.  </li>
+<li>Use <code>:set smartcase</code> to make searches case-insensitive unless the search pattern contains uppercase letters.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="Editing"><a href="#Editing" class="headerlink" title="Editing"></a>Editing</h4><ul>
+<li><p><code>d&#123;motion&#125;</code> : <strong>DELETE</strong></p>
+<ul>
+<li><code>dw</code> is delete <strong>word</strong></li>
+<li><code>d$</code> is delete to <strong>end of line</strong></li>
+<li><code>d0</code> is delete to <strong>beginning of line</strong>.</li>
+<li><code>de</code> is delete to <strong>end of word</strong></li>
+<li><code>db</code> is delete to <strong>beginning of word</strong></li>
+<li><code>x</code> delete character (equal to <code>dl</code>)</li>
+<li><code>dd</code> delete the whole line.</li>
+</ul>
+</li>
+<li><p><code>r&#123;motion&#125;</code> : <strong>REPLACE</strong></p>
+<ul>
+<li>replace the letter with the given letter where the cursor lies.</li>
+<li>e.g. <code>rf</code> will replace the character to f where the cursor lies.</li>
+</ul>
+</li>
+<li><p><code>u</code> : <strong>UNDO</strong></p>
+<ul>
+<li><p><code>u</code> to undo, <code>&lt;C-r&gt;</code> to redo</p>
+<blockquote>
+<p><code>&lt;C-r&gt;</code> means press <code>Ctrl+r</code> and it will redo the operations.</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><code>~</code> flips the case of a character.</p>
+</li>
+</ul>
+<h3 id="Insert-Mode"><a href="#Insert-Mode" class="headerlink" title="Insert Mode"></a>Insert Mode</h3><p>Here you are free to text in and modify the contents.</p>
 <ul>
 <li><code>i</code> Enter Insert Mode<ul>
-<li>For manipulating&#x2F;deleting text, use more than just backspace.</li>
+<li><code>a</code> is also useful for entering Inert Mode after the cursor. (For position)</li>
 </ul>
 </li>
-<li><code>o</code> &#x2F; <code>O</code> insert line below &#x2F; above (in Normal mode)</li>
-<li><code>d&#123;motion&#125;</code> <ul>
-<li>e.g., <code>dw</code> is delete word, <code>d$</code> is delete to end of line, <code>d0</code> is delete to beginning of line.</li>
+<li><code>o</code> &#x2F; <code>O</code> insert line below &#x2F; above (in Normal mode)<ul>
+<li>This command will <strong>first insert a new line and then change the mode from normal mode to insert mode.</strong></li>
 </ul>
 </li>
-<li><code>c&#123;motion&#125;</code><ul>
-<li>e.g., <code>cw</code> is change word.</li>
-<li>Like <code>d&#123;motion&#125;</code> followed by <code>i</code>.</li>
+<li><code>c&#123;motion&#125;</code> : <strong>CHANGE</strong><ul>
+<li><code>cw</code> : equals to <code>dw</code> and then enter into <strong>Insert Mode</strong>.</li>
+<li><strong>Others are the same!</strong> <ul>
+<li><code>cw</code>, <code>c$</code>, <code>c0</code>, <code>ce</code>, <code>cb</code>, <code>cl</code></li>
 </ul>
 </li>
-<li><code>x</code> delete character (equal to <code>dl</code>)</li>
 <li><code>s</code> substitute character (equal to <code>cl</code>)</li>
-<li>Visual mode + manipulation<ul>
-<li>Select text, <code>d</code> to delete it or <code>c</code> to change it.</li>
+<li><code>cc</code> delete the whole line and then enter into insert mode.</li>
 </ul>
 </li>
-<li><code>u</code> to undo, <code>&lt;C-r&gt;</code> to redo</li>
-<li><code>y</code> to copy &#x2F; “yank” (some other commands like <code>d</code> also copy)</li>
-<li><code>p</code> to paste</li>
-<li><code>~</code> flips the case of a character.</li>
 </ul>
-<h3 id="Counts"><a href="#Counts" class="headerlink" title="Counts"></a>Counts</h3><p>You can combine nouns and verbs with a count, which will perform a given action a number of times.</p>
+<h3 id="Visual-Mode"><a href="#Visual-Mode" class="headerlink" title="Visual Mode"></a>Visual Mode</h3><p><strong>Visual mode</strong> is used to select text, which are often combined with several text-editing command.</p>
+<ul>
+<li><p>Visual: <code>v</code></p>
+<ul>
+<li>Selects text at the character level.</li>
+</ul>
+</li>
+<li><p>Visual Line: <code>V</code></p>
+<ul>
+<li>Selects entire lines of text.</li>
+</ul>
+</li>
+<li><p>Visual Block: <code>Ctrl-v</code></p>
+<ul>
+<li>Selects a rectangular block of text, useful for editing tables or performing the same operation on multiple lines.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Shrink Selection</strong>: Press <code>o</code> to switch the cursor to the other end of the selection, then move the cursor to shrink the selection.</p>
+<h4 id="Copy-and-Paste"><a href="#Copy-and-Paste" class="headerlink" title="Copy and Paste"></a>Copy and Paste</h4><ul>
+<li><code>y</code> for copy<ul>
+<li><code>yy</code> for copying for the whole line.</li>
+<li><code>yw</code> for copying the current word.</li>
+<li><code>y$</code> and <code>y0</code> is for the same syntax.</li>
+</ul>
+</li>
+<li><code>p</code> for paste<ul>
+<li><code>p</code> : paste after the cursor.</li>
+<li><code>P</code> : paste before the cursor.</li>
+</ul>
+</li>
+</ul>
+<div class="note note-primary">
+            <p>In Vim, the <code>y</code> command copies the selected content into Vim’s <strong>registers</strong>, not the system clipboard. The <code>p</code> command pastes the content from Vim’s registers at the cursor position.</p><p><strong>How to Achieve Compatibility Between Vim and the System Clipboard</strong></p><ol><li><p><strong>Use the <code>+</code> or <code>*</code> Registers</strong>:</p><ul><li>Vim provides the <code>+</code> (system clipboard) and <code>*</code> (primary selection buffer) registers for interacting with the system clipboard.</li><li>When copying, use <code>&quot;+y</code> or <code>&quot;*y</code> to copy content to the system clipboard.<ul><li>Example: <code>&quot;+yy</code> copies the current line to the system clipboard.</li></ul></li><li>When pasting, use <code>&quot;+p</code> or <code>&quot;*p</code> to paste content from the system clipboard.<ul><li>Example: <code>&quot;+p</code> pastes content from the system clipboard.</li></ul></li></ul></li><li><p><strong>Check if Vim Supports the System Clipboard</strong>:</p><ul><li><p>Run the following command to check if Vim supports the system clipboard:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim --version | grep clipboard<br></code></pre></td></tr></table></figure></li><li><p>If the output includes <code>+clipboard</code>, Vim supports the system clipboard.</p></li><li><p>If not, you can install a version of Vim that supports the clipboard (e.g., <code>vim-gtk</code> or <code>vim-gnome</code>).</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> apt install vim-gtk<br></code></pre></td></tr></table></figure></li></ul></li><li><p><strong>Configure Vim to Use the System Clipboard by Default</strong>:</p><ul><li><p>Add the following line to your Vim configuration file (<code>~/.vimrc</code> or <code>~/.config/nvim/init.vim</code>):</p><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">set</span> clipboard=unnamedplus<br></code></pre></td></tr></table></figure><p>This makes <code>y</code> and <code>p</code> use the system clipboard (<code>+</code> register) by default.</p></li></ul></li></ol>
+          </div>
+
+<h2 id="Advanced-Usage"><a href="#Advanced-Usage" class="headerlink" title="Advanced Usage"></a>Advanced Usage</h2><h3 id="Counts"><a href="#Counts" class="headerlink" title="Counts"></a>Counts</h3><p>You can combine nouns and verbs with a count, which will perform a given action a number of times.</p>
 <ul>
 <li><code>3w</code> move 3 words forward</li>
 <li><code>5j</code> move 5 lines down</li>
@@ -572,28 +764,407 @@
 </ul>
 </li>
 </ul>
-<h2 id="Common-Shortcuts"><a href="#Common-Shortcuts" class="headerlink" title="Common Shortcuts"></a>Common Shortcuts</h2><h3 id="Undo-in-Normal-Mode"><a href="#Undo-in-Normal-Mode" class="headerlink" title="Undo in Normal Mode"></a>Undo in Normal Mode</h3><ul>
-<li><code>u</code> to undo the last operation.</li>
-<li><code>Ctrl + r</code> to redo the last undo.</li>
+<h3 id="Repeat"><a href="#Repeat" class="headerlink" title="Repeat"></a>Repeat</h3><p>In Vim, the <code>.</code> command repeats the last change made, such as insertions, deletions, or replacements, making it a powerful tool for efficient editing. Additionally, <code>n .</code> repeats the last change <code>n</code> times, while <code>@:</code> repeats the last Ex command (e.g., <code>:s/foo/bar/g</code>), further enhancing productivity.</p>
+<h2 id="Common-Shortcuts"><a href="#Common-Shortcuts" class="headerlink" title="Common Shortcuts"></a>Common Shortcuts</h2><p>It’s common for green hands to feelHere’s the table you requested, comparing common text editing shortcuts, their functions, and their corresponding Vim operations:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Shortcut</strong></th>
+<th><strong>Function</strong></th>
+<th><strong>Vim Equivalent</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Ctrl + C</code></td>
+<td>Copy selected text</td>
+<td><code>y</code> (yank, copy)</td>
+</tr>
+<tr>
+<td><code>Ctrl + V</code></td>
+<td>Paste text from clipboard</td>
+<td><code>p</code> (paste)</td>
+</tr>
+<tr>
+<td><code>Ctrl + A</code></td>
+<td>Select all text</td>
+<td><code>ggVG</code> (select entire file)</td>
+</tr>
+<tr>
+<td><code>Ctrl + X</code></td>
+<td>Cut selected text</td>
+<td><code>d</code> (delete, cut)</td>
+</tr>
+<tr>
+<td><code>Ctrl + S</code></td>
+<td>Save the current file</td>
+<td><code>:w</code> (write, save file)</td>
+</tr>
+</tbody></table>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a target="_blank" rel="noopener" href="https://missing.csail.mit.edu/2020/editors/">Missing Semester</a> : It’s enough for learning vim for the first time!</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p><strong>Vim is used for programming, yet Vim itself is a programming language!</strong> As a developer, time is the most valuable stuff, just learn it and confront it!</p>
+<blockquote>
+<p>The text below is the Chinese translation.</p>
+</blockquote>
+<h1 id="Vim-基础学习笔记"><a href="#Vim-基础学习笔记" class="headerlink" title="Vim 基础学习笔记"></a>Vim 基础学习笔记</h1><p>Vim 的学习曲线实在是太陡峭了！我已经尝试了好几次，试图习惯使用 Vim。:cry:</p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>本文档提供了 <strong>Vim 基本功能</strong> 的全面指南，Vim 是一款功能强大的文本编辑器。它涵盖了基本命令和模式，包括命令行模式、普通模式、可视模式和插入模式。本指南还包括常见快捷键和高效文本编辑的技巧，例如在文档中移动、搜索、复制、剪切和粘贴文本。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="什么是-Vim"><a href="#什么是-Vim" class="headerlink" title="什么是 Vim"></a>什么是 Vim</h3><p><strong>Vim</strong> 是一个 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Free_and_open-source">免费且开源的</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Screen-based_text_editor">基于屏幕的文本编辑器</a> 程序。</p>
+<p>就像强大的 <code>Vscode</code> 是 <strong>GUI</strong> 中最流行的代码编辑器一样，<strong>Vim</strong> 是 <strong>命令行</strong> 中最强大的文本编辑器。</p>
+<p>我们不会在本文中讨论 Vim 有多强大，因为 <strong>Vim 是一个文本编辑器</strong>。你也可以在不使用 Vim 的情况下完成相同的任务，但会牺牲大量的时间。</p>
+<p>在深入 Vim 的世界之前，我们需要确保 <strong>Vim 的核心原则</strong>：<strong>所有操作都通过键盘执行，而不是鼠标</strong>。</p>
+<p><strong>Vim 的界面是一种编程语言</strong>！</p>
+<blockquote>
+<p>所以你最好在英文打字时不要太慢。你需要确保打字比用鼠标到处点击更高效！</p>
+</blockquote>
+<h2 id="Vim-中的模式"><a href="#Vim-中的模式" class="headerlink" title="Vim 中的模式"></a>Vim 中的模式</h2><ul>
+<li>普通模式</li>
+<li>插入模式 (<code>i</code>)</li>
+<li>替换模式 (<code>R</code>)</li>
+<li>可视模式 (<code>v</code>)<ul>
+<li>行可视模式 (<code>Shift + V</code>)</li>
+<li>块可视模式 (<code>Ctrl + V</code>)</li>
 </ul>
-<h3 id="Select-All-Text-Copy-Cut-in-Visual-Mode"><a href="#Select-All-Text-Copy-Cut-in-Visual-Mode" class="headerlink" title="Select All Text &#x2F; Copy &#x2F; Cut in Visual Mode"></a>Select All Text &#x2F; Copy &#x2F; Cut in Visual Mode</h3><ul>
-<li><strong>Select All Text</strong>: In Normal mode, go to the start (<code>gg</code>) or end (<code>G</code>) of the document, then enter Visual mode and select the text.</li>
-<li><strong>Copy</strong>: Use <code>y</code> to yank (copy) the selected text.</li>
-<li><strong>Cut</strong>: Use <code>d</code> to delete (cut) the selected text.</li>
+</li>
+<li>命令行模式 (<code>:</code>)</li>
 </ul>
-<h3 id="Save-Exit-in-Command-Line"><a href="#Save-Exit-in-Command-Line" class="headerlink" title="Save &#x2F; Exit in Command Line"></a>Save &#x2F; Exit in Command Line</h3><ul>
-<li><code>:w</code> to save.</li>
-<li><code>:q</code> to quit.</li>
-<li><code>:wq</code> to save and quit.</li>
+<h3 id="命令行模式"><a href="#命令行模式" class="headerlink" title="命令行模式"></a>命令行模式</h3><p>在普通模式下按 <code>:</code> 可以进入命令行模式。按下 <code>:</code> 后，光标会跳转到屏幕底部的命令行。此模式具有许多功能，包括打开、保存和关闭文件，以及 <a target="_blank" rel="noopener" href="https://twitter.com/iamdevloper/status/435555976687923200">退出 Vim</a>。</p>
+<ul>
+<li><code>:q</code> 退出（关闭窗口）</li>
+<li><code>:w</code> 保存（“写入”）</li>
+<li><code>:wq</code> 保存并退出</li>
+<li><code>:e &#123;文件名&#125;</code> 打开文件进行编辑</li>
+<li><code>:ls</code> 显示打开的缓冲区</li>
+<li><code>:help &#123;主题&#125;</code> 打开帮助<ul>
+<li><code>:help :w</code> 打开 <code>:w</code> 命令的帮助</li>
+<li><code>:help w</code> 打开 <code>w</code> 移动命令的帮助</li>
 </ul>
-<h3 id="Cut-in-Normal-Mode-x-dd-D-d"><a href="#Cut-in-Normal-Mode-x-dd-D-d" class="headerlink" title="Cut in Normal Mode (x, dd, D, d)"></a>Cut in Normal Mode (x, dd, D, d)</h3><ul>
-<li><strong>Cut Single Character</strong>: <code>x</code> deletes and cuts the character under the cursor.</li>
-<li><strong>Cut Entire Line</strong>: <code>dd</code> deletes and cuts the entire line.</li>
-<li><strong>Cut to End of Line</strong>: <code>D</code> deletes and cuts from the cursor to the end of the line.</li>
-<li><strong>Cut in Visual Mode</strong>: Select text in Visual mode and press <code>d</code> to cut the selected text.</li>
+</li>
 </ul>
-<hr>
-<p>This document provides a foundational understanding of Vim’s core functionalities, enabling users to navigate, edit, and manipulate text efficiently. By mastering these commands and modes, you can significantly enhance your productivity when working with Vim.</p>
+<h3 id="普通模式"><a href="#普通模式" class="headerlink" title="普通模式"></a>普通模式</h3><h4 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h4><p>在 Vim 中，你不能简单地用鼠标点击某个位置来移动光标。<strong>在普通模式下</strong>，你可以使用几个键来高效地将光标移动到任何你想要的位置！</p>
+<p>根据 <strong>精确度</strong>，Vim 的移动键可以分为不同的类别。</p>
+<ul>
+<li><p><strong>字符级移动</strong></p>
+<ul>
+<li><code>hjkl</code>（左、下、上、右）</li>
+</ul>
+</li>
+<li><p><strong>单词级移动</strong></p>
+<ul>
+<li><code>w</code>：移动到下一个单词</li>
+<li><code>b</code>：移动到单词的开头</li>
+<li><code>e</code>：移动到单词的末尾</li>
+</ul>
+</li>
+<li><p><strong>行级移动</strong></p>
+<ul>
+<li><p><code>0</code>：移动到行首</p>
+<ul>
+<li>组合键 <code>j+0</code>：移动到下一行的行首。</li>
+<li>组合键 <code>k+0</code>：移动到上一行的行首。</li>
+</ul>
+</li>
+<li><p><code>Enter</code>：移动到下一行的行首</p>
+</li>
+<li><p><code>^</code>：移动到第一个非空白字符</p>
+</li>
+<li><p><code>$</code>：移动到行尾</p>
+</li>
+<li><p><code>+</code>：移动到下一行的第一个非空白字符</p>
+</li>
+<li><p><code>&#123;</code> 和 <code>&#125;</code>：移动到下一个空行</p>
+</li>
+<li><p>行号：<code>:&#123;number&#125;&lt;CR&gt;</code> 或 <code>&#123;number&#125;G</code>（跳转到第 {number} 行）</p>
+<blockquote>
+<p><code>&lt;CR&gt;</code> 表示按下 <code>Enter</code> 键。</p>
+</blockquote>
+<ul>
+<li>**<code>:&#123;number&#125;&lt;CR&gt;</code>**：进入命令行模式，输入行号，然后按 <code>Enter</code> 跳转到该行。</li>
+<li>**<code>&#123;number&#125;G</code>**：直接跳转到指定行号（例如，<code>10G</code> 跳转到第 10 行）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>屏幕级移动</strong></p>
+<ul>
+<li><code>H</code>：移动到屏幕顶部</li>
+<li><code>M</code>：移动到屏幕中间</li>
+<li><code>L</code>：移动到屏幕底部</li>
+<li><strong>滚动</strong><ul>
+<li>（我通常使用触摸板）</li>
+<li><code>Ctrl-u</code>：向上滚动半页，同时保持光标位置不变。</li>
+<li><code>Ctrl-d</code>：向下滚动半页，同时保持光标位置不变。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>文件级移动</strong></p>
+<ul>
+<li><code>gg</code>（文件开头），<code>G</code>（文件末尾）</li>
+<li>你也可以使用 <code>]]</code>（顶部）和 <code>[[</code>（末尾）命令。</li>
+<li>**<code>%</code>**：跳转到匹配的符号（例如 <code>()</code>、<code>&#123;&#125;</code>、<code>[]</code> 等）<ul>
+<li><strong>这在 Vim 中编程时非常有用！</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="导航"><a href="#导航" class="headerlink" title="导航"></a>导航</h4><p>在 Vim 中，<code>f</code>、<code>t</code>、<code>F</code> 和 <code>T</code> 命令用于 <strong>在当前行内进行基于字符的导航</strong>。</p>
+<ul>
+<li><p>**<code>f</code>**：移动到下一个字符。</p>
+</li>
+<li><p>**<code>t</code>**：移动到下一个字符的前一个位置。</p>
+</li>
+<li><p>**<code>F</code>**：移动到上一个字符。</p>
+</li>
+<li><p>**<code>T</code>**：移动到上一个字符的后一个位置。</p>
+</li>
+<li><p>**<code>,</code>**：反向重复上一次查找命令。</p>
+</li>
+<li><p>**<code>;</code>**：正向重复上一次查找命令。</p>
+</li>
+</ul>
+<ol>
+<li><p><strong>在当前行查找字符</strong></p>
+<ul>
+<li>**<code>f&#123;字符&#125;</code>**：<ul>
+<li>将光标移动到当前行中下一个 <code>&#123;字符&#125;</code> 的位置。</li>
+<li>示例：<code>fa</code> 将光标移动到下一个 <code>a</code>。</li>
+</ul>
+</li>
+<li>**<code>t&#123;字符&#125;</code>**：<ul>
+<li>将光标移动到当前行中下一个 <code>&#123;字符&#125;</code> 的前一个位置。</li>
+<li>示例：<code>ta</code> 将光标移动到下一个 <code>a</code> 的前一个位置。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>在当前行反向查找字符</strong></p>
+<ul>
+<li>**<code>F&#123;字符&#125;</code>**：<ul>
+<li>将光标移动到当前行中上一个 <code>&#123;字符&#125;</code> 的位置（反向搜索）。</li>
+<li>示例：<code>Fa</code> 将光标移动到上一个 <code>a</code>。</li>
+</ul>
+</li>
+<li>**<code>T&#123;字符&#125;</code>**：<ul>
+<li>将光标移动到当前行中上一个 <code>&#123;字符&#125;</code> 的后一个位置（反向搜索）。</li>
+<li>示例：<code>Ta</code> 将光标移动到上一个 <code>a</code> 的后一个位置。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>在匹配项之间导航</strong></p>
+<ul>
+<li><strong><code>,</code>（逗号）</strong>：<ul>
+<li>反向重复上一次 <code>f</code>、<code>t</code>、<code>F</code> 或 <code>T</code> 命令。</li>
+<li>示例：如果你使用 <code>fa</code> 移动到下一个 <code>a</code>，按 <code>,</code> 将移动到上一个 <code>a</code>。</li>
+</ul>
+</li>
+<li><strong><code>;</code>（分号）</strong>：<ul>
+<li>正向重复上一次 <code>f</code>、<code>t</code>、<code>F</code> 或 <code>T</code> 命令。</li>
+<li>示例：如果你使用 <code>fa</code> 移动到下一个 <code>a</code>，按 <code>;</code> 将移动到下一个 <code>a</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h4><ol>
+<li><p><strong>向前搜索</strong></p>
+<ul>
+<li>**<code>/&#123;正则表达式&#125;&lt;CR&gt;</code>**：<ul>
+<li>在文件中向前搜索指定的正则表达式（<code>&#123;正则表达式&#125;</code>）。</li>
+<li>示例：<code>/hello&lt;CR&gt;</code> 搜索下一个 <code>hello</code>。</li>
+<li>按下 <code>Enter</code> 后，光标跳转到第一个匹配项。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>导航匹配项</strong></p>
+<ul>
+<li>**<code>n</code>**：<ul>
+<li>将光标移动到搜索模式的下一个匹配项。</li>
+<li>示例：搜索 <code>/hello</code> 后，按 <code>n</code> 跳转到下一个 <code>hello</code>。</li>
+</ul>
+</li>
+<li>**<code>N</code>**：<ul>
+<li>将光标移动到搜索模式的上一个匹配项。</li>
+<li>示例：搜索 <code>/hello</code> 后，按 <code>N</code> 跳转到上一个 <code>hello</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>向后搜索</strong></p>
+<ul>
+<li>**<code>?&#123;正则表达式&#125;&lt;CR&gt;</code>**：<ul>
+<li>在文件中向后搜索指定的正则表达式（<code>&#123;正则表达式&#125;</code>）。</li>
+<li>示例：<code>?hello&lt;CR&gt;</code> 搜索上一个 <code>hello</code>。</li>
+<li>按下 <code>Enter</code> 后，光标跳转到第一个匹配项。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>额外提示</strong></p>
+<ul>
+<li><strong>高亮匹配项</strong>：<ul>
+<li>使用 <code>:set hlsearch</code> 高亮所有匹配项。<ul>
+<li>可以将其写入 <code>~/.vimrc</code> 文件以成为全局设置。</li>
+</ul>
+</li>
+<li>使用 <code>:nohlsearch</code>（或 <code>:noh</code>）暂时禁用高亮。</li>
+</ul>
+</li>
+<li><strong>大小写敏感</strong>：<ul>
+<li>使用 <code>:set ignorecase</code>（<code>:set ic</code>）使搜索不区分大小写。</li>
+<li>使用 <code>:set smartcase</code> 使搜索不区分大小写，除非搜索模式包含大写字母。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="编辑"><a href="#编辑" class="headerlink" title="编辑"></a>编辑</h4><ul>
+<li><p><code>d&#123;移动命令&#125;</code>：<strong>删除</strong></p>
+<ul>
+<li><code>dw</code> 删除一个单词</li>
+<li><code>d$</code> 删除到行尾</li>
+<li><code>d0</code> 删除到行首</li>
+<li><code>de</code> 删除到单词末尾</li>
+<li><code>db</code> 删除到单词开头</li>
+<li><code>x</code> 删除字符（等同于 <code>dl</code>）</li>
+<li><code>dd</code> 删除整行</li>
+</ul>
+</li>
+<li><p><code>r&#123;移动命令&#125;</code>：<strong>替换</strong></p>
+<ul>
+<li>将光标处的字符替换为指定字符。</li>
+<li>例如：<code>rf</code> 将光标处的字符替换为 <code>f</code>。</li>
+</ul>
+</li>
+<li><p><code>u</code>：<strong>撤销</strong></p>
+<ul>
+<li><p><code>u</code> 撤销，<code>Ctrl + r</code> 重做</p>
+<blockquote>
+<p><code>Ctrl + r</code> 表示按下 <code>Ctrl + r</code>，它将重做操作。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><code>~</code> 切换字符的大小写</p>
+</li>
+</ul>
+<h3 id="插入模式"><a href="#插入模式" class="headerlink" title="插入模式"></a>插入模式</h3><p>在这里，你可以自由输入和修改内容。</p>
+<ul>
+<li><code>i</code> 进入插入模式<ul>
+<li><code>a</code> 也可以用于在光标后进入插入模式（用于定位）</li>
+</ul>
+</li>
+<li><code>o</code> &#x2F; <code>O</code> 在下方 &#x2F; 上方插入新行（在普通模式下）<ul>
+<li>此命令会 <strong>先插入新行，然后将模式从普通模式切换到插入模式</strong>。</li>
+</ul>
+</li>
+<li><code>c&#123;移动命令&#125;</code>：<strong>更改</strong><ul>
+<li><code>cw</code>：等同于 <code>dw</code>，然后进入 <strong>插入模式</strong>。</li>
+<li><strong>其他命令类似！</strong><ul>
+<li><code>cw</code>、<code>c$</code>、<code>c0</code>、<code>ce</code>、<code>cb</code>、<code>cl</code></li>
+</ul>
+</li>
+<li><code>s</code> 替换字符（等同于 <code>cl</code>）</li>
+<li><code>cc</code> 删除整行并进入插入模式。</li>
+</ul>
+</li>
+</ul>
+<h3 id="可视模式"><a href="#可视模式" class="headerlink" title="可视模式"></a>可视模式</h3><p><strong>可视模式</strong> 用于选择文本，通常与多个文本编辑命令结合使用。</p>
+<ul>
+<li><p>可视模式：<code>v</code></p>
+<ul>
+<li>以字符级别选择文本。</li>
+</ul>
+</li>
+<li><p>行可视模式：<code>V</code></p>
+<ul>
+<li>选择整行文本。</li>
+</ul>
+</li>
+<li><p>块可视模式：<code>Ctrl + v</code></p>
+<ul>
+<li>选择一个矩形文本块，适用于编辑表格或在多行上执行相同操作。</li>
+</ul>
+</li>
+</ul>
+<p><strong>缩小选择范围</strong>：按 <code>o</code> 将光标切换到选择的另一端，然后移动光标以缩小选择范围。</p>
+<h4 id="复制和粘贴"><a href="#复制和粘贴" class="headerlink" title="复制和粘贴"></a>复制和粘贴</h4><ul>
+<li><code>y</code> 复制<ul>
+<li><code>yy</code> 复制整行</li>
+<li><code>yw</code> 复制当前单词</li>
+<li><code>y$</code> 和 <code>y0</code> 语法相同</li>
+</ul>
+</li>
+<li><code>p</code> 粘贴<ul>
+<li><code>p</code>：粘贴到光标后</li>
+<li><code>P</code>：粘贴到光标前</li>
+</ul>
+</li>
+</ul>
+<div class="note note-primary">
+            <p>在 Vim 中，<code>y</code> 命令将选中的内容复制到 Vim 的 <strong>寄存器</strong> 中，而不是系统剪贴板。<code>p</code> 命令将内容从 Vim 的寄存器粘贴到光标位置。</p><p><strong>如何实现 Vim 与系统剪贴板的兼容性</strong></p><ol><li><p><strong>使用 <code>+</code> 或 <code>*</code> 寄存器</strong>：</p><ul><li>Vim 提供了 <code>+</code>（系统剪贴板）和 <code>*</code>（主选择缓冲区）寄存器，用于与系统剪贴板交互。</li><li>复制时，使用 <code>&quot;+y</code> 或 <code>&quot;*y</code> 将内容复制到系统剪贴板。<ul><li>示例：<code>&quot;+yy</code> 将当前行复制到系统剪贴板。</li></ul></li><li>粘贴时，使用 <code>&quot;+p</code> 或 <code>&quot;*p</code> 从系统剪贴板粘贴内容。<ul><li>示例：<code>&quot;+p</code> 从系统剪贴板粘贴内容。</li></ul></li></ul></li><li><p><strong>检查 Vim 是否支持系统剪贴板</strong>：</p><ul><li><p>运行以下命令检查 Vim 是否支持系统剪贴板：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim --version | grep clipboard<br></code></pre></td></tr></table></figure></li><li><p>如果输出包含 <code>+clipboard</code>，则 Vim 支持系统剪贴板。</p></li><li><p>如果不支持，可以安装支持剪贴板的 Vim 版本（例如 <code>vim-gtk</code> 或 <code>vim-gnome</code>）。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> apt install vim-gtk<br></code></pre></td></tr></table></figure></li></ul></li><li><p><strong>配置 Vim 默认使用系统剪贴板</strong>：</p><ul><li><p>在 Vim 配置文件（<code>~/.vimrc</code> 或 <code>~/.config/nvim/init.vim</code>）中添加以下行：</p><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">set</span> clipboard=unnamedplus<br></code></pre></td></tr></table></figure><p>这将使 <code>y</code> 和 <code>p</code> 默认使用系统剪贴板（<code>+</code> 寄存器）。</p></li></ul></li></ol>
+          </div>
+
+<h2 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h2><h3 id="计数"><a href="#计数" class="headerlink" title="计数"></a>计数</h3><p>你可以将名词和动词与计数结合使用，以执行给定次数的操作。</p>
+<ul>
+<li><code>3w</code> 向前移动 3 个单词</li>
+<li><code>5j</code> 向下移动 5 行</li>
+<li><code>7dw</code> 删除 7 个单词</li>
+</ul>
+<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><p>你可以使用修饰符来改变名词的含义。一些修饰符包括 <code>i</code>，表示“内部”或“里面”，以及 <code>a</code>，表示“周围”。</p>
+<ul>
+<li><strong><code>i</code></strong> - “内部” 或 “里面”，作用于括号、引号等的内部。<ul>
+<li><code>ci(</code> 更改括号内的内容。</li>
+<li><code>ci[</code> 更改方括号内的内容。</li>
+<li><code>ci&quot;</code> 更改双引号内的内容。</li>
+<li><code>ci&#39;</code> 更改单引号内的内容。</li>
+</ul>
+</li>
+<li><strong><code>a</code></strong> - “周围”，包括括号、引号等。<ul>
+<li><code>ca(</code> 更改括号及其内容。</li>
+<li><code>ca[</code> 更改方括号及其内容。</li>
+<li><code>ca&quot;</code> 更改双引号及其内容。</li>
+<li><code>ca&#39;</code> 更改单引号及其内容。</li>
+</ul>
+</li>
+</ul>
+<h3 id="重复"><a href="#重复" class="headerlink" title="重复"></a>重复</h3><p>在 Vim 中，<code>.</code> 命令重复上一次的更改操作，例如插入、删除或替换，使其成为高效编辑的强大工具。此外，<code>n .</code> 重复上一次更改 <code>n</code> 次，而 <code>@:</code> 重复上一次 Ex 命令（例如 <code>:s/foo/bar/g</code>），进一步提高生产力。</p>
+<h2 id="常见快捷键"><a href="#常见快捷键" class="headerlink" title="常见快捷键"></a>常见快捷键</h2><p>新手常常感到困惑，以下表格比较了常见的文本编辑快捷键、它们的功能以及对应的 Vim 操作：</p>
+<table>
+<thead>
+<tr>
+<th><strong>快捷键</strong></th>
+<th><strong>功能</strong></th>
+<th><strong>Vim 等效操作</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Ctrl + C</code></td>
+<td>复制选中的文本</td>
+<td><code>y</code>（复制）</td>
+</tr>
+<tr>
+<td><code>Ctrl + V</code></td>
+<td>粘贴剪贴板中的文本</td>
+<td><code>p</code>（粘贴）</td>
+</tr>
+<tr>
+<td><code>Ctrl + A</code></td>
+<td>全选文本</td>
+<td><code>ggVG</code>（选择整个文件）</td>
+</tr>
+<tr>
+<td><code>Ctrl + X</code></td>
+<td>剪切选中的文本</td>
+<td><code>d</code>（删除，剪切）</td>
+</tr>
+<tr>
+<td><code>Ctrl + S</code></td>
+<td>保存当前文件</td>
+<td><code>:w</code>（写入，保存文件）</td>
+</tr>
+</tbody></table>
 
                 
               </div>
@@ -660,7 +1231,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>January 23, 2025</div>
+          <div>February 2, 2025</div>
         </div>
       
       

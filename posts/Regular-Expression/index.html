@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Regex.png">
 <meta property="article:published_time" content="2025-02-01T03:20:33.000Z">
-<meta property="article:modified_time" content="2025-02-01T04:14:18.220Z">
+<meta property="article:modified_time" content="2025-02-01T08:13:46.651Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="string">
@@ -283,7 +283,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          151 words
+          251 words
         
       </span>
     
@@ -505,7 +505,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Regular-Expression"><a href="#Regular-Expression" class="headerlink" title="Regular Expression"></a>Regular Expression</h1><blockquote>
+                <h1 id="Regular-Expression-EN"><a href="#Regular-Expression-EN" class="headerlink" title="Regular Expression (EN)"></a>Regular Expression (EN)</h1><blockquote>
 <p>The Blog is written in English, than Google translate into Chinese.</p>
 </blockquote>
 <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>What is Regular Expression? Lets have a look at Wikipedia’s definition:</p>
@@ -526,13 +526,127 @@
 
 <p>We definitely can implement the function by adding some code into <code>SearchString</code>, but it compromises universality. Over time, the algorithm has turned into a pile of if-else statements, resembling a mountain of messy code. In a word, the algorithm seems weak when facing <strong>more lenient string matching problems with more detailed requirements</strong>.</p>
 <p>This problem does exist in the real world! For example, if you want to search all the files with suffix <code>.md</code>, how would you implement this using the command line?</p>
-<h3 id="Regex-counts"><a href="#Regex-counts" class="headerlink" title="Regex counts !"></a>Regex counts !</h3><p>This is where the power of <strong>Regex</strong> shines. Regex offers advanced pattern matching capabilities, supporting complex patterns, quantifiers, character classes, and groups, which simple string matching lacks, enabling more flexible and powerful text search and manipulation.</p>
+<h3 id="Regex-counts"><a href="#Regex-counts" class="headerlink" title="Regex counts!"></a>Regex counts!</h3><p>This is where the power of <strong>Regex</strong> shines. Regex offers advanced pattern matching capabilities, supporting complex patterns, quantifiers, character classes, and groups, which simple string matching lacks, enabling more flexible and powerful text search and manipulation. Moreover, regex plays as a powerful tool in programming language like <strong>Python</strong> and <strong>Javascripts</strong>. All the demos in the text will use <strong>Python</strong> as the demonstrating language.</p>
 <p>For the questions above, we can use <strong>Regex</strong> to search files with certain suffixes using only one command line!</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find . -<span class="hljs-built_in">type</span> f -regex <span class="hljs-string">&#x27;.*\.md$&#x27;</span><br></code></pre></td></tr></table></figure>
 
 <p><img src="https://ooo.0x0.ooo/2025/02/01/OGtRCq.png" srcset="/img/loading.gif" lazyload alt="Search Files with certain suffixes"></p>
 <p>In today’s Blog, we will master the basic usage of <strong>Regex</strong> and implement some simple applications using Regex.</p>
-<h2 id="Basic-Usage"><a href="#Basic-Usage" class="headerlink" title="Basic Usage"></a>Basic Usage</h2><h2 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h2><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2>
+<h2 id="Basic-Usage"><a href="#Basic-Usage" class="headerlink" title="Basic Usage"></a>Basic Usage</h2><h3 id="Learning-maps"><a href="#Learning-maps" class="headerlink" title="Learning maps"></a>Learning maps</h3><p>After knowing what Regex is and what it can do, next question we need to clarify is <strong>What Regex truly is</strong>.</p>
+<ul>
+<li>The fundamental principle: <strong>Regex is used for string matching problems.</strong></li>
+<li>To say more specifically, for <strong>more complex</strong> string matching problems.</li>
+</ul>
+<p>What is <strong>complex</strong>? Assume that there is a picky person asking you to find all the strings with some peculiar and bizarre rules. It’s easy for you to understand the rules while hard for computers to do so. Therefore we can say: <strong>Regex is a series of laws to make computers understand “peculiar and bizarre rules” of complex string matching problems.</strong></p>
+<blockquote>
+<p>Like the question above, “find all file names with certain suffix ‘.md’” is a certain kind of <strong>peculiar and bizarre rules</strong>.</p>
+</blockquote>
+<p>There are countless peculiar and bizarre rules for string matching, and people intelligently <strong>categorized them into several major groups</strong>, which form the basic syntax of regex.</p>
+<table>
+<thead>
+<tr>
+<th>Syntax</th>
+<th>Explanations</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Special Position Matching</strong></td>
+<td>✅Characters that match the <strong>start</strong> and <strong>end</strong> of a string or a word.<br>✅<strong>Zero-Width Assertion</strong>: match customized certain positions.</td>
+</tr>
+<tr>
+<td><strong>Special Character Matching</strong></td>
+<td>✅Numbers, words, null characters.<br><strong>✅Escape characters for Metacharacter</strong>.<br>✅Wildcard</td>
+</tr>
+<tr>
+<td><strong>Character Classes</strong></td>
+<td>✅Match <strong>one character</strong> from a <strong>set of possible characters</strong>.</td>
+</tr>
+<tr>
+<td><strong>Repetition</strong> and <strong>Capturing</strong></td>
+<td>✅Quantifiers<br>✅Grouping<br>✅Capturing</td>
+</tr>
+</tbody></table>
+<p>The table above is the learning map of <strong>Regex</strong>. The above matching rules are already sufficient for 90% of the cases.</p>
+<h3 id="Special-Character-Matching"><a href="#Special-Character-Matching" class="headerlink" title="Special Character Matching"></a>Special Character Matching</h3><h4 id="Metacharacters"><a href="#Metacharacters" class="headerlink" title="Metacharacters"></a>Metacharacters</h4><p>The table below shows several most frequently used metacharacters in Regex:</p>
+<p>Here’s a concise table of the most commonly used <strong>metacharacters</strong> in regular expressions (Regex):</p>
+<table>
+<thead>
+<tr>
+<th>Metacharacter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.</code></td>
+<td>Matches any single character (except newline).</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>Matches the start of a string.</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>Matches the end of a string.</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>Matches 0 or more repetitions of the preceding element.</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>Matches 1 or more repetitions of the preceding element.</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>Matches 0 or 1 repetition of the preceding element (makes it optional).</td>
+</tr>
+<tr>
+<td><code>\</code></td>
+<td>Escapes a metacharacter (e.g., <code>\.</code> matches a literal dot).</td>
+</tr>
+<tr>
+<td><code>[]</code></td>
+<td>Matches any single character within the brackets (e.g., <code>[abc]</code>).</td>
+</tr>
+<tr>
+<td><code>[^]</code></td>
+<td>Matches any single character <strong>not</strong> within the brackets (e.g., <code>[^abc]</code>).</td>
+</tr>
+<tr>
+<td><code>()</code></td>
+<td>Groups patterns and captures the matched text.</td>
+</tr>
+<tr>
+<td>&#96;</td>
+<td>&#96;</td>
+</tr>
+<tr>
+<td><code>&#123;&#125;</code></td>
+<td>Specifies exact repetition (e.g., <code>a&#123;2,4&#125;</code> matches 2 to 4 <code>a</code>‘s).</td>
+</tr>
+<tr>
+<td><code>\d</code></td>
+<td>Matches any digit (equivalent to <code>[0-9]</code>).</td>
+</tr>
+<tr>
+<td><code>\w</code></td>
+<td>Matches any word character (letters, digits, underscore).</td>
+</tr>
+<tr>
+<td><code>\s</code></td>
+<td>Matches any whitespace character (space, tab, newline).</td>
+</tr>
+<tr>
+<td><code>\b</code></td>
+<td>Matches a word boundary.</td>
+</tr>
+<tr>
+<td><code>\B</code></td>
+<td>Matches a non-word boundary.</td>
+</tr>
+</tbody></table>
+<h3 id="Special-Position-Matching"><a href="#Special-Position-Matching" class="headerlink" title="Special Position Matching"></a>Special Position Matching</h3><h3 id="Character-Classes"><a href="#Character-Classes" class="headerlink" title="Character Classes"></a>Character Classes</h3><h3 id="Repetition-and-Capturing"><a href="#Repetition-and-Capturing" class="headerlink" title="Repetition and Capturing"></a>Repetition and Capturing</h3><h2 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h2><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a target="_blank" rel="noopener" href="https://regexr.com/">Regexr</a> : <strong>a powerful website for practicing Regex</strong>. </p>
+
                 
               </div>
             
