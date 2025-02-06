@@ -19,30 +19,30 @@
   <meta name="author" content="Xiyuan Yang">
   <meta name="keywords" content="Code">
   
-    <meta name="description" content="This blog introduces a new update plan. I will share the mistakes I made while solving LeetCode algorithm problems, along with reposting correct solutions and my organized notes.">
+    <meta name="description" content="This article introduces fundamental knowledge about tree data structures, including the key concept of hierarchy in trees, the strict standard definition of trees, and declaration of abstract base cla">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode-Mistake-Collection">
-<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Leetcode-Mistake-collection/index.html">
+<meta property="og:title" content="DataStructure-Tree">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/DataStructure-Tree/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
-<meta property="og:description" content="This blog introduces a new update plan. I will share the mistakes I made while solving LeetCode algorithm problems, along with reposting correct solutions and my organized notes.">
+<meta property="og:description" content="This article introduces fundamental knowledge about tree data structures, including the key concept of hierarchy in trees, the strict standard definition of trees, and declaration of abstract base cla">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Leetcode.png">
-<meta property="article:published_time" content="2024-12-09T12:06:17.000Z">
-<meta property="article:modified_time" content="2024-12-20T12:05:43.081Z">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/trees.png">
+<meta property="article:published_time" content="2025-02-06T12:57:06.000Z">
+<meta property="article:modified_time" content="2025-02-06T14:36:11.176Z">
 <meta property="article:author" content="Xiyuan Yang">
-<meta property="article:tag" content="Announcement">
 <meta property="article:tag" content="Finished">
 <meta property="article:tag" content="C&#x2F;C++">
-<meta property="article:tag" content="Leetcode notes">
-<meta property="article:tag" content="algorithm">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="Data Structure">
+<meta property="article:tag" content="Tree">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/Leetcode.png">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/trees.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Leetcode-Mistake-Collection - Xiyuan Yang&#39;s Blog</title>
+  <title>DataStructure-Tree - Xiyuan Yang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -257,7 +257,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Leetcode-Mistake-Collection"></span>
+            <span id="subtitle" data-typed-text="DataStructure-Tree"></span>
           
         </div>
 
@@ -273,8 +273,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-12-09 20:06" pubdate>
-          December 9, 2024 pm
+        <time datetime="2025-02-06 20:57" pubdate>
+          February 6, 2025 pm
         </time>
       </span>
     
@@ -285,7 +285,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          801 words
+          2.1k words
         
       </span>
     
@@ -380,7 +380,7 @@
       
         <a href="/posts/Leetcode-Mistake-collection/" title="Leetcode-Mistake-Collection"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">Leetcode-Mistake-Collection</span>
         </a>
       
@@ -470,7 +470,7 @@
       
         <a href="/posts/DataStructure-Tree/" title="DataStructure-Tree"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">DataStructure-Tree</span>
         </a>
       
@@ -502,76 +502,292 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Leetcode-Mistake-Collection</h1>
+            <h1 id="seo-header">DataStructure-Tree</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="Leetcode-Mistake-collection"><a href="#Leetcode-Mistake-collection" class="headerlink" title="Leetcode-Mistake-collection"></a>Leetcode-Mistake-collection</h1><p>笔者又来开新坑啦！</p>
-<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>在笔者刚刚步入大一时（也就是这学期），仗着自己暑假为数不多的C语言语法存货，觉得学校C++的课程进度有些落后，便在网上寻寻觅觅，想通过<strong>刷题</strong>的方式提升自己的代码水平。</p>
-<p>当在网上搜索“新手小白刷编程题什么网站上最好”，十有八九跳出来的都是<strong>Leetcode</strong>。确实，<a target="_blank" rel="noopener" href="https://leetcode.cn/">Leetcode</a>可以算作是数一数二优秀的编程训练网站了，各种界面设计也很符合我的审美。（就像他自己说的，<strong>全球极客挚爱的技术成长平台</strong>）。但是，对于当时习惯于把所有代码全部放进一个臃肿的<code>main</code>函数的我来说，Leetcode犹如一座高不可攀的山峰，好不容易弄懂了什么叫<strong>函数封装</strong>，竭尽全力也没办法做出 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">第一道题</a>。🤡</p>
-<p>之后在看 <a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_hello_algo/">Hello 算法</a>的时候在序言看到了一段感同身受的话：</p>
-<blockquote>
-<p>两眼一抹黑地刷题似乎是最受欢迎的方法，简单、直接且有效。然而刷题就如同玩“扫雷”游戏，自学能力强的人能够顺利将地雷逐个排掉，而基础不足的人很可能被炸得满头是包，并在挫折中步步退缩。通读教材也是一种常见做法，但对于面向求职的人来说，毕业论文、投递简历、准备笔试和面试已经消耗了大部分精力，啃厚重的书往往变成了一项艰巨的挑战。</p>
-</blockquote>
-<p>回想自己Leetcode的刷题之旅，真的是<strong>痛并快乐着</strong>，痛在算法题冷酷无情，将你所有的bug暴露无遗，根本不给你侥幸的机会，快乐在钻研一道题后终于看见<strong>超过了100%的人</strong>，快乐在从一开始的举步维艰，到逐渐能够尝试黄色中档题，再到得心应手，心平气和。</p>
-<p><strong>因此，我在此开坑，将自己过去，现在以及将来在Leetcode上所做的好题，错题，看到的优秀题解以及我自己整理一些笔记等等整理成博客的形式，一篇博客五道题，希望以此留作纪念，并能够给有相同志向的小伙伴们一点鼓励和指引。</strong></p>
-<h2 id="内容（实时更新）"><a href="#内容（实时更新）" class="headerlink" title="内容（实时更新）"></a>内容（实时更新）</h2><h3 id="第一学期（主要以语法题和最基本的算法题为主）"><a href="#第一学期（主要以语法题和最基本的算法题为主）" class="headerlink" title="第一学期（主要以语法题和最基本的算法题为主）"></a>第一学期（主要以语法题和最基本的算法题为主）</h3><ul>
-<li>基本语法题<ul>
-<li>数组、引用和指针的相关操作</li>
-<li>OOP</li>
-<li>STL入门</li>
-</ul>
+                <h1 id="Data-Structure-Tree"><a href="#Data-Structure-Tree" class="headerlink" title="Data Structure: Tree"></a>Data Structure: Tree</h1><p>The title image is from here.<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Invert a Binary Tree](https://medium.com/@theodoreyoong/coding-short-inverting-a-binary-tree-in-python-f178e50e4dac)">[2]</span></a></sup></p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>This article introduces the fundamental knowledge about tree data structures, including the key concept of hierarchy in trees, the strict standard definition of trees, and the declaration of abstract base classes. Additionally, the article discusses the role of trees and provides basic knowledge about binary trees.</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>在上一章的学习中，我们聚焦于<strong>线性数据结构——线性表</strong>，其本质特征和定义是：<strong>数据元素之间按照线性关系进行排列</strong>。同时，我们对线性表做了一些约束，衍生出更加具体的数据结构：</p>
+<ul>
+<li><p>从内存管理的视角进行约束</p>
+<ul>
+<li><p><strong>链接实现</strong></p>
 </li>
-<li>基本算法入门<ul>
-<li>排序算法</li>
-<li>分治算法</li>
-<li>回溯算法和递归算法</li>
-<li>动态规划</li>
-<li>贪心算法</li>
-</ul>
+<li><p><strong>顺序实现</strong></p>
 </li>
 </ul>
-<h3 id="第二学期（重点：数据结构）"><a href="#第二学期（重点：数据结构）" class="headerlink" title="第二学期（重点：数据结构）"></a>第二学期（重点：数据结构）</h3><p>（期待一波来年开春的疯狂更新~）</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/u/affectionate-hamiltonyhv/">我的Leetcode主页</a></p>
-<p><a target="_blank" rel="noopener" href="https://leetcode.cn/">Leetcode</a></p>
-<p><a target="_blank" rel="noopener" href="https://books.halfrost.com/leetcode/">Leetcode Cookbook</a></p>
-<hr>
-<blockquote>
-<p>English Version</p>
-</blockquote>
-<h1 id="Starting-a-New-Adventure-Again"><a href="#Starting-a-New-Adventure-Again" class="headerlink" title="Starting a New Adventure Again!"></a>Starting a New Adventure Again!</h1><h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>When I first started university (this semester), armed with my limited knowledge of C language syntax from a short summer learning stint, I felt the pace of my C++ course at school was a bit slow. So, I searched online for ways to improve my coding skills through <strong>problem-solving practice</strong>.</p>
-<p>When looking up “best websites for beginners to practice coding,” <strong>LeetCode</strong> popped up in most results. Indeed, <a target="_blank" rel="noopener" href="https://leetcode.cn/">LeetCode</a> is one of the best programming training platforms, and its interface design aligns perfectly with my aesthetic (as they call themselves, <strong>“The beloved tech growth platform for geeks worldwide”</strong>). However, for someone like me who used to put all the code into one bloated <code>main</code> function, LeetCode seemed like an insurmountable mountain. After finally understanding what <strong>function encapsulation</strong> was, I still couldn’t manage to solve <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">the first problem</a>. 🤡</p>
-<p>While reading <a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_hello_algo/">Hello Algorithm</a>, I came across a sentiment in the preface that resonated deeply with me:</p>
-<blockquote>
-<p>Diving blindly into problem-solving is perhaps the most popular method—it’s simple, direct, and effective. However, it’s like playing a “Minesweeper” game: self-learners with a strong foundation can defuse the mines one by one, while those lacking fundamentals might get blown up and retreat in frustration. Reading textbooks is another common approach, but for job seekers, writing theses, submitting resumes, and preparing for tests and interviews consume most of their energy, making heavy textbooks a daunting challenge.</p>
-</blockquote>
-<p>Looking back on my LeetCode journey, it truly has been a mix of <strong>pain and joy</strong>. The pain lies in the ruthless nature of algorithm problems, exposing all your bugs without mercy, leaving no room for luck. The joy comes from finally solving a problem and seeing <strong>“outperformed 100% of users”</strong>, from struggling with initial problems to tackling mid-level yellow questions, and eventually solving problems calmly and confidently.</p>
-<p><strong>That’s why I’m starting this series—to document the good problems, mistakes, excellent solutions, and notes from my past, present, and future LeetCode journey in the form of blog posts. Each post will include five problems, serving as a record and hopefully providing encouragement and guidance to like-minded peers.</strong></p>
-<hr>
-<h2 id="Content-Updated-in-Real-Time"><a href="#Content-Updated-in-Real-Time" class="headerlink" title="Content (Updated in Real-Time)"></a>Content (Updated in Real-Time)</h2><h3 id="First-Semester-Primarily-syntax-and-basic-algorithm-problems"><a href="#First-Semester-Primarily-syntax-and-basic-algorithm-problems" class="headerlink" title="First Semester (Primarily syntax and basic algorithm problems)"></a>First Semester (Primarily syntax and basic algorithm problems)</h3><ul>
-<li><strong>Basic Syntax Problems</strong><ul>
-<li>Array, reference, and pointer operations</li>
-<li>OOP (Object-Oriented Programming)</li>
-<li>Intro to STL (Standard Template Library)</li>
+</li>
+<li><p>从元素的进出次序的视角进行约束</p>
+<ul>
+<li><p>栈（LIFO）</p>
+</li>
+<li><p>队列（FIFO）</p>
+</li>
+<li><p>双端队列</p>
+</li>
 </ul>
 </li>
-<li><strong>Basic Algorithms</strong><ul>
-<li>Sorting algorithms</li>
-<li>Divide-and-conquer</li>
-<li>Backtracking and recursion</li>
-<li>Dynamic programming</li>
-<li>Greedy algorithms</li>
+<li><p>对数据元素的类型进行约束</p>
+<ul>
+<li>字符串</li>
 </ul>
 </li>
 </ul>
-<h3 id="Second-Semester-Focus-Data-Structures"><a href="#Second-Semester-Focus-Data-Structures" class="headerlink" title="Second Semester (Focus: Data Structures)"></a>Second Semester (Focus: Data Structures)</h3><p><em>(Looking forward to some crazy updates next spring!)</em></p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/u/affectionate-hamiltonyhv/">My LeetCode Profile</a></li>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/">LeetCode</a></li>
-<li><a target="_blank" rel="noopener" href="https://books.halfrost.com/leetcode/">LeetCode Cookbook</a></li>
-</ul>
+<p>我们是时候开启一段新的旅程了，线性表的威力固然强大，但是记住，<strong>数据结构的本质是抽象的建模过程</strong>，但是很多时候简单的线性结构并不能模拟这个复杂的世界。</p>
+<p>例如，我的文件夹：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs bash">.<br>├── 1.md<br>├── 1.txt<br>├── 3.md<br>├── 4.md<br>├── 5.md<br>├── README.md<br>├── bar<br>├── example.sh<br>├── foo<br>├── project42<br>├── scripts.py<br>├── <span class="hljs-built_in">test</span><br>│   ├── a.py<br>│   ├── b.py<br>│   ├── c.py<br>│   ├── d.py<br>│   ├── e.py<br>│   ├── f.py<br>│   ├── folder1<br>│   │   └── README.md<br>│   ├── folder2<br>│   │   └── README.md<br>│   ├── folder3<br>│   │   └── README.md<br>│   ├── folder4<br>│   │   └── README.md<br>│   ├── folder5<br>│   │   └── README.md<br>│   ├── folder6<br>│   │   └── README.md<br>│   ├── folder7<br>│   │   └── README.md<br>│   ├── folder8<br>│   │   └── README.md<br>│   ├── folder9<br>│   │   └── README.md<br>│   ├── g.py<br>│   ├── h.py<br>│   ├── helloa.txt<br>│   ├── hellob.txt<br>│   ├── helloc.txt<br>│   ├── hellod.txt<br>│   ├── helloe.txt<br>│   ├── i.py<br>│   └── j.py<br>├── thefilefolder<br>│   ├── 1.md<br>│   ├── 1.py<br>│   ├── 2.md<br>│   ├── 2.py<br>│   ├── 3.md<br>│   ├── 3.py<br>│   ├── 4.md<br>│   └── 5.md<br>└── vimtest.txt<br><br>14 directories, 41 files<br></code></pre></td></tr></table></figure>
 
+<p>同理，对于许多<strong>具有等级划分或者结构层次</strong>的数据结构，线性表似乎显的有点无能为力。因此我们引入一种全新的数据结构：<strong>树</strong>，来刻画这样一种抽象关系。</p>
+<h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><blockquote>
+<p>为了方便展示，博客中的所有树状结构全部使用<strong>Mermaid</strong>流程图的形式。</p>
+</blockquote>
+<p>我们首先展示一个简单的树形结构：</p>
+
+<pre>
+<code class="mermaid" >
+
+graph TD
+
+A[Me] --> B[Son_1]
+
+A --> C[Son_2]
+
+A --> D[Son_3]
+
+B --> E[Grandson1_1]
+
+B --> F[Grandson1_2]
+
+C --> H[Grandson2_1]
+
+C --> I[Grandson2_2]
+
+D --> K[Grandson3_1]
+
+D --> L[Grandson3_2]
+
+</code>
+</pre>
+
+<p>根据这个可视化的树，我们一句一句给出树的<strong>标准定义</strong>：</p>
+<ul>
+<li><p><strong>树</strong>是若干个节点的有限集合。</p>
+<ul>
+<li><p>这句话阐明了树的<strong>基本元素</strong>是节点。</p>
+</li>
+<li><p>这是否也在暗示我们<strong>对于树的实现：链接貌似优于顺序？</strong>（后面再讨论）</p>
+</li>
+</ul>
+</li>
+<li><p>它可以是空集，也可以是以下的结构：</p>
+<ul>
+<li><p>存在<strong>根节点</strong></p>
+</li>
+<li><p>其他的节点可分割为有限个互不相交的集合，这些集合本身也是一棵树。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>第二句话十分的重要，因为它本质就是<strong>树后续递归操作的底层原理</strong>，或者说<strong>树的递归定义</strong>。</p>
+<p>这句话有以下几种理解方式：</p>
+<ul>
+<li><p><strong>一棵树可以根据根节点不断的做分割，直到变成空集</strong>。（分割的视角）</p>
+</li>
+<li><p><strong>一棵树根据层级的不同可以不断的向下延伸直到底部</strong>。（延伸的视角）</p>
+</li>
+</ul>
+<h3 id="Fundamental-terminology"><a href="#Fundamental-terminology" class="headerlink" title="Fundamental terminology"></a>Fundamental terminology</h3><table>
+<thead>
+<tr>
+<th>术语</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>节点 (Node)</td>
+<td>树中的基本元素，包含数据和指向其他节点的链接。</td>
+</tr>
+<tr>
+<td>根节点 (Root)</td>
+<td>树的顶层节点，<strong>没有父节点</strong>。<strong>根节点唯一！</strong></td>
+</tr>
+<tr>
+<td>父节点 (Parent)</td>
+<td>一个节点的直接上级节点。</td>
+</tr>
+<tr>
+<td>子节点 (Child)</td>
+<td>一个节点的直接下级节点。</td>
+</tr>
+<tr>
+<td>叶子节点 (Leaf)</td>
+<td>没有子节点的节点，也称为终端节点。</td>
+</tr>
+<tr>
+<td>内部节点 (Internal)</td>
+<td>至少有一个子节点的非根节点。</td>
+</tr>
+<tr>
+<td>兄弟节点 (Sibling)</td>
+<td>具有相同父节点的节点。</td>
+</tr>
+<tr>
+<td>祖先节点 (Ancestor)</td>
+<td>从根节点到该节点的路径上的所有节点。</td>
+</tr>
+<tr>
+<td>后代节点 (Descendant)</td>
+<td>从该节点到叶子节点的路径上的所有节点。</td>
+</tr>
+<tr>
+<td>子树 (Subtree)</td>
+<td>树中的任意节点及其所有后代节点构成的树。</td>
+</tr>
+<tr>
+<td>深度 (Depth)</td>
+<td>从根节点到该节点的路径长度。</td>
+</tr>
+<tr>
+<td>高度 (Height)</td>
+<td>从该节点到叶子节点的最长路径长度。树的高度是根节点的高度。</td>
+</tr>
+<tr>
+<td>层次 (Level)</td>
+<td>根节点为第1层，其子节点为第2层，以此类推。</td>
+</tr>
+<tr>
+<td>度 (Degree)</td>
+<td>节点的子节点数量。树的度是树中节点的最大度数。</td>
+</tr>
+<tr>
+<td>路径 (Path)</td>
+<td>从一个节点到另一个节点的节点序列。</td>
+</tr>
+<tr>
+<td>森林 (Forest)</td>
+<td>由若干棵互不相交的树组成的集合。</td>
+</tr>
+<tr>
+<td>二叉树 (Binary Tree)</td>
+<td>每个节点最多有两个子节点的树。</td>
+</tr>
+<tr>
+<td>满二叉树 (Full Binary Tree)</td>
+<td>每个节点都有0个或2个子节点的二叉树。</td>
+</tr>
+<tr>
+<td>完全二叉树 (Complete Binary Tree)</td>
+<td>除了最后一层，其他层都是满的，且最后一层节点尽量靠左的二叉树。</td>
+</tr>
+<tr>
+<td>平衡二叉树 (Balanced Binary Tree)</td>
+<td>左右子树高度差不超过1的二叉树。</td>
+</tr>
+<tr>
+<td>二叉搜索树 (Binary Search Tree)</td>
+<td>左子树节点值小于根节点，右子树节点值大于根节点的二叉树。</td>
+</tr>
+<tr>
+<td>前序遍历 (Preorder Traversal)</td>
+<td>先访问根节点，然后左子树，最后右子树。</td>
+</tr>
+<tr>
+<td>中序遍历 (Inorder Traversal)</td>
+<td>先访问左子树，然后根节点，最后右子树。</td>
+</tr>
+<tr>
+<td>后序遍历 (Postorder Traversal)</td>
+<td>先访问左子树，然后右子树，最后根节点。</td>
+</tr>
+<tr>
+<td>层序遍历 (Level Order Traversal)</td>
+<td>按层次从上到下、从左到右访问节点。</td>
+</tr>
+</tbody></table>
+<h3 id="Fundamental-Computations"><a href="#Fundamental-Computations" class="headerlink" title="Fundamental Computations"></a>Fundamental Computations</h3><p><strong>树的基本逻辑关系是父子关系，或者说等级关系</strong>。以下是树的常见运算：</p>
+<ul>
+<li><p><code>create()</code> : create a new tree.</p>
+</li>
+<li><p><code>clear()</code> : clear all nodes in a tree.</p>
+</li>
+<li><p><code>isEmpty()</code> : judge whether a tree is clean.</p>
+</li>
+<li><p><code>root()</code> : find the value of the root node. </p>
+</li>
+<li><p><code>parent(x)</code> : find the parent value of node <code>x</code>.</p>
+</li>
+<li><p><code>child(x, i)</code> : find the <code>i</code>th child value of node <code>x</code>.</p>
+</li>
+<li><p><code>remove(x, i)</code> : remove the <code>i</code>th child subtree of node <code>x</code>.</p>
+</li>
+<li><p><code>travese()</code> : traverse all the nodes in the tree.</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">//Abstract class </span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Tree</span>&#123;<br>    <span class="hljs-keyword">public</span>:<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">create</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">bool</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> T <span class="hljs-title">root</span><span class="hljs-params">(T invalid_flag)</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> T <span class="hljs-title">parent</span><span class="hljs-params">(T current_node, T invalid_flag)</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> T <span class="hljs-title">child</span><span class="hljs-params">(T current_node, <span class="hljs-type">int</span> tree_index, T invalid_flag)</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">remove</span> <span class="hljs-params">(T current_node, <span class="hljs-type">int</span> tree_index)</span> </span>= <span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">traverse</span> <span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>注意的是，函数声明中的<code>invalid_flag</code>是针对找不到根节点，找不到父节点或者找不到子节点而设计的。</p>
+<h2 id="What’s-Next？"><a href="#What’s-Next？" class="headerlink" title="What’s Next？"></a>What’s Next？</h2><p>我们来想想具体如何实现树形结构，貌似有一点复杂，因为树的结构本身比较复杂，更不用提<strong>插入、删除、翻转节点这类更加复杂的操作了</strong>。因此，我们从最简单的情形出发：即<strong>一个节点至多延伸出两个子节点</strong>。递归的定义方式：<strong>一个树或者为空，或者由一个根节点及两颗互不相交的子树构成。而子树也是二叉树。</strong></p>
+<p>例如上面的树很明显不是一个二叉树，因为Me有三个儿子。如果老三不存在，那就是一颗比较完美的二叉树（满二叉树）：</p>
+
+<pre>
+<code class="mermaid" >
+
+graph TD
+
+A[Me] --> B[Son_1]
+
+A --> C[Son_2]
+
+B --> E[Grandson1_1]
+
+B --> F[Grandson1_2]
+
+C --> H[Grandson2_1]
+
+C --> I[Grandson2_2]
+
+</code>
+</pre>
+
+<p>关于二叉树我们会在下一篇文章中详细讨论。</p>
+<h2 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h2><p>这篇文章<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Applications of tree data structure - GeeksforGeeks](https://www.geeksforgeeks.org/applications-of-tree-data-structure/)">[1]</span></a></sup>详细的介绍了树形结构的相关应用，总结一下就是：</p>
+<p>树的主要用途和应用场景包括：</p>
+<ol>
+<li><strong>存储层次化数据</strong>：如文件系统、DOM模型、DNS系统等，这些数据天然具有层次结构。</li>
+<li><strong>高效的搜索</strong>：二叉搜索树等树结构可以在对数时间内完成搜索，比线性数据结构更高效。</li>
+<li><strong>排序</strong>：自平衡二叉搜索树等可以在插入数据时自动排序，方便查找最小、最大值等。</li>
+<li><strong>动态数据管理</strong>：树结构可以动态增长和收缩，适合数据频繁变化的场景，如实时系统。</li>
+<li><strong>高效的插入和删除</strong>：树结构提供了高效的插入和删除算法，适合需要频繁增删数据的应用。</li>
+<li><strong>易于实现</strong>：相比图等复杂数据结构，树结构相对容易实现，广泛应用于编程项目中。</li>
+</ol>
+<p>其他应用场景包括：</p>
+<ul>
+<li><strong>存储层次化数据</strong>：如文件夹结构、组织架构、XML&#x2F;HTML数据等。</li>
+<li><strong>二叉搜索树</strong>：用于快速搜索、插入、删除排序数据。</li>
+<li><strong>堆</strong>：用于实现优先队列。</li>
+<li><strong>B树和B+树</strong>：用于数据库索引。</li>
+<li><strong>语法树</strong>：用于编译器设计中的代码扫描、解析和表达式求值。</li>
+<li><strong>K-D树</strong>：用于组织K维空间中的点。</li>
+<li><strong>Trie树</strong>：用于实现字典的前缀查找。</li>
+<li><strong>后缀树</strong>：用于快速模式搜索。</li>
+<li><strong>生成树和最短路径树</strong>：用于计算机网络中的路由器和网桥。</li>
+<li><strong>决策树</strong>：用于人工智能中的决策算法。</li>
+<li><strong>组织结构图</strong>：用于大型组织的层级结构。</li>
+<li><strong>XML解析器</strong>：用于解析XML文档。</li>
+<li><strong>机器学习算法</strong>：如决策树算法。</li>
+<li><strong>数据库索引</strong>：用于高效的数据检索。</li>
+<li><strong>DNS服务器</strong>：用于域名解析。</li>
+<li><strong>计算机图形学</strong>：用于图像合成和视觉效果。</li>
+<li><strong>表达式求值</strong>：用于计算算术表达式。</li>
+<li><strong>游戏算法</strong>：如象棋游戏中的防守走法存储。</li>
+<li><strong>Java虚拟机</strong>：用于管理和组织数据。</li>
+</ul>
+<p><strong>Tree is so important!</strong></p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/applications-of-tree-data-structure/">Applications of tree data structure - GeeksforGeeks</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://medium.com/@theodoreyoong/coding-short-inverting-a-binary-tree-in-python-f178e50e4dac">Invert a Binary Tree</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -604,15 +820,15 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Announcement/" class="print-no-link">#Announcement</a>
-      
         <a href="/tags/Finished/" class="print-no-link">#Finished</a>
       
         <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
       
-        <a href="/tags/Leetcode-notes/" class="print-no-link">#Leetcode notes</a>
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
       
-        <a href="/tags/algorithm/" class="print-no-link">#algorithm</a>
+        <a href="/tags/Data-Structure/" class="print-no-link">#Data Structure</a>
+      
+        <a href="/tags/Tree/" class="print-no-link">#Tree</a>
       
     </div>
   
@@ -624,8 +840,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Leetcode-Mistake-Collection</div>
-      <div>https://xiyuanyang-code.github.io/posts/Leetcode-Mistake-collection/</div>
+      <div>DataStructure-Tree</div>
+      <div>https://xiyuanyang-code.github.io/posts/DataStructure-Tree/</div>
     </div>
     <div class="license-meta">
       
@@ -637,13 +853,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>December 9, 2024</div>
+          <div>February 6, 2025</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 20, 2024</div>
+          <div>February 6, 2025</div>
         </div>
       
       
@@ -674,9 +890,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/Leetcode-Mistake-collection-1-10/" title="Leetcode-Mistake-Collection-1-10">
+                      <a href="/posts/DataStructure-Tree-Binary-Tree/" title="DataStructure-Tree-Binary-Tree">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Leetcode-Mistake-Collection-1-10</span>
+                        <span class="hidden-mobile">DataStructure-Tree-Binary-Tree</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -684,8 +900,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/Class-Inheritance/" title="Class-Inheritance">
-                        <span class="hidden-mobile">Class-Inheritance</span>
+                      <a href="/posts/Regular-Expression/" title="Regular-Expression">
+                        <span class="hidden-mobile">Regular-Expression</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -787,6 +1003,21 @@
 
   
 
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
 
 
 
