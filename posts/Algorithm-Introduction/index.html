@@ -21,14 +21,14 @@
   
     <meta name="description" content="This article dives into the analysis of the time and space complexity of algorithms, as well as concepts behind recursive and iterative approaches and introduces related knowledge on data structures.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Algorithm_tutorial_section1">
-<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Algorithm-tutorial-section1/index.html">
+<meta property="og:title" content="Algorithm-Introduction">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Algorithm-Introduction/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
 <meta property="og:description" content="This article dives into the analysis of the time and space complexity of algorithms, as well as concepts behind recursive and iterative approaches and introduces related knowledge on data structures.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/recursion_tree.png">
 <meta property="article:published_time" content="2024-11-28T07:02:33.000Z">
-<meta property="article:modified_time" content="2024-12-07T11:36:41.152Z">
+<meta property="article:modified_time" content="2025-02-07T08:07:19.144Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Finished">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -43,7 +43,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Algorithm_tutorial_section1 - Xiyuan Yang&#39;s Blog</title>
+  <title>Algorithm-Introduction - Xiyuan Yang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -258,7 +258,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Algorithm_tutorial_section1"></span>
+            <span id="subtitle" data-typed-text="Algorithm-Introduction"></span>
           
         </div>
 
@@ -361,10 +361,10 @@
     
       
       
-        <a href="/posts/Algorithm-tutorial-section1/" title="Algorithm_tutorial_section1"
+        <a href="/posts/Algorithm-Introduction/" title="Algorithm-Introduction"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">Algorithm_tutorial_section1</span>
+          <span class="category-post">Algorithm-Introduction</span>
         </a>
       
     
@@ -503,13 +503,13 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Algorithm_tutorial_section1</h1>
+            <h1 id="seo-header">Algorithm-Introduction</h1>
             
             
               <div class="markdown-body">
                 
                 <h1 id="Algorithm-tutorial-section1"><a href="#Algorithm-tutorial-section1" class="headerlink" title="Algorithm_tutorial_section1"></a>Algorithm_tutorial_section1</h1><p>【写在前面的话】</p>
-<p>​	本文是笔者自己算法课程的学习笔记，目前的学习内容主要是算法和数据结构基础（提前自学，笔者会在大一下学期系统学习），学习途径和资源主要是 <a target="_blank" rel="noopener" href="https://www.hello-algo.com/">Hello 算法</a>（一本非常易入门的算法书！非常推荐！）。因此，<strong>此文章是Algorithm_tutorial的第一篇博客~，且大部分内容来自Hello算法原书，原创部分属于少数，笔者在此处只是按照自己的知识体系进行归纳总结并且尝试记录下来。</strong>希望大家都能愉快地开启自己的算法学习之旅~</p>
+<p>​    本文是笔者自己算法课程的学习笔记，目前的学习内容主要是算法和数据结构基础（提前自学，笔者会在大一下学期系统学习），学习途径和资源主要是 <a target="_blank" rel="noopener" href="https://www.hello-algo.com/">Hello 算法</a>（一本非常易入门的算法书！非常推荐！）。因此，<strong>此文章是Algorithm_tutorial的第一篇博客~，且大部分内容来自Hello算法原书，原创部分属于少数，笔者在此处只是按照自己的知识体系进行归纳总结并且尝试记录下来。</strong>希望大家都能愉快地开启自己的算法学习之旅~</p>
 <h1 id="Algorithm-Section1-Introduction"><a href="#Algorithm-Section1-Introduction" class="headerlink" title="Algorithm.Section1 Introduction"></a>Algorithm.Section1 Introduction</h1><p>Introduction：</p>
 <ul>
 <li>迭代与递归</li>
@@ -517,8 +517,8 @@
 <li>空间复杂度</li>
 <li>数据结构的物理结构</li>
 </ul>
-<h2 id="一、算法-复杂度分析"><a href="#一、算法-复杂度分析" class="headerlink" title="一、算法 复杂度分析"></a>一、算法 复杂度分析</h2><p>​	由于实际测试具有较大的局限性，因此我们可以考虑仅通过一些计算来评估算法的效率。这种估算方法被称为渐近复杂度分析（asymptotic complexity analysis），简称复杂度分析。</p>
-<p>​	复杂度分析能够体现算法运行所需的时间和空间资源与输入数据大小之间的关系。<strong>它描述了随着输入数据大小的增加，算法执行所需时间和空间的增长趋势</strong>。这个定义有些拗口，我们可以将其分为三个重点来理解。</p>
+<h2 id="一、算法-复杂度分析"><a href="#一、算法-复杂度分析" class="headerlink" title="一、算法 复杂度分析"></a>一、算法 复杂度分析</h2><p>​    由于实际测试具有较大的局限性，因此我们可以考虑仅通过一些计算来评估算法的效率。这种估算方法被称为渐近复杂度分析（asymptotic complexity analysis），简称复杂度分析。</p>
+<p>​    复杂度分析能够体现算法运行所需的时间和空间资源与输入数据大小之间的关系。<strong>它描述了随着输入数据大小的增加，算法执行所需时间和空间的增长趋势</strong>。这个定义有些拗口，我们可以将其分为三个重点来理解。</p>
 <ul>
 <li>“<strong>时间和空间资源</strong>”分别对应时间复杂度（time complexity）和空间复杂度（space complexity）。</li>
 <li>“随着输入数据大小的增加”意味着复杂度反映了算法运行效率与输入数据体量之间的关系。</li>
@@ -533,19 +533,19 @@
 <li><p>递归</p>
 </li>
 </ul>
-<p>​	递归（recursion）是一种算法策略，通过函数调用自身来解决问题。它主要包含两个阶段。</p>
+<p>​    递归（recursion）是一种算法策略，通过函数调用自身来解决问题。它主要包含两个阶段。</p>
 <ol>
 <li><strong>递</strong>：程序不断深入地调用自身，通常传入更小或更简化的参数，直到达到“终止条件”。</li>
 <li><strong>归</strong>：触发“终止条件”后，程序从最深层的递归函数开始逐层返回，汇聚每一层的结果。</li>
 </ol>
-<p>​	而从实现的角度看，递归代码主要包含三个要素。</p>
+<p>​    而从实现的角度看，递归代码主要包含三个要素。</p>
 <ol>
 <li><strong>终止条件</strong>：用于决定什么时候由“递”转“归”。</li>
 <li><strong>递归调用</strong>：对应“递”，函数调用自身，通常输入更小或更简化的参数。</li>
 <li><strong>返回结果</strong>：对应“归”，将当前递归层级的结果返回至上一层。</li>
 </ol>
 <p><strong>有关递归的时间问题和空间问题</strong></p>
-<p>​	递归函数每次调用自身时，系统都会为新开启的函数分配内存，以存储局部变量、调用地址和其他信息等。这将导致两方面的结果。</p>
+<p>​    递归函数每次调用自身时，系统都会为新开启的函数分配内存，以存储局部变量、调用地址和其他信息等。这将导致两方面的结果。</p>
 <ul>
 <li><p>函数的上下文数据都存储在称为“<strong>栈帧空间</strong>”的内存区域中，直至函数返回后才会被释放。因此，<strong>递归通常比迭代更加耗费内存空间</strong>。（需要控制递归深度，否则过深的递归会导致栈的溢出错误）</p>
 </li>
@@ -594,10 +594,6 @@
 <li><strong>归</strong>：当函数完成执行并返回时，对应的栈帧会被从“调用栈”上移除，恢复之前函数的执行环境。</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">for_loop_recur</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;使用迭代模拟递归&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 使用一个显式的栈来模拟系统调用栈</span><br>    stack = []<br>    res = <span class="hljs-number">0</span><br>    <span class="hljs-comment"># 递：递归调用</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n, <span class="hljs-number">0</span>, -<span class="hljs-number">1</span>):<br>        <span class="hljs-comment"># 通过“入栈操作”模拟“递”</span><br>        stack.append(i)<br>    <span class="hljs-comment"># 归：返回结果</span><br>    <span class="hljs-keyword">while</span> stack:<br>        <span class="hljs-comment"># 通过“出栈操作”模拟“归”</span><br>        res += stack.pop()<br>    <span class="hljs-comment"># res = 1+2+3+...+n</span><br>    <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
-
-
-
-
 
 <h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="@时间复杂度"></a>@时间复杂度</h3><ul>
 <li><strong>常数</strong>时间复杂度</li>
@@ -675,7 +671,7 @@
 <p>在分析一段程序的空间复杂度时，<strong>我们通常统计暂存数据、栈帧空间和输出数据三部分</strong>。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Node</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;类&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, x: <span class="hljs-built_in">int</span></span>):<br>        <span class="hljs-variable language_">self</span>.val: <span class="hljs-built_in">int</span> = x              <span class="hljs-comment"># 节点值</span><br>        <span class="hljs-variable language_">self</span>.<span class="hljs-built_in">next</span>: Node | <span class="hljs-literal">None</span> = <span class="hljs-literal">None</span>  <span class="hljs-comment"># 指向下一节点的引用</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">function</span>() -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;函数&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 执行某些操作...</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">algorithm</span>(<span class="hljs-params">n</span>) -&gt; <span class="hljs-built_in">int</span>:  <span class="hljs-comment"># 输入数据</span><br>    A = <span class="hljs-number">0</span>                 <span class="hljs-comment"># 暂存数据（常量，一般用大写字母表示）</span><br>    b = <span class="hljs-number">0</span>                 <span class="hljs-comment"># 暂存数据（变量）</span><br>    node = Node(<span class="hljs-number">0</span>)        <span class="hljs-comment"># 暂存数据（对象）</span><br>    c = function()        <span class="hljs-comment"># 栈帧空间（调用函数）</span><br>    <span class="hljs-keyword">return</span> A + b + c      <span class="hljs-comment"># 输出数据</span><br></code></pre></td></tr></table></figure>
 
-<p>​	而与时间复杂度不同的是，<strong>我们通常只关注最差空间复杂度</strong>。这是因为内存空间是一项硬性要求，我们必须确保在所有输入数据下都有足够的内存空间预留。</p>
+<p>​    而与时间复杂度不同的是，<strong>我们通常只关注最差空间复杂度</strong>。这是因为内存空间是一项硬性要求，我们必须确保在所有输入数据下都有足够的内存空间预留。</p>
 <ul>
 <li>以最差输入数据为准</li>
 <li>以算法运行的<strong>峰值内存</strong>（注意不是累积量）为准</li>
@@ -807,8 +803,8 @@
 <li><strong>基于数组可实现</strong>：栈、队列、哈希表、树、堆、图、矩阵、张量（维度 ≥3 的数组）等。</li>
 <li><strong>基于链表可实现</strong>：栈、队列、哈希表、树、堆、图等。</li>
 </ul>
-<p>​	哈希表底层是数组，而为了解决哈希冲突，我们可能会使用“链式地址”（后续“哈希冲突”章节会讲）：数组中每个桶指向一个链表，当链表长度超过一定阈值时，又可能被转化为树（通常为红黑树）。</p>
-<p>​	从存储的角度来看，哈希表的底层是数组，其中每一个桶槽位可能包含一个值，也可能包含一个链表或一棵树。因此，哈希表可能同时包含线性数据结构（数组、链表）和非线性数据结构（树）。</p>
+<p>​    哈希表底层是数组，而为了解决哈希冲突，我们可能会使用“链式地址”（后续“哈希冲突”章节会讲）：数组中每个桶指向一个链表，当链表长度超过一定阈值时，又可能被转化为树（通常为红黑树）。</p>
+<p>​    从存储的角度来看，哈希表的底层是数组，其中每一个桶槽位可能包含一个值，也可能包含一个链表或一棵树。因此，哈希表可能同时包含线性数据结构（数组、链表）和非线性数据结构（树）。</p>
 
                 
               </div>
@@ -864,8 +860,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Algorithm_tutorial_section1</div>
-      <div>https://xiyuanyang-code.github.io/posts/Algorithm-tutorial-section1/</div>
+      <div>Algorithm-Introduction</div>
+      <div>https://xiyuanyang-code.github.io/posts/Algorithm-Introduction/</div>
     </div>
     <div class="license-meta">
       
@@ -883,7 +879,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 7, 2024</div>
+          <div>February 7, 2025</div>
         </div>
       
       
