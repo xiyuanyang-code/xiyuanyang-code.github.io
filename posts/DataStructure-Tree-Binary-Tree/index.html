@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/binarytree.png">
 <meta property="article:published_time" content="2025-02-06T14:35:50.000Z">
-<meta property="article:modified_time" content="2025-02-06T14:42:46.249Z">
+<meta property="article:modified_time" content="2025-02-07T07:52:50.379Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="tutorial">
@@ -285,7 +285,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2 words
+          728 words
         
       </span>
     
@@ -507,10 +507,109 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Data-Structure-Binary-Tree"><a href="#Data-Structure-Binary-Tree" class="headerlink" title="Data Structure: Binary Tree"></a>Data Structure: Binary Tree</h1><blockquote>
-<p>To be continued</p>
+                <h1 id="Data-Structure-Binary-Tree"><a href="#Data-Structure-Binary-Tree" class="headerlink" title="Data Structure: Binary Tree"></a>Data Structure: Binary Tree</h1><h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>树的定义有两种形式：<strong>递归形式</strong> 和 <strong>延伸形式</strong>。同理，我们对<strong>二叉树</strong>也可以有两种定义的解释：</p>
+<ul>
+<li><p><strong>延伸形式</strong>：每一个节点至多延伸出两个子节点。（可以无节点，一个节点或者两个节点）</p>
+</li>
+<li><p><strong>递归形式</strong>：或者为空，或者由<strong>一个根节点和两颗互不相交的子树构成</strong>，而左右子树都是<strong>二叉树</strong>。</p>
+</li>
+</ul>
+<blockquote>
+<p>可以把“二叉树为空”理解为递归调用中的函数终止条件。</p>
 </blockquote>
+<p>根据上面的定义，我们可以归纳二叉树的<strong>五种基本形态</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>空二叉树</th>
+<th>只有根的二叉树</th>
+<th>只有非空左子树</th>
+<th>只有非空右子树</th>
+<th>左右子树均非空</th>
+</tr>
+</thead>
+</table>
+<p><img src="https://s1.imagehub.cc/images/2025/02/07/b3ab2a0443e525aee7eb1fbdca255773.png" srcset="/img/loading.gif" lazyload alt="five categories"></p>
+<div class="note note-warning">
+            <p><strong>注意！</strong> 二叉树是<strong>有序树</strong>，其左右子树存在差异，必须严格区分。</p><p>换句话说，下面的两棵树不可以看做是同一颗二叉树！</p>
+          </div>
 
+
+<pre>
+<code class="mermaid" >
+
+graph TD
+
+A[node] --> B[value_1]
+
+A --> C[value_2]
+
+D[node] --> E[value_2]
+
+D --> F[value_1]
+
+</code>
+</pre>
+
+<p>二叉树是一种特殊的树，但在二叉树内部，又有很多<strong>特殊的二叉树</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>名词</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>满二叉树</strong></td>
+<td>每个节点都有 0 或 2 个子节点，且<strong>所有叶节点都在同一层</strong>。</td>
+</tr>
+<tr>
+<td><strong>完全二叉树</strong></td>
+<td>除最后一层外，其他层都是满的，且最后一层的节点尽量<strong>靠左排列</strong>。<br>也就是说，满二叉树一定是完全二叉树，把完全二叉树的叶节点全部补齐就可以变成满二叉树。</td>
+</tr>
+<tr>
+<td><strong>平衡二叉树</strong></td>
+<td>任意节点的左右子树高度差不超过 1，常见实现如 AVL 树、红黑树。</td>
+</tr>
+<tr>
+<td><strong>二叉搜索树 (BST)</strong></td>
+<td>左子树所有节点的值小于根节点，右子树所有节点的值大于根节点，且左右子树也分别是二叉搜索树。</td>
+</tr>
+<tr>
+<td><strong>AVL 树</strong></td>
+<td>一种自平衡二叉搜索树，通过旋转操作保持平衡，确保左右子树高度差不超过 1。</td>
+</tr>
+<tr>
+<td><strong>红黑树</strong></td>
+<td>一种自平衡二叉搜索树，通过颜色标记和旋转操作保持平衡，确保最长路径不超过最短路径的两倍。</td>
+</tr>
+<tr>
+<td><strong>线索二叉树</strong></td>
+<td>通过利用空指针指向节点的前驱或后继，优化遍历效率。</td>
+</tr>
+<tr>
+<td><strong>堆 (Heap)</strong></td>
+<td>一种完全二叉树，分为最大堆（父节点值大于子节点）和最小堆（父节点值小于子节点）。</td>
+</tr>
+<tr>
+<td><strong>B 树</strong></td>
+<td>一种多路平衡搜索树，常用于数据库和文件系统，节点可以有多个子节点。</td>
+</tr>
+<tr>
+<td><strong>B+ 树</strong></td>
+<td>B 树的变种，所有数据存储在叶节点，内部节点仅存储索引，适合范围查询。</td>
+</tr>
+<tr>
+<td><strong>哈夫曼树</strong></td>
+<td>一种带权路径长度最短的二叉树，用于数据压缩（如哈夫曼编码）。</td>
+</tr>
+<tr>
+<td><strong>二叉字典树 (Trie)</strong></td>
+<td>一种多叉树，用于高效存储和检索字符串，每个节点代表一个字符。</td>
+</tr>
+</tbody></table>
+<h2 id="Mathematical-Properties"><a href="#Mathematical-Properties" class="headerlink" title="Mathematical Properties"></a>Mathematical Properties</h2><p><img src="https://s1.imagehub.cc/images/2025/02/07/69c05a5935d390a5750f7806da87c2d6.png" srcset="/img/loading.gif" lazyload alt="BinaryTree HandNotes"></p>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2>
                 
               </div>
             
@@ -582,7 +681,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>February 6, 2025</div>
+          <div>February 7, 2025</div>
         </div>
       
       

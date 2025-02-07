@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/trees.png">
 <meta property="article:published_time" content="2025-02-06T12:57:06.000Z">
-<meta property="article:modified_time" content="2025-02-06T14:36:11.176Z">
+<meta property="article:modified_time" content="2025-02-07T06:08:46.881Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Finished">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -728,7 +728,8 @@ D --> L[Grandson3_2]
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">//Abstract class </span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Tree</span>&#123;<br>    <span class="hljs-keyword">public</span>:<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">create</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">bool</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> T <span class="hljs-title">root</span><span class="hljs-params">(T invalid_flag)</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> T <span class="hljs-title">parent</span><span class="hljs-params">(T current_node, T invalid_flag)</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> T <span class="hljs-title">child</span><span class="hljs-params">(T current_node, <span class="hljs-type">int</span> tree_index, T invalid_flag)</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">remove</span> <span class="hljs-params">(T current_node, <span class="hljs-type">int</span> tree_index)</span> </span>= <span class="hljs-number">0</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">traverse</span> <span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br><br>&#125;;<br></code></pre></td></tr></table></figure>
 
 <p>注意的是，函数声明中的<code>invalid_flag</code>是针对找不到根节点，找不到父节点或者找不到子节点而设计的。</p>
-<h2 id="What’s-Next？"><a href="#What’s-Next？" class="headerlink" title="What’s Next？"></a>What’s Next？</h2><p>我们来想想具体如何实现树形结构，貌似有一点复杂，因为树的结构本身比较复杂，更不用提<strong>插入、删除、翻转节点这类更加复杂的操作了</strong>。因此，我们从最简单的情形出发：即<strong>一个节点至多延伸出两个子节点</strong>。递归的定义方式：<strong>一个树或者为空，或者由一个根节点及两颗互不相交的子树构成。而子树也是二叉树。</strong></p>
+<h2 id="What’s-Next？"><a href="#What’s-Next？" class="headerlink" title="What’s Next？"></a>What’s Next？</h2><p>我们来想想具体如何实现树形结构，貌似有一点复杂，因为树的结构本身比较复杂，更不用提<strong>插入、删除、翻转节点这类更加复杂的操作了</strong>。因此，我们从最简单的情形出发：即<strong>一个节点至多延伸出两个子节点</strong>。</p>
+<p>我们把这种树定义为<strong>二叉树</strong>，另一种递归的定义方式：<strong>一个树或者为空，或者由一个根节点及两颗互不相交的子树构成。而子树也是二叉树。</strong></p>
 <p>例如上面的树很明显不是一个二叉树，因为Me有三个儿子。如果老三不存在，那就是一颗比较完美的二叉树（满二叉树）：</p>
 
 <pre>
@@ -859,7 +860,7 @@ C --> I[Grandson2_2]
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>February 6, 2025</div>
+          <div>February 7, 2025</div>
         </div>
       
       
