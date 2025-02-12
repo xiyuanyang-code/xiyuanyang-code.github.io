@@ -4,6 +4,39 @@
   
   
   <entry>
+    <title>CS294-1-LLM-Reasoning</title>
+    <link href="/posts/CS294-1-LLM-Reasoning/"/>
+    <url>/posts/CS294-1-LLM-Reasoning/</url>
+    
+    <content type="html"><![CDATA[<h1 id="CS294-194-196-Large-Language-Model-Agents"><a href="#CS294-194-196-Large-Language-Model-Agents" class="headerlink" title="CS294&#x2F;194-196 Large Language Model Agents"></a>CS294&#x2F;194-196 Large Language Model Agents</h1><p><strong>Fall 2024</strong></p><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h1 id="Lec1-LLM-reasoning"><a href="#Lec1-LLM-reasoning" class="headerlink" title="Lec1: LLM reasoning"></a>Lec1: LLM reasoning</h1><p><img src="https://s1.imagehub.cc/images/2025/02/12/bbbd6f99a96f0c55aa908517e85d0272.png" alt="LLM reasoning"></p><p><strong>Reasoning</strong>: Humans can learn from <strong>a few or even no examples</strong> during the process because <strong>humans can reason</strong>! <strong>Traditional ML methods</strong> fails: <strong>Auto-encoder</strong>, require vast amount of labeled data.</p><p>Training LLMs needs a new way (<strong>few-shot or zero-shot prompting</strong>).</p><h2 id="Paper1-Derive-the-Final-Answer-through-Intermediate-Steps"><a href="#Paper1-Derive-the-Final-Answer-through-Intermediate-Steps" class="headerlink" title="Paper1_Derive the Final Answer through Intermediate Steps"></a>Paper1_Derive the Final Answer through Intermediate Steps</h2><p>This paper<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://aclanthology.org/P17-1015.pdf">[1]</span></a></sup> focuses on solving algebraic word problems by generating answer rationales. A new dataset with 100,000 samples of questions, answers, and rationales is created. The model proposed is a sequence-to-sequence model that generates a program’s instructions to produce the rationale and then the answer. It defines 22 operations and models each instruction based on the text program specification and history. Inducing programs is achieved by leveraging the progression in rationales and filtering possible instructions. Staged back-propagation is used to handle the memory challenge caused by long rationales. Experiments show that compared with baseline models like the attention-based sequence-to-sequence model with copy mechanisms, this model performs better in terms of perplexity, BLEU score, and accuracy. It demonstrates the effectiveness of using rationales to guide program induction in solving math problems and provides a new approach and dataset for future research in this area. </p><p>The model seems to have <strong>the reasoning ability</strong>, but actually its basic structure is still <strong>LSTM</strong> model (a version of <strong>RNN</strong>). Decompose the problem into smaller subproblems, ultimately transforming it into a series of instruction sets, making it difficult to solve more challenging mathematical problems. Moreover, <strong>transformer</strong> structure hasn’t been invented yet. But it proves the potential of <strong>generating intermediate steps</strong> while getting the final answer to decrease perplexity and enhance error rate.</p><div style="text-align: center;">    <img src="https://s1.imagehub.cc/images/2025/02/12/a54fa6519a140208b75e94f2e9a8a030.png" alt="Paper Notes" style="zoom:50%;" /></div><h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><blockquote><p>The cite format is informal, the references below just list the url link of all papers.</p></blockquote><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a href="https://aclanthology.org/P17-1015.pdf">https://aclanthology.org/P17-1015.pdf</a><a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+    
+    
+    <categories>
+      
+      <category>Artificial Intelligence</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Convolutional Neural Networks</tag>
+      
+      <tag>Artificial Intelligence</tag>
+      
+      <tag>AlexNet</tag>
+      
+      <tag>Image Clssification</tag>
+      
+      <tag>Deep Learning</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Missing-Semester-Notes</title>
     <link href="/posts/Missing-Semester-Notes/"/>
     <url>/posts/Missing-Semester-Notes/</url>
