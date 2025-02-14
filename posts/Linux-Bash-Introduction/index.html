@@ -28,8 +28,9 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/bash.jpg">
 <meta property="article:published_time" content="2025-01-13T14:31:11.000Z">
-<meta property="article:modified_time" content="2025-02-06T15:02:29.384Z">
+<meta property="article:modified_time" content="2025-02-14T16:08:35.779Z">
 <meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="Finished">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Bash">
 <meta property="article:tag" content="Linux">
@@ -283,7 +284,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          667 words
+          2.7k words
         
       </span>
     
@@ -444,217 +445,129 @@
                 
                 <p>封面出处：<a target="_blank" rel="noopener" href="https://www.makeuseof.com/linux-bash-what-use-for/">Bash and Linux</a></p>
 <h1 id="Linux-and-Bash-Introduction"><a href="#Linux-and-Bash-Introduction" class="headerlink" title="Linux and Bash Introduction"></a>Linux and Bash Introduction</h1><p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/150px-Tux.svg.png" srcset="/img/loading.gif" lazyload alt="Tux the penguin"></p>
-<h2 id="Lecture2-Missing-Semester-2"><a href="#Lecture2-Missing-Semester-2" class="headerlink" title="Lecture2 Missing Semester(2)"></a>Lecture2 Missing Semester(2)</h2><h3 id="in-Bash"><a href="#in-Bash" class="headerlink" title="$ in Bash"></a><code>$</code> in Bash</h3><p>In Bash, <code>$</code> has special meanings:</p>
+<blockquote>
+<p>思来想去还是用中文写吧。。。全英文的博客写作还需要一段时间来适应。</p>
+<p>中文敲字是真的快。。。</p>
+</blockquote>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>当你在网上下载软件时，你可能会看到这样的页面：</p>
+<center><img src="https://s1.imagehub.cc/images/2025/02/14/590ddd670394edd6af67cae090b2d6fb.png" srcset="/img/loading.gif" lazyload alt="Screenshot 2025 02 14 140426" border="0"></center>
+
+<p><strong>Windows</strong> 和 <strong>MacOS</strong> 相信大家并不陌生，但中间这个有点蠢蠢的小企鹅是什么？这便是大名鼎鼎的 <strong>Linux</strong> 系统，本文将会介绍 <strong>有关Linux最基本的知识</strong>，以及从 <strong>Linux</strong> 延伸到 <strong>Bash</strong>等命令行工具，提供为CLI新手的导引。</p>
+<h2 id="What-is-Linux"><a href="#What-is-Linux" class="headerlink" title="What is Linux"></a>What is Linux</h2><p>和 <strong>Windows</strong> 与 <strong>MacOS</strong>一样，<strong>Linux</strong>是一种 <strong>操作系统</strong>。（这里主要涉及 <strong>桌面操作系统</strong>，Linux也可以用于服务器部署和嵌入式开发等领域，此文不涉及）</p>
+<p><strong>什么是操作系统</strong>？官方定义：</p>
+<blockquote>
+<p><strong>操作系统</strong>是是<strong>管理计算机硬件和软件资源的系统软件</strong>，它是计算机系统的核心组成部分。操作系统为用户和应用程序提供了一个与硬件交互的接口，同时负责管理计算机的资源，确保系统高效、稳定地运行。它的作用主要包括：</p>
+<ul>
+<li><strong>进程管理</strong></li>
+<li><strong>内存管理</strong></li>
+<li><strong>文件系统管理</strong></li>
+<li><strong>设备管理</strong></li>
+<li><strong>用户界面</strong><ul>
+<li>命令行界面（CLI）</li>
+<li>图形用户界面（GUI）</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>换句话说，<strong>Operating System</strong>就像管家，负责管理计算机的<strong>硬件资源</strong>并与 <strong>软件程序</strong>沟通，让用户更方便的操作并使用计算机。通俗来说，你只需要使用电脑上的软件（例如点击图标，打字等），而不需要查看每一根内存条的使用情况，因为操作系统帮你完成了这一步。</p>
+<p><strong>Linux</strong> 就是一个类 <strong>Unix</strong> 的操作系统，和Windows系统有很大的差异。</p>
+<h3 id="Philosophy-of-Linux"><a href="#Philosophy-of-Linux" class="headerlink" title="Philosophy of Linux"></a>Philosophy of Linux</h3><p>Linux的哲学是Linux操作系统设计和使用的核心理念，它源于<strong>Unix哲学</strong>，并在此基础上发展出独特的思想体系。</p>
+<blockquote>
+<p><strong>Philosophy of Unix</strong> (from Wikipedia<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://en.wikipedia.org/wiki/Unix_philosophy">[2]</span></a></sup>)</p>
+<p>The <strong>Unix philosophy</strong>, originated by <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Ken_Thompson">Ken Thompson</a>, is a set of cultural norms and philosophical approaches to <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Minimalism_(computing)">minimalist</a>, <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Modularity_(programming)">modular</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Software_development">software development</a>. It is based on the experience of leading developers of the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Unix">Unix</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Operating_system">operating system</a>.</p>
 <ol>
-<li><strong>Variable Reference</strong>: Access variable values (<code>$var</code>).</li>
-<li><strong>Special Variables</strong>: <ul>
-<li><code>$0</code>: Script name.</li>
-<li><code>$1</code>-<code>$9</code>: Script arguments.</li>
-<li><code>$?</code>: Exit status of the last command.</li>
-<li><code>$$</code>: Current script’s PID.</li>
-</ul>
-</li>
-<li><strong>Command Substitution</strong>: Capture command output (<code>$(command)</code>).</li>
-<li><strong>Arithmetic Operations</strong>: Perform math (<code>$((expression))</code>).</li>
-<li><strong>String Manipulation</strong>: Substrings (<code>$&#123;str:start:length&#125;</code>) or length (<code>$&#123;#str&#125;</code>).</li>
-<li><strong>Environment Variables</strong>: Access (<code>$HOME</code>, <code>$PATH</code>).</li>
+<li>Make each program <strong>do one thing well</strong>. To do a new job, build afresh rather than complicate old programs by adding new “features”.</li>
+<li><strong>Expect the output of every program to become the input to another</strong>, as yet unknown, program. Don’t clutter output with extraneous information. Avoid stringently columnar or binary input formats. Don’t insist on interactive input.</li>
+<li>Design and build software, even operating systems, to be tried early, ideally within weeks. Don’t hesitate to throw away the clumsy parts and rebuild them.</li>
+<li>Use tools in preference to unskilled help to lighten a programming task, even if you have to detour to build the tools and expect to throw some of them out after you’ve finished using them.</li>
 </ol>
-<p>Here <code>$1</code> is the first argument to the script&#x2F;function. Unlike other scripting languages, bash uses a variety of special variables to refer to arguments, error codes, and other relevant variables. Below is a list of some of them. A more comprehensive list can be found <a target="_blank" rel="noopener" href="https://tldp.org/LDP/abs/html/special-chars.html">here</a>.</p>
+</blockquote>
+<p>Linux哲学的核心实现和Unix哲学差不了太多，即 <strong>简化</strong> 的思想渗透到方方面面，下面我们来逐条解释：</p>
+<h4 id="✨一切皆文件"><a href="#✨一切皆文件" class="headerlink" title="✨一切皆文件"></a>✨一切皆文件</h4><p>Linux系统将几乎所有资源都抽象为<strong>文件</strong>，包括硬件设备、进程、网络连接等。这种设计使得用户可以通过统一的文件操作接口（如读写、权限管理）来管理系统的各种资源。例如：</p>
 <ul>
-<li><code>$0</code> - Name of the script</li>
-<li><code>$1</code> to <code>$9</code> - Arguments to the script. <code>$1</code> is the first argument and so on.</li>
-<li><code>$@</code> - All the arguments</li>
-<li><code>$#</code> - Number of arguments</li>
-<li><code>$?</code> - Return code of the previous command<ul>
-<li>If the previous command execute successfully, the arguments will probably return <code>0</code>.</li>
-<li>If it fails, it will return none-0 value.</li>
+<li>硬件设备：<code>/dev/sda</code> 表示硬盘设备。</li>
+<li>进程信息：<code>/proc/</code> 目录下存储了运行中进程的信息。</li>
+<li>网络连接：<code>/etc/hosts</code> 文件存储了主机名和IP地址的映射。</li>
 </ul>
-</li>
-<li><code>$$</code> - <strong>Process identification number (PID)</strong> for the current script</li>
-<li><code>!!</code> - <strong>Entire last command, including arguments</strong>. A common pattern is to execute a command only for it to fail due to missing permissions; you can quickly re-execute the command with sudo by doing <code>sudo !!</code></li>
-<li><code>$_</code> - Last argument from the last command. If you are in an interactive shell, you can also quickly get this value by typing <code>Esc</code> followed by <code>.</code> or <code>Alt+.</code></li>
-</ul>
-<h3 id="find-command"><a href="#find-command" class="headerlink" title="find command"></a><code>find</code> command</h3><p><code>find</code> is a very powerful command-line tool used to search for files and directories in a directory tree. It supports a large number of parameters and options, allowing searches based on file name, type, size, time, permissions, and many other conditions. Below are some commonly used <code>find</code> parameters and options, categorized by functionality:</p>
-<h4 id="1-Basic-Search"><a href="#1-Basic-Search" class="headerlink" title="1. Basic Search"></a>1. <strong>Basic Search</strong></h4><ul>
-<li><strong><code>.</code></strong>: Start searching from the current directory.</li>
-<li><strong><code>/path/to/dir</code></strong>: Start searching from the specified directory.</li>
-</ul>
-<h4 id="2-Search-by-File-Name"><a href="#2-Search-by-File-Name" class="headerlink" title="2. Search by File Name"></a>2. <strong>Search by File Name</strong></h4><ul>
-<li><strong><code>-name &quot;pattern&quot;</code></strong>: Match file names (case-sensitive).<ul>
-<li>Example: <code>find . -name &quot;*.txt&quot;</code> finds all <code>.txt</code> files.</li>
-</ul>
-</li>
-<li><strong><code>-iname &quot;pattern&quot;</code></strong>: Match file names (case-insensitive).<ul>
-<li>Example: <code>find . -iname &quot;readme*&quot;</code> finds all <code>README</code>, <code>readme</code>, etc. files.</li>
-</ul>
-</li>
-<li><strong><code>-regex &quot;pattern&quot;</code></strong>: Match file names using regular expressions.<ul>
-<li>Example: <code>find . -regex &quot;.*\.txt$&quot;</code> finds all files ending with <code>.txt</code>.</li>
-</ul>
-</li>
-</ul>
-<h4 id="3-Search-by-File-Type"><a href="#3-Search-by-File-Type" class="headerlink" title="3. Search by File Type"></a>3. <strong>Search by File Type</strong></h4><ul>
-<li><strong><code>-type f</code></strong>: Find regular files.</li>
-<li><strong><code>-type d</code></strong>: Find directories.</li>
-<li><strong><code>-type l</code></strong>: Find symbolic links.</li>
-<li><strong><code>-type s</code></strong>: Find socket files.</li>
-<li><strong><code>-type p</code></strong>: Find named pipes (FIFO).</li>
-<li><strong><code>-type c</code></strong>: Find character device files.</li>
-<li><strong><code>-type b</code></strong>: Find block device files.</li>
-</ul>
-<h4 id="4-Search-by-File-Size"><a href="#4-Search-by-File-Size" class="headerlink" title="4. Search by File Size"></a>4. <strong>Search by File Size</strong></h4><ul>
-<li><strong><code>-size +n</code></strong>: Find files larger than <code>n</code>.</li>
-<li><strong><code>-size -n</code></strong>: Find files smaller than <code>n</code>.</li>
-<li><strong><code>-size n</code></strong>: Find files exactly <code>n</code> in size.<ul>
-<li>Units can be:<ul>
-<li><code>c</code>: Bytes (default).</li>
-<li><code>k</code>: Kilobytes.</li>
-<li><code>M</code>: Megabytes.</li>
-<li><code>G</code>: Gigabytes.</li>
-</ul>
-</li>
-<li>Example: <code>find . -size +100M</code> finds files larger than 100MB.</li>
-</ul>
-</li>
-</ul>
-<h4 id="5-Search-by-Time"><a href="#5-Search-by-Time" class="headerlink" title="5. Search by Time"></a>5. <strong>Search by Time</strong></h4><ul>
-<li><strong><code>-mtime n</code></strong>: Find files modified <code>n</code> days ago.<ul>
-<li><code>-mtime +n</code>: Files modified more than <code>n</code> days ago.</li>
-<li><code>-mtime -n</code>: Files modified within the last <code>n</code> days.</li>
-</ul>
-</li>
-<li><strong><code>-atime n</code></strong>: Find files accessed <code>n</code> days ago.</li>
-<li><strong><code>-ctime n</code></strong>: Find files whose status (e.g., permissions or ownership) changed <code>n</code> days ago.</li>
-<li><strong><code>-mmin n</code></strong>: Find files modified <code>n</code> minutes ago.<ul>
-<li><code>-mmin +n</code>: Files modified more than <code>n</code> minutes ago.</li>
-<li><code>-mmin -n</code>: Files modified within the last <code>n</code> minutes.</li>
-</ul>
-</li>
-<li><strong><code>-amin n</code></strong>: Find files accessed <code>n</code> minutes ago.</li>
-<li><strong><code>-cmin n</code></strong>: Find files whose status changed <code>n</code> minutes ago.</li>
-</ul>
-<h4 id="6-Search-by-Permissions"><a href="#6-Search-by-Permissions" class="headerlink" title="6. Search by Permissions"></a>6. <strong>Search by Permissions</strong></h4><ul>
-<li><strong><code>-perm mode</code></strong>: Find files with permissions exactly matching <code>mode</code>.<ul>
-<li>Example: <code>find . -perm 644</code> finds files with permissions <code>644</code>.</li>
-</ul>
-</li>
-<li><strong><code>-perm -mode</code></strong>: Find files with permissions including <code>mode</code>.<ul>
-<li>Example: <code>find . -perm -u=r</code> finds files readable by the user.</li>
-</ul>
-</li>
-<li><strong><code>-perm /mode</code></strong>: Find files with any of the <code>mode</code> bits set.</li>
-</ul>
-<h4 id="7-Search-by-User-and-Group"><a href="#7-Search-by-User-and-Group" class="headerlink" title="7. Search by User and Group"></a>7. <strong>Search by User and Group</strong></h4><ul>
-<li><strong><code>-user username</code></strong>: Find files owned by the specified user.</li>
-<li><strong><code>-group groupname</code></strong>: Find files owned by the specified group.</li>
-<li><strong><code>-uid uid</code></strong>: Find files owned by the specified user ID.</li>
-<li><strong><code>-gid gid</code></strong>: Find files owned by the specified group ID.</li>
-</ul>
-<h4 id="8-Logical-Operations"><a href="#8-Logical-Operations" class="headerlink" title="8. Logical Operations"></a>8. <strong>Logical Operations</strong></h4><ul>
-<li><strong><code>-and</code> or <code>-a</code></strong>: Logical AND (default).</li>
-<li><strong><code>-or</code> or <code>-o</code></strong>: Logical OR.</li>
-<li><strong><code>-not</code> or <code>!</code></strong>: Logical NOT.</li>
-<li><strong><code>()</code></strong>: Group conditions.<ul>
-<li>Example: <code>find . \( -name &quot;*.txt&quot; -o -name &quot;*.md&quot; \)</code> finds <code>.txt</code> or <code>.md</code> files.</li>
-</ul>
-</li>
-</ul>
-<h4 id="9-Execute-Actions"><a href="#9-Execute-Actions" class="headerlink" title="9. Execute Actions"></a>9. <strong>Execute Actions</strong></h4><ul>
-<li><strong><code>-exec command &#123;&#125; \;</code></strong>: Execute a command on the found files.<ul>
-<li>Example: <code>find . -name &quot;*.log&quot; -exec rm &#123;&#125; \;</code> deletes all <code>.log</code> files.</li>
-</ul>
-</li>
-<li><strong><code>-exec command &#123;&#125; +</code></strong>: Pass multiple files to the command at once.<ul>
-<li>Example: <code>find . -name &quot;*.txt&quot; -exec cp &#123;&#125; /backup/ +</code> copies all <code>.txt</code> files to <code>/backup</code>.</li>
-</ul>
-</li>
-<li><strong><code>-ok command &#123;&#125; \;</code></strong>: Similar to <code>-exec</code>, but prompts for confirmation before executing the command.</li>
-<li><strong><code>-delete</code></strong>: Delete the found files.</li>
-<li><strong><code>-print</code></strong>: Print the path of the found files (default behavior).</li>
-<li><strong><code>-ls</code></strong>: Display the found files in <code>ls -dils</code> format.</li>
-</ul>
-<h4 id="10-Other-Common-Options"><a href="#10-Other-Common-Options" class="headerlink" title="10. Other Common Options"></a>10. <strong>Other Common Options</strong></h4><ul>
-<li><strong><code>-maxdepth n</code></strong>: Limit the maximum directory depth for the search.<ul>
-<li>Example: <code>find . -maxdepth 2 -name &quot;*.txt&quot;</code> searches for <code>.txt</code> files only in the current directory and its immediate subdirectories.</li>
-</ul>
-</li>
-<li><strong><code>-mindepth n</code></strong>: Limit the minimum directory depth for the search.</li>
-<li><strong><code>-empty</code></strong>: Find empty files or directories.</li>
-<li><strong><code>-readable</code></strong>: Find readable files.</li>
-<li><strong><code>-writable</code></strong>: Find writable files.</li>
-<li><strong><code>-executable</code></strong>: Find executable files.</li>
-</ul>
-<h4 id="11-Comprehensive-Examples"><a href="#11-Comprehensive-Examples" class="headerlink" title="11. Comprehensive Examples"></a>11. <strong>Comprehensive Examples</strong></h4><p>Find and delete all <code>.log</code> files in the current directory:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find . -name <span class="hljs-string">&quot;*.log&quot;</span> -delete<br></code></pre></td></tr></table></figure>
-
-<p>Find files larger than 100MB in <code>/var/log</code> and display detailed information:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /var/log -size +100M -<span class="hljs-built_in">ls</span><br></code></pre></td></tr></table></figure>
-
-<p>Find <code>.txt</code> files modified within the last 7 days in the current directory and copy them to <code>/backup</code>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find . -name <span class="hljs-string">&quot;*.txt&quot;</span> -mtime -7 -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">cp</span> &#123;&#125; /backup/ \;<br></code></pre></td></tr></table></figure>
-
-<p>Find and delete all empty directories in the current directory:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find . -<span class="hljs-built_in">type</span> d -empty -delete<br></code></pre></td></tr></table></figure>
-
-<p>Find files with permissions <code>644</code> in the current directory and change their permissions to <code>755</code>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find . -<span class="hljs-built_in">type</span> f -perm 644 -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">chmod</span> 755 &#123;&#125; \;<br></code></pre></td></tr></table></figure>
-
-<h3 id="grep-command"><a href="#grep-command" class="headerlink" title="grep command"></a><code>grep</code> command</h3><p><strong>grep</strong> can be powerful when finding contents of files (code).</p>
-<p><code>grep</code> is a powerful command-line tool in Unix&#x2F;Linux used to search for specific patterns within files or input text. Here’s a summary of its key features:</p>
-<h4 id="Basic-Syntax"><a href="#Basic-Syntax" class="headerlink" title="Basic Syntax"></a><strong>Basic Syntax</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep [options] pattern [file]<br></code></pre></td></tr></table></figure>
-
+<p>这种设计简化了系统的复杂性，使得用户可以通过简单的命令行工具（如<code>cat</code>、<code>echo</code>）来操作各种资源。</p>
+<p><strong>这是非常重要的一点！</strong>例如，很少有人会去C盘查看并且魔改自己的系统盘（当然很大一方面是因为Windows操作系统是闭源收费的），但是在Linux系统下，一切都被规整地以文件的形式摆放，<strong>你甚至可以使用命令行控制硬件！（例如调节屏幕亮度等与硬件直接关联的操作）</strong>。</p>
+<h4 id="✨小即是美"><a href="#✨小即是美" class="headerlink" title="✨小即是美"></a>✨小即是美</h4><p>Linux鼓励使用小而专注的工具，每个工具只完成一个特定的任务，但可以高效地组合起来完成复杂的工作。例如：</p>
 <ul>
-<li><strong><code>pattern</code></strong>: The text or regular expression to search for.</li>
-<li><strong><code>file</code></strong>: The file(s) to search within. If omitted, <code>grep</code> reads from standard input.</li>
+<li><code>ls</code> 用于列出目录内容。</li>
+<li><code>grep</code> 用于搜索文本。</li>
+<li><code>awk</code> 用于处理文本数据。</li>
 </ul>
-<h4 id="Common-Options"><a href="#Common-Options" class="headerlink" title="Common Options"></a><strong>Common Options</strong></h4><ol>
-<li><p><strong><code>-i</code></strong>: Ignore case (case-insensitive search).</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -i <span class="hljs-string">&quot;hello&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>-v</code></strong>: Invert match (show lines that do <strong>not</strong> match the pattern).</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -v <span class="hljs-string">&quot;error&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>-r</code> or <code>-R</code></strong>: Recursively search directories.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -r <span class="hljs-string">&quot;pattern&quot;</span> /path/to/dir<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>-n</code></strong>: Show line numbers of matching lines.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -n <span class="hljs-string">&quot;pattern&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>-c</code></strong>: Count the number of matching lines.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -c <span class="hljs-string">&quot;pattern&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>-l</code></strong>: List filenames containing the pattern.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -l <span class="hljs-string">&quot;pattern&quot;</span> *.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>-w</code></strong>: Match whole words only.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -w <span class="hljs-string">&quot;word&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>-A</code>, <code>-B</code>, <code>-C</code></strong>: Show lines after, before, or around the match.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -A 2 <span class="hljs-string">&quot;pattern&quot;</span> file.txt  <span class="hljs-comment"># Show 2 lines after the match</span><br>grep -B 2 <span class="hljs-string">&quot;pattern&quot;</span> file.txt  <span class="hljs-comment"># Show 2 lines before the match</span><br>grep -C 2 <span class="hljs-string">&quot;pattern&quot;</span> file.txt  <span class="hljs-comment"># Show 2 lines before and after the match</span><br></code></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a><strong>Examples</strong></h4><ol>
-<li><p>Search for “error” in a file:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep <span class="hljs-string">&quot;error&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>Search for “hello” case-insensitively:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -i <span class="hljs-string">&quot;hello&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>Count occurrences of “pattern”:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -c <span class="hljs-string">&quot;pattern&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>Search for “word” in all <code>.txt</code> files recursively:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -r <span class="hljs-string">&quot;word&quot;</span> *.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>Find lines <strong>not</strong> containing “debug”:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -v <span class="hljs-string">&quot;debug&quot;</span> file.txt<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="Advanced-Usage"><a href="#Advanced-Usage" class="headerlink" title="Advanced Usage"></a><strong>Advanced Usage</strong></h4><ul>
-<li><p><strong>Regular Expressions</strong>: Use <code>grep</code> with regex for complex patterns.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep <span class="hljs-string">&quot;^start&quot;</span> file.txt      <span class="hljs-comment"># Lines starting with &quot;start&quot;</span><br>grep <span class="hljs-string">&quot;end$&quot;</span> file.txt        <span class="hljs-comment"># Lines ending with &quot;end&quot;</span><br>grep <span class="hljs-string">&quot;[0-9]&quot;</span> file.txt       <span class="hljs-comment"># Lines containing numbers</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Combining with Other Commands</strong>: Pipe output to <code>grep</code>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> -l | grep <span class="hljs-string">&quot;.txt&quot;</span>         <span class="hljs-comment"># List only `.txt` files</span><br>ps aux | grep <span class="hljs-string">&quot;process&quot;</span>     <span class="hljs-comment"># Find a running process</span><br></code></pre></td></tr></table></figure></li>
+<p>通过<strong>管道</strong>（<code>|</code>）将这些工具组合起来，可以实现强大的功能。</p>
+<blockquote>
+<p>这与Unix哲学的第二条不谋而合。</p>
+</blockquote>
+<h4 id="模块化设计"><a href="#模块化设计" class="headerlink" title="模块化设计"></a>模块化设计</h4><p>Linux系统由许多独立的模块组成，每个模块负责特定的功能。这种设计使得系统易于维护和扩展。例如：</p>
+<ul>
+<li>内核模块可以动态加载和卸载。</li>
+<li>用户可以<strong>根据需要安装或卸载软件包</strong>。</li>
 </ul>
+<p>在Windows系统下，安装软件往往需要繁杂的<strong>安装向导</strong>步骤，但是在Linux系统下，几乎一条<code>sudo apt install XXX</code>就可以搞定一切安装。</p>
+<h4 id="自由与开源"><a href="#自由与开源" class="headerlink" title="自由与开源"></a>自由与开源</h4><p><strong>Linux</strong> 是开源且免费的操作系统，<strong>所有源代码公开且任何人可以查看，修改，分发</strong>。</p>
+<p>开源精神，伟大无需多言！</p>
+<p><img src="https://data.crazyengineers.com/old-attachments/3/3041-Linus-Nvidia-fuck-you-portada2.jpg" srcset="/img/loading.gif" lazyload alt="Linus-Nvidia-fuck-you-portada2"></p>
+<h4 id="✨命令行优先（避免令人困惑的操作界面）"><a href="#✨命令行优先（避免令人困惑的操作界面）" class="headerlink" title="✨命令行优先（避免令人困惑的操作界面）"></a>✨命令行优先（避免令人困惑的操作界面）</h4><p>这一点是对Linux新手来说最重要的一点，也是最不适应的一点。（对于初学者）</p>
+<p>举个例子，假设Xiyuan Yang需要制作PPT，他可能会使用 <strong>Powerpoint</strong> 或者 <strong>Slides</strong>进行幻灯片制作，效率很高，也很巴适。</p>
+<p>但是情况并非如此，例如，Xiyuan Yang需要新建一份txt文件来储存自己的OpenAI的API密钥，如果他在Windows系统上，会需要哪几步呢？</p>
+<blockquote>
+<ul>
+<li>首先在合适的目录下面新建一个新的目录</li>
+<li>将新的目录重命名为<code>OpenAI_API_key</code></li>
+<li>右键选择“新建”，找到“.txt”文件选项，命名为<code>API_key_1</code></li>
+<li>使用文本编辑器打开这个文件，鼠标右键点击<strong>粘贴</strong></li>
+<li>点击保存，然后退出文件</li>
+</ul>
+</blockquote>
+<p>这个过程看似在30s内就能完成，但实际上还是相对比较繁琐，或者说，<strong>仍然有简化的余地</strong>。</p>
+<p>什么叫 <strong>简化的余地</strong>？对于绝大部分时间，我们与电脑都是使用 <strong>图形交互页面</strong> 进行交互，我们在 <strong>可视化的电脑屏幕</strong> 上通过移动、点击鼠标或者键入键盘来实现我们需要的操作。<strong>图形界面</strong>意味着 <strong>更形象化的表示但同时带来冗余的信息</strong>。例如在上面的例子中，当你点击一个文件夹，GUI会显示这个文件夹中的所有文件（夹），这确实更加直观，但是<strong>显示的其他文件夹</strong>是冗余的信息，你并不想要看见他！（在这个任务中）举个更极端的例子，当你电脑开机，看见桌面的第一眼，信息的冗余就开始产生了，毕竟你还什么都没有做，就已经看见了放在桌面上的“多余信息”。</p>
+<p>因此，<strong>Linux</strong>的设计哲学的核心之一就是 <strong>避免令人困惑的操作界面</strong>：更细致地来说就是<strong>使用命令行界面，同时显示极简的信息但又不失工作效率</strong>。通过命令行，用户可以精确控制系统，并编写脚本自动化任务。</p>
+<p>这是我的Linux命令行页面，只会保留最基本的时间等基本信息。</p>
+<img src="https://s1.imagehub.cc/images/2025/02/14/ba665b70f5a9490a8cb66cd3ede32390.png" srcset="/img/loading.gif" lazyload alt="Screenshot 2025 02 14 235049" border="0">
+
+<p>对于上面的任务，在Linux中只需三行命令就可搞定：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-built_in">mkdir</span> Bash_exercise/syntax/Test_for_openAI_API<br><br><span class="hljs-built_in">ls</span> Bash_exercise/syntax/Test_for_openAI_API<br><br>vim API1.txt<br></code></pre></td></tr></table></figure>
+
+<h4 id="避免重复造轮子"><a href="#避免重复造轮子" class="headerlink" title="避免重复造轮子"></a>避免重复造轮子</h4><p>这点对开发者来说很重要，使用现成的工具提高工作效率，把更多的精力专注于项目本身，这一点不多解释。</p>
+<h3 id="Linux-Kernel-and-Releases"><a href="#Linux-Kernel-and-Releases" class="headerlink" title="Linux Kernel and Releases"></a>Linux Kernel and Releases</h3><p>上文提到过，<strong>操作系统最核心的功能之一就是和硬件进行交互</strong>。在Linux系统中，这个部分叫做<strong>内核</strong>。</p>
+<blockquote>
+<p>对于Linux新手，并不需要对Linux的内核有过多深入的了解。此处略过</p>
+</blockquote>
+<p><strong>Linux</strong>内核相当于一个操作系统的心脏，也是核心部分，但单单有一个心脏是不可行的，因此，Linux操作系统在内核之外，还需要预安装一些软件包和工具。在安装好之后便可以发行给大众使用了，而<strong>安装的软件包和工具</strong>，不同的开发者可以设计自己的软件包，因此便有了<strong>不同的Linux发行版</strong>。</p>
+<p>以下是一些常见的Linux发行版：</p>
+<ul>
+<li><strong>Ubuntu</strong>：适合初学者，拥有庞大的社区支持。</li>
+<li><strong>Fedora</strong>：由Red Hat支持，专注于新技术的采用。</li>
+<li><strong>Debian</strong>：以稳定性和自由软件著称，是Ubuntu的基础。</li>
+<li><strong>CentOS</strong>：基于Red Hat Enterprise Linux（RHEL），适合企业服务器。</li>
+<li><strong>Arch Linux</strong>：面向高级用户，强调定制性和简洁性。</li>
+</ul>
+<h3 id="Why-Linux？"><a href="#Why-Linux？" class="headerlink" title="Why Linux？"></a>Why Linux？</h3><p>你说的对，但为什么我们要去使用Linux系统？</p>
+<p>在半年前，当笔者第一次装好了虚拟机（现在换成WSL了），并且输入第一个<code>ls</code>命令的时候，脑中便不由自主地冒出这个问题。对于一个资深的开发者，这个问题简直就是玩笑话，他可以随意地列举出无数Linux在开发中优于Windows的理由，有关三大操作系统的鄙视链之争吵一直也没有停歇<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://www.zhihu.com/question/295142135">[1]</span></a></sup>。</p>
+<p>因此，对于新手，对这个问题一直揪着不放是没有任何意义的？或者换句话说，<strong>对于绝大多数Linux的使用者</strong>，了解Linux的使用远比了解Linux的原理要重要得多。<strong>在上手实践中</strong>，你便会体会到Linux的强大之处。</p>
+<p><strong>This is the art of the command line</strong>！</p>
+<h2 id="Bash-and-Shell"><a href="#Bash-and-Shell" class="headerlink" title="Bash and Shell"></a>Bash and Shell</h2><h3 id="What-is-Shell"><a href="#What-is-Shell" class="headerlink" title="What is Shell?"></a>What is Shell?</h3><p><strong>Shell</strong> 是 Linux 和类 Unix 操作系统中的一个核心概念，它是<strong>用户与操作系统内核之间的桥梁</strong>。简单来说，Shell 是一个<strong>命令行解释器</strong>，它接收用户输入的命令，并将其传递给操作系统内核执行，然后将结果返回给用户。</p>
+<p>在 Linux 中，有多种不同的 Shell，常见的有：</p>
+<ul>
+<li><strong>Bash（Bourne Again Shell）</strong>：最流行的 Shell，大多数 Linux 发行版的默认 Shell。</li>
+<li><strong>Sh（Bourne Shell）</strong>：早期的 Shell，Bash 的前身。</li>
+<li><strong>Zsh（Z Shell）</strong>：功能强大的 Shell，支持更丰富的自动补全和主题配置。</li>
+<li><strong>Ksh（Korn Shell）</strong>：结合了 Bash 和 C Shell 的特性。</li>
+<li><strong>Csh&#x2F;Tcsh（C Shell）</strong>：语法类似于 C 语言，适合有编程经验的用户。</li>
+</ul>
+<p>当然，Shell的概念也不只局限于类Unix系统，例如Windows系统的Powershell。</p>
+<h2 id="Bash-Scripts"><a href="#Bash-Scripts" class="headerlink" title="Bash Scripts"></a>Bash Scripts</h2><p>上文介绍了Shell是命令行解释器，而如果我们希望实现<strong>自动化办公</strong>，我们就需要让Shell自动解释我们提前编写好的命令，这样就不用每一次都手动输入了。</p>
+<p><strong>Bash 脚本</strong>（Bash Scripts）是用 Bash（Bourne Again Shell）编写的脚本文件，用于自动化执行一系列命令和任务。Bash 是 Linux 和类 Unix 系统中最常用的 Shell，而 Bash 脚本则是利用 Bash 的功能来实现复杂的操作、批量处理任务或系统管理。Bash 脚本的本质是一个<strong>文本文件</strong>，其中包含一系列 Bash 命令和控制结构（如条件判断、循环等），通过运行这个脚本文件，系统会逐行执行其中的命令。</p>
+<blockquote>
+<p>可以把Bash看做一门编程语言来使用！</p>
+</blockquote>
+<p>有关Bash脚本编写的具体内容见后期更新~</p>
+<h1 id="Memo-for-Bash"><a href="#Memo-for-Bash" class="headerlink" title="Memo for Bash"></a>Memo for Bash</h1><blockquote>
+<p>This section is being updated during my learning process of bash scripts.</p>
+</blockquote>
 <h2 id="Shortcut-in-Bash"><a href="#Shortcut-in-Bash" class="headerlink" title="Shortcut in Bash"></a>Shortcut in Bash</h2><h3 id="Cursor-Movement"><a href="#Cursor-Movement" class="headerlink" title="Cursor Movement"></a><strong>Cursor Movement</strong></h3><ul>
 <li><p><strong>Ctrl + A</strong>: Move the cursor to the beginning of the line.</p>
 </li>
@@ -719,7 +632,9 @@
 <li><p><strong>Double Tab</strong>: Show all possible completions.</p>
 </li>
 </ul>
-
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/295142135">https://www.zhihu.com/question/295142135</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Unix_philosophy">https://en.wikipedia.org/wiki/Unix_philosophy</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -751,6 +666,8 @@
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
       
         <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
       
@@ -787,7 +704,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>February 6, 2025</div>
+          <div>February 15, 2025</div>
         </div>
       
       
