@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/missing.png">
 <meta property="article:published_time" content="2025-02-11T06:11:19.000Z">
-<meta property="article:modified_time" content="2025-02-14T06:00:10.042Z">
+<meta property="article:modified_time" content="2025-02-16T14:18:59.947Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Bash">
@@ -283,7 +283,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          943 words
+          1.2k words
         
       </span>
     
@@ -344,7 +344,7 @@
         aria-expanded="true"
       >
         Efficient Tools
-        <span class="list-group-count">(7)</span>
+        <span class="list-group-count">(8)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -416,6 +416,15 @@
            class="list-group-item list-group-item-action
            active">
           <span class="category-post">Missing-Semester-Notes</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Bash-exercises/" title="Bash_exercises"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Bash_exercises</span>
         </a>
       
     
@@ -639,62 +648,100 @@
 <p>Find files with permissions <code>644</code> in the current directory and change their permissions to <code>755</code>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find . -<span class="hljs-built_in">type</span> f -perm 644 -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">chmod</span> 755 &#123;&#125; \;<br></code></pre></td></tr></table></figure>
 
-<h3 id="grep-command"><a href="#grep-command" class="headerlink" title="grep command"></a><code>grep</code> command</h3><p><strong>grep</strong> can be powerful when finding contents of files (code).</p>
-<p><code>grep</code> is a powerful command-line tool in Unix&#x2F;Linux used to search for specific patterns within files or input text. Here’s a summary of its key features:</p>
-<h4 id="Basic-Syntax"><a href="#Basic-Syntax" class="headerlink" title="Basic Syntax"></a><strong>Basic Syntax</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep [options] pattern [file]<br></code></pre></td></tr></table></figure>
+<h3 id="grep-command"><a href="#grep-command" class="headerlink" title="grep command"></a><code>grep</code> command</h3><p><code>grep</code> is a powerful command-line tool in Unix&#x2F;Linux used to search for specific patterns within files or input text. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep [options] pattern [file]<br></code></pre></td></tr></table></figure>
 
 <ul>
-<li><strong><code>pattern</code></strong>: The text or regular expression to search for.</li>
+<li><strong><code>pattern</code></strong>: The text or <strong>regular expression</strong> to search for.</li>
 <li><strong><code>file</code></strong>: The file(s) to search within. If omitted, <code>grep</code> reads from standard input.</li>
 </ul>
-<h4 id="Common-Options"><a href="#Common-Options" class="headerlink" title="Common Options"></a><strong>Common Options</strong></h4><ol>
-<li><p><strong><code>-i</code></strong>: Ignore case (case-insensitive search).</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -i <span class="hljs-string">&quot;hello&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>-v</code></strong>: Invert match (show lines that do <strong>not</strong> match the pattern).</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -v <span class="hljs-string">&quot;error&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>-r</code> or <code>-R</code></strong>: Recursively search directories.</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -r <span class="hljs-string">&quot;pattern&quot;</span> /path/to/dir<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>-n</code></strong>: Show line numbers of matching lines.</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -n <span class="hljs-string">&quot;pattern&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>-c</code></strong>: Count the number of matching lines.</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -c <span class="hljs-string">&quot;pattern&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>-l</code></strong>: List filenames containing the pattern.</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -l <span class="hljs-string">&quot;pattern&quot;</span> *.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>-w</code></strong>: Match whole words only.</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -w <span class="hljs-string">&quot;word&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>-A</code>, <code>-B</code>, <code>-C</code></strong>: Show lines after, before, or around the match.</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -A 2 <span class="hljs-string">&quot;pattern&quot;</span> file.txt  <span class="hljs-comment"># Show 2 lines after the match</span><br>grep -B 2 <span class="hljs-string">&quot;pattern&quot;</span> file.txt  <span class="hljs-comment"># Show 2 lines before the match</span><br>grep -C 2 <span class="hljs-string">&quot;pattern&quot;</span> file.txt  <span class="hljs-comment"># Show 2 lines before and after the match</span><br></code></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a><strong>Examples</strong></h4><ol>
-<li><p>Search for “error” in a file:</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep <span class="hljs-string">&quot;error&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>Search for “hello” case-insensitively:</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -i <span class="hljs-string">&quot;hello&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>Count occurrences of “pattern”:</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -c <span class="hljs-string">&quot;pattern&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>Search for “word” in all <code>.txt</code> files recursively:</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -r <span class="hljs-string">&quot;word&quot;</span> *.txt<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>Find lines <strong>not</strong> containing “debug”:</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -v <span class="hljs-string">&quot;debug&quot;</span> file.txt<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="Advanced-Usage"><a href="#Advanced-Usage" class="headerlink" title="Advanced Usage"></a><strong>Advanced Usage</strong></h4><ul>
-<li><p><strong>Regular Expressions</strong>: Use <code>grep</code> with regex for complex patterns.</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep <span class="hljs-string">&quot;^start&quot;</span> file.txt      <span class="hljs-comment"># Lines starting with &quot;start&quot;</span><br>grep <span class="hljs-string">&quot;end$&quot;</span> file.txt        <span class="hljs-comment"># Lines ending with &quot;end&quot;</span><br>grep <span class="hljs-string">&quot;[0-9]&quot;</span> file.txt       <span class="hljs-comment"># Lines containing numbers</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Combining with Other Commands</strong>: Pipe output to <code>grep</code>.</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> -l | grep <span class="hljs-string">&quot;.txt&quot;</span>         <span class="hljs-comment"># List only `.txt` files</span><br>ps aux | grep <span class="hljs-string">&quot;process&quot;</span>     <span class="hljs-comment"># Find a running process</span><br></code></pre></td></tr></table></figure></li>
+<p>For example, you can using the <code>grep</code> command by using pipes.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /etc/ssh/sshd_config | grep Port<br></code></pre></td></tr></table></figure>
+
+<p>This command will first output the file contents of <code>sshd_config</code> while the content itself won’t be printed directly into the screen. It will be transmitted as the input of the grep command.</p>
+<h4 id="Common-Options"><a href="#Common-Options" class="headerlink" title="Common Options"></a><strong>Common Options</strong></h4><ul>
+<li><code>-i</code>: Ignore case (case-insensitive search).</li>
 </ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -i <span class="hljs-string">&quot;hello&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-v</code>: Invert match (show lines that do <strong>not</strong> match the pattern).</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -v <span class="hljs-string">&quot;error&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-r</code> or <code>-R</code>: Recursively search directories.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -r <span class="hljs-string">&quot;pattern&quot;</span> /path/to/dir<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-n</code>: Show line numbers of matching lines.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -n <span class="hljs-string">&quot;pattern&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-c</code>: Count the number of matching lines.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -c <span class="hljs-string">&quot;pattern&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-l</code>: List filenames containing the pattern.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -l <span class="hljs-string">&quot;pattern&quot;</span> *.txt<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-w</code>: Match whole words only.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -w <span class="hljs-string">&quot;word&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-A</code>, <code>-B</code>, <code>-C</code>: Show lines after, before, or around the match.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -A 2 <span class="hljs-string">&quot;pattern&quot;</span> file.txt  <span class="hljs-comment"># Show 2 lines after the match</span><br>grep -B 2 <span class="hljs-string">&quot;pattern&quot;</span> file.txt  <span class="hljs-comment"># Show 2 lines before the match</span><br>grep -C 2 <span class="hljs-string">&quot;pattern&quot;</span> file.txt  <span class="hljs-comment"># Show 2 lines before and after the match</span><br></code></pre></td></tr></table></figure>
+
+<p>For example, I have a directory (current) and exists files as below:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs bash">.<br>├── grep_test.txt<br>└── sub_dirc<br>    ├── modified_1.txt<br>    └── modified_2.txt<br><br>2 directories, 3 files<br><br>❯ <span class="hljs-built_in">cat</span> grep_test.txt<br>Hello my name is Jack.<br>I am 18 year<span class="hljs-string">&#x27;s old.</span><br><span class="hljs-string">Do you like me?</span><br><span class="hljs-string">I want to make friends with you.</span><br><span class="hljs-string">Remember my name, my name is JACK!</span><br><span class="hljs-string">HAahah</span><br><span class="hljs-string">do you know my favourite motto?</span><br><span class="hljs-string">Knowledge isn&#x27;</span>t free, you have to pay attention.<br><br>❯ <span class="hljs-built_in">cat</span> ./sub_dirc/modified_1.txt<br>Hello my name is Henry.<br>I am 17 year<span class="hljs-string">&#x27;s old.</span><br><span class="hljs-string">Do you like me?</span><br><span class="hljs-string">I want to make friends with you.</span><br><span class="hljs-string">Remember my name, my name is Henry!</span><br><span class="hljs-string">HAahah</span><br><span class="hljs-string">do you know my favourite motto?</span><br><span class="hljs-string">Nothing is possible</span><br><span class="hljs-string"></span><br><span class="hljs-string">❯ cat ./sub_dirc/modified_2.txt</span><br><span class="hljs-string">Hello my name is Kate.</span><br><span class="hljs-string">I am 20 year&#x27;</span>s old.<br>Do you like us?<br>I want to make friends with you.<br>Remember my name, my name is KatE!<br>HAahah<br><span class="hljs-keyword">do</span> you know my favourite motto?<br>Open <span class="hljs-built_in">source</span> is the best thing <span class="hljs-keyword">in</span> the world!<br></code></pre></td></tr></table></figure>
+
+<p>Now I can use several commands as below to efficiently search specific information that I want!</p>
+<p>I can use <code>-r</code> to search for the whole current directory.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -r <span class="hljs-string">&quot;Hello&quot;</span> ./<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">./sub_dirc/modified_1.txt:Hello my name is Henry.<br>./sub_dirc/modified_2.txt:Hello my name is Kate.<br>./grep_test.txt:Hello my name is Jack.<br></code></pre></td></tr></table></figure>
+</br>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -nri <span class="hljs-string">&quot;Jack&quot;</span> ./<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">./grep_test.txt:1:Hello my name is Jack.<br>./grep_test.txt:5:Remember my name, my name is JACK!<br></code></pre></td></tr></table></figure>
+</br>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -nrc <span class="hljs-string">&quot;Hello&quot;</span> ./<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">./sub_dirc/modified_1.txt:1<br>./sub_dirc/modified_2.txt:1<br>./grep_test.txt:1<br></code></pre></td></tr></table></figure>
+
+</br>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -nrv <span class="hljs-string">&quot;Hello&quot;</span> ./<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs bash">./sub_dirc/modified_1.txt:2:I am 17 year<span class="hljs-string">&#x27;s old.</span><br><span class="hljs-string">./sub_dirc/modified_1.txt:3:Do you like me?</span><br><span class="hljs-string">./sub_dirc/modified_1.txt:4:I want to make friends with you.</span><br><span class="hljs-string">./sub_dirc/modified_1.txt:5:Remember my name, my name is Henry!</span><br><span class="hljs-string">./sub_dirc/modified_1.txt:6:HAahah</span><br><span class="hljs-string">./sub_dirc/modified_1.txt:7:do you know my favourite motto?</span><br><span class="hljs-string">./sub_dirc/modified_1.txt:8:Nothing is possible</span><br><span class="hljs-string">./sub_dirc/modified_1.txt:9:</span><br><span class="hljs-string">./sub_dirc/modified_2.txt:2:I am 20 year&#x27;</span>s old.<br>./sub_dirc/modified_2.txt:3:Do you like us?<br>./sub_dirc/modified_2.txt:4:I want to make friends with you.<br>./sub_dirc/modified_2.txt:5:Remember my name, my name is KatE!<br>./sub_dirc/modified_2.txt:6:HAahah<br>./sub_dirc/modified_2.txt:7:<span class="hljs-keyword">do</span> you know my favourite motto?<br>./sub_dirc/modified_2.txt:8:Open <span class="hljs-built_in">source</span> is the best thing <span class="hljs-keyword">in</span> the world!<br>./sub_dirc/modified_2.txt:9:<br>./grep_test.txt:2:I am 18 year<span class="hljs-string">&#x27;s old.</span><br><span class="hljs-string">./grep_test.txt:3:Do you like me?</span><br><span class="hljs-string">./grep_test.txt:4:I want to make friends with you.</span><br><span class="hljs-string">./grep_test.txt:5:Remember my name, my name is JACK!</span><br><span class="hljs-string">./grep_test.txt:6:HAahah</span><br><span class="hljs-string">./grep_test.txt:7:do you know my favourite motto?</span><br><span class="hljs-string">./grep_test.txt:8:Knowledge isn&#x27;</span>t free, you have to pay attention.<br>./grep_test.txt:9:<br></code></pre></td></tr></table></figure>
+
+</br>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -ri -A 1 <span class="hljs-string">&quot;motto&quot;</span> ./<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">./sub_dirc/modified_1.txt:<span class="hljs-keyword">do</span> you know my favourite motto?<br>./sub_dirc/modified_1.txt-Nothing is possible<br>--<br>./sub_dirc/modified_2.txt:<span class="hljs-keyword">do</span> you know my favourite motto?<br>./sub_dirc/modified_2.txt-Open <span class="hljs-built_in">source</span> is the best thing <span class="hljs-keyword">in</span> the world!<br>--<br>./grep_test.txt:<span class="hljs-keyword">do</span> you know my favourite motto?<br>./grep_test.txt-Knowledge isn<span class="hljs-string">&#x27;t free, you have to pay attention.</span><br></code></pre></td></tr></table></figure>
+
+<p>You can make the command line more complex to get more specific data!</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -ri -A 1 <span class="hljs-string">&quot;motto&quot;</span> ./ | grep -v <span class="hljs-string">&quot;motto&quot;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">./sub_dirc/modified_1.txt-Nothing is possible<br>--<br>./sub_dirc/modified_2.txt-Open <span class="hljs-built_in">source</span> is the best thing <span class="hljs-keyword">in</span> the world!<br>--<br>./grep_test.txt-Knowledge isn<span class="hljs-string">&#x27;t free, you have to pay attention.</span><br></code></pre></td></tr></table></figure>
+
+<p>More specific:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">grep</span> -rih -A <span class="hljs-number">1</span> <span class="hljs-string">&quot;motto&quot;</span> ./ | <span class="hljs-keyword">grep</span> -v <span class="hljs-string">&quot;motto&quot;</span> | <span class="hljs-keyword">grep</span> -v <span class="hljs-string">&quot;^--$&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>Using the <code>-h</code> options to forbid grep showing filenames while searching the directory recursively. Adding more pipes and using <strong>Regex</strong> can enable developers to make more specific pattern matching problems more freely.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Bash">Nothing is possible<br>Open <span class="hljs-built_in">source</span> is the best thing <span class="hljs-keyword">in</span> the world!<br>Knowledge isn<span class="hljs-string">&#x27;t free, you have to pay attention.</span><br></code></pre></td></tr></table></figure>
+
+<p>By using this command, you can <strong>get all the mottos for all person’s files</strong>, which will significantly enhance one’s working efficiency. For more options, you can typing <code>man grep</code> for advanced usage.</p>
 <h2 id="Lec3-Vim-editors"><a href="#Lec3-Vim-editors" class="headerlink" title="Lec3: Vim editors"></a>Lec3: Vim editors</h2><h2 id="Lec4-Data-Wrangling"><a href="#Lec4-Data-Wrangling" class="headerlink" title="Lec4: Data Wrangling"></a>Lec4: Data Wrangling</h2><h2 id="Lec5-Command-Line-Environment"><a href="#Lec5-Command-Line-Environment" class="headerlink" title="Lec5: Command Line Environment"></a>Lec5: Command Line Environment</h2><h2 id="Lec6-Git-Version-Control"><a href="#Lec6-Git-Version-Control" class="headerlink" title="Lec6: Git (Version Control)"></a>Lec6: Git (Version Control)</h2><h2 id="Lec7-Debugging-and-Profiling"><a href="#Lec7-Debugging-and-Profiling" class="headerlink" title="Lec7: Debugging and Profiling"></a>Lec7: Debugging and Profiling</h2><h2 id="Lec8-Metaprogramming"><a href="#Lec8-Metaprogramming" class="headerlink" title="Lec8: Metaprogramming"></a>Lec8: Metaprogramming</h2><h2 id="Lec9-Security-and-Cryptography"><a href="#Lec9-Security-and-Cryptography" class="headerlink" title="Lec9: Security and Cryptography"></a>Lec9: Security and Cryptography</h2><h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2>
                 
               </div>
@@ -763,7 +810,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>February 14, 2025</div>
+          <div>February 16, 2025</div>
         </div>
       
       
