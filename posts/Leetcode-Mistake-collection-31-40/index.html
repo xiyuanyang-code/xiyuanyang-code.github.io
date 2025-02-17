@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=light>
+<html lang="en" >
 
 
 
@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Leetcode.png">
 <meta property="article:published_time" content="2024-12-10T05:07:20.000Z">
-<meta property="article:modified_time" content="2024-12-10T05:23:17.123Z">
+<meta property="article:modified_time" content="2025-02-17T11:46:02.700Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Finished">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -69,8 +69,6 @@
 
 
   <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
@@ -235,12 +233,6 @@
           </li>
           
         
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
         
       </ul>
     </div>
@@ -506,7 +498,13 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Leetcode-Mistake-collection-31-40"><a href="#Leetcode-Mistake-collection-31-40" class="headerlink" title="Leetcode-Mistake-collection-31-40"></a>Leetcode-Mistake-collection-31-40</h1><h1 id="程设错题-31-35-20241112"><a href="#程设错题-31-35-20241112" class="headerlink" title="程设错题 31-35 20241112"></a>程设错题 31-35 20241112</h1><h2 id="1-上机错题-寻找字符串的最大非重复子串问题"><a href="#1-上机错题-寻找字符串的最大非重复子串问题" class="headerlink" title="1 上机错题 寻找字符串的最大非重复子串问题"></a>1 上机错题 寻找字符串的最大非重复子串问题</h2><h4 id="解法1基本双循环枚举（略）"><a href="#解法1基本双循环枚举（略）" class="headerlink" title="解法1基本双循环枚举（略）"></a>解法1基本双循环枚举（略）</h4><h4 id="解法2-使用双指针"><a href="#解法2-使用双指针" class="headerlink" title="解法2 使用双指针"></a>解法2 使用双指针</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unordered_map&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    string theinput;cin&gt;&gt;theinput;<br>    <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>,j=<span class="hljs-number">0</span>;<br>    <span class="hljs-type">int</span> maxoflength=<span class="hljs-number">0</span>;<br>    unordered_map&lt;<span class="hljs-type">char</span>,<span class="hljs-type">int</span>&gt; list;<br><br>    <span class="hljs-keyword">for</span>(;j&lt;theinput.<span class="hljs-built_in">length</span>();j++)&#123;<br>        <span class="hljs-keyword">if</span>(list.<span class="hljs-built_in">find</span>(theinput[j])!=list.<span class="hljs-built_in">end</span>())&#123;<br>            i=list[theinput[j]]<span class="hljs-number">+1</span>;<br>            <span class="hljs-keyword">if</span>(j-i<span class="hljs-number">+1</span>&gt;maxoflength)&#123;<br>                maxoflength=j-i<span class="hljs-number">+1</span>;<br>            &#125;<br>        &#125;<br>        list[theinput[j]]=j;<br>    &#125;<br>    cout&lt;&lt;maxoflength;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+
+<h1 id="Leetcode-Mistake-collection-31-40"><a href="#Leetcode-Mistake-collection-31-40" class="headerlink" title="Leetcode-Mistake-collection-31-40"></a>Leetcode-Mistake-collection-31-40</h1><h1 id="程设错题-31-35-20241112"><a href="#程设错题-31-35-20241112" class="headerlink" title="程设错题 31-35 20241112"></a>程设错题 31-35 20241112</h1><h2 id="1-上机错题-寻找字符串的最大非重复子串问题"><a href="#1-上机错题-寻找字符串的最大非重复子串问题" class="headerlink" title="1 上机错题 寻找字符串的最大非重复子串问题"></a>1 上机错题 寻找字符串的最大非重复子串问题</h2><h4 id="解法1基本双循环枚举（略）"><a href="#解法1基本双循环枚举（略）" class="headerlink" title="解法1基本双循环枚举（略）"></a>解法1基本双循环枚举（略）</h4><h4 id="解法2-使用双指针"><a href="#解法2-使用双指针" class="headerlink" title="解法2 使用双指针"></a>解法2 使用双指针</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unordered_map&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    string theinput;cin&gt;&gt;theinput;<br>    <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>,j=<span class="hljs-number">0</span>;<br>    <span class="hljs-type">int</span> maxoflength=<span class="hljs-number">0</span>;<br>    unordered_map&lt;<span class="hljs-type">char</span>,<span class="hljs-type">int</span>&gt; list;<br><br>    <span class="hljs-keyword">for</span>(;j&lt;theinput.<span class="hljs-built_in">length</span>();j++)&#123;<br>        <span class="hljs-keyword">if</span>(list.<span class="hljs-built_in">find</span>(theinput[j])!=list.<span class="hljs-built_in">end</span>())&#123;<br>            i=list[theinput[j]]<span class="hljs-number">+1</span>;<br>            <span class="hljs-keyword">if</span>(j-i<span class="hljs-number">+1</span>&gt;maxoflength)&#123;<br>                maxoflength=j-i<span class="hljs-number">+1</span>;<br>            &#125;<br>        &#125;<br>        list[theinput[j]]=j;<br>    &#125;<br>    cout&lt;&lt;maxoflength;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h2 id="2-Leetcode-888-公平糖果交换"><a href="#2-Leetcode-888-公平糖果交换" class="headerlink" title="2 Leetcode 888 公平糖果交换"></a>2 Leetcode 888 公平糖果交换</h2><p>爱丽丝和鲍勃拥有不同总数量的糖果。给你两个数组 <code>aliceSizes</code> 和 <code>bobSizes</code> ，<code>aliceSizes[i]</code> 是爱丽丝拥有的第 <code>i</code> 盒糖果中的糖果数量，<code>bobSizes[j]</code> 是鲍勃拥有的第 <code>j</code> 盒糖果中的糖果数量。</p>
 <p>两人想要互相交换一盒糖果，这样在交换之后，他们就可以拥有相同总数量的糖果。一个人拥有的糖果总数量是他们每盒糖果数量的总和。</p>
@@ -757,7 +755,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 10, 2024</div>
+          <div>February 17, 2025</div>
         </div>
       
       

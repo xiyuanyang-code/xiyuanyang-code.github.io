@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=light>
+<html lang="en" >
 
 
 
@@ -19,22 +19,22 @@
   <meta name="author" content="Xiyuan Yang">
   <meta name="keywords" content="Code">
   
-    <meta name="description" content="Long-updating plan of learning Bash scripts with practicing.">
+    <meta name="description" content="This blog concisely introduces common Bash commands, including grep, awk and explains how to adhere to the core Linux philosophy &quot;KISS principle&quot; when automating file processing in Linux.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bash_commands">
 <meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Bash-commands/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
-<meta property="og:description" content="Long-updating plan of learning Bash scripts with practicing.">
+<meta property="og:description" content="This blog concisely introduces common Bash commands, including grep, awk and explains how to adhere to the core Linux philosophy &quot;KISS principle&quot; when automating file processing in Linux.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/bash.jpg">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/bash.png">
 <meta property="article:published_time" content="2025-02-17T05:07:33.000Z">
-<meta property="article:modified_time" content="2025-02-17T06:56:20.750Z">
+<meta property="article:modified_time" content="2025-02-17T11:39:27.732Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Bash">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/bash.jpg">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/bash.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -68,8 +68,6 @@
 
 
   <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
@@ -235,12 +233,6 @@
           
         
         
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -283,7 +275,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          910 words
+          919 words
         
       </span>
     
@@ -460,7 +452,13 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Bash-Commands-Memo"><a href="#Bash-Commands-Memo" class="headerlink" title="Bash Commands Memo"></a>Bash Commands Memo</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="KISS-principle"><a href="#KISS-principle" class="headerlink" title="KISS principle"></a>KISS principle</h3><p>When using Linux, one problem that may easily be ignored by greenhands is: <strong>Why Linux</strong>. For programmers, Linux has great advantages over Windows OS for its light, free and open-source characteristics. If you <strong>use Linux the same way you use Windows</strong>, you won’t be able to harness the spirit and greatest strengths of Linux.</p>
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+
+<h1 id="Bash-Commands-Memo"><a href="#Bash-Commands-Memo" class="headerlink" title="Bash Commands Memo"></a>Bash Commands Memo</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="KISS-principle"><a href="#KISS-principle" class="headerlink" title="KISS principle"></a>KISS principle</h3><p>When using Linux, one problem that may easily be ignored by greenhands is: <strong>Why Linux</strong>. For programmers, Linux has great advantages over Windows OS for its light, free and open-source characteristics. If you <strong>use Linux the same way you use Windows</strong>, you won’t be able to harness the spirit and greatest strengths of Linux.</p>
 <p>Therefore, for every Linux beginner, it is very important to <strong>familiarize themselves with Linux&#x2F;Unix philosophy and practice it in their usage</strong>! I recommend this Blog<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://www.ruanyifeng.com/blog/2009/06/unix_philosophy.html">[1]</span></a></sup> (author: Yifeng Ruan) which clearly explains the philosophy of Unix.</p>
 <p>In this Blog, it says:</p>
 <div class="note note-primary">
