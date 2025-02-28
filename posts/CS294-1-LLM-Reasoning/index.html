@@ -19,22 +19,21 @@
   <meta name="author" content="Xiyuan Yang">
   <meta name="keywords" content="Code">
   
-    <meta name="description" content="html, body, .markdown-body {     font-family: Georgia, sans, serif;   }   CS294&#x2F;194-196 Large Language Model AgentsIntroductionIn this course, you will learn several basic concepts of LLM reas">
+    <meta name="description" content="This Blog introduces LLM reasoning, from introducing LLMs with intermediate steps to analogical reasoning and self-consistency. Then this blog introduces limitations and several papers related.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS294-1-LLM-Reasoning">
 <meta property="og:url" content="https://xiyuanyang-code.github.io/posts/CS294-1-LLM-Reasoning/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
-<meta property="og:description" content="html, body, .markdown-body {     font-family: Georgia, sans, serif;   }   CS294&#x2F;194-196 Large Language Model AgentsIntroductionIn this course, you will learn several basic concepts of LLM reas">
+<meta property="og:description" content="This Blog introduces LLM reasoning, from introducing LLMs with intermediate steps to analogical reasoning and self-consistency. Then this blog introduces limitations and several papers related.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/LLM-reasoning.png">
 <meta property="article:published_time" content="2025-02-12T07:09:51.000Z">
-<meta property="article:modified_time" content="2025-02-23T11:23:43.209Z">
+<meta property="article:modified_time" content="2025-02-28T06:18:34.879Z">
 <meta property="article:author" content="Xiyuan Yang">
-<meta property="article:tag" content="Convolutional Neural Networks">
 <meta property="article:tag" content="Artificial Intelligence">
-<meta property="article:tag" content="AlexNet">
-<meta property="article:tag" content="Image Clssification">
 <meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="LLM reasoning">
+<meta property="article:tag" content="Agent">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/LLM-reasoning.png">
   
@@ -277,7 +276,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          95 words
+          164 words
         
       </span>
     
@@ -399,14 +398,28 @@
 
 <h1 id="CS294-194-196-Large-Language-Model-Agents"><a href="#CS294-194-196-Large-Language-Model-Agents" class="headerlink" title="CS294&#x2F;194-196 Large Language Model Agents"></a>CS294&#x2F;194-196 Large Language Model Agents</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In this course, you will learn several basic concepts of LLM reasoning and build <strong>agents</strong> based on LLMs. This course map are shown as follows:</p>
 <p><img src="https://s1.imagehub.cc/images/2025/02/23/66a458463c0f0aec8832db6c4ae5cddd.png" srcset="/img/loading.gif" lazyload alt="Large Language Model Agents MOOC"><br><img src="https://s1.imagehub.cc/images/2025/02/23/e089ee6ff2c1746bb9e648a1f34632f0.png" srcset="/img/loading.gif" lazyload alt="Topics covered in this course"></p>
-<h1 id="Lec1-LLM-reasoning"><a href="#Lec1-LLM-reasoning" class="headerlink" title="Lec1: LLM reasoning"></a>Lec1: LLM reasoning</h1><p><img src="https://s1.imagehub.cc/images/2025/02/12/bbbd6f99a96f0c55aa908517e85d0272.png" srcset="/img/loading.gif" lazyload alt="LLM reasoning"></p>
+<h1 id="Lec1-LLM-reasoning"><a href="#Lec1-LLM-reasoning" class="headerlink" title="Lec1: LLM reasoning"></a>Lec1: LLM reasoning</h1><h2 id="Intermediate-Steps-works"><a href="#Intermediate-Steps-works" class="headerlink" title="Intermediate Steps works"></a>Intermediate Steps works</h2><p><img src="https://s1.imagehub.cc/images/2025/02/12/bbbd6f99a96f0c55aa908517e85d0272.png" srcset="/img/loading.gif" lazyload alt="LLM reasoning"></p>
 <p><strong>Reasoning</strong>: Humans can learn from <strong>a few or even no examples</strong> during the process because <strong>humans can reason</strong>! <strong>Traditional ML methods</strong> fails: <strong>Auto-encoder</strong>, require vast amount of labeled data.</p>
 <p>Training LLMs needs a new way (<strong>few-shot or zero-shot prompting</strong>).</p>
 <p>So how to make LLMs implement this? <strong>Let’s think step by step</strong>! Paper1<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://aclanthology.org/P17-1015.pdf">[1]</span></a></sup> shown below in ACL 2017 first shows the effectiveness of introducing <strong>intermediate steps</strong> when designing model’s architecture. Following the work by Ling et al 2017, Cobbe et al 2021 in OpenAI built a much larger math word problem dataset (<strong>GSM8K</strong>) with natural language rationales, and used it to finetune GPT3.</p>
 <p>How to implement <strong>intermediate steps</strong>? <strong>It’s the Chain-of-Thought</strong>! This is the foundation of modern mainstream reasoning models.</p>
 <p><a target="_blank" rel="noopener" href="https://www.imagehub.cc/image/Screenshot-2025-02-23-192125.C723yh"><img src="https://s1.imagehub.cc/images/2025/02/23/9ea0a1dc06b516dc107daa1351c848ee.png" srcset="/img/loading.gif" lazyload alt="Chain of Thought Prompting"></a></p>
-<p>Regardless of training, fine-tuning, or prompting, when provided with examples that include intermediate steps, LLMs will respond with intermediate steps.</p>
-<h2 id="Papers"><a href="#Papers" class="headerlink" title="Papers"></a>Papers</h2><p>This section is for several papers this course has recommended, some of which are demonstrated on the PowerPoint.  By diving deeper into these lectures and slides again, you can absolutely gain a deeper meaning of LLM reasoning!</p>
+<p>Regardless of training, fine-tuning, or prompting, when provided with <strong>examples that include intermediate steps</strong>, LLMs will respond with intermediate steps.</p>
+<p>How to understand this? In my opinion, traditional machine learning methods, in simple terms, means finding patterns of labeled data points in a high-dimensional data space. This is essentially a process of <strong>finding patterns</strong>. Sometimes LLMs don’t provide the answer you want is for the reason of catching the wrong patterns. Providing intermediate steps enables LLMs to catch the right pattern more easily with the guidance.</p>
+<p><strong>This doesn’t end!</strong> We can make LLMs more powerful by training LLM’s reasoning abilities. In the book “How to Solve It”, the writer introduces <strong>decomposing and recombining</strong> are important operations of the mind. You decompose the whole into its parts and recombine the parts in a more or less whole.</p>
+<p>We can simulate this process in LLMs, by enabling LLMs to <strong>think step by step</strong> on its own! In other words, LLMs can autonomously generate and decompose the whole problem and solve each sub-questions step by step.</p>
+<p>In <a target="_blank" rel="noopener" href="https://github.com/brendenlake/SCAN">SCAN</a> (Compositional Generalization) and <a target="_blank" rel="noopener" href="https://github.com/google-research/google-research/blob/master/cfq/README.md">CFQ</a> (Text-to-code) tasks, this method uses just 0.1% demonstration examples and achieves perfect generalization. Moreover, we can make LLMs perform well <strong>without using demonstration examples</strong>, which is known as <strong>zero-shot prompting</strong>.</p>
+<h2 id="Analogical-Reasoning"><a href="#Analogical-Reasoning" class="headerlink" title="Analogical Reasoning"></a>Analogical Reasoning</h2><p><strong>Analogical reasoning</strong> is an important think pattern that human solve new problem. When humans encounter new and difficult tasks, people tend to <strong>relate this problem to previously seen problems</strong> to get several ideas. That is <strong>experience</strong>. We also want LLMs to learn this ability.</p>
+<blockquote>
+<p>“A mathematician is a person who can find analogies between theorems; a better mathematician is one who can see analogies between proofs and the best mathematician can notice analogies between theories. One can imagine that the ultimate mathematician is one who can see analogies between analogies.”</p>
+<p> —-Stefan Banach</p>
+</blockquote>
+<p><strong>Whatever the method is</strong>, we ultimately want LLMs to learn and comprehend the problem itself, rather than just wandering set on the basis of the limited data.</p>
+<h2 id="LLM-reasoning-without-prompting"><a href="#LLM-reasoning-without-prompting" class="headerlink" title="LLM reasoning without prompting"></a>LLM reasoning without prompting</h2><p>In previous research, zero-shot prompting perform worse than few-shot prompting. We can achieve LLM reasoning without prompting! Pre-trained LLMs, without further finetuning, has been ready for step-by-step reasoning, but we need a non-greedy decoding strategy to <strong>elicit</strong> it. </p>
+<p>When a <strong>step-by-step reasoning path is present</strong>, LLMs have much higher confidence in <strong>decoding the final answer</strong> than direct-answer decoding.</p>
+<p>In the graph shown as follows, <strong>CoT decoding</strong> performs better than <strong>greedy decoding</strong>.</p>
+<p><img src="https://s1.imagehub.cc/images/2025/02/28/577f66e4738a260c87d88e80e85011e1.png" srcset="/img/loading.gif" lazyload alt="greedy decoding and CoT-decoding"></p>
+<h2 id="Self-consistency"><a href="#Self-consistency" class="headerlink" title="Self-consistency"></a>Self-consistency</h2><h2 id="Limitations"><a href="#Limitations" class="headerlink" title="Limitations"></a>Limitations</h2><h2 id="Papers"><a href="#Papers" class="headerlink" title="Papers"></a>Papers</h2><p>This section is for several papers this course has recommended, some of which are demonstrated on the PowerPoint.  By diving deeper into these lectures and slides again, you can absolutely gain a deeper meaning of LLM reasoning!</p>
 <h3 id="Paper1-Derive-the-Final-Answer-through-Intermediate-Steps"><a href="#Paper1-Derive-the-Final-Answer-through-Intermediate-Steps" class="headerlink" title="Paper1_Derive the Final Answer through Intermediate Steps"></a>Paper1_Derive the Final Answer through Intermediate Steps</h3><p>This paper<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://aclanthology.org/P17-1015.pdf">[1]</span></a></sup> focuses on solving algebraic word problems by generating answer rationales. A new dataset with 100,000 samples of questions, answers, and rationales is created. The model proposed is a sequence-to-sequence model that generates a program’s instructions to produce the rationale and then the answer. It defines 22 operations and models each instruction based on the text program specification and history. Inducing programs is achieved by leveraging the progression in rationales and filtering possible instructions. Staged back-propagation is used to handle the memory challenge caused by long rationales. Experiments show that compared with baseline models like the attention-based sequence-to-sequence model with copy mechanisms, this model performs better in terms of perplexity, BLEU score, and accuracy. It demonstrates the effectiveness of using rationales to guide program induction in solving math problems and provides a new approach and dataset for future research in this area. </p>
 <p>The model seems to have <strong>the reasoning ability</strong>, but actually its basic structure is still <strong>LSTM</strong> model (a version of <strong>RNN</strong>). Decompose the problem into smaller subproblems, ultimately transforming it into a series of instruction sets, making it difficult to solve more challenging mathematical problems. Moreover, <strong>transformer</strong> structure hasn’t been invented yet. But it proves the potential of <strong>generating intermediate steps</strong> while getting the final answer to decrease perplexity and enhance error rate.</p>
 <div style="text-align: center;">
@@ -451,15 +464,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Convolutional-Neural-Networks/" class="print-no-link">#Convolutional Neural Networks</a>
-      
         <a href="/tags/Artificial-Intelligence/" class="print-no-link">#Artificial Intelligence</a>
       
-        <a href="/tags/AlexNet/" class="print-no-link">#AlexNet</a>
-      
-        <a href="/tags/Image-Clssification/" class="print-no-link">#Image Clssification</a>
-      
         <a href="/tags/Deep-Learning/" class="print-no-link">#Deep Learning</a>
+      
+        <a href="/tags/LLM-reasoning/" class="print-no-link">#LLM reasoning</a>
+      
+        <a href="/tags/Agent/" class="print-no-link">#Agent</a>
       
     </div>
   
@@ -490,7 +501,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>February 23, 2025</div>
+          <div>February 28, 2025</div>
         </div>
       
       
