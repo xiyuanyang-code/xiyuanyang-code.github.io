@@ -1,0 +1,775 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="This Blog focuses on the most frequently used python modules numpy, regarding its basic usage and several applications.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python-Numpy-Cheatsheet">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Python-numpy-cheatsheet/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="This Blog focuses on the most frequently used python modules numpy, regarding its basic usage and several applications.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/python.jpg">
+<meta property="article:published_time" content="2025-03-06T05:01:00.000Z">
+<meta property="article:modified_time" content="2025-03-07T07:13:44.183Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="Finished">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Tutorial">
+<meta property="article:tag" content="Numpy">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/python.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Python-Numpy-Cheatsheet - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/above/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tag</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/FAQ/" target="_self">
+                <i class="iconfont icon-bug"></i>
+                <span>FAQ</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/pink.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Python-Numpy-Cheatsheet"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-03-06 13:01" pubdate>
+          March 6, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          576 words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Python-Numpy-Cheatsheet</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Numpy-CheatSheet"><a href="#Numpy-CheatSheet" class="headerlink" title="Numpy CheatSheet"></a>Numpy CheatSheet</h1><h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>NumPy is a powerful library for <strong>numerical computations</strong> in Python. This memo provides an overview of basic operations, array manipulation, mathematical functions, linear algebra, statistics, and more.</p>
+<h2 id="Basic-Usage"><a href="#Basic-Usage" class="headerlink" title="Basic Usage"></a>Basic Usage</h2><h3 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h3><p>You need to install <strong>numpy</strong> packages by typing the following command in your command line.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install numpy<br></code></pre></td></tr></table></figure>
+
+<p>If you type <code>import numpy</code> in your python scripts without getting an error, it means you have installed numpy successfully!</p>
+<h3 id="Creating-arrays-and-matrix"><a href="#Creating-arrays-and-matrix" class="headerlink" title="Creating arrays and matrix"></a>Creating arrays and matrix</h3><p>The most basic usage of <code>numpy</code> is to <strong>operating and compute arrays and matrix</strong>. In <code>numpy</code>, there exists various ways to create arrays of different dimensions.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># Creating 1D and 2D arrays</span><br>array_1d = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br>array_2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])<br>array<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Applications-and-Demo"><a href="#Applications-and-Demo" class="headerlink" title="Applications and Demo"></a>Applications and Demo</h2><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><h1 id="NumPy-Memo"><a href="#NumPy-Memo" class="headerlink" title="NumPy Memo"></a>NumPy Memo</h1><h2 id="Introduction-to-NumPy"><a href="#Introduction-to-NumPy" class="headerlink" title="Introduction to NumPy"></a>Introduction to NumPy</h2><p>NumPy is a powerful library for numerical computations in Python. This memo provides an overview of basic operations, array manipulation, mathematical functions, linear algebra, statistics, and more.</p>
+<h3 id="1-Loading-NumPy"><a href="#1-Loading-NumPy" class="headerlink" title="1. Loading NumPy"></a>1. Loading NumPy</h3><p>Make sure to install NumPy first:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install numpy<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-Basics-of-NumPy"><a href="#2-Basics-of-NumPy" class="headerlink" title="2. Basics of NumPy"></a>2. Basics of NumPy</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># Creating 1D and 2D arrays</span><br>array_1d = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br>array_2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])<br><span class="hljs-built_in">print</span>(array_1d)<br><span class="hljs-built_in">print</span>(array_2d)<br><br><span class="hljs-comment"># Checking data types</span><br><span class="hljs-built_in">print</span>(array_1d.dtype)<br><br><span class="hljs-comment"># Creating a 2D float array</span><br>array_float = np.array([[<span class="hljs-number">9.0</span>, <span class="hljs-number">8.0</span>, <span class="hljs-number">7.0</span>], [<span class="hljs-number">6.0</span>, <span class="hljs-number">5.0</span>, <span class="hljs-number">4.0</span>]])<br><span class="hljs-built_in">print</span>(array_float)<br><span class="hljs-built_in">print</span>(array_float.dtype)<br><br><span class="hljs-comment"># Getting dimensions and shape</span><br><span class="hljs-built_in">print</span>(array_1d.ndim)<br><span class="hljs-built_in">print</span>(array_float.shape)<br><br><span class="hljs-comment"># Creating arrays of different types</span><br>array_float_1d = np.array([<span class="hljs-number">1.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">4.0</span>])<br><span class="hljs-built_in">print</span>(array_float_1d.dtype, array_float_1d.shape)<br><br>array_bool = np.array([<span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>])<br><span class="hljs-built_in">print</span>(array_bool.dtype, array_bool)<br><br><span class="hljs-comment"># Checking item size</span><br><span class="hljs-built_in">print</span>(array_1d.itemsize, array_float.itemsize, array_float_1d.itemsize, array_bool.itemsize)<br><br><span class="hljs-comment"># Getting total size in bytes</span><br><span class="hljs-built_in">print</span>(array_1d.nbytes, array_float.nbytes, array_float_1d.nbytes, array_bool.nbytes)<br><br><span class="hljs-comment"># Getting number of elements</span><br>array_e = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>]])<br><span class="hljs-built_in">print</span>(array_e.dtype, array_e.nbytes, array_e.size)<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-Accessing-and-Modifying-Elements"><a href="#3-Accessing-and-Modifying-Elements" class="headerlink" title="3. Accessing and Modifying Elements"></a>3. Accessing and Modifying Elements</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Creating a 2D array</span><br>array_a = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>], [<span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>, <span class="hljs-number">11</span>, <span class="hljs-number">12</span>, <span class="hljs-number">13</span>, <span class="hljs-number">14</span>]])<br><span class="hljs-built_in">print</span>(array_a)<br><br><span class="hljs-comment"># Accessing specific elements</span><br><span class="hljs-built_in">print</span>(array_a[<span class="hljs-number">1</span>, <span class="hljs-number">5</span>])  <span class="hljs-comment"># Access element at row 1, column 5</span><br><span class="hljs-built_in">print</span>(array_a[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>:])  <span class="hljs-comment"># Access elements from row 0, columns 1 to end</span><br><span class="hljs-built_in">print</span>(array_a[:, :])   <span class="hljs-comment"># Access all elements</span><br><br><span class="hljs-comment"># Accessing rows and columns</span><br><span class="hljs-built_in">print</span>(array_a[<span class="hljs-number">0</span>, :])   <span class="hljs-comment"># First row</span><br><span class="hljs-built_in">print</span>(array_a[:, <span class="hljs-number">2</span>])   <span class="hljs-comment"># Third column</span><br><br><span class="hljs-comment"># Slicing with step size</span><br><span class="hljs-built_in">print</span>(array_a[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>:<span class="hljs-number">2</span>])  <span class="hljs-comment"># Access elements with step size</span><br><br><span class="hljs-comment"># Modifying elements</span><br>array_a[<span class="hljs-number">1</span>, <span class="hljs-number">5</span>] = <span class="hljs-number">20</span><br>array_a[:, <span class="hljs-number">2</span>] = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]  <span class="hljs-comment"># Update the third column</span><br><span class="hljs-built_in">print</span>(array_a)<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-3D-Arrays-Example"><a href="#4-3D-Arrays-Example" class="headerlink" title="4. 3D Arrays Example"></a>4. 3D Arrays Example</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Creating a 3D array</span><br>array_b = np.array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]], [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>]]])<br><span class="hljs-built_in">print</span>(array_b)<br><br><span class="hljs-comment"># Accessing elements in 3D array</span><br><span class="hljs-built_in">print</span>(array_b[<span class="hljs-number">0</span>, :, <span class="hljs-number">1</span>])  <span class="hljs-comment"># Access specific elements</span><br><br><span class="hljs-comment"># Modifying elements</span><br>array_b[:, <span class="hljs-number">1</span>, :] = [[<span class="hljs-number">9</span>, <span class="hljs-number">9</span>], [<span class="hljs-number">8</span>, <span class="hljs-number">8</span>]]<br><span class="hljs-built_in">print</span>(array_b)<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-Initializing-Different-Types-of-Arrays"><a href="#5-Initializing-Different-Types-of-Arrays" class="headerlink" title="5. Initializing Different Types of Arrays"></a>5. Initializing Different Types of Arrays</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Creating arrays filled with zeros and ones</span><br>zeros_matrix = np.zeros((<span class="hljs-number">2</span>, <span class="hljs-number">3</span>))<br>ones_matrix = np.ones((<span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>), dtype=<span class="hljs-string">&#x27;int32&#x27;</span>)<br><br><span class="hljs-comment"># Creating arrays filled with a specific number</span><br>filled_array = np.full((<span class="hljs-number">2</span>, <span class="hljs-number">2</span>), <span class="hljs-number">99</span>)<br><br><span class="hljs-comment"># Creating arrays based on existing shapes</span><br>filled_like = np.full_like(filled_array, <span class="hljs-number">10</span>)<br><span class="hljs-built_in">print</span>(filled_like)<br><br><span class="hljs-comment"># Generating random arrays</span><br>random_decimals = np.<span class="hljs-built_in">round</span>(np.random.rand(<span class="hljs-number">10</span>, <span class="hljs-number">10</span>), <span class="hljs-number">2</span>)<br><span class="hljs-built_in">print</span>(random_decimals)<br><br>random_integers = np.random.randint(-<span class="hljs-number">4</span>, <span class="hljs-number">8</span>, size=(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>))<br><span class="hljs-built_in">print</span>(random_integers)<br><br><span class="hljs-comment"># Identity matrix</span><br>identity_matrix = np.identity(<span class="hljs-number">5</span>)<br><span class="hljs-built_in">print</span>(identity_matrix)<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-Array-Repetition"><a href="#6-Array-Repetition" class="headerlink" title="6. Array Repetition"></a>6. Array Repetition</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Repeating arrays</span><br>array_repeat = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]])<br>repeat_rows = np.repeat(array_repeat, <span class="hljs-number">2</span>, axis=<span class="hljs-number">0</span>)  <span class="hljs-comment"># Repeat rows</span><br>repeat_cols = np.repeat(array_repeat, <span class="hljs-number">2</span>, axis=<span class="hljs-number">1</span>)  <span class="hljs-comment"># Repeat columns</span><br><span class="hljs-built_in">print</span>(repeat_rows)<br><span class="hljs-built_in">print</span>(repeat_cols)<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-Array-Copying"><a href="#7-Array-Copying" class="headerlink" title="7. Array Copying"></a>7. Array Copying</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Copying arrays</span><br>array_c = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br>array_d = array_c.copy()  <span class="hljs-comment"># Create a copy</span><br>array_e = array_c          <span class="hljs-comment"># Reference to original</span><br><br>array_d[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span><br>array_e[<span class="hljs-number">0</span>] = <span class="hljs-number">200</span><br><span class="hljs-built_in">print</span>(array_c)  <span class="hljs-comment"># Original array remains unchanged</span><br><span class="hljs-built_in">print</span>(array_d)  <span class="hljs-comment"># Modified copy</span><br><span class="hljs-built_in">print</span>(array_e)  <span class="hljs-comment"># Reference to original</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="8-Mathematical-Operations"><a href="#8-Mathematical-Operations" class="headerlink" title="8. Mathematical Operations"></a>8. Mathematical Operations</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">array_f = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>])<br><span class="hljs-built_in">print</span>(array_f + <span class="hljs-number">2</span>)  <span class="hljs-comment"># Addition</span><br><span class="hljs-built_in">print</span>(array_f - <span class="hljs-number">2</span>)  <span class="hljs-comment"># Subtraction</span><br><span class="hljs-built_in">print</span>(array_f * <span class="hljs-number">2</span>)  <span class="hljs-comment"># Multiplication</span><br><span class="hljs-built_in">print</span>(array_f / <span class="hljs-number">2</span>)  <span class="hljs-comment"># Division</span><br><br><span class="hljs-comment"># Element-wise operations with another array</span><br>array_g = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>])<br><span class="hljs-built_in">print</span>(array_f + array_g)  <span class="hljs-comment"># Element-wise addition</span><br><br><span class="hljs-comment"># Power and trigonometric functions</span><br><span class="hljs-built_in">print</span>(array_f ** <span class="hljs-number">2</span>)  <span class="hljs-comment"># Squaring</span><br><span class="hljs-built_in">print</span>(np.cos(array_f))  <span class="hljs-comment"># Cosine function</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="9-Linear-Algebra"><a href="#9-Linear-Algebra" class="headerlink" title="9. Linear Algebra"></a>9. Linear Algebra</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python">array_h = np.ones((<span class="hljs-number">2</span>, <span class="hljs-number">3</span>))<br>array_i = np.full((<span class="hljs-number">3</span>, <span class="hljs-number">2</span>), <span class="hljs-number">2</span>)<br>result_matrix = array_h @ array_i  <span class="hljs-comment"># Matrix multiplication</span><br><span class="hljs-built_in">print</span>(result_matrix)<br><br><span class="hljs-comment"># Determinant and inverse</span><br>identity_matrix_3x3 = np.identity(<span class="hljs-number">3</span>)<br><span class="hljs-built_in">print</span>(np.linalg.det(identity_matrix_3x3))<br><br>matrix = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])<br>transposed_matrix = matrix.T<br><span class="hljs-built_in">print</span>(transposed_matrix)<br><br><span class="hljs-comment"># Solving linear equations</span><br>A = np.array([[<span class="hljs-number">3</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>]])<br>b = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]])<br>solution = np.linalg.solve(A, b.T)<br><span class="hljs-built_in">print</span>(solution)<br></code></pre></td></tr></table></figure>
+
+<h3 id="10-Statistics"><a href="#10-Statistics" class="headerlink" title="10. Statistics"></a>10. Statistics</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">stats_array = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]])<br><span class="hljs-built_in">print</span>(np.<span class="hljs-built_in">min</span>(stats_array))  <span class="hljs-comment"># Minimum value</span><br><span class="hljs-built_in">print</span>(np.<span class="hljs-built_in">max</span>(stats_array, axis=<span class="hljs-number">1</span>))  <span class="hljs-comment"># Maximum value along rows</span><br><span class="hljs-built_in">print</span>(np.<span class="hljs-built_in">sum</span>(stats_array, axis=<span class="hljs-number">0</span>))  <span class="hljs-comment"># Sum along columns</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="11-Reshaping-and-Stacking-Arrays"><a href="#11-Reshaping-and-Stacking-Arrays" class="headerlink" title="11. Reshaping and Stacking Arrays"></a>11. Reshaping and Stacking Arrays</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Reshaping arrays</span><br>before = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>]])<br>after = before.reshape((<span class="hljs-number">4</span>, <span class="hljs-number">2</span>))<br><span class="hljs-built_in">print</span>(after)<br><br><span class="hljs-comment"># Vertical stacking</span><br>v1 = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>])<br>v2 = np.array([<span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>])<br>stacked_vertical = np.vstack([v1, v2, v1, v2])<br><span class="hljs-built_in">print</span>(stacked_vertical)<br><br><span class="hljs-comment"># Horizontal stacking</span><br>h1 = np.ones((<span class="hljs-number">2</span>, <span class="hljs-number">4</span>))<br>h2 = np.zeros((<span class="hljs-number">2</span>, <span class="hljs-number">2</span>))<br>stacked_horizontal = np.hstack((h1, h2))<br><span class="hljs-built_in">print</span>(stacked_horizontal)<br></code></pre></td></tr></table></figure>
+
+<h3 id="12-Loading-Data-from-Files"><a href="#12-Loading-Data-from-Files" class="headerlink" title="12. Loading Data from Files"></a>12. Loading Data from Files</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Loading data from a CSV file</span><br>filedata = np.genfromtxt(<span class="hljs-string">&#x27;data.txt&#x27;</span>, delimiter=<span class="hljs-string">&#x27;,&#x27;</span>)<br>filedata = filedata.astype(<span class="hljs-string">&#x27;int32&#x27;</span>)<br><span class="hljs-built_in">print</span>(filedata)<br></code></pre></td></tr></table></figure>
+
+<h3 id="13-Boolean-Masking-and-Advanced-Indexing"><a href="#13-Boolean-Masking-and-Advanced-Indexing" class="headerlink" title="13. Boolean Masking and Advanced Indexing"></a>13. Boolean Masking and Advanced Indexing</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Boolean masking example</span><br>boolean_mask = ~((filedata &gt; <span class="hljs-number">50</span>) &amp; (filedata &lt; <span class="hljs-number">100</span>))<br><span class="hljs-built_in">print</span>(boolean_mask)<br></code></pre></td></tr></table></figure>
+
+<h3 id="Conclusion-1"><a href="#Conclusion-1" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>This memo provides a concise overview of NumPy’s capabilities, including array creation, manipulation, mathematical operations, and more. For further details, refer to the official <a target="_blank" rel="noopener" href="https://numpy.org/doc/stable/">NumPy documentation</a>.</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Code/" class="category-chain-item">Code</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/Tutorial/" class="print-no-link">#Tutorial</a>
+      
+        <a href="/tags/Numpy/" class="print-no-link">#Numpy</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Python-Numpy-Cheatsheet</div>
+      <div>https://xiyuanyang-code.github.io/posts/Python-numpy-cheatsheet/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>March 6, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>March 7, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
