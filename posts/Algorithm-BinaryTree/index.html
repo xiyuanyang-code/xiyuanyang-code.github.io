@@ -19,30 +19,30 @@
   <meta name="author" content="Xiyuan Yang">
   <meta name="keywords" content="Code">
   
-    <meta name="description" content="This blog records the writer&#39;s learning process of building and training neural networks by hand practically, including some tips, insights and memos.">
+    <meta name="description" content="This blog introduces Binary Tree, with several operations of  O(logn) complexity. The blog then introduces AVL tree. This is my own lecture notes for MIT 6.006, Introduction to algorithms.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Deep_Learning_Memo">
-<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Deep-Learning-Memo/index.html">
+<meta property="og:title" content="Algorithm-BinaryTree">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Algorithm-BinaryTree/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
-<meta property="og:description" content="This blog records the writer&#39;s learning process of building and training neural networks by hand practically, including some tips, insights and memos.">
+<meta property="og:description" content="This blog introduces Binary Tree, with several operations of  O(logn) complexity. The blog then introduces AVL tree. This is my own lecture notes for MIT 6.006, Introduction to algorithms.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/dpexperience.png">
-<meta property="article:published_time" content="2025-03-10T11:22:02.000Z">
-<meta property="article:modified_time" content="2025-03-11T10:56:19.725Z">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/mit6006.png">
+<meta property="article:published_time" content="2025-03-12T14:11:28.000Z">
+<meta property="article:modified_time" content="2025-03-12T16:44:15.644Z">
 <meta property="article:author" content="Xiyuan Yang">
-<meta property="article:tag" content="Convolutional Neural Networks">
-<meta property="article:tag" content="Artificial Intelligence">
-<meta property="article:tag" content="AlexNet">
-<meta property="article:tag" content="Image Clssification">
-<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="Data Structure">
+<meta property="article:tag" content="Tree">
+<meta property="article:tag" content="Binary Tree">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/dpexperience.png">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/mit6006.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Deep_Learning_Memo - Xiyuan Yang&#39;s Blog</title>
+  <title>Algorithm-BinaryTree - Xiyuan Yang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -261,7 +261,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Deep_Learning_Memo"></span>
+            <span id="subtitle" data-typed-text="Algorithm-BinaryTree"></span>
           
         </div>
 
@@ -277,8 +277,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-10 19:22" pubdate>
-          March 10, 2025 pm
+        <time datetime="2025-03-12 22:11" pubdate>
+          March 12, 2025 pm
         </time>
       </span>
     
@@ -289,7 +289,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          364 words
+          306 words
         
       </span>
     
@@ -345,17 +345,17 @@
     
     <div class="category row nomargin-x">
       <a class="category-item 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Artificial Intelligence"
-        id="heading-5cd2adc9e2a5254e4c1da803519f298b" role="tab" data-toggle="collapse" href="#collapse-5cd2adc9e2a5254e4c1da803519f298b"
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Algorithm"
+        id="heading-4afa80e77a07f7488ce4d1bdd8c4977a" role="tab" data-toggle="collapse" href="#collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
         aria-expanded="true"
       >
-        Artificial Intelligence
-        <span class="list-group-count">(5)</span>
+        Algorithm
+        <span class="list-group-count">(16)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-5cd2adc9e2a5254e4c1da803519f298b"
-           role="tabpanel" aria-labelledby="heading-5cd2adc9e2a5254e4c1da803519f298b">
+      <div class="category-collapse collapse show" id="collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+           role="tabpanel" aria-labelledby="heading-4afa80e77a07f7488ce4d1bdd8c4977a">
         
         
           
@@ -364,46 +364,145 @@
     
       
       
-        <a href="/posts/AI-indepth-reading-AlexNet/" title="AI-Indepth-Reading-AlexNet"
+        <a href="/posts/Algorithm-Introduction/" title="Algorithm-Introduction"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">AI-Indepth-Reading-AlexNet</span>
+          <span class="category-post">Algorithm-Introduction</span>
         </a>
       
     
       
       
-        <a href="/posts/CS294-1-LLM-Reasoning/" title="CS294-1-LLM-Reasoning"
+        <a href="/posts/Linked-List-Implementation-Based-on-Structs/" title="Linked-List-Implementation-Based-on-Structs"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">CS294-1-LLM-Reasoning</span>
+          <span class="category-post">Linked-List-Implementation-Based-on-Structs</span>
         </a>
       
     
       
       
-        <a href="/posts/CS294-3-Autogen/" title="CS294-3-Autogen"
+        <a href="/posts/Leetcode-Mistake-collection/" title="Leetcode-Mistake-Collection"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">CS294-3-Autogen</span>
+          <span class="category-post">Leetcode-Mistake-Collection</span>
         </a>
       
     
       
       
-        <a href="/posts/Pre-training-Is-Dead/" title="Pre-Training-Is-Dead?"
+        <a href="/posts/Leetcode-Mistake-collection-1-10/" title="Leetcode-Mistake-Collection-1-10"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Pre-Training-Is-Dead?</span>
+          <span class="category-post">Leetcode-Mistake-Collection-1-10</span>
         </a>
       
     
       
       
-        <a href="/posts/Deep-Learning-Memo/" title="Deep_Learning_Memo"
+        <a href="/posts/Leetcode-Mistake-collection-11-20/" title="Leetcode-Mistake-Collection-11-20"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-Collection-11-20</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection-21-30/" title="Leetcode-Mistake-Collection-21-30"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-Collection-21-30</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection-31-40/" title="Leetcode-Mistake-Collection-31-40"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-Collection-31-40</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Tutorial/" title="DataStructure-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-LinearList/" title="DataStructure-LinearList"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-LinearList</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Stack/" title="DataStructure-Stack"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Stack</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Queue/" title="DataStructure-Queue"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Queue</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-String/" title="DataStructure-String"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-String</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Tree/" title="DataStructure-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Tree-Binary-Tree/" title="DataStructure-Tree-Binary-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Tree-Binary-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Algorithm-Chunking/" title="Algorithm-Chunking"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-Chunking</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Algorithm-BinaryTree/" title="Algorithm-BinaryTree"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">Deep_Learning_Memo</span>
+          <span class="category-post">Algorithm-BinaryTree</span>
         </a>
       
     
@@ -425,46 +524,112 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Deep_Learning_Memo</h1>
+            <h1 id="seo-header">Algorithm-BinaryTree</h1>
             
             
               <div class="markdown-body">
                 
-                <style>
-  html, body, .markdown-body {
-    font-family: Georgia, sans, serif;
-  }
-</style>
+                <h1 id="Binary-Tree-for-MIT-6-006"><a href="#Binary-Tree-for-MIT-6-006" class="headerlink" title="Binary Tree for MIT 6.006"></a>Binary Tree for MIT 6.006</h1><h2 id="Maybe-you-just-need-a-binary-tree…"><a href="#Maybe-you-just-need-a-binary-tree…" class="headerlink" title="Maybe you just need a binary tree…"></a>Maybe you just need a binary tree…</h2>
+<pre>
+<code class="mermaid" >
 
-<h1 id="Deep-Learning-Memo"><a href="#Deep-Learning-Memo" class="headerlink" title="Deep Learning Memo"></a>Deep Learning Memo</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>When traning a neural network, there is lot’s of details that require attention, like how to set the learning rate, how to plot the fig, how to manage your project, etc. These details have no relations with the fundamental basis or the first principle of machine learning, they are just a sort of <strong>words of experience</strong>.</p>
-<p>For green hands, there exists a huge gap between simply comprehending and copying other peoples neural networks from coding one’s own neural network. It’s a tough but effective process. Thus, I want to <strong>record my road of practicing deep learning</strong> by updating my Blog. This passage won’t discuss the basic principle and only involve my own experiences and insights during my practical process.</p>
-<p>If you want to update this blog with your own experiences, just contact with the author.</p>
-<h2 id="20250310-Using-matplotlib-in-Linux"><a href="#20250310-Using-matplotlib-in-Linux" class="headerlink" title="20250310 Using matplotlib in Linux"></a>20250310 Using matplotlib in Linux</h2><p>When using <code>matplotlib</code> in my WSL subsystem, I encountered errors as follows:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">qt.qpa.plugin: Could not load the Qt platform plugin <span class="hljs-string">&quot;xcb&quot;</span> <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;&quot;</span> even though it was found.<br>This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.<br><br>Available platform plugins are: eglfs, minimal, minimalegl, offscreen, vnc, webgl, xcb.<br><br>[1]    5870 IOT instruction (core dumped)  python try_plotting.py<br></code></pre></td></tr></table></figure>
+graph TD;
+    A[5]
+    B[3]
+    C[8]
+    D[2]
+    E[4]
+    F[7]
+    G[9]
 
-<p>It seems that Linux cannot load the Qt platform plugin, which as a result failed to load the images.</p>
-<h3 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h3><p>We cannot let Linux to directly show the plotted figure in the terminal for its lack of GUI interface. But we can realize it by changing Matplotlib’s backend: </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib <span class="hljs-keyword">as</span> mpl<br>mpl.use(<span class="hljs-string">&#x27;Agg&#x27;</span>)<br><span class="hljs-comment">#...</span><br><span class="hljs-comment">#...</span><br><span class="hljs-keyword">import</span> matplotlib.plt <span class="hljs-keyword">as</span> plt<br><span class="hljs-comment"># forbid scientific notation</span><br>np.set_printoptions(suppress=<span class="hljs-literal">True</span>)<br><br><br><span class="hljs-comment"># Then showing the figure by saving the figures.</span><br><br>plt.savefig(<span class="hljs-string">&quot;save/img.png&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+    A --> B
+    A --> C
+    B --> D
+    B --> E
+    C --> F
+    C --> G
+    
+    
+</code>
+</pre>
 
-<p>Of course, you can use juypter notebook instead. Remember! Use <code>plt.close()</code> if you want to save more than one image.</p>
-<h2 id="20250310-Arranging-my-file-structure"><a href="#20250310-Arranging-my-file-structure" class="headerlink" title="20250310 Arranging my file-structure"></a>20250310 Arranging my file-structure</h2><p>The contents below is generated by deepseek-v3.</p>
-<h3 id="Simplified-Project-Structure"><a href="#Simplified-Project-Structure" class="headerlink" title="Simplified Project Structure"></a>Simplified Project Structure</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">your_project/<br>│<br>├── data/                    # Raw and processed data<br>│   ├── raw/                 <br>│   └── processed/           <br>│<br>├── models/                  # Trained models<br>│   ├── checkpoints/         # Model checkpoints<br>│   └── final/               # Final models<br>│<br>├── outputs/                 # Training outputs<br>│   ├── logs/                # Logs (e.g., TensorBoard)<br>│   ├── images/              # Generated images<br>│   └── plots/               # Plots<br>│<br>├── scripts/                 # Scripts<br>│   ├── train.py             # Training script<br>│   └── utils.py             # Utility functions<br>│<br>└── README.md                # Project description<br></code></pre></td></tr></table></figure>
-
-<h3 id="Code-to-Auto-Create-Directories"><a href="#Code-to-Auto-Create-Directories" class="headerlink" title="Code to Auto-Create Directories"></a>Code to Auto-Create Directories</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime<br><br><span class="hljs-comment"># Base directory</span><br>base_dir = <span class="hljs-string">&quot;your_project&quot;</span><br><br><span class="hljs-comment"># Subdirectories</span><br>dirs = &#123;<br>    <span class="hljs-string">&quot;data&quot;</span>: [<span class="hljs-string">&quot;raw&quot;</span>, <span class="hljs-string">&quot;processed&quot;</span>],<br>    <span class="hljs-string">&quot;models&quot;</span>: [<span class="hljs-string">&quot;checkpoints&quot;</span>, <span class="hljs-string">&quot;final&quot;</span>],<br>    <span class="hljs-string">&quot;outputs&quot;</span>: [<span class="hljs-string">&quot;logs&quot;</span>, <span class="hljs-string">&quot;images&quot;</span>, <span class="hljs-string">&quot;plots&quot;</span>],<br>    <span class="hljs-string">&quot;scripts&quot;</span>: []<br>&#125;<br><br><span class="hljs-comment"># Create directories</span><br><span class="hljs-keyword">for</span> parent_dir, sub_dirs <span class="hljs-keyword">in</span> dirs.items():<br>    parent_path = os.path.join(base_dir, parent_dir)<br>    os.makedirs(parent_path, exist_ok=<span class="hljs-literal">True</span>)<br>    <span class="hljs-keyword">for</span> sub_dir <span class="hljs-keyword">in</span> sub_dirs:<br>        sub_path = os.path.join(parent_path, sub_dir)<br>        os.makedirs(sub_path, exist_ok=<span class="hljs-literal">True</span>)<br><br><span class="hljs-comment"># Timestamped output directory</span><br>timestamp = datetime.now().strftime(<span class="hljs-string">&quot;%Y%m%d_%H%M%S&quot;</span>)<br>output_dir = os.path.join(base_dir, <span class="hljs-string">&quot;outputs&quot;</span>, timestamp)<br>os.makedirs(output_dir, exist_ok=<span class="hljs-literal">True</span>)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Directories created. Output directory: <span class="hljs-subst">&#123;output_dir&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
-
-<h3 id="Usage-in-Training-Script"><a href="#Usage-in-Training-Script" class="headerlink" title="Usage in Training Script"></a>Usage in Training Script</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><br><span class="hljs-comment"># Example output directory</span><br>output_dir = <span class="hljs-string">&quot;your_project/outputs/20231025_123456&quot;</span><br><br><span class="hljs-comment"># Save model checkpoint</span><br>model_checkpoint_path = os.path.join(output_dir, <span class="hljs-string">&quot;model_checkpoint.pth&quot;</span>)<br><span class="hljs-comment"># torch.save(model.state_dict(), model_checkpoint_path)  # PyTorch example</span><br><br><span class="hljs-comment"># Save training log</span><br>log_file_path = os.path.join(output_dir, <span class="hljs-string">&quot;training_log.txt&quot;</span>)<br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(log_file_path, <span class="hljs-string">&quot;w&quot;</span>) <span class="hljs-keyword">as</span> f:<br>    f.write(<span class="hljs-string">&quot;Epoch 1, Loss: 0.123\n&quot;</span>)<br><br><span class="hljs-comment"># Save generated image</span><br>image_path = os.path.join(output_dir, <span class="hljs-string">&quot;training_plot.png&quot;</span>)<br>plt.plot([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>])<br>plt.savefig(image_path)<br>plt.close()<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Training outputs saved to: <span class="hljs-subst">&#123;output_dir&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
-
-<h3 id="Additional-Tips"><a href="#Additional-Tips" class="headerlink" title="Additional Tips"></a>Additional Tips</h3><ol>
-<li><p><strong>Use a Config File</strong>:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># config.py</span><br>BASE_DIR = <span class="hljs-string">&quot;your_project&quot;</span><br>DATA_DIR = os.path.join(BASE_DIR, <span class="hljs-string">&quot;data&quot;</span>)<br>MODELS_DIR = os.path.join(BASE_DIR, <span class="hljs-string">&quot;models&quot;</span>)<br>OUTPUTS_DIR = os.path.join(BASE_DIR, <span class="hljs-string">&quot;outputs&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Assume we have discussed <strong>Sequene Data Structure</strong> and <strong>Set Data Structure</strong>. Different data structures have different advantages as well as disadvantages.(Linked List and Array, etc) We hope to design a data structure with lower time complexity!</p>
+<p>What’s the sacirfices? Maybe the <strong>container and space</strong>.</p>
+<p><img src="https://s1.imagehub.cc/images/2025/03/13/4f0fb70e1a0c00421731e9deba50d90b.png" srcset="/img/loading.gif" lazyload alt="Time complexity"></p>
+<p>We just ignore the basic definition of binary tree! You can go through this blog: <code>TBD</code>.</p>
+<p>Thus a node in binary tree needs to store three pointers: <strong>parent node, left-child node and right-child node</strong>.</p>
+<h2 id="Definitions-and-Terminology"><a href="#Definitions-and-Terminology" class="headerlink" title="Definitions and Terminology"></a>Definitions and Terminology</h2><ul>
+<li>Subtree<ul>
+<li>We can give the recursive definition of binary tree.</li>
+<li>subtree of <code>x</code> is <code>x</code> and its <strong>descendants</strong>. (x to be the root)</li>
+</ul>
 </li>
-<li><p><strong>Use Logging</strong>:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> logging<br>logging.basicConfig(filename=os.path.join(output_dir, <span class="hljs-string">&quot;training.log&quot;</span>), level=logging.INFO)<br>logging.info(<span class="hljs-string">&quot;Epoch 1, Loss: 0.123&quot;</span>)<br></code></pre></td></tr></table></figure>
+<li>root node, leafs</li>
+<li>depth<ul>
+<li>Every node has <strong>unique path</strong> from the current node to the root node.</li>
+</ul>
 </li>
-<li><p><strong>Version Control</strong>:<br>Add to <code>.gitignore</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">your_project/data/<br>your_project/models/<br>your_project/outputs/<br></code></pre></td></tr></table></figure></li>
-</ol>
+<li>height<ul>
+<li>the maximum depth of nodes in x’s subtree.</li>
+<li><strong>the longest road to get to the leaf nodes</strong>.</li>
+</ul>
+</li>
+</ul>
+<p><strong>We first ensure all operations shown above is O(h)</strong>, where h is the height of the root node. We will then prove that <code>O(h)</code> is equinumerous to <code>O(logn)</code>.</p>
+<h2 id="Traversal-Order-of-Nodes"><a href="#Traversal-Order-of-Nodes" class="headerlink" title="Traversal Order of Nodes"></a>Traversal Order of Nodes</h2><p>The basic sequence of traversal order: <strong>left-root-right</strong>.</p>
+<p>Algorithm:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">iterate(node):<br>	iterate(node.left)<br>	node<br>	iterate(node.right)<br></code></pre></td></tr></table></figure>
 
+<p><strong>The traversal order provides a way to deal with a sequential list of data</strong> by binary tree.</p>
+<h2 id="Operations"><a href="#Operations" class="headerlink" title="Operations"></a>Operations</h2><h3 id="Traversal-Operations"><a href="#Traversal-Operations" class="headerlink" title="Traversal Operations"></a>Traversal Operations</h3><h4 id="subtree-first-node"><a href="#subtree-first-node" class="headerlink" title="subtree_first(node)"></a><code>subtree_first(node)</code></h4><p>Given a subtree (of its node), which comes first in traversal order?</p>
+<ul>
+<li>Go left as much as possible!</li>
+<li>When the current node is <strong>leaf node</strong> or simply has no left node, just <strong>undo</strong> to the previous layer.<ul>
+<li>The process itself is like a <strong>recursion</strong>! (Just follow the recursive definition of a tree)</li>
+</ul>
+</li>
+</ul>
+<p>Of course, you can define <code>subtree_last(node)</code>.</p>
+<h4 id="successor-node"><a href="#successor-node" class="headerlink" title="successor(node)"></a><code>successor(node)</code></h4><p>Return the next node after the given node in tree’s traversal order.</p>
+<p>Firstly, check whether the right node of this node is empty. If no, then <strong>go to its right node and traverse the new subtree formed by its right node</strong>, which means return the node of <code>subtree_first(node.right)</code>.</p>
+<p>If yes, we need to ensure whether its parent node has been traversed. If this node is the left child of its parent node, then just go to the parent node followed by traversal orders. However, if it is the right child of its parent node, we just need to go upper to the parent node of its parent node, <strong>until the current node is the left child of its parent node</strong>!</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">if</span>(node.right == <span class="hljs-literal">nullptr</span>)&#123;<br>	<span class="hljs-comment">//the right child is empty</span><br>	<span class="hljs-keyword">while</span>(node.parent != <span class="hljs-literal">nullptr</span> &amp;&amp; node != node.parent.left)&#123;<br>		node = node.parent;<br>	&#125;<br>    <span class="hljs-keyword">if</span>(node.parent == <span class="hljs-literal">nullptr</span>)&#123;<br>        <span class="hljs-comment">//means that this is the last node of the tarversal order</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>       <span class="hljs-keyword">return</span> node; <br>    &#125;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">subtree_first</span>(node.right);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>These operations above just takes <code>O(h)</code>, where h is the height of the tree. You just need to check at most one single node in the same layer.</p>
+<h3 id="Insert-and-delete"><a href="#Insert-and-delete" class="headerlink" title="Insert and delete"></a>Insert and delete</h3><h4 id="subtree-insert-after-node-new"><a href="#subtree-insert-after-node-new" class="headerlink" title="subtree_insert_after(node, new)"></a><code>subtree_insert_after(node, new)</code></h4><p>Insert the new node <code>new</code> through the traversal order, enabling it to be right before <code>node</code> in the tree.</p>
+<ul>
+<li>If there is no <strong>right child</strong>: put <code>new</code> there!<ul>
+<li>You just need to “create” a right child of the <code>node</code> node.</li>
+</ul>
+</li>
+<li>If there is a right child:<ul>
+<li>Then we want the <code>new</code> node to be in the position <strong>before</strong> <code>node.right</code>. Thus, it needs to be <code>node.right</code>‘s left child!</li>
+<li>We should return <code>subtree_first(node.right)</code>.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">if</span>(node.right == <span class="hljs-literal">nullptr</span>)&#123;<br>	node.right = <span class="hljs-keyword">new</span>;<br>	<span class="hljs-keyword">new</span>.parent = node;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>	<span class="hljs-keyword">new</span>.parent = <span class="hljs-built_in">subtree_first</span>(node.right);<br>	<span class="hljs-built_in">subtree_first</span>(node.right).left = <span class="hljs-keyword">new</span>;  <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="subtree-delete-node"><a href="#subtree-delete-node" class="headerlink" title="subtree_delete(node)"></a><code>subtree_delete(node)</code></h4><p>Delete the node without changing other node’s traversal order.</p>
+<p>In order to make the tree no to be “<strong>crashed</strong>“, we first need to get the previous node of the <code>node</code> to be deleted. We can use the <code>predecessor()</code> function which is symmetric to <code>successor()</code> function. </p>
+<p>As is shown obviously, <strong>deleting a leaf node</strong> is very simple, thus we want to <strong>exchange</strong> the node into the leaf node without breaking the traversal order.</p>
+<p>To be more specific, we can understand <code>node</code> as an “invisible” element in the traversal order, which can freely swap positions with other elements without changing the traversal order of the other elements. Ultimately, we hope to move <code>node</code> to the position of a leaf node.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">if</span>(node.right == <span class="hljs-literal">nullptr</span> &amp;&amp; node.left == <span class="hljs-literal">nullptr</span>)&#123;<br>	<span class="hljs-comment">//is the leaf node</span><br>	<span class="hljs-keyword">if</span>(node == node.parent.left)&#123;<br>		node.parent.left = <span class="hljs-literal">nullptr</span>;<br>	&#125;<span class="hljs-keyword">else</span>&#123;<br>        node.parent.right = <span class="hljs-literal">nullptr</span>;<br>    &#125;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-keyword">if</span>(node.right != <span class="hljs-literal">nullptr</span>)&#123;<br>        <span class="hljs-comment">//then we can go deeper to get to the leaf node!</span><br>        <span class="hljs-keyword">while</span>(!(node.right == <span class="hljs-literal">nullptr</span> &amp;&amp; node.left == <span class="hljs-literal">nullptr</span>))&#123;<br>            <span class="hljs-built_in">swap</span>(node, <span class="hljs-built_in">predecessor</span>(node));<br>            <span class="hljs-comment">//just swap the content </span><br>        &#125;<br>        <span class="hljs-built_in">delete</span>(node)<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-comment">//the node only have right child</span><br>        <span class="hljs-comment">//swap items with the successor of &lt;X&gt; and recurse</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>In a word, you just need to go down deeper and deeper, until you reach the <strong>leaf node</strong>. Then delete it!</p>
+<h2 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h2><ul>
+<li><strong>Sequence</strong>: traversal order &#x3D; sequence order.</li>
+<li><strong>Set</strong>: traversal order &#x3D; increasing item key.<ul>
+<li>Binary search tree.</li>
+</ul>
+</li>
+</ul>
+<p>For example, if you want to find an element in the tree, it’s just <strong>like the binary search</strong>!</p>
+<p>For we let the Binary search tree to be sorted strictly by value: <code>node.left.value</code> &lt; <code>node.value</code> &lt; <code>node.right.value</code>. We can implement the time complexity of <code>O(h)</code>!</p>
+<blockquote>
+<p>We can also implement <code>find_next()</code> and <code>find_pre()</code>.</p>
+</blockquote>
+<h1 id="Part2-AVL-Tree"><a href="#Part2-AVL-Tree" class="headerlink" title="Part2 AVL Tree"></a>Part2 AVL Tree</h1>
                 
               </div>
             
@@ -482,7 +647,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Artificial-Intelligence/" class="category-chain-item">Artificial Intelligence</a>
+  <a href="/categories/Algorithm/" class="category-chain-item">Algorithm</a>
   
   
 
@@ -497,15 +662,15 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Convolutional-Neural-Networks/" class="print-no-link">#Convolutional Neural Networks</a>
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
       
-        <a href="/tags/Artificial-Intelligence/" class="print-no-link">#Artificial Intelligence</a>
+        <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
       
-        <a href="/tags/AlexNet/" class="print-no-link">#AlexNet</a>
+        <a href="/tags/Data-Structure/" class="print-no-link">#Data Structure</a>
       
-        <a href="/tags/Image-Clssification/" class="print-no-link">#Image Clssification</a>
+        <a href="/tags/Tree/" class="print-no-link">#Tree</a>
       
-        <a href="/tags/Deep-Learning/" class="print-no-link">#Deep Learning</a>
+        <a href="/tags/Binary-Tree/" class="print-no-link">#Binary Tree</a>
       
     </div>
   
@@ -517,8 +682,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Deep_Learning_Memo</div>
-      <div>https://xiyuanyang-code.github.io/posts/Deep-Learning-Memo/</div>
+      <div>Algorithm-BinaryTree</div>
+      <div>https://xiyuanyang-code.github.io/posts/Algorithm-BinaryTree/</div>
     </div>
     <div class="license-meta">
       
@@ -530,13 +695,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>March 10, 2025</div>
+          <div>March 12, 2025</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 11, 2025</div>
+          <div>March 13, 2025</div>
         </div>
       
       
@@ -567,18 +732,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/Algorithm-BinaryTree/" title="Algorithm-BinaryTree">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Algorithm-BinaryTree</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/Taking-Notes/" title="Taking-Notes">
-                        <span class="hidden-mobile">Taking-Notes</span>
+                      <a href="/posts/Deep-Learning-Memo/" title="Deep_Learning_Memo">
+                        <span class="hidden-mobile">Deep_Learning_Memo</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -680,6 +839,21 @@
 
   
 
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
 
 
 
