@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/mit6006.png">
 <meta property="article:published_time" content="2025-03-12T14:11:28.000Z">
-<meta property="article:modified_time" content="2025-03-12T16:44:15.644Z">
+<meta property="article:modified_time" content="2025-03-13T08:38:10.981Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -289,7 +289,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          306 words
+          618 words
         
       </span>
     
@@ -553,15 +553,15 @@ graph TD;
 </code>
 </pre>
 
-<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Assume we have discussed <strong>Sequene Data Structure</strong> and <strong>Set Data Structure</strong>. Different data structures have different advantages as well as disadvantages.(Linked List and Array, etc) We hope to design a data structure with lower time complexity!</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Assume we have discussed <strong>Sequence Data Structure</strong> and <strong>Set Data Structure</strong>. Different data structures have different advantages as well as disadvantages.(Linked List and Array, etc) We hope to design a data structure with lower time complexity!</p>
 <p>What’s the sacirfices? Maybe the <strong>container and space</strong>.</p>
 <p><img src="https://s1.imagehub.cc/images/2025/03/13/4f0fb70e1a0c00421731e9deba50d90b.png" srcset="/img/loading.gif" lazyload alt="Time complexity"></p>
-<p>We just ignore the basic definition of binary tree! You can go through this blog: <code>TBD</code>.</p>
+<p>We just ignore the basic definition of binary tree! You can go through this blog: <a href="https://xiyuanyang-code.github.io/posts/DataStructure-Tree-Binary-Tree/">Binary Tree</a>.</p>
 <p>Thus a node in binary tree needs to store three pointers: <strong>parent node, left-child node and right-child node</strong>.</p>
 <h2 id="Definitions-and-Terminology"><a href="#Definitions-and-Terminology" class="headerlink" title="Definitions and Terminology"></a>Definitions and Terminology</h2><ul>
 <li>Subtree<ul>
 <li>We can give the recursive definition of binary tree.</li>
-<li>subtree of <code>x</code> is <code>x</code> and its <strong>descendants</strong>. (x to be the root)</li>
+<li>subtree of $x$ is $x$ and its <strong>descendants</strong>. (x to be the root)</li>
 </ul>
 </li>
 <li>root node, leafs</li>
@@ -575,13 +575,17 @@ graph TD;
 </ul>
 </li>
 </ul>
-<p><strong>We first ensure all operations shown above is O(h)</strong>, where h is the height of the root node. We will then prove that <code>O(h)</code> is equinumerous to <code>O(logn)</code>.</p>
+<p><strong>We first ensure all operations shown above is O(h)</strong>, where h is the height of the root node. We will then try to ensure that $O(h)$ is equinumerous to $O(logn)$ by AVL Tree.</p>
 <h2 id="Traversal-Order-of-Nodes"><a href="#Traversal-Order-of-Nodes" class="headerlink" title="Traversal Order of Nodes"></a>Traversal Order of Nodes</h2><p>The basic sequence of traversal order: <strong>left-root-right</strong>.</p>
 <p>Algorithm:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">iterate(node):<br>	iterate(node.left)<br>	node<br>	iterate(node.right)<br></code></pre></td></tr></table></figure>
 
 <p><strong>The traversal order provides a way to deal with a sequential list of data</strong> by binary tree.</p>
 <h2 id="Operations"><a href="#Operations" class="headerlink" title="Operations"></a>Operations</h2><h3 id="Traversal-Operations"><a href="#Traversal-Operations" class="headerlink" title="Traversal Operations"></a>Traversal Operations</h3><h4 id="subtree-first-node"><a href="#subtree-first-node" class="headerlink" title="subtree_first(node)"></a><code>subtree_first(node)</code></h4><p>Given a subtree (of its node), which comes first in traversal order?</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">while</span>(node.left != <span class="hljs-literal">nullptr</span>)&#123;<br>	node = node.left;<br>&#125;<br><span class="hljs-keyword">return</span> node;<br></code></pre></td></tr></table></figure>
+
+
+
 <ul>
 <li>Go left as much as possible!</li>
 <li>When the current node is <strong>leaf node</strong> or simply has no left node, just <strong>undo</strong> to the previous layer.<ul>
@@ -590,12 +594,17 @@ graph TD;
 </li>
 </ul>
 <p>Of course, you can define <code>subtree_last(node)</code>.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">while</span>(node.right != <span class="hljs-literal">nullptr</span>)&#123;<br>	node = node.right;<br>&#125;<br><span class="hljs-keyword">return</span> node;<br></code></pre></td></tr></table></figure>
+
 <h4 id="successor-node"><a href="#successor-node" class="headerlink" title="successor(node)"></a><code>successor(node)</code></h4><p>Return the next node after the given node in tree’s traversal order.</p>
 <p>Firstly, check whether the right node of this node is empty. If no, then <strong>go to its right node and traverse the new subtree formed by its right node</strong>, which means return the node of <code>subtree_first(node.right)</code>.</p>
 <p>If yes, we need to ensure whether its parent node has been traversed. If this node is the left child of its parent node, then just go to the parent node followed by traversal orders. However, if it is the right child of its parent node, we just need to go upper to the parent node of its parent node, <strong>until the current node is the left child of its parent node</strong>!</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">if</span>(node.right == <span class="hljs-literal">nullptr</span>)&#123;<br>	<span class="hljs-comment">//the right child is empty</span><br>	<span class="hljs-keyword">while</span>(node.parent != <span class="hljs-literal">nullptr</span> &amp;&amp; node != node.parent.left)&#123;<br>		node = node.parent;<br>	&#125;<br>    <span class="hljs-keyword">if</span>(node.parent == <span class="hljs-literal">nullptr</span>)&#123;<br>        <span class="hljs-comment">//means that this is the last node of the tarversal order</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>       <span class="hljs-keyword">return</span> node; <br>    &#125;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">subtree_first</span>(node.right);<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">if</span>(node.right == <span class="hljs-literal">nullptr</span>)&#123;<br>	<span class="hljs-comment">//the right child is empty</span><br>	<span class="hljs-keyword">while</span>(node.parent != <span class="hljs-literal">nullptr</span> &amp;&amp; node != node.parent.left)&#123;<br>		node = node.parent;<br>	&#125;<br>    <span class="hljs-keyword">return</span> node.parent;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">subtree_first</span>(node.right);<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>These operations above just takes <code>O(h)</code>, where h is the height of the tree. You just need to check at most one single node in the same layer.</p>
+<p>These operations above just takes $O(h)$, where h is the height of the tree. You just need to check at most one single node in the same layer.</p>
+<p>We can also define the <code>predecessor()</code> function to get the previous node similarly.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">if</span>(node.left != <span class="hljs-literal">nullptr</span>)&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">subtree_last</span>(node.left);<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-keyword">while</span>(node.parent != <span class="hljs-literal">nullptr</span> &amp;&amp; node.parent.right != node)&#123;<br>        node = node.parent;<br>    &#125;<br>    <span class="hljs-keyword">return</span> node.parent;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+
 <h3 id="Insert-and-delete"><a href="#Insert-and-delete" class="headerlink" title="Insert and delete"></a>Insert and delete</h3><h4 id="subtree-insert-after-node-new"><a href="#subtree-insert-after-node-new" class="headerlink" title="subtree_insert_after(node, new)"></a><code>subtree_insert_after(node, new)</code></h4><p>Insert the new node <code>new</code> through the traversal order, enabling it to be right before <code>node</code> in the tree.</p>
 <ul>
 <li>If there is no <strong>right child</strong>: put <code>new</code> there!<ul>
@@ -624,12 +633,96 @@ graph TD;
 </ul>
 </li>
 </ul>
-<p>For example, if you want to find an element in the tree, it’s just <strong>like the binary search</strong>!</p>
-<p>For we let the Binary search tree to be sorted strictly by value: <code>node.left.value</code> &lt; <code>node.value</code> &lt; <code>node.right.value</code>. We can implement the time complexity of <code>O(h)</code>!</p>
+<p>For example, if you want to find an element in the tree, it’s just <strong>like the binary search</strong>! (If is bigger than the target, than go right. Else, go left)</p>
+<p>For we let the Binary search tree to be sorted strictly by value: <code>node.left.value</code> &lt; <code>node.value</code> &lt; <code>node.right.value</code>. This property of Binary Search Tree (BST) is the key of implementing the time complexity of $O(h)$!</p>
 <blockquote>
 <p>We can also implement <code>find_next()</code> and <code>find_pre()</code>.</p>
 </blockquote>
-<h1 id="Part2-AVL-Tree"><a href="#Part2-AVL-Tree" class="headerlink" title="Part2 AVL Tree"></a>Part2 AVL Tree</h1>
+<p>We have implemented that the time complexity of Binary tree is  $O(h)$. Now, think of the question, what is the relation between tree’s height <code>h</code> and the number of nodes <code>n</code>?</p>
+<ul>
+<li>Case 1: This tree is a full binary tree, which means all nodes are saturated (except for the leaf nodes on the bottom layer). In this case, $n$ is strictly $2^h-1$.</li>
+<li>Case 2: <strong>A singly linked list</strong> is a degenerate binary tree, where the height $h$ of the tree equals the number of nodes $n$.</li>
+</ul>
+<p>Thus, we have</p>
+<p>$$2^h-1 \ge n \ge h$$</p>
+
+<pre>
+<code class="mermaid" >
+
+graph TD;
+    A[1]
+    B[2]
+    C[3]
+    D[4]
+    E[5]
+    F[6]
+    G[7]
+
+    A --> B
+    A --> C
+    B --> D
+    B --> E
+    C --> F
+    C --> G
+
+</code>
+</pre>
+
+
+<pre>
+<code class="mermaid" >
+
+graph TD;
+    A[1]
+    B[2]
+    C[3]
+    D[4]
+    E[5]
+
+    A --> B
+    A --> null1[null]
+    B --> C
+    B --> null2[null]
+    C --> D
+    C --> null3[null]
+    D --> E
+    D --> null4[null]
+    E --> null5[null]
+    E --> null6[null]
+
+</code>
+</pre>
+
+<h2 id="subtree-at-node-i"><a href="#subtree-at-node-i" class="headerlink" title="subtree_at(node, i)"></a><code>subtree_at(node, i)</code></h2><p><code>subtree_at(node, i)</code> requires a node and the index i (0-based), asking to find the ith node in the subtree of <code>node</code>.</p>
+<p>We first assume we have already known the <code>size(node)</code> function which can return the number of nodes in the <code>node</code>‘s subtree. Then we can implement this algorithm.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">int</span> nL = <span class="hljs-built_in">size</span>(node.left);<br><span class="hljs-comment">//this is the index of node in the subtree</span><br><span class="hljs-keyword">if</span>(i &lt; nL)&#123;<br>    <span class="hljs-comment">//find the node recursively!</span><br>    <span class="hljs-comment">//for it&#x27;s in the left tree, thus the index of the subtree of node and the index in the subtree of node.right is equal.</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">subtree_at</span>(node.left,i);<br>&#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(i == nL)&#123;<br>    <span class="hljs-keyword">return</span> node;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-comment">//i &gt; nL</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">subtree_at</span>(node.right, i-nL<span class="hljs-number">-1</span>);<br>    <span class="hljs-comment">//i - nL -1 is the new index in the subtree of node.right. </span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="Subtree-augmentation"><a href="#Subtree-augmentation" class="headerlink" title="Subtree augmentation"></a>Subtree augmentation</h3><ul>
+<li>each node can store $O(1)$ extra fields&#x2F;properties.</li>
+<li><code>node.size = node.left.size + node.right.size + 1</code></li>
+<li><strong>Subtree property (node)</strong> can be computed from properties of node’s children (and node) in $O(1)$ time.</li>
+</ul>
+<p>However, if you don’t have any information, computing the size of a subtree achieves $O(n)$ time complexity. (You just need to go through all nodes recursively!) So we <strong>need to sacrefice the space</strong>: for every node, we have a private member called <code>node.size</code>. Then we should update this variable no matter what operations are.</p>
+<p><strong>For insertion and deletion</strong>, we ultimately add a leaf node in the tree. We need to modify all nodes that are ancestors of the added node. It;s also $O(h)$ time complexity.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">while</span>(node != <span class="hljs-literal">nullptr</span>)&#123;<br>	node.size ++;<br>    node = node.parent;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="Subtree-properties"><a href="#Subtree-properties" class="headerlink" title="Subtree properties"></a>Subtree properties</h3><ul>
+<li>sum, product, min, max of some features of every node in subtree.</li>
+<li><strong>index</strong> in the traversal order is not the properties that need to be maintained because modifications may change all node’s indexes.</li>
+</ul>
+<h1 id="Part2-AVL-Tree"><a href="#Part2-AVL-Tree" class="headerlink" title="Part2: AVL Tree"></a>Part2: AVL Tree</h1><p>We now need to <strong>bound $h$ to $log(n)$</strong>!</p>
+<p><strong>Definitions</strong>: Balanced Binary Tree is a tree that enjoys $h&#x3D;log(n)$.</p>
+<p>A more strict definition: We define the <code>skew</code> of the node:</p>
+<p>$$\left | height(node.left)-height(node.right) \right |\le 1 $$</p>
+<h2 id="Rotation"><a href="#Rotation" class="headerlink" title="Rotation"></a>Rotation</h2><p>We want to modify the tree in a way that doesn’t <strong>modify it in traversal order</strong>. That is rotation, including <strong>right rotation and left rotation</strong>.</p>
+<p><img src="https://s1.imagehub.cc/images/2025/03/13/843efdc5dd2b9de11c4b4cbe5d5b83a0.png" srcset="/img/loading.gif" lazyload alt="rotate"></p>
+<p>During the process shown above, we can get to manipulate the tree from an unbalanced tree into a <strong>balanced</strong> tree.</p>
+<h3 id="Balanced-Tree"><a href="#Balanced-Tree" class="headerlink" title="Balanced Tree"></a>Balanced Tree</h3><p><strong>All balanced Trees have a logarithmic time complexity.</strong></p>
+<p>We consider the worst balanced tree, which all nodes of the left subtree has the height of h-2, while all nodes of the right subtree has the height of h-1.(The total height, including the root node, is h).</p>
+<p>Then we suppose $N_{h}$ is <strong>the number of nodes in this tree</strong> (height of the tree is h), Then we can solve this case using a recursive equation:</p>
+<p>$$N_{h} &#x3D; N_{h-1} + N_{h -2} + 1$$</p>
+<p>Then is the boring math… We can just skip that part and we can prove that <strong>All balanced Trees have a logarithmic time complexity.</strong></p>
+
                 
               </div>
             
@@ -840,6 +933,12 @@ graph TD;
   
 
 
+  
+  
+
+
+
+
 
   <script>
   Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
@@ -1045,6 +1144,49 @@ graph TD;
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/js/leancloud.js" ></script>
 
