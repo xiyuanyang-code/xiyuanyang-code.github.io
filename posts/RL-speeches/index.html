@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/RL.jpg">
 <meta property="article:published_time" content="2025-03-14T09:30:15.000Z">
-<meta property="article:modified_time" content="2025-03-16T04:10:55.979Z">
+<meta property="article:modified_time" content="2025-03-17T16:19:42.471Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta property="article:tag" content="Deep Learning">
@@ -287,7 +287,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          400 words
+          443 words
         
       </span>
     
@@ -493,16 +493,32 @@
 </ul>
 
     <div class="fold">
-      <div class="fold-title fold-info collapsed" data-toggle="collapse" href="#collapse-f36d8e32" role="button" aria-expanded="false" aria-controls="collapse-f36d8e32">
+      <div class="fold-title fold-info collapsed" data-toggle="collapse" href="#collapse-541ac937" role="button" aria-expanded="false" aria-controls="collapse-541ac937">
         <div class="fold-arrow">▶</div>TBD
       </div>
-      <div class="fold-collapse collapse" id="collapse-f36d8e32">
+      <div class="fold-collapse collapse" id="collapse-541ac937">
         <div class="fold-content">
-          <ul><li>数据是交互出来的</li><li>每个数据具有“强化”和“弱化”的规定</li></ul><h3 id="强化学习的历史"><a href="#强化学习的历史" class="headerlink" title="强化学习的历史"></a>强化学习的历史</h3><ul><li><p>从游戏AI到强化学习</p></li><li><p>强化学习 + 深度神经网络</p></li><li><p>模仿学习</p><ul><li>数据并非由策略本身交互出来的</li><li>本质上还是<strong>大数据量</strong>的有监督学习拟合</li><li><strong>学习的关键是和环境的交互</strong>！</li><li>Offline RL 是专家数据集的交互，与传统神经网络的拟合存在差异</li></ul></li><li><p><strong>Reward is all you need</strong></p></li></ul><p>定义好奖励函数是交互的关键。</p><p><strong>Next-token prediction</strong>: 如果大语言模型的本质还是监督学习，那模型如何实现<strong>推理能力的提升</strong>？如今Pre-training已经陷入瓶颈。强化学习是构建推理模型的有效方法之一，<strong>但RL is all you need</strong>.</p><h3 id="强化学习和LLMs"><a href="#强化学习和LLMs" class="headerlink" title="强化学习和LLMs"></a>强化学习和LLMs</h3><ul><li>Prompt Engineering</li><li>传统的API调用的问题？prompt的描述过于笨重，计算代价很高<ul><li>Agent的API调用 without having API descriptions</li><li><strong>使用强化学习的必要性</strong></li></ul></li></ul><h1 id="David-Silver"><a href="#David-Silver" class="headerlink" title="David Silver"></a><a target="_blank" rel="noopener" href="https://www.semanticscholar.org/author/David-Silver/145824029">David Silver</a></h1><ul><li><p>The Bitter Lessons</p><ul><li><strong>瞄准方向很重要</strong></li></ul></li></ul>
+          <ul><li>数据是交互出来的</li><li>每个数据具有“强化”和“弱化”的规定</li></ul><p>强化学习的历史</p><ul><li><p>从游戏AI到强化学习</p></li><li><p>强化学习 + 深度神经网络</p></li><li><p>模仿学习</p><ul><li>数据并非由策略本身交互出来的</li><li>本质上还是<strong>大数据量</strong>的有监督学习拟合</li><li><strong>学习的关键是和环境的交互</strong>！</li><li>Offline RL 是专家数据集的交互，与传统神经网络的拟合存在差异</li></ul></li><li><p><strong>Reward is all you need</strong></p></li></ul><p>定义好奖励函数是交互的关键。</p><p><strong>Next-token prediction</strong>: 如果大语言模型的本质还是监督学习，那模型如何实现<strong>推理能力的提升</strong>？如今Pre-training已经陷入瓶颈。强化学习是构建推理模型的有效方法之一，<strong>但RL is all you need</strong>.</p><p>强化学习和<strong>LLMs</strong></p><ul><li><p>Prompt Engineering</p></li><li><p>传统的API调用的问题？prompt的描述过于笨重，计算代价很高</p><ul><li>Agent的API调用 without having API descriptions</li><li><strong>使用强化学习的必要性</strong></li></ul></li><li><p>The Bitter Lessons</p><ul><li><strong>瞄准方向很重要</strong></li></ul></li></ul>
         </div>
       </div>
     </div>
 
+<h2 id="Lecture-3-Classics-The-Bitter-Lesson"><a href="#Lecture-3-Classics-The-Bitter-Lesson" class="headerlink" title="Lecture_3: Classics: The Bitter Lesson"></a>Lecture_3: Classics: The Bitter Lesson</h2><div class="note note-primary">
+            <p>The “bitter lesson” originates from a classic 2019 article by AI pioneer Rich Sutton titled “The Bitter Lesson.” By examining the detours artificial intelligence has taken over the past few decades, he presents a core argument: for AI to achieve long-term improvement, leveraging powerful computational resources is paramount. <strong>This computational power inherently implies the use of vast amounts of training data and large models</strong>.</p>
+          </div>
+
+<p><strong>The biggest lesson that can be read from 70 years of AI research is that general methods that leverage computation are ultimately the most effective, and by a large margin.</strong></p>
+<p>The only thing that matters in the long run is <strong>the leveraging of computations</strong>. Researchers’ initial effort was directed towards utilizing human understanding (so that less search was needed) and only much later was much greater success had by <strong>embracing search and learning</strong>.</p>
+<p>(The initial state of <strong>Scaling Law</strong>?)</p>
+<p>The bitter lesson is based on the historical observations that 1) AI researchers have often tried to build knowledge into their agents, 2) this always helps in the short term, and is personally satisfying to the researcher, but 3) in the long run it plateaus and even inhibits further progress, and 4) <strong>breakthrough progress eventually arrives by an opposing approach based on scaling computation by search and learning</strong>. The eventual success is tinged with bitterness, and often incompletely digested, because it is success over a favored, human-centric approach.</p>
+<div class="note note-info">
+            <p>My own <strong>inspections</strong> of this passage:</p><p>TBD</p>
+          </div>
+
+<h2 id="Speech-4-Jason-Wei-Scaling-Paradigms-for-Large-Language-Models"><a href="#Speech-4-Jason-Wei-Scaling-Paradigms-for-Large-Language-Models" class="headerlink" title="Speech_4: Jason Wei: Scaling Paradigms for Large Language Models"></a>Speech_4: Jason Wei: Scaling Paradigms for Large Language Models</h2><p>The original video on Youtube is <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=yhpjpNXJDco">here</a>.<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Jason's sp](https://www.youtube.com/watch?v=yhpjpNXJDco)">[1]</span></a></sup></p>
+<h3 id="Paradigm-Scaling-RL-on-chain-of-thought"><a href="#Paradigm-Scaling-RL-on-chain-of-thought" class="headerlink" title="Paradigm: Scaling RL on chain-of-thought"></a>Paradigm: Scaling RL on chain-of-thought</h3><p><img src="https://s1.imagehub.cc/images/2025/03/18/abb2f17809f5f030ff81e0dc42218401.png" srcset="/img/loading.gif" lazyload alt="AI fu"></p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=yhpjpNXJDco">Jason’s sp</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -570,7 +586,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 16, 2025</div>
+          <div>March 18, 2025</div>
         </div>
       
       
@@ -600,6 +616,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/posts/DataStructure-Stack-Queue-Advanced/" title="DataStructure-Stack-Queue-Advanced">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">DataStructure-Stack-Queue-Advanced</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
