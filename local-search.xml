@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>Algorithm-Memo</title>
+    <link href="/posts/Algorithm-Memo/"/>
+    <url>/posts/Algorithm-Memo/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>Algorithm</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>tutorial</tag>
+      
+      <tag>C/C++</tag>
+      
+      <tag>Data Structure</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>DataStructure-Stack-Queue-Advanced</title>
     <link href="/posts/DataStructure-Stack-Queue-Advanced/"/>
     <url>/posts/DataStructure-Stack-Queue-Advanced/</url>
@@ -11,6 +40,30 @@
     <content type="html"><![CDATA[]]></content>
     
     
+    <categories>
+      
+      <category>Algorithm</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>tutorial</tag>
+      
+      <tag>C/C++</tag>
+      
+      <tag>Queue</tag>
+      
+      <tag>Data Structure</tag>
+      
+      <tag>Stack</tag>
+      
+      <tag>BFS/DFS</tag>
+      
+      <tag>Increasing stack</tag>
+      
+    </tags>
     
   </entry>
   
