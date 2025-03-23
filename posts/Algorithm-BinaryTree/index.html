@@ -28,10 +28,11 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/mit6006.png">
 <meta property="article:published_time" content="2025-03-12T14:11:28.000Z">
-<meta property="article:modified_time" content="2025-03-15T17:29:01.243Z">
+<meta property="article:modified_time" content="2025-03-23T03:41:01.794Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="Finished">
 <meta property="article:tag" content="Data Structure">
 <meta property="article:tag" content="Tree">
 <meta property="article:tag" content="Binary Tree">
@@ -289,7 +290,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          627 words
+          837 words
         
       </span>
     
@@ -728,6 +729,40 @@ graph TD;
 <p>Then we suppose $N_{h}$ is <strong>the number of nodes in this tree</strong> (height of the tree is h), Then we can solve this case using a recursive equation:</p>
 <p>$$N_{h} &#x3D; N_{h-1} + N_{h -2} + 1$$</p>
 <p>Then is the boring math… We can just skip that part and we can prove that <strong>All balanced Trees have a logarithmic time complexity.</strong></p>
+<h3 id="Height-and-the-unbalanced…"><a href="#Height-and-the-unbalanced…" class="headerlink" title="Height and the unbalanced…"></a>Height and the unbalanced…</h3><p>Consider the lowest <strong>unbalanced node</strong> $x$. We want to build a balanced tree where all nodes enjoys the property of $\left | height(node.left)-height(node.right) \right |\le 1 $ or we can say $ height(node.left)-height(node.right) \in { 1,0,-1 }$.</p>
+<p>Now we know the node $x$ doesn’t enjoy the property above. Moreover, due to it is the lowest unbalanced node, the <strong>out of range</strong> situation will only be $-2$ or $2$.</p>
+<p>Hence, we have properties below: $$height(node.left)-height(node.right) \in {2 , -2  }$$</p>
+<p>Without the loss of generality, we just assume that $height(node.left)-height(node.right) &#x3D; 2$! </p>
+
+<pre>
+<code class="mermaid" >
+
+graph TD
+    A((A)) --> B((B))
+    A --> C((C))
+    B --> D((D))
+    B --> E((E))
+    D --> F((F))
+    D --> G((G))
+
+</code>
+</pre>
+
+<p>Then we suppose the left child of node $x$ is $y$. Then we have three subtrees, where they are: <strong>the right subtree</strong> of node $x$ and the left and the right subtree of node $y$. If we assume $x.right.height &#x3D; k-1$, then $x.left.height &#x3D; k+1$ and $x.height &#x3D; max(x.left.height, x.right.height) + 1 &#x3D; k+2 $. And for the subtree of $x.left$, there are three possibilities:</p>
+<ul>
+<li>$x.left.left.height &#x3D;x.left.right.height + 1 &#x3D; k +1$: Then we can just rotate the node $y$ into the balanced tree!</li>
+<li>$x.left.left.height &#x3D;x.left.right.height  &#x3D; k +1$: The situation is just the same!</li>
+<li>$x.left.left.height + 1 &#x3D;x.left.right.height &#x3D; k +1$</li>
+</ul>
+<p>For the first two questions, you can see the demo shown below:</p>
+<p><img src="https://s1.imagehub.cc/images/2025/03/22/ce857b9d3497c8092f71e2d5a1ef990c.png" srcset="/img/loading.gif" lazyload alt="Rotation"></p>
+<p><strong>For case 3</strong>, it’s a little bit harder! We can just see this picture shown previously:</p>
+<p><img src="https://s1.imagehub.cc/images/2025/03/13/843efdc5dd2b9de11c4b4cbe5d5b83a0.png" srcset="/img/loading.gif" lazyload alt="rotate"></p>
+<p>In this case, we will operate <strong>two operations</strong> totally. Firstly, we will right rotate the node $39$ (Just like the operations in the other two cases). Secondly, we will left rotate the node $47$, and it will become a balances tree!</p>
+<h3 id="If-you-want-to-memorize-this"><a href="#If-you-want-to-memorize-this" class="headerlink" title="If you want to memorize this:"></a>If you want to memorize this:</h3><p>Video Clip: <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV11N4y1x7od/">AVL balanced Tree</a></p>
+<p><img src="https://s1.imagehub.cc/images/2025/03/23/4c704b275bd511867ed2934d22a7134f.png" srcset="/img/loading.gif" lazyload alt="Memorization"></p>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>In the first section, we talk about the basis of <strong>Binary Tree</strong>, regarding several operations like <strong>delete and insert a node</strong> and <strong>the traversal order of the binary tree</strong>. Why we need to do this, because the special storage of binary tree ensures all operations is within the time limit of $O(h)$, and the <strong>sequence of traversal</strong> ensures the relations of <strong>a sequential list</strong> and a binary tree. (For the set structure, we have BST)</p>
+<p>In the second part, we need to ensure $O(h) \equiv O(logn)$.If we don’t do anything, there are some bad situations (like the <strong>singly linked list</strong>) where $O(h)&#x3D;O(n)$. To avoid this situation, we need to <strong>rotate the binary tree to a balanced tree</strong> to make the $O(h) \equiv O(logn)$ is true without <strong>changing the traversal order of the binary tree</strong>.</p>
 
                 
               </div>
@@ -765,6 +800,8 @@ graph TD;
       
         <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
       
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
         <a href="/tags/Data-Structure/" class="print-no-link">#Data Structure</a>
       
         <a href="/tags/Tree/" class="print-no-link">#Tree</a>
@@ -800,7 +837,7 @@ graph TD;
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 16, 2025</div>
+          <div>March 23, 2025</div>
         </div>
       
       
