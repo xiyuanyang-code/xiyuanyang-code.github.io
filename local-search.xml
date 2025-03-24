@@ -4,35 +4,6 @@
   
   
   <entry>
-    <title>Math-Multivariable-Calculus</title>
-    <link href="/posts/Math-Multivariable-Calculus/"/>
-    <url>/posts/Math-Multivariable-Calculus/</url>
-    
-    <content type="html"><![CDATA[<h1 id="Multivariable-Calculus"><a href="#Multivariable-Calculus" class="headerlink" title="Multivariable-Calculus"></a>Multivariable-Calculus</h1><p>From Mathematical Analysis II (<strong>SJTU MATH1608H-02</strong>)</p><h2 id="LaTeX-Memo"><a href="#LaTeX-Memo" class="headerlink" title="LaTeX Memo"></a>LaTeX Memo</h2><p>You can go to this website!</p><p><a href="https://cny123222.github.io/2025/03/20/Latex%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7%E5%A4%87%E5%BF%98%E5%BD%95/">LaTex Memo from Nuoyan Chen’s Blog</a>.</p><h2 id="Chapter-10-Differential-Calculus-of-Multivariable-Functions"><a href="#Chapter-10-Differential-Calculus-of-Multivariable-Functions" class="headerlink" title="Chapter 10 Differential Calculus of Multivariable Functions"></a>Chapter 10 Differential Calculus of Multivariable Functions</h2><h3 id="10-1-偏导数和全微分"><a href="#10-1-偏导数和全微分" class="headerlink" title="10.1 偏导数和全微分"></a>10.1 偏导数和全微分</h3><h4 id="10-1-1-偏导数"><a href="#10-1-1-偏导数" class="headerlink" title="10.1.1 偏导数"></a>10.1.1 偏导数</h4><ul><li>定义求法 &amp; 导数公式的求法</li></ul><h4 id="10-1-2-全微分"><a href="#10-1-2-全微分" class="headerlink" title="10.1.2 全微分"></a>10.1.2 全微分</h4><h5 id="Thm-全微分公式"><a href="#Thm-全微分公式" class="headerlink" title="Thm 全微分公式"></a>Thm 全微分公式</h5><p>$$\mathrm{d}f(x,y)&#x3D;f_x(x,y)\mathrm{d}x+f_y(x,y)\mathrm{d}y$$</p><ul><li>判断可微除了判断可偏导，还需要<strong>验证无穷小量</strong></li></ul><h4 id="10-1-3-向量值函数的偏导数和全微分"><a href="#10-1-3-向量值函数的偏导数和全微分" class="headerlink" title="10.1.3 向量值函数的偏导数和全微分"></a>10.1.3 向量值函数的偏导数和全微分</h4><ul><li>Jacobi 矩阵 ($m \times n$): $m$是$\vec{f}$的维度，$n$是$\vec{x}$的维度</li></ul><p>$$\mathbf{J}&#x3D;\left[\begin{array}{ccc}<br>\frac{\partial \mathbf{f}}{\partial x_{1}} &amp; \cdots &amp; \frac{\partial \mathbf{f}}{\partial x_{n}}<br>\end{array}\right]&#x3D;\left[\begin{array}{ccc}<br>\frac{\partial f_{1}}{\partial x_{1}} &amp; \cdots &amp; \frac{\partial f_{1}}{\partial x_{n}} \<br>\vdots &amp; \ddots &amp; \vdots \<br>\frac{\partial f_{m}}{\partial x_{1}} &amp; \cdots &amp; \frac{\partial f_{m}}{\partial x_{n}}<br>\end{array}\right]$$</p><h4 id="10-1-4-方向导数"><a href="#10-1-4-方向导数" class="headerlink" title="10.1.4 方向导数"></a>10.1.4 方向导数</h4><h5 id="Def-方向导数"><a href="#Def-方向导数" class="headerlink" title="Def 方向导数"></a>Def 方向导数</h5><p>$$\lim_{t \to 0}\frac{f(x_0+t\cos\alpha,y_0+t\cos\beta)-f(x_0,y_0)}{t}$$</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>Maths</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>tutorial</tag>
-      
-      <tag>Multivariable-Calculus</tag>
-      
-      <tag>Memo</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>DataStructure-Set</title>
     <link href="/posts/DataStructure-Set/"/>
     <url>/posts/DataStructure-Set/</url>
