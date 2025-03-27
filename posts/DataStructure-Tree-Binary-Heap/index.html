@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/binaryheap.jpg">
 <meta property="article:published_time" content="2025-03-23T16:11:34.000Z">
-<meta property="article:modified_time" content="2025-03-23T16:24:46.227Z">
+<meta property="article:modified_time" content="2025-03-27T06:06:13.363Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -329,7 +329,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          30 words
+          73 words
         
       </span>
     
@@ -619,6 +619,19 @@
 <li><code> find_max()</code>: return max_key item.</li>
 </ul>
 <p>Queue is a Linear List, but if I want to place different priorities into different elements, we need to use <strong>Priority Queue</strong> implemented by Tree!</p>
+<p><img src="https://s1.imagehub.cc/images/2025/03/27/e5276b2fe19a07a43d885bf4eb68f9d1.png" srcset="/img/loading.gif" lazyload alt="Heap Sort"></p>
+<p>For dynamic array, <code>insert</code> is max but <code>delete_max()</code> is too slow ($O(n)$)! However, in <strong>Sorted Dynamic Array</strong>, it is just the opposite. It’s a tradeoff for inserting and deleting if you stick to the sequential data structure. However, we can use <strong>Set AVL</strong> for getting both operations $O(\log n)$ time complexity!</p>
+<blockquote>
+<p><strong>In place</strong> means when sorting, the data structure doesn’t need extra space (or $O(1)$ time complexity) to finish sorting. AVL set is very complex, where we need extra space to do several rotations in order to get the sorting.</p>
+</blockquote>
+<h2 id="Priority-Queue-Sort"><a href="#Priority-Queue-Sort" class="headerlink" title="Priority Queue Sort"></a>Priority Queue Sort</h2><p>Time complexity $O(n\log n)$.</p>
+<ul>
+<li>insert $x$ for $x$ in array (A) (<code>build(A)</code>)</li>
+<li>using <code>delete_max</code> until the pq is empty.</li>
+<li>Then we get sorted for using the Priority Queue Sort.</li>
+</ul>
+<h2 id="Arrays-as-a-Complete-Binary-Tree"><a href="#Arrays-as-a-Complete-Binary-Tree" class="headerlink" title="Arrays as a Complete Binary Tree"></a>Arrays as a Complete Binary Tree</h2><p>Consider the <strong>complete binary tree</strong>, there is a bijection (one to one correspondence) between this binarytree and an array traversed by a sequential order.</p>
+<p><img src="https://s1.imagehub.cc/images/2025/03/27/41df4ffab183b2adf0062c6d2473af1b.png" srcset="/img/loading.gif" lazyload alt="Arrays as a complete binary tree"></p>
 
                 
               </div>
@@ -691,7 +704,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 24, 2025</div>
+          <div>March 27, 2025</div>
         </div>
       
       

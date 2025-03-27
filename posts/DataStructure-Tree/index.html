@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/trees.png">
 <meta property="article:published_time" content="2025-02-06T12:57:06.000Z">
-<meta property="article:modified_time" content="2025-03-27T00:46:59.057Z">
+<meta property="article:modified_time" content="2025-03-27T05:57:00.266Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -329,7 +329,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k words
+          3k words
         
       </span>
     
@@ -864,7 +864,34 @@ C --> I[Grandson2_2]
 <p>请务必在学习完<strong>二叉树</strong>的基本知识之后再来学习本章。</p>
 </blockquote>
 <h3 id="广义树的存储实现"><a href="#广义树的存储实现" class="headerlink" title="广义树的存储实现"></a>广义树的存储实现</h3><p>在二叉树中，<strong>孩子的个数和种类</strong>是具有严格规定的，只有左儿子和右儿子并且需要严格区分。但是对于<strong>一般的树而言</strong>，孩子的数目是不固定的，节点可以有很多个子节点，也可以没有子节点。因此，此时采用二叉树的<strong>广义存储</strong>结构会显得非常赘余，因为节点的儿子数可以动态改变。因此，我们需要探寻一种新的<strong>可以存储广义树</strong>的节点存储方式。下面介绍<strong>孩子链表示法</strong>和<strong>孩子兄弟表示法</strong>，以及其对应的<strong>遍历顺序</strong>。</p>
-<h3 id="森林"><a href="#森林" class="headerlink" title="森林"></a>森林</h3><h2 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h2><p>这篇文章<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Applications of tree data structure - GeeksforGeeks](https://www.geeksforgeeks.org/applications-of-tree-data-structure/)">[1]</span></a></sup>详细的介绍了树形结构的相关应用，总结一下就是：</p>
+<h4 id="孩子链表示法"><a href="#孩子链表示法" class="headerlink" title="孩子链表示法"></a>孩子链表示法</h4><p>我们从<strong>块状链表</strong>的思想优化广义树的存储实现。因此，可以把<strong>每个结点的所有孩子组织成一个链表</strong>，结点的设置可以优化为：</p>
+<ul>
+<li>储存数据的<code>data</code></li>
+<li>指向孩子链的指针</li>
+</ul>
+<p>如果我们把树的所有节点全部放进一个数组中，这个就是<strong>广义树的静态存储</strong>。也可以组织成一个链表（那就是块状链表），那就是动态的孩子链表。此外，我们也可以在表头数组中额外添加一个存储父节点位置的字段，称为<strong>带双亲的孩子链表示法</strong>。</p>
+<h4 id="孩子兄弟链表示法"><a href="#孩子兄弟链表示法" class="headerlink" title="孩子兄弟链表示法"></a>孩子兄弟链表示法</h4><p>在孩子链表示法中，我们在本质上只是使用<strong>数组存储每一个结点</strong>，但优化了有关<strong>孩子</strong>的存储。我们可以换一种思路，使用二叉树来表示广义树：</p>
+<ul>
+<li>左指针指向孩子链表</li>
+<li>右指针指向兄弟链表</li>
+</ul>
+<p>这样的存储让<strong>树的结构更加的清晰</strong>，让不同层级（高度）的结点可以快速找到子节点。同时，其与二叉树的联结更加紧密，树本质上还是二叉树的形态。</p>
+<p><img src="https://s1.imagehub.cc/images/2025/03/27/e27083f15c650ddc99e3aafbdcb4f686.png" srcset="/img/loading.gif" lazyload alt="child and brothers"></p>
+<h4 id="双亲表示法"><a href="#双亲表示法" class="headerlink" title="双亲表示法"></a>双亲表示法</h4><p>一个爸爸可以有很多儿子，但是<strong>一个儿子只能有一个爸爸！</strong>在双亲表示法中，我们只需要储存<strong>对应节点的父亲节点</strong>即可成功建树。使用双亲表示法能够快速上升到根节点，但是无法下降到叶子结点。</p>
+<h3 id="森林"><a href="#森林" class="headerlink" title="森林"></a>森林</h3><p><strong>Definition</strong>：树的集合 &amp; 树的序列</p>
+<blockquote>
+<p>在哈夫曼算法中，对于集合中的数不断<strong>归并</strong>的过程也可以算作是森林的归并形式！</p>
+</blockquote>
+<p>因此，对于森林，我们考虑<strong>将森林转化成一整颗二叉树</strong>的过程：</p>
+<ul>
+<li>将每棵树转换成对应的二叉树，得到二叉树的集合。（使用孩子兄弟链的表示）</li>
+<li>将$B_i$作为$B_{i-1}$作为根节点的右节点，使数不断延伸。</li>
+</ul>
+<blockquote>
+<p>为什么需要这样做？这与<strong>孩子兄弟链</strong>表示法有关，在孩子兄弟链的生成过程中，<strong>根节点</strong>没有兄弟，因此<strong>根节点</strong>的右节点始终为空。我们可以使用这个位置的空缺来连接上新的二叉树，实现二叉树对森林高效存储。</p>
+</blockquote>
+<p>如果需要从二叉树反解码成森林，我们可以从根节点开始<strong>不断移动到右子节点</strong>并且不断拆分成每一棵子树。</p>
+<h2 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h2><p>这篇文章<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Applications of tree data structure - GeeksforGeeks](https://www.geeksforgeeks.org/applications-of-tree-data-structure/)">[1]</span></a></sup>详细的介绍了树形结构的相关应用，总结一下就是：</p>
 <p>树的主要用途和应用场景包括：</p>
 <ol>
 <li><strong>存储层次化数据</strong>：如文件系统、DOM模型、DNS系统等，这些数据天然具有层次结构。</li>
