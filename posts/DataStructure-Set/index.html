@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/set.jpg">
 <meta property="article:published_time" content="2025-03-23T16:21:54.000Z">
-<meta property="article:modified_time" content="2025-03-25T01:06:35.214Z">
+<meta property="article:modified_time" content="2025-03-29T14:08:49.487Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -329,7 +329,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          16 words
+          255 words
         
       </span>
     
@@ -390,7 +390,7 @@
         aria-expanded="true"
       >
         Algorithm
-        <span class="list-group-count">(21)</span>
+        <span class="list-group-count">(23)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -591,6 +591,24 @@
         </a>
       
     
+      
+      
+        <a href="/posts/DataStructure-Tree-Binary-Search-Tree-AVL-Tree/" title="DataStructure-Tree-Binary-Search-Tree-AVL-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Tree-Binary-Search-Tree-AVL-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Algorithm-Sorting/" title="Algorithm-Sorting"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-Sorting</span>
+        </a>
+      
+    
   </div>
 
         
@@ -622,7 +640,35 @@
 
 <h1 id="Data-Structure-Set"><a href="#Data-Structure-Set" class="headerlink" title="Data Structure: Set"></a>Data Structure: Set</h1><p>Lecture notes for MIT6.006 Lec8 <strong>Set and Sorting</strong>.</p>
 <p>In this Lecture, we will implement a simple interface, <strong>set</strong>.</p>
-<h2 id="Set-Interface"><a href="#Set-Interface" class="headerlink" title="Set Interface"></a>Set Interface</h2>
+<h2 id="Set-Interface"><a href="#Set-Interface" class="headerlink" title="Set Interface"></a>Set Interface</h2><p>Remember Data Structure is an <strong>interface</strong>, don’t do some dumb jobs… All you need to do is understanding the first principle of several data structures through practicing it.</p>
+<p><img src="https://s1.imagehub.cc/images/2025/03/29/564afb3d8029f1273d4ee1f1ff07b471.png" srcset="/img/loading.gif" lazyload alt="Set interface"></p>
+<p>If you use simply an array, it will cost $O(n)$ time！</p>
+<h1 id="Data-Structure-Set-1"><a href="#Data-Structure-Set-1" class="headerlink" title="Data Structure Set"></a>Data Structure Set</h1><p>Lecture Notes from SJTU DS</p>
+<h2 id="集合的定义"><a href="#集合的定义" class="headerlink" title="集合的定义"></a>集合的定义</h2><p>集合包含两个部分：<strong>键值</strong>和<strong>关键字值</strong>。</p>
+<h2 id="静态查找表"><a href="#静态查找表" class="headerlink" title="静态查找表"></a>静态查找表</h2><p>问题的定义：给定一个集合，需要查找关键字$X$对应的元素是否存在。</p>
+<p>从最基本的顺序查找（$O(n)$）到对于有序集合的<strong>二分查找</strong>($O(\log n)$），还可以进一步优化为<strong>插值查找</strong>，对于数据均匀分布的情况，可以进一步优化时间复杂度：</p>
+<p>$$pos &#x3D; low + \left\lfloor \frac{(high - low) \cdot (target - arr[low])}{arr[high] - arr[low]} \right\rfloor$$</p>
+<p>使用<strong>分块查找</strong>也可以进一步优化（详见分块思想）</p>
+<h3 id="STL-中的静态查找表"><a href="#STL-中的静态查找表" class="headerlink" title="STL 中的静态查找表"></a>STL 中的静态查找表</h3><ul>
+<li><p><code>find()</code>：</p>
+<ul>
+<li><strong>模版参数</strong><ul>
+<li>迭代器类型</li>
+<li>集合元素的类型</li>
+</ul>
+</li>
+<li><strong>形式参数</strong><ul>
+<li>两个迭代器对象（左闭右开）</li>
+<li>需要查找的对象值</li>
+</ul>
+</li>
+<li>返回一个迭代器</li>
+</ul>
+</li>
+<li><p><code>binary_search()</code>：使用二分查找的方式查找一个有序序列，返回是否存在</p>
+</li>
+</ul>
+
                 
               </div>
             
@@ -694,7 +740,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 25, 2025</div>
+          <div>March 29, 2025</div>
         </div>
       
       

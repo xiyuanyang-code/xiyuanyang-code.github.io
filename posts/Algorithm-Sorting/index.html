@@ -19,30 +19,29 @@
   <meta name="author" content="Xiyuan Yang">
   <meta name="keywords" content="Code">
   
-    <meta name="description" content="This blog introduces a new update plan. I will share the mistakes I made while solving LeetCode algorithm problems, along with reposting correct solutions and my organized notes.">
+    <meta name="description" content="Several classic and efficient sorting algorithms written in C++.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode-Mistake-Collection">
-<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Leetcode-Mistake-collection/index.html">
+<meta property="og:title" content="Algorithm-Sorting">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Algorithm-Sorting/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
-<meta property="og:description" content="This blog introduces a new update plan. I will share the mistakes I made while solving LeetCode algorithm problems, along with reposting correct solutions and my organized notes.">
+<meta property="og:description" content="Several classic and efficient sorting algorithms written in C++.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Leetcode.png">
-<meta property="article:published_time" content="2024-12-09T12:06:17.000Z">
-<meta property="article:modified_time" content="2025-02-17T11:46:06.785Z">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/sort.png">
+<meta property="article:published_time" content="2025-03-29T14:09:03.000Z">
+<meta property="article:modified_time" content="2025-03-29T14:33:17.963Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="C&#x2F;C++">
-<meta property="article:tag" content="Announcement">
-<meta property="article:tag" content="Finished">
-<meta property="article:tag" content="Leetcode notes">
-<meta property="article:tag" content="algorithm">
+<meta property="article:tag" content="Sorting Algorithms">
+<meta property="article:tag" content="Merge Sort">
+<meta property="article:tag" content="Quick Sort">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/Leetcode.png">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/sort.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Leetcode-Mistake-Collection - Xiyuan Yang&#39;s Blog</title>
+  <title>Algorithm-Sorting - Xiyuan Yang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -301,7 +300,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Leetcode-Mistake-Collection"></span>
+            <span id="subtitle" data-typed-text="Algorithm-Sorting"></span>
           
         </div>
 
@@ -317,8 +316,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-12-09 20:06" pubdate>
-          December 9, 2024 pm
+        <time datetime="2025-03-29 22:09" pubdate>
+          March 29, 2025 pm
         </time>
       </span>
     
@@ -329,7 +328,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          810 words
+          434 words
         
       </span>
     
@@ -424,7 +423,7 @@
       
         <a href="/posts/Leetcode-Mistake-collection/" title="Leetcode-Mistake-Collection"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">Leetcode-Mistake-Collection</span>
         </a>
       
@@ -604,7 +603,7 @@
       
         <a href="/posts/Algorithm-Sorting/" title="Algorithm-Sorting"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">Algorithm-Sorting</span>
         </a>
       
@@ -627,82 +626,18 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Leetcode-Mistake-Collection</h1>
+            <h1 id="seo-header">Algorithm-Sorting</h1>
             
             
               <div class="markdown-body">
                 
-                <style>
-  html, body, .markdown-body {
-    font-family: Georgia, sans, serif;
-  }
-</style>
+                <h1 id="Sorting-Algorithms"><a href="#Sorting-Algorithms" class="headerlink" title="Sorting Algorithms"></a>Sorting Algorithms</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>Sorting</strong> is of great importance when learning algorithms for beginners! This blog shows the basic principles of several sorting algorithms and its implementation of C++.</p>
+<h2 id="Merge-Sort"><a href="#Merge-Sort" class="headerlink" title="Merge Sort"></a>Merge Sort</h2><h2 id="Quick-Sort"><a href="#Quick-Sort" class="headerlink" title="Quick Sort"></a>Quick Sort</h2><h2 id="Heap-Sort"><a href="#Heap-Sort" class="headerlink" title="Heap Sort"></a>Heap Sort</h2><p>The basic principle of <strong>Heap sort</strong> is from the data structure: <strong>Heap</strong>, where all nodes (or elements) are formed in order (ascending or descending). Heap maintain this properties, so every time you pop out the top element in the heap (or priority queue), it must be the biggest or the smallest element with highest priority in the queue.</p>
+<p>For more information, you can search <a href="https://xiyuanyang-code.github.io/posts/DataStructure-Tree-Binary-Heap/">Binary Heap</a></p>
+<p>We can use several ways to construct a heap (Binary heap, leftist heap, skew heap, binomial heap), the code demonstrated below shows the basic implementation of <strong>Binary Heap</strong>:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstdlib&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;ctime&gt;</span></span><br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">priorityQueue</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">size_t</span> currentsize;<br>    T* array;<br>    <span class="hljs-type">size_t</span> maxsize;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">doublespace</span><span class="hljs-params">()</span> </span>&#123;<br>        T* tmp = array;<br>        maxsize *= <span class="hljs-number">2</span>;<br>        array = <span class="hljs-keyword">new</span> T[maxsize];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">size_t</span> i = <span class="hljs-number">0</span>; i &lt;= currentsize; ++i) &#123;<br>            array[i] = tmp[i];<br>        &#125;<br>        <span class="hljs-keyword">delete</span>[] tmp;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">buildheap</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">size_t</span> i = currentsize / <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">1</span>; --i) &#123;<br>            <span class="hljs-built_in">percolateDown</span>(i);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">percolateDown</span><span class="hljs-params">(<span class="hljs-type">size_t</span> hole)</span> </span>&#123;<br>        <span class="hljs-type">size_t</span> child = <span class="hljs-number">0</span>;<br>        T tmp = array[hole];<br><br>        <span class="hljs-keyword">while</span> (hole * <span class="hljs-number">2</span> &lt;= currentsize) &#123;<br>            child = hole * <span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span> (child &lt; currentsize &amp;&amp; array[child + <span class="hljs-number">1</span>] &lt; array[child]) &#123;<br>                ++child;<br>            &#125;<br><br>            <span class="hljs-keyword">if</span> (array[child] &lt; tmp) &#123;<br>                array[hole] = array[child];<br>                hole = child;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>        array[hole] = tmp;<br>    &#125;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">priorityQueue</span>(<span class="hljs-type">size_t</span> capacity = <span class="hljs-number">100</span>) : <span class="hljs-built_in">currentsize</span>(<span class="hljs-number">0</span>), <span class="hljs-built_in">maxsize</span>(capacity) &#123;<br>        array = <span class="hljs-keyword">new</span> T[maxsize];<br>    &#125;<br><br>    ~<span class="hljs-built_in">priorityQueue</span>() &#123;<br>        <span class="hljs-keyword">delete</span>[] array;<br>    &#125;<br><br>    <span class="hljs-built_in">priorityQueue</span>(<span class="hljs-type">const</span> T* data, <span class="hljs-type">size_t</span> size) : <span class="hljs-built_in">currentsize</span>(size), <span class="hljs-built_in">maxsize</span>(size + <span class="hljs-number">10</span>) &#123;<br>        array = <span class="hljs-keyword">new</span> T[maxsize];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">size_t</span> i = <span class="hljs-number">0</span>; i &lt; size; ++i) &#123;<br>            array[i + <span class="hljs-number">1</span>] = data[i];<br>        &#125;<br>        <span class="hljs-built_in">buildheap</span>();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">empty</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> currentsize == <span class="hljs-number">0</span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">enQueue</span><span class="hljs-params">(<span class="hljs-type">const</span> T&amp; x)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (currentsize == maxsize - <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-built_in">doublespace</span>();<br>        &#125;<br><br>        <span class="hljs-type">size_t</span> hole = ++currentsize;<br>        <span class="hljs-keyword">while</span> (hole &gt; <span class="hljs-number">1</span> &amp;&amp; x &lt; array[hole / <span class="hljs-number">2</span>]) &#123;<br>            array[hole] = array[hole / <span class="hljs-number">2</span>];<br>            hole /= <span class="hljs-number">2</span>;<br>        &#125;<br>        array[hole] = x;<br>    &#125;<br><br>    <span class="hljs-function">T <span class="hljs-title">deQueue</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">empty</span>()) &#123;<br>            <span class="hljs-keyword">throw</span> std::<span class="hljs-built_in">underflow_error</span>(<span class="hljs-string">&quot;Priority queue is empty&quot;</span>);<br>        &#125;<br><br>        T minItem = array[<span class="hljs-number">1</span>];<br>        array[<span class="hljs-number">1</span>] = array[currentsize--];<br>        <span class="hljs-built_in">percolateDown</span>(<span class="hljs-number">1</span>);<br>        <span class="hljs-keyword">return</span> minItem;<br>    &#125;<br><br>    <span class="hljs-function">T <span class="hljs-title">getHead</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">empty</span>()) &#123;<br>            <span class="hljs-keyword">throw</span> std::<span class="hljs-built_in">underflow_error</span>(<span class="hljs-string">&quot;Priority queue is empty&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> array[<span class="hljs-number">1</span>];<br>    &#125;<br>&#125;;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">pqsort</span><span class="hljs-params">(T* unsorted, T* sorted, <span class="hljs-type">size_t</span> size)</span> </span>&#123;<br>    <span class="hljs-function">priorityQueue&lt;T&gt; <span class="hljs-title">pq</span><span class="hljs-params">(unsorted, size)</span></span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">size_t</span> i = <span class="hljs-number">0</span>; i &lt; size; ++i) &#123;<br>        sorted[i] = pq.<span class="hljs-built_in">deQueue</span>();<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">heapSort</span><span class="hljs-params">(T*&amp; arr, <span class="hljs-type">size_t</span> size)</span> </span>&#123;<br>    <span class="hljs-comment">//default for ascending order</span><br>    <span class="hljs-function">priorityQueue&lt;T&gt; <span class="hljs-title">pq</span><span class="hljs-params">(arr, size)</span></span>;<br>    T* sorted = <span class="hljs-keyword">new</span> T [size];<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">size_t</span> i = <span class="hljs-number">0</span>; i &lt; size; ++i) &#123;<br>        sorted[i] = pq.<span class="hljs-built_in">deQueue</span>();<br>    &#125;<br>    <span class="hljs-keyword">delete</span>[] arr;<br>    arr = sorted;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> size = <span class="hljs-number">50</span>;<br>    <span class="hljs-type">int</span> *arr = <span class="hljs-keyword">new</span> <span class="hljs-type">int</span> [size];<br>    <br>    <span class="hljs-comment">//using the random seed</span><br>    std::<span class="hljs-built_in">srand</span>(<span class="hljs-built_in">static_cast</span>&lt;<span class="hljs-type">int</span>&gt;(std::<span class="hljs-built_in">time</span>(<span class="hljs-literal">nullptr</span>)));<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)&#123;<br>        arr[i] = std::<span class="hljs-built_in">rand</span>();<br>    &#125;<br><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Before the sort&quot;</span> &lt;&lt; std::endl;<br><br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)&#123;<br>        std::cout &lt;&lt; arr[i] &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-built_in">heapSort</span>(arr, size);<br><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;After the sort&quot;</span> &lt;&lt; std::endl;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; size; ++i)&#123;<br>        std::cout &lt;&lt; arr[i] &lt;&lt; std::endl;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h1 id="Leetcode-Mistake-collection"><a href="#Leetcode-Mistake-collection" class="headerlink" title="Leetcode-Mistake-collection"></a>Leetcode-Mistake-collection</h1><p>笔者又来开新坑啦！</p>
-<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>在笔者刚刚步入大一时（也就是这学期），仗着自己暑假为数不多的C语言语法存货，觉得学校C++的课程进度有些落后，便在网上寻寻觅觅，想通过<strong>刷题</strong>的方式提升自己的代码水平。</p>
-<p>当在网上搜索“新手小白刷编程题什么网站上最好”，十有八九跳出来的都是<strong>Leetcode</strong>。确实，<a target="_blank" rel="noopener" href="https://leetcode.cn/">Leetcode</a>可以算作是数一数二优秀的编程训练网站了，各种界面设计也很符合我的审美。（就像他自己说的，<strong>全球极客挚爱的技术成长平台</strong>）。但是，对于当时习惯于把所有代码全部放进一个臃肿的<code>main</code>函数的我来说，Leetcode犹如一座高不可攀的山峰，好不容易弄懂了什么叫<strong>函数封装</strong>，竭尽全力也没办法做出 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">第一道题</a>。🤡</p>
-<p>之后在看 <a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_hello_algo/">Hello 算法</a>的时候在序言看到了一段感同身受的话：</p>
-<blockquote>
-<p>两眼一抹黑地刷题似乎是最受欢迎的方法，简单、直接且有效。然而刷题就如同玩“扫雷”游戏，自学能力强的人能够顺利将地雷逐个排掉，而基础不足的人很可能被炸得满头是包，并在挫折中步步退缩。通读教材也是一种常见做法，但对于面向求职的人来说，毕业论文、投递简历、准备笔试和面试已经消耗了大部分精力，啃厚重的书往往变成了一项艰巨的挑战。</p>
-</blockquote>
-<p>回想自己Leetcode的刷题之旅，真的是<strong>痛并快乐着</strong>，痛在算法题冷酷无情，将你所有的bug暴露无遗，根本不给你侥幸的机会，快乐在钻研一道题后终于看见<strong>超过了100%的人</strong>，快乐在从一开始的举步维艰，到逐渐能够尝试黄色中档题，再到得心应手，心平气和。</p>
-<p><strong>因此，我在此开坑，将自己过去，现在以及将来在Leetcode上所做的好题，错题，看到的优秀题解以及我自己整理一些笔记等等整理成博客的形式，一篇博客五道题，希望以此留作纪念，并能够给有相同志向的小伙伴们一点鼓励和指引。</strong></p>
-<h2 id="内容（实时更新）"><a href="#内容（实时更新）" class="headerlink" title="内容（实时更新）"></a>内容（实时更新）</h2><h3 id="第一学期（主要以语法题和最基本的算法题为主）"><a href="#第一学期（主要以语法题和最基本的算法题为主）" class="headerlink" title="第一学期（主要以语法题和最基本的算法题为主）"></a>第一学期（主要以语法题和最基本的算法题为主）</h3><ul>
-<li>基本语法题<ul>
-<li>数组、引用和指针的相关操作</li>
-<li>OOP</li>
-<li>STL入门</li>
-</ul>
-</li>
-<li>基本算法入门<ul>
-<li>排序算法</li>
-<li>分治算法</li>
-<li>回溯算法和递归算法</li>
-<li>动态规划</li>
-<li>贪心算法</li>
-</ul>
-</li>
-</ul>
-<h3 id="第二学期（重点：数据结构）"><a href="#第二学期（重点：数据结构）" class="headerlink" title="第二学期（重点：数据结构）"></a>第二学期（重点：数据结构）</h3><p>（期待一波来年开春的疯狂更新~）</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/u/affectionate-hamiltonyhv/">我的Leetcode主页</a></p>
-<p><a target="_blank" rel="noopener" href="https://leetcode.cn/">Leetcode</a></p>
-<p><a target="_blank" rel="noopener" href="https://books.halfrost.com/leetcode/">Leetcode Cookbook</a></p>
-<hr>
-<blockquote>
-<p>English Version</p>
-</blockquote>
-<h1 id="Starting-a-New-Adventure-Again"><a href="#Starting-a-New-Adventure-Again" class="headerlink" title="Starting a New Adventure Again!"></a>Starting a New Adventure Again!</h1><h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>When I first started university (this semester), armed with my limited knowledge of C language syntax from a short summer learning stint, I felt the pace of my C++ course at school was a bit slow. So, I searched online for ways to improve my coding skills through <strong>problem-solving practice</strong>.</p>
-<p>When looking up “best websites for beginners to practice coding,” <strong>LeetCode</strong> popped up in most results. Indeed, <a target="_blank" rel="noopener" href="https://leetcode.cn/">LeetCode</a> is one of the best programming training platforms, and its interface design aligns perfectly with my aesthetic (as they call themselves, <strong>“The beloved tech growth platform for geeks worldwide”</strong>). However, for someone like me who used to put all the code into one bloated <code>main</code> function, LeetCode seemed like an insurmountable mountain. After finally understanding what <strong>function encapsulation</strong> was, I still couldn’t manage to solve <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">the first problem</a>. 🤡</p>
-<p>While reading <a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_hello_algo/">Hello Algorithm</a>, I came across a sentiment in the preface that resonated deeply with me:</p>
-<blockquote>
-<p>Diving blindly into problem-solving is perhaps the most popular method—it’s simple, direct, and effective. However, it’s like playing a “Minesweeper” game: self-learners with a strong foundation can defuse the mines one by one, while those lacking fundamentals might get blown up and retreat in frustration. Reading textbooks is another common approach, but for job seekers, writing theses, submitting resumes, and preparing for tests and interviews consume most of their energy, making heavy textbooks a daunting challenge.</p>
-</blockquote>
-<p>Looking back on my LeetCode journey, it truly has been a mix of <strong>pain and joy</strong>. The pain lies in the ruthless nature of algorithm problems, exposing all your bugs without mercy, leaving no room for luck. The joy comes from finally solving a problem and seeing <strong>“outperformed 100% of users”</strong>, from struggling with initial problems to tackling mid-level yellow questions, and eventually solving problems calmly and confidently.</p>
-<p><strong>That’s why I’m starting this series—to document the good problems, mistakes, excellent solutions, and notes from my past, present, and future LeetCode journey in the form of blog posts. Each post will include five problems, serving as a record and hopefully providing encouragement and guidance to like-minded peers.</strong></p>
-<hr>
-<h2 id="Content-Updated-in-Real-Time"><a href="#Content-Updated-in-Real-Time" class="headerlink" title="Content (Updated in Real-Time)"></a>Content (Updated in Real-Time)</h2><h3 id="First-Semester-Primarily-syntax-and-basic-algorithm-problems"><a href="#First-Semester-Primarily-syntax-and-basic-algorithm-problems" class="headerlink" title="First Semester (Primarily syntax and basic algorithm problems)"></a>First Semester (Primarily syntax and basic algorithm problems)</h3><ul>
-<li><strong>Basic Syntax Problems</strong><ul>
-<li>Array, reference, and pointer operations</li>
-<li>OOP (Object-Oriented Programming)</li>
-<li>Intro to STL (Standard Template Library)</li>
-</ul>
-</li>
-<li><strong>Basic Algorithms</strong><ul>
-<li>Sorting algorithms</li>
-<li>Divide-and-conquer</li>
-<li>Backtracking and recursion</li>
-<li>Dynamic programming</li>
-<li>Greedy algorithms</li>
-</ul>
-</li>
-</ul>
-<h3 id="Second-Semester-Focus-Data-Structures"><a href="#Second-Semester-Focus-Data-Structures" class="headerlink" title="Second Semester (Focus: Data Structures)"></a>Second Semester (Focus: Data Structures)</h3><p><em>(Looking forward to some crazy updates next spring!)</em></p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/u/affectionate-hamiltonyhv/">My LeetCode Profile</a></li>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/">LeetCode</a></li>
-<li><a target="_blank" rel="noopener" href="https://books.halfrost.com/leetcode/">LeetCode Cookbook</a></li>
-</ul>
-
+<h2 id="Counting-Sort"><a href="#Counting-Sort" class="headerlink" title="Counting Sort"></a>Counting Sort</h2>
                 
               </div>
             
@@ -737,13 +672,11 @@
       
         <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
       
-        <a href="/tags/Announcement/" class="print-no-link">#Announcement</a>
+        <a href="/tags/Sorting-Algorithms/" class="print-no-link">#Sorting Algorithms</a>
       
-        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+        <a href="/tags/Merge-Sort/" class="print-no-link">#Merge Sort</a>
       
-        <a href="/tags/Leetcode-notes/" class="print-no-link">#Leetcode notes</a>
-      
-        <a href="/tags/algorithm/" class="print-no-link">#algorithm</a>
+        <a href="/tags/Quick-Sort/" class="print-no-link">#Quick Sort</a>
       
     </div>
   
@@ -755,8 +688,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Leetcode-Mistake-Collection</div>
-      <div>https://xiyuanyang-code.github.io/posts/Leetcode-Mistake-collection/</div>
+      <div>Algorithm-Sorting</div>
+      <div>https://xiyuanyang-code.github.io/posts/Algorithm-Sorting/</div>
     </div>
     <div class="license-meta">
       
@@ -768,13 +701,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>December 9, 2024</div>
+          <div>March 29, 2025</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>February 17, 2025</div>
+          <div>March 29, 2025</div>
         </div>
       
       
@@ -805,18 +738,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/Leetcode-Mistake-collection-1-10/" title="Leetcode-Mistake-Collection-1-10">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Leetcode-Mistake-Collection-1-10</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/Class-Inheritance/" title="Class-Inheritance">
-                        <span class="hidden-mobile">Class-Inheritance</span>
+                      <a href="/posts/DataStructure-Tree-Binary-Search-Tree-AVL-Tree/" title="DataStructure-Tree-Binary-Search-Tree-AVL-Tree">
+                        <span class="hidden-mobile">DataStructure-Tree-Binary-Search-Tree-AVL-Tree</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
