@@ -4,6 +4,68 @@
   
   
   <entry>
+    <title>Blog-Update-Fetching-Script</title>
+    <link href="/posts/Blog-Update-Fetching-Script/"/>
+    <url>/posts/Blog-Update-Fetching-Script/</url>
+    
+    <content type="html"><![CDATA[<style>  html, body, .markdown-body {    font-family: Georgia, sans, serif;  }</style><h1 id="Blog-Update-Fetching-Script"><a href="#Blog-Update-Fetching-Script" class="headerlink" title="Blog Update Fetching Script"></a>Blog Update Fetching Script</h1><p>Github repo: <a href="https://github.com/xiyuanyang-code/Blog-Update-Fetching-Script">My repo</a></p><h1 id="Blog-Update-Fetching-Script-1"><a href="#Blog-Update-Fetching-Script-1" class="headerlink" title="Blog Update Fetching Script"></a>Blog Update Fetching Script</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>This is an automation script I implemented in the Hexo blog update to automatically fetch blog updates, compare them with previous update statuses, and allow users to manually determine the update status of unfinished and newly added blogs, thus obtaining the new blog update status.</p><h2 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h2><p>Due to the strict formatting requirements of the automation script for the text, please make sure to complete the following modifications before use!</p><h3 id="Modify-to-your-blog-directory"><a href="#Modify-to-your-blog-directory" class="headerlink" title="Modify to your blog directory"></a>Modify to your blog directory</h3><p>In <code>main.sh</code>, change the directory into your own directory:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">DIR=<span class="hljs-string">&quot;/mnt/d/Blog/source/_posts&quot;</span><br><br><span class="hljs-comment"># Change this line into your own directory!</span><br></code></pre></td></tr></table></figure><h3 id="Create-a-new-directory"><a href="#Create-a-new-directory" class="headerlink" title="Create a new directory"></a>Create a new directory</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> <span class="hljs-built_in">log</span><br></code></pre></td></tr></table></figure><h3 id="Initialize-prev-txt"><a href="#Initialize-prev-txt" class="headerlink" title="Initialize prev.txt"></a>Initialize <code>prev.txt</code></h3><p>You need to initialize <code>prev.txt</code> for your own blog!</p><p>For this document, please maintain the following format: Each line should include a prefix status emoji and the title name. The prefix status emojis include ✅ and ❌, indicating the completion status of the blog. </p><p>An example text is as follows:  </p><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs mathematica">❌<span class="hljs-variable">AI</span><span class="hljs-operator">-</span><span class="hljs-variable">Paper</span><span class="hljs-operator">-</span><span class="hljs-number">2024</span><br>❌<span class="hljs-variable">AI</span><span class="hljs-operator">-</span><span class="hljs-variable">indepth</span><span class="hljs-operator">-</span><span class="hljs-variable">reading</span><span class="hljs-operator">-</span><span class="hljs-variable">AlexNet</span><br>✅<span class="hljs-built_in">Above</span><span class="hljs-operator">-</span><span class="hljs-built_in">All</span><br>❌<span class="hljs-variable">Algorithm</span><span class="hljs-operator">-</span><span class="hljs-variable">BFS</span><span class="hljs-operator">-</span><span class="hljs-variable">DFS</span><br>✅<span class="hljs-variable">Algorithm</span><span class="hljs-operator">-</span><span class="hljs-variable">BinaryTree</span><br>❌<span class="hljs-variable">Algorithm</span><span class="hljs-operator">-</span><span class="hljs-variable">Chunking</span><br>✅<span class="hljs-variable">Algorithm</span><span class="hljs-operator">-</span><span class="hljs-variable">Introduction</span><br>✅<span class="hljs-variable">Algorithm</span><span class="hljs-operator">-</span><span class="hljs-variable">Memo</span><br>✅<span class="hljs-variable">Algorithm</span><span class="hljs-operator">-</span><span class="hljs-variable">Sorting</span><br>✅<span class="hljs-variable">Bash</span><span class="hljs-operator">-</span><span class="hljs-variable">commands</span><br>✅<span class="hljs-variable">Bash</span><span class="hljs-operator">-</span><span class="hljs-variable">exercises</span><br>✅<span class="hljs-built_in">C</span><span class="hljs-operator">-</span><span class="hljs-variable">plus</span><span class="hljs-operator">-</span><span class="hljs-variable">plus</span><span class="hljs-operator">-</span><span class="hljs-variable">Primer</span><span class="hljs-operator">-</span><span class="hljs-built_in">Plus</span><span class="hljs-operator">-</span><span class="hljs-variable">tutorial</span><br>✅<span class="hljs-variable">CMake</span><span class="hljs-operator">-</span><span class="hljs-variable">tutorial</span><span class="hljs-operator">-</span><span class="hljs-variable">episode2</span><br>✅<span class="hljs-variable">CMake</span><span class="hljs-operator">-</span><span class="hljs-variable">tutorial1</span><br>✅<span class="hljs-variable">CS294</span><span class="hljs-operator">-</span><span class="hljs-number">1</span><span class="hljs-operator">-</span><span class="hljs-variable">LLM</span><span class="hljs-operator">-</span><span class="hljs-variable">Reasoning</span><br></code></pre></td></tr></table></figure><p>Please ensure that your output structure maintains alphabetical order. You can use the following command line to achieve this: </p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> <span class="hljs-variable">$DIR</span> | grep -v <span class="hljs-string">&quot;.*\.md&quot;</span> | grep -v <span class="hljs-string">&quot;.*\.sh&quot;</span> &gt; ans.txt<br></code></pre></td></tr></table></figure><p>You only need to initialize it once! The scripts will update it later.</p><h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>For <strong>Hexo</strong> Blog users, the directory which stores your Blog posts may be like as follows:</p><ul><li>Several <code>.md</code> files</li><li>Several directories which has the same name with <code>.md</code> files</li></ul><p>The <code>main.sh</code> will automatically get all file names using the <code>grep</code> command:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> <span class="hljs-variable">$DIR</span> | grep -v <span class="hljs-string">&quot;.*\.md&quot;</span> | grep -v <span class="hljs-string">&quot;.*\.sh&quot;</span> &gt; ans.txt<br></code></pre></td></tr></table></figure><blockquote><p><code>grep -v &quot;.*\.sh&quot;</code> is because I add several <code>.sh</code> files into it. You can modify it with your own needs.</p></blockquote><p>Then, the file will compare the new status with the previous status stored in the <code>prev.txt</code>. Then the file will ask users to manually determine the update status of unfinished and newly added blogs.</p><p>The output log looks as follows:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">Getting updated.<br>Checking the file exists<br>File Exists<br>Getting ready <span class="hljs-keyword">for</span> updated.<br>Blog <span class="hljs-string">&#x27;AI-Paper-2024&#x27;</span> finished? (y/n): n<br>Blog <span class="hljs-string">&#x27;AI-indepth-reading-AlexNet&#x27;</span> finished? (y/n): n<br>Blog <span class="hljs-string">&#x27;Algorithm-BFS-DFS&#x27;</span> finished? (y/n): n<br>Blog <span class="hljs-string">&#x27;Algorithm-Chunking&#x27;</span> finished? (y/n): n<br>Blog <span class="hljs-string">&#x27;CS294-3-Autogen&#x27;</span> finished? (y/n): n<br>New Blog <span class="hljs-string">&#x27;DataStructure-Fenwick-Tree-Sparse-Table&#x27;</span> finished? (y/n): n<br>Blog <span class="hljs-string">&#x27;DataStructure-Tree-Binary-Search-Tree-AVL-Tree&#x27;</span> finished? (y/n): n<br>Blog <span class="hljs-string">&#x27;Python-tutorial&#x27;</span> finished? (y/n): n<br>Blog <span class="hljs-string">&#x27;Python-visualization&#x27;</span> finished? (y/n): n<br>Blog <span class="hljs-string">&#x27;RAG-tutorial&#x27;</span> finished? (y/n): n<br>Blog <span class="hljs-string">&#x27;Taking-Notes&#x27;</span> finished? (y/n): n<br>Blog <span class="hljs-string">&#x27;Tools-Tutorial&#x27;</span> finished? (y/n): n<br>Update successfully into <span class="hljs-built_in">log</span>/20250330_200559.txt<br>Overwrite to prev.txt successfully, Done!<br>Be productive!<br></code></pre></td></tr></table></figure><p>Finally, the scripts will update <code>prev.txt</code> and generate a new blog status named <code>20250330_200559.txt</code> and you can see the updated status there!</p><p>Demo:</p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs stata">❌AI-Paper-2024<br>❌AI-indepth-reading-AlexNet<br>✅Above-All<br>❌Algorithm-BFS-DFS<br>✅Algorithm-BinaryTree<br>❌Algorithm-Chunking<br>✅Algorithm-Introduction<br>✅Algorithm-Memo<br>...<br>✅RAG-Blog-Content-Retrieval<br>❌RAG-<span class="hljs-keyword">tutorial</span><br>✅RL-speeches<br>✅Regular-Expression<br>❌Taking-<span class="hljs-keyword">Notes</span><br>❌Tools-<span class="hljs-keyword">Tutorial</span><br>✅Vim-<span class="hljs-keyword">tutorial</span><br></code></pre></td></tr></table></figure><p><strong>Enjoy Coding</strong></p><h2 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h2><p>Just for fun, and just for <code>hexo</code> users.</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Project</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Finished</tag>
+      
+      <tag>Bash</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>DataStructure-Fenwick-Tree-Sparse-Table</title>
+    <link href="/posts/DataStructure-Fenwick-Tree-Sparse-Table/"/>
+    <url>/posts/DataStructure-Fenwick-Tree-Sparse-Table/</url>
+    
+    <content type="html"><![CDATA[<style>  html, body, .markdown-body {    font-family: Georgia, sans, serif;  }</style><h1 id="Fenwick-Tree-树状数组"><a href="#Fenwick-Tree-树状数组" class="headerlink" title="Fenwick Tree (树状数组)"></a>Fenwick Tree (树状数组)</h1><h1 id="Sparse-Table-ST"><a href="#Sparse-Table-ST" class="headerlink" title="Sparse Table (ST)"></a>Sparse Table (ST)</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>Algorithm</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>tutorial</tag>
+      
+      <tag>C/C++</tag>
+      
+      <tag>Data Structure</tag>
+      
+      <tag>Tree</tag>
+      
+      <tag>Fenwick Tree</tag>
+      
+      <tag>Sparse Table</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Algorithm-Sorting</title>
     <link href="/posts/Algorithm-Sorting/"/>
     <url>/posts/Algorithm-Sorting/</url>
