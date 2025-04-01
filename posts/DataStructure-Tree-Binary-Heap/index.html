@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/binaryheap.jpg">
 <meta property="article:published_time" content="2025-03-23T16:11:34.000Z">
-<meta property="article:modified_time" content="2025-03-29T12:49:39.251Z">
+<meta property="article:modified_time" content="2025-04-01T06:40:02.392Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -738,7 +738,7 @@
 </blockquote>
 <h3 id="D堆"><a href="#D堆" class="headerlink" title="D堆"></a>D堆</h3><p>延伸：每个节点有$D$个儿子。</p>
 <p>当D较大时，对于入队操作，二叉树的高度更低，因此<strong>向上过滤</strong>的速度更快（每个儿子只有一个爸爸），但是代价是对于出队操作，<strong>需要查找的节点数上升</strong>，导致<strong>向下过滤</strong>的速度变慢。并且在二叉树中，移位的操作是依靠位运算（乘2或除2）来实现的，速度较快，而如果D不是2的幂次。</p>
-<h2 id="归并优先级队列"><a href="#归并优先级队列" class="headerlink" title="归并优先级队列"></a>归并优先级队列</h2><p>使用二叉堆能够高效地实现优先级队列，但是二叉堆结构实现非常的严格，必须要同时满足<strong>完全二叉树的结构性</strong>和最大（最小）的<strong>排序性</strong>。</p>
+<p>使用二叉堆能够高效地实现优先级队列，但是二叉堆结构实现非常的严格，必须要同时满足<strong>完全二叉树的结构性</strong>和最大（最小）的<strong>排序性</strong>。</p>
 <p>如果在不考虑结构性的情况下仍然保证<strong>有序性</strong>？我们就可以产生各种各样的堆！</p>
 <p>由于<strong>不再保持完全二叉树的严格结构</strong>，我们可以生成很多很多个堆，因此此时，<strong>堆之间的合并</strong>是非常重要的操作。</p>
 <p>D堆的作用：</p>
@@ -758,7 +758,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="左堆"><a href="#左堆" class="headerlink" title="左堆"></a>左堆</h3><h4 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h4><ul>
+<h2 id="归并优先级队列"><a href="#归并优先级队列" class="headerlink" title="归并优先级队列"></a>归并优先级队列</h2><h3 id="左堆"><a href="#左堆" class="headerlink" title="左堆"></a>左堆</h3><h4 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h4><ul>
 <li><strong>空路径长度 $npl$ <strong>：x到</strong>不满两个个儿子节点的最短路径</strong>。<ul>
 <li>具有1个或0个儿子节点的<code>npl</code>为0</li>
 <li>空节点（<code>nullptr</code>）的$npl &#x3D; -1$</li>
@@ -1003,7 +1003,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 29, 2025</div>
+          <div>April 1, 2025</div>
         </div>
       
       
