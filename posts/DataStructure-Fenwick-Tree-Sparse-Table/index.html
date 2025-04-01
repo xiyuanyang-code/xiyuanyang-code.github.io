@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/fenwick.jpg">
 <meta property="article:published_time" content="2025-03-30T11:49:40.000Z">
-<meta property="article:modified_time" content="2025-04-01T03:39:26.057Z">
+<meta property="article:modified_time" content="2025-04-01T06:23:46.773Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -264,6 +264,14 @@
                   
                   <a class="dropdown-item" href="/resume/" target="_self">
                     <i class="iconfont icon-github-fill"></i>
+                    <span>Github Introduction</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
                     <span>My Github</span>
                   </a>
                 
@@ -273,6 +281,14 @@
                   <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
                     <i class="iconfont icon-copyright"></i>
                     <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
                   </a>
                 
               </div>
@@ -731,8 +747,6 @@
 <h3 id="单点修改-区间查询（模版操作）"><a href="#单点修改-区间查询（模版操作）" class="headerlink" title="单点修改 &amp; 区间查询（模版操作）"></a>单点修改 &amp; 区间查询（模版操作）</h3><p><strong>单点修改</strong>的基本思路保持不变：沿着最开始的叶节点不断向上修改祖先节点的值，最终到达最大值。</p>
 <p>在二维数组中，修改一个单点，那么对于横轴和纵轴，相当于套两层循环，并且不断的迭代，代码同理：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y, <span class="hljs-type">int</span> v)</span> </span>&#123;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = x; i &lt;= n; i += <span class="hljs-built_in">lowbit</span>(i)) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = y; j &lt;= m; j += <span class="hljs-built_in">lowbit</span>(j)) &#123;<br>      c[i][j] += v;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-
 
 <h2 id="权值树状数组"><a href="#权值树状数组" class="headerlink" title="权值树状数组"></a>权值树状数组</h2><h1 id="Sparse-Table-ST"><a href="#Sparse-Table-ST" class="headerlink" title="Sparse Table (ST)"></a>Sparse Table (ST)</h1>
                 
