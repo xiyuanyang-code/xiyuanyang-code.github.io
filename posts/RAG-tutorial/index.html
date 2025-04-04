@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/RAG.jpg">
 <meta property="article:published_time" content="2025-03-29T05:29:15.000Z">
-<meta property="article:modified_time" content="2025-03-31T03:36:11.038Z">
+<meta property="article:modified_time" content="2025-04-01T16:51:37.288Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta property="article:tag" content="Deep Learning">
@@ -344,7 +344,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          272 words
+          439 words
         
       </span>
     
@@ -405,7 +405,7 @@
         aria-expanded="true"
       >
         Artificial Intelligence
-        <span class="list-group-count">(8)</span>
+        <span class="list-group-count">(9)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -489,6 +489,15 @@
         </a>
       
     
+      
+      
+        <a href="/posts/AIBasis-Neural-Networks/" title="AIBasis_Neural_Networks"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AIBasis_Neural_Networks</span>
+        </a>
+      
+    
   </div>
 
         
@@ -553,7 +562,19 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">final_rag_chain = (<br>    &#123;<span class="hljs-string">&quot;context&quot;</span>: retrieval_chain, <span class="hljs-string">&quot;question&quot;</span>: itemgetter(<span class="hljs-string">&quot;question&quot;</span>)&#125; <br>    | prompt<br>    | llm<br>    | StrOutputParser()<br>)<br></code></pre></td></tr></table></figure>
 
 <p>We first use <code>retrieval_chain</code> defined above to get the related texts in the documents, add use the <code>itemgetter</code> to get the original problem. Then we feed these into a LLM with the predefined prompt. Finally, we use <code>StrOutputParser()</code> to get the final answer of LLM.</p>
-<h3 id="RAG-Fusions"><a href="#RAG-Fusions" class="headerlink" title="RAG Fusions"></a>RAG Fusions</h3><h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=sVcwVQRHIc8">https://www.youtube.com/watch?v=sVcwVQRHIc8</a>
+<h3 id="RAG-Fusions"><a href="#RAG-Fusions" class="headerlink" title="RAG Fusions"></a>RAG Fusions</h3><p><strong>Intuition</strong>: In Multi Query, RAG performs a crude deduplication and merging operation on the documents obtained for each subproblem, which is unreasonable because the weights corresponding to each problem are different, and the weights (similarities) of the answers obtained for each subproblem are also different. Therefore, the core idea of RAG fusion is to <strong>use a multi-retrieval fusion method based on Reciprocal Rank Fusion (RRF)</strong>, calculating the corresponding weights for each document before outputting them to obtain more reasonable results.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> langchain.load <span class="hljs-keyword">import</span> dumps, loads<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">reciprocal_rank_fusion</span>(<span class="hljs-params">results: <span class="hljs-built_in">list</span>[<span class="hljs-built_in">list</span>], k=<span class="hljs-number">60</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot; Reciprocal_rank_fusion that takes multiple lists of ranked documents </span><br><span class="hljs-string">        and an optional parameter k used in the RRF formula &quot;&quot;&quot;</span><br>    <br>    <span class="hljs-comment"># Initialize a dictionary to hold fused scores for each unique document</span><br>    fused_scores = &#123;&#125;<br><br>    <span class="hljs-comment"># Iterate through each list of ranked documents</span><br>    <span class="hljs-keyword">for</span> docs <span class="hljs-keyword">in</span> results:<br>        <span class="hljs-comment"># Iterate through each document in the list, with its rank (position in the list)</span><br>        <span class="hljs-keyword">for</span> rank, doc <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(docs):<br>            <span class="hljs-comment"># Convert the document to a string format to use as a key (assumes documents can be serialized to JSON)</span><br>            doc_str = dumps(doc)<br>            <span class="hljs-comment"># If the document is not yet in the fused_scores dictionary, add it with an initial score of 0</span><br>            <span class="hljs-keyword">if</span> doc_str <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> fused_scores:<br>                fused_scores[doc_str] = <span class="hljs-number">0</span><br>            <span class="hljs-comment"># Retrieve the current score of the document, if any</span><br>            previous_score = fused_scores[doc_str]<br>            <span class="hljs-comment"># Update the score of the document using the RRF formula: 1 / (rank + k)</span><br>            fused_scores[doc_str] += <span class="hljs-number">1</span> / (rank + k)<br><br>    <span class="hljs-comment"># Sort the documents based on their fused scores in descending order to get the final reranked results</span><br>    reranked_results = [<br>        (loads(doc), score)<br>        <span class="hljs-keyword">for</span> doc, score <span class="hljs-keyword">in</span> <span class="hljs-built_in">sorted</span>(fused_scores.items(), key=<span class="hljs-keyword">lambda</span> x: x[<span class="hljs-number">1</span>], reverse=<span class="hljs-literal">True</span>)<br>    ]<br><br>    <span class="hljs-comment"># Return the reranked results as a list of tuples, each containing the document and its fused score</span><br>    <span class="hljs-keyword">return</span> reranked_results<br><br>retrieval_chain_rag_fusion = generate_queries | retriever.<span class="hljs-built_in">map</span>() | reciprocal_rank_fusion<br>docs = retrieval_chain_rag_fusion.invoke(&#123;<span class="hljs-string">&quot;question&quot;</span>: question&#125;)<br><span class="hljs-built_in">len</span>(docs)<br></code></pre></td></tr></table></figure>
+
+<h3 id="Decomposition"><a href="#Decomposition" class="headerlink" title="Decomposition"></a>Decomposition</h3><p>Decomposition essentially uses a simpler concatenation method to hierarchically link problems together, similar to the step-by-step reasoning in Chain of Thought (CoT). It guides the model to decompose problems through prompts and, based on the solutions to previous problems, adds new retrievals on top of the previous problem’s retrievals.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> langchain.prompts <span class="hljs-keyword">import</span> ChatPromptTemplate<br><br><span class="hljs-comment"># Decomposition</span><br>template = <span class="hljs-string">&quot;&quot;&quot;You are a helpful assistant that generates multiple sub-questions related to an input question. \n</span><br><span class="hljs-string">The goal is to break down the input into a set of sub-problems / sub-questions that can be answers in isolation. \n</span><br><span class="hljs-string">Generate multiple search queries related to: &#123;question&#125; \n</span><br><span class="hljs-string">Output (3 queries):&quot;&quot;&quot;</span><br>prompt_decomposition = ChatPromptTemplate.from_template(template)<br></code></pre></td></tr></table></figure>
+
+<p>Answer recursively</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Prompt</span><br>template = <span class="hljs-string">&quot;&quot;&quot;Here is the question you need to answer:</span><br><span class="hljs-string"></span><br><span class="hljs-string">\n --- \n &#123;question&#125; \n --- \n</span><br><span class="hljs-string"></span><br><span class="hljs-string">Here is any available background question + answer pairs:</span><br><span class="hljs-string"></span><br><span class="hljs-string">\n --- \n &#123;q_a_pairs&#125; \n --- \n</span><br><span class="hljs-string"></span><br><span class="hljs-string">Here is additional context relevant to the question: </span><br><span class="hljs-string"></span><br><span class="hljs-string">\n --- \n &#123;context&#125; \n --- \n</span><br><span class="hljs-string"></span><br><span class="hljs-string">Use the above context and any background question + answer pairs to answer the question: \n &#123;question&#125;</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br>decomposition_prompt = ChatPromptTemplate.from_template(template)<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Parallel structures are suitable for parallel problems, while hierarchical structures are appropriate for reasoning problems</strong>. It is necessary to choose the appropriate RAG architecture based on different inquiries.</p>
+</blockquote>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=sVcwVQRHIc8">https://www.youtube.com/watch?v=sVcwVQRHIc8</a>
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
@@ -624,7 +645,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 31, 2025</div>
+          <div>April 2, 2025</div>
         </div>
       
       
