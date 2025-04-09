@@ -28,10 +28,11 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/autogen.jpg">
 <meta property="article:published_time" content="2025-03-07T07:08:36.000Z">
-<meta property="article:modified_time" content="2025-03-09T02:21:52.143Z">
+<meta property="article:modified_time" content="2025-04-06T04:35:40.198Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="Finished">
 <meta property="article:tag" content="Agent">
 <meta property="article:tag" content="Autogen">
 <meta name="twitter:card" content="summary_large_image">
@@ -344,7 +345,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          77 words
+          131 words
         
       </span>
     
@@ -543,6 +544,65 @@
 <p><img src="https://s1.imagehub.cc/images/2025/03/07/85e76179162461fb85698975d7750dca.png" srcset="/img/loading.gif" lazyload alt="When you help AI to build Large-scale projects..."></p>
 <p><strong>So what’s next</strong>? Enhancing the single performance won’t get too much progress compared to the increasing cost of computing resources. Thus, <strong>multi-agent</strong> is here to implement and solve large-scale developing projects!</p>
 <p>Today, we gonna introduce <code>Autogen</code><sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://github.com/microsoft/autogen">[1]</span></a></sup>, a framework for creating multi-agent AI applications that can act autonomously or work alongside humans. This framework is developed by <strong>Microsoft</strong>.</p>
+<h2 id="Multi-Agent-Orchestration"><a href="#Multi-Agent-Orchestration" class="headerlink" title="Multi-Agent Orchestration"></a>Multi-Agent Orchestration</h2><ul>
+<li>Static &#x2F; Dynamic</li>
+<li>Context Sharing &#x2F; isolation</li>
+<li>Cooperation &#x2F; competition</li>
+<li>Centralized &#x2F; decentralized</li>
+<li>Intervention &#x2F; automation</li>
+</ul>
+<h2 id="Agent-Design-Patterns"><a href="#Agent-Design-Patterns" class="headerlink" title="Agent Design Patterns"></a>Agent Design Patterns</h2><ul>
+<li>Conversations</li>
+<li>Prompting &amp; Reasoning<ul>
+<li>React</li>
+<li>Chain of thought</li>
+</ul>
+</li>
+<li>Tool use</li>
+<li>Planning</li>
+<li>Integrating multiple models, modalities and memories</li>
+</ul>
+<h2 id="2-Core-Operations"><a href="#2-Core-Operations" class="headerlink" title="2 Core Operations"></a>2 Core Operations</h2><ul>
+<li><strong>Define Agents</strong>: Conversable &amp; Customizable</li>
+<li><strong>Get them to talk</strong>: Conversation Programming</li>
+</ul>
+<h1 id="LlamaIndex"><a href="#LlamaIndex" class="headerlink" title="LlamaIndex"></a>LlamaIndex</h1><h2 id="A-better-Knowledge-Assistant"><a href="#A-better-Knowledge-Assistant" class="headerlink" title="A better Knowledge Assistant"></a>A better Knowledge Assistant</h2><p>Basic Rag use the traditional <strong>Embeddings</strong> methods to split the text into chunks and search the text with the similarity… It is too naive sometimes, leading to the hallucination and moreover, large language models only needs to summarize the given text which is a quite simple task for them.</p>
+<p>So we need a better RAG!</p>
+<ul>
+<li><strong>High-Quality Multi-Modal RAG</strong></li>
+<li>Complex Output Generation.(Generating a report, etc.)</li>
+<li>Agentic Reasoning over complex inputs</li>
+<li>Towards a scalable, full-stack development.</li>
+</ul>
+<p>Traditional Embedding methods only handle with text messages.</p>
+<h3 id="Setting-up-a-Multi-Modal-RAG"><a href="#Setting-up-a-Multi-Modal-RAG" class="headerlink" title="Setting up a Multi Modal RAG"></a>Setting up a Multi Modal RAG</h3><p>Visual Data…</p>
+<p>We need a LLM-PDF-parser to make the parsing and chunking period, which could decrease the <strong>hallucination</strong> when LLMs are faced with visual data.</p>
+<p><img src="https://s1.imagehub.cc/images/2025/04/06/34a89d11e713bb31c1f1facdc9d48342.png" srcset="/img/loading.gif" lazyload alt="Document Parser"></p>
+<h3 id="Agentic-Reasoning-over-complex-inputs"><a href="#Agentic-Reasoning-over-complex-inputs" class="headerlink" title="Agentic Reasoning over complex inputs"></a>Agentic Reasoning over complex inputs</h3><p>Like the ReAct model</p>
+<ul>
+<li>Tool Use</li>
+<li>Planning</li>
+<li>Memory</li>
+<li>Reflection</li>
+</ul>
+<h4 id="Unconstrained-Constrained-Flows"><a href="#Unconstrained-Constrained-Flows" class="headerlink" title="Unconstrained &amp; Constrained Flows"></a>Unconstrained &amp; Constrained Flows</h4><ul>
+<li><p>Constrained Flows</p>
+</li>
+<li><p><img src="https://s1.imagehub.cc/images/2025/04/06/c3d3cff5953222f1b9f16ce683176dde.png" srcset="/img/loading.gif" lazyload alt="Constrained FLows"></p>
+<ul>
+<li>We design a <strong>router</strong> based on prompts to let LLM design which tools to use, and then let the LLM reflect on the performance, finally getting the output.</li>
+<li>It is more reliable, but less expressive, because the router will only allocate different tasks to relatively fixed-tool use.</li>
+</ul>
+</li>
+<li><p>Unconstrained Flows</p>
+</li>
+<li><p><img src="https://s1.imagehub.cc/images/2025/04/06/e45c84af30feadaf226fa761aba64512.png" srcset="/img/loading.gif" lazyload alt="Unconstrained Flows"></p>
+<ul>
+<li><strong>Agent Orchestrator</strong> could decide which tools to use automatically and combine different tools together.</li>
+<li>In this case, you no longer use simple if-else allocation logic, but instead give the agent greater autonomy. This can lead to a heavy reliance on the agent’s capabilities and may result in consequences such as <strong>infinite loops</strong>. (That is why it is <strong>less reliable</strong>)</li>
+</ul>
+</li>
+</ul>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/microsoft/autogen">https://github.com/microsoft/autogen</a>
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
@@ -581,6 +641,8 @@
       
         <a href="/tags/Deep-Learning/" class="print-no-link">#Deep Learning</a>
       
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
         <a href="/tags/Agent/" class="print-no-link">#Agent</a>
       
         <a href="/tags/Autogen/" class="print-no-link">#Autogen</a>
@@ -614,7 +676,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 9, 2025</div>
+          <div>April 6, 2025</div>
         </div>
       
       
