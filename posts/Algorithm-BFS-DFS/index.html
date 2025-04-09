@@ -26,9 +26,9 @@
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
 <meta property="og:description" content="BFS and DFS searching algorithms.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/BFs.jpg">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/BFSDFS.jpg">
 <meta property="article:published_time" content="2025-03-27T12:33:56.000Z">
-<meta property="article:modified_time" content="2025-03-27T12:43:35.654Z">
+<meta property="article:modified_time" content="2025-04-09T08:12:59.094Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -37,7 +37,7 @@
 <meta property="article:tag" content="BFS&#x2F;DFS">
 <meta property="article:tag" content="Algorithm">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/BFs.jpg">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/BFSDFS.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -346,7 +346,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          16 words
+          288 words
         
       </span>
     
@@ -667,8 +667,50 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Searching-Algorithms"><a href="#Searching-Algorithms" class="headerlink" title="Searching Algorithms"></a>Searching Algorithms</h1><p>The blog cover: <a target="_blank" rel="noopener" href="https://medium.com/nothingaholic/depth-first-search-vs-breadth-first-search-in-python-81521caa8f44">https://medium.com/nothingaholic/depth-first-search-vs-breadth-first-search-in-python-81521caa8f44</a></p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=WbzNRTTrX0g&list=PLhQjrBD2T381PopUTYtMSstgk-hsTGkVm&index=2">Harvard 50.3 Introduction to artificial intelligence</a>
+                <h1 id="BFS-DFS"><a href="#BFS-DFS" class="headerlink" title="BFS &amp; DFS"></a>BFS &amp; DFS</h1><h2 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h2><h3 id="Graph"><a href="#Graph" class="headerlink" title="Graph"></a>Graph</h3><p><img src="https://s1.imagehub.cc/images/2025/04/09/41374e84db4a0b25fe40323baf8b9a3f.png" srcset="/img/loading.gif" lazyload alt="Graph"></p>
+<ul>
+<li><p>We first give the definitions of <strong>graphs</strong>! $G(V,E)$ is a set of vertices $V$ and a set of <strong>Binary Relations</strong>: $E \subseteq V \times V$.</p>
+</li>
+<li><p>We don’t consider graphs <strong>outside the simple graph</strong>, like edges of $(u,u)$.</p>
+</li>
+<li><p>We define $\left | E \right |$ as the numbers of edges in the set $E$. Obviously, $\left |  E\right | \le C_{\left | V \right |}^{2} &#x3D; O(\left | V\right |^2 )$ for undirected, and $\left |  E\right | \le 2\times C_{\left | V \right |}^{2} &#x3D; O(\left | V\right |^2 )$ for directed.</p>
+</li>
+</ul>
+<h3 id="Neighbor-Sets-Adjacencies"><a href="#Neighbor-Sets-Adjacencies" class="headerlink" title="Neighbor Sets&#x2F;Adjacencies"></a>Neighbor Sets&#x2F;Adjacencies</h3><ul>
+<li>The outgoing neighbor set of u ∈ V is $Adj^+(u) &#x3D; {v ∈ V | (u, v) ∈ E}$</li>
+<li>The incoming neighbor set of u ∈ V is $Adj^−(u) &#x3D; {v ∈ V | (v, u) ∈ E}$</li>
+<li>The out-degree of a vertex u ∈ V is $deg^+(u) &#x3D; |Adj^+(u)|$</li>
+<li>The in-degree of a vertex u ∈ V is $deg^−(u) &#x3D; |Adj^−(u)|$</li>
+<li>For undirected graphs, $Adj^−(u) &#x3D; Adj^+(u)$ and $deg^−(u) &#x3D; deg^+(u)$</li>
+<li>Dropping superscript defaults to outgoing, i.e., $Adj(u) &#x3D; Adj^+(u)$ and $deg(u) &#x3D; deg^+(u)$</li>
+</ul>
+<h3 id="Adjacency-list"><a href="#Adjacency-list" class="headerlink" title="Adjacency list"></a>Adjacency list</h3><p> A <strong>Set</strong> data structure to map $u$ to $Adj(u)$. Like every node in the tree needs to store the parent and child node, every elements need to store <strong>all its neighbors</strong>!</p>
+<ul>
+<li>Common to use <strong>direct access array or hash table</strong> for $Adj$, since want lookup fast by vertex.</li>
+<li>Common to use <strong>array or linked list</strong> for each $Adj(u)$ since usually only iteration is needed.</li>
+</ul>
+<h3 id="Paths"><a href="#Paths" class="headerlink" title="Paths"></a>Paths</h3><ul>
+<li>A path is a sequence of vertices $p &#x3D; (v_1, v_2, . . . , v_k)$ where $(v_i, v_{i+1}) ∈ E, \ \forall 1 ≤ i &lt; k$.</li>
+<li>A path is simple if it does not <strong>repeat vertices</strong>.</li>
+<li>The length ($p$) of a path p is the number of edges in the path</li>
+<li>The distance $δ(u, v)$ from $u ∈ V$ to $v ∈ V$ is the <strong>minimum length of any path from $u$ to $v$</strong>, i.e., the length of a shortest path from $u$ to $v$. (by convention, $δ(u, v) &#x3D; ∞ $ if $u$ is not connected to $v$)</li>
+</ul>
+<h3 id="Model-Graph-Problems"><a href="#Model-Graph-Problems" class="headerlink" title="Model Graph Problems"></a>Model Graph Problems</h3><p><img src="https://s1.imagehub.cc/images/2025/04/09/9ae6883f7fe45a85bfba103b58b92af6.png" srcset="/img/loading.gif" lazyload alt="Model Graph Problems"></p>
+<p>We can construct a <strong>shortest path tree</strong> based on the graph with $O(\left |V \right |)$ size. To explain it more clearly, given $a \in V$, then the <strong>shortest path tree</strong> of $a$ is a tree whose root node is $a$ and contains all elements that are reachable to $a$ in the graph. Moreover, the way from the root node $a$ to the node $b$ is <strong>just the shortest path</strong> from $a$ to $b$ in the graph.</p>
+<h2 id="Breadth-First-Search"><a href="#Breadth-First-Search" class="headerlink" title="Breadth First Search"></a>Breadth First Search</h2><p>How to return a shortest path from <strong>source vertex</strong> $s$ for every vertex in graph? We can define $P(x)$ as the <strong>second to last vertex</strong> on a shortest path from $s$, or you can just imagine it as the parent of $x$ in the constructed shortest path tree of source vertex $s$.</p>
+<ul>
+<li>Define $P(s) &#x3D;&#x3D; null$.</li>
+<li>Set of parents comprise <strong>a shortest paths tree</strong> with $O(|V|)$ size!<ul>
+<li>Math principles: Assume vertex $u$ appears in the shortest path from the source vertex $s$ to the vertex $x$, which is more remote. <strong>Then the shortest of vertex $u$</strong> is just a subset of this path!</li>
+</ul>
+</li>
+<li>In the BFS algorithm, we need to compute $δ(s, v)$ and $P(v)$ for all $v \in V$.</li>
+</ul>
+<p> Compute level sets $L_i &#x3D; {v | v ∈ V \ \text{and} \ d(s, v) &#x3D; i}$ (i.e., all vertices at distance $i$)</p>
+<p><img src="https://s1.imagehub.cc/images/2025/04/09/9b7a93a15a48fd8854a508068bf94504.png" srcset="/img/loading.gif" lazyload alt="BFS"></p>
+<p>The key to BFS is to categorize <strong>vertices by levels</strong>. For vertices at the same level, continuously traverse until all are visited, then proceed to the next level. Obviously, we know the shortest distance from $s$ to $s$ is 0. Then we can <strong>grow</strong> the tree based on it and find the shortest path for all vertex in the graph.</p>
+<p><strong>Time complexity analysis</strong>: $O(|V| + |E|)$. (Linear Time!)</p>
+<h2 id="Depth-First-Search"><a href="#Depth-First-Search" class="headerlink" title="Depth First Search"></a>Depth First Search</h2><h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=WbzNRTTrX0g&list=PLhQjrBD2T381PopUTYtMSstgk-hsTGkVm&index=2">Harvard 50.3 Introduction to artificial intelligence</a>
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
@@ -743,7 +785,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 27, 2025</div>
+          <div>April 9, 2025</div>
         </div>
       
       
