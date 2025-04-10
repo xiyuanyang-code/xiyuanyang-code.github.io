@@ -1,0 +1,1242 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="AVL Tree and its applications.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DataStructure-AVL-Tree">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/DataStructure-AVL-Tree/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="AVL Tree and its applications.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/AVL.jpg">
+<meta property="article:published_time" content="2025-04-10T05:22:30.000Z">
+<meta property="article:modified_time" content="2025-04-10T06:48:12.573Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="Data Structure">
+<meta property="article:tag" content="Tree">
+<meta property="article:tag" content="Binary Tree">
+<meta property="article:tag" content="AVL Tree">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/AVL.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>DataStructure-AVL-Tree - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/above/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tag</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/My-Resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/All-posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All-posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>recordings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/resume/" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>Github Introduction</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="DataStructure-AVL-Tree"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-10 13:22" pubdate>
+          April 10, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Algorithm"
+        id="heading-4afa80e77a07f7488ce4d1bdd8c4977a" role="tab" data-toggle="collapse" href="#collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+        aria-expanded="true"
+      >
+        Algorithm
+        <span class="list-group-count">(28)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+           role="tabpanel" aria-labelledby="heading-4afa80e77a07f7488ce4d1bdd8c4977a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Algorithm-Introduction/" title="Algorithm-Introduction"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-Introduction</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Linked-List-Implementation-Based-on-Structs/" title="Linked-List-Implementation-Based-on-Structs"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linked-List-Implementation-Based-on-Structs</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection/" title="Leetcode-Mistake-Collection"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-Collection</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection-1-10/" title="Leetcode-Mistake-Collection-1-10"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-Collection-1-10</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection-11-20/" title="Leetcode-Mistake-Collection-11-20"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-Collection-11-20</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection-21-30/" title="Leetcode-Mistake-Collection-21-30"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-Collection-21-30</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection-31-40/" title="Leetcode-Mistake-Collection-31-40"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-Collection-31-40</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Tutorial/" title="DataStructure-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-LinearList/" title="DataStructure-LinearList"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-LinearList</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Stack/" title="DataStructure-Stack"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Stack</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Queue/" title="DataStructure-Queue"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Queue</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-String/" title="DataStructure-String"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-String</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Tree/" title="DataStructure-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Tree-Binary-Tree/" title="DataStructure-Tree-Binary-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Tree-Binary-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Algorithm-Chunking/" title="Algorithm-Chunking"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-Chunking</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Algorithm-BinaryTree/" title="Algorithm-BinaryTree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-BinaryTree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Stack-Queue-Advanced/" title="DataStructure-Stack-Queue-Advanced"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Stack-Queue-Advanced</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Algorithm-Memo/" title="Algorithm-Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Tree-Binary-Heap/" title="DataStructure-Tree-Binary-Heap"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Tree-Binary-Heap</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Set/" title="DataStructure-Set"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Set</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Algorithm-BFS-DFS/" title="Algorithm-BFS-DFS"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-BFS-DFS</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Tree-Binary-Search-Tree/" title="DataStructure-Tree-Binary-Search-Tree-AVL-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Tree-Binary-Search-Tree-AVL-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Algorithm-Sorting/" title="Algorithm-Sorting"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-Sorting</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Fenwick-Tree/" title="DataStructure-Fenwick-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Fenwick-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Sparse-Table/" title="DataStructure-Sparse-Table"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Sparse-Table</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Algorithm-MCTS/" title="Algorithm-MCTS"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-MCTS</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-AVL-Tree/" title="DataStructure-AVL-Tree"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">DataStructure-AVL-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-RBT-Tree/" title="DataStructure-RBT-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-RBT-Tree</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">DataStructure-AVL-Tree</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="AVL-Tree"><a href="#AVL-Tree" class="headerlink" title="AVL Tree"></a>AVL Tree</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>Intuition</strong>: 希望保证操作后$O(h)&#x3D;O(\log n)$。</p>
+<h3 id="理论证明"><a href="#理论证明" class="headerlink" title="理论证明"></a>理论证明</h3><p>证明如下定理：一颗有N个节点的AVL Tree，高度满足$H \le 1.44\log(N + 1) - 0.328$</p>
+<blockquote>
+<p>等价问题的转化：<strong>确定高度最小化节点</strong> &#x3D;&#x3D; <strong>确定节点最大化高度</strong></p>
+</blockquote>
+<p>设$S_H$为高度为$H$的最小的AVL树（节点最少），显然：</p>
+<p>$|S_1| &#x3D; 1$，$|S_2| &#x3D; 2$，$|S_3| &#x3D; 4$， $|S_4| &#x3D; 7$…</p>
+<div class="note note-info">
+            <p>我们需要在保证为<strong>平衡树（平衡因子）</strong>的情况下尽可能压榨这棵树，使其节点数最少。</p><p>因此，我们可以给出如下的递推公式：</p><p>$$S_1 &#x3D; 1, S_2 &#x3D; 2, S_n &#x3D; S_{n-1} + S_{n-2} + 1$$</p><p><strong>和斐波那契数列非常像！</strong>记$F_i$为斐波那契数列，很容易证明$S_H &#x3D; F_{H+2} -1$。</p><p>带入斐波那契数列的通项公式，可以得到$S_H$的通项：</p><p>$$S_H&#x3D; [(\frac{1+\sqrt{5}}{2})^{H+2} - (\frac{1-\sqrt{5}}{2})^{H+2}] \times \frac{\sqrt{5}}{5}-1$$</p><p>经过一顿放缩（这里省略），最终可以得证。</p>
+          </div>
+
+<blockquote>
+<p><strong>$S_n &#x3D; S_{n-1} + S_{n-2} + 1$<strong>的递推式非常关键，这表明了在AVL Tree中，同样也存在</strong>递归的思想</strong>！</p>
+</blockquote>
+<p><img src="https://s1.imagehub.cc/images/2025/04/10/d9895bed03c4641620fe15031c22b62b.png" srcset="/img/loading.gif" lazyload alt="AVL Tree的递推公式"></p>
+<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><ul>
+<li><p>AVL的插入仍然在<strong>叶节点</strong>，但是相比于二叉查找树，多了一步<strong>调整的操作</strong>，需要保证二叉树的<strong>平衡性</strong></p>
+<ul>
+<li>因此，在插入时，仍然保持<strong>递归的插入方式</strong>，但是多了检查的一步，寻找第一个平衡因子失衡为$\pm 2$的节点（也就是危机节点），然后需要<strong>进行旋转保持树的平衡性</strong>。</li>
+<li>在回溯的过程中，需要验证其是否失衡（在插入完成后）</li>
+</ul>
+<blockquote>
+<p>由于<strong>检查&amp;旋转</strong>是在递归终止之后回溯的时候进行的，也就是说顺序是<strong>自底向上</strong>，即我们只需要rotate第一个找到不平衡的节点，也就是危机节点。</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://s1.imagehub.cc/images/2025/04/10/87929a16c30874070e78cfbcc3f6170c.jpg" srcset="/img/loading.gif" lazyload alt="AVLTree"></p>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>对于一般的二叉查找树，AVL树需要找到右子树的<strong>最靠右</strong>的节点，也就是<strong>在中序遍历中紧挨在他后面的节点</strong>。对于AVL树，同样也需要额外的旋转操作，因为删除叶节点同样也可能会导致树的失衡。</p>
+<p>首先，我们对要被删除的结点$x$做分类讨论：</p>
+<ul>
+<li>$x$为叶节点</li>
+<li>$x$有一个儿子</li>
+<li>$x$有两个儿子</li>
+</ul>
+<blockquote>
+<p>前两种情况非常简单，<strong>不会产生非平衡的情况</strong>。</p>
+</blockquote>
+<p>完成和二叉查找树类似的删除操作之后，有可能会带来<strong>从$x$的父节点到根节点之间的祖先节点的平衡度发生变化</strong>，导致失衡。因此，在回溯阶段，需要向上检查，并做相应的旋转操作。但是删除操作比插入操作更加复杂，有可能需要旋转多个节点。因此，我们当检查在旋转调整后对应节点的高度保持不变时，<strong>即代表更新完毕</strong>，整棵树已经达到平衡的状态。</p>
+<p>不失一般性，<strong>我们认为删除发生在左子树</strong>，一般会出现以下这5个状态。（<strong>注意是删除后的状态，因为检查环节在回溯部分</strong>）</p>
+<p><img src="https://s1.imagehub.cc/images/2025/04/10/bd8b80c3297f7f04f120ba88600d7a6b.png" srcset="/img/loading.gif" lazyload alt="删除的若干种情况"></p>
+<ul>
+<li>对于情况1，树的高度并没有发生变化，并且树的平衡性不变。<strong>返回true，不用再对祖先节点做操作</strong>。</li>
+<li>对于情况2，树的高度从$h + 1$降低到$h$，但是<strong>子树的平衡性</strong>仍然保持，此时需要返回False。</li>
+<li>对于情况3，很遗憾，两颗子树本来是$h-1$和$h$，同时删除操作发生在高度为$h-1$的树上变成了$h-2$，此时需要RR旋转一次，满足平衡性。同时树的高度更新为$h-1$，继续向上返回false。</li>
+<li>对于情况4，<strong>使用RL旋转</strong>，但是此时子树的高度变矮了一层，需要向上返回False</li>
+<li>对于情况5，<strong>使用RR旋转</strong>，并且树的高度保持不变，返回True。</li>
+</ul>
+<p><img src="https://s1.imagehub.cc/images/2025/04/10/a2901fde43c3d3a1657e514762b78d08.jpg" srcset="/img/loading.gif" lazyload alt="AVL树的删除"></p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">/*</span><br><span class="hljs-comment">The implementation of AVL Tree, letting the tree maintain balanced</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cmath&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">KEY</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">OTHER</span>&gt;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">set</span> &#123;<br>    KEY key;<br>    OTHER other;<br>&#125;;<br><br><br><span class="hljs-comment">// Dynamic Search Table</span><br><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">Key</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">Other</span>&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">dynamicSearchTable</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// finding elements of x</span><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> set&lt;Key, Other&gt; *<span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-type">const</span> Key &amp;x)</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br><br>    <span class="hljs-comment">// insert element, maintaining the order</span><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-type">const</span> set&lt;Key, Other&gt; &amp;x)</span> </span>= <span class="hljs-number">0</span>;<br><br>    <span class="hljs-comment">// remove an element, maintaining the order</span><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(<span class="hljs-type">const</span> Key &amp;x)</span> </span>= <span class="hljs-number">0</span>;<br><br>    <span class="hljs-keyword">virtual</span> ~<span class="hljs-built_in">dynamicSearchTable</span>() &#123;&#125;<br>&#125;;<br><br><br><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">KEY</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">OTHER</span>&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">AVLTree</span> : <span class="hljs-keyword">public</span> dynamicSearchTable&lt;KEY, OTHER&gt; &#123;<br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">AVLNode</span> &#123;<br>        set&lt;KEY, OTHER&gt; data;<br>        AVLNode *left;<br>        AVLNode *right;<br><br>        <span class="hljs-comment">// The height of the node,letting the Tree remain balanced</span><br>        <span class="hljs-type">int</span> height;<br><br>        <span class="hljs-built_in">AVLNode</span>(<span class="hljs-type">const</span> set&lt;KEY, OTHER&gt; &amp;element, AVLNode *left_, AVLNode *right_, <span class="hljs-type">int</span> h = <span class="hljs-number">1</span>)<br>            : <span class="hljs-built_in">data</span>(element), <span class="hljs-built_in">left</span>(left_), <span class="hljs-built_in">right</span>(right_), <span class="hljs-built_in">height</span>(h) &#123;&#125;<br>    &#125;;<br><br><span class="hljs-keyword">private</span>:<br>    AVLNode *root;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-comment">// Tool functions</span><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * @brief Update the height of the node</span><br><span class="hljs-comment">         * </span><br><span class="hljs-comment">         * @param root </span><br><span class="hljs-comment">         */</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">updateHeight</span><span class="hljs-params">(AVLNode *&amp;root_)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (root_ == <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            root_-&gt;height = std::<span class="hljs-built_in">max</span>(<span class="hljs-built_in">height</span>(root_-&gt;left), <span class="hljs-built_in">height</span>(root_-&gt;right)) + <span class="hljs-number">1</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * @brief insert the new element in the tree, adjusting structures when necessary</span><br><span class="hljs-comment">         * </span><br><span class="hljs-comment">         * @param x </span><br><span class="hljs-comment">         * @param root_ </span><br><span class="hljs-comment">         */</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-type">const</span> set&lt;KEY, OTHER&gt; &amp;x, AVLNode *&amp;root_)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (root_ == <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-comment">// insert in an empty tree</span><br>            root_ = <span class="hljs-keyword">new</span> <span class="hljs-built_in">AVLNode</span>(x, <span class="hljs-literal">nullptr</span>, <span class="hljs-literal">nullptr</span>);<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (x.key &lt; root_-&gt;data.key) &#123;<br>            <span class="hljs-comment">// insert in the left tree</span><br>            <span class="hljs-built_in">insert</span>(x, root_-&gt;left);<br><br>            <span class="hljs-comment">// judging whether is is out of balanced</span><br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">height</span>(root_-&gt;left) - <span class="hljs-built_in">height</span>(root_-&gt;right) == <span class="hljs-number">2</span>) &#123;<br>                <span class="hljs-comment">// LL rotations or LR rotations</span><br>                <span class="hljs-keyword">if</span> (x.key &lt; root_-&gt;left-&gt;data.key) &#123;<br>                    <span class="hljs-built_in">LL</span>(root_);<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-built_in">LR</span>(root_);<br>                &#125;<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (x.key &gt; root_-&gt;data.key) &#123;<br>            <span class="hljs-comment">// insert in the right tree</span><br>            <span class="hljs-built_in">insert</span>(x, root_-&gt;right);<br><br>            <span class="hljs-comment">// judging whether it is out of balanced</span><br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">height</span>(root_-&gt;right) - <span class="hljs-built_in">height</span>(root_-&gt;left) == <span class="hljs-number">2</span>) &#123;<br>                <span class="hljs-comment">// RR rotations or RL rotations</span><br>                <span class="hljs-keyword">if</span> (x.key &gt; (root_-&gt;right-&gt;data).key) &#123;<br>                    <span class="hljs-built_in">RR</span>(root_);<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-built_in">RL</span>(root_);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">// Repetetion makes no operations</span><br><br>        <span class="hljs-comment">// Update the height properties</span><br>        <span class="hljs-built_in">updateHeight</span>(root_);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * @brief Remove the element with the value x</span><br><span class="hljs-comment">         * </span><br><span class="hljs-comment">         * @param x key value</span><br><span class="hljs-comment">         * @param root_ current root node</span><br><span class="hljs-comment">         * @return true if the tree is balanced after the deletion</span><br><span class="hljs-comment">         * @return false </span><br><span class="hljs-comment">         */</span><br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">remove</span><span class="hljs-params">(<span class="hljs-type">const</span> KEY &amp;x, AVLNode *&amp;root_)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (root_ == <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (x == (root_-&gt;data).key) &#123;<br>            <span class="hljs-comment">// delete the root node</span><br>            <span class="hljs-keyword">if</span> (root_-&gt;left == <span class="hljs-literal">nullptr</span> || root_-&gt;right == <span class="hljs-literal">nullptr</span>) &#123;<br>                <span class="hljs-comment">// The delete node has at most one child (just swap the position)</span><br>                AVLNode *oldNode = root_;<br><br>                <span class="hljs-keyword">if</span> (root_-&gt;left == <span class="hljs-literal">nullptr</span>) &#123;<br>                    root_ = root_-&gt;right;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    root_ = root_-&gt;left;<br>                &#125;<br><br>                <span class="hljs-keyword">delete</span> oldNode;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">// The deleted Node has two child node</span><br>                AVLNode *tmp = root_-&gt;right;<br>                <span class="hljs-comment">// Go to the lead node</span><br>                <span class="hljs-keyword">while</span> (tmp-&gt;left != <span class="hljs-literal">nullptr</span>) &#123;<br>                    tmp = tmp-&gt;left;<br>                &#125;<br><br>                root_-&gt;data = tmp-&gt;data;<br>                <span class="hljs-comment">// then remove the leaf node (tmp)</span><br>                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">remove</span>(tmp-&gt;data.key, root_-&gt;right)) &#123;<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>                &#125;<br><br>                <span class="hljs-keyword">return</span> <span class="hljs-built_in">adjust</span>(root_, <span class="hljs-number">1</span>);<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (x &lt; (root_-&gt;data).key) &#123;<br>            <span class="hljs-comment">// delete on the left subtree</span><br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">remove</span>(x, root_-&gt;left)) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-built_in">adjust</span>(root_, <span class="hljs-number">0</span>);<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// delete on the right subtree</span><br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">remove</span>(x, root_-&gt;right)) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-built_in">adjust</span>(root_, <span class="hljs-number">1</span>);<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * @brief Make the AVL tree empty</span><br><span class="hljs-comment">         * </span><br><span class="hljs-comment">         * @param root_ current root node</span><br><span class="hljs-comment">         */</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">makeEmpty</span><span class="hljs-params">(AVLNode *root_)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (root_ == <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-built_in">makeEmpty</span>(root_-&gt;left);<br>        <span class="hljs-built_in">makeEmpty</span>(root_-&gt;right);<br>        <span class="hljs-keyword">delete</span> root_;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * @brief Return the height of the tree</span><br><span class="hljs-comment">         * </span><br><span class="hljs-comment">         * @param root_ </span><br><span class="hljs-comment">         * @return int </span><br><span class="hljs-comment">         */</span><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">height</span><span class="hljs-params">(AVLNode *root_)</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (root_ == <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> root_-&gt;height;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// Several Rotations</span><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * @brief Rotate if the insertion happens on the left child of the left child</span><br><span class="hljs-comment">         * </span><br><span class="hljs-comment">         * @param danger danger node</span><br><span class="hljs-comment">         */</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">LL</span><span class="hljs-params">(AVLNode *&amp;danger)</span> </span>&#123;<br>        AVLNode *t1 = danger-&gt;left;<br><br>        <span class="hljs-comment">// rotate to adjust the structure</span><br>        danger-&gt;left = t1-&gt;right;<br>        t1-&gt;right = danger;<br><br>        <span class="hljs-comment">// update height</span><br>        <span class="hljs-built_in">updateHeight</span>(danger);<br>        <span class="hljs-built_in">updateHeight</span>(t1);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * @brief Rotation if the insertion happens in the right child of the right child of the danger node</span><br><span class="hljs-comment">         * </span><br><span class="hljs-comment">         * @param danger The danger node</span><br><span class="hljs-comment">         */</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">RR</span><span class="hljs-params">(AVLNode *&amp;danger)</span> </span>&#123;<br>        <span class="hljs-comment">// The same with LL rotations</span><br>        AVLNode *t1 = danger-&gt;right;<br><br>        <span class="hljs-comment">// rotate RR</span><br>        danger-&gt;right = t1-&gt;left;<br>        t1-&gt;left = danger;<br><br>        <span class="hljs-comment">// update height</span><br>        <span class="hljs-built_in">updateHeight</span>(danger);<br>        <span class="hljs-built_in">updateHeight</span>(t1);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * @brief danger.leftchild.rightchild = insertion_place</span><br><span class="hljs-comment">         * </span><br><span class="hljs-comment">         * @param danger </span><br><span class="hljs-comment">         */</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">LR</span><span class="hljs-params">(AVLNode *&amp;danger)</span> </span>&#123;<br>        <span class="hljs-built_in">RR</span>(danger-&gt;left);<br>        <span class="hljs-built_in">LL</span>(danger);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * @brief danger.rightchild.leftchild = insertion_place</span><br><span class="hljs-comment">         * </span><br><span class="hljs-comment">         * @param root_ </span><br><span class="hljs-comment">         */</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">RL</span><span class="hljs-params">(AVLNode *&amp;danger)</span> </span>&#123;<br>        <span class="hljs-built_in">LL</span>(danger-&gt;right);<br>        <span class="hljs-built_in">RR</span>(danger);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * @brief Judge whether the tree remain the same height after the deletion</span><br><span class="hljs-comment">         * </span><br><span class="hljs-comment">         * @param root_ the current root node</span><br><span class="hljs-comment">         * @param subTree 1 for deleting on the right child, 0 for left child</span><br><span class="hljs-comment">         * @return true </span><br><span class="hljs-comment">         * @return false </span><br><span class="hljs-comment">         */</span><br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">adjust</span><span class="hljs-params">(AVLNode *&amp;root_, <span class="hljs-type">int</span> subTree)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (subTree) &#123;<br>            <span class="hljs-comment">// Delete on the right child</span><br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">height</span>(root_-&gt;left) - <span class="hljs-built_in">height</span>(root_-&gt;right) == <span class="hljs-number">1</span>) &#123;<br>                <span class="hljs-comment">// Case1: the height remains unchanged</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">height</span>(root_-&gt;left) == <span class="hljs-built_in">height</span>(root_-&gt;right)) &#123;<br>                --(root_-&gt;height);<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">height</span>((root_-&gt;left)-&gt;right) &gt; <span class="hljs-built_in">height</span>((root_-&gt;left)-&gt;left)) &#123;<br>                <span class="hljs-built_in">LR</span>(root_);<br>                <span class="hljs-comment">// The height changed!</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-built_in">LL</span>(root_);<br>                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">height</span>(root_-&gt;right) == <span class="hljs-built_in">height</span>(root_-&gt;left)) &#123;<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>                &#125;<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">height</span>(root_-&gt;right) - <span class="hljs-built_in">height</span>(root_-&gt;left) == <span class="hljs-number">1</span>) &#123;<br>                <span class="hljs-comment">// Case1: the height remains unchanged</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">height</span>(root_-&gt;left) == <span class="hljs-built_in">height</span>(root_-&gt;right)) &#123;<br>                --(root_-&gt;height);<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">height</span>((root_-&gt;right)-&gt;left) &gt; <span class="hljs-built_in">height</span>((root_-&gt;right)-&gt;right)) &#123;<br>                <span class="hljs-built_in">RL</span>(root_);<br>                <span class="hljs-comment">// The height changed!</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-built_in">RR</span>(root_);<br>                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">height</span>(root_-&gt;right) == <span class="hljs-built_in">height</span>(root_-&gt;left)) &#123;<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * @brief Construct a new AVLTree object</span><br><span class="hljs-comment">         * </span><br><span class="hljs-comment">         */</span><br>    <span class="hljs-built_in">AVLTree</span>() &#123;<br>        root = <span class="hljs-literal">nullptr</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// destructor</span><br>    ~<span class="hljs-built_in">AVLTree</span>() &#123;<br>        <span class="hljs-built_in">makeEmpty</span>(root);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * @brief Finding the elements with the key value of x, the same with BST</span><br><span class="hljs-comment">         * </span><br><span class="hljs-comment">         * @param x </span><br><span class="hljs-comment">         * @return set&lt;KEY, OTHER&gt;* </span><br><span class="hljs-comment">         */</span><br>    <span class="hljs-function">set&lt;KEY, OTHER&gt; *<span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-type">const</span> KEY &amp;x)</span> <span class="hljs-type">const</span> </span>&#123;<br>        AVLNode *t = root;<br>        <span class="hljs-keyword">while</span> (t != <span class="hljs-literal">nullptr</span> &amp;&amp; t-&gt;data.key != x) &#123;<br>            <span class="hljs-keyword">if</span> (t-&gt;data.key &gt; x) &#123;<br>                <span class="hljs-comment">// skip to the left tree</span><br>                t = t-&gt;left;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                t = t-&gt;right;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (t == <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-built_in">return</span> (set&lt;KEY, OTHER&gt; *) t;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-type">const</span> set&lt;KEY, OTHER&gt; &amp;x)</span> </span>&#123;<br>        <span class="hljs-built_in">insert</span>(x, root);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(<span class="hljs-type">const</span> KEY &amp;x)</span> </span>&#123;<br>        <span class="hljs-built_in">remove</span>(x, root);<br>    &#125;<br>&#125;;<br><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// Create an AVLTree instance</span><br>    AVLTree&lt;<span class="hljs-type">int</span>, std::string&gt; tree;<br><br>    <span class="hljs-comment">// Insert elements into the AVL tree</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Inserting elements into the AVL tree...&quot;</span> &lt;&lt; std::endl;<br>    tree.<span class="hljs-built_in">insert</span>(&#123;<span class="hljs-number">10</span>, <span class="hljs-string">&quot;Ten&quot;</span>&#125;);<br>    tree.<span class="hljs-built_in">insert</span>(&#123;<span class="hljs-number">20</span>, <span class="hljs-string">&quot;Twenty&quot;</span>&#125;);<br>    tree.<span class="hljs-built_in">insert</span>(&#123;<span class="hljs-number">30</span>, <span class="hljs-string">&quot;Thirty&quot;</span>&#125;);<br>    tree.<span class="hljs-built_in">insert</span>(&#123;<span class="hljs-number">40</span>, <span class="hljs-string">&quot;Forty&quot;</span>&#125;);<br>    tree.<span class="hljs-built_in">insert</span>(&#123;<span class="hljs-number">50</span>, <span class="hljs-string">&quot;Fifty&quot;</span>&#125;);<br>    tree.<span class="hljs-built_in">insert</span>(&#123;<span class="hljs-number">25</span>, <span class="hljs-string">&quot;Twenty-Five&quot;</span>&#125;);<br><br>    <span class="hljs-comment">// Search for an element in the AVL tree</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Searching for key 20 in the AVL tree...&quot;</span> &lt;&lt; std::endl;<br>    <span class="hljs-keyword">auto</span> result = tree.<span class="hljs-built_in">find</span>(<span class="hljs-number">20</span>);<br>    <span class="hljs-keyword">if</span> (result != <span class="hljs-literal">nullptr</span>) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Found: &quot;</span> &lt;&lt; result-&gt;key &lt;&lt; <span class="hljs-string">&quot; -&gt; &quot;</span> &lt;&lt; result-&gt;other &lt;&lt; std::endl;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Key 20 not found in the AVL tree.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-comment">// Remove an element from the AVL tree</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Removing key 20 from the AVL tree...&quot;</span> &lt;&lt; std::endl;<br>    tree.<span class="hljs-built_in">remove</span>(<span class="hljs-number">20</span>);<br><br>    <span class="hljs-comment">// Search for the removed element</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Searching for key 20 after removal...&quot;</span> &lt;&lt; std::endl;<br>    result = tree.<span class="hljs-built_in">find</span>(<span class="hljs-number">20</span>);<br>    <span class="hljs-keyword">if</span> (result != <span class="hljs-literal">nullptr</span>) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Found: &quot;</span> &lt;&lt; result-&gt;key &lt;&lt; <span class="hljs-string">&quot; -&gt; &quot;</span> &lt;&lt; result-&gt;other &lt;&lt; std::endl;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Key 20 not found in the AVL tree.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-comment">// Insert more elements to test balancing</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Inserting more elements to test balancing...&quot;</span> &lt;&lt; std::endl;<br>    tree.<span class="hljs-built_in">insert</span>(&#123;<span class="hljs-number">5</span>, <span class="hljs-string">&quot;Five&quot;</span>&#125;);<br>    tree.<span class="hljs-built_in">insert</span>(&#123;<span class="hljs-number">15</span>, <span class="hljs-string">&quot;Fifteen&quot;</span>&#125;);<br><br>    <span class="hljs-comment">// Final search to verify tree structure</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Searching for key 15 in the AVL tree...&quot;</span> &lt;&lt; std::endl;<br>    result = tree.<span class="hljs-built_in">find</span>(<span class="hljs-number">15</span>);<br>    <span class="hljs-keyword">if</span> (result != <span class="hljs-literal">nullptr</span>) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Found: &quot;</span> &lt;&lt; result-&gt;key &lt;&lt; <span class="hljs-string">&quot; -&gt; &quot;</span> &lt;&lt; result-&gt;other &lt;&lt; std::endl;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Key 15 not found in the AVL tree.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;AVL tree test completed.&quot;</span> &lt;&lt; std::endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Algorithm/" class="category-chain-item">Algorithm</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+      
+        <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/tags/Data-Structure/" class="print-no-link">#Data Structure</a>
+      
+        <a href="/tags/Tree/" class="print-no-link">#Tree</a>
+      
+        <a href="/tags/Binary-Tree/" class="print-no-link">#Binary Tree</a>
+      
+        <a href="/tags/AVL-Tree/" class="print-no-link">#AVL Tree</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>DataStructure-AVL-Tree</div>
+      <div>https://xiyuanyang-code.github.io/posts/DataStructure-AVL-Tree/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>April 10, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>April 10, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/DataStructure-RBT-Tree/" title="DataStructure-RBT-Tree">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">DataStructure-RBT-Tree</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Algorithm-MCTS/" title="Algorithm-MCTS">
+                        <span class="hidden-mobile">Algorithm-MCTS</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

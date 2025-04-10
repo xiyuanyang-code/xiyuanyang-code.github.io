@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/sttable.jpg">
 <meta property="article:published_time" content="2025-03-30T11:49:46.000Z">
-<meta property="article:modified_time" content="2025-04-10T04:42:28.828Z">
+<meta property="article:modified_time" content="2025-04-10T06:53:08.561Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -407,7 +407,7 @@
         aria-expanded="true"
       >
         Algorithm
-        <span class="list-group-count">(26)</span>
+        <span class="list-group-count">(28)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -610,7 +610,7 @@
     
       
       
-        <a href="/posts/DataStructure-Tree-Binary-Search-Tree-AVL-Tree/" title="DataStructure-Tree-Binary-Search-Tree-AVL-Tree"
+        <a href="/posts/DataStructure-Tree-Binary-Search-Tree/" title="DataStructure-Tree-Binary-Search-Tree-AVL-Tree"
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">DataStructure-Tree-Binary-Search-Tree-AVL-Tree</span>
@@ -653,6 +653,24 @@
         </a>
       
     
+      
+      
+        <a href="/posts/DataStructure-AVL-Tree/" title="DataStructure-AVL-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-AVL-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-RBT-Tree/" title="DataStructure-RBT-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-RBT-Tree</span>
+        </a>
+      
+    
   </div>
 
         
@@ -676,7 +694,13 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Sparse-Table-ST"><a href="#Sparse-Table-ST" class="headerlink" title="Sparse Table (ST)"></a>Sparse Table (ST)</h1><h2 id="倍增"><a href="#倍增" class="headerlink" title="倍增"></a>倍增</h2><p>倍增法，顾名思义就是「成倍增长」。我们在进行递推时，如果状态空间很大，<strong>通常的线性递推</strong>无法满足时间与空间复杂度的要求，那么我们可以通过成倍增长的方式，只递推状态空间中在 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" srcset="/img/loading.gif" lazyload alt="k"> 的整数次幂位置上的值作为代表。当需要其他位置上的值时，我们通过<strong>「任意整数可以表示成若干个$k$的次幂项的和」这一性质，使用之前求出的代表值拼成所需的值。所以使用倍增算法也要求我们递推的问题的状态空间关于$k$的次幂具有可划分性</strong>。通常情况下$k$取$2$。</p>
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+
+<h1 id="Sparse-Table-ST"><a href="#Sparse-Table-ST" class="headerlink" title="Sparse Table (ST)"></a>Sparse Table (ST)</h1><h2 id="倍增"><a href="#倍增" class="headerlink" title="倍增"></a>倍增</h2><p>倍增法，顾名思义就是「成倍增长」。我们在进行递推时，如果状态空间很大，<strong>通常的线性递推</strong>无法满足时间与空间复杂度的要求，那么我们可以通过成倍增长的方式，只递推状态空间中在 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" srcset="/img/loading.gif" lazyload alt="k"> 的整数次幂位置上的值作为代表。当需要其他位置上的值时，我们通过<strong>「任意整数可以表示成若干个$k$的次幂项的和」这一性质，使用之前求出的代表值拼成所需的值。所以使用倍增算法也要求我们递推的问题的状态空间关于$k$的次幂具有可划分性</strong>。通常情况下$k$取$2$。</p>
 <p>倍增思想可以解决<strong>RMQ</strong>问题。</p>
 <h3 id="倍增例题"><a href="#倍增例题" class="headerlink" title="倍增例题"></a>倍增例题</h3><p><img src="https://s1.imagehub.cc/images/2025/04/01/e12e250bc16c69f064e435b5630b671b.png" srcset="/img/loading.gif" lazyload alt="倍增"></p>
 <p>在m很大时，我们可以对$m$进行二进制分解，而预处理的数组就是对于$2^j$次跳跃的处理！</p>

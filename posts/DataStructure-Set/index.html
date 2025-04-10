@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/set.jpg">
 <meta property="article:published_time" content="2025-03-23T16:21:54.000Z">
-<meta property="article:modified_time" content="2025-04-03T06:12:49.982Z">
+<meta property="article:modified_time" content="2025-04-10T05:21:49.300Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -345,7 +345,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          273 words
+          438 words
         
       </span>
     
@@ -406,7 +406,7 @@
         aria-expanded="true"
       >
         Algorithm
-        <span class="list-group-count">(26)</span>
+        <span class="list-group-count">(28)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -609,7 +609,7 @@
     
       
       
-        <a href="/posts/DataStructure-Tree-Binary-Search-Tree-AVL-Tree/" title="DataStructure-Tree-Binary-Search-Tree-AVL-Tree"
+        <a href="/posts/DataStructure-Tree-Binary-Search-Tree/" title="DataStructure-Tree-Binary-Search-Tree-AVL-Tree"
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">DataStructure-Tree-Binary-Search-Tree-AVL-Tree</span>
@@ -652,6 +652,24 @@
         </a>
       
     
+      
+      
+        <a href="/posts/DataStructure-AVL-Tree/" title="DataStructure-AVL-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-AVL-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-RBT-Tree/" title="DataStructure-RBT-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-RBT-Tree</span>
+        </a>
+      
+    
   </div>
 
         
@@ -689,13 +707,23 @@
 <h1 id="Data-Structure-Set-1"><a href="#Data-Structure-Set-1" class="headerlink" title="Data Structure Set"></a>Data Structure Set</h1><p>Lecture Notes from SJTU DS</p>
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
 <li>散列表：实现<strong>映射</strong>（集合提升性能的核心问题）</li>
-<li></li>
 </ul>
 <h2 id="集合的定义"><a href="#集合的定义" class="headerlink" title="集合的定义"></a>集合的定义</h2><p>集合包含两个部分：<strong>键值</strong>和<strong>关键字值</strong>。</p>
 <h2 id="静态查找表"><a href="#静态查找表" class="headerlink" title="静态查找表"></a>静态查找表</h2><p>问题的定义：给定一个集合，需要查找关键字$X$对应的元素是否存在。</p>
 <p>从最基本的顺序查找（$O(n)$）到对于有序集合的<strong>二分查找</strong>($O(\log n)$），还可以进一步优化为<strong>插值查找</strong>，对于数据均匀分布的情况，可以进一步优化时间复杂度：</p>
-<p>$$pos &#x3D; low + \left\lfloor \frac{(high - low) \cdot (target - arr[low])}{arr[high] - arr[low]} \right\rfloor$$</p>
+<p>$$pos &#x3D; low + \left\lfloor \frac{(high - low - 1) \cdot (target - arr[low])}{arr[high] - arr[low]} \right\rfloor$$</p>
 <p>使用<strong>分块查找</strong>也可以进一步优化（详见分块思想）</p>
+<ul>
+<li>为了最大化发挥分块的效率，我们需要对块内元素的性质做出规定：<ul>
+<li>例如，第$i$块的元素一定大于第$i+ 1$块的元素（并且建立索引表）<ul>
+<li>每个索引包括块内元素的最大值和该索引块的起始位置</li>
+<li>这样就可以在多次查询的时候减少很多无效的比较，但是<strong>代价是需要额外空间储存索引并且在修改数组时需要更新维护这个索引表</strong>。</li>
+</ul>
+</li>
+<li>如果查找表很大，内存放不下，可以使用分块的思想高效的实现分块查找。</li>
+</ul>
+</li>
+</ul>
 <h3 id="STL-中的静态查找表"><a href="#STL-中的静态查找表" class="headerlink" title="STL 中的静态查找表"></a>STL 中的静态查找表</h3><ul>
 <li><p><code>find()</code>：</p>
 <ul>
@@ -787,7 +815,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 3, 2025</div>
+          <div>April 10, 2025</div>
         </div>
       
       
