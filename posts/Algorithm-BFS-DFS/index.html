@@ -19,19 +19,20 @@
   <meta name="author" content="Xiyuan Yang">
   <meta name="keywords" content="Code">
   
-    <meta name="description" content="BFS and DFS searching algorithms.">
+    <meta name="description" content="This blog introduces the basic mathematical definitions of graph theory and discusses the BFS and DFS search algorithms in graph theory, serving as course notes for MI6.006.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Algorithm-BFS-DFS">
 <meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Algorithm-BFS-DFS/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
-<meta property="og:description" content="BFS and DFS searching algorithms.">
+<meta property="og:description" content="This blog introduces the basic mathematical definitions of graph theory and discusses the BFS and DFS search algorithms in graph theory, serving as course notes for MI6.006.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/BFSDFS.jpg">
 <meta property="article:published_time" content="2025-03-27T12:33:56.000Z">
-<meta property="article:modified_time" content="2025-04-09T08:12:59.094Z">
+<meta property="article:modified_time" content="2025-04-12T12:55:58.710Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="Finished">
 <meta property="article:tag" content="Data Structure">
 <meta property="article:tag" content="Tree">
 <meta property="article:tag" content="BFS&#x2F;DFS">
@@ -346,7 +347,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          288 words
+          575 words
         
       </span>
     
@@ -745,8 +746,67 @@
 <p> Compute level sets $L_i &#x3D; {v | v ∈ V \ \text{and} \ d(s, v) &#x3D; i}$ (i.e., all vertices at distance $i$)</p>
 <p><img src="https://s1.imagehub.cc/images/2025/04/09/9b7a93a15a48fd8854a508068bf94504.png" srcset="/img/loading.gif" lazyload alt="BFS"></p>
 <p>The key to BFS is to categorize <strong>vertices by levels</strong>. For vertices at the same level, continuously traverse until all are visited, then proceed to the next level. Obviously, we know the shortest distance from $s$ to $s$ is 0. Then we can <strong>grow</strong> the tree based on it and find the shortest path for all vertex in the graph.</p>
+<blockquote>
+<p>In real world simulations, we can use <strong>queue</strong> to store different levels of vertices, which means <strong>no vertices in $L_i$ is touched until all vertices in $L_{i-1}$ is traversed</strong>.</p>
+</blockquote>
 <p><strong>Time complexity analysis</strong>: $O(|V| + |E|)$. (Linear Time!)</p>
-<h2 id="Depth-First-Search"><a href="#Depth-First-Search" class="headerlink" title="Depth First Search"></a>Depth First Search</h2><h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=WbzNRTTrX0g&list=PLhQjrBD2T381PopUTYtMSstgk-hsTGkVm&index=2">Harvard 50.3 Introduction to artificial intelligence</a>
+<h2 id="Depth-First-Search"><a href="#Depth-First-Search" class="headerlink" title="Depth First Search"></a>Depth First Search</h2><h3 id="Single-source-reachability"><a href="#Single-source-reachability" class="headerlink" title="Single source reachability"></a>Single source reachability</h3><ul>
+<li>Graph Path Problems</li>
+<li>Single Pair Reachability(G,s,t)</li>
+<li><strong>Single Source Reachability(G,s)</strong></li>
+<li>Single Pair Shortest Path(G,s,t)</li>
+<li>Single Source Shortest Paths(G,s) (SSSP)</li>
+</ul>
+<p>If we don’t need to solve the <strong>SSSP</strong> problem, we can use another algorithm! <strong>Intuition: Visit outgoing adjacencies recursively, but never revisit a vertex</strong>.</p>
+<blockquote>
+<p>Of course, we can use the <strong>shortest path tree to solve a harder problem (SSSP)</strong>, but it takes linear time! We can actually take less time by using the BFS algorithms.</p>
+</blockquote>
+<h3 id="Algorithms"><a href="#Algorithms" class="headerlink" title="Algorithms"></a>Algorithms</h3><p>For DFS algorithms, we use <strong>recursion</strong> to reach to the deepest depth and then traceback to the previous height.</p>
+<p>Before finishing the algorithms, we define $P(u)&#x3D;v$, there exists a path from $u$ to $v$.</p>
+<p><img src="https://s1.imagehub.cc/images/2025/04/12/05369681ede643f4fc83edb46d32e7f7.png" srcset="/img/loading.gif" lazyload alt="DFS algorithms"></p>
+<p>There maybe some problems! For example, if there exists $(u_1, v)$ and $(u_2, v)$ at the same time, definitely we can say $P(v) &#x3D; u_1$ and $P(v) &#x3D; u_2$. But what $P(v)$ actually is the last vertex that is assigned to $P(v)$. Then can this algorithm correctly finds all the reachable vertexes?</p>
+<p>Let’s do the proof! Claim: <strong>DFS visits $v$ and correctly sets $P(v)$ for every vertex $v$ reachable from $s$</strong>.</p>
+<p>We use <strong>induction</strong>, induct on $k$, where $k$ means vertices that can be reachable from source $s$ with the $k$ steps.</p>
+<ul>
+<li>$k &#x3D; 0$ : is just the source vertex $s$!</li>
+<li>Inductive step: Consider vertex v with $δ(s, v) &#x3D; k’ + 1$. (The minimum length of the two vertexes)</li>
+<li>Consider vertex $u$, <strong>the second to last vertex</strong> on some shortest path from $s$ to $v$.</li>
+<li>By induction, since $δ(s, u) &#x3D; k’$, DFS visits $u$ and sets $P (u)$ correctly.</li>
+<li>While visiting u, DFS considers $v ∈ Adj(u)$.</li>
+<li>Either $v$ is in $P$ , so has already been visited, or $v$ will be visited while visiting $u$.</li>
+<li>In either case, v will be visited by DFS and will be added correctly to $P$.</li>
+</ul>
+<p>Depth First Search: $O(|E|)$. (The number of edges)</p>
+<h3 id="Connectivity-of-undirected-graphs-Full-DFS"><a href="#Connectivity-of-undirected-graphs-Full-DFS" class="headerlink" title="Connectivity of undirected graphs: Full DFS"></a>Connectivity of undirected graphs: Full DFS</h3><p>Obviously, use DFS in one single vertex $s$ cannot reach all vertex in the node. Thus, if we want to reach all vertex in the graph (Graph Traverse), we can actually use <strong>Full-DFS</strong> algorithms.</p>
+<p>Iterate for all vertexes in the loop:</p>
+<ul>
+<li>Choose an <strong>arbitrary unvisited vertex $s$</strong>, use <strong>BFS&#x2F;DFS</strong> to explore all vertices reachable from $s$.</li>
+<li>If the vertex $s$ is reached, then we don’t need to use DFS($s$) (let s to be the source node) again!</li>
+<li>Time complexity: $O(|V|+|E|)$.</li>
+</ul>
+<p>Full DFS can be used to detect how many <strong>connected components (for undirected graphs) or strongly connected components (for directed graphs)</strong> exist in a graph. Each time a new DFS is initiated, it indicates the discovery of a new connected component.</p>
+<p><img src="https://s1.imagehub.cc/images/2025/04/12/77846aff8face45b5acbf56324eb63d5.png" srcset="/img/loading.gif" lazyload alt="Graph Connectivity"></p>
+<h3 id="Topological-Sort"><a href="#Topological-Sort" class="headerlink" title="Topological Sort"></a>Topological Sort</h3><h4 id="Several-Definitions"><a href="#Several-Definitions" class="headerlink" title="Several Definitions"></a>Several Definitions</h4><ul>
+<li><strong>DAGs (Directed Acyclic Graph)</strong>: a directed graph that contains cycles.<ul>
+<li>Of course, a Binary Tree is a DAG😂.</li>
+</ul>
+</li>
+<li>A <strong>Topological Order</strong> of a graph $G &#x3D; (V, E)$ is an ordering $f$ on the vertices such that: every edge $(u, v) ∈ E$ satisfies $f(u) &lt; f(v)$.</li>
+<li>A topological order only appears in the DAGs, or it will cause problems! (<strong>iff</strong>)<ul>
+<li>Assume $(u,v)\in E$ and $(v,u) \in E$, which means $f(u) &lt; f(v)$ and $f(v) &lt; f(u)$. Contradiction!</li>
+</ul>
+</li>
+<li><strong>A Finishing Order</strong> is the order in which <strong>a Full-DFS finishes visiting each vertex in G</strong>.</li>
+</ul>
+<h4 id="Claim"><a href="#Claim" class="headerlink" title="Claim"></a>Claim</h4><p>The reverse of finishing order is just the <strong>topological order</strong> of the graph.</p>
+<p><img src="https://s1.imagehub.cc/images/2025/04/12/c95d929f8fd570a477d4573bd2303797.png" srcset="/img/loading.gif" lazyload alt="Proof"></p>
+<p> <strong>Basic principle</strong>: We need to prove the ending of function $visit(u)$ is after the ending of the function $visit(v)$. In Full DFS, every vertex will only be visited once, and the existence of $(u,v)$ enables that:</p>
+<p>In the first exploration of $u$, for the recursive function, the ending of function $visit(v)$ is before $visit(u)$. ($u$ is in the lower stack frame.) (Unless that $v$ has been explored previously, which is obviously right).</p>
+<h3 id="Cycle-detection"><a href="#Cycle-detection" class="headerlink" title="Cycle detection"></a>Cycle detection</h3><p>How can we find a graph is <strong>Acyclic</strong>?</p>
+<p>Consider the full-DFS algorithms, if <strong>reverse finishing order for Full-DFS is not a topological order, then G must contain a cycle</strong>. Check if G is <strong>acyclic: for each edge (u, v), check if v is before u in reverse finishing order</strong>.</p>
+<p><strong>Claim</strong>: If $G$ contains a cycle, Full-DFS will <strong>traverse an edge</strong> from $v$ to an ancestor of $v$.</p>
+<p>To return such a cycle, maintain the set of ancestors along the path back to s in Full-DFS. (Or just the stackframe for the recufunction!)</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=WbzNRTTrX0g&list=PLhQjrBD2T381PopUTYtMSstgk-hsTGkVm&index=2">Harvard 50.3 Introduction to artificial intelligence</a>
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
@@ -783,6 +843,8 @@
         <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
       
         <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
       
         <a href="/tags/Data-Structure/" class="print-no-link">#Data Structure</a>
       
@@ -821,7 +883,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 9, 2025</div>
+          <div>April 12, 2025</div>
         </div>
       
       
