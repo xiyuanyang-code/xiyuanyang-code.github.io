@@ -1,0 +1,1125 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="html, body, .markdown-body {     font-family: Georgia, sans, serif;   }  ImageNet Classification and ILSVRC Competition My final assignment for Introduction to artificial intelligence.  Tracing the">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ImageNet and ILSVRC">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Imagenet/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="html, body, .markdown-body {     font-family: Georgia, sans, serif;   }  ImageNet Classification and ILSVRC Competition My final assignment for Introduction to artificial intelligence.  Tracing the">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/AlexNet-1.jpg">
+<meta property="article:published_time" content="2024-12-05T02:21:32.000Z">
+<meta property="article:modified_time" content="2025-04-14T03:53:24.341Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="Convolutional Neural Networks">
+<meta property="article:tag" content="Artificial Intelligence">
+<meta property="article:tag" content="AlexNet">
+<meta property="article:tag" content="Image Clssification">
+<meta property="article:tag" content="Deep Learning">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/AlexNet-1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>ImageNet and ILSVRC - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/above/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tag</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/My-Resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/All-posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All-posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>recordings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/resume/" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>Github Introduction</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ImageNet and ILSVRC"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-05 10:21" pubdate>
+          December 5, 2024 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Artificial Intelligence"
+        id="heading-5cd2adc9e2a5254e4c1da803519f298b" role="tab" data-toggle="collapse" href="#collapse-5cd2adc9e2a5254e4c1da803519f298b"
+        aria-expanded="true"
+      >
+        Artificial Intelligence
+        <span class="list-group-count">(9)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-5cd2adc9e2a5254e4c1da803519f298b"
+           role="tabpanel" aria-labelledby="heading-5cd2adc9e2a5254e4c1da803519f298b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Imagenet/" title="ImageNet and ILSVRC"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">ImageNet and ILSVRC</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/CS294-1-LLM-Reasoning/" title="CS294-1-LLM-Reasoning"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CS294-1-LLM-Reasoning</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/CS294-3-Autogen/" title="CS294-3-Autogen"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CS294-3-Autogen</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Pre-training-Is-Dead/" title="Pre-Training-Is-Dead?"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pre-Training-Is-Dead?</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Deep-Learning-Memo/" title="Deep_Learning_Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Deep_Learning_Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/RL-speeches/" title="RL_speeches"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">RL_speeches</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/AI-Paper-2024/" title="AI-Paper-2024"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AI-Paper-2024</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/RAG-tutorial/" title="RAG-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">RAG-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/AIBasis-Neural-Networks/" title="AIBasis_Neural_Networks"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AIBasis_Neural_Networks</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">ImageNet and ILSVRC</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+<h1 id="ImageNet-Classification-and-ILSVRC-Competition"><a href="#ImageNet-Classification-and-ILSVRC-Competition" class="headerlink" title="ImageNet Classification and ILSVRC Competition"></a>ImageNet Classification and ILSVRC Competition</h1><blockquote>
+<p>My <strong>final assignment</strong> for <strong>Introduction to artificial intelligence</strong>.</p>
+</blockquote>
+<h1 id="Tracing-the-Evolution-of-ILSVRC-Winners-and-Their-Impact-on-Image-Classifications"><a href="#Tracing-the-Evolution-of-ILSVRC-Winners-and-Their-Impact-on-Image-Classifications" class="headerlink" title="Tracing the Evolution of ILSVRC Winners and Their Impact on Image Classifications"></a>Tracing the Evolution of ILSVRC Winners and Their Impact on Image Classifications</h1><h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>The past decade witnessed the transformation from Fully Connected Neural Network(FCNN) to Convolutional Neural Network(CNN) , which significantly addressed various challenges in the field of image recognition. This review traces how deep learning had passed a decade of breakthrough, introducing the evolution of winners from the <strong>ImageNet Large Scale Visual Recognition Challenge (ILSVRC)</strong>, highlighting key advancements such as AlexNet, GoogLeNet, ResNet and ResNeXt. By analyzing the architectural innovations and methodological breakthroughs of these models such as ReLU, dropout, LRN, Inception, Residual Network and cardinality, the review then provides insights into the trends in neural network research, regarding how they implemented the optimization by adding the depth of the layers without introducing a huge amount of extra parameters and computational complexity. Finally, we discussed the outlook of Deep Neural Networks in the field of image classification, including striving for higher quality datasets, moving from object recognition to human-level understanding and finding alternative models outperforming traditional CNNs.</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Image classification is a fundamental task in computer vision where the goal is to categorize an image into one of several predefined classes. This process involves analyzing the visual content of an image, extracting relevant features, and assigning a label that best describes the object. Applications of image classification include facial recognition, medical imaging, autonomous driving, making it a crucial technology in various real-world scenarios.</p>
+<p>Before AlexNet in 2012, the most commonly used neural network for image classification was Fully Connected Neural Network(FCNN) or known as the Multilayer Perception, which means every neuron in the current layer is connected to every neuron in the next layer. These connections are represented by weights.</p>
+<p>Neurons apply an activation function to the weighted sum of their inputs plus the bias, and then pass the output to the next layer. Common activation functions include ReLU (Rectified Linear Unit)\citep{Nair2010RectifiedLU}, sigmoid, and tanh.</p>
+<p>The training process mainly consists of forward propagation, where input data is passed through the network layer by layer, and back propagation\citep{RN32}, where the network calculates the gradient of the loss function(the binary cross entropy function) with respect to each weight and bias. Optimization algorithms such as gradient descent are then used to update the weight and bias to minimize the loss function.</p>
+<p>The graph below shows a basic three-layer FCNN, implemented with Python Code. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf<br><span class="hljs-keyword">from</span> tensorflow.keras <span class="hljs-keyword">import</span> Sequential<br><span class="hljs-keyword">from</span> tensorflow.keras.layers <span class="hljs-keyword">import</span> Dense<br>model = Sequential([<br>        Dense(units=<span class="hljs-number">25</span>,activation=<span class="hljs-string">&#x27;sigmoid&#x27;</span>),<br>        Dense(units=<span class="hljs-number">15</span>,activation=<span class="hljs-string">&#x27;sigmoid&#x27;</span>),<br>        Dense(units=<span class="hljs-number">1</span>,activation=<span class="hljs-string">&#x27;sigmoid&#x27;</span>),<br>    ])<br><span class="hljs-keyword">from</span> tensorflow.keras.losses <span class="hljs-keyword">import</span> BinaryCrossentropy<br>model.<span class="hljs-built_in">compile</span>(loss=BinaryCrossentropy())<br>model.fit(X,Y,epochs=<span class="hljs-number">100</span>)<br></code></pre></td></tr></table></figure>
+
+<p>Several fundamental algorithms including Stochastic gradient descent(SGD) and Back-propagation are displayed below. </p>
+<h3 id="Algorithm-I-Stochastic-Gradient-Descent-SGD"><a href="#Algorithm-I-Stochastic-Gradient-Descent-SGD" class="headerlink" title="Algorithm I: Stochastic Gradient Descent (SGD)"></a>Algorithm I: Stochastic Gradient Descent (SGD)</h3><p>Inputs: Loss function <em>ε</em>, learning rate <em>η</em>, dataset <em>X</em>,<em>y</em>, and model <em>F</em>(<em>θ</em>,<em>x</em>).<br>Outputs: Optimal <em>θ</em> that minimizes <em>ε</em>.</p>
+<p>Repeat until convergence:</p>
+<ul>
+<li>Shuffle <em>X</em>,<em>y</em>.</li>
+<li>For each batch of <em>x**i</em>,<em>y**i</em> in <em>X</em>,<em>y</em>, do:<em>y</em><del><em>i</em>&#x3D;<em>F</em>(<em>θ</em>,<em>x**i</em>);<em>θ</em>&#x3D;<em>θ</em>−<em>η</em>⋅<em>N</em>1<em>i</em>&#x3D;1∑<em>N</em>∂<em>θ</em>∂<em>ε</em>(<em>y**i</em>,<em>y</em></del><em>i</em>)</li>
+</ul>
+<h3 id="Algorithm-II-Backpropagation"><a href="#Algorithm-II-Backpropagation" class="headerlink" title="Algorithm II: Backpropagation"></a>Algorithm II: Backpropagation</h3><p>Input: A network with <em>l</em> layers, activation function <em>σ**l</em>, hidden layer outputs <em>h**l</em>&#x3D;<em>σ**l</em>(<em>W<strong>l</strong>T<strong>h</strong>l</em>−1+<em>b**l</em>), and network output <em>y</em>~&#x3D;<em>h**l</em>.</p>
+<p>Compute the gradient: <em>δ</em>←∂<em>y</em>∂<em>ε</em>(<em>y</em>,<em>y</em>~).</p>
+<p>For <em>i</em>←<em>l</em> to 0:</p>
+<p>∂<em>W**l</em>∂<em>ε</em>(<em>y</em>,<em>y</em><del>)&#x3D;∂<em>h**l</em>∂<em>ε</em>(<em>y</em>,<em>y</em></del>)∂<em>W**l</em>∂<em>h**l</em>&#x3D;<em>δ</em>∂<em>W**l</em>∂<em>h**l</em>∂<em>b**l</em>∂<em>ε</em>(<em>y</em>,<em>y</em><del>)&#x3D;∂<em>h**l</em>∂<em>ε</em>(<em>y</em>,<em>y</em></del>)∂<em>b**l</em>∂<em>h**l</em>&#x3D;<em>δ</em>∂<em>b**l</em>∂<em>h**l</em></p>
+<p>Apply gradient descent using ∂<em>W**l</em>∂<em>ε</em>(<em>y</em>,<em>y</em><del>) and ∂<em>b**l</em>∂<em>ε</em>(<em>y</em>,<em>y</em></del>). Backpropagate gradients to the lower layer:</p>
+<p><em>δ</em>←∂<em>h**l</em>∂<em>ε</em>(<em>y</em>,<em>y</em>~)∂<em>h**l</em>−1∂<em>h**l</em>&#x3D;<em>δ</em>∂<em>h**l</em>−1∂<em>h**l</em></p>
+<p>This article systematically reviews the development of some classic deep neural networks in ILSVRC. The contribution lies in tracing developments chronologically and summarizing general patterns of neural network development over the past decade. The survey also conducts a statistical analysis of the number of parameters and structures of different models, helping predict the future development of more complex network architectures.</p>
+<p>\begin{minipage}{\linewidth}<br>\textbf{Algorithm I. Stochastic gradient descent(SGD)}</p>
+<p>Inputs: loss function $\varepsilon$, learning rate $\eta$, dataset $X,y$ and the model $F(\theta,x)$.</p>
+<p>Outputs: Optimum $\theta$ which minimizes $\varepsilon$.</p>
+<p>REPEAT until converge:<br>\begin{itemize}<br>\item Shuffle $X,y$;<br>\item For each batch of $x_i,y_i$ in $X,y$ do<br>\begin{align*}<br>\tilde{y}<em>{i}&amp;&#x3D;\mathcal{F}\left(\theta,x</em>{i}\right);\<br>\theta&amp;&#x3D;\theta-\eta\cdot\frac{1}{N}\sum_{i &#x3D; 1}^{N}\frac{\partial\varepsilon(y_{i},\tilde{y}_{i})}{\partial\theta}<br>\end{align*}<br>\end{itemize}<br>\end{minipage}</p>
+<p>\begin{minipage}{\linewidth}<br>\textbf{Algorithm II. Back-propagation}</p>
+<p>Input: A network with $l$ layers, the activation function $\sigma_l$, the outputs of hidden layer $h_l&#x3D;\sigma_l(W_l^T h_{l - 1}+b_l)$ and the network output $\tilde{y} &#x3D; h_l$.</p>
+<p>Compute the gradient: $\delta \leftarrow \frac{\partial \varepsilon\left(y_{i}, \tilde{y}_{i}\right)}{\partial y}$</p>
+<p>For $i\leftarrow l$ to $0$ \textbf{do}<br>\begin{align*}<br>\frac{\partial\varepsilon(y,\tilde{y})}{\partial W_{l}}&amp;&#x3D;\frac{\partial\varepsilon(y,\tilde{y})}{\partial h_{l}}\frac{\partial h_{l}}{\partial W_{l}}&#x3D;\delta\frac{\partial h_{l}}{\partial W_{l}}\<br>\frac{\partial\varepsilon(y,\tilde{y})}{\partial b_{l}}&amp;&#x3D;\frac{\partial\varepsilon(y,\tilde{y})}{\partial h_{l}}\frac{\partial h_{l}}{\partial b_{l}}&#x3D;\delta\frac{\partial h_{l}}{\partial b_{l}}<br>\end{align*}</p>
+<p>Apply gradient descent using$\frac{\partial \varepsilon\left(y, \tilde{y}\right)}{\partial W_{l}}$and$\frac{\partial \varepsilon\left(y, \tilde{y}\right)}{\partial b_{l}}$.<br>Back-propagate gradient to the lower layer<br>[<br>\delta\leftarrow\frac{\partial\varepsilon(y,\tilde{y})}{\partial h_{l}}\frac{\partial h_{l}}{\partial h_{l - 1}}&#x3D;\delta\frac{\partial h_{l}}{\partial h_{l - 1}}<br>]</p>
+<p>\end{minipage}</p>
+<p>This article systematically reviewed the development of some classic deep neural networks of ILSVRC. The contribution lies in that we traces the development in the chronological order and summarize the general patterns of neural network development over the past decade. The survey also  conducts a statistical analysis of the number of parameters and structures of different models, which helps predicting the future development of more complex network structure.</p>
+<p>\section{Preliminaries}</p>
+<p>\subsection{The previous situation of Fully Connected Neural Networks(FCNNs) in Image Classification}<br>Before the maturation of Convolutional Neural Networks (CNNs)\citep{726791}, traditional neural networks, as the Fully Connected Neural Networks(FCNNS) faced several drawbacks and challenges.</p>
+<p>\begin{enumerate}</p>
+<p>\item \textbf{The Complexity of the Image Itself} </p>
+<p>It’s difficult for machines to grab the abstract features of the images efficiently. Several images that should be classified into the same category may be diverse in colors, sizes, illumination and background clutters, which is shown in Figure 2.</p>
+<p>Moreover, deformation and occlusion are two barriers. Deformation refers to the variations in the shape or structure of objects within images. These variations can occur due to changes in perspective, scale, or inherent flexibility of the objects themselves. Occlusion involves objects being partially obscured by other objects, which often happen in real-world scenarios.</p>
+<p>Traditional neural networks relied on manually designed feature extraction methods, which were time-consuming and often resulted in lack of robustness to handle with the complexity of images.</p>
+<p>\item \textbf{Severe Overfitting Problems} </p>
+<p>Fully Connected Neural Networks (FCNN) requires an enormous number of parameters when dealing with high-dimensional image data, leading to high computational and storage demands, making it difficult to train effectively. Due to the amount of parameters, traditional neural networks would lead to severe overfitting problems, especially when the well-labeled training data was insufficient. This meant the model performed well on the training set but poorly on the test set, leading to the model’s poor generalization ability.</p>
+<p>\begin{figure}[htb]<br>\centering<br>\includegraphics[width&#x3D;0.4\textwidth,height&#x3D;0.25\textwidth]{images&#x2F;apple.png}<br>\hspace{0.01\textwidth}<br>\includegraphics[width&#x3D;0.4\textwidth,height&#x3D;0.25\textwidth]{images&#x2F;Overfitting.png}<br>\caption{\textbf{Left}:The complexity of the image itself, same objects with different background clutters, colours, sizes and illumination could be diverse. \textbf{Right}:Overfitting leads to the severe generalization error, where models perform badly in testset.}<br>%引用</p>
+<p>\end{figure}</p>
+<p>\end{enumerate}<br>\subsection{ImageNet}<br>The foundations of ImageNet by \citet{imagenet_cvpr09} and The ImageNet Large Scale Visual Recognition Challenge (ILSVRC) \citep{ILSVRC15} reversed the current situation and led a revival of deep neural networks. ImageNet is a large-scale visual database in visual object recognition research. It contains millions of labeled images spanning thousands of categories. Now ImageNet has 14197122 images and 21841 synsets indexed, with more detailed information in \url{<a target="_blank" rel="noopener" href="https://image-net.org/%7D">https://image-net.org/}</a></p>
+<p>\subsection{ImageNet Large Scale Visual Recognition Challenge(ILSVRC)}<br>The ImageNet Large Scale Visual Recognition Challenge (ILSVRC)\citep{ILSVRC15} has driven significant progress by providing a competitive platform for evaluating algorithms. Launched in 2010, ILSVRC provides a standardized dataset and evaluation framework for visual object recognition tasks. Participants competed to optimize the  algorithms that can accurately classify and detect objects within the vast ImageNet dataset.</p>
+<p>The competition gained widespread attention in 2012 when AlexNet\citep{Krizhevsky2012ImageNetCW}, a deep convolutional neural network, achieved a dramatic improvement in accuracy, showcasing the potential of deep learning.ILSVRC has since become a benchmark for measuring progress in image recognition, object detection, and other related tasks.</p>
+<p>\begin{figure}[ht]<br>    \centering<br>    % 第一个图形<br>    \begin{minipage}{0.4\textwidth}<br>        \begin{tikzpicture}<br>        \begin{axis}[<br>            title&#x3D;{The Error Rate of each year’s ILSVRC winners},<br>            legend pos&#x3D;north east, % 图例位置<br>            grid&#x3D;major,<br>            scaled ticks&#x3D;false, % 禁用科学计数法<br>            nodes near coords, % 显示数据标签<br>            every node near coord&#x2F;.append style&#x3D;{font&#x3D;\small, color&#x3D;black},<br>            width&#x3D;1.4\textwidth,<br>            height&#x3D;2\textwidth% 标签样式<br>        ]<br>        % 第一条折线<br>        \addplot[<br>            color&#x3D;blue,<br>            mark&#x3D;square,<br>            ]<br>            coordinates {<br>            (2010,28)<br>            (2011,26)<br>            (2012,16)<br>            (2013,12)<br>            (2014,7)<br>            (2015,3.6)<br>            (2016,3)<br>            (2017,2.3)<br>        };<br>        \addlegendentry{Classification Results} % 图例条目</p>
+<pre><code class="hljs">    % 第二条折线
+    \addplot[
+        color=red,
+        mark=triangle,
+        ]
+        coordinates &#123;
+        (2011,43)
+        (2012,34)
+        (2013,30)
+        (2014,25)
+        (2015,9)
+        (2016,7.7)
+        (2017,6.2)
+    &#125;;
+    \addlegendentry&#123;Localization Results&#125; % 图例条目
+
+    \end&#123;axis&#125;
+\end&#123;tikzpicture&#125;
+\end&#123;minipage&#125;%
+\hspace&#123;0.1\textwidth&#125; % 在两个minipage之间添加空白
+% 第二个图形
+\begin&#123;minipage&#125;&#123;0.35\textwidth&#125; % 占页面宽度的45%
+    \centering
+\begin&#123;tikzpicture&#125;
+    \begin&#123;axis&#125;[
+        title=&#123;Participation in ILSVRC over the years&#125;,
+        xlabel=&#123;Year&#125;,
+        ylabel=&#123;Submissions&#125;,
+        ymin=0, % 设置y轴的最小值
+        symbolic x coords=&#123;10, 11, 12, 13, 14,15,16,17&#125;, % 定义分类标签
+        xtick=data, % 使用数据点作为x轴刻度
+        nodes near coords, % 在每个条形上显示数值标签
+        bar width=0.4cm, % 设置条形的宽度
+        enlarge x limits=0.10, % 增加x轴的边界
+        ymajorgrids=true, % 显示y轴的网格线
+        colormap name=rainbow,
+        width=1.2\textwidth,
+        height=1.5\textwidth
+    ]
+    
+    \addplot[
+        ybar,
+        fill =white, % 设置条形的填充颜色
+        ]
+        coordinates &#123;
+            (10, 35)
+            (11, 15)
+            (12, 29)
+            (13, 81)
+            (14, 123)
+            (15,157)
+            (16,172)
+            (17,115)
+        &#125;;
+
+    \end&#123;axis&#125;
+\end&#123;tikzpicture&#125;
+\end&#123;minipage&#125;
+\caption&#123;The error rate and the submissions of each year&#39;s ILSVRC challenges, from \url&#123;https://image-net.org/challenges/beyond_ilsvrc.php&#125;&#125;
+</code></pre>
+<p>\end{figure}</p>
+<p>%添加表格</p>
+<p>\subsection{Convolutional Neural Networks(CNNs) and LeNet}<br>Convolutional Neural Network (CNN) is a type of deep learning model specifically designed for processing structured data, such as images. CNNs are particularly effective for image recognition and classification tasks due to their ability to learn spatial hierarchies of features. </p>
+<p>Convolutional neural networks were originally proposed by \citet{726791}, specialized for handwriting characters recognition. The architecture of a CNN typically includes multiple layers, including convolutional layers, pooling layers, and fully connected layers.</p>
+<p>\begin{enumerate}<br>\item \textbf{Convolutional Layers} These layers apply convolution operations to the input, using filters (kernels) to create feature maps that capture spatial hierarchies. In a convolutional layer, the primary operation is the convolution, where a small matrix of weights, known as a filter or kernel, slides over the input image. This operation computes dot products between the filter and local patches of the input, producing feature maps. Filters are learned during training and detect specific features such as edges, textures, and patterns. Multiple filters can be applied to capture various features.<br>\item \textbf{Pooling Layers} Pooling layers perform down-sampling operations, reducing the dimension of the feature maps and making the network more computationally efficient while retaining important information. The most common type is Max Pooling\citep{726791}, which selects the maximum value in each patch of the feature map, and Average Pooling and Global Average Pooling\citep{Lin2013NetworkIN}, which computes the average value.<br>\item \textbf{Fully Connected Layers} These layers are similar to traditional neural networks and connect every neuron in one layer to every neuron in the next layer. After catching the different features of the image by using previous Convolutional and Pooling layers, the fully connected layers integrated several features into a single value, ignoring the influence that the position of the image brings, thus significantly enhanced the robustness of the model.<br>\end{enumerate}</p>
+<p>\begin{figure}[ht]<br>    \centering<br>    \includegraphics[width&#x3D;0.7\textwidth,height&#x3D;0.25\textwidth]{images&#x2F;Lenet.png}<br>    \caption{The structure of LeNet\citet{726791}}<br>\end{figure}</p>
+<p>\section{A Decade of Breakthroughs: Key Winners of the ILSVRC Competition}</p>
+<p>Launched in 2010,The ImageNet Large Scale Visual Recognition Challenge(ILSVRC) has generated countless outstanding achievements, including \textbf{AlexNet(2012)}\citep{Krizhevsky2012ImageNetCW}, \textbf{ZFNet(2013)}\citep{DBLP:journals&#x2F;corr&#x2F;ZeilerF13}, \textbf{GoogLeNet(2014)}\citep{DBLP:journals&#x2F;corr&#x2F;SzegedyLJSRAEVR14}, \textbf{ResNet(2015)}\citep{DBLP:journals&#x2F;corr&#x2F;HeZRS15} and \textbf{ResNeXt(2016)}\citep{DBLP:journals&#x2F;corr&#x2F;XieGDTH16}</p>
+<p>\subsection{2012: AlexNet – The Breakthrough of Deep Learning}</p>
+<p>AlexNet’s architecture was quite similar to LeNet, but with the efficient use of multiple GPUs, the well-structured data and the enormous amount of labeled data of ImageNet, AlexNet significantly decreased the error rate to 15.3%. Consisting five convolutional layers, three fully-connected layers and a final 1000-way softmax output layers, AlexNet used stochastic gradient descent (SGD)\citep{DBLP:journals&#x2F;corr&#x2F;Ruder16} with a batch size of 128 examples, momentum of 0.9, and weight decay of 0.0005. The following graph shows a illustration of the architecture of AlexNet.</p>
+<p>\begin{figure}[ht]<br>    \centering<br>    \includegraphics[width&#x3D;0.7\textwidth,height&#x3D;0.25\textwidth]{images&#x2F;Alexnet.png}<br>    \caption{The Structure of AlexNet\citep{Krizhevsky2012ImageNetCW}}<br>\end{figure}</p>
+<p>AlexNet also used quite a few optimization methods so as to minimize the error rate of the CNN, including the ReLU activation, the Local Response Normalization(LRN) and the innovative use of Dropout.</p>
+<p>\begin{enumerate}<br>    \item \textbf{The ReLU activation}<br>    The previous activation function used by previous convolutional was mainly the saturating nonlinearities including $f(x)&#x3D;\tanh x$ and sigmoid function $f(x)&#x3D;\frac{1}{1+e^{-x}}$. However, these saturating nonlinearities have much more complex computational process, while using the Rectified Linear Units (ReLUs)\citep{Nair2010RectifiedLU} $f(x)&#x3D;\max {0,x}$ has much more advantages. With the ReLU activation, the training process requires less computational process, and effectively solves the problem of gradient descent and gradient vanishing on certain intervals.<br>    \item \textbf{the Local Response Normalization(LRN)}<br>    Local Response Normalization was an efficient method for enhancing the accuracy when training the convolutional neural networks, imitating the lateral inhibition in neurons. The specific expression was as below.<br>    $$b_{x, y}^{i}&#x3D;a_{x, y}^{i} &#x2F;\left(k+\alpha \sum_{j&#x3D;\max (0, i-n &#x2F; 2)}^{\min (N-1, i+n &#x2F; 2)}\left(a_{x, y}^{j}\right)^{2}\right)^{\beta}$$<br>    LRN makes the correlation between feature maps generated by different convolutional kernels smaller by introducing competition between feature maps generated by neighboring convolutional kernels.<br>    \item \textbf{Dropout}<br>    Dropout is a technique dropping the output of each hidden neuron to zero with probability of 0.5. So every time an input is presented, the neural network samples a different architecture, but all these architectures share weights, allowing the network to learn more robust features and effectively solves the overfitting problem.<br>\end{enumerate}</p>
+<p>\subsection{2014: GoogLeNet – The Power of Inception}<br>GoogLeNet\citep{DBLP:journals&#x2F;corr&#x2F;SzegedyLJSRAEVR14}\citep{DBLP:journals&#x2F;corr&#x2F;SzegedyVISW15}, the winner of ILSVRC2014, proposed a deep convolutional neural network architecture named Inception and increased the depth and width of the networks while keeping the computational budget constant. This net effectively clusters sparse matrices into denser submatrices to improve computational performance, managing to decrease the error rate(Top-5) to 6.67%.More detailed information of the algorithm can be seen in \url{<a target="_blank" rel="noopener" href="https://github.com/conan7882/GoogLeNet-Inception%7D">https://github.com/conan7882/GoogLeNet-Inception}</a></p>
+<p>\begin{table}[ht]<br>\caption{The Basic architecture of GoogLeNet}<br>\resizebox{\textwidth}{!}{<br>\begin{tabular}{c|ccc|c|c|c|c|c|c|cc}<br>\hline<br>\textbf{type}  &amp; \textbf{patch size&#x2F; stride} &amp; \textbf{output size} &amp; \textbf{depth} &amp; #1×1                 &amp; #3×3reduce           &amp; #3×3 &amp; #5×5reduce           &amp; #5×5                 &amp; \textbf{pool proj} &amp; \textbf{params} &amp; \textbf{ops} \ \hline<br>convolution    &amp; 7×7&#x2F;2                       &amp; 112×112×64           &amp; 1              &amp; \multicolumn{1}{l|}{} &amp; \multicolumn{1}{l|}{} &amp;       &amp;                       &amp;                       &amp;                    &amp; 2.7K            &amp; 34M          \ \hline<br>max pool       &amp; 3×3&#x2F;2                       &amp; 56×56×64             &amp; 0              &amp;                       &amp;                       &amp;       &amp;                       &amp;                       &amp;                    &amp;                 &amp;              \ \hline<br>convolution    &amp; 3×3&#x2F;1                       &amp; 56×56×192            &amp; 2              &amp; \multicolumn{1}{l|}{} &amp; 64                    &amp; 192   &amp; \multicolumn{1}{l|}{} &amp; \multicolumn{1}{l|}{} &amp;                    &amp; 112K            &amp; 360M         \ \hline<br>max pool       &amp; 3×3&#x2F;2                       &amp; 28×28×192            &amp; 0              &amp;                       &amp;                       &amp;       &amp;                       &amp;                       &amp;                    &amp;                 &amp;              \ \hline<br>inception (3a) &amp;                             &amp; 28×28×256            &amp; 2              &amp; 64                    &amp; 96                    &amp; 128   &amp; 16                    &amp; 32                    &amp; 32                 &amp; 159K            &amp; 128M         \ \hline<br>inception (3b) &amp;                             &amp; 28×28×480            &amp; 2              &amp; 128                   &amp; 128                   &amp; 192   &amp; 32                    &amp; 96                    &amp; 64                 &amp; 380K            &amp; 304M         \ \hline<br>max pool       &amp; 3×3&#x2F;2                       &amp; 14×14×480            &amp; 0              &amp;                       &amp;                       &amp;       &amp;                       &amp;                       &amp;                    &amp;                 &amp;              \ \hline<br>inception (4a) &amp;                             &amp; 14×14×512            &amp; 2              &amp; 192                   &amp; 96                    &amp; 208   &amp; 16                    &amp; 48                    &amp; 64                 &amp; 364K            &amp; 73M          \ \hline<br>inception (4b) &amp;                             &amp; 14×14×512            &amp; 2              &amp; 160                   &amp; 112                   &amp; 224   &amp; 24                    &amp; 64                    &amp; 64                 &amp; 437K            &amp; 88M          \ \hline<br>inception (4c) &amp;                             &amp; 14×14×512            &amp; 2              &amp; 128                   &amp; 128                   &amp; 256   &amp; 24                    &amp; 64                    &amp; 64                 &amp; 463K            &amp; 100M         \ \hline<br>inception (4d) &amp;                             &amp; 14×14×528            &amp; 2              &amp; 112                   &amp; 144                   &amp; 288   &amp; 32                    &amp; 64                    &amp; 64                 &amp; 580K            &amp; 119M         \ \hline<br>inception (4e) &amp;                             &amp; 14×14×832            &amp; 2              &amp; 256                   &amp; 160                   &amp; 320   &amp; 32                    &amp; 128                   &amp; 128                &amp; 840K            &amp; 170M         \ \hline<br>max pool       &amp; 3×3&#x2F;2                       &amp; 7×7×832              &amp; 0              &amp;                       &amp;                       &amp;       &amp;                       &amp;                       &amp;                    &amp;                 &amp;              \ \hline<br>inception (5a) &amp;                             &amp; 7×7×832              &amp; 2              &amp; 256                   &amp; 160                   &amp; 320   &amp; 32                    &amp; 128                   &amp; 128                &amp; 1072K           &amp; 54M          \ \hline<br>inception (5b) &amp;                             &amp; 7×7×1024             &amp; 2              &amp; 384                   &amp; 192                   &amp; 384   &amp; 48                    &amp; 128                   &amp; 128                &amp; 1388K           &amp; 71M          \ \hline<br>avg pool       &amp; 7×7&#x2F;1                       &amp; 1×1×1024             &amp; 0              &amp;                       &amp;                       &amp;       &amp;                       &amp;                       &amp;                    &amp;                 &amp;              \ \hline<br>dropout (40%) &amp;                             &amp; 1×1×1024             &amp; 0              &amp;                       &amp;                       &amp;       &amp;                       &amp;                       &amp;                    &amp;                 &amp;              \ \hline<br>linear         &amp;                             &amp; 1×1×1000             &amp; 1              &amp; \multicolumn{1}{l|}{} &amp; \multicolumn{1}{l|}{} &amp;       &amp;                       &amp;                       &amp;                    &amp; 1000K           &amp; 1M           \ \hline<br>softmax        &amp;                             &amp; 1×1×1000             &amp; 0              &amp;                       &amp;                       &amp;       &amp;                       &amp;                       &amp;                    &amp;                 &amp;              \ \hline<br>\end{tabular}</p>
+<p>}</p>
+<pre><code class="hljs">\label&#123;tab:your_label&#125;
+</code></pre>
+<p>\end{table}<br>\begin{figure}[ht]<br>    \centering<br>    \includegraphics[width&#x3D;\textwidth]{images&#x2F;GooGLenet.png}<br>    \caption{The Structure of GoogLeNet\citep{DBLP:journals&#x2F;corr&#x2F;SzegedyLJSRAEVR14}}<br>\end{figure}</p>
+<p>Several innovations of GoogLenet are as follows.<br>\begin{enumerate}<br>    \item \textbf{The Inception Models}<br>    In traditional Convolutional Neural Networks like Alexnet and VGGNet, a series of convolutional and pooling layers are connected sequentially, leading to the huge amount of the parameters. Inception applies multiple types of convolutional filters (such as 1$\times$1, 3$\times$3, and 5$\times$5) within the same layer. As clustering sparse matrices into denser matrices can improve computational performance, different convolutional operations are performed in parallel, where the input data is processed simultaneously by different filters, and the results are concatenated along the depth dimension to form a unified output. Moreover, adapting more 1$\times$1 convolutional filters can decrease the dimension of the model, making the network compute less parameters especially when using a 5$\times$5 convolutional kernels.</p>
+<pre><code class="hljs">Using the Inception module can increase network depth without excessive parameters and reduce the computational process, thus overcoming the severe overfitting problems.
+</code></pre>
+<p>​<br>​    \item \textbf{Global Average Pooling}<br>​    Despite the inception-v1 modules, GoogLeNet also replaced the fully connected layers into global average pooling layers, which averages the feature maps across their spatial dimensions. Fully Connected Layers are responsible for classifying the features extracted from the convolutional layer with activation function such as softmax, which are often equipped with enormous parameters. But the GAP with no need of parameter performs average pooling for each feature map by averaging all the pixel values of the entire feature map and feeds the resulting vector directly into the softmax layer to output the classification.</p>
+<pre><code class="hljs">\begin&#123;figure&#125;[ht]
+\centering
+\includegraphics[width=0.8\textwidth,height=0.25\textwidth]&#123;images/Inception.png&#125;
+\caption&#123;The Inception Module, where different dimensions of convolutional kernels and pooling layers are added.\citep&#123;DBLP:journals/corr/SzegedyLJSRAEVR14&#125;&#125;
+</code></pre>
+<p>\end{figure}</p>
+<p>\begin{table}[ht]<br>\caption{The depth and the parameters of LeNet, AlexNet and GoogLeNet}<br>\begin{tabular}{l|lllll}<br>\hline<br>\multicolumn{1}{c|}{Model} &amp; Depth &amp; Convolutional Layers &amp; Fully Connected Layers &amp; Parameters &amp; Error Rate \ \hline<br>LeNet     &amp; 7  &amp; 3  &amp; 1 &amp; 0.06M &amp;        \ \hline<br>AlexNet   &amp; 8  &amp; 5  &amp; 3 &amp; 60M   &amp; 15.3% \ \hline<br>GoogLeNet &amp; 22 &amp; 10 &amp;   &amp; 5M    &amp; 6.67% \ \hline<br>\end{tabular}</p>
+<p>\end{table}</p>
+<p>\end{enumerate}</p>
+<p>\subsection{2015-2016: ResNet and ResNeXt – Tackling the Depth of Networks}<br>The rapid development of Inception enables deep neural networks to have much deeper layers with relatively fewer parameters. However, \citet{DBLP:journals&#x2F;corr&#x2F;HeZRS15} found the degradation phenomenon, as deeper networks preform poorly in comparison with networks with shallow layers. Unexpectedly, such degradation is not caused by overfitting, and adding more layers to a suitably deep model leads to higher training error as is shown in the graph below.</p>
+<p>\begin{figure}[ht]<br>    \centering<br>    \includegraphics[width&#x3D;0.7\textwidth,height&#x3D;0.25\textwidth]{images&#x2F;ResNet1.png}<br>    \caption{Training error (left) and test error (right) on CIFAR-10<br>with 20-layer and 56-layer “plain” networks. The deeper network<br>has higher training error, and thus test error. \citep{DBLP:journals&#x2F;corr&#x2F;HeZRS15}}</p>
+<p>\end{figure}</p>
+<p>The research team addressed the degradation problem by introducing a deep residual neural network. With the aim of letting a deeper model produce no higher training error than its shallower counterpart, the deep residual neural network added several identity mapping layers $g(x):&#x3D;x$, known as the shortcut connections, letting the stacked nonlinear layers fit the residual mapping of $f(x):&#x3D;\mathcal{F} (x)-x$. Thus the original mapping $\mathcal{F} (x)$ is the sum of the residual mapping and the added identity mapping, enabling less training error when increasing the depth of CNNs without introducing neither extra parameters nor computation complexity.</p>
+<p>For every building block in deep residual neural network, the output vectors can be computed as below.$$\mathbf{y}&#x3D;\mathcal{F}\left(\mathbf{x},\left{W_{i}\right}\right)+W_{s} \mathbf{x}$$</p>
+<p>The linear projection matrix $W_{s}$ is used for adapting the input vector into different dimensions. As for the overall architecture of ResNet, ResNet is equipped with 50(ResNet-50), 101(ResNet-101), 152(ResNet-152) or much more layers with a lower error rate of 3.57% in ILSVRC2015. More details regarding the code can be seen in \url{<a target="_blank" rel="noopener" href="https://github.com/facebookarchive/fb.resnet.torch?tab=readme-ov-file%7D">https://github.com/facebookarchive/fb.resnet.torch?tab=readme-ov-file}</a></p>
+<p>\begin{figure}[ht]<br>    \centering<br>    \includegraphics[width&#x3D;\textwidth]{images&#x2F;ResNet2.png}<br>    \caption{The Architecture of Deep Residual Neural Network\citep{DBLP:journals&#x2F;corr&#x2F;HeZRS15}}<br>\end{figure}</p>
+<p>\begin{figure}[ht]<br>    \centering<br>    \includegraphics[width&#x3D;\textwidth]{images&#x2F;ResNeXt.png}<br>    \caption{The Architecture of ResNeXt\citep{DBLP:journals&#x2F;corr&#x2F;XieGDTH16}}<br>\end{figure}</p>
+<p>In ILSVRC2016, the research team launched ResNeXt as an improved version of ResNet. ResNeXt is built upon the ResNet architecture by introducing a new dimension called “cardinality”, which refers to the number of parallel paths within a residual block. Unlike ResNet, which focuses on increasing the depth (number of layers) and width (number of channels), ResNeXt increases the cardinality to enhance model capacity and performance. Each block in ResNeXt consists of multiple parallel convolutional paths, each with a smaller number of filters, and their outputs are aggregated by $\mathbf{y}&#x3D;\mathbf{x}+\sum_{i&#x3D;1}^{C} \mathcal{T}_{i}(\mathbf{x})$. By leveraging grouped convolutions, ResNeXt efficiently reduced the error rate to 3% while maintaining the simplicity of the original ResNet design. </p>
+<p>\section{The Impact and Outlook}</p>
+<p>\subsection{Tracing the Development of Deep Neural Network}</p>
+<p>The development of deep convolutional neural networks was significant during the last decade. The graph shows the pros and cons of several classic networks in ILSVRC challenges.</p>
+<p>\begin{figure}[ht]<br>    \centering<br>    \includegraphics[width&#x3D;\textwidth]{images&#x2F;siwei.png}<br>    \caption{The pros and cons of several classic neural networks in ILSVRC}<br>\end{figure}</p>
+<p>Tracing the development of ILSVRC winners each year, the ultimate goal for all deep neural networks is to find a innovative architecture to outperform the result of image classification, as enhancing the network’s capacity while reducing computational complexity and address several problems like overfitting.</p>
+<p>As for the issue to enhance the model’s capacity, the convolutional neural network is the basic structure, enabling to get the abstract features of images and addressing the problem of the variations in the shape or structure of objects within images. And several networks such as AlexNet increase the amount of parameters and the depth of networks, thus enhancing the performance in image classification.</p>
+<p>But simply expanding the size of the networks would lead to complexity both structurally and computationally, as well as the overfitting problem. So an important direction for optimization is how to reduce the number of parameters and decrease the generization error, including the ReLU activation, Dropout and Global Average Pooling. Several models after GoogLeNet also innovated several sub-modules such as the Inception, the Residual model and the cardinality, which could advance the performance without introducing new parameters. This addresses problems such as degradation and overfitting, which often appears in large-sized CNNs.</p>
+<p>However, as of now, these convolutional neural networks suffer from problems such as overly complex model structures, poor visualization, and the need for large amounts of computational resources such as GPUs. In the future, we have the potential to design neural networks that are lighter but achieve the same performance.</p>
+<p>\subsection{For Future Outlook}</p>
+<p>The winners of \href{<a target="_blank" rel="noopener" href="https://image-net.org/challenges/LSVRC/2017/index.php%7D%7BILSVRC2017%7D">https://image-net.org/challenges/LSVRC/2017/index.php}{ILSVRC2017}</a> have decreased the error rate into 2.3%(top-5), which is much lower than human’s behaviour. So which direction we should take to embrace the next decade Neural Network Innovation?</p>
+<p>\begin{enumerate}<br>    \item \textbf{Striving for Higher Quality Datasets}<br>    After ImageNet, several datasets such as \href{<a target="_blank" rel="noopener" href="https://cocodataset.org/%7D%7BCOCO">https://cocodataset.org/}{COCO</a>(Common Objects in Context)} and \href{<a target="_blank" rel="noopener" href="https://storage.googleapis.com/openimages/web/index.html%7D%7BOpen">https://storage.googleapis.com/openimages/web/index.html}{Open</a> Image Datasets} by GoogLe have emerged to push the boundaries further in image classification. The high quality of well-labeled data could enhance the robustness of the model.<br>    \item \textbf{The move from object recognition to human-level understanding}<br>    Deep Neural Networks could be applied in many extensive fields, far more than simply classifying images into several categories. For example a dataset called Visual Genome \citep{DBLP:journals&#x2F;corr&#x2F;KrishnaZGJHKCKL16} focuses on understanding images in a more detailed manner, providing annotations for objects, attributes, and relationships between objects within images.<br>    \item \textbf{The fundamental innovation of Convolutional Neural Network}<br>    Nearly all the winners’ models of ILSVRC were based on the fundamental CNN structure. Could we find an alternative underlying model that outperforms convolutional neural networks? Nowadays, new architectures such as Vision Transformers(ViTs) \citep{DBLP:journals&#x2F;corr&#x2F;abs-2010-11929}, Momentum Contrast(MoCo)\citep{DBLP:journals&#x2F;corr&#x2F;abs-1911-05722}, Simple Contrastive Learning(SimCLR)\citep{DBLP:journals&#x2F;corr&#x2F;abs-2002-05709} and Contrastive Language-Image Pre-Training(CLIP)\citep{chen2024contrastivelocalizedlanguageimagepretraining}. These models have the advantages over traditional convolutional neural networks,such as the ability to train unlabeled data.<br>\end{enumerate}</p>
+<p>\section{Conclusion}</p>
+<p>This paper presents an overview of the development of deep neural networks over the past decade, especially the optimization of convolutional neural network. We lay emphasis on several classical CNN architectures which are the winners of ILSVRC challenges, including AlexNet, GoogLeNet, ResNet and ResNeXt. Tracing the development of these models, we then summarize the basic guiding principle of the optimization by adding the depth of the layers without introducing a huge amount of extra parameters and computational complexity.In the next decade, several feasible directions for Neural Network have proven to be successful, including striving for higher quality datasets, moving from object recognition to human-level understanding and finding alternative models outperforming traditonal CNNs.</p>
+<p>\newpage<br>\bibliographystyle{apalike}<br>\bibliography{Paper_summaries}<br>\end{document}</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Artificial-Intelligence/" class="category-chain-item">Artificial Intelligence</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Convolutional-Neural-Networks/" class="print-no-link">#Convolutional Neural Networks</a>
+      
+        <a href="/tags/Artificial-Intelligence/" class="print-no-link">#Artificial Intelligence</a>
+      
+        <a href="/tags/AlexNet/" class="print-no-link">#AlexNet</a>
+      
+        <a href="/tags/Image-Clssification/" class="print-no-link">#Image Clssification</a>
+      
+        <a href="/tags/Deep-Learning/" class="print-no-link">#Deep Learning</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ImageNet and ILSVRC</div>
+      <div>https://xiyuanyang-code.github.io/posts/Imagenet/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>December 5, 2024</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>April 14, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/Dynamic-Memory-and-Classes/" title="Dynamic-Memory-and-Classes">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Dynamic-Memory-and-Classes</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Introduction-to-OOP/" title="Introduction-to-OOP">
+                        <span class="hidden-mobile">Introduction-to-OOP</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
