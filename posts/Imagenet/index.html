@@ -19,16 +19,16 @@
   <meta name="author" content="Xiyuan Yang">
   <meta name="keywords" content="Code">
   
-    <meta name="description" content="html, body, .markdown-body {     font-family: Georgia, sans, serif;   }  ImageNet Classification and ILSVRC Competition My final assignment for Introduction to artificial intelligence.  Tracing the">
+    <meta name="description" content="A detailed explanation of the mathematical principles of convolutional neural networks.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ImageNet and ILSVRC">
 <meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Imagenet/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
-<meta property="og:description" content="html, body, .markdown-body {     font-family: Georgia, sans, serif;   }  ImageNet Classification and ILSVRC Competition My final assignment for Introduction to artificial intelligence.  Tracing the">
+<meta property="og:description" content="A detailed explanation of the mathematical principles of convolutional neural networks.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/AlexNet-1.jpg">
-<meta property="article:published_time" content="2024-12-05T02:21:32.000Z">
-<meta property="article:modified_time" content="2025-04-14T05:13:40.346Z">
+<meta property="article:published_time" content="2025-04-14T02:21:32.000Z">
+<meta property="article:modified_time" content="2025-04-14T15:27:01.209Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Convolutional Neural Networks">
 <meta property="article:tag" content="Artificial Intelligence">
@@ -333,8 +333,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-12-05 10:21" pubdate>
-          December 5, 2024 am
+        <time datetime="2025-04-14 10:21" pubdate>
+          April 14, 2025 am
         </time>
       </span>
     
@@ -345,7 +345,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          234 words
+          1.2k words
         
       </span>
     
@@ -420,15 +420,6 @@
     
       
       
-        <a href="/posts/Imagenet/" title="ImageNet and ILSVRC"
-           class="list-group-item list-group-item-action
-           active">
-          <span class="category-post">ImageNet and ILSVRC</span>
-        </a>
-      
-    
-      
-      
         <a href="/posts/CS294-1-LLM-Reasoning/" title="CS294-1-LLM-Reasoning"
            class="list-group-item list-group-item-action
            ">
@@ -499,6 +490,15 @@
         </a>
       
     
+      
+      
+        <a href="/posts/Imagenet/" title="ImageNet and ILSVRC"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">ImageNet and ILSVRC</span>
+        </a>
+      
+    
   </div>
 
         
@@ -534,7 +534,36 @@
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>再看卷积神经网络！在笔者大一上学期，曾经写过一篇有关<strong>ImageNet 和 ILSVRC</strong>相关的论文，当时属实是<strong>有一种掌握梯度下降就可以优化一切</strong>的傲气，如今回看这篇文章，颇觉得有许多需要改进的地方。因此，笔者决定<strong>重构</strong>这篇文章，并且从这篇文章出发，力求在数学上、工程上和思想上都对卷积神经网络有更深的理解。</p>
 <p>回看当年<strong>炼丹</strong>的日子，或许在历史的长河中，我们总是<strong>能够找到新的灵感</strong>。</p>
 <p>本博客的相关代码和文件将会存储在 <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/ImageNet-and-CNN-learning-materials">这个仓库</a> 中。坚持用中文，因为希望<strong>力求获得更加深刻的理解</strong>。</p>
-<h2 id="从“卷积”谈起…"><a href="#从“卷积”谈起…" class="headerlink" title="从“卷积”谈起…"></a>从“卷积”谈起…</h2>
+<h2 id="从“卷积”谈起…"><a href="#从“卷积”谈起…" class="headerlink" title="从“卷积”谈起…"></a>从“卷积”谈起…</h2><p>给定两个函数$f(t)$和$g(t)$：</p>
+<p>$$(f*g)(t)&#x3D;\int_{-\infty}^{+\infty}f(τ)g(t−\tau)\mathrm{d}τ$$</p>
+<p>这个定义非常的抽象，我们不妨举一个<strong>形象化的例子</strong>：</p>
+<h3 id="音频处理"><a href="#音频处理" class="headerlink" title="音频处理"></a>音频处理</h3><p>给定一个波形函数$f(t)$代表一段音频，现在，我们希望对这个函数做数学运算，来<strong>模拟回声</strong>的效果。</p>
+<blockquote>
+<p>这里其实暗含一个<strong>线性系统</strong>（线性时不变系统<strong>LTI</strong>）的假设，具体指的是：</p>
+<ul>
+<li><strong>线性</strong>：系统的输入和输出可以进行线性叠加。<ul>
+<li>在这里，很显然两个波形函数叠加就可以得到新的函数。</li>
+</ul>
+</li>
+<li><strong>时不变性</strong>：系统的输入输出关系不随时间变化。换句话说，如果输入信号的时间发生平移（延迟或提前），那么输出信号也会相应地平移相同的时间量，而不会改变其形状或性质。<ul>
+<li>$ y(t)&#x3D;T[x(t)] \text{ then, }T[x(t−t_0)]&#x3D;y(t−t_0)$. 其中$T$代表系统的变化关系，$x(t)$和$y(t)$分别代表系统的输入和输出。</li>
+<li>在这里，我们可以通过平移等手段实现这一点。（不深究）</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>从直觉上，我们知道，如果在时间$t_0$处连续函数$f(t)$的函数值为$s_0 &#x3D; f(t_0)$，那么我们希望某种施加变换得到新函数$F(t)$，满足$F(t_0 + \delta) &#x3D; f(t_0 + \delta) + \epsilon f(t_0) $.</p>
+<blockquote>
+<p>这个公式直观意思：$t_0 + \delta$处的声音波形函数收到回声的影响（$t &#x3D; t_0$），使其分贝数（函数值）发生了变化。</p>
+</blockquote>
+<p>如何定量的表示这个函数？我们可以定义<strong>核函数</strong>$g(t)$，定义如下：<br>$$<br>g(t) &#x3D;<br>\begin{cases}<br>1, &amp; t &#x3D; 0 \\<br>\epsilon, &amp; t &#x3D; \delta \\<br>0, &amp; \text{otherwise}<br>\end{cases}<br>$$<br>这样我们就可以写出新的函数$F(t) &#x3D; (f*g)(t)&#x3D;\int_{0}^{t}f(τ)g(t−\tau)\mathrm{d}τ$。</p>
+<blockquote>
+<p>这个函数可以解释为：加入<strong>回声</strong>考虑之后，在$t$时刻的函数值（声音的分贝）可以解释为<strong>在过去每一个时刻发出声音</strong>的回声的<strong>线性叠加</strong>。因此，在实际我们可以将$g(t)$定义为更加复杂的衰减函数。</p>
+</blockquote>
+<p>这就是卷积！我们可以推广至更一般的情况，<strong>它的核心思想是通过一个滑动窗口（核函数）对输入数据进行加权求和，从而生成一个新的表示。</strong>例如在之前音频处理的例子中，核函数就是$g$，滑动窗口就是$\int_{0}^{t}$，我们对原始的输入数据$f(t)$进行加权求和，最终得到新的表示。</p>
+<h3 id="卷积的可视化"><a href="#卷积的可视化" class="headerlink" title="卷积的可视化"></a>卷积的可视化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Author: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">Date: 2025-04-14 19:23:55</span><br><span class="hljs-string">LastEditors: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">LastEditTime: 2025-04-14 19:24:01</span><br><span class="hljs-string">FilePath: /CNN-tutorial/src/convolution.py</span><br><span class="hljs-string">Description:</span><br><span class="hljs-string">Do you code and make progress today?</span><br><span class="hljs-string">Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved.</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> matplotlib <span class="hljs-keyword">as</span> mlp<br><span class="hljs-keyword">from</span> scipy.integrate <span class="hljs-keyword">import</span> quad<br><br>mlp.use(<span class="hljs-string">&quot;Agg&quot;</span>)<br><br><br><span class="hljs-comment"># Original Function f(t)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">original_signal</span>(<span class="hljs-params">t</span>):<br>    <span class="hljs-keyword">return</span> np.sin(<span class="hljs-number">2</span> * np.pi * t)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">echo_kernel2</span>(<span class="hljs-params">t, alpha</span>):<br>    <span class="hljs-keyword">if</span> t &gt;= <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> np.exp(-alpha * t)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0.0</span><br><br><br><span class="hljs-comment"># Normalize the kernel to ensure its integral is 1</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">normalized_echo_kernel</span>(<span class="hljs-params">t, alpha</span>):<br>    <span class="hljs-comment"># Compute the normalization factor (integral of the kernel from 0 to infinity)</span><br>    normalization_factor, _ = quad(<span class="hljs-keyword">lambda</span> tau: echo_kernel2(tau, alpha), <span class="hljs-number">0</span>, np.inf)<br>    <span class="hljs-comment"># Return the normalized kernel value</span><br>    <span class="hljs-keyword">return</span> echo_kernel2(t, alpha) / normalization_factor<br><br><br><span class="hljs-comment"># Convolution with normalized kernel</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">convolution</span>(<span class="hljs-params">f, g, t_values, alpha</span>):<br>    h = []<br>    <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> t_values:<br>        integral, _ = quad(<span class="hljs-keyword">lambda</span> tau: f(tau) * g(t - tau, alpha), <span class="hljs-number">0</span>, t)<br>        h.append(integral)<br>    <span class="hljs-keyword">return</span> np.array(h)<br><br><br><span class="hljs-comment"># Plot figure for two pictures</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">plotfig</span>(<span class="hljs-params">t, f, h, alpha</span>):<br>    plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">6</span>))<br>    <br>    <span class="hljs-comment"># Original Signal</span><br>    plt.subplot(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)<br>    plt.plot(t, f, label=<span class="hljs-string">&quot;Original Signal&quot;</span>, color=<span class="hljs-string">&quot;blue&quot;</span>)<br>    plt.title(<span class="hljs-string">&quot;Original Signal&quot;</span>)<br>    plt.xlabel(<span class="hljs-string">&quot;Time (s)&quot;</span>)<br>    plt.ylabel(<span class="hljs-string">&quot;Amplitude&quot;</span>)<br>    plt.legend()<br>    plt.grid()<br><br>    <span class="hljs-comment"># Signal with Continuous Echo Effect</span><br>    plt.subplot(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br>    plt.plot(t, h, label=<span class="hljs-string">&quot;Signal with Continuous Echo&quot;</span>, color=<span class="hljs-string">&quot;red&quot;</span>)<br>    plt.title(<span class="hljs-string">&quot;Signal with Continuous Echo Effect&quot;</span>)<br>    plt.xlabel(<span class="hljs-string">&quot;Time (s)&quot;</span>)<br>    plt.ylabel(<span class="hljs-string">&quot;Amplitude&quot;</span>)<br>    plt.legend()<br>    plt.grid()<br>    plt.tight_layout()<br>    plt.savefig(<span class="hljs-string">f&quot;img/Signal_with_Continuous_Effect_alpha=<span class="hljs-subst">&#123;alpha:<span class="hljs-number">.2</span>f&#125;</span>.png&quot;</span>)<br>    plt.close()<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    t = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">500</span>)  <span class="hljs-comment"># Time range from 0 to 5 seconds</span><br>    f = original_signal(t)      <span class="hljs-comment"># Original signal</span><br>    <br>    <span class="hljs-comment"># Test different values of alpha</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.01</span>, <span class="hljs-number">0.1</span>, <span class="hljs-number">0.3</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.6</span>, <span class="hljs-number">0.8</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1.1</span>, <span class="hljs-number">1.4</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2.5</span>, <span class="hljs-number">5</span>]:<br>        h = convolution(original_signal, normalized_echo_kernel, t, alpha=i)<br>        plotfig(t, f, h, i)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br></code></pre></td></tr></table></figure>
+
+
                 
               </div>
             
@@ -600,7 +629,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>December 5, 2024</div>
+          <div>April 14, 2025</div>
         </div>
       
       
@@ -637,18 +666,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/Dynamic-Memory-and-Classes/" title="Dynamic-Memory-and-Classes">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Dynamic-Memory-and-Classes</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/Introduction-to-OOP/" title="Introduction-to-OOP">
-                        <span class="hidden-mobile">Introduction-to-OOP</span>
+                      <a href="/posts/Modern-C/" title="Modern C++">
+                        <span class="hidden-mobile">Modern C++</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -749,6 +772,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -941,6 +970,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/js/leancloud.js" ></script>
 
