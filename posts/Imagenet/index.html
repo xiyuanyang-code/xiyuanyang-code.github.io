@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/AlexNet-1.jpg">
 <meta property="article:published_time" content="2025-04-14T02:21:32.000Z">
-<meta property="article:modified_time" content="2025-04-15T07:07:37.589Z">
+<meta property="article:modified_time" content="2025-04-15T11:54:29.179Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta property="article:tag" content="Deep Learning">
@@ -345,7 +345,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.8k words
+          5.7k words
         
       </span>
     
@@ -621,7 +621,72 @@
 <p>$$Output Size&#x3D;\frac{Input Size−Kernel Size+2×Padding}{stride} + 1 &#x3D; 55$$</p>
 <p>在这里，$Inputsize &#x3D; 224$, $KernelSize &#x3D; 11$, $Padding &#x3D; 2$, $stride &#x3D; 4$。</p>
 <p>因此输出张量的维度 $(64,55,55)$。</p>
-<h3 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h3><h3 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h3><h3 id="全连接层"><a href="#全连接层" class="headerlink" title="全连接层"></a>全连接层</h3><h3 id="Output-Layer"><a href="#Output-Layer" class="headerlink" title="Output Layer"></a>Output Layer</h3>
+<h3 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h3><h4 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h4><p>激活函数的作用，说到底就是在多层感知机线性的网络参数结构下引入<strong>非线性的部分</strong>，如果没有激活函数，神经网络的每一层其实都是线性变换，无法有效地拟合复杂的函数。同时，激活函数还可以有<strong>控制输出范围</strong>（$Sigmoid(x) &#x3D; \frac{1}{1+e^{-x}}$）、改善<strong>梯度消失现象</strong>（$Tanh(x) &#x3D; \frac{e^x - e^{-x}}{e^x + e^{-x}}$）的作用。</p>
+<p>$$ReLU(x) &#x3D; \begin{cases}<br>0, &amp; x \le 0 \\<br>x, &amp; x &gt; 0<br>\end{cases}$$</p>
+<p>在这里<strong>ReLU</strong>是一个非线性的激活函数，并且由于负值被截断为零，ReLU 使得一部分<strong>神经元在某些输入下不激活</strong>（输出为零），这有助于模型的稀疏性和提高计算效率（ReLU的计算非常简单）。</p>
+<p><code>inplace=True</code> 表示在原地进行操作。这意味着 ReLU 函数会直接修改输入张量，而不是创建一个新的张量来存储输出。</p>
+<h3 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h3><p>在经过ReLU函数激活之后，我们来到了<strong>池化层</strong>：<code>nn.MaxPool2d(kernel_size=3, stride=2)</code>。在讲解这个操作之前，我们先来具体了解一下什么是<strong>池化</strong>。</p>
+<p>在不同的网络层数之间，我们储存的都是<strong>矩阵</strong>，而这些矩阵都是<strong>非常稀疏</strong>的矩阵，或者说这些矩阵内部非常多的元素都是0，尤其是在经过多次ReLU激活之后，这样会带来好处（<strong>详见高维数据的处理：高维空间下向量近似正交</strong>）。但是这对<strong>数据的存储和计算效率上带来了很大的困难</strong>，因此，为了进一步压缩<strong>图像卷积提取到的图片特征</strong>，我们需要对特征图进行进一步的压缩。这一步过程就叫做<strong>池化</strong>。</p>
+<ul>
+<li><strong>降维</strong>: 池化可以减少特征图的尺寸，从而降低后续层的计算复杂度。</li>
+<li><strong>特征提取</strong>: 通过选择特定区域内的最大值或平均值，池化能够保留重要的特征，同时抑制噪声。</li>
+<li><strong>防止过拟合</strong>: 通过减少特征图的尺寸，池化有助于减少模型的复杂性，从而降低过拟合的风险。</li>
+</ul>
+<p>池化的具体操作非常简单，主要分为<strong>最大池化（Max Pooling）和平均池化（Average Pooling）</strong>：</p>
+<ul>
+<li><strong>最大池化（Max Pooling）</strong>: 在池化窗口内选<strong>择最大值。它能够保留特征图中的重要信息</strong>，尤其是在图像处理中。</li>
+<li><strong>平均池化（Average Pooling）</strong>: 在池化窗口内<strong>计算平均值</strong>。它对特征图的平滑效果更强，但可能会丢失一些重要的特征。</li>
+</ul>
+<p>池化过程中的参数有：</p>
+<ul>
+<li><strong>池化窗口大小（Kernel Size）</strong>: 池化操作中使用的窗口的大小，例如 2×22×2 或 3×33×3。</li>
+<li><strong>步幅（Stride）</strong>: 池化窗口在特征图上移动的步长。步幅越大，输出特征图的尺寸越小。</li>
+<li><strong>填充（Padding）</strong>: 在某些情况下，可以在特征图的边缘添加额外的像素，以控制输出尺寸。</li>
+</ul>
+<p>因此，我们便可以理解这一行代码是什么意思了：使用<strong>最大池化</strong>。其对应参数的解释：</p>
+<ul>
+<li><p><code>dilation=1</code></p>
+<ul>
+<li><p><strong>含义</strong>: 控制池化窗口元素之间的间距。</p>
+</li>
+<li><p><strong>解释</strong>: <code>dilation=1</code> 表示池化窗口的元素之间没有间隔，窗口是紧凑的。增加 <code>dilation</code> 值会使得窗口的元素之间有间隔，这在某些情况下可以用于扩大感受野。</p>
+</li>
+</ul>
+</li>
+<li><p><code>ceil_mode=False</code></p>
+<ul>
+<li><strong>含义</strong>: 控制输出特征图尺寸的计算方式。</li>
+<li><strong>解释</strong>: <code>ceil_mode=False</code> 表示在计算输出特征图的尺寸时使用向下取整（floor）。如果设置为 <code>True</code>，则使用向上取整（ceil），这可能会导致输出特征图的尺寸略微增大。</li>
+</ul>
+</li>
+</ul>
+<p>假设有一个输入特征图，其尺寸为 $H×W$，经过池化操作后，输出特征图的尺寸可以通过以下公式计算：</p>
+<p>$$Output Height&#x3D;⌊\frac{H−kernel_size}{stride}+1⌋$$</p>
+<p>$$Output Width&#x3D;⌊\frac{W−kernel_size}{stride}+1⌋$$</p>
+<div class="note note-primary">
+            <p>学习完这三个层之后，你应该就可以看懂下面的代码了：（<strong>当然也是上面的代码</strong>）</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs routeros">(features): Sequential(<br>   (0): Conv2d(3, 64, kernel_size=(11, 11), stride=(4, 4), padding=(2, 2))<br>   (1): ReLU(<span class="hljs-attribute">inplace</span>=<span class="hljs-literal">True</span>)<br>   (2): MaxPool2d(<span class="hljs-attribute">kernel_size</span>=3, <span class="hljs-attribute">stride</span>=2, <span class="hljs-attribute">padding</span>=0, <span class="hljs-attribute">dilation</span>=1, <span class="hljs-attribute">ceil_mode</span>=<span class="hljs-literal">False</span>)<br>   (3): Conv2d(64, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))<br>   (4): ReLU(<span class="hljs-attribute">inplace</span>=<span class="hljs-literal">True</span>)<br>   (5): MaxPool2d(<span class="hljs-attribute">kernel_size</span>=3, <span class="hljs-attribute">stride</span>=2, <span class="hljs-attribute">padding</span>=0, <span class="hljs-attribute">dilation</span>=1, <span class="hljs-attribute">ceil_mode</span>=<span class="hljs-literal">False</span>)<br>   (6): Conv2d(192, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))<br>   (7): ReLU(<span class="hljs-attribute">inplace</span>=<span class="hljs-literal">True</span>)<br>   (8): Conv2d(384, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))<br>   (9): ReLU(<span class="hljs-attribute">inplace</span>=<span class="hljs-literal">True</span>)<br>   (10): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))<br>   (11): ReLU(<span class="hljs-attribute">inplace</span>=<span class="hljs-literal">True</span>)<br>   (12): MaxPool2d(<span class="hljs-attribute">kernel_size</span>=3, <span class="hljs-attribute">stride</span>=2, <span class="hljs-attribute">padding</span>=0, <span class="hljs-attribute">dilation</span>=1, <span class="hljs-attribute">ceil_mode</span>=<span class="hljs-literal">False</span>)<br> )<br></code></pre></td></tr></table></figure>
+          </div>
+
+<p>不过接下来AlexNet还没有结束！让我们继续往下看：</p>
+<h3 id="全连接层"><a href="#全连接层" class="headerlink" title="全连接层"></a>全连接层</h3><p>在AlexNet类中的前向传播的函数中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>    <span class="hljs-comment"># Pass input through the convolutional layers</span><br>    x = <span class="hljs-variable language_">self</span>.features(x)<br><br>    <span class="hljs-comment"># Flatten the output for the fully connected layers</span><br>    x = torch.flatten(x, <span class="hljs-number">1</span>)<br><br>    <span class="hljs-comment"># Pass through the fully connected layers</span><br>    x = <span class="hljs-variable language_">self</span>.classifier(x)<br>    <span class="hljs-keyword">return</span> x<br></code></pre></td></tr></table></figure>
+
+<p>输入的向量$x$首先经过<code>self.features()</code>即若干个卷积层的处理之后，又经过<code>torch.flatten(x,1)</code>，展平为<strong>一维向量</strong>。接下来，AlexNet使用了一个传统的全连接神经网络，来拟合在提取和抽象过后图像矩阵的信息，即<code>x = self.classifier(x)</code>。</p>
+<div class="note note-primary">
+            <p><strong>严格来说</strong>，并非展平为一维向量，因为还有<strong>通道数</strong>($N$)。</p><p><code>torch.flatten</code> 函数用于将输入张量展平为一维张量。它可以选择性地从某个特定维度开始展平。</p><ul><li><strong>第一个参数</strong>: <code>x</code> 是要展平的输入张量，通常是一个多维张量，例如卷积层的输出。</li><li><strong>第二个参数</strong>: <code>1</code> 指定从哪个维度开始展平。这意味着在维度 1 及其之后的所有维度都将被展平，而维度 0（通常是批量大小）将保持不变。</li></ul><p>假设 <code>x</code> 是一个形状为 <code>(batch_size, channels, height, width)</code> 的四维张量（例如，来自卷积层的输出）。在这种情况下：</p><ul><li><code>batch_size</code> 表示一次处理的样本数。</li><li><code>channels</code> 是特征图的通道数（例如，256）。</li><li><code>height</code> 和 <code>width</code> 是特征图的空间维度（例如，6 和 6）。</li></ul><p>当你调用 <code>torch.flatten(x, 1)</code> 时，结果将是一个形状为 <code>(batch_size, channels * height * width)</code> 的二维张量。具体来说，如果 <code>x</code> 的形状是 <code>(N, 256, 6, 6)</code>，那么展平后它的形状将变为 <code>(N, 256 * 6 * 6)</code>，即 <code>(N, 9216)</code>。</p>
+          </div>
+
+<p>我们来看全连接层的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Define the fully connected layers</span><br>        <span class="hljs-variable language_">self</span>.classifier = nn.Sequential(<br>            nn.Dropout(),<br>            nn.Linear(<span class="hljs-number">256</span> * <span class="hljs-number">6</span> * <span class="hljs-number">6</span>, <span class="hljs-number">4096</span>),  <span class="hljs-comment"># Flattened feature map size is 256 * 6 * 6</span><br>            nn.ReLU(inplace=<span class="hljs-literal">True</span>),<br>            nn.Dropout(),<br>            nn.Linear(<span class="hljs-number">4096</span>, <span class="hljs-number">4096</span>),<br>            nn.ReLU(inplace=<span class="hljs-literal">True</span>),<br>            nn.Linear(<span class="hljs-number">4096</span>, num_classes),<br>        )<br></code></pre></td></tr></table></figure>
+
+<h4 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h4><p><code>Dropout</code>技术是AlexNet的首创，它在训练过程中随机地“丢弃”网络中的一部分神经元，以减少模型对特定神经元的依赖，从而提高模型的<strong>泛化能力</strong>（防止过拟合）。具体而言，在每次训练迭代中，Dropout 会以一定的概率（通常在 0.2 到 0.5 之间）随机选择一些神经元，并将它们的输出设为零。这意味着这些神经元在这一轮训练中不会参与计算。</p>
+<p><code>nn.Linear(256 * 6 * 6, 4096)</code>代表输入被展平为一个$256<em>6</em>6&#x3D;9216$的高维向量，并通过一次全连接的神经网络，最终输出的维度是$4096$维的向量。</p>
+<p>最终经过多层线性全连接层的拟合之后，函数终于来到了最后一层。</p>
+<h3 id="Output-Layer"><a href="#Output-Layer" class="headerlink" title="Output Layer"></a>Output Layer</h3><p><code>nn.Linear(4096, num_classes)</code>，将 4096 维的特征向量转换为 <code>num_classes</code> 维的输出，网络能够为每个类别生成一个分数。通常，这些分数会通过 softmax 函数进行归一化，以便将它们转换为概率值。</p>
+<blockquote>
+<p>在 PyTorch 中，通常在训练和推理阶段，softmax 操作会在损失计算时进行，而不是直接在模型结构中实现。这种做法可以避免在训练过程中出现数值不稳定的问题。</p>
+</blockquote>
+<h2 id="Train-The-Model"><a href="#Train-The-Model" class="headerlink" title="Train The Model!"></a>Train The Model!</h2><h2 id="Demonstrations"><a href="#Demonstrations" class="headerlink" title="Demonstrations"></a>Demonstrations</h2><h2 id="Variant"><a href="#Variant" class="headerlink" title="Variant"></a>Variant</h2><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2>
                 
               </div>
             
