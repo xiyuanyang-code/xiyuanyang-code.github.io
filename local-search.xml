@@ -8,7 +8,7 @@
     <link href="/posts/Imagenet/"/>
     <url>/posts/Imagenet/</url>
     
-    <content type="html"><![CDATA[<style>  html, body, .markdown-body {    font-family: Georgia, sans, serif;  }</style><h1 id="ImageNet-Classification-and-ILSVRC-Competition"><a href="#ImageNet-Classification-and-ILSVRC-Competition" class="headerlink" title="ImageNet Classification and ILSVRC Competition"></a>ImageNet Classification and ILSVRC Competition</h1><blockquote><p>My <strong>final assignment</strong> for <strong>Introduction to artificial intelligence</strong>.</p></blockquote><h1 id="Tracing-the-Evolution-of-ILSVRC-Winners-and-Their-Impact-on-Image-Classifications"><a href="#Tracing-the-Evolution-of-ILSVRC-Winners-and-Their-Impact-on-Image-Classifications" class="headerlink" title="Tracing the Evolution of ILSVRC Winners and Their Impact on Image Classifications"></a>Tracing the Evolution of ILSVRC Winners and Their Impact on Image Classifications</h1><h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>The past decade witnessed the transformation from Fully Connected Neural Network(FCNN) to Convolutional Neural Network(CNN) , which significantly addressed various challenges in the field of image recognition. This review traces how deep learning had passed a decade of breakthrough, introducing the evolution of winners from the <strong>ImageNet Large Scale Visual Recognition Challenge (ILSVRC)</strong>, highlighting key advancements such as AlexNet, GoogLeNet, ResNet and ResNeXt. By analyzing the architectural innovations and methodological breakthroughs of these models such as ReLU, dropout, LRN, Inception, Residual Network and cardinality, the review then provides insights into the trends in neural network research, regarding how they implemented the optimization by adding the depth of the layers without introducing a huge amount of extra parameters and computational complexity. Finally, we discussed the outlook of Deep Neural Networks in the field of image classification, including striving for higher quality datasets, moving from object recognition to human-level understanding and finding alternative models outperforming traditional CNNs.</p><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>再看卷积神经网络！在笔者大一上学期，曾经写过一篇有关<strong>ImageNet 和 ILSVRC</strong>相关的论文，当时属实是<strong>有一种掌握梯度下降就可以优化一切</strong>的傲气，如今回看这篇文章，颇觉得有许多需要改进的地方。因此，笔者决定<strong>重构</strong>这篇文章，并且从这篇文章出发，力求在数学上、工程上和思想上都对卷积神经网络有更深的理解。</p><p>回看当年<strong>炼丹</strong>的日子，或许在历史的长河中，我们总是<strong>能够找到新的灵感</strong>。</p><p>本博客的相关代码和文件将会存储在 <a href="https://github.com/xiyuanyang-code/ImageNet-and-CNN-learning-materials">这个仓库</a> 中。坚持用中文，因为希望<strong>力求获得更加深刻的理解</strong>。</p><h2 id="从“卷积”谈起…"><a href="#从“卷积”谈起…" class="headerlink" title="从“卷积”谈起…"></a>从“卷积”谈起…</h2><p>给定两个函数$f(t)$和$g(t)$：</p><p>$$(f*g)(t)&#x3D;\int_{-\infty}^{+\infty}f(τ)g(t−\tau)\mathrm{d}τ$$</p><p>这个定义非常的抽象，我们不妨举一个<strong>形象化的例子</strong>：</p><h3 id="音频处理"><a href="#音频处理" class="headerlink" title="音频处理"></a>音频处理</h3><p>给定一个波形函数$f(t)$代表一段音频，现在，我们希望对这个函数做数学运算，来<strong>模拟回声</strong>的效果。</p><blockquote><p>这里其实暗含一个<strong>线性系统</strong>（线性时不变系统<strong>LTI</strong>）的假设，具体指的是：</p><ul><li><strong>线性</strong>：系统的输入和输出可以进行线性叠加。<ul><li>在这里，很显然两个波形函数叠加就可以得到新的函数。</li></ul></li><li><strong>时不变性</strong>：系统的输入输出关系不随时间变化。换句话说，如果输入信号的时间发生平移（延迟或提前），那么输出信号也会相应地平移相同的时间量，而不会改变其形状或性质。<ul><li>$ y(t)&#x3D;T[x(t)] \text{ then, }T[x(t−t_0)]&#x3D;y(t−t_0)$. 其中$T$代表系统的变化关系，$x(t)$和$y(t)$分别代表系统的输入和输出。</li><li>在这里，我们可以通过平移等手段实现这一点。（不深究）</li></ul></li></ul></blockquote><p>从直觉上，我们知道，如果在时间$t_0$处连续函数$f(t)$的函数值为$s_0 &#x3D; f(t_0)$，那么我们希望某种施加变换得到新函数$F(t)$，满足$F(t_0 + \delta) &#x3D; f(t_0 + \delta) + \epsilon f(t_0) $.</p><blockquote><p>这个公式直观意思：$t_0 + \delta$处的声音波形函数收到回声的影响（$t &#x3D; t_0$），使其分贝数（函数值）发生了变化。</p></blockquote><p>如何定量的表示这个函数？我们可以定义<strong>核函数</strong>$g(t)$，定义如下：<br>$$<br>g(t) &#x3D;<br>\begin{cases}<br>1, &amp; t &#x3D; 0 \\<br>\epsilon, &amp; t &#x3D; \delta \\<br>0, &amp; \text{otherwise}<br>\end{cases}<br>$$<br>这样我们就可以写出新的函数$F(t) &#x3D; (f*g)(t)&#x3D;\int_{0}^{t}f(τ)g(t−\tau)\mathrm{d}τ$。</p><blockquote><p>这个函数可以解释为：加入<strong>回声</strong>考虑之后，在$t$时刻的函数值（声音的分贝）可以解释为<strong>在过去每一个时刻发出声音</strong>的回声的<strong>线性叠加</strong>。因此，在实际我们可以将$g(t)$定义为更加复杂的衰减函数。</p></blockquote><p>这就是卷积！我们可以推广至更一般的情况，<strong>它的核心思想是通过一个滑动窗口（核函数）对输入数据进行加权求和，从而生成一个新的表示。</strong>例如在之前音频处理的例子中，核函数就是$g$，滑动窗口就是$\int_{0}^{t}$，我们对原始的输入数据$f(t)$进行加权求和，最终得到新的表示。</p><h3 id="卷积的可视化"><a href="#卷积的可视化" class="headerlink" title="卷积的可视化"></a>卷积的可视化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Author: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">Date: 2025-04-14 19:23:55</span><br><span class="hljs-string">LastEditors: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">LastEditTime: 2025-04-14 19:24:01</span><br><span class="hljs-string">FilePath: /CNN-tutorial/src/convolution.py</span><br><span class="hljs-string">Description:</span><br><span class="hljs-string">Do you code and make progress today?</span><br><span class="hljs-string">Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved.</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> matplotlib <span class="hljs-keyword">as</span> mlp<br><span class="hljs-keyword">from</span> scipy.integrate <span class="hljs-keyword">import</span> quad<br><br>mlp.use(<span class="hljs-string">&quot;Agg&quot;</span>)<br><br><br><span class="hljs-comment"># Original Function f(t)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">original_signal</span>(<span class="hljs-params">t</span>):<br>    <span class="hljs-keyword">return</span> np.sin(<span class="hljs-number">2</span> * np.pi * t)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">echo_kernel2</span>(<span class="hljs-params">t, alpha</span>):<br>    <span class="hljs-keyword">if</span> t &gt;= <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> np.exp(-alpha * t)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0.0</span><br><br><br><span class="hljs-comment"># Normalize the kernel to ensure its integral is 1</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">normalized_echo_kernel</span>(<span class="hljs-params">t, alpha</span>):<br>    <span class="hljs-comment"># Compute the normalization factor (integral of the kernel from 0 to infinity)</span><br>    normalization_factor, _ = quad(<span class="hljs-keyword">lambda</span> tau: echo_kernel2(tau, alpha), <span class="hljs-number">0</span>, np.inf)<br>    <span class="hljs-comment"># Return the normalized kernel value</span><br>    <span class="hljs-keyword">return</span> echo_kernel2(t, alpha) / normalization_factor<br><br><br><span class="hljs-comment"># Convolution with normalized kernel</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">convolution</span>(<span class="hljs-params">f, g, t_values, alpha</span>):<br>    h = []<br>    <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> t_values:<br>        integral, _ = quad(<span class="hljs-keyword">lambda</span> tau: f(tau) * g(t - tau, alpha), <span class="hljs-number">0</span>, t)<br>        h.append(integral)<br>    <span class="hljs-keyword">return</span> np.array(h)<br><br><br><span class="hljs-comment"># Plot figure for two pictures</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">plotfig</span>(<span class="hljs-params">t, f, h, alpha</span>):<br>    plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">6</span>))<br>    <br>    <span class="hljs-comment"># Original Signal</span><br>    plt.subplot(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)<br>    plt.plot(t, f, label=<span class="hljs-string">&quot;Original Signal&quot;</span>, color=<span class="hljs-string">&quot;blue&quot;</span>)<br>    plt.title(<span class="hljs-string">&quot;Original Signal&quot;</span>)<br>    plt.xlabel(<span class="hljs-string">&quot;Time (s)&quot;</span>)<br>    plt.ylabel(<span class="hljs-string">&quot;Amplitude&quot;</span>)<br>    plt.legend()<br>    plt.grid()<br><br>    <span class="hljs-comment"># Signal with Continuous Echo Effect</span><br>    plt.subplot(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br>    plt.plot(t, h, label=<span class="hljs-string">&quot;Signal with Continuous Echo&quot;</span>, color=<span class="hljs-string">&quot;red&quot;</span>)<br>    plt.title(<span class="hljs-string">&quot;Signal with Continuous Echo Effect&quot;</span>)<br>    plt.xlabel(<span class="hljs-string">&quot;Time (s)&quot;</span>)<br>    plt.ylabel(<span class="hljs-string">&quot;Amplitude&quot;</span>)<br>    plt.legend()<br>    plt.grid()<br>    plt.tight_layout()<br>    plt.savefig(<span class="hljs-string">f&quot;img/Signal_with_Continuous_Effect_alpha=<span class="hljs-subst">&#123;alpha:<span class="hljs-number">.2</span>f&#125;</span>.png&quot;</span>)<br>    plt.close()<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    t = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">500</span>)  <span class="hljs-comment"># Time range from 0 to 5 seconds</span><br>    f = original_signal(t)      <span class="hljs-comment"># Original signal</span><br>    <br>    <span class="hljs-comment"># Test different values of alpha</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.01</span>, <span class="hljs-number">0.1</span>, <span class="hljs-number">0.3</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.6</span>, <span class="hljs-number">0.8</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1.1</span>, <span class="hljs-number">1.4</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2.5</span>, <span class="hljs-number">5</span>]:<br>        h = convolution(original_signal, normalized_echo_kernel, t, alpha=i)<br>        plotfig(t, f, h, i)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br></code></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<style>  html, body, .markdown-body {    font-family: Georgia, sans, serif;  }</style><h1 id="ImageNet-Classification-and-ILSVRC-Competition"><a href="#ImageNet-Classification-and-ILSVRC-Competition" class="headerlink" title="ImageNet Classification and ILSVRC Competition"></a>ImageNet Classification and ILSVRC Competition</h1><blockquote><p>My <strong>final assignment</strong> for <strong>Introduction to artificial intelligence</strong>.</p></blockquote><h1 id="Tracing-the-Evolution-of-ILSVRC-Winners-and-Their-Impact-on-Image-Classifications"><a href="#Tracing-the-Evolution-of-ILSVRC-Winners-and-Their-Impact-on-Image-Classifications" class="headerlink" title="Tracing the Evolution of ILSVRC Winners and Their Impact on Image Classifications"></a>Tracing the Evolution of ILSVRC Winners and Their Impact on Image Classifications</h1><h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>The past decade witnessed the transformation from Fully Connected Neural Network(FCNN) to Convolutional Neural Network(CNN) , which significantly addressed various challenges in the field of image recognition. This review traces how deep learning had passed a decade of breakthrough, introducing the evolution of winners from the <strong>ImageNet Large Scale Visual Recognition Challenge (ILSVRC)</strong>, highlighting key advancements such as AlexNet, GoogLeNet, ResNet and ResNeXt. By analyzing the architectural innovations and methodological breakthroughs of these models such as ReLU, dropout, LRN, Inception, Residual Network and cardinality, the review then provides insights into the trends in neural network research, regarding how they implemented the optimization by adding the depth of the layers without introducing a huge amount of extra parameters and computational complexity. Finally, we discussed the outlook of Deep Neural Networks in the field of image classification, including striving for higher quality datasets, moving from object recognition to human-level understanding and finding alternative models outperforming traditional CNNs.</p><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>再看卷积神经网络！在笔者大一上学期，曾经写过一篇有关<strong>ImageNet 和 ILSVRC</strong>相关的论文，当时属实是<strong>有一种掌握梯度下降就可以优化一切</strong>的傲气，如今回看这篇文章，颇觉得有许多需要改进的地方。因此，笔者决定<strong>重构</strong>这篇文章，并且从这篇文章出发，力求在数学上、工程上和思想上都对卷积神经网络有更深的理解。</p><p>回看当年<strong>炼丹</strong>的日子，或许在历史的长河中，我们总是<strong>能够找到新的灵感</strong>。</p><p>本博客的相关代码和文件将会存储在 <a href="https://github.com/xiyuanyang-code/ImageNet-and-CNN-learning-materials">这个仓库</a> 中。坚持用中文，因为希望<strong>力求获得更加深刻的理解</strong>。</p><h2 id="从“卷积”谈起…"><a href="#从“卷积”谈起…" class="headerlink" title="从“卷积”谈起…"></a>从“卷积”谈起…</h2><p>给定两个函数$f(t)$和$g(t)$：</p><p>$$(f*g)(t)&#x3D;\int_{-\infty}^{+\infty}f(τ)g(t−\tau)\mathrm{d}τ$$</p><p>这个定义非常的抽象，我们不妨举一个<strong>形象化的例子</strong>：</p><h3 id="音频处理"><a href="#音频处理" class="headerlink" title="音频处理"></a>音频处理</h3><p>给定一个波形函数$f(t)$代表一段音频，现在，我们希望对这个函数做数学运算，来<strong>模拟回声</strong>的效果。</p><blockquote><p>这里其实暗含一个<strong>线性系统</strong>（线性时不变系统<strong>LTI</strong>）的假设，具体指的是：</p><ul><li><strong>线性</strong>：系统的输入和输出可以进行线性叠加。<ul><li>在这里，很显然两个波形函数叠加就可以得到新的函数。</li></ul></li><li><strong>时不变性</strong>：系统的输入输出关系不随时间变化。换句话说，如果输入信号的时间发生平移（延迟或提前），那么输出信号也会相应地平移相同的时间量，而不会改变其形状或性质。<ul><li>$ y(t)&#x3D;T[x(t)] \text{ then, }T[x(t−t_0)]&#x3D;y(t−t_0)$. 其中$T$代表系统的变化关系，$x(t)$和$y(t)$分别代表系统的输入和输出。</li><li>在这里，我们可以通过平移等手段实现这一点。（不深究）</li></ul></li></ul></blockquote><p>从直觉上，我们知道，如果在时间$t_0$处连续函数$f(t)$的函数值为$s_0 &#x3D; f(t_0)$，那么我们希望某种施加变换得到新函数$F(t)$，满足$F(t_0 + \delta) &#x3D; f(t_0 + \delta) + \epsilon f(t_0) $.</p><blockquote><p>这个公式直观意思：$t_0 + \delta$处的声音波形函数收到回声的影响（$t &#x3D; t_0$），使其分贝数（函数值）发生了变化。</p></blockquote><p>如何定量的表示这个函数？我们可以定义<strong>核函数</strong>$g(t)$，定义如下：<br>$$<br>g(t) &#x3D;<br>\begin{cases}<br>1, &amp; t &#x3D; 0 \\<br>\epsilon, &amp; t &#x3D; \delta \\<br>0, &amp; \text{otherwise}<br>\end{cases}<br>$$<br>这样我们就可以写出新的函数$F(t) &#x3D; (f*g)(t)&#x3D;\int_{0}^{t}f(τ)g(t−\tau)\mathrm{d}τ$。</p><blockquote><p>这个函数可以解释为：加入<strong>回声</strong>考虑之后，在$t$时刻的函数值（声音的分贝）可以解释为<strong>在过去每一个时刻发出声音</strong>的回声的<strong>线性叠加</strong>。因此，在实际我们可以将$g(t)$定义为更加复杂的衰减函数。</p></blockquote><p>这就是卷积！我们可以推广至更一般的情况，<strong>它的核心思想是通过一个滑动窗口（核函数）对输入数据进行加权求和，从而生成一个新的表示。</strong>例如在之前音频处理的例子中，核函数就是$g$，滑动窗口就是$\int_{0}^{t}$，我们对原始的输入数据$f(t)$进行加权求和，最终得到新的表示。</p><h3 id="卷积的可视化"><a href="#卷积的可视化" class="headerlink" title="卷积的可视化"></a>卷积的可视化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Author: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">Date: 2025-04-14 19:23:55</span><br><span class="hljs-string">LastEditors: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">LastEditTime: 2025-04-14 19:24:01</span><br><span class="hljs-string">FilePath: /CNN-tutorial/src/convolution.py</span><br><span class="hljs-string">Description:</span><br><span class="hljs-string">Do you code and make progress today?</span><br><span class="hljs-string">Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved.</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> matplotlib <span class="hljs-keyword">as</span> mlp<br><span class="hljs-keyword">from</span> scipy.integrate <span class="hljs-keyword">import</span> quad<br><br>mlp.use(<span class="hljs-string">&quot;Agg&quot;</span>)<br><br><br><span class="hljs-comment"># Original Function f(t)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">original_signal</span>(<span class="hljs-params">t</span>):<br>    <span class="hljs-keyword">return</span> np.sin(<span class="hljs-number">2</span> * np.pi * t)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">echo_kernel2</span>(<span class="hljs-params">t, alpha</span>):<br>    <span class="hljs-keyword">if</span> t &gt;= <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> np.exp(-alpha * t)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0.0</span><br><br><br><span class="hljs-comment"># Normalize the kernel to ensure its integral is 1</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">normalized_echo_kernel</span>(<span class="hljs-params">t, alpha</span>):<br>    <span class="hljs-comment"># Compute the normalization factor (integral of the kernel from 0 to infinity)</span><br>    normalization_factor, _ = quad(<span class="hljs-keyword">lambda</span> tau: echo_kernel2(tau, alpha), <span class="hljs-number">0</span>, np.inf)<br>    <span class="hljs-comment"># Return the normalized kernel value</span><br>    <span class="hljs-keyword">return</span> echo_kernel2(t, alpha) / normalization_factor<br><br><br><span class="hljs-comment"># Convolution with normalized kernel</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">convolution</span>(<span class="hljs-params">f, g, t_values, alpha</span>):<br>    h = []<br>    <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> t_values:<br>        integral, _ = quad(<span class="hljs-keyword">lambda</span> tau: f(tau) * g(t - tau, alpha), <span class="hljs-number">0</span>, t)<br>        h.append(integral)<br>    <span class="hljs-keyword">return</span> np.array(h)<br><br><br><span class="hljs-comment"># Plot figure for two pictures</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">plotfig</span>(<span class="hljs-params">t, f, h, alpha</span>):<br>    plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">6</span>))<br>    <br>    <span class="hljs-comment"># Original Signal</span><br>    plt.subplot(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)<br>    plt.plot(t, f, label=<span class="hljs-string">&quot;Original Signal&quot;</span>, color=<span class="hljs-string">&quot;blue&quot;</span>)<br>    plt.title(<span class="hljs-string">&quot;Original Signal&quot;</span>)<br>    plt.xlabel(<span class="hljs-string">&quot;Time (s)&quot;</span>)<br>    plt.ylabel(<span class="hljs-string">&quot;Amplitude&quot;</span>)<br>    plt.legend()<br>    plt.grid()<br><br>    <span class="hljs-comment"># Signal with Continuous Echo Effect</span><br>    plt.subplot(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br>    plt.plot(t, h, label=<span class="hljs-string">&quot;Signal with Continuous Echo&quot;</span>, color=<span class="hljs-string">&quot;red&quot;</span>)<br>    plt.title(<span class="hljs-string">&quot;Signal with Continuous Echo Effect&quot;</span>)<br>    plt.xlabel(<span class="hljs-string">&quot;Time (s)&quot;</span>)<br>    plt.ylabel(<span class="hljs-string">&quot;Amplitude&quot;</span>)<br>    plt.legend()<br>    plt.grid()<br>    plt.tight_layout()<br>    plt.savefig(<span class="hljs-string">f&quot;img/Signal_with_Continuous_Effect_alpha=<span class="hljs-subst">&#123;alpha:<span class="hljs-number">.2</span>f&#125;</span>.png&quot;</span>)<br>    plt.close()<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    t = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">500</span>)  <span class="hljs-comment"># Time range from 0 to 5 seconds</span><br>    f = original_signal(t)      <span class="hljs-comment"># Original signal</span><br>    <br>    <span class="hljs-comment"># Test different values of alpha</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.01</span>, <span class="hljs-number">0.1</span>, <span class="hljs-number">0.3</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.6</span>, <span class="hljs-number">0.8</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1.1</span>, <span class="hljs-number">1.4</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2.5</span>, <span class="hljs-number">5</span>]:<br>        h = convolution(original_signal, normalized_echo_kernel, t, alpha=i)<br>        plotfig(t, f, h, i)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br></code></pre></td></tr></table></figure><p>随便选择一个$alpha$值，可以看到带着回声卷积处理之后的函数：</p><p><img src="https://s1.imagehub.cc/images/2025/04/15/2c9b576d8bde3d09dbd4c4ee58040077.png" alt="卷积示例"></p><h2 id="卷积与图像"><a href="#卷积与图像" class="headerlink" title="卷积与图像"></a>卷积与图像</h2><p>我们知道，对于一张jpg图像可以把它转化为一个高维矩阵（每一个元素的值代表对应点的灰度大小）。但是对于<strong>自然世界中有意义的图像</strong>，矩阵在相邻位置的值往往具有<strong>一致性</strong>，比如色块和轮廓等。我们把这一特征抽象为<strong>图像中的关联性</strong>，相邻像素通常具有相似的灰度值或颜色（现实世界中物体表面的连续性和光照的平滑变化）。</p><p><img src="https://s1.imagehub.cc/images/2025/04/15/984fb8180a3715627a8214b8bbf62499.png" alt="随机矩阵对应的雪花图"></p><p>并且，我们很明显知道，<strong>图像像素点之间的关联性</strong>很大程度上会随着距离的增加而衰减，我们可以使用常见的衰减模型来刻画这种衰减的状态：</p><p>指数衰减：$y &#x3D; e^{-kx}$ 或者 幂函数衰减：$y &#x3D; \frac{1}{x^k}$</p><p>同时，图像还满足多种<strong>不变性</strong>：平移不变性，旋转不变性，视点不变性，大小伸缩不变性…</p><p>因此，我们可以联想到，<strong>选择合适的核函数</strong>进行卷积运算是否可以实现图像特征的提取？答案是肯定的，我们不妨来看下面的例子：<strong>边缘检测</strong>。</p><h3 id="边缘检测"><a href="#边缘检测" class="headerlink" title="边缘检测"></a>边缘检测</h3><p><img src="https://s1.imagehub.cc/images/2025/04/15/339343f50534cbc97d20c228d803e8fc.png" alt="image"></p><p>我们继续从<strong>音频识别</strong>的例子出发，卷积的本质就是<strong>加权平均</strong>，同时，图像相邻位置的像素点的值之间具有<strong>关联性</strong>，因此，我们可以使用**$3 \times 3$<strong>的卷积核，作为上文的卷积核函数。（这里是</strong>离散卷积**）</p><p>我们知道<strong>边缘</strong>区域代表着<strong>更加显著</strong>的亮度变化，因此，如果我们施加这样的卷积核：</p><p>$$\begin{bmatrix}-1 &amp; 0  &amp; 1 \\ -1 &amp; 0  &amp; 1 \\ -1 &amp; 0  &amp; 1 \end{bmatrix}$$</p><p><strong>负值区域</strong>（左侧）会对图像的亮度降低贡献较大，而<strong>正值区域</strong>（右侧）则会对亮度增加贡献较大。因此，就可以把对应的梯度特征给卷积出来，同理，我们也可以有对纵向的卷积核。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Author: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">Date: 2025-04-15 00:28:15</span><br><span class="hljs-string">LastEditors: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">LastEditTime: 2025-04-15 00:29:55</span><br><span class="hljs-string">FilePath: /CNN-tutorial/src/convolution_demo.py</span><br><span class="hljs-string">Description:</span><br><span class="hljs-string">Do you code and make progress today?</span><br><span class="hljs-string">Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved.</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">import</span> torchvision.transforms <span class="hljs-keyword">as</span> transforms<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> matplotlib <span class="hljs-keyword">as</span> mlp<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>mlp.use(<span class="hljs-string">&quot;Agg&quot;</span>)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">apply_convolution</span>(<span class="hljs-params">image_path, kernel, name</span>):<br>    <span class="hljs-comment"># 打开图片并转换为灰度图</span><br>    image = Image.<span class="hljs-built_in">open</span>(image_path).convert(<span class="hljs-string">&quot;L&quot;</span>)<br><br>    <span class="hljs-comment"># 转换为张量</span><br>    transform_to_tensor = transforms.ToTensor()<br>    image_tensor = transform_to_tensor(image).unsqueeze(<span class="hljs-number">0</span>)  <span class="hljs-comment"># 增加批次维度 (1, 1, H, W)</span><br><br>    <span class="hljs-comment"># 卷积操作</span><br>    kernel_tensor = (<br>        torch.tensor(kernel, dtype=torch.float32).unsqueeze(<span class="hljs-number">0</span>).unsqueeze(<span class="hljs-number">0</span>)<br>    )  <span class="hljs-comment"># (1, 1, 3, 3)</span><br>    convolved_image = F.conv2d(image_tensor, kernel_tensor, padding=<span class="hljs-number">1</span>)  <span class="hljs-comment"># 保持尺寸</span><br><br>    <span class="hljs-comment"># 转换回 NumPy 数组以便显示</span><br>    convolved_image_np = convolved_image.squeeze().detach().numpy()<br><br>    <span class="hljs-comment"># 显示原图和卷积后的图像</span><br>    plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)<br>    plt.title(<span class="hljs-string">&quot;Original Image&quot;</span>)<br>    plt.imshow(image, cmap=<span class="hljs-string">&quot;gray&quot;</span>)<br><br>    plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)<br>    plt.title(<span class="hljs-string">&quot;Convolved Image&quot;</span>)<br>    plt.imshow(convolved_image_np, cmap=<span class="hljs-string">&quot;gray&quot;</span>)<br>    plt.savefig(<span class="hljs-string">f&quot;img/Convolved_img <span class="hljs-subst">&#123;name&#125;</span>.png&quot;</span>)<br>    plt.close()<br><br><br><span class="hljs-comment"># 示例调用</span><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-comment"># 定义 3x3 卷积核（例如边缘检测）</span><br>    kernel_1 = [[-<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>], [-<span class="hljs-number">1</span>, <span class="hljs-number">8</span>, -<span class="hljs-number">1</span>], [-<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>]]<br>    kernel_2 = [[<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [-<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, -<span class="hljs-number">1</span>], [<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">0</span>]]<br>    kernel_3 = [[<span class="hljs-number">1</span> / <span class="hljs-number">9</span>, <span class="hljs-number">1</span> / <span class="hljs-number">9</span>, <span class="hljs-number">1</span> / <span class="hljs-number">9</span>], [<span class="hljs-number">1</span> / <span class="hljs-number">9</span>, <span class="hljs-number">1</span> / <span class="hljs-number">9</span>, <span class="hljs-number">1</span> / <span class="hljs-number">9</span>], [<span class="hljs-number">1</span> / <span class="hljs-number">9</span>, <span class="hljs-number">1</span> / <span class="hljs-number">9</span>, <span class="hljs-number">1</span> / <span class="hljs-number">9</span>]]<br>    kernel_4 = [[-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>]]<br>    kernel_5 = np.random.randn(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)<br>    kernel_5 = kernel_5 / kernel_5.<span class="hljs-built_in">sum</span>()<br>    kernel_6 = np.identity(<span class="hljs-number">3</span>) / <span class="hljs-number">3</span><br>    kernel_7 = [[-<span class="hljs-number">2</span>, -<span class="hljs-number">3</span>, -<span class="hljs-number">2</span>], [-<span class="hljs-number">3</span>, <span class="hljs-number">21</span>, -<span class="hljs-number">3</span>], [-<span class="hljs-number">2</span>, -<span class="hljs-number">3</span>, -<span class="hljs-number">2</span>]]<br><br>    <span class="hljs-comment"># 替换为您本地的图片路径</span><br>    image_path = <span class="hljs-string">&quot;img/demo_cat.jpg&quot;</span>  <span class="hljs-comment"># 请确保路径正确</span><br>    apply_convolution(image_path, kernel_1, <span class="hljs-string">&quot;edge_detection&quot;</span>)<br>    apply_convolution(image_path, kernel_2, <span class="hljs-string">&quot;sharpen&quot;</span>)<br>    apply_convolution(image_path, kernel_3, <span class="hljs-string">&quot;normalize&quot;</span>)<br>    apply_convolution(image_path, kernel_4, <span class="hljs-string">&quot;edge_detect2&quot;</span>)<br>    apply_convolution(image_path, kernel_5, <span class="hljs-string">&quot;just for fun&quot;</span>)<br>    apply_convolution(image_path, kernel_6, <span class="hljs-string">&quot;kernel6&quot;</span>)<br>    apply_convolution(image_path, kernel_7, <span class="hljs-string">&quot;kernel_7&quot;</span>)<br><br>    <span class="hljs-comment"># the usage of surbo kernel</span><br>    kernel_surbo_1 = [[-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [-<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>], [-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>]]<br>    kernel_surbo_2 = [[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [-<span class="hljs-number">1</span>, -<span class="hljs-number">2</span>, -<span class="hljs-number">2</span>]]<br>    apply_convolution(image_path, kernel_surbo_1, <span class="hljs-string">&quot;surbo_1&quot;</span>)<br>    apply_convolution(image_path, kernel_surbo_2, <span class="hljs-string">&quot;surbo_2&quot;</span>)<br></code></pre></td></tr></table></figure><h3 id="卷积的数学运算"><a href="#卷积的数学运算" class="headerlink" title="卷积的数学运算"></a>卷积的数学运算</h3><p>在图像卷积中，我们会使用<strong>卷积函数的二维离散形式</strong>：</p><p>$$F(x,y) &#x3D; \sum_{u,v} f(x-u,y-v)g(u,v)$$</p><p>$$F(x,y) &#x3D; \int f(x-u,y-v)g(u,v) \mathrm{d}u \mathrm{d}v$$</p><p>这里$g(u,v)$代表我们之前使用的$3 \times 3$的卷积核。</p><p><img src="https://s1.imagehub.cc/images/2025/04/15/852f706ca8313ad8d5d81a1d0ed3c2b0.png" alt="图像卷积的数学运算"></p><blockquote><p>这里就是一个非常经典的<strong>二维图像</strong>的滑动窗口！</p></blockquote><p>在卷积扫一遍之后，就会得到一张新的图像，这也就是我们上文展示的<strong>图像过卷积</strong>。</p><div class="note note-primary">            <p><strong>Zero Padding</strong>：解决图像过卷积的问题</p><p>对于<strong>边缘</strong>的像素块，为了防止其在卷积之后被剪裁，我们需要<strong>适当扩展图像的size</strong>，例如这样：</p><p><img src="https://s1.imagehub.cc/images/2025/04/15/facae81e4da98908c65b8cb1ee318691.png" alt="Zero Padding"></p>          </div><p>在定义好卷积核函数之后（一个<strong>可训练的矩阵</strong>），我们终于可以<strong>移动滑动窗口</strong>了，这一个过程叫<strong>跨步（Stride）</strong>。$stride(i,j)$表示单次操作中横向移动$i$步，纵向移动$j$步。</p><p>同时，对于彩色图像，我们需要对RGB三个通道进行<strong>多通道卷积</strong>，不过为了简单起见，我们这里只考虑黑白单通道图像。</p><h2 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h2><p>终于，我们迎来了今天的主角，<strong>卷积神经网络</strong>！</p><h4 id="生物学灵感"><a href="#生物学灵感" class="headerlink" title="生物学灵感"></a>生物学灵感</h4><p><strong>局部感受野</strong>：生物视觉系统中的神经元通常只对视野中的小区域敏感，这被称为局部感受野。CNN 中的卷积层通过卷积操作模拟了这一特性，允许网络在局部区域内提取特征。</p><p>因此，我们可以尝试<strong>将卷积结构带入到神经网络中</strong>，因为单纯的全连接网络在小数据量的情况下很容易过拟合，无法<strong>识别图像的真正特征</strong>。</p><h4 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h4><p>一个标准的卷积神经网络（Convolutional Neural Network, CNN）通常由以下几个模块构成：</p><ul><li>卷积层（Convolutional Layer） —— 简单细胞</li><li>池化层（Pooling Layer）</li><li>全连接层（Fully-Connected Layer）—— 复杂细胞</li><li>输出层（Output Layer）</li></ul><p>在接下来的部分，我们将具体介绍每一个网络层的应用。</p><h2 id="网络结构详解"><a href="#网络结构详解" class="headerlink" title="网络结构详解"></a>网络结构详解</h2>]]></content>
     
     
     <categories>
@@ -20,15 +20,15 @@
     
     <tags>
       
-      <tag>Convolutional Neural Networks</tag>
-      
       <tag>Artificial Intelligence</tag>
+      
+      <tag>Deep Learning</tag>
+      
+      <tag>Convolutional Neural Networks</tag>
       
       <tag>AlexNet</tag>
       
       <tag>Image Clssification</tag>
-      
-      <tag>Deep Learning</tag>
       
     </tags>
     
@@ -55,9 +55,9 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>Modern Cpp</tag>
       
@@ -113,9 +113,9 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Data Structure</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>Set</tag>
       
@@ -146,11 +146,11 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
+      <tag>Tree</tag>
       
       <tag>Data Structure</tag>
       
-      <tag>Tree</tag>
+      <tag>C/C++</tag>
       
       <tag>Binary Tree</tag>
       
@@ -181,11 +181,11 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
+      <tag>Tree</tag>
       
       <tag>Data Structure</tag>
       
-      <tag>Tree</tag>
+      <tag>C/C++</tag>
       
       <tag>LCA</tag>
       
@@ -326,13 +326,13 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
+      <tag>Tree</tag>
       
       <tag>Finished</tag>
       
       <tag>Data Structure</tag>
       
-      <tag>Tree</tag>
+      <tag>C/C++</tag>
       
       <tag>Sparse Table</tag>
       
@@ -361,13 +361,13 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
+      <tag>Tree</tag>
       
       <tag>Finished</tag>
       
       <tag>Data Structure</tag>
       
-      <tag>Tree</tag>
+      <tag>C/C++</tag>
       
       <tag>Fenwick Tree</tag>
       
@@ -427,11 +427,11 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
+      <tag>Tree</tag>
       
       <tag>Data Structure</tag>
       
-      <tag>Tree</tag>
+      <tag>C/C++</tag>
       
       <tag>Binary Tree</tag>
       
@@ -520,17 +520,17 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
+      <tag>Tree</tag>
       
       <tag>Finished</tag>
       
-      <tag>Data Structure</tag>
-      
-      <tag>Tree</tag>
-      
       <tag>BFS/DFS</tag>
       
+      <tag>Data Structure</tag>
+      
       <tag>Algorithm</tag>
+      
+      <tag>C/C++</tag>
       
     </tags>
     
@@ -555,13 +555,13 @@
     
     <tags>
       
+      <tag>AI research</tag>
+      
       <tag>Artificial Intelligence</tag>
       
       <tag>Deep Learning</tag>
       
       <tag>LLMs</tag>
-      
-      <tag>AI research</tag>
       
     </tags>
     
@@ -588,9 +588,9 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Data Structure</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>Set</tag>
       
@@ -621,13 +621,13 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
+      <tag>Tree</tag>
       
       <tag>Finished</tag>
       
       <tag>Data Structure</tag>
       
-      <tag>Tree</tag>
+      <tag>C/C++</tag>
       
       <tag>Binary Heap</tag>
       
@@ -656,9 +656,9 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Data Structure</tag>
+      
+      <tag>C/C++</tag>
       
     </tags>
     
@@ -685,17 +685,17 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
       
-      <tag>Queue</tag>
+      <tag>BFS/DFS</tag>
       
       <tag>Data Structure</tag>
       
-      <tag>Stack</tag>
+      <tag>C/C++</tag>
       
-      <tag>BFS/DFS</tag>
+      <tag>Queue</tag>
+      
+      <tag>Stack</tag>
       
       <tag>Increasing stack</tag>
       
@@ -782,13 +782,13 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
+      <tag>Tree</tag>
       
       <tag>Finished</tag>
       
       <tag>Data Structure</tag>
       
-      <tag>Tree</tag>
+      <tag>C/C++</tag>
       
       <tag>Binary Tree</tag>
       
@@ -815,15 +815,15 @@
     
     <tags>
       
-      <tag>Convolutional Neural Networks</tag>
-      
       <tag>Artificial Intelligence</tag>
+      
+      <tag>Deep Learning</tag>
+      
+      <tag>Convolutional Neural Networks</tag>
       
       <tag>AlexNet</tag>
       
       <tag>Image Clssification</tag>
-      
-      <tag>Deep Learning</tag>
       
     </tags>
     
@@ -918,9 +918,9 @@
       
       <tag>Finished</tag>
       
-      <tag>Agent</tag>
-      
       <tag>Autogen</tag>
+      
+      <tag>Agent</tag>
       
     </tags>
     
@@ -976,11 +976,11 @@
     
     <tags>
       
-      <tag>Chunking</tag>
-      
       <tag>tutorial</tag>
       
       <tag>C/C++</tag>
+      
+      <tag>Chunking</tag>
       
     </tags>
     
@@ -1067,9 +1067,9 @@
       
       <tag>Deep Learning</tag>
       
-      <tag>LLM reasoning</tag>
-      
       <tag>Agent</tag>
+      
+      <tag>LLM reasoning</tag>
       
     </tags>
     
@@ -1167,13 +1167,13 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
+      <tag>Tree</tag>
       
       <tag>Finished</tag>
       
       <tag>Data Structure</tag>
       
-      <tag>Tree</tag>
+      <tag>C/C++</tag>
       
       <tag>Binary Tree</tag>
       
@@ -1202,13 +1202,13 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
+      <tag>Tree</tag>
       
       <tag>Finished</tag>
       
       <tag>Data Structure</tag>
       
-      <tag>Tree</tag>
+      <tag>C/C++</tag>
       
     </tags>
     
@@ -1264,9 +1264,9 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Data Structure</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>string</tag>
       
@@ -1349,11 +1349,11 @@
       
       <tag>tutorial</tag>
       
+      <tag>Data Structure</tag>
+      
       <tag>C/C++</tag>
       
       <tag>Queue</tag>
-      
-      <tag>Data Structure</tag>
       
     </tags>
     
@@ -1552,9 +1552,9 @@
     
     <tags>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>OOP</tag>
       
@@ -1585,9 +1585,9 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>IO</tag>
       
@@ -1616,11 +1616,11 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
       
       <tag>Data Structure</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>Stack</tag>
       
@@ -1649,11 +1649,11 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
       
       <tag>Data Structure</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>Linear List</tag>
       
@@ -1682,11 +1682,11 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
       
       <tag>Data Structure</tag>
+      
+      <tag>C/C++</tag>
       
     </tags>
     
@@ -1769,9 +1769,9 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>pointers</tag>
       
@@ -1802,9 +1802,9 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>C++ Primer Plus</tag>
       
@@ -1835,9 +1835,9 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>OOP</tag>
       
@@ -1870,9 +1870,9 @@
     
     <tags>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>Leetcode notes</tag>
       
@@ -1901,9 +1901,9 @@
     
     <tags>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>Leetcode notes</tag>
       
@@ -1932,9 +1932,9 @@
     
     <tags>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>Leetcode notes</tag>
       
@@ -1963,9 +1963,9 @@
     
     <tags>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>Leetcode notes</tag>
       
@@ -1994,11 +1994,11 @@
     
     <tags>
       
-      <tag>C/C++</tag>
-      
       <tag>Announcement</tag>
       
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>Leetcode notes</tag>
       
@@ -2029,9 +2029,9 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>OOP</tag>
       
@@ -2064,9 +2064,9 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>Linked list</tag>
       
@@ -2097,9 +2097,9 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>OOP</tag>
       
@@ -2132,9 +2132,9 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>OOP</tag>
       
@@ -2163,11 +2163,11 @@
     
     <tags>
       
-      <tag>C/C++</tag>
-      
       <tag>Announcement</tag>
       
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>OOP</tag>
       
@@ -2219,9 +2219,9 @@
       
       <tag>tutorial</tag>
       
-      <tag>C/C++</tag>
-      
       <tag>Finished</tag>
+      
+      <tag>C/C++</tag>
       
       <tag>Time and Space Complexity</tag>
       
@@ -2309,22 +2309,33 @@
   
   
   <entry>
-    <title>About</title>
+    <title>All_posts</title>
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[<style>  html, body, .markdown-body {    font-family: Georgia, sans, serif;  }</style><p>Greetings! I am <strong>Xiyuan Yang (杨希渊)</strong>, currently pursuing an undergraduate degree in Artificial Intelligence at Shanghai Jiao Tong University. With a longstanding aspiration to become a programmer, I am passionate about leveraging technology to make a meaningful impact on the world. Through my personal website, I aim to share a collection of my blogs and learning notes with you. Some of these entries will be presented as a series, updated at irregular intervals. Additionally, I will offer insights into my personal observations and reflections on life. I hope your visit here is both enjoyable and enriching!</p><p><strong>My orcid</strong>: <a href="https://orcid.org/0009-0004-8979-7892">https://orcid.org/0009-0004-8979-7892</a></p><p><strong>My email:</strong></p><ul><li><p><a href="mailto:&#120;&#105;&#121;&#x75;&#x61;&#110;&#95;&#95;&#x79;&#97;&#110;&#103;&#64;&#x6f;&#117;&#x74;&#108;&#111;&#x6f;&#x6b;&#46;&#x63;&#x6f;&#x6d;">&#120;&#105;&#121;&#x75;&#x61;&#110;&#95;&#95;&#x79;&#97;&#110;&#103;&#64;&#x6f;&#117;&#x74;&#108;&#111;&#x6f;&#x6b;&#46;&#x63;&#x6f;&#x6d;</a></p></li><li><p><a href="mailto:&#x79;&#x61;&#x6e;&#103;&#120;&#105;&#x79;&#117;&#97;&#x6e;&#x40;&#x73;&#x6a;&#x74;&#117;&#46;&#x65;&#x64;&#117;&#46;&#x63;&#110;">&#x79;&#x61;&#x6e;&#103;&#120;&#105;&#x79;&#117;&#97;&#x6e;&#x40;&#x73;&#x6a;&#x74;&#117;&#46;&#x65;&#x64;&#117;&#46;&#x63;&#110;</a></p><p>Feel free to contact me!</p></li></ul><blockquote><p>VENI VIDI VICI</p></blockquote><p></br><h1 align="center">Welcome to Xiyuan Yang’s Coding Space!</h1></p><h3 align="center"><a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&random=false&width=650&lines=Keep+it+simple+and+stupid." alt="Typing SVG" /></a></h3><p align="left"> <img src="https://komarev.com/ghpvc/?username=xiyuanyang-code&label=Profile%20views&color=0e75b6&style=flat" alt="xiyuanyang-code" /> </p><h3 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h3><p>Hi there! I’m <strong>Xiyuan Yang</strong>, a passionate programmer and lifelong learner. I love exploring new technologies and solving challenging problems.</p><h3 id="Connect-with-Me"><a href="#Connect-with-Me" class="headerlink" title="Connect with Me"></a>Connect with Me</h3><ul><li><a href="https://xiyuanyang-code.github.io/">My personal Blog</a></li><li><a href="xiyuan__yang@outlook.com">My email</a></li></ul><h3 id="Currently-Learning"><a href="#Currently-Learning" class="headerlink" title="Currently Learning"></a>Currently Learning</h3><p>I’m currently diving into:</p><ul><li>Advanced C++</li><li>Machine Learning and Deep Learning</li><li>LLM reasoning and LLM agents</li></ul><h3 id="Fun-Facts"><a href="#Fun-Facts" class="headerlink" title="Fun Facts"></a>Fun Facts</h3><ul><li>🌱 I’m currently learning new programming languages.</li><li>🎯 I aim to become a full-stack developer. (Maybe?)</li><li>📚 I love reading tech blogs and books.</li></ul><p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=xiyuanyang-code" alt="xiyuanyang-code" /></a> </p><h3 id="Languages-and-Tools"><a href="#Languages-and-Tools" class="headerlink" title="Languages and Tools"></a>Languages and Tools</h3><div style="text-align: center;">    <a href="https://en.wikipedia.org/wiki/C_(programming_language)" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40"/>    </a>    <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/>    </a>    <a href="https://www.w3schools.com/html/" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" alt="html" width="40" height="40"/>    </a>    <a href="https://www.python.org" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/>    </a>    <a href="https://www.linux.org/" target="_blank" rel="noreferrer">    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/></a></br></br><div style="text-align: center;">    <img src="https://github-readme-stats.vercel.app/api?username=xiyuanyang-code&show_icons=true&locale=en" alt="xiyuanyang-code" /></div>]]></content>
+    <content type="html"><![CDATA[<style>  html, body, .markdown-body {    font-family: Georgia, sans, serif;  }</style><p><img src="https://s1.imagehub.cc/images/2025/02/07/329668c81128e08f84c1d1ea140bc31b.jpg" alt="Welcome to Xiyuan Yang&#39;s Blog!"></p><p>This article systematically summarizes the previously published articles by categorizing them into topics.</p><p>This passage will be updated permanently, adding new posts every two weeks.</p><div class="note note-primary">            <p><strong>Last Update Time: 2025&#x2F;03&#x2F;25</strong></p>          </div><h1 id="About-the-author"><a href="#About-the-author" class="headerlink" title="About the author"></a>About the author</h1><p><a href="https://xiyuanyang-code.github.io/about/">About - Xiyuan Yang’s Blog</a> You can Jump to this link for more information.</p><h1 id="All-posts"><a href="#All-posts" class="headerlink" title="All posts!"></a>All posts!</h1><p>The posts can be divided into several <a href="https://xiyuanyang-code.github.io/categories/">categories</a> below:</p><ul><li><p>Code Basis: <strong>Basic Syntax of several programming language</strong></p><ul><li>Category Link: <a href="https://xiyuanyang-code.github.io/categories/Code/">Categories - Code - Xiyuan Yang’s Blog</a></li></ul></li><li><p>Algorithms: <strong>Advanced Learning of Algorithms and Data Structures</strong></p><ul><li>Category Link: <a href="https://xiyuanyang-code.github.io/categories/Algorithm/">Categories - Algorithm - Xiyuan Yang’s Blog</a></li></ul></li><li><p>Efficient Tools: <strong>Tool usage for Computer Science and AI</strong></p><ul><li>Category Link: <a href="https://xiyuanyang-code.github.io/categories/Efficient-Tools/">Categories - Efficient Tools - Xiyuan Yang’s Blog</a></li></ul></li><li><p>Project: <strong>Demonstration and Introduction of My Github Project</strong></p><ul><li>Category Link: <a href="https://xiyuanyang-code.github.io/categories/Project/">Categories - Project - Xiyuan Yang’s Blog</a></li></ul></li><li><p>Artificial Intelligence: <strong>Research Paper Reading</strong></p><ul><li>Category Link: <a href="https://xiyuanyang-code.github.io/categories/Artificial-Intelligence/">Categories - Artificial Intelligence - Xiyuan Yang’s Blog</a></li></ul></li></ul><br><p>Moreover, all posts ca be divided into three categories based on the <strong>completion progress</strong>.</p><ul><li><p><strong>Finished</strong>😃: Posts that have been finished writing and will not be modified in a short term unless some mistakes are caught.</p></li><li><p><strong>Updating</strong>🫡: Mostly blogs with announcements, which will be updated in real time.</p></li><li><p><strong>Not yet Finished</strong>🤡: Posts that have not yet been finished.</p></li></ul><h2 id="Total-demonstration"><a href="#Total-demonstration" class="headerlink" title="Total demonstration"></a>Total demonstration</h2><blockquote><p>Updated: 2025.4.12</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><code class="hljs bash">❌AI-Paper-2024<br>❌AI-indepth-reading-AlexNet<br>❌AIBasis-Neural-Networks<br>❌AINN-GAN<br>✅Above-All<br>✅Algorithm-BFS-DFS<br>✅Algorithm-BinaryTree<br>❌Algorithm-Chunking<br>✅Algorithm-Introduction<br>✅Algorithm-MCTS<br>✅Algorithm-Memo<br>✅Algorithm-Sorting<br>❌AutoGen-automatic-essay-modification<br>✅Bash-commands<br>✅Bash-exercises<br>✅Blog-Update-Fetching-Script<br>✅C-plus-plus-Primer-Plus-tutorial<br>✅CMake-tutorial-episode2<br>✅CMake-tutorial1<br>✅CS294-1-LLM-Reasoning<br>✅CS294-3-Autogen<br>✅Class-Inheritance<br>✅Code-Reuse-in-OOP<br>✅DataStructure-AVL-Tree<br>✅DataStructure-Fenwick-Tree<br>✅DataStructure-LCA<br>✅DataStructure-LinearList<br>✅DataStructure-Queue<br>❌DataStructure-RBT-Tree<br>✅DataStructure-Set<br>✅DataStructure-Sparse-Table<br>✅DataStructure-Stack<br>✅DataStructure-Stack-Queue-Advanced<br>✅DataStructure-String<br>✅DataStructure-Tree<br>✅DataStructure-Tree-Binary-Heap<br>✅DataStructure-Tree-Binary-Search-Tree<br>✅DataStructure-Tree-Binary-Tree<br>❌DataStructure-Trie<br>✅DataStructure-Tutorial<br>✅Deep-Learning-Memo<br>✅Dynamic-Memory-and-Classes<br>✅Exception-Handling-in-C-plus-plus<br>✅Input-and-Output-in-C-plus-plus<br>✅Introduction-to-OOP<br>✅Jotting-References-and-Encapsulation-in-OOP<br>✅LaTeX-tutorial<br>✅Leetcode-Mistake-collection<br>✅Leetcode-Mistake-collection-1-10<br>✅Leetcode-Mistake-collection-11-20<br>✅Leetcode-Mistake-collection-21-30<br>✅Leetcode-Mistake-collection-31-40<br>✅Life-musings<br>✅Linked-List-Implementation-Based-on-Structs<br>✅Linux-Bash-Introduction<br>✅MYGITHUB-Lightweight-speech-recognition-conversion-model<br>✅Math-Multivariable-Calculus<br>✅Missing-Semester-Notes<br>✅My-Posts<br>✅My-WorkFlow<br>✅Pointers-Arrays-and-Functions<br>✅Pre-training-Is-Dead<br>✅Python-Update-Learning<br>✅Python-advanced-File-Management<br>✅Python-cheatsheet<br>✅Python-numpy-cheatsheet<br>✅Python-tutorial<br>✅Python-visualization<br>✅RAG-Blog-Content-Retrieval<br>✅RAG-tutorial<br>✅RL-speeches<br>✅Regular-Expression<br>❌Taking-Notes<br>❌Tools-Tutorial<br>✅Torch-memo<br>✅Vim-tutorial<br></code></pre></td></tr></table></figure><h2 id="Code-Basis"><a href="#Code-Basis" class="headerlink" title="Code Basis"></a>Code Basis</h2><ul><li><strong>Python Grammar Tutorial</strong></li><li><strong>C++ Primer Plus Tutorial</strong></li></ul><h2 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h2><ul><li><strong>Data Structure</strong></li><li><strong>Algorithms from MIT 6.006</strong></li><li><strong>Leetcode Mistake Collection</strong></li></ul><h2 id="Project"><a href="#Project" class="headerlink" title="Project"></a>Project</h2><ul><li><strong>My Github Projects</strong></li></ul><h2 id="Efficient-Tools"><a href="#Efficient-Tools" class="headerlink" title="Efficient Tools"></a>Efficient Tools</h2><ul><li><strong>Bash&#x2F;Linux</strong></li><li><strong>Methodologies</strong></li><li><strong>Other developer’s Tools</strong> <ul><li>Missing semester Notes</li></ul></li></ul><h2 id="Artificial-Intelligence"><a href="#Artificial-Intelligence" class="headerlink" title="Artificial Intelligence"></a>Artificial Intelligence</h2><ul><li><p><strong>CS294: LLM Agents</strong></p></li><li><p><strong>Celebrity Speeches</strong></p></li></ul>]]></content>
     
   </entry>
   
   
   
   <entry>
-    <title>Resume</title>
+    <title>Recordings</title>
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[<style>  html, body, .markdown-body {    font-family: Georgia, sans, serif;  }</style><p><strong>My orcid</strong>: </p><p></br><h1 align="center">Welcome to Xiyuan Yang’s Coding Space!</h1></p><h3 align="center"><a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&random=false&width=650&lines=Keep+it+simple+and+stupid." alt="Typing SVG" /></a></h3><p align="left"> <img src="https://komarev.com/ghpvc/?username=xiyuanyang-code&label=Profile%20views&color=0e75b6&style=flat" alt="xiyuanyang-code" /> </p><h3 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h3><p>Hi there! I’m <strong>Xiyuan Yang</strong>, a passionate programmer and lifelong learner. I love exploring new technologies and solving challenging problems.</p><h3 id="Connect-with-Me"><a href="#Connect-with-Me" class="headerlink" title="Connect with Me"></a>Connect with Me</h3><ul><li><a href="https://xiyuanyang-code.github.io/">My personal Blog</a></li><li><a href="xiyuan__yang@outlook.com">My email</a></li></ul><h3 id="Currently-Learning"><a href="#Currently-Learning" class="headerlink" title="Currently Learning"></a>Currently Learning</h3><p>I’m currently diving into:</p><ul><li>Advanced C++</li><li>Machine Learning and Deep Learning</li><li>LLM reasoning and LLM agents</li></ul><h3 id="Fun-Facts"><a href="#Fun-Facts" class="headerlink" title="Fun Facts"></a>Fun Facts</h3><ul><li>🌱 I’m currently learning new programming languages.</li><li>🎯 I aim to become a full-stack developer. (Maybe?)</li><li>📚 I love reading tech blogs and books.</li></ul><p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=xiyuanyang-code" alt="xiyuanyang-code" /></a> </p><h3 id="Languages-and-Tools"><a href="#Languages-and-Tools" class="headerlink" title="Languages and Tools"></a>Languages and Tools</h3><div style="text-align: center;">    <a href="https://en.wikipedia.org/wiki/C_(programming_language)" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40"/>    </a>    <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/>    </a>    <a href="https://www.w3schools.com/html/" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" alt="html" width="40" height="40"/>    </a>    <a href="https://www.python.org" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/>    </a>    <a href="https://www.linux.org/" target="_blank" rel="noreferrer">    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/></a></br></br><div style="text-align: center;">    <img src="https://github-readme-stats.vercel.app/api?username=xiyuanyang-code&show_icons=true&locale=en" alt="xiyuanyang-code" /></div>]]></content>
+    <content type="html"><![CDATA[<style>  html, body, .markdown-body {    font-family: Georgia, sans, serif;  }</style><div class="markdown-body"><p><img src="https://s1.imagehub.cc/images/2025/02/07/329668c81128e08f84c1d1ea140bc31b.jpg" alt="Welcome to Xiyuan Yang&#39;s Blog!"></p><h1 id="Recordings"><a href="#Recordings" class="headerlink" title="Recordings"></a>Recordings</h1><div class="note note-info">            <p>After entering university, the author realized that the new knowledge to be learned was vast like the ocean. Sometimes, one can even be overwhelmed by this sea of knowledge and lose oneself. Therefore, the author will update this blog in real-time with new knowledge learned each day, making it easier for self-review and reflection, and to <strong>encourage the habit of being a lifelong learner</strong>.</p><p><strong>Learn something, yield something</strong>.</p>          </div><blockquote><p>Site updated: 20250324</p></blockquote><h2 id="My-records"><a href="#My-records" class="headerlink" title="My records"></a>My records</h2><ul><li><p><code>2025/03/25</code></p><ul><li>物理：狭义相对论（洛伦兹变换）</li><li>LaTeX 中文模版 + 确定人工智能基础课的大作业选题</li><li>离散：一阶逻辑</li><li>数据结构：<code>list</code>大作业的大部分实现</li></ul></li><li><p><code>2025/03/26</code>:</p><ul><li>听了科研学长的讲座，对<strong>科研，学业等精力分配的问题又有了更深的了解</strong></li><li>离散数学：学习一阶逻辑</li><li>数据结构：完成了<code>list</code>大作业的大部分实现，现在进入最后的debug阶段</li><li>数据结构：完成对<strong>Binary Tree</strong>的博客更新和代码复习（到Huffman 树和 Huffman 编码）</li></ul></li><li><p><code>2025/04/01</code>:</p><ul><li><strong>不能断更。。。</strong></li><li>大学物理：角动量守恒定律（但还没有学完）</li><li><strong>数据结构</strong>：完成了树状数组和ST表全部内容的学习：（理论知识复习&amp;博客写作&amp;模版代码+测试&amp;OJ题目练手）</li><li><strong>实验室</strong>：和学长reach out，终于配置好了远程服务器的所有流程（包括之前<code>scp</code>链接失效的debug）</li><li><strong>RAG</strong> 学习完成了 <strong>Query Translation</strong>的所有博客更新和代码学习，但是还没有应用到实战</li><li><strong>Pytorch</strong> 学习<code>Tensorboard</code>的基本使用方式</li></ul></li><li><p><code>2025/04/02</code>:</p><ul><li><strong>数学分析</strong>：<strong>三重积分</strong> &amp; 完成对应的作业</li><li><strong>离散数学</strong>：一节逻辑： Quantifiers in specific domains.</li><li><strong>AI</strong>：完成了人工智能基础课程的CNN刷榜（暂居第一😋）</li><li><strong>数据结构</strong>：debug list大作业的过程真的好漫长。。。无语了</li></ul></li><li><p><code>2025/04/03</code>:</p><ul><li><strong>AI</strong>：学习GAN、diffusion等新型网络结构 &amp; 继续炼丹ing</li><li><strong>数据结构</strong>：完成堆和BST的学习</li></ul></li><li><p><code>2025/04/08</code>：</p><ul><li><strong>物理</strong>：补上了角动量和刚体的课程进度，并且刷完了第二章和第三章的系列化习题（累死我了，物理真难）</li><li><strong>数据结构</strong>：学习蒙特卡洛算法并做好PPT</li></ul></li><li><p><code>2025/04/09</code>:</p><ul><li><strong>离散数学</strong>：学习在自然语言下的逻辑构建方法（这个东西上一堂课就没听懂，这下一听就听懂了）</li><li><strong>数学分析</strong>：复习<strong>偏微分方程</strong></li><li><strong>数据结构</strong>：再次回顾蒙特卡洛搜索树算法并完成博客的更新</li><li><strong>数据结构</strong>：博客更新 <strong>MIT6.006 Lec9 BFS算法</strong>（图论初步）、</li><li><strong>大学物理</strong>：继续刷系列化习题（刷完了第二章和第三章的全部内容）</li></ul></li><li><p><code>2024/04/10</code>:</p><ul><li><strong>大学物理</strong>：第五章刚体基本知识学习完成</li><li><strong>数据结构</strong>：复习AVL树，学习红黑树和AA树，但是红黑树代码的实现debug还未完成</li><li><strong>人工智能</strong>：学习LSTM（循环神经网络）&amp; 学习Transformer</li><li><strong>离散数学</strong>：完成周三离散数学内容的复习和作业</li></ul></li><li><p><code>2024/04/11</code>:</p><ul><li><strong>离散数学</strong>：完成<strong>逻辑</strong>部分的学习</li><li><strong>大学物理</strong>：学习第六章简谐运动</li><li><strong>大学英语</strong>：完成第二份议论文</li><li><strong>人工智能</strong>：尝试使用<code>autogen</code>开发出一个简单的博客多智能体对话框架</li><li><strong>数学分析</strong>：复习数学分析寒假学习的内容 &amp; 刷题</li></ul></li><li><p><code>2024/04/12</code>:</p><ul><li><p><strong>数据结构</strong>：学习<strong>LCA算法</strong>和<strong>DFS的图论基础算法</strong>（MIT6.006）</p></li><li><p><strong>人工智能</strong>：修改<code>autogen</code>的框架，优化文件管理和工作流</p><ul><li>最后思来想去还是决定使用**Camel…**，autogen的设计还是有一点死板，虽然快速上手的模版确实惊艳到我了。</li></ul></li><li><p><strong>数学分析</strong>：回看了多元函数极限与连续 &amp; 多元函数微分学的笔记 &amp; 复习寒假小册子上做过发题目。</p></li></ul></li><li><p><code>2024/04/13</code>:</p><ul><li><strong>数据结构</strong>：上机课学习modern cpp &amp; 博客完善</li><li><strong>数学分析</strong>：数学分析补课 &amp; 继续学习</li><li><strong>大学物理</strong>：复习大学物理Cha4：角动量</li><li><strong>人工智能</strong>：<ul><li>进一步学习Transformer理论 </li><li>完善提示词 &amp; 加入日志记录的功能</li></ul></li><li><strong>离散数学</strong>：完成星期五离散数学课程的作业和复习。</li></ul></li><li><p><code>2024/04/14</code>:</p><ul><li><strong>数学分析</strong>：终于把记的所有笔记全部看完了。。。</li><li><strong>数学分析</strong>：往年期中试卷刷题。<ul><li>刷题真的好无聊。。。</li></ul></li><li><strong>人工智能</strong>：学习卷积的数学原理。</li></ul></li></ul><h2 id="My-feelings"><a href="#My-feelings" class="headerlink" title="My feelings"></a>My feelings</h2><ul><li><code>2025/03/26</code>:<ul><li>一定要去线下上课！！！线下的效率才是最高的。</li><li>不要把自己想的太完美主义，贴合实际情况才会达到最高的效率。</li><li>要休息好。</li></ul></li><li><h2 id="2025-04-10-最近很忙，但也要努力不放弃！"><a href="#2025-04-10-最近很忙，但也要努力不放弃！" class="headerlink" title="2025/04/10:- 最近很忙，但也要努力不放弃！"></a><code>2025/04/10</code>:<br>- 最近很忙，但也要努力不放弃！</h2></li></ul></div>]]></content>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>About</title>
+    <link href="/"/>
+    <url>/</url>
+    
+    <content type="html"><![CDATA[<style>  html, body, .markdown-body {    font-family: Georgia, sans, serif;  }</style><p>Greetings! I am <strong>Xiyuan Yang (杨希渊)</strong>, currently pursuing an undergraduate degree in Artificial Intelligence at Shanghai Jiao Tong University. With a longstanding aspiration to become a programmer, I am passionate about leveraging technology to make a meaningful impact on the world. Through my personal website, I aim to share a collection of my blogs and learning notes with you. Some of these entries will be presented as a series, updated at irregular intervals. Additionally, I will offer insights into my personal observations and reflections on life. I hope your visit here is both enjoyable and enriching!</p><p><strong>My orcid</strong>: <a href="https://orcid.org/0009-0004-8979-7892">https://orcid.org/0009-0004-8979-7892</a></p><p><strong>My email:</strong></p><ul><li><p><a href="mailto:&#120;&#x69;&#x79;&#117;&#97;&#x6e;&#95;&#x5f;&#121;&#97;&#x6e;&#103;&#64;&#x6f;&#x75;&#x74;&#x6c;&#x6f;&#111;&#x6b;&#x2e;&#99;&#111;&#x6d;">&#120;&#x69;&#x79;&#117;&#97;&#x6e;&#95;&#x5f;&#121;&#97;&#x6e;&#103;&#64;&#x6f;&#x75;&#x74;&#x6c;&#x6f;&#111;&#x6b;&#x2e;&#99;&#111;&#x6d;</a></p></li><li><p><a href="mailto:&#121;&#97;&#x6e;&#x67;&#x78;&#105;&#x79;&#x75;&#x61;&#x6e;&#64;&#x73;&#x6a;&#116;&#x75;&#x2e;&#101;&#x64;&#117;&#x2e;&#99;&#110;">&#121;&#97;&#x6e;&#x67;&#x78;&#105;&#x79;&#x75;&#x61;&#x6e;&#64;&#x73;&#x6a;&#116;&#x75;&#x2e;&#101;&#x64;&#117;&#x2e;&#99;&#110;</a></p><p>Feel free to contact me!</p></li></ul><blockquote><p>VENI VIDI VICI</p></blockquote><p></br><h1 align="center">Welcome to Xiyuan Yang’s Coding Space!</h1></p><h3 align="center"><a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&random=false&width=650&lines=Keep+it+simple+and+stupid." alt="Typing SVG" /></a></h3><p align="left"> <img src="https://komarev.com/ghpvc/?username=xiyuanyang-code&label=Profile%20views&color=0e75b6&style=flat" alt="xiyuanyang-code" /> </p><h3 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h3><p>Hi there! I’m <strong>Xiyuan Yang</strong>, a passionate programmer and lifelong learner. I love exploring new technologies and solving challenging problems.</p><h3 id="Connect-with-Me"><a href="#Connect-with-Me" class="headerlink" title="Connect with Me"></a>Connect with Me</h3><ul><li><a href="https://xiyuanyang-code.github.io/">My personal Blog</a></li><li><a href="xiyuan__yang@outlook.com">My email</a></li></ul><h3 id="Currently-Learning"><a href="#Currently-Learning" class="headerlink" title="Currently Learning"></a>Currently Learning</h3><p>I’m currently diving into:</p><ul><li>Advanced C++</li><li>Machine Learning and Deep Learning</li><li>LLM reasoning and LLM agents</li></ul><h3 id="Fun-Facts"><a href="#Fun-Facts" class="headerlink" title="Fun Facts"></a>Fun Facts</h3><ul><li>🌱 I’m currently learning new programming languages.</li><li>🎯 I aim to become a full-stack developer. (Maybe?)</li><li>📚 I love reading tech blogs and books.</li></ul><p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=xiyuanyang-code" alt="xiyuanyang-code" /></a> </p><h3 id="Languages-and-Tools"><a href="#Languages-and-Tools" class="headerlink" title="Languages and Tools"></a>Languages and Tools</h3><div style="text-align: center;">    <a href="https://en.wikipedia.org/wiki/C_(programming_language)" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40"/>    </a>    <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/>    </a>    <a href="https://www.w3schools.com/html/" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" alt="html" width="40" height="40"/>    </a>    <a href="https://www.python.org" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/>    </a>    <a href="https://www.linux.org/" target="_blank" rel="noreferrer">    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/></a></br></br><div style="text-align: center;">    <img src="https://github-readme-stats.vercel.app/api?username=xiyuanyang-code&show_icons=true&locale=en" alt="xiyuanyang-code" /></div>]]></content>
     
   </entry>
   
@@ -2342,22 +2353,11 @@
   
   
   <entry>
-    <title>All_posts</title>
+    <title>Resume</title>
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[<style>  html, body, .markdown-body {    font-family: Georgia, sans, serif;  }</style><p><img src="https://s1.imagehub.cc/images/2025/02/07/329668c81128e08f84c1d1ea140bc31b.jpg" alt="Welcome to Xiyuan Yang&#39;s Blog!"></p><p>This article systematically summarizes the previously published articles by categorizing them into topics.</p><p>This passage will be updated permanently, adding new posts every two weeks.</p><div class="note note-primary">            <p><strong>Last Update Time: 2025&#x2F;03&#x2F;25</strong></p>          </div><h1 id="About-the-author"><a href="#About-the-author" class="headerlink" title="About the author"></a>About the author</h1><p><a href="https://xiyuanyang-code.github.io/about/">About - Xiyuan Yang’s Blog</a> You can Jump to this link for more information.</p><h1 id="All-posts"><a href="#All-posts" class="headerlink" title="All posts!"></a>All posts!</h1><p>The posts can be divided into several <a href="https://xiyuanyang-code.github.io/categories/">categories</a> below:</p><ul><li><p>Code Basis: <strong>Basic Syntax of several programming language</strong></p><ul><li>Category Link: <a href="https://xiyuanyang-code.github.io/categories/Code/">Categories - Code - Xiyuan Yang’s Blog</a></li></ul></li><li><p>Algorithms: <strong>Advanced Learning of Algorithms and Data Structures</strong></p><ul><li>Category Link: <a href="https://xiyuanyang-code.github.io/categories/Algorithm/">Categories - Algorithm - Xiyuan Yang’s Blog</a></li></ul></li><li><p>Efficient Tools: <strong>Tool usage for Computer Science and AI</strong></p><ul><li>Category Link: <a href="https://xiyuanyang-code.github.io/categories/Efficient-Tools/">Categories - Efficient Tools - Xiyuan Yang’s Blog</a></li></ul></li><li><p>Project: <strong>Demonstration and Introduction of My Github Project</strong></p><ul><li>Category Link: <a href="https://xiyuanyang-code.github.io/categories/Project/">Categories - Project - Xiyuan Yang’s Blog</a></li></ul></li><li><p>Artificial Intelligence: <strong>Research Paper Reading</strong></p><ul><li>Category Link: <a href="https://xiyuanyang-code.github.io/categories/Artificial-Intelligence/">Categories - Artificial Intelligence - Xiyuan Yang’s Blog</a></li></ul></li></ul><br><p>Moreover, all posts ca be divided into three categories based on the <strong>completion progress</strong>.</p><ul><li><p><strong>Finished</strong>😃: Posts that have been finished writing and will not be modified in a short term unless some mistakes are caught.</p></li><li><p><strong>Updating</strong>🫡: Mostly blogs with announcements, which will be updated in real time.</p></li><li><p><strong>Not yet Finished</strong>🤡: Posts that have not yet been finished.</p></li></ul><h2 id="Total-demonstration"><a href="#Total-demonstration" class="headerlink" title="Total demonstration"></a>Total demonstration</h2><blockquote><p>Updated: 2025.4.12</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><code class="hljs bash">❌AI-Paper-2024<br>❌AI-indepth-reading-AlexNet<br>❌AIBasis-Neural-Networks<br>❌AINN-GAN<br>✅Above-All<br>✅Algorithm-BFS-DFS<br>✅Algorithm-BinaryTree<br>❌Algorithm-Chunking<br>✅Algorithm-Introduction<br>✅Algorithm-MCTS<br>✅Algorithm-Memo<br>✅Algorithm-Sorting<br>❌AutoGen-automatic-essay-modification<br>✅Bash-commands<br>✅Bash-exercises<br>✅Blog-Update-Fetching-Script<br>✅C-plus-plus-Primer-Plus-tutorial<br>✅CMake-tutorial-episode2<br>✅CMake-tutorial1<br>✅CS294-1-LLM-Reasoning<br>✅CS294-3-Autogen<br>✅Class-Inheritance<br>✅Code-Reuse-in-OOP<br>✅DataStructure-AVL-Tree<br>✅DataStructure-Fenwick-Tree<br>✅DataStructure-LCA<br>✅DataStructure-LinearList<br>✅DataStructure-Queue<br>❌DataStructure-RBT-Tree<br>✅DataStructure-Set<br>✅DataStructure-Sparse-Table<br>✅DataStructure-Stack<br>✅DataStructure-Stack-Queue-Advanced<br>✅DataStructure-String<br>✅DataStructure-Tree<br>✅DataStructure-Tree-Binary-Heap<br>✅DataStructure-Tree-Binary-Search-Tree<br>✅DataStructure-Tree-Binary-Tree<br>❌DataStructure-Trie<br>✅DataStructure-Tutorial<br>✅Deep-Learning-Memo<br>✅Dynamic-Memory-and-Classes<br>✅Exception-Handling-in-C-plus-plus<br>✅Input-and-Output-in-C-plus-plus<br>✅Introduction-to-OOP<br>✅Jotting-References-and-Encapsulation-in-OOP<br>✅LaTeX-tutorial<br>✅Leetcode-Mistake-collection<br>✅Leetcode-Mistake-collection-1-10<br>✅Leetcode-Mistake-collection-11-20<br>✅Leetcode-Mistake-collection-21-30<br>✅Leetcode-Mistake-collection-31-40<br>✅Life-musings<br>✅Linked-List-Implementation-Based-on-Structs<br>✅Linux-Bash-Introduction<br>✅MYGITHUB-Lightweight-speech-recognition-conversion-model<br>✅Math-Multivariable-Calculus<br>✅Missing-Semester-Notes<br>✅My-Posts<br>✅My-WorkFlow<br>✅Pointers-Arrays-and-Functions<br>✅Pre-training-Is-Dead<br>✅Python-Update-Learning<br>✅Python-advanced-File-Management<br>✅Python-cheatsheet<br>✅Python-numpy-cheatsheet<br>✅Python-tutorial<br>✅Python-visualization<br>✅RAG-Blog-Content-Retrieval<br>✅RAG-tutorial<br>✅RL-speeches<br>✅Regular-Expression<br>❌Taking-Notes<br>❌Tools-Tutorial<br>✅Torch-memo<br>✅Vim-tutorial<br></code></pre></td></tr></table></figure><h2 id="Code-Basis"><a href="#Code-Basis" class="headerlink" title="Code Basis"></a>Code Basis</h2><ul><li><strong>Python Grammar Tutorial</strong></li><li><strong>C++ Primer Plus Tutorial</strong></li></ul><h2 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h2><ul><li><strong>Data Structure</strong></li><li><strong>Algorithms from MIT 6.006</strong></li><li><strong>Leetcode Mistake Collection</strong></li></ul><h2 id="Project"><a href="#Project" class="headerlink" title="Project"></a>Project</h2><ul><li><strong>My Github Projects</strong></li></ul><h2 id="Efficient-Tools"><a href="#Efficient-Tools" class="headerlink" title="Efficient Tools"></a>Efficient Tools</h2><ul><li><strong>Bash&#x2F;Linux</strong></li><li><strong>Methodologies</strong></li><li><strong>Other developer’s Tools</strong> <ul><li>Missing semester Notes</li></ul></li></ul><h2 id="Artificial-Intelligence"><a href="#Artificial-Intelligence" class="headerlink" title="Artificial Intelligence"></a>Artificial Intelligence</h2><ul><li><p><strong>CS294: LLM Agents</strong></p></li><li><p><strong>Celebrity Speeches</strong></p></li></ul>]]></content>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Recordings</title>
-    <link href="/"/>
-    <url>/</url>
-    
-    <content type="html"><![CDATA[<style>  html, body, .markdown-body {    font-family: Georgia, sans, serif;  }</style><div class="markdown-body"><p><img src="https://s1.imagehub.cc/images/2025/02/07/329668c81128e08f84c1d1ea140bc31b.jpg" alt="Welcome to Xiyuan Yang&#39;s Blog!"></p><h1 id="Recordings"><a href="#Recordings" class="headerlink" title="Recordings"></a>Recordings</h1><div class="note note-info">            <p>After entering university, the author realized that the new knowledge to be learned was vast like the ocean. Sometimes, one can even be overwhelmed by this sea of knowledge and lose oneself. Therefore, the author will update this blog in real-time with new knowledge learned each day, making it easier for self-review and reflection, and to <strong>encourage the habit of being a lifelong learner</strong>.</p><p><strong>Learn something, yield something</strong>.</p>          </div><blockquote><p>Site updated: 20250324</p></blockquote><h2 id="My-records"><a href="#My-records" class="headerlink" title="My records"></a>My records</h2><ul><li><p><code>2025/03/25</code></p><ul><li>物理：狭义相对论（洛伦兹变换）</li><li>LaTeX 中文模版 + 确定人工智能基础课的大作业选题</li><li>离散：一阶逻辑</li><li>数据结构：<code>list</code>大作业的大部分实现</li></ul></li><li><p><code>2025/03/26</code>:</p><ul><li>听了科研学长的讲座，对<strong>科研，学业等精力分配的问题又有了更深的了解</strong></li><li>离散数学：学习一阶逻辑</li><li>数据结构：完成了<code>list</code>大作业的大部分实现，现在进入最后的debug阶段</li><li>数据结构：完成对<strong>Binary Tree</strong>的博客更新和代码复习（到Huffman 树和 Huffman 编码）</li></ul></li><li><p><code>2025/04/01</code>:</p><ul><li><strong>不能断更。。。</strong></li><li>大学物理：角动量守恒定律（但还没有学完）</li><li><strong>数据结构</strong>：完成了树状数组和ST表全部内容的学习：（理论知识复习&amp;博客写作&amp;模版代码+测试&amp;OJ题目练手）</li><li><strong>实验室</strong>：和学长reach out，终于配置好了远程服务器的所有流程（包括之前<code>scp</code>链接失效的debug）</li><li><strong>RAG</strong> 学习完成了 <strong>Query Translation</strong>的所有博客更新和代码学习，但是还没有应用到实战</li><li><strong>Pytorch</strong> 学习<code>Tensorboard</code>的基本使用方式</li></ul></li><li><p><code>2025/04/02</code>:</p><ul><li><strong>数学分析</strong>：<strong>三重积分</strong> &amp; 完成对应的作业</li><li><strong>离散数学</strong>：一节逻辑： Quantifiers in specific domains.</li><li><strong>AI</strong>：完成了人工智能基础课程的CNN刷榜（暂居第一😋）</li><li><strong>数据结构</strong>：debug list大作业的过程真的好漫长。。。无语了</li></ul></li><li><p><code>2025/04/03</code>:</p><ul><li><strong>AI</strong>：学习GAN、diffusion等新型网络结构 &amp; 继续炼丹ing</li><li><strong>数据结构</strong>：完成堆和BST的学习</li></ul></li><li><p><code>2025/04/08</code>：</p><ul><li><strong>物理</strong>：补上了角动量和刚体的课程进度，并且刷完了第二章和第三章的系列化习题（累死我了，物理真难）</li><li><strong>数据结构</strong>：学习蒙特卡洛算法并做好PPT</li></ul></li><li><p><code>2025/04/09</code>:</p><ul><li><strong>离散数学</strong>：学习在自然语言下的逻辑构建方法（这个东西上一堂课就没听懂，这下一听就听懂了）</li><li><strong>数学分析</strong>：复习<strong>偏微分方程</strong></li><li><strong>数据结构</strong>：再次回顾蒙特卡洛搜索树算法并完成博客的更新</li><li><strong>数据结构</strong>：博客更新 <strong>MIT6.006 Lec9 BFS算法</strong>（图论初步）、</li><li><strong>大学物理</strong>：继续刷系列化习题（刷完了第二章和第三章的全部内容）</li></ul></li><li><p><code>2024/04/10</code>:</p><ul><li><strong>大学物理</strong>：第五章刚体基本知识学习完成</li><li><strong>数据结构</strong>：复习AVL树，学习红黑树和AA树，但是红黑树代码的实现debug还未完成</li><li><strong>人工智能</strong>：学习LSTM（循环神经网络）&amp; 学习Transformer</li><li><strong>离散数学</strong>：完成周三离散数学内容的复习和作业</li></ul></li><li><p><code>2024/04/11</code>:</p><ul><li><strong>离散数学</strong>：完成<strong>逻辑</strong>部分的学习</li><li><strong>大学物理</strong>：学习第六章简谐运动</li><li><strong>大学英语</strong>：完成第二份议论文</li><li><strong>人工智能</strong>：尝试使用<code>autogen</code>开发出一个简单的博客多智能体对话框架</li><li><strong>数学分析</strong>：复习数学分析寒假学习的内容 &amp; 刷题</li></ul></li><li><p><code>2024/04/12</code>:</p><ul><li><p><strong>数据结构</strong>：学习<strong>LCA算法</strong>和<strong>DFS的图论基础算法</strong>（MIT6.006）</p></li><li><p><strong>人工智能</strong>：修改<code>autogen</code>的框架，优化文件管理和工作流</p><ul><li>最后思来想去还是决定使用**Camel…**，autogen的设计还是有一点死板，虽然快速上手的模版确实惊艳到我了。</li></ul></li><li><p><strong>数学分析</strong>：回看了多元函数极限与连续 &amp; 多元函数微分学的笔记 &amp; 复习寒假小册子上做过发题目。</p></li></ul></li><li><p><code>2024/04/13</code>:</p><ul><li><strong>数据结构</strong>：上机课学习modern cpp &amp; 博客完善</li><li><strong>数学分析</strong>：数学分析补课 &amp; 继续学习</li><li><strong>大学物理</strong>：复习大学物理Cha4：角动量</li><li><strong>人工智能</strong>：<ul><li>进一步学习Transformer理论 </li><li>完善提示词 &amp; 加入日志记录的功能</li></ul></li><li><strong>离散数学</strong>：完成星期五离散数学课程的作业和复习。</li></ul></li><li><h2 id="2024-04-14-数学分析：终于把记的所有笔记全部看完了。。。"><a href="#2024-04-14-数学分析：终于把记的所有笔记全部看完了。。。" class="headerlink" title="2024/04/14:- 数学分析：终于把记的所有笔记全部看完了。。。"></a><code>2024/04/14</code>:<br>- <strong>数学分析</strong>：终于把记的所有笔记全部看完了。。。</h2></li></ul><h2 id="My-feelings"><a href="#My-feelings" class="headerlink" title="My feelings"></a>My feelings</h2><ul><li><code>2025/03/26</code>:<ul><li>一定要去线下上课！！！线下的效率才是最高的。</li><li>不要把自己想的太完美主义，贴合实际情况才会达到最高的效率。</li><li>要休息好。</li></ul></li><li><h2 id="2025-04-10-最近很忙，但也要努力不放弃！"><a href="#2025-04-10-最近很忙，但也要努力不放弃！" class="headerlink" title="2025/04/10:- 最近很忙，但也要努力不放弃！"></a><code>2025/04/10</code>:<br>- 最近很忙，但也要努力不放弃！</h2></li></ul></div>]]></content>
+    <content type="html"><![CDATA[<style>  html, body, .markdown-body {    font-family: Georgia, sans, serif;  }</style><p><strong>My orcid</strong>: </p><p></br><h1 align="center">Welcome to Xiyuan Yang’s Coding Space!</h1></p><h3 align="center"><a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&random=false&width=650&lines=Keep+it+simple+and+stupid." alt="Typing SVG" /></a></h3><p align="left"> <img src="https://komarev.com/ghpvc/?username=xiyuanyang-code&label=Profile%20views&color=0e75b6&style=flat" alt="xiyuanyang-code" /> </p><h3 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h3><p>Hi there! I’m <strong>Xiyuan Yang</strong>, a passionate programmer and lifelong learner. I love exploring new technologies and solving challenging problems.</p><h3 id="Connect-with-Me"><a href="#Connect-with-Me" class="headerlink" title="Connect with Me"></a>Connect with Me</h3><ul><li><a href="https://xiyuanyang-code.github.io/">My personal Blog</a></li><li><a href="xiyuan__yang@outlook.com">My email</a></li></ul><h3 id="Currently-Learning"><a href="#Currently-Learning" class="headerlink" title="Currently Learning"></a>Currently Learning</h3><p>I’m currently diving into:</p><ul><li>Advanced C++</li><li>Machine Learning and Deep Learning</li><li>LLM reasoning and LLM agents</li></ul><h3 id="Fun-Facts"><a href="#Fun-Facts" class="headerlink" title="Fun Facts"></a>Fun Facts</h3><ul><li>🌱 I’m currently learning new programming languages.</li><li>🎯 I aim to become a full-stack developer. (Maybe?)</li><li>📚 I love reading tech blogs and books.</li></ul><p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=xiyuanyang-code" alt="xiyuanyang-code" /></a> </p><h3 id="Languages-and-Tools"><a href="#Languages-and-Tools" class="headerlink" title="Languages and Tools"></a>Languages and Tools</h3><div style="text-align: center;">    <a href="https://en.wikipedia.org/wiki/C_(programming_language)" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40"/>    </a>    <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/>    </a>    <a href="https://www.w3schools.com/html/" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" alt="html" width="40" height="40"/>    </a>    <a href="https://www.python.org" target="_blank" rel="noreferrer">        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/>    </a>    <a href="https://www.linux.org/" target="_blank" rel="noreferrer">    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/></a></br></br><div style="text-align: center;">    <img src="https://github-readme-stats.vercel.app/api?username=xiyuanyang-code&show_icons=true&locale=en" alt="xiyuanyang-code" /></div>]]></content>
     
   </entry>
   
