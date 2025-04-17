@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/moderncpp.jpg">
 <meta property="article:published_time" content="2025-04-13T10:32:26.000Z">
-<meta property="article:modified_time" content="2025-04-14T03:29:35.107Z">
+<meta property="article:modified_time" content="2025-04-16T12:51:44.770Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Finished">
@@ -344,7 +344,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.9k words
+          8.3k words
         
       </span>
     
@@ -774,17 +774,111 @@
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;variant&gt;</span></span><br><br><span class="hljs-function">std::variant&lt;<span class="hljs-type">int</span>, std::string&gt; <span class="hljs-title">getValue</span><span class="hljs-params">(<span class="hljs-type">bool</span> returnInt)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (returnInt) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">42</span>; <span class="hljs-comment">// 返回整数</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello&quot;</span>; <span class="hljs-comment">// 返回字符串</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">auto</span> value = <span class="hljs-built_in">getValue</span>(<span class="hljs-literal">false</span>);<br>    <br>    <span class="hljs-comment">// 使用 std::visit 处理不同类型</span><br>    std::<span class="hljs-built_in">visit</span>([](<span class="hljs-keyword">auto</span>&amp;&amp; arg) &#123;<br>        std::cout &lt;&lt; arg &lt;&lt; std::endl; <span class="hljs-comment">// 输出 &quot;Hello&quot;</span><br>    &#125;, value);<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
-<h2 id="Rust简介"><a href="#Rust简介" class="headerlink" title="Rust简介"></a>Rust简介</h2>
-    <div class="fold">
-      <div class="fold-title fold-info collapsed" data-toggle="collapse" href="#collapse-11763cb6" role="button" aria-expanded="false" aria-controls="collapse-11763cb6">
-        <div class="fold-arrow">▶</div>TOBEDONE
-      </div>
-      <div class="fold-collapse collapse" id="collapse-11763cb6">
-        <div class="fold-content">
-          <p>别看了，这没写完，快去写作业叭。</p>
-        </div>
-      </div>
-    </div>
+<h2 id="Rust简介"><a href="#Rust简介" class="headerlink" title="Rust简介"></a>Rust简介</h2><h3 id="Rust历史简介"><a href="#Rust历史简介" class="headerlink" title="Rust历史简介"></a>Rust历史简介</h3><p><strong>Rust</strong>作为一门新的编程语言，创始与2006年（我出生了）。Rust 的创始人 Graydon Hoare 在 Mozilla 开始了这个项目。最初，Rust 是作为一个个人项目进行开发，目的是解决 <strong>C++ 中的一些问题，特别是在内存管理和并发方面</strong>。</p>
+<ul>
+<li><p><strong>2010年</strong>：Rust 的第一个公开版本（0.1）发布，标志着语言的初步成型。此时，Rust 开始吸引更多的关注和开发者。</p>
+</li>
+<li><p><strong>2010年</strong>：Mozilla 正式加入 Rust 项目，提供资金和资源支持。Rust 被视为 Mozilla 的未来编程语言，尤其是在开发 <strong>Firefox</strong> 浏览器时。</p>
+</li>
+<li><p><strong>2015年</strong>：Rust 1.0 发布，标志着语言的稳定版本。此后，Rust 的生态系统和社区迅速发展，越来越多的库和工具相继推出。</p>
+</li>
+<li><p><strong>2024年</strong>：Rust不断发展壮大，自从 2022 年 Linux 内核宣布引入 Rust 语言以来，这个社区内部掀起了一场意料之外的风波。不久前，Rust for Linux 项目的核心维护者 Wedson Almeida Filho 决定退出该项目，他坦言已厌倦了社区中不断增多的、与技术无关的争论，其中不乏涉及 Rust 与 C 的语言之争。</p>
+</li>
+</ul>
+<p>Rust 的设计理念强调内存安全和并发性，<strong>采用所有权（ownership）、借用（borrowing）和生命周期（lifetimes）等概念</strong>，旨在避免常见的内存错误（如空指针解引用和数据竞争）。</p>
+<h3 id="Hello-Rust！"><a href="#Hello-Rust！" class="headerlink" title="Hello Rust！"></a>Hello Rust！</h3><h4 id="简单的猜数字小游戏"><a href="#简单的猜数字小游戏" class="headerlink" title="简单的猜数字小游戏"></a>简单的猜数字小游戏</h4><ul>
+<li>Rust是强类型编程语言，在做类型转换的时候需要显式声明。<ul>
+<li>但是类似于C++的auto，rust编译器也可以实现自动判断类型，但并不妨碍其<strong>严格的类型检查</strong>。</li>
+</ul>
+</li>
+<li>Rust的变量<strong>默认不可变</strong>，如果是可变借用的话需要声明<code>mut</code>。</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// use std::io;</span><br><span class="hljs-keyword">use</span> rand::Rng;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;For the guessing game.&quot;</span>);<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">secret_number</span> = rand::<span class="hljs-title function_ invoke__">rng</span>().<span class="hljs-title function_ invoke__">random_range</span>(<span class="hljs-number">1</span>..=<span class="hljs-number">100</span>);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;The secret number: &#123;&#125;&quot;</span>, secret_number);<br><br>    <span class="hljs-keyword">loop</span> &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Please input your guess:&quot;</span>);<br>        <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">guess</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">new</span>();<br><br>        std::io::<span class="hljs-title function_ invoke__">stdin</span>().<span class="hljs-title function_ invoke__">read_line</span>(&amp;<span class="hljs-keyword">mut</span> guess).<span class="hljs-title function_ invoke__">expect</span>(<span class="hljs-string">&quot;Fuck!&quot;</span>);<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">guess</span> = guess.<span class="hljs-title function_ invoke__">trim</span>();<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Your guess is &#123;&#125;&quot;</span>, guess);<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">guess</span>: <span class="hljs-type">u32</span> = <span class="hljs-keyword">match</span> guess.<span class="hljs-title function_ invoke__">trim</span>().<span class="hljs-title function_ invoke__">parse</span>() &#123;<br>            <span class="hljs-title function_ invoke__">Ok</span>(num) =&gt; num,<br>            <span class="hljs-title function_ invoke__">Err</span>(_) =&gt; &#123;<br>                <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Invalid input, try again.&quot;</span>);<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>        &#125;;<br>        <span class="hljs-keyword">match</span> guess.<span class="hljs-title function_ invoke__">cmp</span>(&amp;secret_number) &#123;<br>            std::cmp::Ordering::Less =&gt; <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Too small!&quot;</span>),<br>            std::cmp::Ordering::Greater =&gt; <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Too big!&quot;</span>),<br>            std::cmp::Ordering::Equal =&gt; &#123;<br>                <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Wow! Your guess is right!&quot;</span>);<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="变量与常量"><a href="#变量与常量" class="headerlink" title="变量与常量"></a>变量与常量</h4><ul>
+<li>常量不可以使用<code>mut</code>。</li>
+</ul>
+<p><img src="https://s1.imagehub.cc/images/2025/04/16/6c90737d12544166af6ca30d8f7bd454.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<ul>
+<li>shadowing<ul>
+<li>声明<strong>同名变量</strong>覆盖原来的变量。</li>
+<li>如果不使用let关键字，对非mut原来变量进行赋值会产生报错。</li>
+<li>使用let声明的新变量可以与原来不同。</li>
+</ul>
+</li>
+</ul>
+<h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><p><strong>Rust</strong>是静态编译语言，需要再编译的时候知道<strong>所有变量的数据类型</strong>。</p>
+<ul>
+<li>基于使用的值，Rust的编译器可以自动推断出使用的类型。</li>
+<li><strong>在有必要时需要加类型标注</strong>。</li>
+</ul>
+<p><strong>标量类型</strong>：</p>
+<ul>
+<li>整数类型（u32（无符号），<strong>i32</strong>（有符号），i64，u64…）<ul>
+<li>存在溢出现象，但是编译器会检查溢出。（panic）</li>
+<li>在发布模式下，和C++类似，会发生环绕现象。</li>
+</ul>
+</li>
+<li>浮点数类型 （默认 <strong>f64</strong>）</li>
+<li>波尔类型：true 和 false</li>
+<li>字符类型：（<strong>char</strong>）<ul>
+<li>Rust的字符类型是4字节（C++是1字节），因此可以表示更多的含义，例如中日韩文字和emoji等。（<strong>Unicode</strong>）</li>
+<li>这不来一个恶搞？</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// test for emoji</span><br><span class="hljs-keyword">let</span> <span class="hljs-variable">emoji</span> = &#x27;👀&#x27;;<br><span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, emoji);<br></code></pre></td></tr></table></figure>
+
+<p><strong>复合类型</strong></p>
+<ul>
+<li><p>Tuple</p>
+<ul>
+<li>每个位置对应一个类型，每一个类型不一定要相同。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// test tuple</span><br><span class="hljs-keyword">let</span> <span class="hljs-variable">tip</span>: (<span class="hljs-type">i32</span>, <span class="hljs-type">i32</span>, <span class="hljs-type">i32</span>) = (<span class="hljs-number">599</span>, <span class="hljs-number">44</span>, <span class="hljs-number">33</span>);<br><span class="hljs-keyword">let</span> (x, y, z) = tip;<br><span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125; &#123;&#125; &#123;&#125;&quot;</span>, x, y, z);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>数组<ul>
+<li>数组越界会在运行时报错。</li>
+<li>和C&#x2F;C++不同的时，Rust中<strong>不允许访问数组内存的下一个元素</strong>（这在C++中是被允许的）。</li>
+<li><strong>Rust</strong>的安全性不容质疑！</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// test array</span><br><span class="hljs-keyword">let</span> <span class="hljs-variable">x</span> = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">4</span>];<br><span class="hljs-keyword">let</span> <span class="hljs-variable">b</span> = [<span class="hljs-number">3</span>;<span class="hljs-number">5</span>];<br><span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, x[<span class="hljs-number">1</span>]);<br><span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, b[<span class="hljs-number">1</span>]);<br></code></pre></td></tr></table></figure>
+
+<h4 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h4><ul>
+<li>使用<strong>snake_case</strong>作为命名规范。</li>
+<li><strong>Rust不太关注函数声明的顺序</strong>。</li>
+<li>函数形式参数的类型必须要<strong>显示声明</strong>！</li>
+<li>Rust也是一个<strong>基于表达式的语言</strong>。但是和C语言不同的是，Rust严格区分了<strong>语句和表达式</strong>。<ul>
+<li>例如<code>x + 1</code>是一个表达式（具有返回值），但是<code>x + 1;</code>是一个语句（带分号）</li>
+</ul>
+</li>
+<li>在Rust里面，函数的返回值就是函数里面最后一个表达式的值。（可以使用return提前返回）</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_function</span>(x: <span class="hljs-type">i32</span>, y: <span class="hljs-type">i32</span>) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">i32</span>&#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">z</span> = x + y;<br>    z<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="if-else"><a href="#if-else" class="headerlink" title="if else"></a>if else</h4><ul>
+<li>分支（arm）</li>
+<li><strong>if后面的表达式的类型必须严格是布尔类型</strong>！！！</li>
+<li><strong>可以使用match</strong>来重构代码。</li>
+<li>因为rust要保证安全性，因此必须要使用<strong>强类型语言</strong>，而if-else语句本身就是一个表达式（需要判断<strong>其类型</strong>），因此需要if和else块中返回值的类型是完全相同的。</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_if</span> (x: <span class="hljs-type">i32</span>) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">i32</span>&#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">number</span> = <span class="hljs-number">3</span>;<br>    <span class="hljs-keyword">if</span> number &lt; x &#123;<br>        <span class="hljs-number">5</span><br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> number == x  &#123;<br>        <span class="hljs-number">6</span><br>    &#125;<span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-number">7</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h4><h5 id="loop循环"><a href="#loop循环" class="headerlink" title="loop循环"></a>loop循环</h5><p>相当于<code>while(true)</code>，可以使用break退出。</p>
+<h5 id="while条件循环"><a href="#while条件循环" class="headerlink" title="while条件循环"></a>while条件循环</h5><p>和C++非常类似。</p>
+<h5 id="for循环遍历集合"><a href="#for循环遍历集合" class="headerlink" title="for循环遍历集合"></a>for循环遍历集合</h5><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_for_loop</span> (a: [<span class="hljs-type">i32</span>; <span class="hljs-number">5</span>]) &#123;<br>    <span class="hljs-keyword">for</span> <span class="hljs-variable">element</span> <span class="hljs-keyword">in</span> a.<span class="hljs-title function_ invoke__">iter</span>() &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, element);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h6 id="Range"><a href="#Range" class="headerlink" title="Range"></a>Range</h6><p>这里又很像Python…</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_for_loop</span> (a: [<span class="hljs-type">i32</span>; <span class="hljs-number">5</span>]) &#123;<br>    <span class="hljs-keyword">for</span> <span class="hljs-variable">element</span> <span class="hljs-keyword">in</span> a.<span class="hljs-title function_ invoke__">iter</span>() &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, element);<br>    &#125;<br>    <br>    <span class="hljs-keyword">for</span> <span class="hljs-variable">number</span> <span class="hljs-keyword">in</span> (<span class="hljs-number">1</span>..<span class="hljs-number">10</span>).<span class="hljs-title function_ invoke__">rev</span>() &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Wow&#123;&#125;&quot;</span>, number);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<div class="note note-primary">
+            <p><strong>至此，Rust的所有语法的基本逻辑已经全部涉及了</strong>，但是到现在，我们还没有接触Rust最核心且最精华的部分：<strong>所有权的控制</strong>，相信我，这也是相当精彩的一章！笔者需要开一个新坑来完成这一个教程！</p>
+          </div>
 
                 
               </div>
@@ -855,7 +949,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 14, 2025</div>
+          <div>April 16, 2025</div>
         </div>
       
       
