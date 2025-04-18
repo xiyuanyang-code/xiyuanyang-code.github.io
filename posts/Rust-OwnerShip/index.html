@@ -19,28 +19,29 @@
   <meta name="author" content="Xiyuan Yang">
   <meta name="keywords" content="Code">
   
-    <meta name="description" content="Long-term, continuously updated Python study notes. Any learning related to advanced Python techniques will be documented.">
+    <meta name="description" content="This Blog focuses on the ownership of Rust.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python-Update-Learning">
-<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Python-Update-Learning/index.html">
+<meta property="og:title" content="Rust-OwnerShip">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Rust-OwnerShip/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
-<meta property="og:description" content="Long-term, continuously updated Python study notes. Any learning related to advanced Python techniques will be documented.">
+<meta property="og:description" content="This Blog focuses on the ownership of Rust.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/pythonfav.png">
-<meta property="article:published_time" content="2025-01-20T03:35:38.000Z">
-<meta property="article:modified_time" content="2025-02-17T11:47:04.926Z">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/rust.png">
+<meta property="article:published_time" content="2025-04-18T16:37:43.000Z">
+<meta property="article:modified_time" content="2025-04-18T17:34:09.456Z">
 <meta property="article:author" content="Xiyuan Yang">
-<meta property="article:tag" content="Updating">
-<meta property="article:tag" content="Python">
-<meta property="article:tag" content="Tutorial">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="Finished">
+<meta property="article:tag" content="Rust">
+<meta property="article:tag" content="Ownership">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/pythonfav.png">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/rust.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Python-Update-Learning - Xiyuan Yang&#39;s Blog</title>
+  <title>Rust-OwnerShip - Xiyuan Yang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -315,7 +316,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Python-Update-Learning"></span>
+            <span id="subtitle" data-typed-text="Rust-OwnerShip"></span>
           
         </div>
 
@@ -331,8 +332,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-01-20 11:35" pubdate>
-          January 20, 2025 am
+        <time datetime="2025-04-19 00:37" pubdate>
+          April 19, 2025 am
         </time>
       </span>
     
@@ -343,7 +344,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          205 words
+          1.3k words
         
       </span>
     
@@ -528,7 +529,7 @@
       
         <a href="/posts/Python-Update-Learning/" title="Python-Update-Learning"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">Python-Update-Learning</span>
         </a>
       
@@ -573,7 +574,7 @@
       
         <a href="/posts/Rust-OwnerShip/" title="Rust-OwnerShip"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">Rust-OwnerShip</span>
         </a>
       
@@ -596,99 +597,74 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Python-Update-Learning</h1>
+            <h1 id="seo-header">Rust-OwnerShip</h1>
             
             
               <div class="markdown-body">
                 
-                <style>
-  html, body, .markdown-body {
-    font-family: Georgia, sans, serif;
-  }
-</style>
+                <h1 id="Rust-Ownership"><a href="#Rust-Ownership" class="headerlink" title="Rust Ownership"></a>Rust Ownership</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h2 id="所有权机制"><a href="#所有权机制" class="headerlink" title="所有权机制"></a>所有权机制</h2><ul>
+<li>一些程序语言的垃圾收集器会自动收集不再使用的内存（Java）</li>
+<li>一些程序语言需要程序员<strong>手动进行内存管理</strong>。（C++的手动new和delete）</li>
+</ul>
+<p>Rust使用<strong>所有权系统</strong>来管理内存，并且不会带来额外的运行开销。（因为内存的检查和管理在编译时就已经完成）</p>
+<h2 id="栈内存和堆内存"><a href="#栈内存和堆内存" class="headerlink" title="栈内存和堆内存"></a>栈内存和堆内存</h2><ul>
+<li>栈内存（栈帧空间），LIFO<ul>
+<li><strong>所有存储在栈上的数据必须具有已知并且固定的大小</strong>。</li>
+</ul>
+</li>
+<li>堆内存<ul>
+<li>在堆上进行内存分配（寻找可用的空间并且标记指针）</li>
+<li>访问堆内存会更加慢（因为需要<strong>指针间接跳转访问</strong>）</li>
+</ul>
+</li>
+</ul>
+<p>在C++中，我们经常在堆内存中为程序分配内存，并且需要手动删除，因此<strong>所有权需要解决的问题主要就集中在堆内存的分配和管理上</strong>，即跟踪代码的哪些部分使用了heap的哪些数据，并且需要清理heap中的数据来避免空间不足的问题。</p>
+<h2 id="所有权规则"><a href="#所有权规则" class="headerlink" title="所有权规则"></a>所有权规则</h2><div class="note note-primary">
+            <ul><li>每个值都有一个变量，该变量是该值的所有者。</li><li>每个值<strong>同时只可以拥有一个所有者</strong>。</li><li><strong>当所有者超出作用域(Rust)的时候，该值将会被删除</strong>。</li></ul>
+          </div>
 
-<h1 id="Python-Update-Learning"><a href="#Python-Update-Learning" class="headerlink" title="Python Update Learning"></a>Python Update Learning</h1><h2 id="Pytest"><a href="#Pytest" class="headerlink" title="Pytest"></a><code>Pytest</code></h2><h2 id="Pygame"><a href="#Pygame" class="headerlink" title="Pygame"></a><code>Pygame</code></h2><h2 id="Duck-Typing"><a href="#Duck-Typing" class="headerlink" title="Duck Typing"></a>Duck Typing</h2><h3 id="Introduction-to-Duck-Typing"><a href="#Introduction-to-Duck-Typing" class="headerlink" title="Introduction to Duck Typing"></a>Introduction to Duck Typing</h3><p><strong>Duck Typing</strong> is a programming concept often used in dynamically-typed languages, where the type or class of an object is determined by its behavior (methods and properties) rather than its explicit inheritance or interface implementation. The term originates from the phrase: </p>
+<p>对于第三点，当所有者超出自身作用域的时候，内存会立即被交换给操作系统。（这一点和C++不同）</p>
+<p>这真的是非常严格的所有权规则！我们来看下面的一个例子：</p>
 <blockquote>
-<p><em>“If it walks like a duck and quacks like a duck, then it must be a duck.”</em></p>
+<p>前提：<strong>Rust</strong>中的String类会被存储在<strong>堆内存中</strong>，因为其可变性，而不是在栈内存中。</p>
 </blockquote>
-<p>In essence, Duck Typing focuses on what an object <strong>can do</strong> rather than what it <strong>is</strong>. This approach provides flexibility and promotes code reusability, but it also requires careful handling to avoid runtime errors due to missing methods or properties.</p>
-<h3 id="Key-Characteristics-of-Duck-Typing"><a href="#Key-Characteristics-of-Duck-Typing" class="headerlink" title="Key Characteristics of Duck Typing"></a>Key Characteristics of Duck Typing</h3><ol>
-<li><p><strong>Behavior Over Type</strong>:</p>
-<ul>
-<li>An object’s suitability is determined by the presence of specific methods or properties, not by its class or type.</li>
-<li>For example, if an object has a <code>quack()</code> method and a <code>walk()</code> method, it can be treated as a “duck” regardless of its actual class.</li>
-</ul>
-</li>
-<li><p><strong>Flexibility</strong>:</p>
-<ul>
-<li>Code can work with any object that implements the required behavior, making it highly adaptable and reusable.</li>
-<li>This eliminates the need for strict type hierarchies or interfaces.</li>
-</ul>
-</li>
-<li><p><strong>Common in Dynamic Languages</strong>:</p>
-<ul>
-<li>Duck Typing is frequently used in dynamically-typed languages like Python, Ruby, and JavaScript, where type checking is done at runtime rather than compile time.</li>
-</ul>
-</li>
-</ol>
-<h3 id="Example-Duck-Typing-in-Python"><a href="#Example-Duck-Typing-in-Python" class="headerlink" title="Example: Duck Typing in Python"></a>Example: Duck Typing in Python</h3><p>Below is an example that demonstrates Duck Typing using a <code>Duck</code> class, a <code>Person</code> class, and even a <code>Chicken</code> class. The key idea is that any object with the required methods (<code>quack()</code> and <code>walk()</code>) can be treated as a “duck.”</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Define a Duck class</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Duck</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">quack</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Quack!&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">walk</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Walking like a duck&quot;</span>)<br><br><span class="hljs-comment"># Define a Person class</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">quack</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;I&#x27;m quacking like a duck!&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">walk</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;I&#x27;m walking like a duck&quot;</span>)<br><br><span class="hljs-comment"># Define a Chicken class</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Chicken</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">quack</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Cluck cluck! (Pretending to quack)&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">walk</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Walking like a duck (but I&#x27;m actually a chicken)&quot;</span>)<br><br><span class="hljs-comment"># Function to check if an object is a &quot;duck&quot;</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">check_if_duck</span>(<span class="hljs-params">animal</span>):<br>    <span class="hljs-keyword">try</span>:<br>        animal.quack()<br>        animal.walk()<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;This is a duck!&quot;</span>)<br>    <span class="hljs-keyword">except</span> AttributeError:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;This is not a duck!&quot;</span>)<br><br><span class="hljs-comment"># Test the function</span><br>duck = Duck()<br>person = Person()<br>chicken = Chicken()<br><br>check_if_duck(duck)     <span class="hljs-comment"># Output: Quack! Walking like a duck. This is a duck!</span><br>check_if_duck(person)   <span class="hljs-comment"># Output: I&#x27;m quacking like a duck! I&#x27;m walking like a duck. This is a duck!</span><br>check_if_duck(chicken)  <span class="hljs-comment"># Output: Cluck cluck! (Pretending to quack) Walking like a duck (but I&#x27;m actually a chicken). This is a duck!</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">s1</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Hello world&quot;</span>);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;s1: &#123;&#125;&quot;</span>, s1);<br>    &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Entering the scope of s2&quot;</span>);<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">s2</span> = s1;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;s2: &#123;&#125;&quot;</span>, s2);<br>    &#125;<br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, s1);<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
-<h3 id="Explanation-of-the-Code"><a href="#Explanation-of-the-Code" class="headerlink" title="Explanation of the Code"></a>Explanation of the Code</h3><ol>
-<li><p><strong>Duck Typing in Action</strong>:</p>
-<ul>
-<li>The <code>check_if_duck</code> function does not check the type of the <code>animal</code> object. Instead, it checks whether the object has the <code>quack()</code> and <code>walk()</code> methods.</li>
-<li>If the object has these methods, it is treated as a “duck,” regardless of whether it is an instance of <code>Duck</code>, <code>Person</code>, or even <code>Chicken</code>.</li>
+<p>在这里执行第10行代码会产生比较严重的编译错误，输出如下：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs applescript">Compiling ownership v0<span class="hljs-number">.1</span><span class="hljs-number">.0</span> (/home/xiyuanyang/Rust/ownership)<br><span class="hljs-keyword">error</span>[E0382]: borrow <span class="hljs-keyword">of</span> moved value: `s1`<br>  <span class="hljs-comment">--&gt; src/main.rs:21:20</span><br>   |<br><span class="hljs-number">13</span> |     let s1 = String::<span class="hljs-keyword">from</span>(<span class="hljs-string">&quot;Hello world&quot;</span>);<br>   |         <span class="hljs-comment">-- move occurs because `s1` has type `String`, which does not implement the `Copy` trait</span><br>...<br><span class="hljs-number">17</span> |         let s2 = s1;<br>   |                  <span class="hljs-comment">-- value moved here</span><br>...<br><span class="hljs-number">21</span> |     println!(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, s1);<br>   |                    ^^ value borrowed here <span class="hljs-keyword">after</span> move<br>   |<br>   = note: this <span class="hljs-keyword">error</span> originates <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> macro `$crate::format_args_nl` which comes <span class="hljs-keyword">from</span> <span class="hljs-keyword">the</span> expansion <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> macro `println` (<span class="hljs-keyword">in</span> Nightly builds, <span class="hljs-built_in">run</span> <span class="hljs-keyword">with</span> -Z macro-backtrace <span class="hljs-keyword">for</span> more info)<br>help: consider cloning <span class="hljs-keyword">the</span> value <span class="hljs-keyword">if</span> <span class="hljs-keyword">the</span> performance cost <span class="hljs-keyword">is</span> acceptable<br>   |<br><span class="hljs-number">17</span> |         let s2 = s1.clone();<br>   |                    ++++++++<br><br>For more information <span class="hljs-keyword">about</span> this <span class="hljs-keyword">error</span>, <span class="hljs-keyword">try</span> `rustc <span class="hljs-comment">--explain E0382`.</span><br><span class="hljs-keyword">error</span>: could <span class="hljs-keyword">not</span> compile `ownership` (bin <span class="hljs-string">&quot;ownership&quot;</span>) due <span class="hljs-keyword">to</span> <span class="hljs-number">1</span> previous <span class="hljs-keyword">error</span><br></code></pre></td></tr></table></figure>
+
+<p>为了理解这个编译错误，我们需要理解程序在内存上都干了什么：</p>
+<p>对于一个<strong>String</strong>类的变量，程序会在内存中储存三个信息：<strong>ptr, length and capacity</strong>，这三个信息本身储存在栈内存中。而指针所指向的具体的内存（就是实际的data）是分配在堆内存中的，在进行赋值操作的时候，程序会将指针，长度和capacity这三个变量的值都拷贝一份给新的变量s2,但是<strong>不会开辟一块新的内存</strong>给s2使用！（这就是严重的<strong>对指针变量的浅拷贝</strong>）</p>
+<p>这会带来很严重的问题，例如当两个变量各自离开自己作用域的时候，变量的所有内存会被销毁返回给操作系统，而这就意味着所开辟的那一块堆内存会被<strong>释放两次</strong>！这就是非常著名的<strong>Double Free Bug</strong>（二次释放）</p>
+<p>对于C++来说，解决的办法是<strong>手动设计String类的拷贝构造函数</strong>，使其复制一块新的内存给s2，这样实现深拷贝就可以让两个变量互不干扰，独立活动。（现代C++也设计了移动语义来应对<strong>不需要复制</strong>的高效率场景）而对于Rust来说，其解决方案是让赋值后的s1失效。也就是说，当s1离开作用域的时候，原先的字符串数据已经不再属于他了，程序也不需要再释放新的内存。</p>
+<blockquote>
+<p>这就是<strong>移动语义</strong>，到底是谁抄谁的呢。。。</p>
+</blockquote>
+<h3 id="Clone"><a href="#Clone" class="headerlink" title="Clone"></a>Clone</h3><p>可否进行补救？当然可以，Rust提供了<code>clone()</code>函数来实现深拷贝。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * @Author: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-comment"> * @Date: 2025-04-16 19:57:16</span><br><span class="hljs-comment"> * @LastEditors: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-comment"> * @LastEditTime: 2025-04-19 01:19:36</span><br><span class="hljs-comment"> * @FilePath: /Rust/ownership/src/main.rs</span><br><span class="hljs-comment"> * @Description:</span><br><span class="hljs-comment"> * Do you code and make progress today?</span><br><span class="hljs-comment"> * Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved.</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">s1</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Hello world&quot;</span>);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;s1: &#123;&#125;&quot;</span>, s1);<br>    &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Entering the scope of s2&quot;</span>);<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">s2</span> = s1.<span class="hljs-title function_ invoke__">clone</span>();<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;s2: &#123;&#125;&quot;</span>, s2);<br>    &#125;<br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, s1);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">s1:</span> Hello world<br>Entering the scope of s2<br><span class="hljs-symbol">s2:</span> Hello world<br>Hello world<br></code></pre></td></tr></table></figure>
+
+<div class="note note-primary">
+            <p><strong>对于一些非常简单的值，深拷贝和浅拷贝是等价的，因为数据本身就储存在栈上面</strong>，不涉及堆内存的管理。</p><p>例如下面的程序可以正常执行：</p><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">x</span> = <span class="hljs-number">5</span>;<br>    &#123;<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">y</span> = x;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;y = &#123;&#125;&quot;</span>, y);<br>    &#125; <br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;x = &#123;&#125;&quot;</span>, x);<br>&#125;<br><br></code></pre></td></tr></table></figure>
+          </div>
+
+<h3 id="Trait"><a href="#Trait" class="headerlink" title="Trait"></a>Trait</h3><ul>
+<li>Copy Trait 可以使用于<strong>像整数完全可以被存放在stack上面的类型</strong>。</li>
+<li>如果一个类实现了Copy Trait，那么旧的变量在赋值之后仍然可以被使用。</li>
+<li>如果一个类实现了Drop Trait，那么Copy Trait将不被允许实现。</li>
+<li>如果一个元组的所有字段都是可以被copy的，那么其本身也是可以被copy的。</li>
 </ul>
-</li>
-<li><p><strong>Flexibility and Reusability</strong>:</p>
+<h3 id="所有权与函数"><a href="#所有权与函数" class="headerlink" title="所有权与函数"></a>所有权与函数</h3><p>本质上和变量赋值完全类似，<strong>可以进行移动或者复制</strong>。</p>
 <ul>
-<li>The <code>Chicken</code> class is not a duck, but it can still be treated as one because it implements the required methods.</li>
-<li>This demonstrates how Duck Typing allows objects of different types to be used interchangeably, as long as they exhibit the expected behavior.</li>
+<li>对于Copy Trait，函数的传参就是复制的过程，不会影响原变量的内容。</li>
+<li>但是对于非 Copy Trait，就相当于C++中的&amp;&amp;右值引用，直接交出了变量的所有权。</li>
 </ul>
-</li>
-<li><p><strong>Runtime Risks</strong>:</p>
-<ul>
-<li>If an object passed to <code>check_if_duck</code> does not have the required methods (e.g., a <code>Dog</code> class without <code>quack()</code> and <code>walk()</code>), the program will raise an <code>AttributeError</code> at runtime.</li>
-</ul>
-</li>
-</ol>
-<h3 id="Advantages-of-Duck-Typing"><a href="#Advantages-of-Duck-Typing" class="headerlink" title="Advantages of Duck Typing"></a>Advantages of Duck Typing</h3><ol>
-<li><p><strong>Code Simplicity</strong>:</p>
-<ul>
-<li>Duck Typing reduces the need for complex type hierarchies and interfaces, making code simpler and more concise.</li>
-</ul>
-</li>
-<li><p><strong>Enhanced Flexibility</strong>:</p>
-<ul>
-<li>Functions and methods can operate on any object that meets the required behavior, promoting code reuse and adaptability.</li>
-</ul>
-</li>
-<li><p><strong>Dynamic Nature</strong>:</p>
-<ul>
-<li>Duck Typing aligns well with the dynamic nature of languages like Python, enabling rapid prototyping and development.</li>
-</ul>
-</li>
-</ol>
-<h3 id="Disadvantages-of-Duck-Typing"><a href="#Disadvantages-of-Duck-Typing" class="headerlink" title="Disadvantages of Duck Typing"></a>Disadvantages of Duck Typing</h3><ol>
-<li><p><strong>Runtime Errors</strong>:</p>
-<ul>
-<li>Since type checking is deferred to runtime, errors related to missing methods or properties may only surface during execution.</li>
-</ul>
-</li>
-<li><p><strong>Reduced Readability</strong>:</p>
-<ul>
-<li>Without explicit type declarations, it can be harder to understand what types of objects are expected by a function or method.</li>
-</ul>
-</li>
-<li><p><strong>Testing Overhead</strong>:</p>
-<ul>
-<li>Comprehensive testing is required to ensure that objects passed to Duck Typing functions behave as expected.</li>
-</ul>
-</li>
-</ol>
-<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>Duck Typing is a powerful and flexible programming paradigm that emphasizes behavior over explicit type definitions. By focusing on what an object <strong>can do</strong> rather than what it <strong>is</strong>, Duck Typing enables highly adaptable and reusable code. However, this flexibility comes with the trade-off of potential runtime errors and the need for thorough testing. The example of the <code>Chicken</code> class demonstrates how even non-duck objects can be treated as ducks if they implement the required behavior, showcasing the true essence of Duck Typing.</p>
-<p>In summary, Duck Typing is a valuable tool in dynamically-typed languages, but it requires careful design and testing to ensure robustness and reliability.</p>
+<p>函数的返回值也是如此。</p>
+<h2 id="引用和借用"><a href="#引用和借用" class="headerlink" title="引用和借用"></a>引用和借用</h2><blockquote>
+<p>To be finished.</p>
+</blockquote>
 
                 
               </div>
@@ -722,11 +698,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Updating/" class="print-no-link">#Updating</a>
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
       
-        <a href="/tags/Python/" class="print-no-link">#Python</a>
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
       
-        <a href="/tags/Tutorial/" class="print-no-link">#Tutorial</a>
+        <a href="/tags/Rust/" class="print-no-link">#Rust</a>
+      
+        <a href="/tags/Ownership/" class="print-no-link">#Ownership</a>
       
     </div>
   
@@ -738,8 +716,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Python-Update-Learning</div>
-      <div>https://xiyuanyang-code.github.io/posts/Python-Update-Learning/</div>
+      <div>Rust-OwnerShip</div>
+      <div>https://xiyuanyang-code.github.io/posts/Rust-OwnerShip/</div>
     </div>
     <div class="license-meta">
       
@@ -751,13 +729,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>January 20, 2025</div>
+          <div>April 19, 2025</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>February 17, 2025</div>
+          <div>April 19, 2025</div>
         </div>
       
       
@@ -788,18 +766,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/DataStructure-Queue/" title="DataStructure-Queue">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">DataStructure-Queue</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/Python-advanced-File-Management/" title="Python-Advanced-File-Management">
-                        <span class="hidden-mobile">Python-Advanced-File-Management</span>
+                      <a href="/posts/My-Multi-Agents/" title="My Multi-Agents">
+                        <span class="hidden-mobile">My Multi-Agents</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

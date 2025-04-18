@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Transformer.jpg">
 <meta property="article:published_time" content="2025-04-17T14:59:43.000Z">
-<meta property="article:modified_time" content="2025-04-18T03:29:29.785Z">
+<meta property="article:modified_time" content="2025-04-18T04:24:53.474Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta property="article:tag" content="Deep Learning">
@@ -344,7 +344,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k words
+          1.5k words
         
       </span>
     
@@ -582,13 +582,20 @@
 <p>在Transformer训练的过程中，是可以看到完整的目标序列的，但是<strong>我们希望Transformer</strong>不可以未卜先知，而是应该根据之前的内容做预测，因此会采用掩蔽矩阵来消除后续词的影响。</p>
 </blockquote>
 <p>最终解码器经过一个Linear层调整size并通过<code>softmax</code>输出最终归一化的概率。</p>
+<blockquote>
+<p>对于训练过程，目标序列y是已知的，因此我们需要使用掩码来防止模型在训练过程中未卜先知，只能利用之前的生成序列。而对应生成过程，我们不知道目标序列，因此需要模型根据自己之前的生成加上编码器的新的输出来做预测。</p>
+</blockquote>
 <h4 id="Encoder-and-Decoder-1"><a href="#Encoder-and-Decoder-1" class="headerlink" title="Encoder and Decoder"></a>Encoder and Decoder</h4><p><img src="https://s1.imagehub.cc/images/2025/04/18/2ab890cbb37661ed1d1f5ed626c55f57.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <p>首先，其采用了类似于ResNet的堆叠模式（$N &#x3D; 6$）。下面只对对一个单元层进行分析：</p>
 <ul>
-<li>在Encoder部分，我们可以看到两个子模块，第一个子模块是<strong>Multi-Head Attention</strong>(是用来模拟卷积神经网络的多通道特征学习来达到并行的目的，后面会详细介绍)，第二个子模块是<strong>标准的全连接前馈神经网络</strong>。</li>
-<li>不过在每一个子模块内，<strong>又加入了residual connection</strong>（ResNet）并且做了<strong>归一化</strong>的处理（LayerNorm）。</li>
+<li><p>在Encoder部分，我们可以看到两个子模块，第一个子模块是<strong>Multi-Head Attention</strong>(是用来模拟卷积神经网络的多通道特征学习来达到并行的目的，后面会详细介绍)，第二个子模块是<strong>标准的全连接前馈神经网络</strong>。</p>
+</li>
+<li><p>不过在每一个子模块内，<strong>又加入了residual connection</strong>（ResNet）并且做了<strong>归一化</strong>的处理（LayerNorm）。</p>
+</li>
+<li><p>对于解码器也是类似的结构，不过加了一个<strong>Masked MultiHead Attention</strong>的结构来防止模型看到后面的预测序列。</p>
+</li>
 </ul>
-
+<h3 id="Attention-is-all-you-need"><a href="#Attention-is-all-you-need" class="headerlink" title="Attention is all you need"></a>Attention is all you need</h3><h3 id="Embeddings-and-softmax"><a href="#Embeddings-and-softmax" class="headerlink" title="Embeddings and softmax"></a>Embeddings and softmax</h3><h3 id="Feed-forward-Networks"><a href="#Feed-forward-Networks" class="headerlink" title="Feed-forward Networks"></a>Feed-forward Networks</h3><h2 id="Complexity"><a href="#Complexity" class="headerlink" title="Complexity"></a>Complexity</h2><h2 id="Experiements"><a href="#Experiements" class="headerlink" title="Experiements"></a>Experiements</h2>
                 
               </div>
             
@@ -688,6 +695,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/posts/My-Multi-Agents/" title="My Multi-Agents">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">My Multi-Agents</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
