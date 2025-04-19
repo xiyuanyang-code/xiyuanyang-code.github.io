@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Transformer.jpg">
 <meta property="article:published_time" content="2025-04-17T14:59:43.000Z">
-<meta property="article:modified_time" content="2025-04-18T04:24:53.474Z">
+<meta property="article:modified_time" content="2025-04-19T09:11:43.559Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta property="article:tag" content="Deep Learning">
@@ -344,7 +344,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k words
+          2k words
         
       </span>
     
@@ -595,7 +595,14 @@
 <li><p>对于解码器也是类似的结构，不过加了一个<strong>Masked MultiHead Attention</strong>的结构来防止模型看到后面的预测序列。</p>
 </li>
 </ul>
-<h3 id="Attention-is-all-you-need"><a href="#Attention-is-all-you-need" class="headerlink" title="Attention is all you need"></a>Attention is all you need</h3><h3 id="Embeddings-and-softmax"><a href="#Embeddings-and-softmax" class="headerlink" title="Embeddings and softmax"></a>Embeddings and softmax</h3><h3 id="Feed-forward-Networks"><a href="#Feed-forward-Networks" class="headerlink" title="Feed-forward Networks"></a>Feed-forward Networks</h3><h2 id="Complexity"><a href="#Complexity" class="headerlink" title="Complexity"></a>Complexity</h2><h2 id="Experiements"><a href="#Experiements" class="headerlink" title="Experiements"></a>Experiements</h2>
+<h3 id="Attention-is-all-you-need"><a href="#Attention-is-all-you-need" class="headerlink" title="Attention is all you need"></a>Attention is all you need</h3><p>接下来我们来解释Transformer最核心的模块：<strong>多头注意力机制</strong></p>
+<h4 id="Scaled-Dot-Product-Attention"><a href="#Scaled-Dot-Product-Attention" class="headerlink" title="Scaled Dot-Product Attention"></a>Scaled Dot-Product Attention</h4><div class="note note-info">
+            <p><strong>来看下面的例子</strong>：</p><p><img src="https://s1.imagehub.cc/images/2025/04/19/b343ab60ee756564e4ee877fb45506a9.png" srcset="/img/loading.gif" lazyload alt="What is D&#39;s Grade?"></p><p>我们需要根据ABC三人的成绩和D剩下四门的成绩来判断D所缺失的化学成绩。</p><p><strong>Intuition</strong>：根据D其他几门课的成绩判断其在班级中的大概位次，再根据和他成绩差不多同学的化学成绩来拟合他的化学成绩。</p><p>如果使用矩阵和向量的形式给出，我们<strong>可以给出一个查询矩阵Query</strong>（因为这里只涉及到一个查询，因此这里也是一个向量）：</p><p>$$Query_D &#x3D; (0.44, 0.45, 0.48,0.49)$$</p><p>接下来，我们需要尽可能的找到<strong>在前四门中分数和D尽可能接近的同学</strong>，很明显可以转化为一个计算向量余弦相似度的问题，我们可以给出如下的<strong>Key向量</strong>：</p><p>$$Key_A &#x3D; (0.48, 0.5, 0.45, 0.48)$$</p><p>$$Key_B &#x3D; (-0.1, 0.1, -0.3, 0.1)$$</p><p>$$Key_C &#x3D; (0.1, 0.5, 0.1, 0.5)$$</p><p>计算这三个<strong>Key向量</strong>和之前查询向量的余弦相似度：</p><p>$$\text{Cosine Similarity} &#x3D; \frac{A ·B}{||A|| \times ||B||}$$</p><p>我们假设对应的Key向量已经做了<strong>归一化处理</strong>，那这个时候我们只需要计算点积就可以判断哪一个同学和D最相似！</p><p>这样，我们就可以得到一个权重向量，经过<code>softmax</code>之后成为$Query_D$的<strong>Attention</strong>。</p><p>$$Att &#x3D; [0.48, 0.18, 0.34]$$</p><p><strong>Attention</strong>代表的是<strong>每一个已知的数据点和新的数据点的相似程度</strong>，也可以说是新的数据点对不同的已知的数据点的<strong>关注程度</strong>。因此顺理成章的做一次加权，对什么做加权？对已知数据点的Value（已知的化学成绩）做加权，即：</p><p>$$Value &#x3D; (0.5, 0.1, 0.5)$$</p><p>$$\text{prediction} &#x3D; Value \cdot Att &#x3D; 0.43$$</p>
+          </div>
+
+<p>现在我们尝试把这个场景给一般化：</p>
+<p>我们假设需要翻译的词已经被embedding成了一个高维向量$\mathbb{y}  &#x3D; (y_1,y_2,\dots, y_m)$，这就是我们的已知信息，也就是查询矩阵</p>
+<h3 id="Embeddings-and-softmax"><a href="#Embeddings-and-softmax" class="headerlink" title="Embeddings and softmax"></a>Embeddings and softmax</h3><h3 id="Feed-forward-Networks"><a href="#Feed-forward-Networks" class="headerlink" title="Feed-forward Networks"></a>Feed-forward Networks</h3><h2 id="Complexity"><a href="#Complexity" class="headerlink" title="Complexity"></a>Complexity</h2><h2 id="Experiements"><a href="#Experiements" class="headerlink" title="Experiements"></a>Experiements</h2>
                 
               </div>
             
@@ -665,7 +672,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 18, 2025</div>
+          <div>April 19, 2025</div>
         </div>
       
       
