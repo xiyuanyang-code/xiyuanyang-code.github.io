@@ -1,0 +1,1079 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="Profiling and Debugging for Lecture Notes of Missing Semester, mainly focused on Python debugging.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Profiling and Debugging">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Profiling-and-Debugging/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="Profiling and Debugging for Lecture Notes of Missing Semester, mainly focused on Python debugging.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/profiling.jpg">
+<meta property="article:published_time" content="2025-04-23T13:34:29.000Z">
+<meta property="article:modified_time" content="2025-04-23T13:38:33.212Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Tutorial">
+<meta property="article:tag" content="Profiling">
+<meta property="article:tag" content="Debugging">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/profiling.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Profiling and Debugging - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/above/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tag</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/My-Resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/All-posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All-posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>recordings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/resume/" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>Github Introduction</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Profiling and Debugging"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-23 21:34" pubdate>
+          April 23, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          967 words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Code"
+        id="heading-ca0dbad92a874b2f69b549293387925e" role="tab" data-toggle="collapse" href="#collapse-ca0dbad92a874b2f69b549293387925e"
+        aria-expanded="true"
+      >
+        Code
+        <span class="list-group-count">(19)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-ca0dbad92a874b2f69b549293387925e"
+           role="tabpanel" aria-labelledby="heading-ca0dbad92a874b2f69b549293387925e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/C-plus-plus-Primer-Plus-tutorial/" title="C-Plus-Plus-Primer-Plus-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C-Plus-Plus-Primer-Plus-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Introduction-to-OOP/" title="Introduction-to-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Introduction-to-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Dynamic-Memory-and-Classes/" title="Dynamic-Memory-and-Classes"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Dynamic-Memory-and-Classes</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Class-Inheritance/" title="Class-Inheritance"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Class-Inheritance</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Code-Reuse-in-OOP/" title="Code-Reuse-in-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Code-Reuse-in-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Exception-Handling-in-C-plus-plus/" title="Exception-Handling-in-C-Plus-Plus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Exception-Handling-in-C-Plus-Plus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Pointers-Arrays-and-Functions/" title="Pointers-Arrays-and-Functions"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pointers-Arrays-and-Functions</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-Plus-Plus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Input-and-Output-in-C-Plus-Plus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Jotting-References-and-Encapsulation-in-OOP/" title="Jotting-References-and-Encapsulation-in-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jotting-References-and-Encapsulation-in-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-tutorial/" title="Python-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-cheatsheet/" title="Python-Cheatsheet"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Cheatsheet</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-advanced-File-Management/" title="Python-Advanced-File-Management"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Advanced-File-Management</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Update-Learning/" title="Python-Update-Learning"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Update-Learning</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Regular-Expression/" title="Regular-Expression"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Regular-Expression</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-visualization/" title="Python-Visualization"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Visualization</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Torch-memo/" title="Torch-Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Torch-Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Modern-C/" title="Modern C++"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Modern C++</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-OwnerShip/" title="Rust-OwnerShip"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust-OwnerShip</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Profiling-and-Debugging/" title="Profiling and Debugging"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Profiling and Debugging</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Profiling and Debugging</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Lec7-Debugging-and-Profiling"><a href="#Lec7-Debugging-and-Profiling" class="headerlink" title="Lec7: Debugging and Profiling"></a>Lec7: Debugging and Profiling</h2><p><strong>Debugging</strong> is of great importance! Mastering debugging in the coding process will significantly enhance your coding speed and time you will cost when your codes get an error.</p>
+<blockquote>
+<p>“The most effective debugging tool is still careful thought, coupled with judiciously placed print statements” — Brian Kernighan, <em>Unix for Beginners</em>.</p>
+</blockquote>
+<p>This is the simplest way, somehow, an “effective” way to find your bugs in your code by using <strong>print</strong> functions to print all the significant variables and statements where you encountered your bug.</p>
+<p><strong>It is simple, but sometimes naive</strong>. We need to learn some advance techniques for better performance and efficiency. <strong>So that is why we need to learn debugging!</strong></p>
+<h3 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> logging<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">from</span> concurrent.futures <span class="hljs-keyword">import</span> ThreadPoolExecutor<br><br><span class="hljs-comment"># Configure logging</span><br>logging.basicConfig(<br>    level=logging.DEBUG,<br>    <span class="hljs-built_in">format</span>=<span class="hljs-string">&#x27;%(asctime)s - %(levelname)s - %(message)s&#x27;</span>,<br>    handlers=[<br>        logging.FileHandler(<span class="hljs-string">&quot;task_scheduler.log&quot;</span>),  <span class="hljs-comment"># Log to a file</span><br>        logging.StreamHandler()  <span class="hljs-comment"># Log to console</span><br>    ]<br>)<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Task</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Class representing a task.&quot;&quot;&quot;</span><br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name, duration</span>):<br>        <span class="hljs-variable language_">self</span>.name = name<br>        <span class="hljs-variable language_">self</span>.duration = duration  <span class="hljs-comment"># Duration in seconds</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">execute</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Simulate task execution.&quot;&quot;&quot;</span><br>        logging.info(<span class="hljs-string">f&quot;Starting task: <span class="hljs-subst">&#123;self.name&#125;</span>&quot;</span>)<br>        time.sleep(<span class="hljs-variable language_">self</span>.duration)<br>        logging.info(<span class="hljs-string">f&quot;Completed task: <span class="hljs-subst">&#123;self.name&#125;</span>&quot;</span>)<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TaskScheduler</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Class for scheduling and executing tasks.&quot;&quot;&quot;</span><br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.tasks = []<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">add_task</span>(<span class="hljs-params">self, task</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Add a task to the scheduler.&quot;&quot;&quot;</span><br>        <span class="hljs-variable language_">self</span>.tasks.append(task)<br>        logging.debug(<span class="hljs-string">f&quot;Task added: <span class="hljs-subst">&#123;task.name&#125;</span> (Duration: <span class="hljs-subst">&#123;task.duration&#125;</span>s)&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">run_tasks</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Run all scheduled tasks concurrently.&quot;&quot;&quot;</span><br>        logging.info(<span class="hljs-string">&quot;Starting task execution...&quot;</span>)<br>        <span class="hljs-keyword">with</span> ThreadPoolExecutor(max_workers=<span class="hljs-number">5</span>) <span class="hljs-keyword">as</span> executor:<br>            futures = &#123;executor.submit(task.execute()): task <span class="hljs-keyword">for</span> task <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.tasks&#125;<br>            <span class="hljs-keyword">for</span> future <span class="hljs-keyword">in</span> futures:<br>                <span class="hljs-keyword">try</span>:<br>                    future.result()  <span class="hljs-comment"># Wait for the task to complete</span><br>                <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>                    logging.error(<span class="hljs-string">f&quot;Task failed: <span class="hljs-subst">&#123;futures[future].name&#125;</span> with error: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br>        logging.info(<span class="hljs-string">&quot;All tasks completed.&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    scheduler = TaskScheduler()<br><br>    <span class="hljs-comment"># Create and add tasks with random durations</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):<br>        duration = random.randint(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>)  <span class="hljs-comment"># Random duration between 1 and 5 seconds</span><br>        task = Task(<span class="hljs-string">f&quot;Task-<span class="hljs-subst">&#123;i+<span class="hljs-number">1</span>&#125;</span>&quot;</span>, duration)<br>        scheduler.add_task(task)<br><br>    <span class="hljs-comment"># Run the scheduled tasks</span><br>    scheduler.run_tasks()<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>Logging</strong> is a great habit to make your debugging message neater! You can add several lines before the main functions to set the syntax of logging.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> logging<br><span class="hljs-comment"># Configure logging</span><br>logging.basicConfig(<br>    level=logging.DEBUG,<br>    <span class="hljs-built_in">format</span>=<span class="hljs-string">&#x27;%(asctime)s - %(levelname)s - %(message)s&#x27;</span>,<br>    handlers=[<br>        logging.FileHandler(<span class="hljs-string">&quot;task_scheduler.log&quot;</span>),  <span class="hljs-comment"># Log to a file</span><br>        logging.StreamHandler()  <span class="hljs-comment"># Log to console</span><br>    ]<br>)<br></code></pre></td></tr></table></figure>
+
+<p>Then, you can output several log messages during your coding precess. Like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">logging.info(<span class="hljs-string">f&quot;Starting task: <span class="hljs-subst">&#123;self.name&#125;</span>&quot;</span>)<br>logging.debug(<span class="hljs-string">f&quot;Task added: <span class="hljs-subst">&#123;task.name&#125;</span> (Duration: <span class="hljs-subst">&#123;task.duration&#125;</span>s)&quot;</span>)<br>logging.error(<span class="hljs-string">f&quot;Task failed: <span class="hljs-subst">&#123;futures[future].name&#125;</span> with error: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<div class="note note-primary">
+            <p>There are three types of <strong>logging messages</strong>.(Of course there are more!)</p><ul><li><strong>Debugging</strong>: This level is used for detailed information, typically of interest only when diagnosing problems. It provides insights into the internal state of the application and is useful for developers during the debugging process.<ul><li>e.g. Logging variable values, function entry and exit points, or detailed flow of execution.</li></ul></li><li><strong>INFO</strong>: This level is used to confirm that things are working as expected. It provides general information about the application’s progress and state without being overly verbose.<ul><li>e.g. Logging the start and completion of tasks, user actions, or significant milestones in the application.</li></ul></li><li><strong>ERROR</strong>: This level indicates a more serious problem that prevented the program from performing a function. It is used to log exceptions or errors that occur during execution.<ul><li>e.g. Logging when a task fails due to an exception or when a critical operation cannot be completed.</li></ul></li><li><strong>There does exist several other debugging messages</strong>! For instance, <strong>warning</strong>, <strong>critical</strong>, etc.</li></ul>
+          </div>
+
+<blockquote>
+<p>It’s ok if you don’t understand about threads in the codes shown above. You can just focus on the logging messages.</p>
+</blockquote>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">45</span>,<span class="hljs-number">873</span> - DEBUG - Task added: Task-<span class="hljs-number">1</span> (Duration: <span class="hljs-number">2</span>s)<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">45</span>,<span class="hljs-number">873</span> - DEBUG - Task added: Task-<span class="hljs-number">2</span> (Duration: <span class="hljs-number">2</span>s)<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">45</span>,<span class="hljs-number">873</span> - DEBUG - Task added: Task-<span class="hljs-number">3</span> (Duration: <span class="hljs-number">1</span>s)<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">45</span>,<span class="hljs-number">874</span> - DEBUG - Task added: Task-<span class="hljs-number">4</span> (Duration: <span class="hljs-number">2</span>s)<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">45</span>,<span class="hljs-number">874</span> - DEBUG - Task added: Task-<span class="hljs-number">5</span> (Duration: <span class="hljs-number">4</span>s)<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">45</span>,<span class="hljs-number">874</span> - DEBUG - Task added: Task-<span class="hljs-number">6</span> (Duration: <span class="hljs-number">1</span>s)<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">45</span>,<span class="hljs-number">874</span> - DEBUG - Task added: Task-<span class="hljs-number">7</span> (Duration: <span class="hljs-number">4</span>s)<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">45</span>,<span class="hljs-number">874</span> - DEBUG - Task added: Task-<span class="hljs-number">8</span> (Duration: <span class="hljs-number">2</span>s)<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">45</span>,<span class="hljs-number">874</span> - DEBUG - Task added: Task-<span class="hljs-number">9</span> (Duration: <span class="hljs-number">3</span>s)<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">45</span>,<span class="hljs-number">874</span> - DEBUG - Task added: Task-<span class="hljs-number">10</span> (Duration: <span class="hljs-number">5</span>s)<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">45</span>,<span class="hljs-number">875</span> - INFO - Starting task execution...<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">45</span>,<span class="hljs-number">875</span> - INFO - Starting task: Task-<span class="hljs-number">1</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">47</span>,<span class="hljs-number">875</span> - INFO - Completed task: Task-<span class="hljs-number">1</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">47</span>,<span class="hljs-number">876</span> - INFO - Starting task: Task-<span class="hljs-number">2</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">49</span>,<span class="hljs-number">876</span> - INFO - Completed task: Task-<span class="hljs-number">2</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">49</span>,<span class="hljs-number">877</span> - INFO - Starting task: Task-<span class="hljs-number">3</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">50</span>,<span class="hljs-number">877</span> - INFO - Completed task: Task-<span class="hljs-number">3</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">50</span>,<span class="hljs-number">878</span> - INFO - Starting task: Task-<span class="hljs-number">4</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">52</span>,<span class="hljs-number">878</span> - INFO - Completed task: Task-<span class="hljs-number">4</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">52</span>,<span class="hljs-number">879</span> - INFO - Starting task: Task-<span class="hljs-number">5</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">56</span>,<span class="hljs-number">879</span> - INFO - Completed task: Task-<span class="hljs-number">5</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">56</span>,<span class="hljs-number">879</span> - INFO - Starting task: Task-<span class="hljs-number">6</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">57</span>,<span class="hljs-number">880</span> - INFO - Completed task: Task-<span class="hljs-number">6</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">45</span>:<span class="hljs-number">57</span>,<span class="hljs-number">880</span> - INFO - Starting task: Task-<span class="hljs-number">7</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">02</span>,<span class="hljs-number">508</span> - INFO - Completed task: Task-<span class="hljs-number">7</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">02</span>,<span class="hljs-number">509</span> - INFO - Starting task: Task-<span class="hljs-number">8</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">04</span>,<span class="hljs-number">509</span> - INFO - Completed task: Task-<span class="hljs-number">8</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">04</span>,<span class="hljs-number">509</span> - INFO - Starting task: Task-<span class="hljs-number">9</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">07</span>,<span class="hljs-number">510</span> - INFO - Completed task: Task-<span class="hljs-number">9</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">07</span>,<span class="hljs-number">510</span> - INFO - Starting task: Task-<span class="hljs-number">10</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">12</span>,<span class="hljs-number">511</span> - INFO - Completed task: Task-<span class="hljs-number">10</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">12</span>,<span class="hljs-number">512</span> - ERROR - Task failed: Task-<span class="hljs-number">1</span> with error: &#x27;NoneType&#x27; object is not callable<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">12</span>,<span class="hljs-number">512</span> - ERROR - Task failed: Task-<span class="hljs-number">2</span> with error: &#x27;NoneType&#x27; object is not callable<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">12</span>,<span class="hljs-number">512</span> - ERROR - Task failed: Task-<span class="hljs-number">3</span> with error: &#x27;NoneType&#x27; object is not callable<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">12</span>,<span class="hljs-number">512</span> - ERROR - Task failed: Task-<span class="hljs-number">4</span> with error: &#x27;NoneType&#x27; object is not callable<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">12</span>,<span class="hljs-number">512</span> - ERROR - Task failed: Task-<span class="hljs-number">5</span> with error: &#x27;NoneType&#x27; object is not callable<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">12</span>,<span class="hljs-number">512</span> - ERROR - Task failed: Task-<span class="hljs-number">6</span> with error: &#x27;NoneType&#x27; object is not callable<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">12</span>,<span class="hljs-number">512</span> - ERROR - Task failed: Task-<span class="hljs-number">7</span> with error: &#x27;NoneType&#x27; object is not callable<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">12</span>,<span class="hljs-number">513</span> - ERROR - Task failed: Task-<span class="hljs-number">8</span> with error: &#x27;NoneType&#x27; object is not callable<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">12</span>,<span class="hljs-number">513</span> - ERROR - Task failed: Task-<span class="hljs-number">9</span> with error: &#x27;NoneType&#x27; object is not callable<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">12</span>,<span class="hljs-number">513</span> - ERROR - Task failed: Task-<span class="hljs-number">10</span> with error: &#x27;NoneType&#x27; object is not callable<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">23</span> <span class="hljs-number">20</span>:<span class="hljs-number">46</span>:<span class="hljs-number">12</span>,<span class="hljs-number">513</span> - INFO - <span class="hljs-literal">All</span> tasks completed.<br><br></code></pre></td></tr></table></figure>
+
+<p>If you only want to output several <strong>error</strong> messages, you can just make more settings like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Configure logging</span><br>logging.basicConfig(<br>    level=logging.DEBUG,  <span class="hljs-comment"># Set the logging level for the root logger</span><br>    <span class="hljs-built_in">format</span>=<span class="hljs-string">&#x27;%(asctime)s - %(levelname)s - %(message)s&#x27;</span>,<br>    handlers=[<br>        logging.FileHandler(<span class="hljs-string">&quot;task_scheduler.log&quot;</span>),  <span class="hljs-comment"># Log to a file</span><br>    ]<br>)<br><br><span class="hljs-comment"># Create a StreamHandler for console output</span><br>console_handler = logging.StreamHandler()<br>console_handler.setLevel(logging.ERROR)  <span class="hljs-comment"># Set the level for the console handler</span><br>formatter = logging.Formatter(<span class="hljs-string">&#x27;%(asctime)s - %(levelname)s - %(message)s&#x27;</span>)  <span class="hljs-comment"># Set the format for the console handler</span><br>console_handler.setFormatter(formatter)  <span class="hljs-comment"># Assign the formatter to the console handler</span><br><br><span class="hljs-comment"># Add the console handler to the root logger</span><br>logging.getLogger().addHandler(console_handler)<br></code></pre></td></tr></table></figure>
+
+<p>Of course, you can modify the logging message with different colors. You can modify the output colors of the terminal by using <code>echo</code> command with different parameters.</p>
+<p>For example, I have implemented this function in my <code>~/.zshrc</code> files.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># This functions sets different colours for terminal.</span><br><span class="hljs-function"><span class="hljs-title">print_colored</span></span>() &#123;<br>    <span class="hljs-built_in">local</span> color=<span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span><br>    <span class="hljs-built_in">local</span> text=<span class="hljs-string">&quot;<span class="hljs-variable">$2</span>&quot;</span><br>    <br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;<span class="hljs-variable">$color</span>&quot;</span> <span class="hljs-keyword">in</span><br>        red)    <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;\033[31m<span class="hljs-variable">$text</span>\033[0m&quot;</span> ;;  <span class="hljs-comment"># 红色</span><br>        green)  <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;\033[32m<span class="hljs-variable">$text</span>\033[0m&quot;</span> ;;  <span class="hljs-comment"># 绿色</span><br>        yellow) <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;\033[33m<span class="hljs-variable">$text</span>\033[0m&quot;</span> ;;  <span class="hljs-comment"># 黄色</span><br>        blue)   <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;\033[34m<span class="hljs-variable">$text</span>\033[0m&quot;</span> ;;  <span class="hljs-comment"># 蓝色</span><br>        purple) <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;\033[35m<span class="hljs-variable">$text</span>\033[0m&quot;</span> ;;  <span class="hljs-comment"># 紫色</span><br>        cyan)   <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;\033[36m<span class="hljs-variable">$text</span>\033[0m&quot;</span> ;;  <span class="hljs-comment"># 青色</span><br>        white)  <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;\033[37m<span class="hljs-variable">$text</span>\033[0m&quot;</span> ;;  <span class="hljs-comment"># 白色</span><br>        *)      <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$text</span>&quot;</span> ;;                   <span class="hljs-comment"># 默认</span><br>    <span class="hljs-keyword">esac</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>You can copy this function into your dotfiles!</p>
+<p><img src="https://s1.imagehub.cc/images/2025/02/28/87a238e1a1a0d42310acd011cc82ed7e.png" srcset="/img/loading.gif" lazyload alt="Customizing colours in terminal"></p>
+<h3 id="Debugger"><a href="#Debugger" class="headerlink" title="Debugger"></a>Debugger</h3><p>Just simply output several logging messages isn’t enough! For example, you can not <strong>detect memory leak</strong> with printing all variables and messages. Thus, we need more <strong>specific tools to debugging</strong>！</p>
+<p>Many programming languages come with some form of debugger. In Python this is the Python Debugger <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/pdb.html"><code>pdb</code></a>.</p>
+<p>Here is a brief description of some of the commands <code>pdb</code> supports:</p>
+<ul>
+<li><strong>l</strong>(ist) - Displays 11 lines around the current line or continue the previous listing.</li>
+<li><strong>s</strong>(tep) - Execute the current line, stop at the first possible occasion.</li>
+<li><strong>n</strong>(ext) - Continue execution until the next line in the current function is reached or it returns.</li>
+<li><strong>b</strong>(reak) - Set a breakpoint (depending on the argument provided).</li>
+<li><strong>p</strong>(rint) - Evaluate the expression in the current context and print its value. There’s also <strong>pp</strong> to display using <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/pprint.html"><code>pprint</code></a> instead.</li>
+<li><strong>r</strong>(eturn) - Continue execution until the current function returns.</li>
+<li><strong>q</strong>(uit) - Quit the debugger.</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Code/" class="category-chain-item">Code</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/Tutorial/" class="print-no-link">#Tutorial</a>
+      
+        <a href="/tags/Profiling/" class="print-no-link">#Profiling</a>
+      
+        <a href="/tags/Debugging/" class="print-no-link">#Debugging</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Profiling and Debugging</div>
+      <div>https://xiyuanyang-code.github.io/posts/Profiling-and-Debugging/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>April 23, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>April 23, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Blog-Word-Counter/" title="Blog Word Counter">
+                        <span class="hidden-mobile">Blog Word Counter</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
