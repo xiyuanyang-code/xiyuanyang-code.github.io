@@ -1,0 +1,1274 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="This blog introduces B-trees and their application in external storage data retrieval.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DataStructure B and B Plus Tree">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/DataStructure-B-and-B-plus-Tree/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="This blog introduces B-trees and their application in external storage data retrieval.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Btree.jpg">
+<meta property="article:published_time" content="2025-04-24T07:20:25.000Z">
+<meta property="article:modified_time" content="2025-04-24T14:33:09.102Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="Tree">
+<meta property="article:tag" content="Finished">
+<meta property="article:tag" content="Data Structure">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="B tree">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/Btree.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>DataStructure B and B Plus Tree - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/above/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tag</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/My-Resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/All-posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All-posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>recordings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/resume/" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>Github Introduction</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="DataStructure B and B Plus Tree"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-24 15:20" pubdate>
+          April 24, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Algorithm"
+        id="heading-4afa80e77a07f7488ce4d1bdd8c4977a" role="tab" data-toggle="collapse" href="#collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+        aria-expanded="true"
+      >
+        Algorithm
+        <span class="list-group-count">(33)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-4afa80e77a07f7488ce4d1bdd8c4977a"
+           role="tabpanel" aria-labelledby="heading-4afa80e77a07f7488ce4d1bdd8c4977a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Algorithm-Introduction/" title="Algorithm-Introduction"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-Introduction</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Linked-List-Implementation-Based-on-Structs/" title="Linked-List-Implementation-Based-on-Structs"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linked-List-Implementation-Based-on-Structs</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection/" title="Leetcode-Mistake-Collection"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-Collection</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection-1-10/" title="Leetcode-Mistake-Collection-1-10"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-Collection-1-10</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection-11-20/" title="Leetcode-Mistake-Collection-11-20"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-Collection-11-20</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection-21-30/" title="Leetcode-Mistake-Collection-21-30"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-Collection-21-30</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Leetcode-Mistake-collection-31-40/" title="Leetcode-Mistake-Collection-31-40"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Leetcode-Mistake-Collection-31-40</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Tutorial/" title="DataStructure-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-LinearList/" title="DataStructure-LinearList"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-LinearList</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Stack/" title="DataStructure-Stack"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Stack</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Queue/" title="DataStructure-Queue"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Queue</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-String/" title="DataStructure-String"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-String</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Tree/" title="DataStructure-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Tree-Binary-Tree/" title="DataStructure-Tree-Binary-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Tree-Binary-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Algorithm-Chunking/" title="Algorithm-Chunking"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-Chunking</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Algorithm-BinaryTree/" title="Algorithm-BinaryTree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-BinaryTree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Stack-Queue-Advanced/" title="DataStructure-Stack-Queue-Advanced"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Stack-Queue-Advanced</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Algorithm-Memo/" title="Algorithm-Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Tree-Binary-Heap/" title="DataStructure-Tree-Binary-Heap"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Tree-Binary-Heap</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Set/" title="DataStructure-Set"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Set</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Algorithm-BFS-DFS/" title="Algorithm-BFS-DFS"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-BFS-DFS</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Tree-Binary-Search-Tree/" title="DataStructure-Tree-Binary-Search-Tree-AVL-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Tree-Binary-Search-Tree-AVL-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Algorithm-Sorting/" title="Algorithm-Sorting"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-Sorting</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Fenwick-Tree/" title="DataStructure-Fenwick-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Fenwick-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Sparse-Table/" title="DataStructure-Sparse-Table"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-Sparse-Table</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Algorithm-MCTS/" title="Algorithm-MCTS"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Algorithm-MCTS</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-LCA/" title="DataStructure-LCA"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-LCA</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-AVL-Tree/" title="DataStructure-AVL-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-AVL-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-RBT-Tree/" title="DataStructure-RBT-Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure-RBT-Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Splay-Tree/" title="DataStructure Splay Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure Splay Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Hash-Table/" title="DataStructure Hash Table"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure Hash Table</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-Segment-Tree/" title="DataStructure Segment Tree"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure Segment Tree</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/DataStructure-B-and-B-plus-Tree/" title="DataStructure B and B Plus Tree"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">DataStructure B and B Plus Tree</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">DataStructure B and B Plus Tree</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="外部查找和排序"><a href="#外部查找和排序" class="headerlink" title="外部查找和排序"></a>外部查找和排序</h1><h2 id="外部存储"><a href="#外部存储" class="headerlink" title="外部存储"></a>外部存储</h2><p>我们考虑如下的数据单元：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">KEY</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">OTHER</span>&gt;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">set</span> &#123;<br>    KEY key = <span class="hljs-built_in">KEY</span>();<br>    OTHER other = <span class="hljs-built_in">OTHER</span>();<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p><code>key</code>储存的是关键字值，而<code>other</code>储存的是其他信息。这样一种数据储存的方式非常的常见，例如<code>json</code>文件，或者我们在建立一个人口数据库，对每个人会有一个身份证号（关键字值）和其他信息（Other）组成。</p>
+<p>但是问题在于，计算机的内存是非常有限的，如今配置较高的笔记本内存也仅仅在32GB中，如果为了一个查找程序把所有的数据塞入内存中，很显然是不显示的，因此我们需要<strong>储存在外部</strong>。</p>
+<p>储存在外部的代价是<strong>访问速度的大幅度下降</strong>，1秒钟，可以执行$25000000$条指令或进行$6$次磁盘访问。对于储存在外存的数据中，数据的性能瓶颈关键在于<strong>外存数据的访问</strong>，即<strong>磁盘的访问数据</strong>。因此，如果我们要实现外部数据的高效查找，首先需要实现的就是<strong>尽可能少的做磁盘读写</strong>。</p>
+<h3 id="如何解决？"><a href="#如何解决？" class="headerlink" title="如何解决？"></a>如何解决？</h3><p>如果我们还是使用树的结构，毋庸置疑<strong>我们需要降低树的高度</strong>，即一棵树储存的不止两个子节点，这样就可以降低树的高度，实现尽可能少的内存访问次数。但是这样还是存在一个问题：<strong>我如何保证树的平衡特性</strong>？</p>
+<p>因此，我们介绍新的数据结构：B树。</p>
+<h1 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h1><p>显然，我们不希望外存上的数据变成一颗二叉查找树，因为<strong>这样树的每一次访问都将举步维艰</strong>。</p>
+<p>先来看一颗B树长什么样子：</p>
+<p><img src="https://s1.imagehub.cc/images/2025/04/24/58574316a986c5ef143e6033844d1b35.png" srcset="/img/loading.gif" lazyload alt="B树"></p>
+<p>右下角红色的就是<strong>按照顺序存储的</strong>在外存中的数据文件，我们在内存中储存了一个B树，对于每一次问询（给出一个关键字），我们都需要现在储存在内存中的B树中进行查询，在查询到对应元素<strong>在外存中的地址之后</strong>再去访问磁盘，即去访问外存中对应的数据。</p>
+<blockquote>
+<p>在B树中，储存的都是数据元素的指针。</p>
+</blockquote>
+<h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>为了保证树的平衡性，B树需要再M岔树的基础之上额外添加一些定义的约束：</p>
+<p><img src="https://s1.imagehub.cc/images/2025/04/24/8229843ff6f313298c7753060e4b9424.png" srcset="/img/loading.gif" lazyload alt="Definition"></p>
+<div class="note note-primary">
+            <p>了解定义之后，再来看一眼B树：</p><p><img src="https://s1.imagehub.cc/images/2025/04/24/58574316a986c5ef143e6033844d1b35.png" srcset="/img/loading.gif" lazyload alt="B树"></p>
+          </div>
+
+<p>同时，随着高度的增加，节点存储的关键字的个数增加，故可以保证树的高度是平衡的（这个被写进定义了）</p>
+<p>$$h \le  \frac{\log_{t}(n + 1)}{2} + 1$$</p>
+<p>其中$t$为树的最小度数，n为含有的关键字的总数。</p>
+<p>有关B树的定义非常的抽象，我们做一点注解：</p>
+<ul>
+<li>每一个关键字可以看做是对后续节点做分化的<strong>隔板</strong>。<ul>
+<li>这本质上还是一颗有序的查找树！</li>
+</ul>
+</li>
+<li><strong>为什么B树</strong>会保证不会退化始终平衡？因为他<strong>简单粗暴的保证了</strong>每一个节点存在一个最小度数$\left \lceil \frac{m}{2} \right \rceil $。</li>
+<li>B树是为外存储器设计的，这里的节点是<strong>广义节点</strong>，每一个节点内部可以储存<strong>很多个关键字值的信息</strong>。在实际中，可以把一个磁盘块储存为一个B树的节点，根据磁盘块的物理参数来决定B树的阶数。</li>
+</ul>
+<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><p>B树的查找本质上和二叉查找树不存在差异：从根节点出发，比较关键字值和所储存的关键字值的位置。（应该插入到那个位置），然后走向对应的节点。因为B树的分支特别的多，因此会抛弃更多的分支，实现更少的访问外存的次数。</p>
+<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p><strong>查找树</strong>在插入的过程中都是插入到叶节点中，对于B树也是如此，只不过这里是指“最后一层的节点”而不是代表查找失败、不储存任何信息的叶节点。</p>
+<p>判断节点是否有空位置：</p>
+<ul>
+<li>有：新增加一个关键字。</li>
+<li>没有：此时设计<strong>节点的分裂操作</strong>。</li>
+</ul>
+<p>对于节点的分裂操作，可以看做如果当前节点在插入后存在$M$个关键字，我们需要将这个节点进行分裂：</p>
+<ul>
+<li>对关键字值进行排序后切分：<ul>
+<li>$[1,mid-1]$，${mid}$，$[mid +1, right]$</li>
+<li>左右两个区间重现变成两个新的节点。</li>
+<li>中间元素？因为需要保证二叉树的定义，现在分裂后父亲节点的子节点数增加1，因此对应的父亲节点的关键字数要加1，因此这是一个不断向上访问的过程，<strong>直到访问的根节点</strong>，因此在最坏情况下我们可能需要让这棵树的整个元素+1！</li>
+</ul>
+</li>
+</ul>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>基本逻辑一样：先进行查询之后再<strong>寻找位于底层的替身元素</strong>。（其儿子节点中最小的值）</p>
+<p>接着进行删除的操作：如果删除之后仍然满足二叉树的定义，直接删除关键字值（对应的索引）即可，否则需要调整。（<strong>我们需要保证度数不小于最小度数</strong>）</p>
+<h3 id="领养"><a href="#领养" class="headerlink" title="领养"></a>领养</h3><p>领养父亲的一个关键字值，同时把兄弟的一个关键字值上提到父亲节点处。</p>
+<p><img src="https://s1.imagehub.cc/images/2025/04/24/1122482aa64614dd50f7903fdd26c17a.png" srcset="/img/loading.gif" lazyload alt="领养操作"></p>
+<h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><p>如果相邻的兄弟节点囊中羞涩，无法给出空余的节点，那么这个时候就需要将父亲节点的一个关键字下移合并给兄弟节点。</p>
+<p>同样的，和分裂节点类似，此时需要继续向上调整祖父节点。</p>
+<p><img src="https://s1.imagehub.cc/images/2025/04/24/5bf66dcc195788a2e78f9bda91d7fa7d.png" srcset="/img/loading.gif" lazyload alt="合并"></p>
+<p>同样，也有可能出现整棵树高度减少1的情况：</p>
+<p><img src="https://s1.imagehub.cc/images/2025/04/24/ad7bcbaa0e81edfc86562d25d311793c.png" srcset="/img/loading.gif" lazyload alt="删除的示例"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Algorithm/" class="category-chain-item">Algorithm</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+      
+        <a href="/tags/Tree/" class="print-no-link">#Tree</a>
+      
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
+        <a href="/tags/Data-Structure/" class="print-no-link">#Data Structure</a>
+      
+        <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+        <a href="/tags/B-tree/" class="print-no-link">#B tree</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>DataStructure B and B Plus Tree</div>
+      <div>https://xiyuanyang-code.github.io/posts/DataStructure-B-and-B-plus-Tree/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>April 24, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>April 24, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Profiling-and-Debugging/" title="Profiling and Debugging">
+                        <span class="hidden-mobile">Profiling and Debugging</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
