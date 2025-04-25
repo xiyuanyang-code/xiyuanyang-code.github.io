@@ -1,0 +1,877 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="All kinds of stuffs... Mostly for the lab and AI usage.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="My Memo">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/My-Memo/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="All kinds of stuffs... Mostly for the lab and AI usage.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/memo2.jpg">
+<meta property="article:published_time" content="2025-04-25T12:36:27.000Z">
+<meta property="article:modified_time" content="2025-04-25T13:12:29.726Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="Updating">
+<meta property="article:tag" content="Memo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/memo2.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>My Memo - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/above/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tag</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/My-Resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/All-posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All-posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>recordings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/resume/" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>Github Introduction</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="My Memo"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-25 20:36" pubdate>
+          April 25, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          796 words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">My Memo</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="My-Memo"><a href="#My-Memo" class="headerlink" title="My Memo"></a>My Memo</h1><p>All kinds of stuffs… Mostly for the lab and AI usage.</p>
+<h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><ul>
+<li><a href="#Hugging-Face-%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8B%E8%BD%BD">Hugging Face 下载数据集</a></li>
+<li><a href="#Markdown-%E6%96%87%E6%9C%AC%E5%86%85%E8%AE%BE%E7%BD%AE%E8%B6%85%E9%93%BE%E6%8E%A5">Markdown 文本内设置超链接</a></li>
+</ul>
+<h2 id="Hugging-Face-数据集下载"><a href="#Hugging-Face-数据集下载" class="headerlink" title="Hugging Face 数据集下载"></a>Hugging Face 数据集下载</h2><p>Upd: <code>2025/04/25</code></p>
+<p>由于网络限制，无法使用原生的Hugging Face或者官方提供的<code>huggface-cli</code>或者<code>datasets</code>等第三方库下载数据集。在此笔者给出可操作的方法之一：</p>
+<div class="note note-primary">
+            <p><strong>相关网站的集合</strong>：</p><ul><li><a target="_blank" rel="noopener" href="https://huggingface.co/">原始网站</a></li><li><a target="_blank" rel="noopener" href="https://hf-mirror.com/">镜像站</a></li><li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/663712983">超级详细的教程</a></li></ul>
+          </div>
+
+<h3 id="环境变量的配置"><a href="#环境变量的配置" class="headerlink" title="环境变量的配置"></a>环境变量的配置</h3><p>环境声明：<strong>本地环境和服务器环境</strong>均测试通过。</p>
+<ul>
+<li>服务器环境</li>
+</ul>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Distributor</span> ID: Ubuntu<br><span class="hljs-attribute">Description</span>:    Ubuntu <span class="hljs-number">20</span>.<span class="hljs-number">04</span>.<span class="hljs-number">6</span> LTS<br><span class="hljs-attribute">Release</span>:        <span class="hljs-number">20</span>.<span class="hljs-number">04</span><br><span class="hljs-attribute">Codename</span>:       focal<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>本地WSL环境</li>
+</ul>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Distributor</span> ID: Ubuntu<br><span class="hljs-attribute">Description</span>:    Ubuntu <span class="hljs-number">24</span>.<span class="hljs-number">04</span>.<span class="hljs-number">2</span> LTS<br><span class="hljs-attribute">Release</span>:        <span class="hljs-number">24</span>.<span class="hljs-number">04</span><br><span class="hljs-attribute">Codename</span>:       noble<br></code></pre></td></tr></table></figure>
+
+<p>在<code>.bashrc</code>或者<code>.zshrc</code>中加入如下export：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> HUGGINGFACE_HUB_URL=<span class="hljs-string">&quot;https://mirrors.tuna.tsinghua.edu.cn/hugging-face-hub&quot;</span><br><span class="hljs-built_in">export</span> HF_DATASETS_URL=<span class="hljs-string">&quot;https://mirrors.tuna.tsinghua.edu.cn/hugging-face-datasets&quot;</span><br><span class="hljs-built_in">export</span> HF_METRICS_URL=<span class="hljs-string">&quot;https://mirrors.tuna.tsinghua.edu.cn/hugging-face-metrics&quot;</span><br><span class="hljs-built_in">export</span> HF_HOME=<span class="hljs-string">&quot;/GPFS/rhome/xiyuanyang/HuggingFace/HF_HOME&quot;</span><br><span class="hljs-built_in">export</span> TRANSFORMERS_CACHE=<span class="hljs-string">&quot;/GPFS/rhome/xiyuanyang/HuggingFace/TRANSFORMER_HOME&quot;</span><br><span class="hljs-built_in">export</span> HF_DATASETS_CACHE=<span class="hljs-string">&quot;/GPFS/rhome/xiyuanyang/HuggingFace/HF_DATASETS_CACHE&quot;</span><br><span class="hljs-built_in">export</span> HF_ENDPOINT=<span class="hljs-string">&quot;https://hf-mirror.com&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>（不知道是否有用）</p>
+<h3 id="CLI-下载数据集和模型"><a href="#CLI-下载数据集和模型" class="headerlink" title="CLI 下载数据集和模型"></a>CLI 下载数据集和模型</h3><h4 id="下载aria2"><a href="#下载aria2" class="headerlink" title="下载aria2"></a>下载aria2</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> apt install aria2<br></code></pre></td></tr></table></figure>
+
+<p>检查如下命令是否通过：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">aria2c --version<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">aria2 <span class="hljs-built_in">version</span> <span class="hljs-number">1.37</span><span class="hljs-number">.0</span><br>Copyright (C) <span class="hljs-number">2006</span>, <span class="hljs-number">2019</span> Tatsuhiro Tsujikawa<br><br>This program is free software; you can redistribute <span class="hljs-keyword">it</span> <span class="hljs-keyword">and</span>/<span class="hljs-keyword">or</span> modify<br><span class="hljs-keyword">it</span> under <span class="hljs-keyword">the</span> terms <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> GNU General Public License <span class="hljs-keyword">as</span> published <span class="hljs-keyword">by</span><br><span class="hljs-keyword">the</span> Free Software Foundation; either <span class="hljs-built_in">version</span> <span class="hljs-number">2</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> License, <span class="hljs-keyword">or</span><br>(<span class="hljs-keyword">at</span> your option) <span class="hljs-keyword">any</span> later <span class="hljs-built_in">version</span>.<br><br>This program is distributed <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> hope that <span class="hljs-keyword">it</span> will be useful,<br>but WITHOUT ANY WARRANTY; <span class="hljs-keyword">without</span> even <span class="hljs-keyword">the</span> implied warranty <span class="hljs-keyword">of</span><br>MERCHANTABILITY <span class="hljs-keyword">or</span> FITNESS FOR A PARTICULAR PURPOSE.  See <span class="hljs-keyword">the</span><br>GNU General Public License <span class="hljs-keyword">for</span> more details.<br><br>** Configuration **<br>Enabled Features: Async DNS, BitTorrent, Firefox3 Cookie, GZip, HTTPS, Message Digest, Metalink, XML-RPC, SFTP<br>Hash Algorithms: sha<span class="hljs-number">-1</span>, sha<span class="hljs-number">-224</span>, sha<span class="hljs-number">-256</span>, sha<span class="hljs-number">-384</span>, sha<span class="hljs-number">-512</span>, md5, adler32<br>Libraries: zlib/<span class="hljs-number">1.3</span> libxml2/<span class="hljs-number">2.9</span><span class="hljs-number">.14</span> sqlite3/<span class="hljs-number">3.45</span><span class="hljs-number">.1</span> GnuTLS/<span class="hljs-number">3.8</span><span class="hljs-number">.3</span> nettle GMP/<span class="hljs-number">6.3</span><span class="hljs-number">.0</span> c-ares/<span class="hljs-number">1.27</span><span class="hljs-number">.0</span> libssh2/<span class="hljs-number">1.11</span><span class="hljs-number">.0</span><br>Compiler: gcc <span class="hljs-number">13.2</span><span class="hljs-number">.0</span><br>  built <span class="hljs-keyword">by</span>  x86_64-pc-linux-gnu<br>  <span class="hljs-keyword">on</span>        <span class="hljs-title">Apr</span> <span class="hljs-title">16</span> <span class="hljs-title">2024</span> <span class="hljs-title">09</span>:<span class="hljs-title">56</span>:<span class="hljs-title">00</span><br>System: Linux <span class="hljs-number">5.15</span><span class="hljs-number">.153</span><span class="hljs-number">.1</span>-microsoft-standard-WSL2 <span class="hljs-comment">#1 SMP Fri Mar 29 23:14:13 UTC 2024 x86_64</span><br><br>Report bugs <span class="hljs-built_in">to</span> <span class="hljs-keyword">https</span>://github.com/aria2/aria2/issues<br>Visit <span class="hljs-keyword">https</span>://aria2.github.io/<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果是服务器没有sudo权限，可以使用网速较慢且没有多线程功能的<code>wget</code>工具，但是体验感稍差。</p>
+</blockquote>
+<h4 id="下载hfd"><a href="#下载hfd" class="headerlink" title="下载hfd"></a>下载hfd</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://hf-mirror.com/hfd/hfd.sh<br><span class="hljs-built_in">chmod</span> a+x hfd.sh<br></code></pre></td></tr></table></figure>
+
+<h4 id="下载对应的模型和数据集"><a href="#下载对应的模型和数据集" class="headerlink" title="下载对应的模型和数据集"></a>下载对应的模型和数据集</h4><p>如果已经下载过aria2，使用命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 下载模型</span><br>./hfd.sh gpt2<br><br><span class="hljs-comment"># 下载数据集</span><br>./hfd.sh tatsu-lab/alpaca_eval --dataset<br></code></pre></td></tr></table></figure>
+
+<p>如果没有下载，需要额外加一行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./hfd.sh tatsu-lab/alpaca_eval --dataset --tool wget<br></code></pre></td></tr></table></figure>
+
+<p>如果看到如下的输出，说明已经成功下载，在当前目录下查看对应名称的文件夹即可</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">Fetching repo metadata.<span class="hljs-string">..</span><br>Generating file list.<span class="hljs-string">..</span><br>[Warning] jq not installed, using grep/awk for metadata json parsing <span class="hljs-params">(slower)</span>. Consider installing jq for better parsing performance.<br>Starting download with wget to alpaca_eval.<span class="hljs-string">..</span><br><span class="hljs-params">--2025-04-25</span> 20<span class="hljs-function">:35</span><span class="hljs-function">:24--</span>  https:<span class="hljs-string">//hf-mirror.com/datasets/tatsu-lab/alpaca_eval/resolve/main/.gitattributes</span><br>Resolving hf-mirror.com <span class="hljs-params">(hf-mirror.com)</span><span class="hljs-string">...</span> 153.121.61.152, 153.121.57.40, 160.16.110.249, <span class="hljs-string">...</span><br>Connecting to hf-mirror.com <span class="hljs-params">(hf-mirror.com)</span>|153.121.61.152|<span class="hljs-function">:443...</span> connected.<br>HTTP request sent, awaiting response.<span class="hljs-string">..</span> 200 OK<br>Length: 2693 <span class="hljs-params">(2.6K)</span> [text/plain]<br>Saving to: ‘<span class="hljs-string">.gitattributes</span>’<br><br><span class="hljs-string">.gitattributes</span>                 100%[==================================================&gt;]   2.63K  --<span class="hljs-string">.-KB/s</span>    in 0s<br><br>2025-04-25 20<span class="hljs-function">:35</span><span class="hljs-function">:26</span> <span class="hljs-params">(15.7 MB/s)</span> - ‘<span class="hljs-string">.gitattributes</span>’ saved [2693/2693]<br></code></pre></td></tr></table></figure>
+
+<h3 id="数据集下载到本地之后的使用"><a href="#数据集下载到本地之后的使用" class="headerlink" title="数据集下载到本地之后的使用"></a>数据集下载到本地之后的使用</h3><p>由于上面手动下载数据集的方式导致<code>datasets.load_dataset()</code>的方法不可以被调用（还是搞不懂为什么不可以😅），但是我们可以手动提取数据集，以<code>alpaca_eval</code>为例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> datasets<br>eval_set = datasets.Dataset.from_json(<span class="hljs-string">&quot;/GPFS/rhome/xiyuanyang/alpaca_eval/alpaca_eval.json&quot;</span>)<br>eval_set = eval_set.remove_columns([<span class="hljs-string">&quot;output&quot;</span>, <span class="hljs-string">&quot;generator&quot;</span>])<br><span class="hljs-built_in">print</span>(eval_set)<br></code></pre></td></tr></table></figure>
+
+<p>会输出结果：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">Dataset</span>(&#123;<br>    <span class="hljs-attr">features</span>: [<span class="hljs-string">&#x27;dataset&#x27;</span>, <span class="hljs-string">&#x27;instruction&#x27;</span>],<br>    <span class="hljs-attr">num_rows</span>: <span class="hljs-number">805</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>很明显，我们成功加载了数据集。</p>
+<blockquote>
+<p>但貌似还是很被动…很多数据集测评的库接口都默认要使用Hugging Face，无法避免的问题…</p>
+<p>希望日后能解决。</p>
+</blockquote>
+<h2 id="Markdown-文本内设置超链接"><a href="#Markdown-文本内设置超链接" class="headerlink" title="Markdown 文本内设置超链接"></a>Markdown 文本内设置超链接</h2><p>Upd: <code>2025/04/25</code></p>
+<p>对于文本内的链接跳转（例如<strong>目录跳转</strong>）：</p>
+<div class="note note-primary">
+            <p>例如：<a href="#Hugging-Face-%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8B%E8%BD%BD">Hugging Face 下载数据集</a></p>
+          </div>
+
+<ul>
+<li>注意圆括号内部的字符串需要使用<code>-</code>来替代空格。</li>
+<li>注意需要加几个<code>#</code>（可以看HTML的链接确定）</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Updating/" class="print-no-link">#Updating</a>
+      
+        <a href="/tags/Memo/" class="print-no-link">#Memo</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>My Memo</div>
+      <div>https://xiyuanyang-code.github.io/posts/My-Memo/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>April 25, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>April 25, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/DataStructure-B-and-B-plus-Tree/" title="DataStructure B and B Plus Tree">
+                        <span class="hidden-mobile">DataStructure B and B Plus Tree</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
