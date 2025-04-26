@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/memo2.jpg">
 <meta property="article:published_time" content="2025-04-25T12:36:27.000Z">
-<meta property="article:modified_time" content="2025-04-25T13:12:29.726Z">
+<meta property="article:modified_time" content="2025-04-26T03:08:08.506Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Updating">
 <meta property="article:tag" content="Memo">
@@ -342,7 +342,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          796 words
+          885 words
         
       </span>
     
@@ -410,10 +410,17 @@
             
               <div class="markdown-body">
                 
-                <h1 id="My-Memo"><a href="#My-Memo" class="headerlink" title="My Memo"></a>My Memo</h1><p>All kinds of stuffs… Mostly for the lab and AI usage.</p>
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+
+<h1 id="My-Memo"><a href="#My-Memo" class="headerlink" title="My Memo"></a>My Memo</h1><p>All kinds of stuffs… Mostly for the lab and AI usage.</p>
 <h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><ul>
 <li><a href="#Hugging-Face-%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8B%E8%BD%BD">Hugging Face 下载数据集</a></li>
 <li><a href="#Markdown-%E6%96%87%E6%9C%AC%E5%86%85%E8%AE%BE%E7%BD%AE%E8%B6%85%E9%93%BE%E6%8E%A5">Markdown 文本内设置超链接</a></li>
+<li><a href="#%E6%97%A5%E5%BF%97%E4%B9%A6%E5%86%99">日志书写</a></li>
 </ul>
 <h2 id="Hugging-Face-数据集下载"><a href="#Hugging-Face-数据集下载" class="headerlink" title="Hugging Face 数据集下载"></a>Hugging Face 数据集下载</h2><p>Upd: <code>2025/04/25</code></p>
 <p>由于网络限制，无法使用原生的Hugging Face或者官方提供的<code>huggface-cli</code>或者<code>datasets</code>等第三方库下载数据集。在此笔者给出可操作的方法之一：</p>
@@ -478,6 +485,9 @@
 <li>注意圆括号内部的字符串需要使用<code>-</code>来替代空格。</li>
 <li>注意需要加几个<code>#</code>（可以看HTML的链接确定）</li>
 </ul>
+<h2 id="日志书写"><a href="#日志书写" class="headerlink" title="日志书写"></a>日志书写</h2><p>详见博客：<a href="https://xiyuanyang-code.github.io/posts/Profiling-and-Debugging/">Debugging and Profiling</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># import logging package for python:</span><br><span class="hljs-keyword">import</span> logging<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime<br><br><span class="hljs-comment"># Getting time stamp</span><br>timestamp = datetime.now().strftime(<span class="hljs-string">&quot;%Y%m%d_%H-%M-%S&quot;</span>)<br><br><span class="hljs-comment"># Configure logging</span><br>logging.basicConfig(<br>    level=logging.DEBUG,<br>    <span class="hljs-built_in">format</span>=<span class="hljs-string">&quot;%(asctime)s - %(levelname)s - %(message)s&quot;</span>,<br>    handlers=[<br>        logging.FileHandler(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;timestamp&#125;</span>.log&quot;</span>),<br>    ],<br>)<br><br><span class="hljs-comment"># Create a StreamHandler for console output</span><br>console_handler = logging.StreamHandler()<br>console_handler.setLevel(logging.ERROR)<br>formatter = logging.Formatter(<span class="hljs-string">&quot;%(asctime)s - %(levelname)s - %(message)s&quot;</span>)<br>console_handler.setFormatter(formatter)<br><br><span class="hljs-comment"># Add the console handler to the root logger</span><br>logging.getLogger().addHandler(console_handler)<br>logger = logging.getLogger(__name__)<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -523,7 +533,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 25, 2025</div>
+          <div>April 26, 2025</div>
         </div>
       
       
