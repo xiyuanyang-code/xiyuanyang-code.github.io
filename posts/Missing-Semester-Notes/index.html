@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/missing.png">
 <meta property="article:published_time" content="2025-02-11T06:11:19.000Z">
-<meta property="article:modified_time" content="2025-04-23T13:38:51.300Z">
+<meta property="article:modified_time" content="2025-04-26T14:29:45.311Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Bash">
@@ -343,7 +343,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k words
+          393 words
         
       </span>
     
@@ -578,258 +578,26 @@
 </blockquote>
 </li>
 </ul>
-<h2 id="Lec1-2-Shell-Tools-and-Scripting"><a href="#Lec1-2-Shell-Tools-and-Scripting" class="headerlink" title="Lec1-2: Shell Tools and Scripting"></a>Lec1-2: Shell Tools and Scripting</h2><h3 id="in-Bash"><a href="#in-Bash" class="headerlink" title="$ in Bash"></a><code>$</code> in Bash</h3><p>In Bash, <code>$</code> has special meanings:</p>
-<ol>
-<li><strong>Variable Reference</strong>: Access variable values (<code>$var</code>).</li>
-<li><strong>Special Variables</strong>: <ul>
-<li><code>$0</code>: Script name.</li>
-<li><code>$1</code>-<code>$9</code>: Script arguments.</li>
-<li><code>$?</code>: Exit status of the last command.</li>
-<li><code>$$</code>: Current script’s PID.</li>
-</ul>
-</li>
-<li><strong>Command Substitution</strong>: Capture command output (<code>$(command)</code>).</li>
-<li><strong>Arithmetic Operations</strong>: Perform math (<code>$((expression))</code>).</li>
-<li><strong>Environment Variables</strong>: Access (<code>$HOME</code>, <code>$PATH</code>).</li>
-</ol>
-<p>Here <code>$1</code> is the first argument to the script&#x2F;function. Unlike other scripting languages, bash uses a variety of special variables to refer to arguments, error codes, and other relevant variables. Below is a list of some of them. A more comprehensive list can be found <a target="_blank" rel="noopener" href="https://tldp.org/LDP/abs/html/special-chars.html">here</a>.</p>
+<h2 id="Lec1-2-Shell-Tools-and-Scripting"><a href="#Lec1-2-Shell-Tools-and-Scripting" class="headerlink" title="Lec1-2: Shell Tools and Scripting"></a>Lec1-2: Shell Tools and Scripting</h2><p>You can see several Blogs for help:</p>
 <ul>
-<li><code>$0</code> - Name of the script</li>
-<li><code>$1</code> to <code>$9</code> - Arguments to the script. <code>$1</code> is the first argument and so on.</li>
-<li><code>$@</code> - All the arguments</li>
-<li><code>$#</code> - Number of arguments</li>
-<li><code>$?</code> - Return code of the previous command<ul>
-<li>If the previous command execute successfully, the arguments will probably return <code>0</code>.</li>
-<li>If it fails, it will return none-0 value.</li>
+<li><a href="https://xiyuanyang-code.github.io/posts/Bash-commands/">Bash Commands</a></li>
+<li><a href="https://xiyuanyang-code.github.io/posts/Bash-exercises/">Bash Exercises</a></li>
+<li><a href="https://xiyuanyang-code.github.io/posts/Linux-Bash-Introduction/">Linux-Bash-Introduction</a></li>
 </ul>
-</li>
-<li><code>$$</code> - <strong>Process identification number (PID)</strong> for the current script</li>
-<li><code>!!</code> - <strong>Entire last command, including arguments</strong>. A common pattern is to execute a command only for it to fail due to missing permissions; you can quickly re-execute the command with sudo by doing <code>sudo !!</code></li>
-<li><code>$_</code> - Last argument from the last command. If you are in an interactive shell, you can also quickly get this value by typing <code>Esc</code> followed by <code>.</code> or <code>Alt+.</code></li>
-</ul>
-<h3 id="find-command"><a href="#find-command" class="headerlink" title="find command"></a><code>find</code> command</h3><p><code>find</code> is a very powerful command-line tool used to search for files and directories in a directory tree. It supports a large number of parameters and options, allowing searches based on file name, type, size, time, permissions, and many other conditions. Below are some commonly used <code>find</code> parameters and options, categorized by functionality:</p>
-<h4 id="1-Basic-Search"><a href="#1-Basic-Search" class="headerlink" title="1. Basic Search"></a>1. <strong>Basic Search</strong></h4><ul>
-<li><strong><code>.</code></strong>: Start searching from the current directory.</li>
-<li><strong><code>/path/to/dir</code></strong>: Start searching from the specified directory.</li>
-</ul>
-<h4 id="2-Search-by-File-Name"><a href="#2-Search-by-File-Name" class="headerlink" title="2. Search by File Name"></a>2. <strong>Search by File Name</strong></h4><ul>
-<li><strong><code>-name &quot;pattern&quot;</code></strong>: Match file names (case-sensitive).<ul>
-<li>Example: <code>find . -name &quot;*.txt&quot;</code> finds all <code>.txt</code> files.</li>
-</ul>
-</li>
-<li><strong><code>-iname &quot;pattern&quot;</code></strong>: Match file names (case-insensitive).<ul>
-<li>Example: <code>find . -iname &quot;readme*&quot;</code> finds all <code>README</code>, <code>readme</code>, etc. files.</li>
-</ul>
-</li>
-<li><strong><code>-regex &quot;pattern&quot;</code></strong>: Match file names using regular expressions.<ul>
-<li>Example: <code>find . -regex &quot;.*\.txt$&quot;</code> finds all files ending with <code>.txt</code>.</li>
-</ul>
-</li>
-</ul>
-<h4 id="3-Search-by-File-Type"><a href="#3-Search-by-File-Type" class="headerlink" title="3. Search by File Type"></a>3. <strong>Search by File Type</strong></h4><ul>
-<li><strong><code>-type f</code></strong>: Find regular files.</li>
-<li><strong><code>-type d</code></strong>: Find directories.</li>
-<li><strong><code>-type l</code></strong>: Find symbolic links.</li>
-<li><strong><code>-type s</code></strong>: Find socket files.</li>
-<li><strong><code>-type p</code></strong>: Find named pipes (FIFO).</li>
-<li><strong><code>-type c</code></strong>: Find character device files.</li>
-<li><strong><code>-type b</code></strong>: Find block device files.</li>
-</ul>
-<h4 id="4-Search-by-File-Size"><a href="#4-Search-by-File-Size" class="headerlink" title="4. Search by File Size"></a>4. <strong>Search by File Size</strong></h4><ul>
-<li><strong><code>-size +n</code></strong>: Find files larger than <code>n</code>.</li>
-<li><strong><code>-size -n</code></strong>: Find files smaller than <code>n</code>.</li>
-<li><strong><code>-size n</code></strong>: Find files exactly <code>n</code> in size.<ul>
-<li>Units can be:<ul>
-<li><code>c</code>: Bytes (default).</li>
-<li><code>k</code>: Kilobytes.</li>
-<li><code>M</code>: Megabytes.</li>
-<li><code>G</code>: Gigabytes.</li>
-</ul>
-</li>
-<li>Example: <code>find . -size +100M</code> finds files larger than 100MB.</li>
-</ul>
-</li>
-</ul>
-<h4 id="5-Search-by-Time"><a href="#5-Search-by-Time" class="headerlink" title="5. Search by Time"></a>5. <strong>Search by Time</strong></h4><ul>
-<li><strong><code>-mtime n</code></strong>: Find files modified <code>n</code> days ago.<ul>
-<li><code>-mtime +n</code>: Files modified more than <code>n</code> days ago.</li>
-<li><code>-mtime -n</code>: Files modified within the last <code>n</code> days.</li>
-</ul>
-</li>
-<li><strong><code>-atime n</code></strong>: Find files accessed <code>n</code> days ago.</li>
-<li><strong><code>-ctime n</code></strong>: Find files whose status (e.g., permissions or ownership) changed <code>n</code> days ago.</li>
-<li><strong><code>-mmin n</code></strong>: Find files modified <code>n</code> minutes ago.<ul>
-<li><code>-mmin +n</code>: Files modified more than <code>n</code> minutes ago.</li>
-<li><code>-mmin -n</code>: Files modified within the last <code>n</code> minutes.</li>
-</ul>
-</li>
-<li><strong><code>-amin n</code></strong>: Find files accessed <code>n</code> minutes ago.</li>
-<li><strong><code>-cmin n</code></strong>: Find files whose status changed <code>n</code> minutes ago.</li>
-</ul>
-<h4 id="6-Search-by-Permissions"><a href="#6-Search-by-Permissions" class="headerlink" title="6. Search by Permissions"></a>6. <strong>Search by Permissions</strong></h4><ul>
-<li><strong><code>-perm mode</code></strong>: Find files with permissions exactly matching <code>mode</code>.<ul>
-<li>Example: <code>find . -perm 644</code> finds files with permissions <code>644</code>.</li>
-</ul>
-</li>
-<li><strong><code>-perm -mode</code></strong>: Find files with permissions including <code>mode</code>.<ul>
-<li>Example: <code>find . -perm -u=r</code> finds files readable by the user.</li>
-</ul>
-</li>
-<li><strong><code>-perm /mode</code></strong>: Find files with any of the <code>mode</code> bits set.</li>
-</ul>
-<h4 id="7-Search-by-User-and-Group"><a href="#7-Search-by-User-and-Group" class="headerlink" title="7. Search by User and Group"></a>7. <strong>Search by User and Group</strong></h4><ul>
-<li><strong><code>-user username</code></strong>: Find files owned by the specified user.</li>
-<li><strong><code>-group groupname</code></strong>: Find files owned by the specified group.</li>
-<li><strong><code>-uid uid</code></strong>: Find files owned by the specified user ID.</li>
-<li><strong><code>-gid gid</code></strong>: Find files owned by the specified group ID.</li>
-</ul>
-<h4 id="8-Logical-Operations"><a href="#8-Logical-Operations" class="headerlink" title="8. Logical Operations"></a>8. <strong>Logical Operations</strong></h4><ul>
-<li><strong><code>-and</code> or <code>-a</code></strong>: Logical AND (default).</li>
-<li><strong><code>-or</code> or <code>-o</code></strong>: Logical OR.</li>
-<li><strong><code>-not</code> or <code>!</code></strong>: Logical NOT.</li>
-<li><strong><code>()</code></strong>: Group conditions.<ul>
-<li>Example: <code>find . \( -name &quot;*.txt&quot; -o -name &quot;*.md&quot; \)</code> finds <code>.txt</code> or <code>.md</code> files.</li>
-</ul>
-</li>
-</ul>
-<h4 id="9-Execute-Actions"><a href="#9-Execute-Actions" class="headerlink" title="9. Execute Actions"></a>9. <strong>Execute Actions</strong></h4><ul>
-<li><strong><code>-exec command &#123;&#125; \;</code></strong>: Execute a command on the found files.<ul>
-<li>Example: <code>find . -name &quot;*.log&quot; -exec rm &#123;&#125; \;</code> deletes all <code>.log</code> files.</li>
-</ul>
-</li>
-<li><strong><code>-exec command &#123;&#125; +</code></strong>: Pass multiple files to the command at once.<ul>
-<li>Example: <code>find . -name &quot;*.txt&quot; -exec cp &#123;&#125; /backup/ +</code> copies all <code>.txt</code> files to <code>/backup</code>.</li>
-</ul>
-</li>
-<li><strong><code>-ok command &#123;&#125; \;</code></strong>: Similar to <code>-exec</code>, but prompts for confirmation before executing the command.</li>
-<li><strong><code>-delete</code></strong>: Delete the found files.</li>
-<li><strong><code>-print</code></strong>: Print the path of the found files (default behavior).</li>
-<li><strong><code>-ls</code></strong>: Display the found files in <code>ls -dils</code> format.</li>
-</ul>
-<h4 id="10-Other-Common-Options"><a href="#10-Other-Common-Options" class="headerlink" title="10. Other Common Options"></a>10. <strong>Other Common Options</strong></h4><ul>
-<li><strong><code>-maxdepth n</code></strong>: Limit the maximum directory depth for the search.<ul>
-<li>Example: <code>find . -maxdepth 2 -name &quot;*.txt&quot;</code> searches for <code>.txt</code> files only in the current directory and its immediate subdirectories.</li>
-</ul>
-</li>
-<li><strong><code>-mindepth n</code></strong>: Limit the minimum directory depth for the search.</li>
-<li><strong><code>-empty</code></strong>: Find empty files or directories.</li>
-<li><strong><code>-readable</code></strong>: Find readable files.</li>
-<li><strong><code>-writable</code></strong>: Find writable files.</li>
-<li><strong><code>-executable</code></strong>: Find executable files.</li>
-</ul>
-<h4 id="11-Comprehensive-Examples"><a href="#11-Comprehensive-Examples" class="headerlink" title="11. Comprehensive Examples"></a>11. <strong>Comprehensive Examples</strong></h4><p>Find and delete all <code>.log</code> files in the current directory:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find . -name <span class="hljs-string">&quot;*.log&quot;</span> -delete<br></code></pre></td></tr></table></figure>
-
-<p>Find files larger than 100MB in <code>/var/log</code> and display detailed information:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /var/log -size +100M -<span class="hljs-built_in">ls</span><br></code></pre></td></tr></table></figure>
-
-<p>Find <code>.txt</code> files modified within the last 7 days in the current directory and copy them to <code>/backup</code>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find . -name <span class="hljs-string">&quot;*.txt&quot;</span> -mtime -7 -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">cp</span> &#123;&#125; /backup/ \;<br></code></pre></td></tr></table></figure>
-
-<p>Find and delete all empty directories in the current directory:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find . -<span class="hljs-built_in">type</span> d -empty -delete<br></code></pre></td></tr></table></figure>
-
-<p>Find files with permissions <code>644</code> in the current directory and change their permissions to <code>755</code>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find . -<span class="hljs-built_in">type</span> f -perm 644 -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">chmod</span> 755 &#123;&#125; \;<br></code></pre></td></tr></table></figure>
-
-<h3 id="grep-command"><a href="#grep-command" class="headerlink" title="grep command"></a><code>grep</code> command</h3><p><code>grep</code> is a powerful command-line tool in Unix&#x2F;Linux used to search for specific patterns within files or input text. </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep [options] pattern [file]<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li><strong><code>pattern</code></strong>: The text or <strong>regular expression</strong> to search for.</li>
-<li><strong><code>file</code></strong>: The file(s) to search within. If omitted, <code>grep</code> reads from standard input.</li>
-</ul>
-<p>For example, you can using the <code>grep</code> command by using pipes.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /etc/ssh/sshd_config | grep Port<br></code></pre></td></tr></table></figure>
-
-<p>This command will first output the file contents of <code>sshd_config</code> while the content itself won’t be printed directly into the screen. It will be transmitted as the input of the grep command.</p>
-<h4 id="Common-Options"><a href="#Common-Options" class="headerlink" title="Common Options"></a><strong>Common Options</strong></h4><ul>
-<li><code>-i</code>: Ignore case (case-insensitive search).</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -i <span class="hljs-string">&quot;hello&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li><code>-v</code>: Invert match (show lines that do <strong>not</strong> match the pattern).</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -v <span class="hljs-string">&quot;error&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li><code>-r</code> or <code>-R</code>: Recursively search directories.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -r <span class="hljs-string">&quot;pattern&quot;</span> /path/to/dir<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li><code>-n</code>: Show line numbers of matching lines.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -n <span class="hljs-string">&quot;pattern&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li><code>-c</code>: Count the number of matching lines.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -c <span class="hljs-string">&quot;pattern&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li><code>-l</code>: List filenames containing the pattern.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -l <span class="hljs-string">&quot;pattern&quot;</span> *.txt<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li><code>-w</code>: Match whole words only.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -w <span class="hljs-string">&quot;word&quot;</span> file.txt<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li><code>-A</code>, <code>-B</code>, <code>-C</code>: Show lines after, before, or around the match.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -A 2 <span class="hljs-string">&quot;pattern&quot;</span> file.txt  <span class="hljs-comment"># Show 2 lines after the match</span><br>grep -B 2 <span class="hljs-string">&quot;pattern&quot;</span> file.txt  <span class="hljs-comment"># Show 2 lines before the match</span><br>grep -C 2 <span class="hljs-string">&quot;pattern&quot;</span> file.txt  <span class="hljs-comment"># Show 2 lines before and after the match</span><br></code></pre></td></tr></table></figure>
-
-<p>For example, I have a directory (current) and exists files as below:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs bash">.<br>├── grep_test.txt<br>└── sub_dirc<br>    ├── modified_1.txt<br>    └── modified_2.txt<br><br>2 directories, 3 files<br><br>❯ <span class="hljs-built_in">cat</span> grep_test.txt<br>Hello my name is Jack.<br>I am 18 year<span class="hljs-string">&#x27;s old.</span><br><span class="hljs-string">Do you like me?</span><br><span class="hljs-string">I want to make friends with you.</span><br><span class="hljs-string">Remember my name, my name is JACK!</span><br><span class="hljs-string">HAahah</span><br><span class="hljs-string">do you know my favourite motto?</span><br><span class="hljs-string">Knowledge isn&#x27;</span>t free, you have to pay attention.<br><br>❯ <span class="hljs-built_in">cat</span> ./sub_dirc/modified_1.txt<br>Hello my name is Henry.<br>I am 17 year<span class="hljs-string">&#x27;s old.</span><br><span class="hljs-string">Do you like me?</span><br><span class="hljs-string">I want to make friends with you.</span><br><span class="hljs-string">Remember my name, my name is Henry!</span><br><span class="hljs-string">HAahah</span><br><span class="hljs-string">do you know my favourite motto?</span><br><span class="hljs-string">Nothing is possible</span><br><span class="hljs-string"></span><br><span class="hljs-string">❯ cat ./sub_dirc/modified_2.txt</span><br><span class="hljs-string">Hello my name is Kate.</span><br><span class="hljs-string">I am 20 year&#x27;</span>s old.<br>Do you like us?<br>I want to make friends with you.<br>Remember my name, my name is KatE!<br>HAahah<br><span class="hljs-keyword">do</span> you know my favourite motto?<br>Open <span class="hljs-built_in">source</span> is the best thing <span class="hljs-keyword">in</span> the world!<br></code></pre></td></tr></table></figure>
-
-<p>Now I can use several commands as below to efficiently search specific information that I want!</p>
-<p>I can use <code>-r</code> to search for the whole current directory.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -r <span class="hljs-string">&quot;Hello&quot;</span> ./<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">./sub_dirc/modified_1.txt:Hello my name is Henry.<br>./sub_dirc/modified_2.txt:Hello my name is Kate.<br>./grep_test.txt:Hello my name is Jack.<br></code></pre></td></tr></table></figure>
-
-</br>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -nri <span class="hljs-string">&quot;Jack&quot;</span> ./<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">./grep_test.txt:1:Hello my name is Jack.<br>./grep_test.txt:5:Remember my name, my name is JACK!<br></code></pre></td></tr></table></figure>
-
-</br>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -nrc <span class="hljs-string">&quot;Hello&quot;</span> ./<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">./sub_dirc/modified_1.txt:1<br>./sub_dirc/modified_2.txt:1<br>./grep_test.txt:1<br></code></pre></td></tr></table></figure>
-
-</br>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -nrv <span class="hljs-string">&quot;Hello&quot;</span> ./<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs bash">./sub_dirc/modified_1.txt:2:I am 17 year<span class="hljs-string">&#x27;s old.</span><br><span class="hljs-string">./sub_dirc/modified_1.txt:3:Do you like me?</span><br><span class="hljs-string">./sub_dirc/modified_1.txt:4:I want to make friends with you.</span><br><span class="hljs-string">./sub_dirc/modified_1.txt:5:Remember my name, my name is Henry!</span><br><span class="hljs-string">./sub_dirc/modified_1.txt:6:HAahah</span><br><span class="hljs-string">./sub_dirc/modified_1.txt:7:do you know my favourite motto?</span><br><span class="hljs-string">./sub_dirc/modified_1.txt:8:Nothing is possible</span><br><span class="hljs-string">./sub_dirc/modified_1.txt:9:</span><br><span class="hljs-string">./sub_dirc/modified_2.txt:2:I am 20 year&#x27;</span>s old.<br>./sub_dirc/modified_2.txt:3:Do you like us?<br>./sub_dirc/modified_2.txt:4:I want to make friends with you.<br>./sub_dirc/modified_2.txt:5:Remember my name, my name is KatE!<br>./sub_dirc/modified_2.txt:6:HAahah<br>./sub_dirc/modified_2.txt:7:<span class="hljs-keyword">do</span> you know my favourite motto?<br>./sub_dirc/modified_2.txt:8:Open <span class="hljs-built_in">source</span> is the best thing <span class="hljs-keyword">in</span> the world!<br>./sub_dirc/modified_2.txt:9:<br>./grep_test.txt:2:I am 18 year<span class="hljs-string">&#x27;s old.</span><br><span class="hljs-string">./grep_test.txt:3:Do you like me?</span><br><span class="hljs-string">./grep_test.txt:4:I want to make friends with you.</span><br><span class="hljs-string">./grep_test.txt:5:Remember my name, my name is JACK!</span><br><span class="hljs-string">./grep_test.txt:6:HAahah</span><br><span class="hljs-string">./grep_test.txt:7:do you know my favourite motto?</span><br><span class="hljs-string">./grep_test.txt:8:Knowledge isn&#x27;</span>t free, you have to pay attention.<br>./grep_test.txt:9:<br></code></pre></td></tr></table></figure>
-
-</br>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -ri -A 1 <span class="hljs-string">&quot;motto&quot;</span> ./<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">./sub_dirc/modified_1.txt:<span class="hljs-keyword">do</span> you know my favourite motto?<br>./sub_dirc/modified_1.txt-Nothing is possible<br>--<br>./sub_dirc/modified_2.txt:<span class="hljs-keyword">do</span> you know my favourite motto?<br>./sub_dirc/modified_2.txt-Open <span class="hljs-built_in">source</span> is the best thing <span class="hljs-keyword">in</span> the world!<br>--<br>./grep_test.txt:<span class="hljs-keyword">do</span> you know my favourite motto?<br>./grep_test.txt-Knowledge isn<span class="hljs-string">&#x27;t free, you have to pay attention.</span><br></code></pre></td></tr></table></figure>
-
-<p>You can make the command line more complex to get more specific data!</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -ri -A 1 <span class="hljs-string">&quot;motto&quot;</span> ./ | grep -v <span class="hljs-string">&quot;motto&quot;</span><br></code></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">./sub_dirc/modified_1.txt-Nothing is possible<br>--<br>./sub_dirc/modified_2.txt-Open <span class="hljs-built_in">source</span> is the best thing <span class="hljs-keyword">in</span> the world!<br>--<br>./grep_test.txt-Knowledge isn<span class="hljs-string">&#x27;t free, you have to pay attention.</span><br></code></pre></td></tr></table></figure>
-
-<p>More specific:</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">grep</span> -rih -A <span class="hljs-number">1</span> <span class="hljs-string">&quot;motto&quot;</span> ./ | <span class="hljs-keyword">grep</span> -v <span class="hljs-string">&quot;motto&quot;</span> | <span class="hljs-keyword">grep</span> -v <span class="hljs-string">&quot;^--$&quot;</span><br></code></pre></td></tr></table></figure>
-
-<p>Using the <code>-h</code> options to forbid grep showing filenames while searching the directory recursively. Adding more pipes and using <strong>Regex</strong> can enable developers to make more specific pattern matching problems more freely.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Bash">Nothing is possible<br>Open <span class="hljs-built_in">source</span> is the best thing <span class="hljs-keyword">in</span> the world!<br>Knowledge isn<span class="hljs-string">&#x27;t free, you have to pay attention.</span><br></code></pre></td></tr></table></figure>
-
-<p>By using this command, you can <strong>get all the mottos for all person’s files</strong>, which will significantly enhance one’s working efficiency. For more options, you can typing <code>man grep</code> for advanced usage.</p>
 <h2 id="Lec3-Vim-editors"><a href="#Lec3-Vim-editors" class="headerlink" title="Lec3: Vim editors"></a>Lec3: Vim editors</h2><p>You can just go to <a href="https://xiyuanyang-code.github.io/posts/Vim-tutorial/">Vim tutorial</a> for help.</p>
-<h2 id="Lec4-Data-Wrangling"><a href="#Lec4-Data-Wrangling" class="headerlink" title="Lec4: Data Wrangling"></a>Lec4: Data Wrangling</h2><h2 id="Lec5-Command-Line-Environment"><a href="#Lec5-Command-Line-Environment" class="headerlink" title="Lec5: Command Line Environment"></a>Lec5: Command Line Environment</h2><h2 id="Lec6-Git-Version-Control"><a href="#Lec6-Git-Version-Control" class="headerlink" title="Lec6: Git (Version Control)"></a>Lec6: Git (Version Control)</h2><h2 id="Lec7-Debugging-and-Profiling"><a href="#Lec7-Debugging-and-Profiling" class="headerlink" title="Lec7: Debugging and Profiling"></a>Lec7: Debugging and Profiling</h2><h2 id="Lec8-Metaprogramming"><a href="#Lec8-Metaprogramming" class="headerlink" title="Lec8: Metaprogramming"></a>Lec8: Metaprogramming</h2><h2 id="Lec9-Security-and-Cryptography"><a href="#Lec9-Security-and-Cryptography" class="headerlink" title="Lec9: Security and Cryptography"></a>Lec9: Security and Cryptography</h2><h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2>
+<h2 id="Lec4-Data-Wrangling"><a href="#Lec4-Data-Wrangling" class="headerlink" title="Lec4: Data Wrangling"></a>Lec4: Data Wrangling</h2><p>You can go to <a href="https://xiyuanyang-code.github.io/posts/Regular-Expression/">Regular Expression</a> for help.</p>
+<h2 id="Lec5-Command-Line-Environment"><a href="#Lec5-Command-Line-Environment" class="headerlink" title="Lec5: Command Line Environment"></a>Lec5: Command Line Environment</h2><p>I just skip that part…</p>
+<p>Maybe I will open-source all my dotfiles one day? Perhaps, but who knows?</p>
+<blockquote>
+<p>For beginners, you can just skip that part.</p>
+</blockquote>
+<h2 id="Lec6-Git-Version-Control"><a href="#Lec6-Git-Version-Control" class="headerlink" title="Lec6: Git (Version Control)"></a>Lec6: Git (Version Control)</h2><p>Very important!</p>
+<p>But it is too hard to write a satisfying git tutorial.</p>
+<h2 id="Lec7-Debugging-and-Profiling"><a href="#Lec7-Debugging-and-Profiling" class="headerlink" title="Lec7: Debugging and Profiling"></a>Lec7: Debugging and Profiling</h2><p>You can just go to <a href="https://xiyuanyang-code.github.io/posts/Profiling-and-Debugging/">Profiling and Debugging</a> for help.</p>
+<h2 id="Lec8-Metaprogramming"><a href="#Lec8-Metaprogramming" class="headerlink" title="Lec8: Metaprogramming"></a>Lec8: Metaprogramming</h2><p>To be done.</p>
+<h2 id="Lec9-Security-and-Cryptography"><a href="#Lec9-Security-and-Cryptography" class="headerlink" title="Lec9: Security and Cryptography"></a>Lec9: Security and Cryptography</h2><p>To be done.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>To be do</p>
+
                 
               </div>
             
@@ -897,7 +665,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 23, 2025</div>
+          <div>April 26, 2025</div>
         </div>
       
       
