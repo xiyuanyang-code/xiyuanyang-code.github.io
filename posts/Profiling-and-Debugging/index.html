@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/profiling.jpg">
 <meta property="article:published_time" content="2025-04-23T13:34:29.000Z">
-<meta property="article:modified_time" content="2025-04-26T03:06:52.360Z">
+<meta property="article:modified_time" content="2025-04-26T05:30:04.892Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="Tutorial">
@@ -344,7 +344,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k words
+          2.2k words
         
       </span>
     
@@ -660,7 +660,92 @@
 <li><strong>r</strong>(eturn) - Continue execution until the current function returns.</li>
 <li><strong>q</strong>(uit) - Quit the debugger.</li>
 </ul>
+<h3 id="demo-1"><a href="#demo-1" class="headerlink" title="demo"></a>demo</h3><ul>
+<li>在代码内硬编码断点：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Author: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">Date: 2025-04-26 12:55:51</span><br><span class="hljs-string">LastEditors: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">LastEditTime: 2025-04-26 12:55:59</span><br><span class="hljs-string">FilePath: /Lec6_Debugging/debug_test.py</span><br><span class="hljs-string">Description</span><br><span class="hljs-string">Do you code and make progress today?</span><br><span class="hljs-string">Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved.</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">import</span> pdb<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_average</span>(<span class="hljs-params">nums</span>):<br>    total = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> nums:<br>        total += num<br>    average = total / <span class="hljs-built_in">len</span>(nums)<br>    <span class="hljs-keyword">return</span> average<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    numbers = [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-string">&quot;40&quot;</span>, <span class="hljs-number">50</span>]<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Calculating average...&quot;</span>)<br><br>    pdb.set_trace()<br><br>    avg = calculate_average(numbers)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Average is: <span class="hljs-subst">&#123;avg&#125;</span>&quot;</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br><br></code></pre></td></tr></table></figure>
 
+<p>这样在运行脚本的时候，当Python解释器遇到断点<code>pdb.set_trace()</code>的时候，就会自动终止程序运行，进入pdb的界面，你可以在这里查看相关变量的值。</p>
+<ul>
+<li>使用命令行界面直接交互</li>
+</ul>
+<p>在终端运行程序时添加 <code>-m pdb</code> 参数，程序会在 <strong>第一行代码前自动暂停</strong>，进入交互式调试模式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python -m pdb your_script.py<br></code></pre></td></tr></table></figure>
+
+<p>相关命令：</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">缩写</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>list</code></td>
+<td align="left"><code>l</code></td>
+<td align="left">显示当前代码上下文（前后共11行）</td>
+</tr>
+<tr>
+<td align="left"><code>next</code></td>
+<td align="left"><code>n</code></td>
+<td align="left">执行下一行（不进入函数内部）</td>
+</tr>
+<tr>
+<td align="left"><code>step</code></td>
+<td align="left"><code>s</code></td>
+<td align="left">进入函数内部调试</td>
+</tr>
+<tr>
+<td align="left"><code>continue</code></td>
+<td align="left"><code>c</code></td>
+<td align="left">继续执行直到下一个断点或程序结束</td>
+</tr>
+<tr>
+<td align="left"><code>print</code></td>
+<td align="left"><code>p</code></td>
+<td align="left">打印变量值（如 <code>p total</code>）</td>
+</tr>
+<tr>
+<td align="left"><code>break</code></td>
+<td align="left"><code>b</code></td>
+<td align="left">设置断点（如 <code>b 10</code> 在第10行设断点）</td>
+</tr>
+<tr>
+<td align="left"><code>where</code></td>
+<td align="left"><code>w</code></td>
+<td align="left">显示当前调用栈（查看程序执行路径）</td>
+</tr>
+<tr>
+<td align="left"><code>quit</code></td>
+<td align="left"><code>q</code></td>
+<td align="left">强制退出调试</td>
+</tr>
+</tbody></table>
+<ul>
+<li>使用vscode辅助debug（推荐）</li>
+</ul>
+<p><img src="https://s1.imagehub.cc/images/2025/04/26/70b4d46d52428ae93c76fe58fb268cdb.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h2 id="Profiling"><a href="#Profiling" class="headerlink" title="Profiling"></a>Profiling</h2><p>又是在运行程序的时候（尤其是Python程序），运行一次代码可能动辄几分钟甚至几小时，这会导致在复杂程序中的debug难度非常的大。因此，Python 的 <strong>Profiling（性能分析）</strong> 用于识别代码中的性能瓶颈，帮助你优化程序运行速度或内存占用。</p>
+<p>我们以矩阵乘法为例，我们实现了手动for循环的矩阵乘法和<code>numpy</code>优化过后的矩阵乘法，来分析时间性能：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> random<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_matrix</span>(<span class="hljs-params">n</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Generate an n x n random matrix with values between 0 and 1.&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> [[random.random() <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)]<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">matrix_multiply</span>(<span class="hljs-params">a, b</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Matrix multiplication (pure Python, intentionally unoptimized).&quot;&quot;&quot;</span><br>    n = <span class="hljs-built_in">len</span>(a)<br>    result = [[<span class="hljs-number">0.0</span> <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)]<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>            <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>                result[i][j] += a[i][k] * b[k][j]<br>    <span class="hljs-keyword">return</span> result<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">matrix_multiply_np</span>(<span class="hljs-params">a, b</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Matrix multiplication (optimized with NumPy).&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> np.dot(a, b)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_performance</span>(<span class="hljs-params">n=<span class="hljs-number">100</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Test performance of matrix multiplication.&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># Generate two n x n matrices</span><br>    a = generate_matrix(n)<br>    b = generate_matrix(n)<br><br>    <span class="hljs-comment"># Pure Python implementation</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Testing Native Python (n=<span class="hljs-subst">&#123;n&#125;</span>)...&quot;</span>)<br>    result_py = matrix_multiply(a, b)<br><br>    <span class="hljs-comment"># NumPy implementation</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Testing NumPy (n=<span class="hljs-subst">&#123;n&#125;</span>)...&quot;</span>)<br>    a_np, b_np = np.array(a), np.array(b)<br>    result_np = matrix_multiply_np(a_np, b_np)<br><br>    <span class="hljs-comment"># Verify results (allow floating-point errors)</span><br>    <span class="hljs-keyword">assert</span> np.allclose(result_py, result_np, atol=<span class="hljs-number">1e-6</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    test_performance(n=<span class="hljs-number">500</span>) <br><br></code></pre></td></tr></table></figure>
+
+<p>整个函数主要由4个函数组成：</p>
+<ul>
+<li><code>generate_matrix()</code>生成两个随机矩阵</li>
+<li><code>matrix_multiply()</code>实现手动的矩阵乘法</li>
+<li><code> matrix_multiply_np</code>实现numpy库中的矩阵乘法</li>
+<li><code>np.allclose()</code>来检查结果的正确性</li>
+</ul>
+<h3 id="Time-profiling"><a href="#Time-profiling" class="headerlink" title="Time profiling"></a>Time profiling</h3><h4 id="cprofile"><a href="#cprofile" class="headerlink" title="cprofile"></a><code>cprofile</code></h4><p>统计每个函数的调用次数、运行时间等，用来分析整体的时间性能。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python -m cProfile -s cumulative your_script.py<br></code></pre></td></tr></table></figure>
+
+<p>对上面的代码进行时间性能分析，结果如下</p>
+<figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs profile">         <span class="hljs-number">598638</span> function calls (<span class="hljs-number">596148</span> primitive calls) in <span class="hljs-number">17.913</span> seconds<br><br>   Ordered by: cumulative time<br><br>   <span class="hljs-keyword">ncalls</span>  <span class="hljs-keyword">tottime</span>  percall  <span class="hljs-keyword">cumtime</span>  percall <span class="hljs-keyword">filename</span>:lineno(function)<br>    <span class="hljs-number">116</span>/<span class="hljs-number">1</span>    <span class="hljs-number">0.001</span>    <span class="hljs-number">0.000</span>   <span class="hljs-number">17.913</span>   <span class="hljs-number">17.913</span> &#123;built-in method builtins.exec&#125;<br>        1    0.005    0.005   17.913   17.913 profile_test.py:<span class="hljs-number">1</span>(<span class="hljs-string">&lt;module&gt;</span>)<br>        <span class="hljs-number">1</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.000</span>   <span class="hljs-number">17.658</span>   <span class="hljs-number">17.658</span> profile_test.py:<span class="hljs-number">26</span>(<span class="hljs-string">test_performance</span>)<br>        <span class="hljs-number">1</span>   <span class="hljs-number">17.503</span>   <span class="hljs-number">17.503</span>   <span class="hljs-number">17.503</span>   <span class="hljs-number">17.503</span> profile_test.py:<span class="hljs-number">10</span>(<span class="hljs-string">matrix_multiply</span>)<br>       <span class="hljs-number">14</span>    <span class="hljs-number">0.001</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.540</span>    <span class="hljs-number">0.039</span> __init__.py:<span class="hljs-number">1</span>(<span class="hljs-string">&lt;module&gt;</span>)<br>    <span class="hljs-number">152</span>/<span class="hljs-number">1</span>    <span class="hljs-number">0.001</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.250</span>    <span class="hljs-number">0.250</span> &lt;frozen importlib._bootstrap&gt;:<span class="hljs-number">1349</span>(<span class="hljs-string">_find_and_load</span>)<br>    <span class="hljs-number">152</span>/<span class="hljs-number">1</span>    <span class="hljs-number">0.001</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.250</span>    <span class="hljs-number">0.250</span> &lt;frozen importlib._bootstrap&gt;:<span class="hljs-number">1304</span>(<span class="hljs-string">_find_and_load_unlocked</span>)<br>    <span class="hljs-number">140</span>/<span class="hljs-number">1</span>    <span class="hljs-number">0.001</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.248</span>    <span class="hljs-number">0.248</span> &lt;frozen importlib._bootstrap&gt;:<span class="hljs-number">911</span>(<span class="hljs-string">_load_unlocked</span>)<br>    <span class="hljs-number">114</span>/<span class="hljs-number">1</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.248</span>    <span class="hljs-number">0.248</span> &lt;frozen importlib._bootstrap_external&gt;:<span class="hljs-number">989</span>(<span class="hljs-string">exec_module</span>)<br>    <span class="hljs-number">372</span>/<span class="hljs-number">2</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.246</span>    <span class="hljs-number">0.123</span> &lt;frozen importlib._bootstrap&gt;:<span class="hljs-number">480</span>(<span class="hljs-string">_call_with_frames_removed</span>)<br>    <span class="hljs-number">373</span>/<span class="hljs-number">9</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.234</span>    <span class="hljs-number">0.026</span> &#123;built-in method builtins.__import__&#125;<br>   250/40    0.000    0.000    0.232    0.006 &lt;frozen importlib._bootstrap&gt;:<span class="hljs-number">1390</span>(<span class="hljs-string">_handle_fromlist</span>)<br>        <span class="hljs-number">1</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.117</span>    <span class="hljs-number">0.117</span> __config__.py:<span class="hljs-number">1</span>(<span class="hljs-string">&lt;module&gt;</span>)<br>        <span class="hljs-number">2</span>    <span class="hljs-number">0.059</span>    <span class="hljs-number">0.029</span>    <span class="hljs-number">0.096</span>    <span class="hljs-number">0.048</span> profile_test.py:<span class="hljs-number">5</span>(<span class="hljs-string">generate_matrix</span>)<br>  <span class="hljs-number">140</span>/<span class="hljs-number">136</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.084</span>    <span class="hljs-number">0.001</span> &lt;frozen importlib._bootstrap&gt;:<span class="hljs-number">806</span>(<span class="hljs-string">module_from_spec</span>)<br>    <span class="hljs-number">25</span>/<span class="hljs-number">24</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.000</span>    <span class="hljs-number">0.081</span>    <span class="hljs-number">0.003</span> &lt;frozen importlib._bootstrap_external&gt;:<span class="hljs-number">1287</span>(<span class="hljs-string">create_module</span>)<br>...<br></code></pre></td></tr></table></figure>
+
+<p>配合栈帧可以更好的检测到那个函数花了更多的时间。</p>
+<h4 id="snakeviz"><a href="#snakeviz" class="headerlink" title="snakeviz"></a><code>snakeviz</code></h4><p>使用内置的<code>cprofile</code>的交互感相对较差，尤其在使用包调用的时候可能动辄几千几万条函数调用，无法找到真正有意义的信息。因此，我们可以使用<code>snakeviz</code>为第三方工具来进行可视化分析。（需要pip install）	</p>
+<h4 id="line-profiler"><a href="#line-profiler" class="headerlink" title="line_profiler"></a><code>line_profiler</code></h4><h3 id="Memory-Profiling"><a href="#Memory-Profiling" class="headerlink" title="Memory Profiling"></a>Memory Profiling</h3><h4 id="memory-profiler"><a href="#memory-profiler" class="headerlink" title="memory_profiler"></a><code>memory_profiler</code></h4><h4 id="tracemalloc"><a href="#tracemalloc" class="headerlink" title="tracemalloc"></a><code>tracemalloc</code></h4><h3 id="py-spy"><a href="#py-spy" class="headerlink" title="py-spy"></a><code>py-spy</code></h3>
                 
               </div>
             
