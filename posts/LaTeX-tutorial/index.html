@@ -28,9 +28,10 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/LaTeX.png">
 <meta property="article:published_time" content="2024-11-22T12:01:06.000Z">
-<meta property="article:modified_time" content="2025-04-15T11:11:49.816Z">
+<meta property="article:modified_time" content="2025-04-28T05:22:47.304Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="Finished">
 <meta property="article:tag" content="LaTeX">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/LaTeX.png">
@@ -342,7 +343,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.5k words
+          4.1k words
         
       </span>
     
@@ -750,12 +751,65 @@
 </ul>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\texttt</span>&#123;This text is in typewriter font.&#125;<br></code></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="3-4-3-正文部分②——图片和图表"><a href="#3-4-3-正文部分②——图片和图表" class="headerlink" title="3.4.3 正文部分②——图片和图表"></a>3.4.3 正文部分②——图片和图表</h4><ul>
-<li>插入图片</li>
-<li>插入统计图</li>
-<li>插入统计表</li>
+<h4 id="3-4-3-正文部分②——图片和图表"><a href="#3-4-3-正文部分②——图片和图表" class="headerlink" title="3.4.3 正文部分②——图片和图表"></a>3.4.3 正文部分②——图片和图表</h4><h5 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h5><p>在LaTeX中插入图片需要使用<code>graphicx</code>宏包（通常已默认加载）。基本语法如下：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;figure&#125;[htbp]<br>    <span class="hljs-keyword">\centering</span><br>    <span class="hljs-keyword">\includegraphics</span>[width=0.8<span class="hljs-keyword">\textwidth</span>]&#123;frog.jpg&#125;<br>    <span class="hljs-keyword">\caption</span>&#123;This is a frog&#125;<br>    <span class="hljs-keyword">\label</span>&#123;fig:frog&#125;<br><span class="hljs-keyword">\end</span>&#123;figure&#125;<br></code></pre></td></tr></table></figure>
+
+<p>关键参数说明：</p>
+<ul>
+<li><code>[htbp]</code>：图片位置参数（here, top, bottom, page）</li>
+<li><code>\centering</code>：使图片居中</li>
+<li><code>\includegraphics</code>：实际插入图片的命令</li>
+<li><code>width=0.8\textwidth</code>：设置图片宽度为文本宽度的80%</li>
+<li><code>\caption</code>：图片标题</li>
+<li><code>\label</code>：为图片创建引用标签</li>
 </ul>
-<h4 id="3-4-4-正文部分③——数学公式"><a href="#3-4-4-正文部分③——数学公式" class="headerlink" title="3.4.4 正文部分③——数学公式"></a>3.4.4 正文部分③——数学公式</h4><p>数学公式是LaTeX的核心，也是相对学习曲线比较陡峭的一部分，需要多敲多查，也不需要去特别记忆。</p>
+<h5 id="插入统计图"><a href="#插入统计图" class="headerlink" title="插入统计图"></a>插入统计图</h5><p>对于更复杂的统计图表，推荐使用<code>pgfplots</code>宏包：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\usepackage</span>&#123;pgfplots&#125;<br><span class="hljs-keyword">\pgfplotsset</span>&#123;width=0.9<span class="hljs-keyword">\textwidth</span>,compat=1.9&#125;<br><br><span class="hljs-keyword">\begin</span>&#123;tikzpicture&#125;<br><span class="hljs-keyword">\begin</span>&#123;axis&#125;[<br>    title=Example Plot,<br>    xlabel=Time,<br>    ylabel=Value,<br>    xmin=0, xmax=10,<br>    ymin=0, ymax=10,<br>    xtick=&#123;0,2,4,6,8,10&#125;,<br>    ytick=&#123;0,2,4,6,8,10&#125;,<br>    legend pos=north west,<br>    ymajorgrids=true,<br>    grid style=dashed,<br>]<br><br><span class="hljs-keyword">\addplot</span>[<br>    color=blue,<br>    mark=square,<br>    ]<br>    coordinates &#123;<br>    (1,1)(2,4)(3,9)(4,16)(5,25)<br>    &#125;;<br>    <span class="hljs-keyword">\legend</span>&#123;Square Function&#125;<br>    <br><span class="hljs-keyword">\end</span>&#123;axis&#125;<br><span class="hljs-keyword">\end</span>&#123;tikzpicture&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="插入统计表"><a href="#插入统计表" class="headerlink" title="插入统计表"></a>插入统计表</h5><p>使用<code>tabular</code>环境创建表格：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;table&#125;[htbp]<br><span class="hljs-keyword">\centering</span><br><span class="hljs-keyword">\caption</span>&#123;Example Table&#125;<br><span class="hljs-keyword">\label</span>&#123;tab:example&#125;<br><span class="hljs-keyword">\begin</span>&#123;tabular&#125;&#123;|l|c|r|&#125;<br><span class="hljs-keyword">\hline</span><br>Left Aligned <span class="hljs-built_in">&amp;</span> Centered <span class="hljs-built_in">&amp;</span> Right Aligned <span class="hljs-keyword">\\</span><br><span class="hljs-keyword">\hline</span><br>Item 1 <span class="hljs-built_in">&amp;</span> 12 <span class="hljs-built_in">&amp;</span> 1.5 <span class="hljs-keyword">\\</span><br>Item 2 <span class="hljs-built_in">&amp;</span> 24 <span class="hljs-built_in">&amp;</span> 2.5 <span class="hljs-keyword">\\</span><br>Item 3 <span class="hljs-built_in">&amp;</span> 36 <span class="hljs-built_in">&amp;</span> 3.5 <span class="hljs-keyword">\\</span><br><span class="hljs-keyword">\hline</span><br><span class="hljs-keyword">\end</span>&#123;tabular&#125;<br><span class="hljs-keyword">\end</span>&#123;table&#125;<br></code></pre></td></tr></table></figure>
+
+<p>表格说明：</p>
+<ul>
+<li><code>&#123;|l|c|r|&#125;</code>：定义列对齐方式（左中右）和竖线</li>
+<li><code>\hline</code>：水平线</li>
+<li><code>&amp;</code>：列分隔符</li>
+<li><code>\\</code>：行结束符</li>
+</ul>
+<h4 id="3-4-4-正文部分③——数学公式"><a href="#3-4-4-正文部分③——数学公式" class="headerlink" title="3.4.4 正文部分③——数学公式"></a>3.4.4 正文部分③——数学公式</h4><p>LaTeX最强大的功能之一就是数学公式排版。数学公式分为两种模式：</p>
+<h5 id="行内公式"><a href="#行内公式" class="headerlink" title="行内公式"></a>行内公式</h5><p>用<code>$...$</code>或<code>\(...)</code>包裹：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs latex">The quadratic formula is <span class="hljs-built_in">$</span>x = <span class="hljs-keyword">\frac</span>&#123;-b <span class="hljs-keyword">\pm</span> <span class="hljs-keyword">\sqrt</span>&#123;b<span class="hljs-built_in">^</span>2 - 4ac&#125;&#125;&#123;2a&#125;<span class="hljs-built_in">$</span>.<br></code></pre></td></tr></table></figure>
+
+<h5 id="行间公式"><a href="#行间公式" class="headerlink" title="行间公式"></a>行间公式</h5><p>用<code>\[...\]</code>或<code>equation</code>环境：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\[</span><br>E = mc<span class="hljs-built_in">^</span>2<br><span class="hljs-keyword">\]</span><br><br><span class="hljs-keyword">\begin</span>&#123;equation&#125;<br>f(x) = <span class="hljs-keyword">\int</span><span class="hljs-built_in">_</span>&#123;-<span class="hljs-keyword">\infty</span>&#125;<span class="hljs-built_in">^</span><span class="hljs-keyword">\infty</span> <span class="hljs-keyword">\hat</span> f(<span class="hljs-keyword">\xi</span>)<span class="hljs-keyword">\,</span>e<span class="hljs-built_in">^</span>&#123;2 <span class="hljs-keyword">\pi</span> i <span class="hljs-keyword">\xi</span> x&#125; <span class="hljs-keyword">\,</span>d<span class="hljs-keyword">\xi</span><br><span class="hljs-keyword">\end</span>&#123;equation&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="常用数学符号"><a href="#常用数学符号" class="headerlink" title="常用数学符号"></a>常用数学符号</h5><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs latex">希腊字母：<span class="hljs-built_in">$</span><span class="hljs-keyword">\alpha</span>, <span class="hljs-keyword">\beta</span>, <span class="hljs-keyword">\gamma</span>, <span class="hljs-keyword">\Gamma</span><span class="hljs-built_in">$</span><br><br>上下标：<span class="hljs-built_in">$</span>x<span class="hljs-built_in">^</span>2, x<span class="hljs-built_in">_</span>i, x<span class="hljs-built_in">_</span>&#123;i,j&#125;, x<span class="hljs-built_in">^</span>&#123;y<span class="hljs-built_in">^</span>z&#125;<span class="hljs-built_in">$</span><br><br>分数：<span class="hljs-built_in">$</span><span class="hljs-keyword">\frac</span>&#123;a&#125;&#123;b&#125;, <span class="hljs-keyword">\dfrac</span>&#123;a&#125;&#123;b&#125;<span class="hljs-built_in">$</span><br><br>根式：<span class="hljs-built_in">$</span><span class="hljs-keyword">\sqrt</span>&#123;x&#125;, <span class="hljs-keyword">\sqrt</span>[n]&#123;x&#125;<span class="hljs-built_in">$</span><br><br>求和/积分：<span class="hljs-built_in">$</span><span class="hljs-keyword">\sum</span><span class="hljs-built_in">_</span>&#123;i=1&#125;<span class="hljs-built_in">^</span>n, <span class="hljs-keyword">\prod</span><span class="hljs-built_in">_</span>&#123;i=1&#125;<span class="hljs-built_in">^</span>n, <span class="hljs-keyword">\int</span><span class="hljs-built_in">_</span>a<span class="hljs-built_in">^</span>b<span class="hljs-built_in">$</span><br><br>矩阵：<br><span class="hljs-keyword">\[</span><br><span class="hljs-keyword">\begin</span>&#123;bmatrix&#125;<br>1 <span class="hljs-built_in">&amp;</span> 2 <span class="hljs-keyword">\\</span><br>3 <span class="hljs-built_in">&amp;</span> 4 <span class="hljs-keyword">\\</span><br><span class="hljs-keyword">\end</span>&#123;bmatrix&#125;<br><span class="hljs-keyword">\]</span><br><br>多行公式：<br><span class="hljs-keyword">\begin</span>&#123;align&#125;<br>f(x) <span class="hljs-built_in">&amp;</span>= (x+1)<span class="hljs-built_in">^</span>2 <span class="hljs-keyword">\\</span><br>     <span class="hljs-built_in">&amp;</span>= x<span class="hljs-built_in">^</span>2 + 2x + 1<br><span class="hljs-keyword">\end</span>&#123;align&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="定理环境"><a href="#定理环境" class="headerlink" title="定理环境"></a>定理环境</h5><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\usepackage</span>&#123;amsthm&#125;<br><br><span class="hljs-keyword">\newtheorem</span>&#123;theorem&#125;&#123;Theorem&#125;<br><span class="hljs-keyword">\newtheorem</span>&#123;lemma&#125;&#123;Lemma&#125;<br><br><span class="hljs-keyword">\begin</span>&#123;theorem&#125;[Pythagorean]<br>In a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides.<br><span class="hljs-keyword">\end</span>&#123;theorem&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="4-进阶技巧"><a href="#4-进阶技巧" class="headerlink" title="4 进阶技巧"></a>4 进阶技巧</h2><h3 id="参考文献管理"><a href="#参考文献管理" class="headerlink" title="参考文献管理"></a>参考文献管理</h3><p>使用BibTeX管理文献：</p>
+<ol>
+<li>创建<code>.bib</code>文件</li>
+<li>引用文献：</li>
+</ol>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\cite</span>&#123;key&#125;  <span class="hljs-comment">% 文中引用</span><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在文档末尾添加：</li>
+</ol>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\bibliographystyle</span>&#123;plain&#125;<br><span class="hljs-keyword">\bibliography</span>&#123;references&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="自定义命令"><a href="#自定义命令" class="headerlink" title="自定义命令"></a>自定义命令</h3><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\newcommand</span>&#123;<span class="hljs-keyword">\R</span>&#125;&#123;<span class="hljs-keyword">\mathbb</span>&#123;R&#125;&#125;  <span class="hljs-comment">% 定义新命令</span><br><span class="hljs-keyword">\newcommand</span>&#123;<span class="hljs-keyword">\abs</span>&#125;[1]&#123;<span class="hljs-keyword">\lvert</span> <span class="hljs-params">#1</span> <span class="hljs-keyword">\rvert</span>&#125;  <span class="hljs-comment">% 带参数的命令</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="幻灯片制作"><a href="#幻灯片制作" class="headerlink" title="幻灯片制作"></a>幻灯片制作</h3><p>使用<code>beamer</code>制作幻灯片：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\documentclass</span>&#123;beamer&#125;<br><br><span class="hljs-keyword">\begin</span>&#123;document&#125;<br><br><span class="hljs-keyword">\begin</span>&#123;frame&#125;<br><span class="hljs-keyword">\frametitle</span>&#123;First Slide&#125;<br>Content of the first slide<br><span class="hljs-keyword">\end</span>&#123;frame&#125;<br><br><span class="hljs-keyword">\end</span>&#123;document&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="5-学习资源推荐"><a href="#5-学习资源推荐" class="headerlink" title="5 学习资源推荐"></a>5 学习资源推荐</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://www.overleaf.com/learn">Overleaf文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikibooks.org/wiki/LaTeX">LaTeX Wikibook</a></li>
+<li><a target="_blank" rel="noopener" href="http://detexify.kirelabs.org/classify.html">Detexify符号识别工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ctan.org/">CTAN宏包仓库</a></li>
+</ol>
 
                 
               </div>
@@ -791,6 +845,8 @@
       
         <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
       
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
         <a href="/tags/LaTeX/" class="print-no-link">#LaTeX</a>
       
     </div>
@@ -822,7 +878,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 15, 2025</div>
+          <div>April 28, 2025</div>
         </div>
       
       
