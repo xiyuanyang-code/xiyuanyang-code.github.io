@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/memo2.jpg">
 <meta property="article:published_time" content="2025-04-25T12:36:27.000Z">
-<meta property="article:modified_time" content="2025-04-28T05:17:33.418Z">
+<meta property="article:modified_time" content="2025-04-30T02:23:32.461Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Updating">
 <meta property="article:tag" content="Memo">
@@ -342,7 +342,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k words
+          1.7k words
         
       </span>
     
@@ -423,6 +423,7 @@
 <li><a href="#%E6%97%A5%E5%BF%97%E4%B9%A6%E5%86%99">日志书写</a></li>
 <li><a href="#Tmux-%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95">Tmux 使用备忘录</a></li>
 <li><a href="https://xiyuanyang-code.github.io/posts/Python-cheatsheet/">Python Tutorial</a></li>
+<li><a href="#Conda-Quick-Setup">Conda Quick Setup</a></li>
 </ul>
 <h2 id="Hugging-Face-数据集下载"><a href="#Hugging-Face-数据集下载" class="headerlink" title="Hugging Face 数据集下载"></a>Hugging Face 数据集下载</h2><p>Upd: <code>2025/04/25</code></p>
 <p>由于网络限制，无法使用原生的Hugging Face或者官方提供的<code>huggface-cli</code>或者<code>datasets</code>等第三方库下载数据集。在此笔者给出可操作的方法之一：</p>
@@ -507,6 +508,33 @@
 <li>列表 &amp; 元组 &amp; 字典</li>
 <li>OOP</li>
 </ul>
+<h2 id="Conda-Quick-Setup"><a href="#Conda-Quick-Setup" class="headerlink" title="Conda Quick Setup"></a>Conda Quick Setup</h2><p>Conda常见的命令：</p>
+<ul>
+<li>Conda创建虚拟环境</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create --name aflow<br></code></pre></td></tr></table></figure>
+
+<p>其中<code>--name</code>后缀名代表创建的虚拟环境的名称</p>
+<ul>
+<li>Conda创建指定版本号的虚拟环境</li>
+</ul>
+<p>如果需要Python的版本回退，需要指定的Python版本号：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create --name aflow python=3.8<br></code></pre></td></tr></table></figure>
+
+<div class="note note-primary">
+            <p><strong>语义版本控制（Semantic Versioning）</strong></p><p>版本号由三部分组成：<code>主版本号.次版本号.修订号</code>（<code>MAJOR.MINOR.PATCH</code>），例如 <code>2.5.3</code>：</p><ol><li><strong>主版本号（MAJOR）</strong><ul><li><strong>不兼容的变更</strong>：当代码发生破坏性（Backward Incompatible）修改时递增。</li><li><strong>示例</strong>：移除 API、重大架构调整。</li><li><strong>升级风险</strong>：用户需检查代码是否适配新版本。</li></ul></li><li><strong>次版本号（MINOR）</strong><ul><li><strong>向下兼容的功能新增</strong>：新增功能或改进，但不影响现有接口。</li><li><strong>示例</strong>：添加新 API、性能优化。</li><li><strong>升级建议</strong>：通常可安全升级。</li></ul></li><li><strong>修订号（PATCH）</strong><ul><li><strong>向下兼容的问题修复</strong>：修复漏洞或小改进，不影响功能。</li><li><strong>示例</strong>：Bug 修复、文档更新。</li><li><strong>升级建议</strong>：建议立即更新。</li></ul></li></ol>
+          </div>
+
+<ul>
+<li>Conda激活环境</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># activate specific version</span><br>conda activate aflow<br><br><span class="hljs-comment"># deactivate to the base version</span><br>conda deactivate <br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Conda删除虚拟环境</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda remove --name your_env_name --all<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -552,7 +580,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 28, 2025</div>
+          <div>April 30, 2025</div>
         </div>
       
       
