@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/torch.png">
 <meta property="article:published_time" content="2025-04-01T07:44:06.000Z">
-<meta property="article:modified_time" content="2025-04-06T01:44:59.935Z">
+<meta property="article:modified_time" content="2025-05-03T03:47:47.977Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Updating">
 <meta property="article:tag" content="Python">
@@ -343,7 +343,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          120 words
+          155 words
         
       </span>
     
@@ -404,7 +404,7 @@
         aria-expanded="true"
       >
         Code
-        <span class="list-group-count">(20)</span>
+        <span class="list-group-count">(21)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -596,6 +596,15 @@
         </a>
       
     
+      
+      
+        <a href="/posts/Torch-Memo-Tensor-Operations/" title="Torch Memo Tensor Operations"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Torch Memo Tensor Operations</span>
+        </a>
+      
+    
   </div>
 
         
@@ -627,6 +636,7 @@
 <h2 id="Transforms"><a href="#Transforms" class="headerlink" title="Transforms"></a>Transforms</h2><p>Use Transforms to make <strong>Data Augmentation</strong> and design your own class of data!</p>
 <h2 id="Use-GPU-in-torch"><a href="#Use-GPU-in-torch" class="headerlink" title="Use GPU in torch"></a>Use GPU in torch</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Memo: Using GPU in Pytorch</span><br><br><span class="hljs-keyword">import</span> torch<br><br><span class="hljs-keyword">import</span> argparse<br><br><span class="hljs-comment"># Using parser</span><br>parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;Selecting device for Pytorch&quot;</span>)<br>parser.add_argument(<br>    <span class="hljs-string">&quot;--device&quot;</span>,<br>    <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>,<br>    choices=[<span class="hljs-string">&quot;cuda&quot;</span>, <span class="hljs-string">&quot;cpu&quot;</span>],<br>    default=<span class="hljs-string">&quot;cuda&quot;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span>,<br>    <span class="hljs-built_in">help</span>= <span class="hljs-string">&quot;Device to use, cuda or cpu&quot;</span><br>)<br>args = parser.parse_args()<br><br><span class="hljs-comment"># Usage</span><br>device = args.device<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Device selectd, using <span class="hljs-subst">&#123;device&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
 
+<h2 id="Tensor-Operations"><a href="#Tensor-Operations" class="headerlink" title="Tensor Operations"></a>Tensor Operations</h2><p>torch中最关键的数据结构就是张量，因此对张量做操作是数据预处理的关键操作之一。</p>
 
                 
               </div>
@@ -695,7 +705,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 6, 2025</div>
+          <div>May 3, 2025</div>
         </div>
       
       

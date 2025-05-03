@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/attention.jpg">
 <meta property="article:published_time" content="2025-04-29T11:55:46.000Z">
-<meta property="article:modified_time" content="2025-04-29T14:03:38.678Z">
+<meta property="article:modified_time" content="2025-05-02T15:49:21.921Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta property="article:tag" content="Deep Learning">
@@ -344,7 +344,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k words
+          2.2k words
         
       </span>
     
@@ -545,29 +545,57 @@
   }
 </style>
 
-<h1 id="Attention-Mechanism"><a href="#Attention-Mechanism" class="headerlink" title="Attention Mechanism"></a>Attention Mechanism</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>由于笔者发现在讲解Transformer的网络架构的时候缺乏过多的前置知识（例如为什么RNN不可以？到底输入和输出的东西是什么？为什么CNN在序列预测上的效果较差？），导致很多问题都是一知半解。因此，下决心<strong>重起炉灶重构博客</strong>，尝试啃下这一块硬骨头。</p>
-<p>今天的博客将会聚焦于<strong>Attention Mechanism</strong>的思想和数学实现，不涉及较多的代码工程部分。大部分内容来自于《动手学深度学习》，但会有自己的思考和见解。</p>
+<h1 id="Attention-Mechanism"><a href="#Attention-Mechanism" class="headerlink" title="Attention Mechanism"></a>Attention Mechanism</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>由于笔者发现在讲解Transformer的网络架构的时候缺乏对前置知识的细致理解。走马观花式的学习终究还是假学习。</p>
+<ul>
+<li>为什么RNN的Encoder-Decoder架构的表现不好？</li>
+<li>为什么Transformer需要设计成矩阵？</li>
+<li>Q, K, V究竟代表什么意思？</li>
+</ul>
+<p>因此，笔者下决心<strong>重起炉灶重构博客</strong>，尝试啃下这一块硬骨头。</p>
+<p>今天的博客将会聚焦于<strong>Attention Mechanism</strong>的思想和数学实现。</p>
 <h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><ul>
 <li><strong>注意力机制</strong></li>
 <li><strong>RNN和seq2seq</strong></li>
 <li><strong>seq2seq</strong>和<strong>RNN</strong>的结合</li>
 </ul>
-<h2 id="Attention-Mechanism-1"><a href="#Attention-Mechanism-1" class="headerlink" title="Attention Mechanism"></a>Attention Mechanism</h2><p>注意力机制是从生物学上获得的启发，我们分配更多的精力到what we pay attention to上面，更深入的，在视觉世界中提出了<strong>双组件框架</strong>，对注意力本身做了更多的细分。</p>
+<h2 id="Attention-Mechanism-1"><a href="#Attention-Mechanism-1" class="headerlink" title="Attention Mechanism"></a>Attention Mechanism</h2><p>注意力机制是从生物学上获得的启发。应用到视觉世界中，威廉·詹姆斯提出了<strong>双组件框架</strong>，即人通过<strong>自主性提示和非自主性提示</strong>来选择性地引导注意力的焦点。</p>
 <h3 id="非自主性提示和自主性提示"><a href="#非自主性提示和自主性提示" class="headerlink" title="非自主性提示和自主性提示"></a>非自主性提示和自主性提示</h3><ul>
 <li>非自主性提示：<strong>“显眼”的物品</strong>，视觉上最敏锐的部分，获得直接的感官感受。</li>
-<li>自主性提示：<strong>收到认知和意识</strong>的控制。</li>
+<li>自主性提示：<strong>受到认知和意识</strong>的控制。</li>
 </ul>
 <div class="note note-info">
-            <p>例如给你看下面的图片：</p><p><img src="https://s1.imagehub.cc/images/2025/04/29/77c4375efb4078e24a28fa9e6d7c9723.png" srcset="/img/loading.gif" lazyload alt="macbook apple"></p><p>例如，</p><ul><li>我看到Macbook后面的苹果图标觉的很亮眼：非自主性提示。（直接的感官感受）</li><li>我看到前面果盘里面的苹果想到我要买苹果去吃。（自主性提示）</li></ul>
+            <p>例如给你看下面的图片：</p><p><img src="https://s1.imagehub.cc/images/2025/04/29/77c4375efb4078e24a28fa9e6d7c9723.png" srcset="/img/loading.gif" lazyload alt="macbook apple"></p><p>例如，</p><ul><li>我因为Macbook图标很亮眼而注意到它：非自主性提示。（直接的感官感受）</li><li>我因为想到要去买苹果而注意到桌上的苹果。（自主性提示，收到自我意识的驱动）</li></ul>
           </div>
 
 <h3 id="查询，键和值"><a href="#查询，键和值" class="headerlink" title="查询，键和值"></a>查询，键和值</h3><p>如果建模这两种注意力机制？这是神经科学家非常关心的问题。</p>
-<p>显然，对于<strong>非自主性提示</strong>，本质上就是<strong>图片的特征提取</strong>，我们可以使用卷积核和卷积神经网络来提取图片中的特征（例如高亮度区域，色彩鲜艳的区域，锐度高的区域等等），不是我们今天讨论的重点。</p>
-<p>但是对于<strong>自主性提示</strong>，其机制相对更加复杂，我们可以使用如下的基本结构来进行建模：</p>
+<p>显然，对于<strong>非自主性提示</strong>，本质就是<strong>图片的特征提取</strong>，我们可以使用卷积核和卷积神经网络来提取图片中的特征（例如高亮度区域，色彩鲜艳的区域，锐度高的区域等等），不是我们今天讨论的重点。</p>
+<p>但是对于<strong>自主性提示</strong>，其机制相对更加复杂。并且在现实世界中注意力往往是<strong>两种提示相互夹杂</strong>的。我们可以使用如下的基本结构来进行建模：</p>
 <p><img src="https://zh.d2l.ai/_images/qkv.svg" srcset="/img/loading.gif" lazyload alt="动手学深度学习 注意力机制"></p>
-<p>例如，如果我们需要建模下面的操作：<strong>“我看到了画中的苹果，于是心里就很甜”</strong></p>
-<p>很显然，这涉及到<strong>自主性提示</strong>，因为画中的苹果再怎么特征提取也不可能提取出“甜”的特征。我们把这样的<strong>自主性提示的输入</strong>称为<strong>查询</strong>（Query），在这里，Query可以被认为是模型的输入，就是画中的苹果。接下来，人脑可能会进行的行为是<strong>画中的苹果联想到脑海中记忆的苹果</strong>，再由脑海中记忆的苹果触发感官思考，进而“心里就很甜”。</p>
-<p>在给定Query之后，我们建模了一个黑箱<strong>注意力机制</strong>，这个注意力机制<strong>有选择地</strong>搜索到人脑中存储的特定的<strong>非意志线索</strong>（非自主性提示），例如在这里是“脑海中的苹果”，并马上产生出对应的感觉（是很甜而不是很咸），作为模型的输出。而在这里，非意志线索可以被称为<strong>键</strong>（被黑箱注意力机制检索的部分），而对应得到的感觉输出就是<strong>值</strong>（select好特定键产生的输出），即一个个键值对所组成。</p>
+<p>对于人类一般性的行为，我们可以建模成：</p>
+<p>$$\boxed{\text{attention}} \to \boxed{\text{sensory input}} \to \boxed{\text{output}}$$</p>
+<blockquote>
+<p>视觉上产生了<strong>注意力</strong>（自主 &amp; 非自主），接着在大脑皮层产生感觉，并做出对应的输出。</p>
+<ul>
+<li>翻译：接受视觉输入 $\to$ 在脑海中产生感觉（<strong>思考的过程</strong>） $\to$ 输出成另一种语言</li>
+</ul>
+</blockquote>
+<p>当我们看到一幅画中的苹果，可能会联想到吃苹果的甜味，甚至不自觉流口水。这一过程可以用<strong>注意力机制</strong>来解释，涉及三个核心概念：</p>
+<ol>
+<li><strong>查询（Query）</strong>：当前的感知输入，如画中苹果的视觉特征（颜色、形状等），它触发大脑的检索机制（<strong>就是非自主性提示</strong>）。</li>
+<li><strong>键（Key）</strong>：长期记忆中的关联信息，如过去吃苹果的经验。大脑会计算<strong>Query</strong>和<strong>Key</strong>的匹配程度，选择最相关的记忆。</li>
+<li><strong>值（Value）</strong>：被选中的<strong>Key</strong>对应的具体信息，如“苹果是甜的”，进而触发味觉联想和生理反应。</li>
+</ol>
+<p>这一机制的关键在于：</p>
+<ul>
+<li><strong>选择性</strong>：并非所有记忆都会被激活，只有与当前输入最相关的信息才会被提取。</li>
+<li><strong>联想性</strong>：视觉输入（Query）通过匹配记忆（Key）触发跨模态体验（Value），如“看到苹果→想到甜味”。</li>
+<li><strong>自动化</strong>：该过程通常是快速、无意识的，体现大脑的高效信息检索能力。</li>
+</ul>
+<p>通过这种机制，外部刺激（如画面）能自动激活相关记忆，并影响认知和生理反应。</p>
+<div class="note note-primary">
+            <p>在注意力机制中，自主性提示被称为<em>查询</em>（query），而非自主性提示（客观存在的咖啡杯和书本）作为<em>键</em>（key）与感官输入（sensory inputs）的<em>值</em>（value）构成一组 pair 作为输入。而给定任何查询，注意力机制通过<em>注意力汇聚</em>（attention pooling）将非自主性提示的 key 引导至感官输入。</p><ul><li>例如在RNN中，隐藏状态H是自主性提示，而新的input就是非自主性提示。<ul><li>如果不更新隐藏状态，而是直接对序列进行暴力建模，就相当于<strong>只考虑到非自主性提示</strong>，就是经典的MLP！</li></ul></li></ul>
+          </div>
+
 <h4 id="数学建模"><a href="#数学建模" class="headerlink" title="数学建模"></a>数学建模</h4><p>来点抽象的！我们给定键值对$(x_i, y_i)$，并给出需要查询的$x_q$(query)，我们需要输出$\hat{y}&#x3D;f(x_q)$作为我们的输出值。</p>
 <p>$f$就是注意力机制的黑箱函数，给定好框架之后的创新无非就是针对对于$f$的函数的设计。</p>
 <h3 id="注意力汇聚算法"><a href="#注意力汇聚算法" class="headerlink" title="注意力汇聚算法"></a>注意力汇聚算法</h3><p>我们不妨设计一些简单的$f$，来看看效果怎么样。最简单的设计就是<strong>平均估计个体</strong>，即使用<strong>Average Pooling</strong>的操作：</p>
@@ -588,6 +616,26 @@
 <p>$$\hat{y}  &#x3D; f(x) &#x3D; \sum_{i &#x3D; 1}^{n} \text{softmax}(-\frac{1}{2}(x_q - x_i)^2) y_i$$</p>
 <p>更进一步，我们希望这个函数可以携带可被学习的参数：</p>
 <p>$$\hat{y}  &#x3D; f(x) &#x3D; \sum_{i &#x3D; 1}^{n} \text{softmax}(-\frac{1}{2}((x_q - x_i)\omega)^2) y_i$$</p>
+<p><img src="https://s1.imagehub.cc/images/2025/05/02/e2a1a67fce86e92b82ffb35760110ca4.png" srcset="/img/loading.gif" lazyload alt="实验"></p>
+<p>热力图显示当key和query越接近的时候，其权重更高。（这里是一维的情况，就直接比较两个值的大小）</p>
+<p>但是带权重的注意力汇聚在做梯度下降的时候<strong>会出现不平滑的现象</strong>（虽然loss确实下降了），因为在键值对很小的情况下很容易出现过拟合的情况。</p>
+<p><img src="https://s1.imagehub.cc/images/2025/05/02/db8dfddacbe453aa0986f403f68364a1.png" srcset="/img/loading.gif" lazyload alt="Overfitting"></p>
+<blockquote>
+<p>可以理解为在一些有噪声的点附近，由于过拟合的存在（额外参数的影响）让<strong>这个点的权重变大了</strong>，导致heatmap出现了断点处的偏移。</p>
+</blockquote>
+<p>这里引用一个非常好的回答：<a target="_blank" rel="noopener" href="https://discuss.d2l.ai/t/nadaraya-watson/5760/4">参数化的意义是什么</a></p>
+<p><strong>增加权重的意义在于使得对于远距离的key 有着更小的关注，缩小的注意力的范围。</strong></p>
+<h4 id="Adding-Batches"><a href="#Adding-Batches" class="headerlink" title="Adding Batches"></a>Adding Batches</h4><p>为了充分发挥GPU的并行优势，我们可以使用<strong>批量矩阵的乘法</strong>。</p>
+<p>假设现在有$n$个$(a,b)$的二维矩阵$X_i(1\le i \le n)$和$n$个$(b,c)$的二维矩阵$Y_i(1\le i \le n)$，在非并行的状态下，我们需要做$n$次顺序矩阵乘法，即$X_i \times Y_i:&#x3D;A_i$，最终得到$n$个$(a,c)$的矩阵。</p>
+<p><strong>并行</strong>的本质就是<strong>大家一起做运算</strong>，把$n$个$(a,b)$的二维矩阵$X_i(1\le i \le n)$可以定义为<strong>三维张量</strong>$T$，size是$(n,a,b)$。</p>
+<p>因此，**假定两个张量的形状分别是$(n,a,b)$和$(n,b,c)$，它们的批量矩阵乘法输出的形状为$(n,a,c)$**。</p>
+<p>如何使用小批量乘法来改写注意力机制？</p>
+<p>计算加权平均值的过程可以看做是两个向量的内积操作（需要归一化），因此假设每一次批量是size为$n$，那么：</p>
+<p>$$\text{Weight(n, 1, len)} \times \text{Value(n, len, 1)} &#x3D; \text{Score(n,1)}$$</p>
+<blockquote>
+<p>$n$在实际情况下可以定义为查询的个数，$len$是键值对的个数。</p>
+<p>很惊讶的发现在这里$len$和$n$是无关的量，即我们可以不断的scale up键值对的个数，即获得更多的采样。</p>
+</blockquote>
 <h3 id="注意力评分函数"><a href="#注意力评分函数" class="headerlink" title="注意力评分函数"></a>注意力评分函数</h3>
                 
               </div>
@@ -658,7 +706,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 29, 2025</div>
+          <div>May 2, 2025</div>
         </div>
       
       
