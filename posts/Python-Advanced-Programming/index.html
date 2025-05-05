@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/fp.jpg">
 <meta property="article:published_time" content="2025-04-26T14:57:35.000Z">
-<meta property="article:modified_time" content="2025-04-28T07:29:37.368Z">
+<meta property="article:modified_time" content="2025-05-03T06:01:59.000Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Finished">
 <meta property="article:tag" content="Python">
@@ -343,7 +343,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k words
+          1.8k words
         
       </span>
     
@@ -404,7 +404,7 @@
         aria-expanded="true"
       >
         Code
-        <span class="list-group-count">(21)</span>
+        <span class="list-group-count">(19)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -499,15 +499,6 @@
     
       
       
-        <a href="/posts/Python-tutorial/" title="Python-Tutorial"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">Python-Tutorial</span>
-        </a>
-      
-    
-      
-      
         <a href="/posts/Python-cheatsheet/" title="Python-Cheatsheet"
            class="list-group-item list-group-item-action
            ">
@@ -517,19 +508,10 @@
     
       
       
-        <a href="/posts/Python-advanced-File-Management/" title="Python-Advanced-File-Management"
+        <a href="/posts/Python-File-Management/" title="File Management in Python"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Python-Advanced-File-Management</span>
-        </a>
-      
-    
-      
-      
-        <a href="/posts/Python-Update-Learning/" title="Python-Update-Learning"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">Python-Update-Learning</span>
+          <span class="category-post">File Management in Python</span>
         </a>
       
     
@@ -548,15 +530,6 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">Python-Visualization</span>
-        </a>
-      
-    
-      
-      
-        <a href="/posts/Torch-memo/" title="Torch-Memo"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">Torch-Memo</span>
         </a>
       
     
@@ -598,10 +571,19 @@
     
       
       
-        <a href="/posts/Torch-Memo-Tensor-Operations/" title="Torch Memo Tensor Operations"
+        <a href="/posts/Python-Environment-Modules-Tutorial/" title="Python Environment Modules Tutorial"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Torch Memo Tensor Operations</span>
+          <span class="category-post">Python Environment Modules Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Automaton-NFA/" title="Automaton NFA"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Automaton NFA</span>
         </a>
       
     
@@ -729,6 +711,52 @@
 <blockquote>
 <p>不过谁会这样使用Makefile呢？🤣不如直接写bash</p>
 </blockquote>
+<h2 id="Duck-Typing"><a href="#Duck-Typing" class="headerlink" title="Duck Typing"></a>Duck Typing</h2><h3 id="Introduction-to-Duck-Typing"><a href="#Introduction-to-Duck-Typing" class="headerlink" title="Introduction to Duck Typing"></a>Introduction to Duck Typing</h3><p><strong>Duck Typing</strong> is a programming concept often used in dynamically-typed languages, where the type or class of an object is determined by its behavior (methods and properties) rather than its explicit inheritance or interface implementation. The term originates from the phrase: </p>
+<blockquote>
+<p><em>“If it walks like a duck and quacks like a duck, then it must be a duck.”</em></p>
+</blockquote>
+<p>In essence, Duck Typing focuses on what an object <strong>can do</strong> rather than what it <strong>is</strong>. This approach provides flexibility and promotes code reusability, but it also requires careful handling to avoid runtime errors due to missing methods or properties.</p>
+<h3 id="Key-Characteristics-of-Duck-Typing"><a href="#Key-Characteristics-of-Duck-Typing" class="headerlink" title="Key Characteristics of Duck Typing"></a>Key Characteristics of Duck Typing</h3><ol>
+<li><p><strong>Behavior Over Type</strong>:</p>
+<ul>
+<li>An object’s suitability is determined by the presence of specific methods or properties, not by its class or type.</li>
+<li>For example, if an object has a <code>quack()</code> method and a <code>walk()</code> method, it can be treated as a “duck” regardless of its actual class.</li>
+</ul>
+</li>
+<li><p><strong>Flexibility</strong>:</p>
+<ul>
+<li>Code can work with any object that implements the required behavior, making it highly adaptable and reusable.</li>
+<li>This eliminates the need for strict type hierarchies or interfaces.</li>
+</ul>
+</li>
+<li><p><strong>Common in Dynamic Languages</strong>:</p>
+<ul>
+<li>Duck Typing is frequently used in dynamically-typed languages like Python, Ruby, and JavaScript, where type checking is done at runtime rather than compile time.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Below is an example that demonstrates Duck Typing using a <code>Duck</code> class, a <code>Person</code> class, and even a <code>Chicken</code> class. The key idea is that any object with the required methods (<code>quack()</code> and <code>walk()</code>) can be treated as a “duck.”</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Define a Duck class</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Duck</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">quack</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Quack!&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">walk</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Walking like a duck&quot;</span>)<br><br><span class="hljs-comment"># Define a Person class</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">quack</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;I&#x27;m quacking like a duck!&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">walk</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;I&#x27;m walking like a duck&quot;</span>)<br><br><span class="hljs-comment"># Define a Chicken class</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Chicken</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">quack</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Cluck cluck! (Pretending to quack)&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">walk</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Walking like a duck (but I&#x27;m actually a chicken)&quot;</span>)<br><br><span class="hljs-comment"># Function to check if an object is a &quot;duck&quot;</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">check_if_duck</span>(<span class="hljs-params">animal</span>):<br>    <span class="hljs-keyword">try</span>:<br>        animal.quack()<br>        animal.walk()<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;This is a duck!&quot;</span>)<br>    <span class="hljs-keyword">except</span> AttributeError:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;This is not a duck!&quot;</span>)<br><br><span class="hljs-comment"># Test the function</span><br>duck = Duck()<br>person = Person()<br>chicken = Chicken()<br><br>check_if_duck(duck)     <span class="hljs-comment"># Output: Quack! Walking like a duck. This is a duck!</span><br>check_if_duck(person)   <span class="hljs-comment"># Output: I&#x27;m quacking like a duck! I&#x27;m walking like a duck. This is a duck!</span><br>check_if_duck(chicken)  <span class="hljs-comment"># Output: Cluck cluck! (Pretending to quack) Walking like a duck (but I&#x27;m actually a chicken). This is a duck!</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="Explanation-of-the-Code"><a href="#Explanation-of-the-Code" class="headerlink" title="Explanation of the Code"></a>Explanation of the Code</h4><ol>
+<li><p><strong>Duck Typing in Action</strong>:</p>
+<ul>
+<li>The <code>check_if_duck</code> function does not check the type of the <code>animal</code> object. Instead, it checks whether the object has the <code>quack()</code> and <code>walk()</code> methods.</li>
+<li>If the object has these methods, it is treated as a “duck,” regardless of whether it is an instance of <code>Duck</code>, <code>Person</code>, or even <code>Chicken</code>.</li>
+</ul>
+</li>
+<li><p><strong>Flexibility and Reusability</strong>:</p>
+<ul>
+<li>The <code>Chicken</code> class is not a duck, but it can still be treated as one because it implements the required methods.</li>
+<li>This demonstrates how Duck Typing allows objects of different types to be used interchangeably, as long as they exhibit the expected behavior.</li>
+</ul>
+</li>
+<li><p><strong>Runtime Risks</strong>:</p>
+<ul>
+<li>If an object passed to <code>check_if_duck</code> does not have the required methods (e.g., a <code>Dog</code> class without <code>quack()</code> and <code>walk()</code>), the program will raise an <code>AttributeError</code> at runtime.</li>
+</ul>
+</li>
+</ol>
 
                 
               </div>
@@ -797,7 +825,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 28, 2025</div>
+          <div>May 3, 2025</div>
         </div>
       
       
