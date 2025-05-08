@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Btree.jpg">
 <meta property="article:published_time" content="2025-04-24T07:20:25.000Z">
-<meta property="article:modified_time" content="2025-04-26T02:16:22.125Z">
+<meta property="article:modified_time" content="2025-05-08T13:46:07.963Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Tree">
@@ -346,7 +346,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k words
+          4.1k words
         
       </span>
     
@@ -407,7 +407,7 @@
         aria-expanded="true"
       >
         Algorithm
-        <span class="list-group-count">(33)</span>
+        <span class="list-group-count">(34)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -716,6 +716,15 @@
         </a>
       
     
+      
+      
+        <a href="/posts/DataStructure-Disjoint-Set/" title="DataStructure Disjoint Set"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure Disjoint Set</span>
+        </a>
+      
+    
   </div>
 
         
@@ -756,6 +765,7 @@
 <h1 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h1><p>显然，我们不希望外存上的数据变成一颗二叉查找树，因为<strong>这样树的每一次访问都将举步维艰</strong>。</p>
 <p>先来看一颗B树长什么样子：</p>
 <p><img src="https://s1.imagehub.cc/images/2025/04/24/58574316a986c5ef143e6033844d1b35.png" srcset="/img/loading.gif" lazyload alt="B树"></p>
+<p>$n$代表每一个节点的关键字的个数。（此时这个节点就有$n + 1$个儿子节点）</p>
 <p>右下角红色的就是<strong>按照顺序存储的</strong>在外存中的数据文件，我们在内存中储存了一个B树，对于每一次问询（给出一个关键字），我们都需要现在储存在内存中的B树中进行查询，在查询到对应元素<strong>在外存中的地址之后</strong>再去访问磁盘，即去访问外存中对应的数据。</p>
 <blockquote>
 <p>在B树中，储存的都是数据元素的指针。</p>
@@ -766,7 +776,7 @@
             <p>了解定义之后，再来看一眼B树：</p><p><img src="https://s1.imagehub.cc/images/2025/04/24/58574316a986c5ef143e6033844d1b35.png" srcset="/img/loading.gif" lazyload alt="B树"></p>
           </div>
 
-<p>同时，随着高度的增加，节点存储的关键字的个数增加，故可以保证树的高度是平衡的（这个被写进定义了）</p>
+<p>同时，随着高度的增加，<strong>节点存储的关键字的个数增加，故可以保证树的高度是平衡的</strong>（这个被写进定义了）</p>
 <p>$$h \le  \frac{\log_{t}(n + 1)}{2} + 1$$</p>
 <p>其中$t$为树的最小度数，n为含有的关键字的总数。</p>
 <p>有关B树的定义非常的抽象，我们做一点注解：</p>
@@ -796,13 +806,134 @@
 </ul>
 <h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>基本逻辑一样：先进行查询之后再<strong>寻找位于底层的替身元素</strong>。（其儿子节点中最小的值）</p>
 <p>接着进行删除的操作：如果删除之后仍然满足二叉树的定义，直接删除关键字值（对应的索引）即可，否则需要调整。（<strong>我们需要保证度数不小于最小度数</strong>）</p>
-<h3 id="领养"><a href="#领养" class="headerlink" title="领养"></a>领养</h3><p>领养父亲的一个关键字值，同时把兄弟的一个关键字值上提到父亲节点处。</p>
+<h3 id="领养"><a href="#领养" class="headerlink" title="领养"></a>领养</h3><p>领养父亲的一个关键字值，同时把兄弟的一个关键字值上提到父亲节点处。例如在这里删除$50$的关键字值，此时需要将父亲节点的53下放（领养）到儿子节点。</p>
 <p><img src="https://s1.imagehub.cc/images/2025/04/24/1122482aa64614dd50f7903fdd26c17a.png" srcset="/img/loading.gif" lazyload alt="领养操作"></p>
-<h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><p>如果相邻的兄弟节点囊中羞涩，无法给出空余的节点，那么这个时候就需要将父亲节点的一个关键字下移合并给兄弟节点。</p>
+<h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><p>如果相邻的兄弟节点囊中羞涩，无法给出空余的节点，那么这个时候就需要将<strong>父亲节点的一个关键字下移合并给兄弟节点</strong>。</p>
 <p>同样的，和分裂节点类似，此时需要继续向上调整祖父节点。</p>
 <p><img src="https://s1.imagehub.cc/images/2025/04/24/5bf66dcc195788a2e78f9bda91d7fa7d.png" srcset="/img/loading.gif" lazyload alt="合并"></p>
 <p>同样，也有可能出现整棵树高度减少1的情况：</p>
 <p><img src="https://s1.imagehub.cc/images/2025/04/24/ad7bcbaa0e81edfc86562d25d311793c.png" srcset="/img/loading.gif" lazyload alt="删除的示例"></p>
+<h2 id="B树的特点"><a href="#B树的特点" class="headerlink" title="B树的特点"></a>B树的特点</h2><p>回顾B树的数据结构，我们发现B树本质上是对<strong>在外存上一段连续空间内存上数据</strong>建立了索引文件，并且按照关键字值的大小构建起了一颗二叉搜索树。</p>
+<p>这样的结构设计对于<strong>单点搜索</strong>操作是非常方便的，因为树的分支因子较大，因此可以尽可能的减少树的高度，实现更少的磁盘访问次数。对于数据的删除和插入操作：</p>
+<ul>
+<li>插入：在外存数据中<strong>append到末尾</strong>，并将索引项插入到B+树中。</li>
+<li>删除：直接删除B+树的索引项即可，不可以挪动外存中其他位置的数据，不然索引会乱掉。</li>
+</ul>
+<h3 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h3><p>但是B树的缺陷也非常明显，从插入操作中可以看出，<strong>B树并没有对外存数据的储存做过多的约束</strong>（就直接append到这个连续内存数组的末尾，也不会清理删除的数据），这样就会导致：<strong>外存数据储存中关键字的值是乱序排列的</strong>！也就是说，B树实现顺序遍历的时间复杂度是灾难性的，因为他需要中序遍历一整颗树然后做$N$次单点操作。</p>
+<p>我们继续介绍B+树来弥补这个漏洞。</p>
+<h1 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h1><p><strong>索引数据文件</strong>：即支持对单个数据的访问 又支持对这个文件<strong>按关键字的次序</strong>进行顺序访问。</p>
+<p>B树建立了一个索引树（<strong>索引文件</strong>），可以支持快速查找某个记录，但是无法实现对磁盘的顺序访问，因此无法被称作<strong>索引数据文件</strong>，关键就在于<strong>数据是储存在外存的一个一段连续数组上的</strong>，而B树仅储存对应值的索引。</p>
+<p>我们在B树的基础上可以得到<strong>B+树</strong>，实现<strong>顺序访问</strong>。</p>
+<h2 id="Chunking"><a href="#Chunking" class="headerlink" title="Chunking"></a>Chunking</h2><p>我们期望B+树可以达到：</p>
+<ul>
+<li>和B树时间复杂度相当的<strong>单点操作</strong></li>
+<li><strong>可以实现按照关键字值</strong>对外存数据顺序遍历</li>
+<li>插入 &amp; 删除等操作的时间复杂度也应该和B树相当</li>
+</ul>
+<p>我们自然会想到使用<strong>链表</strong>来储存外存中的数据，如果使用普通链表，时间效率会很低（随着$N$的不断增大），因此我们需要使用<strong>块状链表</strong>即分块的思想来实现这个数据结构。</p>
+<h2 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h2><p>B+树的设计和B树略有不同：</p>
+<p><img src="https://s1.imagehub.cc/images/2025/05/08/a2b23c8eb0592123f92e59f898b0ba27.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>一些不同的地方：</p>
+<ul>
+<li>B+树直接将数据储存在叶子结点上（<strong>分块的思想</strong>）</li>
+<li>对于每一个分块储存的数据元素的数量也有$\left \lceil \frac{L}{2} \right \rceil \le x \le L $的限制，保证平衡。</li>
+<li><strong>为了支持顺序访问</strong>，块内部和外部都<strong>必须保证有序</strong>。</li>
+</ul>
+<blockquote>
+<p>其他关于索引树的节点的定义和B树类似，不做重复介绍。</p>
+</blockquote>
+<h2 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h2><p>和B树的操作类似，首先需要查找数据块知道叶子结点（数据节点的上一层）。</p>
+<ul>
+<li>将新的数据插入对应的叶子（保证块外部的有序），并对块内部的元素顺序进行调整（保证块内部的有序）</li>
+<li>如果出现非法情况：<ul>
+<li><strong>需要被插入的块已经满员了</strong>，需要做节点的分裂操作。</li>
+<li>如果当前节点还有空位（$n \le M$），即生成一个新的关键字储存在当前节点中（因为多了一个儿子）</li>
+<li>如果没有空位了（$n &#x3D; M, n + 1 &gt; M$）,此时需要继续分裂，并且继续向上更新父亲节点</li>
+</ul>
+</li>
+</ul>
+<p>例如，在当前的树中插入22：</p>
+<p><img src="https://s1.imagehub.cc/images/2025/05/08/a180824f04513c136132f10204ddae45.png" srcset="/img/loading.gif" lazyload alt="初始状态"></p>
+<p>在这里发现插入之后满员了，分裂节点发现也没有办法容纳新的儿子，于是分裂上一层的节点。</p>
+<p><img src="https://s1.imagehub.cc/images/2025/05/08/86bc502a26128cef67ed85d86be35fb1.png" srcset="/img/loading.gif" lazyload alt="Now"></p>
+<h2 id="Deletion"><a href="#Deletion" class="headerlink" title="Deletion"></a>Deletion</h2><p>和B树非常类似，首先在<strong>对应的叶节点数据块删除对应的数据</strong>。如果满足定义就不作操作。（<strong>保证有序就可以</strong>）</p>
+<ul>
+<li>如果删除元素导致某个块的数量不足$\left \lceil \frac{L}{2} \right \rceil$，需要调整树的结构。（唯一可能出错的情况）</li>
+</ul>
+<p>首先想到的是领养操作，即看左右的邻居节点，如果没办法领养，就需要合并邻居节点。</p>
+<p>继续，此时父亲节点的儿子数和关键字树不匹配，父亲节点需要删除一个关键字值，继续<strong>向上过滤</strong>作删除操作。</p>
+<h2 id="M和L的选择"><a href="#M和L的选择" class="headerlink" title="M和L的选择"></a><code>M</code>和<code>L</code>的选择</h2><p>外存读写的单位为<strong>块</strong>，一个块存放一个节点能使<strong>IO效率</strong>最高。对于一个$M$阶B+树来说：</p>
+<p>$$(M - 1)\times 32 + M \times 4 \le 8192$$</p>
+<p>$$M \le 228$$</p>
+<ul>
+<li>32是关键字值的字节数（例如<code>int</code>或者<code>size_t</code>）</li>
+<li>4代表分支的字节数（储存地址）</li>
+<li>$8192$是单个磁盘块的大小</li>
+</ul>
+<p>$L$的选择和数据块的大小有关，通常$L &#x3D; 32$（假设每一条数据记录256个字节）</p>
+<h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><p>最坏情况下，所有节点都在下界，即有$\left \lceil \frac{2N}{L} \right \rceil $个叶节点。</p>
+<p>树的最高深度 $\log_{\left \lceil \frac{M}{2}\right \rceil}(\left \lceil \frac{2N}{L} \right \rceil )$</p>
+<p>我们取$M &#x3D; 228$，此时M是非常大的，树的层数就很低，把磁盘的访问次数下降到最低。（包括插入 &amp; 删除 &amp; 归并等等操作）</p>
+<blockquote>
+<p>对于最坏的情况，分裂和归并到顶层，可能会导致树的高度升高1或者下降1，但是均摊来看还是很高效的复杂度。</p>
+</blockquote>
+<h1 id="Additional"><a href="#Additional" class="headerlink" title="Additional"></a>Additional</h1><h2 id="B-树-1"><a href="#B-树-1" class="headerlink" title="B*树"></a>B*树</h2><p>B*树是在B+树基础上的进一步优化，<strong>在 B+ 树的非根和非叶子节点再增加指向兄弟的指针</strong>：</p>
+<p><img src="https://zq99299.github.io/dsalg-tutorial/assets/img/image-20201223220236107.a72d6e7a.png" srcset="/img/loading.gif" lazyload alt="B*树"></p>
+<ul>
+<li><p>B*树要求非根节点至少2&#x2F;3满(约66.7%)，提高了空间利用率</p>
+</li>
+<li><p>当节点满时，B*树不是立即分裂，而是<strong>尝试将部分键值重新分配到兄弟节点</strong>（使用链表链接，可以“转移”）</p>
+</li>
+<li><p>只有当两个相邻兄弟节点都已满时，才会将这三个节点分裂为两个</p>
+</li>
+<li><p>这种策略减少了分裂频率，提高了空间利用率</p>
+</li>
+</ul>
+<h2 id="R树"><a href="#R树" class="headerlink" title="R树"></a>R树</h2><div class="note note-primary">
+            <p>R树是为空间数据(如地理坐标、多边形等)设计的索引结构，与B+树家族有显著不同：</p><ol><li><strong>空间索引能力</strong>：<ul><li>B+树只能索引一维数据</li><li>R树可以高效索引多维数据(如二维坐标、三维空间数据)</li></ul></li><li>**基于最小边界矩形(MBR)**：<ul><li>每个节点存储的是空间对象的最小边界矩形</li><li>允许快速过滤不相关的空间查询</li></ul></li><li><strong>查询类型支持</strong>：<ul><li>支持空间查询如”查找附近的所有点”</li><li>支持范围查询如”查找这个矩形区域内的所有对象”</li><li>支持最近邻查询</li></ul></li><li><strong>变体改进</strong>：<ul><li>R+树：避免节点覆盖区域的重叠，提高查询效率</li><li>R*树：通过优化插入、分裂策略和强制重新插入来提高性能</li><li>Hilbert R树：使用空间填充曲线对对象排序，改善结构</li></ul></li></ol>
+          </div>
+
+<p><strong>R树</strong>的关键在于对点做分类，并以此建立MBR，然后一层层向上建树，知道囊括数据中的所有点。</p>
+<blockquote>
+<p>怎么一股线段树的味道。</p>
+</blockquote>
+<h1 id="外排序"><a href="#外排序" class="headerlink" title="外排序"></a>外排序</h1><p>显而易见，外排序就是对储存在外部储存器上数据进行的排序。以<strong>磁带储存器</strong>为例，其为顺序存储设备，完成有效的排序至少需要两个<strong>磁盘机</strong>，当然，多多益善。</p>
+<blockquote>
+<p>三个磁盘机可以实现轮转的排序（<strong>并行的思想</strong>）</p>
+</blockquote>
+<p>外排序主要考虑<strong>减少外存储器</strong>的读写次数，和内排序的时间瓶颈不同。</p>
+<h2 id="外排序的基本方法"><a href="#外排序的基本方法" class="headerlink" title="外排序的基本方法"></a>外排序的基本方法</h2><ul>
+<li>预处理：分成有序片段（读入内存之后使用内排序）</li>
+<li>归并：<strong>把有序片段归并成一个有序文件</strong><ul>
+<li>多路归并</li>
+<li>多阶段归并</li>
+</ul>
+</li>
+</ul>
+<h2 id="预处理：置换选择"><a href="#预处理：置换选择" class="headerlink" title="预处理：置换选择"></a>预处理：置换选择</h2><p>把外存的数据读入内存进行内排序的时候，我们希望每一个排序片段的size尽可能的大（即排序片段的数量尽可能的少），这样就可以使<strong>归并的次数尽可能的少</strong>，因为每一次归并操作都需要线性扫描两个待归并的序列，如果归并次数过多，意味着存在重复被扫描的元素。</p>
+<p>我们介绍<strong>置换选择法</strong>，可以在$p$的内存空间中实现平均长度$2p$的序列排序，这比最笨的一段一段排序要快很多。</p>
+<ul>
+<li>在初始状态下，读入size为$p$的序列，进行内排序（保证有序性），输出最小值。</li>
+<li>这个时候内存存在<strong>空间剩余</strong>（<strong>这是我们需要利用的地方！</strong>），我们可以再读入一个值，并调整这个值所在的位置，维持有序性。</li>
+</ul>
+<blockquote>
+<p>在这里内排序的时间开销远小于外排序，因此可以忽略这一点小小的优化。</p>
+</blockquote>
+<p>我们既输出的值为$x_o$，输入的值为$x_i$：</p>
+<ul>
+<li>$x_o &lt; x_i$：说明如果$x_i$参与这一次排序的话，他的位置肯定在$x_o$的后面（还有机会！），因此作为新元素被插入，参与排序</li>
+<li>$x_i &lt; x_o$：没有机会，$x_i$不会参与这一次排序，但是可以一直占着坑，自动进入下一次排序。</li>
+</ul>
+<h2 id="归并"><a href="#归并" class="headerlink" title="归并"></a>归并</h2><h3 id="多路归并"><a href="#多路归并" class="headerlink" title="多路归并"></a>多路归并</h3><p>我们首先介绍两路归并：$k &#x3D; 2$</p>
+<p>两路归并需要四条磁带的使用：$A_1, A_2, B_1, B_2$，每两条作为一组，两根作为输入，两根作为输出。</p>
+<ul>
+<li>轮流将已被排序的片段写到$A_1, A_2$两条磁带上。</li>
+<li>取$A_1$, $A_2$上各一个片段，进行归并操作，生成的新片段写入$B_1$。</li>
+<li>再将$A_1$, $A_2$上剩下的片段转移到$B_1, B_2$上，在同样的做类似的操作。</li>
+</ul>
+<p>一般地，对于$k$路归并，我们需要$2k$条磁带做运算，并且我们需要维护一个堆来找到最小的元素。</p>
+<h3 id="多阶段归并"><a href="#多阶段归并" class="headerlink" title="多阶段归并"></a>多阶段归并</h3><p>使用多阶段归并可以实现$k + 1$条磁带的$k$路归并。</p>
+<img src="https://s1.imagehub.cc/images/2025/05/08/912cc21d3d3a2de92f78ce823f03b62c.png" srcset="/img/loading.gif" lazyload alt="image" style="zoom:67%;" />
 
                 
               </div>
@@ -877,7 +1008,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 26, 2025</div>
+          <div>May 8, 2025</div>
         </div>
       
       
