@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/torch.png">
 <meta property="article:published_time" content="2025-04-01T07:44:06.000Z">
-<meta property="article:modified_time" content="2025-05-03T05:48:42.173Z">
+<meta property="article:modified_time" content="2025-05-12T09:34:45.253Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Updating">
 <meta property="article:tag" content="Python">
@@ -343,7 +343,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          155 words
+          164 words
         
       </span>
     
@@ -565,7 +565,13 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Torch-Memo"><a href="#Torch-Memo" class="headerlink" title="Torch Memo"></a>Torch Memo</h1><h2 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h2><ul>
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+
+<h1 id="Torch-Memo"><a href="#Torch-Memo" class="headerlink" title="Torch Memo"></a>Torch Memo</h1><h2 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h2><ul>
 <li><code>.__dir__()</code>: Getting all the functions in the module (<strong>Tool function</strong>)</li>
 </ul>
 <h2 id="TensorBoard"><a href="#TensorBoard" class="headerlink" title="TensorBoard"></a>TensorBoard</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><br>writer = SummaryWriter(<span class="hljs-string">&quot;logs&quot;</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">compute</span>(<span class="hljs-params">x</span>):<br>    <span class="hljs-keyword">return</span> (torch.sin(torch.tensor(x)) + torch.randn(<span class="hljs-number">1</span>) * torch.sin(torch.tensor(x)))<br><br><br><span class="hljs-comment"># writer.add_scalar()</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>):<br>    writer.add_scalar(<span class="hljs-string">&quot;y=x&quot;</span>, compute(i).item(), i)<br><br><br><span class="hljs-comment"># writer.add_image()</span><br>img = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;003.jpg&quot;</span>)<br>img_array = np.array(img)<br><br><span class="hljs-comment"># dataformats is HWC</span><br>writer.add_image(<span class="hljs-string">&quot;test&quot;</span>, img_array, <span class="hljs-number">1</span>, dataformats=<span class="hljs-string">&#x27;HWC&#x27;</span>)<br><br></code></pre></td></tr></table></figure>
@@ -642,7 +648,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 3, 2025</div>
+          <div>May 12, 2025</div>
         </div>
       
       

@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/cmake.jpg">
 <meta property="article:published_time" content="2024-12-15T07:28:41.000Z">
-<meta property="article:modified_time" content="2025-02-17T11:40:16.997Z">
+<meta property="article:modified_time" content="2025-05-12T09:38:55.713Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="CMake">
@@ -577,7 +577,7 @@
           </div>
 
 <p><strong>注意使用预编译命令，防止同一个头文件被重复定义。</strong></p>
-<p><img src="/posts/CMake-tutorial1/multicompiling.png" srcset="/img/loading.gif" lazyload alt="Several Optional Structures"></p>
+<p><img src="/multicompiling.png" srcset="/img/loading.gif" lazyload alt="Several Optional Structures"><br><img src="https://s1.imagehub.cc/images/2025/05/12/263318678951480a971b2f86743ba9a1.png" srcset="/img/loading.gif" lazyload alt="multicompiling"></p>
 <p>上图是三种可选的源代码放置方式。在接下来的讨论中，我们将默认选择第三种。（也是相对最复杂的一种）</p>
 <h2 id="What-is-CMake"><a href="#What-is-CMake" class="headerlink" title="What is CMake"></a>What is CMake</h2><p>上文我们了解了C++的<strong>模块化开发</strong>的核心思想，但是有一个问题亟需被解决：</p>
 <p><strong>如何让编译器编译那么多的文件并最后生成一个可执行文件？</strong></p>
@@ -593,7 +593,7 @@
 <p>CLion的使用可自行查询，是一款非常好用的C++开发工具。</p>
 </blockquote>
 <p>在打开一个新项目的时候（C++ Executable），你应该会得到如下的界面：</p>
-<p><img src="/posts/CMake-tutorial1/1.png" srcset="/img/loading.gif" lazyload alt="Opening a new project"></p>
+<p><img src="https://s1.imagehub.cc/images/2025/05/12/6dbb1fea473223cde1b52f405cdd634e.png" srcset="/img/loading.gif" lazyload alt="1"></p>
 <p>我们会发现系统自动生成了一个CMakeList.txt的文本文件，<strong>这就是上文提到的自动化编译的脚本</strong>。</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs makefile">cmake_minimum_required(VERSION 3.30)<br><br>project(untitled)<br><br>set(CMAKE_CXX_STANDARD 20)<br><br>add_executable(untitled main.cpp)<br><br></code></pre></td></tr></table></figure>
 
@@ -680,7 +680,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>February 17, 2025</div>
+          <div>May 12, 2025</div>
         </div>
       
       
