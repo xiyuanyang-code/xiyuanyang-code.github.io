@@ -1,0 +1,1064 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="This article introduces the basic principles and specific operations of SSH, as well as an introduction to network security and cryptography.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Secure Shell and Encryption">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Secure-Shell-and-Encryption/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="This article introduces the basic principles and specific operations of SSH, as well as an introduction to network security and cryptography.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/ssh.jpg">
+<meta property="article:published_time" content="2025-05-13T02:50:23.000Z">
+<meta property="article:modified_time" content="2025-05-13T03:36:33.721Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="Missing Semester">
+<meta property="article:tag" content="SSH">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/ssh.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Secure Shell and Encryption - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/posts/Above-All-en/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tag</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/My-Resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/My-Posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All Posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Daily Loggings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/resume/" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>Github Introduction</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Secure Shell and Encryption"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-13 10:50" pubdate>
+          May 13, 2025 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Efficient Tools"
+        id="heading-33e232aba25463da7a1adaa960a59b1a" role="tab" data-toggle="collapse" href="#collapse-33e232aba25463da7a1adaa960a59b1a"
+        aria-expanded="true"
+      >
+        Efficient Tools
+        <span class="list-group-count">(12)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-33e232aba25463da7a1adaa960a59b1a"
+           role="tabpanel" aria-labelledby="heading-33e232aba25463da7a1adaa960a59b1a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/LaTeX-tutorial/" title="LaTeX-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LaTeX-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/CMake-tutorial1/" title="CMake-Tutorial1"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CMake-Tutorial1</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/CMake-tutorial-episode2/" title="CMake-Tutorial-Episode2"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CMake-Tutorial-Episode2</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Tools-Tutorial/" title="Tools-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Tools-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Linux-Bash-Introduction/" title="Linux-Bash-Introduction"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linux-Bash-Introduction</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Vim-tutorial/" title="Vim-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Vim-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Missing-Semester-Notes/" title="Missing-Semester-Notes"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Missing-Semester-Notes</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Bash-exercises/" title="Bash_exercises"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Bash_exercises</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Bash-commands/" title="Bash_commands"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Bash_commands</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Taking-Notes/" title="Taking-Notes"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Taking-Notes</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Docker-Tutorial/" title="Docker Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Secure-Shell-and-Encryption/" title="Secure Shell and Encryption"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Secure Shell and Encryption</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Secure Shell and Encryption</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="SSH-Remote-Host"><a href="#SSH-Remote-Host" class="headerlink" title="SSH Remote Host"></a>SSH Remote Host</h1><p>使用 <code>ssh</code> 和 <code>scp</code> 等工具实现服务器的远程连接（第一次体会到没有 sudo 权限的感觉）</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>自从半年前第一次使用 SSH 以来，使用实验室服务器进行工作已经一个学期了。SSH 现在已成为我日常工作中不可或缺的工具，期间也遇到过不少问题。因此，我想系统地整理 SSH 相关知识，并以此作为对计算机安全和加密技术的入门介绍。</p>
+<h2 id="What-is-Secure-Shell-SSH-？"><a href="#What-is-Secure-Shell-SSH-？" class="headerlink" title="What is Secure Shell (SSH)？"></a>What is Secure Shell (SSH)？</h2><p>SSH（Secure Shell）是一种网络协议，用于在不安全的网络上安全地访问和管理计算机。它通过加密方式在客户端和服务器之间建立安全通信通道，常用于远程登录、文件传输等网络服务。</p>
+<p>传统身份认证方法（如密码认证）存在安全隐患，一旦密码泄露就会导致数据泄漏风险。SSH 的核心是使用加密算法生成公钥和私钥对进行身份认证：</p>
+<ul>
+<li><strong>公钥</strong>：<ul>
+<li>用于数据传输加密</li>
+<li>服务器用公钥验证签名（证明密钥持有者身份）</li>
+</ul>
+</li>
+<li><strong>私钥</strong>：<ul>
+<li><strong>绝对不可泄露</strong>给任何第三方</li>
+<li>是证明身份的唯一凭证</li>
+</ul>
+</li>
+</ul>
+<h3 id="How-it-works"><a href="#How-it-works" class="headerlink" title="How it works?"></a>How it works?</h3><div class="note note-primary">
+            <ol><li>在本地生成密钥对（公钥和私钥）</li><li>将公钥添加到服务器的 <code>~/.ssh/authorized_keys</code> 文件中（表示服务器信任该公钥）</li><li>配置本地 <code>~/.ssh/config</code> 文件</li><li>本地首先检查 <code>~/.ssh/known_hosts</code> 中是否有服务器公钥记录</li><li>如果找到匹配记录，开始身份认证</li><li>本地尝试使用存储的私钥进行认证</li><li>服务器验证通过后建立加密会话</li></ol>
+          </div>
+
+<p>为了实现服务器的安全连接，我们需要在本地生成对应的密钥对：公钥 &amp; 私钥。我们需要把公钥文件提供给服务器，放在服务器的<code>.ssh/authorized_keys</code>文件中，顾名思义，这<strong>代表了服务器信任</strong>的所有公钥。</p>
+<p>接下来，配置<code>.ssh/config</code>文件中的对应的<code>Host</code>。以自己服务器的为例：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">Host db94<br>    HostName <span class="hljs-number">111111111</span><br>    <span class="hljs-keyword">User</span> <span class="hljs-title">xiyuanyang</span><br>    Port <span class="hljs-number">58122</span><br>    ProxyCommand ssh -q -W %h:%p db13<br></code></pre></td></tr></table></figure>
+
+<p>换句话说，我们把我们需要连接的远程服务器叫做<strong>db94</strong>，并且确定好了服务器的域名和需要登录的账户以及服务器的网络端口。</p>
+<p>当开始ssh连接的时候，本地首先会会从<code>~/.ssh/known_hosts</code>中寻找相关记录，文件中会储存我们在服务器里面存放的公钥文件，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">debug1: Server host key: ssh-ed25519 SHA256:111<br>debug1: Host <span class="hljs-string">&#x27;[111.111.11.111]:58122&#x27;</span> is known and matches the ED25519 host key.<br></code></pre></td></tr></table></figure>
+
+<p>这就说明<strong>本地找到了对应的服务器</strong>，现在我们需要尝试登录。</p>
+<p>我们会尝试自己在本地的多个密钥文件，看是否和<strong>服务器给出的公钥文件</strong>相匹配。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">debug1: Offering public key: /home/xiyuanyang/.ssh/id_ed25519<br>debug1: Server accepts key: /home/xiyuanyang/.ssh/id_ed25519<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这就是ssh中的<strong>公钥认证</strong>环节，可以实现及其安全的<strong>免密登录</strong>。</p>
+</blockquote>
+<p>接下来，<strong>服务器</strong>认证了本地是正确的人！因此会打开一个加密会话实现隧道传输。</p>
+<p>如果你是第一次登录服务器，可能会看到如下的信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">The authenticity of host <span class="hljs-string">&#x27;[111.111.11.111]:58122 (&lt;no hostip for proxy command&gt;)&#x27;</span> can<span class="hljs-string">&#x27;t be established.</span><br><span class="hljs-string">ED25519 key fingerprint is SHA256:example.</span><br><span class="hljs-string">This key is not known by any other names.</span><br><span class="hljs-string">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="hljs-string">Warning: Permanently added &#x27;</span>[111.111.11.111]:58122<span class="hljs-string">&#x27; (ED25519) to the list of known hosts.</span><br></code></pre></td></tr></table></figure>
+
+<p>因为是第一次登录，因此本地无法在过去自己的“登录历史”中找到对应服务器的公钥，因此需要询问用户<strong>是否为可信任</strong>的公钥。用户信任之后公钥就是自动保存到<code>.ssh/known_hosts</code>中。</p>
+<p>接下来的过程和之前的完全相同。</p>
+<h3 id="How-is-it-Safe"><a href="#How-is-it-Safe" class="headerlink" title="How is it Safe?"></a>How is it Safe?</h3><p>服务器和本地的通讯的关键就在于<strong>密钥对</strong>的匹配。因此，只要保证自己的私钥不被泄漏，理论上就是安全的。</p>
+<p>不过理论上你是可以登录到别人的账户上面的，如果没有permission denied的话。你可以将自己的公钥添加到其他用户的 <code>~/.ssh/authorized_keys</code> 文件中，从而允许你用对应的私钥登录他们的账户。<strong>不推荐这样干</strong>。</p>
+<p>如果服务器发生了重置，旧的公钥将会被全部丢弃，本地电脑之前连接过旧服务器，保存了旧的公钥。服务器重置后，新密钥和本地记录的旧密钥不匹配，SSH 认为这可能是中间人攻击（有人冒充服务器），所以强制报错。因此需要重置自己本地的knownhosts的记录，就相当于在本地也删除旧的记录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -f ~/.ssh/known_hosts -R <span class="hljs-string">&quot;[192.168.28.205]:58122&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="Operations"><a href="#Operations" class="headerlink" title="Operations"></a>Operations</h2><p>首先我们需要在本地生成一个ssh密钥：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t ed25519 -C <span class="hljs-string">&quot;yangxiyuan@sjtu.edu.cn&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><code>ssh-keygen</code> 是一个用于生成、管理和转换 SSH（Secure Shell）密钥对的命令行工具。SSH 密钥对由一个公钥和一个私钥组成，通常用于安全地连接到远程服务器。</p>
+<ul>
+<li><code>-t ed25519</code>: 选择的ssh加密算法</li>
+<li><code>-C</code> 为了标识的注释。</li>
+</ul>
+<p>会得到<code>id_ed25519</code>和<code>id_ed25519.pub</code>两个文件存储在<code>.ssh</code>文件夹中。</p>
+<p><code>id_ed25519.pub</code>可能长的像这样子：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEXSC79Qd1UsSlv6yrfm+TLXSKCJQzjHGm95bgAPUUni yangxiyuan@sjtu.edu.cn<br></code></pre></td></tr></table></figure>
+
+<div class="note note-danger">
+            <p><strong>不要向任何网站，任何人，任何ai</strong>泄漏你的SSH私钥！<code>id_ed25519</code>文件<strong>是私钥文件</strong>，只需要存储在本地机器上做身份认证就行了，但是公钥文件<code>id_ed25519.pub</code>是需要给别人看的。</p>
+          </div>
+
+<h2 id="scp-for-File-Transfer"><a href="#scp-for-File-Transfer" class="headerlink" title="scp for File Transfer"></a><code>scp</code> for File Transfer</h2><p>使用scp工具可以快速实现本地文件和远程服务器文件的快速传递。</p>
+<blockquote>
+<p>注意：<strong>这些命令都需要在本地执行</strong>！</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp -r -P 58122 alpaca_eval xiyuanyang@db95-db13:/GPFS/rhome/xiyuanyang/Agents/Agent_Test_alpaca<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>scp -r</code> means recursively <strong>for folders</strong>. (For single files, you can just remove that!)</li>
+<li><code>-P</code>: <strong>Port</strong> for the remote machine! Very Important!<ul>
+<li>You can check this in the <code>config</code> file in <code>.ssh</code>. You can see the following <strong>Port</strong>.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs config">Host db94<br>    HostName 111111111<br>    User xiyuanyang<br>    Port 58122<br>    ProxyCommand ssh -q -W %h:%p db13<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>alpaca_eval</code>: The folder to be transferred <strong>locally</strong>.</li>
+<li><code>xiyuanyang@db95-db13</code>: Your account in the remote host! (See <code>user</code> and <code>Host</code> in the config settings above)</li>
+<li><code>/GPFS/rhome/xiyuanyang/Agents/Agent_Test_alpaca</code>: The target location in the remote host. (Absolute path recommended using <code>pwd</code> command).</li>
+</ul>
+<p>当然， 你也可以<strong>反过来</strong>，把远端的文件传输到本地。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp -r -P 58122 xiyuanyang@db95-db13:/GPFS/rhome/xiyuanyang/DL_learn/Basic_AI/KaggleCom_0410/Lec_10/submission.csv /mnt/d/DOWNLOADS<br></code></pre></td></tr></table></figure>
+
+<p>Another example:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp -P 53392 sample_submission.csv root@connect.bjc1.seetacloud.com ~/test/data<br></code></pre></td></tr></table></figure>
+
+<p>Use <code>-v</code>, <code>-vv</code>, <code>-vvv</code> for more debugging info when some errors occurred.</p>
+<h2 id="Other-Info"><a href="#Other-Info" class="headerlink" title="Other Info"></a>Other Info</h2><ul>
+<li>注意不要随便改动终端的环境（例如把bash换成zsh），因为scp可能会出问题。</li>
+<li>如果实验室远程服务器重置过，密钥就会失效。<strong>为了强安全性</strong>，我们需要在本地更换密钥。（见上文SSH安全）</li>
+</ul>
+<h1 id="Introduction-to-Encryption"><a href="#Introduction-to-Encryption" class="headerlink" title="Introduction to Encryption"></a>Introduction to Encryption</h1><p>Lecture Notes for Missing Semester, last course.</p>
+<p>To de done in the future.</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Efficient-Tools/" class="category-chain-item">Efficient Tools</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+      
+        <a href="/tags/Missing-Semester/" class="print-no-link">#Missing Semester</a>
+      
+        <a href="/tags/SSH/" class="print-no-link">#SSH</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Secure Shell and Encryption</div>
+      <div>https://xiyuanyang-code.github.io/posts/Secure-Shell-and-Encryption/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>May 13, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>May 13, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/DataStructure-Graph-SSSP-problem/" title="DataStructure Graph SSSP Problem">
+                        <span class="hidden-mobile">DataStructure Graph SSSP Problem</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <a href="https://xiyuanyang-code.github.io/Loving-Count/" target="_blank" rel="nofollow noopener"><span>❤️</span></a> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
