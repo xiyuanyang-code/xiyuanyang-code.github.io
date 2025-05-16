@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/graphintro.jpg">
 <meta property="article:published_time" content="2025-05-12T03:20:30.000Z">
-<meta property="article:modified_time" content="2025-05-15T13:37:07.837Z">
+<meta property="article:modified_time" content="2025-05-16T08:43:58.260Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Finished">
@@ -353,7 +353,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          865 words
+          1.2k words
         
       </span>
     
@@ -805,8 +805,33 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h1 id="SSSP-Problems"><a href="#SSSP-Problems" class="headerlink" title="SSSP Problems"></a>SSSP Problems</h1><p>Especially for Weighted Shorted Path Problem</p>
+<h1 id="SSSP-Problems-for-unweighted-graphs"><a href="#SSSP-Problems-for-unweighted-graphs" class="headerlink" title="SSSP Problems for unweighted graphs"></a>SSSP Problems for unweighted graphs</h1><p>We still focus on <strong>SSSP</strong> problems: single source shortest path. (We focus on directed graphs)</p>
+<p>We will use <strong>BFS</strong> algorithm and <strong>Dynamic Programming</strong> to dynamically update the value from the beginning.</p>
+<ul>
+<li>maintain a queue for BFS:<ul>
+<li><strong>Attention</strong>: this queue holds the increasing order for the distance from the single source vertex $w$.</li>
+<li>Hence, for every vertex, the first time it appears in the queue is the shortest path to the source vertex $w$.</li>
+</ul>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://youtu.be/e7unEsKHW54?si=rWUs4ZoeDVVxkNze">You can see this video for more information</a></p>
+<p>During the updating process, you can recording the information of <strong>its adjacency</strong> for the single path. Hence, despite the SSSP problems, we can still know <strong>how to go to the source</strong> via the found shortest path.</p>
+<p><img src="https://s1.imagehub.cc/images/2025/05/16/5c4586855715ff28cf6b9a17e573fad8.png" srcset="/img/loading.gif" lazyload alt="Pseudo Code"></p>
+<p><img src="https://s1.imagehub.cc/images/2025/05/16/f3d907a836b236d9d0d92d7358bb7166.png" srcset="/img/loading.gif" lazyload alt="Pseudo Code"></p>
+<blockquote>
+<p>The Slides are from: <a target="_blank" rel="noopener" href="https://github.com/wangshusen/AdvancedAlgorithms">https://github.com/wangshusen/AdvancedAlgorithms</a>, really a great course for learning data structures!</p>
+</blockquote>
+<h2 id="Time-Complexity"><a href="#Time-Complexity" class="headerlink" title="Time Complexity"></a>Time Complexity</h2><p>Time complexity:</p>
+<ul>
+<li>Initialization: $O(|V|)$</li>
+<li>Queue Operations: $O(|V|)$<ul>
+<li>Every vertex will be euqueued and dequeued only once.</li>
+</ul>
+</li>
+<li>Every Edge will be visited only once: $O(|E|)$.</li>
+</ul>
+<p>Hence, the time complexity is $O(|V| + |E|)$.</p>
+<h1 id="SSSP-Problems-for-weighted-graphs"><a href="#SSSP-Problems-for-weighted-graphs" class="headerlink" title="SSSP Problems for weighted graphs"></a>SSSP Problems for weighted graphs</h1><p>Especially for Weighted Shorted Path Problem</p>
 <blockquote>
 <p>For unweighted shorted path problems, we can simply use <strong>BFS</strong> algorithms to solve it!</p>
 </blockquote>
@@ -906,11 +931,45 @@
 <p>Use <strong>graph duplication</strong>: make multiple copies (or levels) of the graph.</p>
 <p>$|V| + 1$ levels: vertex $v_k $ in level $ k$ represents reaching vertex$ v$ from $s$ using $≤ k$ edges.</p>
 <p>If edges only increase in levels, we can use <strong>DAG</strong>!</p>
-<p><img src="C:\Users\29349\AppData\Roaming\Typora\typora-user-images\image-20250515212946883.png" srcset="/img/loading.gif" lazyload alt="A demo"></p>
+<p><img src="https://s1.imagehub.cc/images/2025/05/16/66cf8f610ae4cd99eacbba863e225873.png" srcset="/img/loading.gif" lazyload alt="DAG"></p>
 <p>For the graph $G’$, it has $|V|\times |V + 1|$ vertices and $|V| \times |E|$ edges. And it is a directed graph! We can solve it using DAG with linear time. $O((|V| \times |E|)\times |V|)$.</p>
 <p>Then we can use $\delta_{|V|}(s,v) &lt; \delta_{|V|-1}(s,v)$ to judge whether it is $-\infty$.</p>
 <p>$$\delta_k(s,v) &#x3D; \delta’(s,v_k)$$.</p>
-<h2 id="Dijkstra-Algorithm"><a href="#Dijkstra-Algorithm" class="headerlink" title="Dijkstra Algorithm"></a>Dijkstra Algorithm</h2>
+<h2 id="Dijkstra-Algorithm"><a href="#Dijkstra-Algorithm" class="headerlink" title="Dijkstra Algorithm"></a>Dijkstra Algorithm</h2><ul>
+<li>DAG:<ul>
+<li>Best performance, linear time: $O(|V| + |E|)$.</li>
+<li><strong>Restriction</strong>: cannot handle with circle path.</li>
+</ul>
+</li>
+<li>Bellman-Ford:<ul>
+<li>$O(|V|(|V| + |E|))$</li>
+<li>for all kinds of graphs, general.</li>
+</ul>
+</li>
+<li><strong>Dijkstra Algorithms</strong>: for non-negative weights, almost linear.</li>
+</ul>
+<h3 id="Intuition"><a href="#Intuition" class="headerlink" title="Intuition"></a>Intuition</h3><p>We use <strong>Greedy Algorithms</strong> to handle the single shortest path problem. It makes <strong>locally optimal choices at each step</strong> with the intent of finding a globally optimal solution. </p>
+<p>Like the DAG algorithms, we will start from the $w$, and maintain a <strong>Priority Queue</strong> to implement the greedy algorithms. </p>
+<div class="note note-primary">
+            <p>We will also use the <strong>triangle inequality</strong>, which is of the core principle for the greedy algorithms:</p><p>$$\text{dist}[v] \le \text{dist}[u] + w(u,v)$$</p><p>where $\text{dist}[u]$ means the shortest length from $w$ to $u$.</p><p>If we can ensure the correct path of $u$ will be calculated before the $v$, then we can ensure the rightness of $\text{dist}[v]$!</p>
+          </div>
+
+<h3 id="Pseudo-Code"><a href="#Pseudo-Code" class="headerlink" title="Pseudo Code"></a>Pseudo Code</h3><p><img src="https://s1.imagehub.cc/images/2025/05/16/c000ec13dfde44aee058daac9e582202.png" srcset="/img/loading.gif" lazyload alt="Pseudo Code"></p>
+<p><img src="https://s1.imagehub.cc/images/2025/05/16/e5070854787bd869bde7bb2895715ae5.png" srcset="/img/loading.gif" lazyload alt="Loops"></p>
+<ul>
+<li><strong>How greedy?</strong>: If $\text{dist}[v] \ge \text{dist}[u] + w(u,v)$, then upgrade the $\text{dist}[v]$ for the shorter path! It means that we don’t need to get the correct path for its first time! We can upgrade this during the upcoming process, and for the existence of the shortest path, we can unsure <strong>all the paths can be updated correctedly!</strong></li>
+</ul>
+<h3 id="Time-complexity"><a href="#Time-complexity" class="headerlink" title="Time complexity"></a>Time complexity</h3><ul>
+<li>enqueue and dequeue: $O(|V| + |E|)$</li>
+<li>For the enqueue and dequeue: $O(\log|V|)$</li>
+</ul>
+<p>Hence the total time complexity: $O((|V| + |E|)\log(|V|))$</p>
+<p>If we use Fibonacci heap: $O(|E| + |V|\log|V|)$</p>
+<h3 id="Restrictions"><a href="#Restrictions" class="headerlink" title="Restrictions"></a>Restrictions</h3><h4 id="Why-no-negative"><a href="#Why-no-negative" class="headerlink" title="Why no-negative?"></a>Why no-negative?</h4><p>Because we need to ensure the <strong>greedy search</strong> is correct!</p>
+<div class="note note-primary">
+            <p>实际上，上文的<strong>Dijkstra</strong>算法是可以处理负权边的，因为其一个节点可以访问多次，代表着其值可以被不断的更新。并且我们会保证<strong>有穷最短路径</strong>的走法一定会被走到，因此我们可以保证最后答案的正确性。</p><p>但是在原始的Dijkstra算法中，会记录<strong>每一个节点</strong>是否被访问，并且不使用优先级队列来实现。（这个不同算法的实现方式不一样），如果记录每一个节点是否被访问，这个时候为了保证贪心算法的正确性，我们不可以处理负权边。</p><blockquote><p>当然，肯定不可以处理 negative weight cycles.</p></blockquote>
+          </div>
+
                 
               </div>
             
@@ -982,7 +1041,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 15, 2025</div>
+          <div>May 16, 2025</div>
         </div>
       
       
