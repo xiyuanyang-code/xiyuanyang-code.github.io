@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/dpexperience.png">
 <meta property="article:published_time" content="2025-03-10T11:22:02.000Z">
-<meta property="article:modified_time" content="2025-03-11T10:56:19.725Z">
+<meta property="article:modified_time" content="2025-05-18T13:18:56.362Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta property="article:tag" content="Deep Learning">
@@ -353,7 +353,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          364 words
+          776 words
         
       </span>
     
@@ -609,6 +609,17 @@
 <li><p><strong>Version Control</strong>:<br>Add to <code>.gitignore</code>:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">your_project/data/<br>your_project/models/<br>your_project/outputs/<br></code></pre></td></tr></table></figure></li>
 </ol>
+<h2 id="Slices-in-Torch"><a href="#Slices-in-Torch" class="headerlink" title="Slices in Torch"></a>Slices in Torch</h2><p>Pytorch的切片操作和C++等语法风格存在巨大的差异。</p>
+<p>在C++中，假设<code>matrix</code>是一个二维数组，那么<code>matrix[i][j]</code>就会返回这个数组在$(i, j)$位置处的元素的值。（<strong>从本质上讲就是对一个二级指针取两次引用</strong>）</p>
+<p>在Python中，<code>[]</code>为认为是<strong>切片操作</strong>，或者形式化地说就是<strong>取原先数组的一个部分</strong>，从实现上将就是实现<strong>原数组的浅拷贝过程</strong>。对于Torch的张量也是同样如此。并且Python中<strong>切片</strong>是可以叠加的，换句话说，在Python中<code>matrix[i][j]</code>在本质上是首先切片一个数组$i$行（<strong>因为行是第一个维度</strong>），接着这个数组就从$(m \times n)$的二维数组变成了$n$的一维数组，接下来第二次切片在原先切片的基础之上取$j$，等效地取出$A[i][j]$中的元素。</p>
+<p>但是在很多时候这会产生误会！例如我希望取这个矩阵的<strong>第一列</strong>，很显然的想法是<code>matrix[:][0]</code>，但是很遗憾，这会取出<strong>第一行</strong>。因为切片操作是按顺序进行的，<code>matrix[:]</code>相当于返回这个原来的数组，nothing changes.</p>
+<p>正确的做法：<code>matrix[:, 0]</code></p>
+<p>例如这个代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">slice_indexing_practice</span>(<span class="hljs-params">x: Tensor</span>) -&gt; <span class="hljs-type">Tuple</span>[Tensor, Tensor, Tensor, Tensor]:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Given a two-dimensional tensor x, extract and return several subtensors to</span><br><span class="hljs-string">    practice with slice indexing. Each tensor should be created using a single</span><br><span class="hljs-string">    slice indexing operation.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    The input tensor should not be modified.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Args:</span><br><span class="hljs-string">        x: Tensor of shape (M, N) -- M rows, N columns with M &gt;= 3 and N &gt;= 5.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">        A tuple of:</span><br><span class="hljs-string">        - last_row: Tensor of shape (N,) giving the last row of x. It should be</span><br><span class="hljs-string">          a one-dimensional tensor.</span><br><span class="hljs-string">        - third_col: Tensor of shape (M, 1) giving the third column of x. It</span><br><span class="hljs-string">          should be a two-dimensional tensor.</span><br><span class="hljs-string">        - first_two_rows_three_cols: Tensor of shape (2, 3) giving the data in</span><br><span class="hljs-string">          the first two rows and first three columns of x.</span><br><span class="hljs-string">        - even_rows_odd_cols: Two-dimensional tensor containing the elements in</span><br><span class="hljs-string">          the even-valued rows and odd-valued columns of x.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">assert</span> x.shape[<span class="hljs-number">0</span>] &gt;= <span class="hljs-number">3</span><br>    <span class="hljs-keyword">assert</span> x.shape[<span class="hljs-number">1</span>] &gt;= <span class="hljs-number">5</span><br>    last_row = x[-<span class="hljs-number">1</span>]<br>    third_col = x[:, <span class="hljs-number">2</span>]<br>    first_two_rows_three_cols = x[:<span class="hljs-number">2</span>, :<span class="hljs-number">3</span>]<br>    even_rows_odd_cols = x[::<span class="hljs-number">2</span>, <span class="hljs-number">1</span>::<span class="hljs-number">2</span>] <br>    out = (<br>        last_row,<br>        third_col,<br>        first_two_rows_three_cols,<br>        even_rows_odd_cols,<br>    )<br>    <span class="hljs-keyword">return</span> out <br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>节选自 <a target="_blank" rel="noopener" href="https://web.eecs.umich.edu/~justincj/teaching/eecs498/WI2022/assignment1.html">umich CV assignment 1</a></p>
+</blockquote>
 
                 
               </div>
@@ -681,7 +692,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 11, 2025</div>
+          <div>May 18, 2025</div>
         </div>
       
       
@@ -824,6 +835,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -1016,6 +1033,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/js/leancloud.js" ></script>
 
