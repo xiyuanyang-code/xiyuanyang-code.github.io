@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/graphintro.jpg">
 <meta property="article:published_time" content="2025-05-12T03:20:30.000Z">
-<meta property="article:modified_time" content="2025-05-18T16:11:53.241Z">
+<meta property="article:modified_time" content="2025-05-19T13:47:35.169Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Finished">
@@ -353,7 +353,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k words
+          2.1k words
         
       </span>
     
@@ -414,7 +414,7 @@
         aria-expanded="true"
       >
         Algorithm
-        <span class="list-group-count">(39)</span>
+        <span class="list-group-count">(40)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -578,7 +578,7 @@
         aria-expanded="true"
       >
         SJTU CS0501(H) Data Structure
-        <span class="list-group-count">(30)</span>
+        <span class="list-group-count">(31)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -860,6 +860,15 @@
         </a>
       
     
+      
+      
+        <a href="/posts/DataStructure-Graph-SCC/" title="DataStructure Graph SCC"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DataStructure Graph SCC</span>
+        </a>
+      
+    
   </div>
 
         
@@ -1022,7 +1031,7 @@
 <p>For the graph $G’$, it has $|V|\times |V + 1|$ vertices and $|V| \times |E|$ edges. And it is a directed graph! We can solve it using DAG with linear time. $O((|V| \times |E|)\times |V|)$.</p>
 <p>Then we can use $\delta_{|V|}(s,v) &lt; \delta_{|V|-1}(s,v)$ to judge whether it is $-\infty$.</p>
 <p>$$\delta_k(s,v) &#x3D; \delta’(s,v_k)$$.</p>
-<h2 id="Dijkstra-Algorithm"><a href="#Dijkstra-Algorithm" class="headerlink" title="Dijkstra Algorithm"></a>Dijkstra Algorithm</h2><ul>
+<h3 id="Fix-Bellman-Ford-Version-2"><a href="#Fix-Bellman-Ford-Version-2" class="headerlink" title="Fix: Bellman-Ford Version 2"></a>Fix: Bellman-Ford Version 2</h3><h2 id="Dijkstra-Algorithm"><a href="#Dijkstra-Algorithm" class="headerlink" title="Dijkstra Algorithm"></a>Dijkstra Algorithm</h2><ul>
 <li>DAG:<ul>
 <li>Best performance, linear time: $O(|V| + |E|)$.</li>
 <li><strong>Restriction</strong>: cannot handle with circle path.</li>
@@ -1035,7 +1044,11 @@
 </li>
 <li><strong>Dijkstra Algorithms</strong>: for non-negative weights, almost linear.</li>
 </ul>
-<h3 id="Intuition"><a href="#Intuition" class="headerlink" title="Intuition"></a>Intuition</h3><p>We use <strong>Greedy Algorithms</strong> to handle the single shortest path problem. It makes <strong>locally optimal choices at each step</strong> with the intent of finding a globally optimal solution. </p>
+<h3 id="Intuition"><a href="#Intuition" class="headerlink" title="Intuition"></a>Intuition</h3><div class="note note-primary">
+            <p>Finally, I know it is <strong>SPFA</strong>…</p>
+          </div>
+
+<p>We use <strong>Greedy Algorithms</strong> to handle the single shortest path problem. It makes <strong>locally optimal choices at each step</strong> with the intent of finding a globally optimal solution. </p>
 <p>Like the DAG algorithms, we will start from the $w$, and maintain a <strong>Priority Queue</strong> to implement the greedy algorithms. </p>
 <div class="note note-primary">
             <p>We will also use the <strong>triangle inequality</strong>, which is of the core principle for the greedy algorithms:</p><p>$$\text{dist}[v] \le \text{dist}[u] + w(u,v)$$</p><p>where $\text{dist}[u]$ means the shortest length from $w$ to $u$.</p><p>If we can ensure the correct path of $u$ will be calculated before the $v$, then we can ensure the rightness of $\text{dist}[v]$!</p>
@@ -1056,6 +1069,51 @@
 <div class="note note-primary">
             <p>实际上，上文的<strong>Dijkstra</strong>算法是可以处理负权边的，因为其一个节点可以访问多次，代表着其值可以被不断的更新。并且我们会保证<strong>有穷最短路径</strong>的走法一定会被走到，因此我们可以保证最后答案的正确性。</p><p>但是在原始的Dijkstra算法中，会记录<strong>每一个节点</strong>是否被访问，并且不使用优先级队列来实现。（这个不同算法的实现方式不一样），如果记录每一个节点是否被访问，这个时候为了保证贪心算法的正确性，我们不可以处理负权边。</p><blockquote><p>当然，肯定不可以处理 negative weight cycles.</p></blockquote>
           </div>
+
+<h2 id="Floyd-Algorithms"><a href="#Floyd-Algorithms" class="headerlink" title="Floyd Algorithms"></a>Floyd Algorithms</h2><p>在上文中的若干算法都是为了求解<strong>单源最短路问题</strong>，即Single source shortest path algorithms. 几种算法的时间复杂度如下：</p>
+<ul>
+<li><p>传统的Dijkstra：$O(|E| + |V|\log|V|)$</p>
+</li>
+<li><p>Bellman-Ford: $O(|E||V|)$</p>
+<ul>
+<li>SPFA: $O(k|V|)$ (在大多数情况下，$k &lt;&lt; |E|$)</li>
+</ul>
+</li>
+<li><p>DAG: $O(|E| + |V|)$</p>
+</li>
+</ul>
+<p>如果把问题推广，对于单词查询我希望任意给出两个节点$u$, $v$求其最短路，这如何实现？</p>
+<p>如果使用上面的算法，复杂度如下：</p>
+<ul>
+<li>Dijkstra * $|V|$ times: $O(|V|^2\log|V| + |E|)$</li>
+<li>Bellman Ford: $O(|V|^2|E|)$</li>
+</ul>
+<p>下面介绍<strong>Floyd</strong>算法，基于<strong>动态规划策略</strong>，时间复杂度为$O(|V|^3)$，这在稀疏图中可以达到很高的效率。</p>
+<p>我们定义一个数组 <code>f[k][x][y]</code>，表示只允许经过结点$1$到$k$，结点$x$到结点$y$的最短路长度。</p>
+<p>很显然，<code>f[n][x][y]</code> 就是结点$x$到结点$y$的最短路长度。我们的目标就是在递增$n$的同时记录信息。</p>
+<h3 id="状态转移方程"><a href="#状态转移方程" class="headerlink" title="状态转移方程"></a>状态转移方程</h3><p>$$f[k][x][y] &#x3D; min(f[k-1][x][y], f[k-1][x][k]+f[k-1][k][y])$$</p>
+<p>从$k-1$的节点到允许使用$k$号节点，考虑：</p>
+<ul>
+<li>$k$号节点被用做最短路的路径，即此时的最短路是$x \to \text{kth node} \to y$，根据最短路的性质，$x \to \text{kth node}$的最短路肯定和$x \to y$的最短路是重合的（<strong>因为能保证第k个节点一定在x到y的最短路中</strong>）<ul>
+<li>因此这一项就是: $f[k-1][x][k]+f[k-1][k][y]$</li>
+</ul>
+</li>
+<li>$k$号节点没有被用作最短路的路径，就是$f[k-1][x][y]$.</li>
+</ul>
+<p>这就是Floyd算法的核心！</p>
+<p>不过缺点显而易见：<strong>时空复杂度</strong>都非常高，因为我们需要维护非常庞大的状态数组。我们下面证明数组的第一位没有影响，即：</p>
+<p>$$f[x][y] &#x3D; min(f[x][y], f[x][k]+f[k][y])$$</p>
+<div class="note note-primary">
+            <p>对于给定的 <code>k</code>，当更新 <code>f[k][x][y]</code> 时，涉及的元素总是来自 <code>f[k-1]</code> 数组的第 <code>k</code> 行和第 <code>k</code> 列。然后我们可以发现，对于给定的 <code>k</code>，当更新 <code>f[k][k][y]</code> 或 <code>f[k][x][k]</code>，总是不会发生数值更新，因为按照公式 <code>f[k][k][y] = min(f[k-1][k][y], f[k-1][k][k]+f[k-1][k][y])</code>,<code>f[k-1][k][k]</code> 为 0，因此这个值总是 <code>f[k-1][k][y]</code>，对于 <code>f[k][x][k]</code> 的证明类似。</p><p>因此，如果省略第一维，在给定的 <code>k</code> 下，每个元素的更新中使用到的元素都没有在这次迭代中更新，因此第一维的省略并不会影响结果。</p>
+          </div>
+
+<p>不过三层循环不可以省略，只是对空间的小优化：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span> (k = <span class="hljs-number">1</span>; k &lt;= n; k++) &#123;<br>  <span class="hljs-keyword">for</span> (x = <span class="hljs-number">1</span>; x &lt;= n; x++) &#123;<br>    <span class="hljs-keyword">for</span> (y = <span class="hljs-number">1</span>; y &lt;= n; y++) &#123;<br>      f[x][y] = <span class="hljs-built_in">min</span>(f[x][y], f[x][k] + f[k][y]);<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="拆点"><a href="#拆点" class="headerlink" title="拆点"></a>拆点</h3><p>分层图最短路，如：有$k$次零代价通过一条路径，求总的最小花费。</p>
+<p>同样的，使用状态转移方程，$dis[i][j] &#x3D; \min(\min(dis[\text{from}][j-1]), \min(dis[\text{from}][j] + w))$</p>
+<p>其中$from$是$i$的父亲节点。</p>
+<p>事实上，这个 DP 就相当于把每个结点拆分成了$k+ 1$个结点，每个新结点代表使用不同多次免费通行后到达的原图结点。换句话说，就是每个结点$u_i$表示使用 $i$ 次免费通行权限后到达 $u$ 结点。</p>
 
                 
               </div>
