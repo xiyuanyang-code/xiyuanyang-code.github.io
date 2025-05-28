@@ -1,0 +1,954 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="My Github project - Code Line counter.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Code Line Counter">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Code-Line-Counter/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="My Github project - Code Line counter.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/linecount.jpg">
+<meta property="article:published_time" content="2025-05-28T05:10:47.000Z">
+<meta property="article:modified_time" content="2025-05-28T05:18:38.450Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="Finished">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/linecount.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Code Line Counter - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/posts/Above-All-en/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tag</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/Blog-word-counting/" target="_self">
+                    <i class="iconfont icon-plan"></i>
+                    <span>Status</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/My-Posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All Posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Daily Loggings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Code Line Counter"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-28 13:10" pubdate>
+          May 28, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          439 words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Project"
+        id="heading-9e727fdd3aec8274f46685441900280d" role="tab" data-toggle="collapse" href="#collapse-9e727fdd3aec8274f46685441900280d"
+        aria-expanded="true"
+      >
+        Project
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-9e727fdd3aec8274f46685441900280d"
+           role="tabpanel" aria-labelledby="heading-9e727fdd3aec8274f46685441900280d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Lightweight-speech-recognition-conversion-model/" title="Lightweight-Speech-Recognition-Conversion-Model"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lightweight-Speech-Recognition-Conversion-Model</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/RAG-Blog-Content-Retrieval/" title="RAG-Blog-Content-Retrieval"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">RAG-Blog-Content-Retrieval</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Blog-Update-Fetching-Script/" title="Blog-Update-Fetching-Script"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Blog-Update-Fetching-Script</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/CamelAI-automatic-essay-modification/" title="CamelAI-Automatic-Essay-Modification"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CamelAI-Automatic-Essay-Modification</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/My-Multi-Agents/" title="My Multi-Agents"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">My Multi-Agents</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Blog-Word-Counter/" title="Blog Word Counter"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Blog Word Counter</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Math-Integral-Cheatsheet/" title="Math Integral Cheatsheet"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Math Integral Cheatsheet</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Code-Line-Counter/" title="Code Line Counter"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Code Line Counter</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Code Line Counter</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+
+<h1 id="Code-Line-Counting-Tool"><a href="#Code-Line-Counting-Tool" class="headerlink" title="Code Line Counting Tool"></a>Code Line Counting Tool</h1><h1 id="Repo"><a href="#Repo" class="headerlink" title="Repo"></a>Repo</h1><p><a class="btn" target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Repo-Code-Line-Counting" title="title">Repo</a></p>
+<h1 id="README"><a href="#README" class="headerlink" title="README"></a>README</h1><p>This tool <strong>counts the number of code lines in a repository</strong>, with options to ignore specific folders and filter by file extensions. It logs detailed results to both the console and a log file.</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>Run the script from the command line:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python main.py --path /home/xiyuanyang/ACM_course_DS/Data_structure --file_type <span class="hljs-string">&quot;.cpp&quot;</span> <span class="hljs-string">&quot;.hpp&quot;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>--path</code>: Path to the repository to be counted.</p>
+</li>
+<li><p><code>--file_type</code>: (Optional) List of file extensions to include (e.g., “.py” “.cpp” “.h”). If omitted, all file types are counted.</p>
+</li>
+<li><p><code>--ignored_dir</code>: (Optional) List of subdirectories to ignore.</p>
+</li>
+</ul>
+<h2 id="Log-Output-Example"><a href="#Log-Output-Example" class="headerlink" title="Log Output Example"></a>Log Output Example</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">2025</span>-<span class="hljs-number">05</span>-<span class="hljs-number">27</span> <span class="hljs-number">10</span>:<span class="hljs-number">52</span>:<span class="hljs-number">55</span>,<span class="hljs-number">124</span> - NOTICE - Total lines of code: <span class="hljs-number">12037</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">05</span>-<span class="hljs-number">27</span> <span class="hljs-number">10</span>:<span class="hljs-number">52</span>:<span class="hljs-number">55</span>,<span class="hljs-number">124</span> - NOTICE - Lines per file extension:<br><span class="hljs-attribute">2025</span>-<span class="hljs-number">05</span>-<span class="hljs-number">27</span> <span class="hljs-number">10</span>:<span class="hljs-number">52</span>:<span class="hljs-number">55</span>,<span class="hljs-number">124</span> - NOTICE - .cpp: <span class="hljs-number">8876</span><br><span class="hljs-attribute">2025</span>-<span class="hljs-number">05</span>-<span class="hljs-number">27</span> <span class="hljs-number">10</span>:<span class="hljs-number">52</span>:<span class="hljs-number">55</span>,<span class="hljs-number">125</span> - NOTICE - .hpp: <span class="hljs-number">3161</span><br></code></pre></td></tr></table></figure>
+<p>All results are also saved to a log file in ~&#x2F;.log&#x2F;. </p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><p>Very simple, but very effective!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> argparse<br><span class="hljs-keyword">import</span> logging<br><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime<br><br><span class="hljs-comment"># mkdir os</span><br><span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(<span class="hljs-string">&quot;log&quot;</span>):<br>    os.mkdir(<span class="hljs-string">&quot;log&quot;</span>)<br><br><span class="hljs-comment"># Getting time stamp</span><br>timestamp = datetime.now().strftime(<span class="hljs-string">&quot;%Y%m%d_%H-%M-%S&quot;</span>)<br><br>NOTICE_LEVEL = <span class="hljs-number">25</span><br>logging.addLevelName(NOTICE_LEVEL, <span class="hljs-string">&quot;NOTICE&quot;</span>)<br><br><span class="hljs-comment"># Configure logging</span><br>logging.basicConfig(<br>    level=logging.DEBUG,<br>    <span class="hljs-built_in">format</span>=<span class="hljs-string">&quot;%(asctime)s - %(levelname)s - %(message)s&quot;</span>,<br>    handlers=[<br>        logging.FileHandler(<span class="hljs-string">f&quot;log/code-counting-<span class="hljs-subst">&#123;timestamp&#125;</span>.log&quot;</span>),<br>    ],<br>)<br><br><span class="hljs-comment"># Create a StreamHandler for console output</span><br>console_handler = logging.StreamHandler()<br>console_handler.setLevel(NOTICE_LEVEL)<br>formatter = logging.Formatter(<span class="hljs-string">&quot;%(asctime)s - %(levelname)s - %(message)s&quot;</span>)<br>console_handler.setFormatter(formatter)<br><br><span class="hljs-comment"># Add the console handler to the root logger</span><br>logging.getLogger().addHandler(console_handler)<br>logger = logging.getLogger(__name__)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">count_code_lines</span>(<span class="hljs-params">repo_path, ignored_dirs=<span class="hljs-literal">None</span>, file_types=<span class="hljs-literal">None</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Count the number of code lines in a repository, with options to ignore folders and filter by file extensions.</span><br><span class="hljs-string">    :param repo_path: Repository path</span><br><span class="hljs-string">    :param ignored_dirs: List of directory names to ignore</span><br><span class="hljs-string">    :param file_types: List of file extensions to include (e.g., [&#x27;.py&#x27;, &#x27;.cpp&#x27;]); if None, include all</span><br><span class="hljs-string">    :return: (total_lines, lines_per_extension)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    total_lines = <span class="hljs-number">0</span><br>    lines_per_extension = &#123;&#125;<br><br>    <span class="hljs-keyword">for</span> root, dirs, files <span class="hljs-keyword">in</span> os.walk(repo_path):<br>        <span class="hljs-comment"># Remove directories to ignore</span><br>        dirs[:] = [d <span class="hljs-keyword">for</span> d <span class="hljs-keyword">in</span> dirs <span class="hljs-keyword">if</span> d <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> ignored_dirs]<br><br>        <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> files:<br>            file_name, ext = os.path.splitext(file)<br>            <span class="hljs-keyword">if</span> ext == <span class="hljs-string">&quot;&quot;</span>:<br>                logging.info(<span class="hljs-string">f&quot;Ignoring dotfiles <span class="hljs-subst">&#123;file&#125;</span>&quot;</span>)<br>                <span class="hljs-keyword">continue</span><br>            <span class="hljs-comment"># If file_types is specified, only count those extensions</span><br>            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">not</span> file_types) <span class="hljs-keyword">or</span> (ext <span class="hljs-keyword">in</span> file_types):<br>                file_path = os.path.join(root, file)<br>                <span class="hljs-keyword">try</span>:<br>                    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(file_path, <span class="hljs-string">&quot;r&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) <span class="hljs-keyword">as</span> f:<br>                        lines = f.readlines()<br>                        num_lines = <span class="hljs-built_in">len</span>(lines)<br>                        total_lines += num_lines<br>                        lines_per_extension[ext] = (<br>                            lines_per_extension.get(ext, <span class="hljs-number">0</span>) + num_lines<br>                        )<br>                        logging.info(<span class="hljs-string">f&quot;📄 <span class="hljs-subst">&#123;file_path&#125;</span>: <span class="hljs-subst">&#123;num_lines&#125;</span> lines&quot;</span>)<br>                <span class="hljs-keyword">except</span> UnicodeDecodeError:<br>                    logging.warning(<span class="hljs-string">f&quot;Skipping binary or non-UTF-8 file: <span class="hljs-subst">&#123;file_path&#125;</span>&quot;</span>)<br>                <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>                    logging.error(<span class="hljs-string">f&quot;Error reading <span class="hljs-subst">&#123;file_path&#125;</span>: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br><br>    <span class="hljs-keyword">return</span> total_lines, lines_per_extension<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br><br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;Parser for code-line counting&quot;</span>)<br><br>    parser.add_argument(<br>        <span class="hljs-string">&quot;--path&quot;</span>,<br>        <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>,<br>        default=os.getcwd(),<br>        <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;The path for the repo to be counted&quot;</span>,<br>    )<br><br>    parser.add_argument(<br>        <span class="hljs-string">&quot;--file_type&quot;</span>,<br>        <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>,<br>        default=<span class="hljs-literal">None</span>,<br>        nargs=<span class="hljs-string">&quot;+&quot;</span>,<br>        <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;File types to be selected (e.g. .py .cpp .h)&quot;</span>,<br>    )<br><br>    parser.add_argument(<br>        <span class="hljs-string">&quot;--ignored_dir&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>, nargs=<span class="hljs-string">&quot;+&quot;</span>, default=<span class="hljs-literal">None</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Subdirs to be ignored&quot;</span><br>    )<br><br>    args = parser.parse_args()<br><br>    <span class="hljs-comment"># Prepare parameters</span><br>    file_types = args.file_type <span class="hljs-keyword">if</span> args.file_type <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> <span class="hljs-literal">None</span><br>    repo_path = args.path<br>    ignored_dirs = (<br>        args.ignored_dir<br>        <span class="hljs-keyword">if</span> args.ignored_dir <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span><br>        <span class="hljs-keyword">else</span> [<br>            <span class="hljs-string">&quot;.git&quot;</span>,<br>            <span class="hljs-string">&quot;.history&quot;</span>,<br>            <span class="hljs-string">&quot;.vscode&quot;</span>,<br>            <span class="hljs-string">&quot;build&quot;</span>,<br>            <span class="hljs-string">&quot;__pycache__&quot;</span>,<br>            <span class="hljs-string">&quot;log&quot;</span>,<br>        ]<br>    )<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.isdir(repo_path):<br>        logging.error(<span class="hljs-string">&quot;Invalid path!&quot;</span>)<br>    <span class="hljs-keyword">else</span>:<br>        total, per_ext = count_code_lines(repo_path, ignored_dirs, file_types)<br>        logging.log(NOTICE_LEVEL, <span class="hljs-string">f&quot;Total lines of code: <span class="hljs-subst">&#123;total&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">for</span> ext, count <span class="hljs-keyword">in</span> per_ext.items():<br>            logging.log(NOTICE_LEVEL, <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;ext&#125;</span>: <span class="hljs-subst">&#123;count&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Project/" class="category-chain-item">Project</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Code Line Counter</div>
+      <div>https://xiyuanyang-code.github.io/posts/Code-Line-Counter/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>May 28, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>May 28, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Math-Integral-Cheatsheet/" title="Math Integral Cheatsheet">
+                        <span class="hidden-mobile">Math Integral Cheatsheet</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <a href="https://xiyuanyang-code.github.io/Loving-Count/" target="_blank" rel="nofollow noopener"><span>❤️</span></a> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
