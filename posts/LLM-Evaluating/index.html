@@ -1,0 +1,1112 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="Initial try for LLM evaluating on gsm8k dataset.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LLM Evaluating">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/LLM-Evaluating/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="Initial try for LLM evaluating on gsm8k dataset.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/llmeva.png">
+<meta property="article:published_time" content="2025-05-30T07:31:49.000Z">
+<meta property="article:modified_time" content="2025-05-31T07:22:32.350Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="Finished">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Tutorial">
+<meta property="article:tag" content="LLM">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/llmeva.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>LLM Evaluating - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/posts/Above-All-en/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tag</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/Blog-word-counting/" target="_self">
+                    <i class="iconfont icon-plan"></i>
+                    <span>Status</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/My-Posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All Posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Daily Loggings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="LLM Evaluating"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-30 15:31" pubdate>
+          May 30, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.2k words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Artificial Intelligence"
+        id="heading-5cd2adc9e2a5254e4c1da803519f298b" role="tab" data-toggle="collapse" href="#collapse-5cd2adc9e2a5254e4c1da803519f298b"
+        aria-expanded="true"
+      >
+        Artificial Intelligence
+        <span class="list-group-count">(15)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-5cd2adc9e2a5254e4c1da803519f298b"
+           role="tabpanel" aria-labelledby="heading-5cd2adc9e2a5254e4c1da803519f298b">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Pre-training-Is-Dead/" title="Pre-Training-Is-Dead?"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pre-Training-Is-Dead?</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Deep-Learning-Memo/" title="Deep_Learning_Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Deep_Learning_Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/RL-speeches/" title="RL_speeches"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">RL_speeches</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/AI-Paper-2024/" title="AI-Paper-2024"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AI-Paper-2024</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/RAG-tutorial/" title="RAG-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">RAG-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Imagenet/" title="ImageNet and ILSVRC"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ImageNet and ILSVRC</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLM-Evaluating/" title="LLM Evaluating"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">LLM Evaluating</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AINN"
+        id="heading-8cf999be348db55296cba8c2de931572" role="tab" data-toggle="collapse" href="#collapse-8cf999be348db55296cba8c2de931572"
+        aria-expanded="false"
+      >
+        AINN
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-8cf999be348db55296cba8c2de931572"
+           role="tabpanel" aria-labelledby="heading-8cf999be348db55296cba8c2de931572">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/AIBasis-Neural-Networks/" title="AIBasis_Neural_Networks"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AIBasis_Neural_Networks</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/AINN-Attention/" title="AINN Attention"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AINN Attention</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/AINN-Transformer/" title="AINN Transformer"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AINN Transformer</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="CS294 LLM Agents"
+        id="heading-031f1bdd6c7d4beec5865e47313ba4bf" role="tab" data-toggle="collapse" href="#collapse-031f1bdd6c7d4beec5865e47313ba4bf"
+        aria-expanded="false"
+      >
+        CS294 LLM Agents
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-031f1bdd6c7d4beec5865e47313ba4bf"
+           role="tabpanel" aria-labelledby="heading-031f1bdd6c7d4beec5865e47313ba4bf">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/CS294-1-LLM-Reasoning/" title="CS294-1-LLM-Reasoning"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CS294-1-LLM-Reasoning</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/CS294-3-Autogen/" title="CS294-3-Autogen"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CS294-3-Autogen</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Agents-in-Coding-A-survey/" title="Agents in Coding: A Survey"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Agents in Coding: A Survey</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Torch"
+        id="heading-a8b6ce53a1cdf2ee4d3f16b939029b2b" role="tab" data-toggle="collapse" href="#collapse-a8b6ce53a1cdf2ee4d3f16b939029b2b"
+        aria-expanded="false"
+      >
+        Torch
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a8b6ce53a1cdf2ee4d3f16b939029b2b"
+           role="tabpanel" aria-labelledby="heading-a8b6ce53a1cdf2ee4d3f16b939029b2b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Torch-memo/" title="Torch-Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Torch-Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Torch-Memo-Tensor-Operations/" title="Torch Memo Tensor Operations"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Torch Memo Tensor Operations</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">LLM Evaluating</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="LLM-Evaluating-from-scratch"><a href="#LLM-Evaluating-from-scratch" class="headerlink" title="LLM Evaluating (from scratch)"></a>LLM Evaluating (from scratch)</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>本文将会<strong>演示从零开始</strong>如何部署构建自己的本地（或者在线API调用）LLM并使用Hugging Face上的数据集进行跑分评估，也作为笔者初入LLM领域的学习笔记之一。</p>
+<p>相关代码开源在 <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/LLM_Learn/tree/master/evaluation">我的仓库</a> 中。</p>
+<h2 id="Table-of-contents"><a href="#Table-of-contents" class="headerlink" title="Table of contents"></a>Table of contents</h2><p>我们的代码结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">.<br>├── data<br>├── img<br>├── results<br>└── src<br>    ├── app.py<br>    ├── download.py<br>    ├── evaluate.py<br>    ├── main.py<br>    └── utils.py<br></code></pre></td></tr></table></figure>
+
+<p>可以看到</p>
+<h2 id="Downloading-Datasets"><a href="#Downloading-Datasets" class="headerlink" title="Downloading Datasets"></a>Downloading Datasets</h2><p>我们使用<strong>Hugging Face</strong>下载数据集，为了简单，我们使用<code>openai/gsm8k</code>的经典数据集，来评测本地大模型<code>Llama-3 8B</code>的评分表现。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">download_dataset</span>(<span class="hljs-params">dataset=<span class="hljs-string">&quot;openai/gsm8k&quot;</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;download the dataset online and revert to json file&quot;&quot;&quot;</span><br>    ds = load_dataset(dataset, <span class="hljs-string">&quot;main&quot;</span>)<br><br>    <span class="hljs-keyword">for</span> split <span class="hljs-keyword">in</span> ds:<br>        data = <span class="hljs-built_in">list</span>(ds[split])<br><br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;split&#125;</span>.json&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) <span class="hljs-keyword">as</span> f:<br>            json.dump(data, f, ensure_ascii=<span class="hljs-literal">False</span>, indent=<span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
+
+<p>上面的函数使用了<code>dataset</code>库，故需要加上<code>from datasets import load_dataset</code>来导入相关的库函数。接着讲这个内容存储为<code>json</code>格式存储在本地之后读取。</p>
+<p>当然，对于较大的数据集，也可以直接下载到本地为json格式，参见 <a href="https://xiyuanyang-code.github.io/posts/My-Memo/#Hugging-Face-%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8B%E8%BD%BD">Hugging Face数据集下载</a>。</p>
+<h2 id="Preparing-Models"><a href="#Preparing-Models" class="headerlink" title="Preparing Models"></a>Preparing Models</h2><h3 id="Downloading-Models-and-activating"><a href="#Downloading-Models-and-activating" class="headerlink" title="Downloading Models and activating"></a>Downloading Models and activating</h3><p>我们在这里使用<strong>Llama3-8B</strong>的中小型模型，使用本地部署（建议至少有一块30系以上的显卡），部署的详细过程参见：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/datawhalechina/self-llm/blob/master/models/LLaMA3/01-LLaMA3-8B-Instruct%20FastApi%20%E9%83%A8%E7%BD%B2%E8%B0%83%E7%94%A8.md">Datawhale 大模型本地部署</a></p>
+<h3 id="Preparing-API-keys"><a href="#Preparing-API-keys" class="headerlink" title="Preparing API keys"></a>Preparing API keys</h3><p>对于闭源大模型和缺乏硬件支持的玩家来说，使用<strong>API密钥</strong>进行LLM调用是非常方便且高效的选择。</p>
+<p>对于国内玩家，非常推荐使用 <a target="_blank" rel="noopener" href="https://gpt.zhizengzeng.com/#/my/">智增增</a> 作为API接口的第三方平台。在这个网站上申请得到API Key之后，我们就可以准备激活自己的LLM了。</p>
+<p>首先，我们需要在当前目录下创建一个<code>.env</code>文件，用于后续读取<code>OPENAI_API_KEY</code>和<code>BASE_URL</code>，当然，你也可以直接写在环境变量之中，一劳永逸。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">init_env_file</span>(<span class="hljs-params"></span><br><span class="hljs-params">    env_path=<span class="hljs-string">&quot;.env&quot;</span>,</span><br><span class="hljs-params">    default_content=<span class="hljs-string">&#x27;OPENAI_API_KEY=&quot;1234567 (replace with your own)&quot;\nBASE_URL=&quot;example.chat (replace with your own)&quot;&#x27;</span>,</span><br><span class="hljs-params"></span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(env_path):<br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(env_path, <span class="hljs-string">&quot;w&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) <span class="hljs-keyword">as</span> f:<br>            f.write(default_content)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;WARNING, remember to use your own api secret key&quot;</span>)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">load_api_key</span>():<br>    <span class="hljs-comment"># init api file</span><br>    init_env_file()<br><br>    <span class="hljs-keyword">import</span> dotenv<br>    dotenv.load_dotenv(override=<span class="hljs-literal">True</span>)<br>    OPENAI_API_KEY = os.getenv(<span class="hljs-string">&quot;OPENAI_API_KEY&quot;</span>)<br>    BASE_URL = os.getenv(<span class="hljs-string">&quot;BASE_URL&quot;</span>)<br>    <span class="hljs-comment"># print(OPENAI_API_KEY)</span><br>    <span class="hljs-comment"># print(BASE_URL)</span><br>    <span class="hljs-keyword">return</span> OPENAI_API_KEY, BASE_URL<br></code></pre></td></tr></table></figure>
+
+<p>接下来，我们可以实现<code>app.py</code>即构建LLM回话的接口函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> json<br><span class="hljs-keyword">from</span> utils <span class="hljs-keyword">import</span> load_api_key<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_completions_online</span>(<span class="hljs-params">prompt</span>):<br>    <span class="hljs-keyword">from</span> openai <span class="hljs-keyword">import</span> OpenAI<br><br>    OPENAI_API_KEY, BASE_URL = load_api_key()<br>    <span class="hljs-comment"># get prompts:</span><br>    added_prompts = <span class="hljs-string">&quot;For the final answer you have given , please return: &lt;answer&gt;Your final answer&lt;/answer&gt; at the end of your response, remember you are only allowed to return a float number! For example, 18 or 18.0 is allowed but $18 is not allowed&quot;</span><br><br>    client = OpenAI(api_key=OPENAI_API_KEY, base_url=BASE_URL)<br>    resp = client.chat.completions.create(<br>        model=<span class="hljs-string">&quot;gpt-4o-mini&quot;</span>,<br>        messages=[<br>            &#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;You are a helpful assistant.&quot;</span>&#125;,<br>            &#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: prompt + added_prompts&#125;,<br>        ],<br>    )<br>    <span class="hljs-keyword">return</span> resp.choices[<span class="hljs-number">0</span>].message.content<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_completions_offline</span>(<span class="hljs-params">prompt</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;get completions from the local host LLMs</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Args:</span><br><span class="hljs-string">        prompt (str): Given prompts into the LLM</span><br><span class="hljs-string">        max_length (int, optional): max length ofn single query. Defaults to 100.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">        str: final response from the model</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    headers = &#123;<span class="hljs-string">&quot;Content-Type&quot;</span>: <span class="hljs-string">&quot;application/json&quot;</span>&#125;<br>    max_length = <span class="hljs-number">100</span><br><br>    <span class="hljs-comment"># get prompts:</span><br>    added_prompts = <span class="hljs-string">&quot;For the final answer you have given , please return: &lt;answer&gt;Your final answer&lt;/answer&gt; at the end of your response, remember you are only allowed to return a float number! For example, 18 or 18.0 is allowed but $18 is not allowed&quot;</span><br><br>    data = &#123;<span class="hljs-string">&quot;prompt&quot;</span>: prompt + added_prompts, <span class="hljs-string">&quot;max_length&quot;</span>: max_length&#125;<br>    response = requests.post(<br>        url=<span class="hljs-string">&quot;http://127.0.0.1:6005&quot;</span>,<br>        headers=headers,<br>        data=json.dumps(data),<br>        proxies=&#123;<span class="hljs-string">&quot;http&quot;</span>: <span class="hljs-literal">None</span>, <span class="hljs-string">&quot;https&quot;</span>: <span class="hljs-literal">None</span>&#125;,<br>    )<br><br>    <span class="hljs-keyword">return</span> response.json().get(<span class="hljs-string">&quot;response&quot;</span>, <span class="hljs-string">&quot;No response from model&quot;</span>)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_completions</span>(<span class="hljs-params">prompt, <span class="hljs-built_in">type</span>: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;offline&quot;</span></span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span> == <span class="hljs-string">&quot;online&quot;</span>:<br>        <span class="hljs-keyword">return</span> get_completions_online(prompt)<br>    <span class="hljs-keyword">elif</span> <span class="hljs-built_in">type</span> == <span class="hljs-string">&quot;offline&quot;</span>:<br>        <span class="hljs-keyword">return</span> get_completions_offline(prompt)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-built_in">print</span>(get_completions_online(<span class="hljs-string">&quot;Hello, introduce yourself&quot;</span>))<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="Evaluating"><a href="#Evaluating" class="headerlink" title="Evaluating"></a>Evaluating</h2><p>准备好了LLM和数据集，接下来我们该给LLM评测了，相关评测的代码写在了<code>evaluat.py</code>函数里面。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> json<br><span class="hljs-keyword">import</span> re<br><br><span class="hljs-keyword">from</span> tqdm <span class="hljs-keyword">import</span> tqdm<br><span class="hljs-keyword">from</span> app <span class="hljs-keyword">import</span> get_completions<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_evaluate</span>(<span class="hljs-params">dataset</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;a small test function for testing LLM&#x27;s response</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Args:</span><br><span class="hljs-string">        dataset (List): the loaded dataset from function load_local_dataset</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    get_completions(<span class="hljs-string">&quot;Hello, introduce yourself!&quot;</span>)<br>    test_results = []<br>    single_evaluate(test_results, dataset[<span class="hljs-number">0</span>])<br>    <span class="hljs-built_in">print</span>(test_results)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">single_evaluate</span>(<span class="hljs-params">results: <span class="hljs-built_in">list</span>, item, status</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;single evaluation for single query</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Args:</span><br><span class="hljs-string">        results (list): result list</span><br><span class="hljs-string">        item (dict): a single query from dataset</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    prompt: <span class="hljs-built_in">str</span> = item[<span class="hljs-string">&quot;question&quot;</span>]<br>    expected_answer: <span class="hljs-built_in">str</span> = item[<span class="hljs-string">&quot;answer&quot;</span>]<br><br>    <span class="hljs-comment"># get LLM&#x27;s response</span><br>    llm_response: <span class="hljs-built_in">str</span> = get_completions(prompt, status)<br><br>    <span class="hljs-keyword">match</span> = re.search(<span class="hljs-string">r&quot;&lt;answer&gt;(.*?)&lt;/answer&gt;(.*)&quot;</span>, llm_response)<br><br>    <span class="hljs-comment"># exception handling</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">match</span> <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>        final_answer = <span class="hljs-string">&quot;LLM fails to response&quot;</span><br>        results.append(<br>            &#123;<br>                <span class="hljs-string">&quot;prompt&quot;</span>: prompt,<br>                <span class="hljs-string">&quot;expected_answer&quot;</span>: expected_answer,<br>                <span class="hljs-string">&quot;model_response&quot;</span>: llm_response,<br>                <span class="hljs-string">&quot;final_answer&quot;</span>: final_answer,<br>                <span class="hljs-comment"># None means LLM fails to output in the right format</span><br>                <span class="hljs-string">&quot;correct&quot;</span>: <span class="hljs-literal">None</span>,<br>            &#125;<br>        )<br>    <span class="hljs-keyword">else</span>:<br>        final_answer = <span class="hljs-built_in">float</span>(<span class="hljs-keyword">match</span>.group(<span class="hljs-number">1</span>).replace(<span class="hljs-string">&quot;,&quot;</span>, <span class="hljs-string">&quot;&quot;</span>))<br>        results.append(<br>            &#123;<br>                <span class="hljs-string">&quot;prompt&quot;</span>: prompt,<br>                <span class="hljs-string">&quot;expected_answer&quot;</span>: expected_answer,<br>                <span class="hljs-string">&quot;model_response&quot;</span>: llm_response,<br>                <span class="hljs-string">&quot;final_answer&quot;</span>: final_answer,<br>                <span class="hljs-string">&quot;correct&quot;</span>: final_answer<br>                == <span class="hljs-built_in">float</span>(expected_answer.split(<span class="hljs-string">&quot;####&quot;</span>)[-<span class="hljs-number">1</span>].strip().replace(<span class="hljs-string">&quot;,&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)),<br>            &#125;<br>        )<br><br><br><span class="hljs-comment"># run tests and evaluate models</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate</span>(<span class="hljs-params">datasets, status</span>):<br>    results = []<br>    <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> tqdm(datasets, desc=<span class="hljs-string">&quot;Evaluating&quot;</span>):<br>        single_evaluate(results=results, item=item, status=status)<br>    <span class="hljs-keyword">return</span> results<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_metrics</span>(<span class="hljs-params">results</span>):<br>    total = <span class="hljs-built_in">len</span>(results)<br>    correct = <span class="hljs-built_in">sum</span>(<span class="hljs-number">1</span> <span class="hljs-keyword">for</span> result <span class="hljs-keyword">in</span> results <span class="hljs-keyword">if</span> result[<span class="hljs-string">&quot;correct&quot;</span>] <span class="hljs-keyword">is</span> <span class="hljs-literal">True</span>)<br>    no_answer = <span class="hljs-built_in">sum</span>(<span class="hljs-number">1</span> <span class="hljs-keyword">for</span> result <span class="hljs-keyword">in</span> results <span class="hljs-keyword">if</span> result[<span class="hljs-string">&quot;correct&quot;</span>] <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>)<br>    accuracy = correct / total <span class="hljs-keyword">if</span> total &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>    no_answer_rate = no_answer / total <span class="hljs-keyword">if</span> total &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>    <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-string">&quot;total&quot;</span>: total,<br>        <span class="hljs-string">&quot;correct&quot;</span>: correct,<br>        <span class="hljs-string">&quot;accuracy&quot;</span>: accuracy,<br>        <span class="hljs-string">&quot;no_answer_rate&quot;</span>: no_answer_rate,<br>    &#125;<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="Main-Function"><a href="#Main-Function" class="headerlink" title="Main Function"></a>Main Function</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> argparse<br><span class="hljs-keyword">import</span> json<br><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime<br><span class="hljs-keyword">from</span> download <span class="hljs-keyword">import</span> download_dataset, download_model, load_local_datasets<br><span class="hljs-keyword">from</span> utils <span class="hljs-keyword">import</span> construct_folder, check_construct, split_print<br><span class="hljs-keyword">from</span> evaluate <span class="hljs-keyword">import</span> evaluate, calculate_metrics<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>(<span class="hljs-params">status</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Welcome! It is LLM 101&quot;</span>)<br><br>    <span class="hljs-comment"># section 1: construct and preparations</span><br>    folders = [<span class="hljs-string">&quot;data&quot;</span>, <span class="hljs-string">&quot;src&quot;</span>, <span class="hljs-string">&quot;img&quot;</span>, <span class="hljs-string">&quot;results&quot;</span>]<br>    construct_folder(folders)<br>    <span class="hljs-keyword">assert</span> check_construct(folders)<br><br>    <span class="hljs-comment"># section 2: activate LLMs</span><br>    <span class="hljs-comment"># ! let just skip that part</span><br>    <span class="hljs-comment"># model_dir = download_model()</span><br>    <span class="hljs-comment"># ! please run the model in the certain port, see https://github.com/datawhalechina/self-llm/blob/master/models/LLaMA3/01-LLaMA3-8B-Instruct%20FastApi%20%E9%83%A8%E7%BD%B2%E8%B0%83%E7%94%A8.md for reference</span><br>    <span class="hljs-comment"># ! we assume that your model is available in localhost: 6005</span><br><br>    <span class="hljs-comment"># section 3: download_data</span><br>    <span class="hljs-comment"># download_dataset()</span><br>    datasets = load_local_datasets(<span class="hljs-string">&quot;data/test.json&quot;</span>)<br><br>    <span class="hljs-comment"># section 4: evaluate</span><br>    timestamp = datetime.now().strftime(<span class="hljs-string">&quot;%Y%m%d%H%M&quot;</span>)<br>    results = evaluate(datasets, status=status)<br>    ans = calculate_metrics(results=results)<br><br>    split_print()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Accuracy: &quot;</span>, ans[<span class="hljs-string">&quot;accuracy&quot;</span>])<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;No answer rate: &quot;</span>, ans[<span class="hljs-string">&quot;no_answer_rate&quot;</span>])<br>    split_print()<br><br>    <span class="hljs-comment"># section 5: save answers</span><br>    result_path = <span class="hljs-string">f&quot;results/ans_<span class="hljs-subst">&#123;timestamp&#125;</span>.json&quot;</span><br>    response_path = <span class="hljs-string">f&quot;results/response_<span class="hljs-subst">&#123;timestamp&#125;</span>.json&quot;</span><br><br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(result_path, <span class="hljs-string">&quot;w&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) <span class="hljs-keyword">as</span> f:<br>        json.dump(ans, f, ensure_ascii=<span class="hljs-literal">False</span>, indent=<span class="hljs-number">2</span>)<br><br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(response_path, <span class="hljs-string">&quot;w&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) <span class="hljs-keyword">as</span> f:<br>        json.dump(results, f, ensure_ascii=<span class="hljs-literal">False</span>, indent=<span class="hljs-number">2</span>)<br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Results saved to <span class="hljs-subst">&#123;result_path&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;All the responses for the LLM saved to <span class="hljs-subst">&#123;response_path&#125;</span>&quot;</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-comment"># add argparse</span><br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;Add arguments for LLM evaluating&quot;</span>)<br><br>    parser.add_argument(<br>        <span class="hljs-string">&quot;--type&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>, default=<span class="hljs-string">&quot;online&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;ways to load LLM, online or offline&quot;</span><br>    )<br>    args = parser.parse_args()<br><br>    status = <span class="hljs-string">&quot;online&quot;</span> <span class="hljs-keyword">if</span> args.<span class="hljs-built_in">type</span> == <span class="hljs-string">&quot;online&quot;</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;offline&quot;</span><br>    main(status)<br><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Artificial-Intelligence/" class="category-chain-item">Artificial Intelligence</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/Tutorial/" class="print-no-link">#Tutorial</a>
+      
+        <a href="/tags/LLM/" class="print-no-link">#LLM</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>LLM Evaluating</div>
+      <div>https://xiyuanyang-code.github.io/posts/LLM-Evaluating/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>May 30, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>May 31, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Code-Line-Counter/" title="Code Line Counter">
+                        <span class="hidden-mobile">Code Line Counter</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <a href="https://xiyuanyang-code.github.io/Loving-Count/" target="_blank" rel="nofollow noopener"><span>❤️</span></a> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
