@@ -64,7 +64,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -406,6 +406,316 @@
     <a href="/posts/Python-cheatsheet/" class="list-group-item list-group-item-action">
       <time>01-15</time>
       <div class="list-group-item-title">Python-Cheatsheet</div>
+    </a>
+  
+</div>
+
+
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <a href="https://xiyuanyang-code.github.io/Loving-Count/" target="_blank" rel="nofollow noopener"><span>❤️</span></a> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
+ist-group-item-title">Algorithm-Memo</div>
+    </a>
+  
+    
+    <a href="/posts/DataStructure-Stack-Queue-Advanced/" class="list-group-item list-group-item-action">
+      <time>03-16</time>
+      <div class="list-group-item-title">DataStructure-Stack-Queue-Advanced</div>
+    </a>
+  
+    
+    <a href="/posts/Algorithm-BinaryTree/" class="list-group-item list-group-item-action">
+      <time>03-12</time>
+      <div class="list-group-item-title">Algorithm-BinaryTree</div>
+    </a>
+  
+    
+    <a href="/posts/Taking-Notes/" class="list-group-item list-group-item-action">
+      <time>03-09</time>
+      <div class="list-group-item-title">Taking-Notes</div>
+    </a>
+  
+    
+    <a href="/posts/Algorithm-Chunking/" class="list-group-item list-group-item-action">
+      <time>03-03</time>
+      <div class="list-group-item-title">Algorithm-Chunking</div>
+    </a>
+  
+    
+    <a href="/posts/Bash-commands/" class="list-group-item list-group-item-action">
+      <time>02-17</time>
+      <div class="list-group-item-title">Bash_commands</div>
+    </a>
+  
+    
+    <a href="/posts/Bash-exercises/" class="list-group-item list-group-item-action">
+      <time>02-16</time>
+      <div class="list-group-item-title">Bash_exercises</div>
+    </a>
+  
+    
+    <a href="/posts/Missing-Semester-Notes/" class="list-group-item list-group-item-action">
+      <time>02-11</time>
+      <div class="list-group-item-title">Missing-Semester-Notes</div>
+    </a>
+  
+    
+    <a href="/posts/DataStructure-Tree-Binary-Tree/" class="list-group-item list-group-item-action">
+      <time>02-06</time>
+      <div class="list-group-item-title">DataStructure-Tree-Binary-Tree</div>
+    </a>
+  
+    
+    <a href="/posts/DataStructure-Tree/" class="list-group-item list-group-item-action">
+      <time>02-06</time>
+      <div class="list-group-item-title">DataStructure-Tree</div>
+    </a>
+  
+    
+    <a href="/posts/Regular-Expression/" class="list-group-item list-group-item-action">
+      <time>02-03</time>
+      <div class="list-group-item-title">Regular-Expression</div>
+    </a>
+  
+    
+    <a href="/posts/DataStructure-String/" class="list-group-item list-group-item-action">
+      <time>02-02</time>
+      <div class="list-group-item-title">DataStructure-String</div>
+    </a>
+  
+    
+    <a href="/posts/Vim-tutorial/" class="list-group-item list-group-item-action">
+      <time>01-23</time>
+      <div class="list-group-item-title">Vim-Tutorial</div>
+    </a>
+  
+    
+    <a href="/posts/DataStructure-Queue/" class="list-group-item list-group-item-action">
+      <time>01-22</time>
+      <div class="list-group-item-title">DataStructure-Queue</div>
+    </a>
+  
+    
+    <a href="/posts/Linux-Bash-Introduction/" class="list-group-item list-group-item-action">
+      <time>01-13</time>
+      <div class="list-group-item-title">Linux-Bash-Introduction</div>
+    </a>
+  
+    
+    <a href="/posts/Tools-Tutorial/" class="list-group-item list-group-item-action">
+      <time>01-05</time>
+      <div class="list-group-item-title">Tools-Tutorial</div>
+    </a>
+  
+    
+      
+      <p class="h5">2024</p>
+    
+    <a href="/posts/Input-and-Output-in-C-plus-plus/" class="list-group-item list-group-item-action">
+      <time>12-28</time>
+      <div class="list-group-item-title">Input-and-Output-in-C-Plus-Plus</div>
+    </a>
+  
+    
+    <a href="/posts/DataStructure-Stack/" class="list-group-item list-group-item-action">
+      <time>12-19</time>
+      <div class="list-group-item-title">DataStructure-Stack</div>
+    </a>
+  
+    
+    <a href="/posts/DataStructure-LinearList/" class="list-group-item list-group-item-action">
+      <time>12-18</time>
+      <div class="list-group-item-title">DataStructure-LinearList</div>
+    </a>
+  
+    
+    <a href="/posts/DataStructure-Tutorial/" class="list-group-item list-group-item-action">
+      <time>12-15</time>
+      <div class="list-group-item-title">DataStructure-Tutorial</div>
+    </a>
+  
+    
+    <a href="/posts/CMake-tutorial-episode2/" class="list-group-item list-group-item-action">
+      <time>12-15</time>
+      <div class="list-group-item-title">CMake-Tutorial-Episode2</div>
+    </a>
+  
+    
+    <a href="/posts/CMake-tutorial1/" class="list-group-item list-group-item-action">
+      <time>12-15</time>
+      <div class="list-group-item-title">CMake-Tutorial1</div>
+    </a>
+  
+    
+    <a href="/posts/Pointers-Arrays-and-Functions/" class="list-group-item list-group-item-action">
+      <time>12-14</time>
+      <div class="list-group-item-title">Pointers-Arrays-and-Functions</div>
+    </a>
+  
+    
+    <a href="/posts/Exception-Handling-in-C-plus-plus/" class="list-group-item list-group-item-action">
+      <time>12-14</time>
+      <div class="list-group-item-title">Exception-Handling-in-C-Plus-Plus</div>
+    </a>
+  
+    
+    <a href="/posts/Code-Reuse-in-OOP/" class="list-group-item list-group-item-action">
+      <time>12-12</time>
+      <div class="list-group-item-title">Code-Reuse-in-OOP</div>
+    </a>
+  
+    
+    <a href="/posts/Class-Inheritance/" class="list-group-item list-group-item-action">
+      <time>12-08</time>
+      <div class="list-group-item-title">Class-Inheritance</div>
+    </a>
+  
+    
+    <a href="/posts/Linked-List-Implementation-Based-on-Structs/" class="list-group-item list-group-item-action">
+      <time>12-07</time>
+      <div class="list-group-item-title">Linked-List-Implementation-Based-on-Structs</div>
+    </a>
+  
+    
+    <a href="/posts/Dynamic-Memory-and-Classes/" class="list-group-item list-group-item-action">
+      <time>12-05</time>
+      <div class="list-group-item-title">Dynamic-Memory-and-Classes</div>
+    </a>
+  
+    
+    <a href="/posts/Introduction-to-OOP/" class="list-group-item list-group-item-action">
+      <time>12-04</time>
+      <div class="list-group-item-title">Introduction-to-OOP</div>
+    </a>
+  
+    
+    <a href="/posts/Algorithm-Introduction/" class="list-group-item list-group-item-action">
+      <time>11-28</time>
+      <div class="list-group-item-title">Algorithm-Introduction</div>
+    </a>
+  
+    
+    <a href="/posts/LaTeX-tutorial/" class="list-group-item list-group-item-action">
+      <time>11-22</time>
+      <div class="list-group-item-title">LaTeX-Tutorial</div>
     </a>
   
 </div>
