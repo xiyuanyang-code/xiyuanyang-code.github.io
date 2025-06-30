@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/attention.jpg">
 <meta property="article:published_time" content="2025-04-29T11:55:46.000Z">
-<meta property="article:modified_time" content="2025-05-18T16:24:05.335Z">
+<meta property="article:modified_time" content="2025-06-24T04:57:32.347Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta property="article:tag" content="Deep Learning">
@@ -344,7 +344,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.4k words
+          7.3k words
         
       </span>
     
@@ -800,6 +800,7 @@
 <p>可以作为一个<strong>注意力评分函数</strong>，用来衡量查询值$x_q$和单个键值$x_i$的相关性。</p>
 <p>我们可以推广到更加高维的空间中：</p>
 <p>考虑查询$\vec{\mathbf{q}} \in \mathbb{R}^q$（在$q$维空间中），我们有$m$个键值对：$(\vec{\mathbf{k_1}}, \vec{\mathbf{v_1}})$, $(\vec{\mathbf{k_2}}, \vec{\mathbf{v_2}})$, … , $(\vec{\mathbf{k_m}}, \vec{\mathbf{v_m}})$, 其中$\vec{\mathbf{k_i}} \in \mathbb{R}^k$, $\vec{\mathbf{v_i}} \in \mathbb{R}^v$。</p>
+<p>注意这里的<strong>键</strong>和<strong>值</strong>都被推广位高维空间下的向量，并且向量可以是不同维度的（可以粗糙的理解：<strong>翻译前后文本语义空间并不相同</strong>）</p>
 <p>那么我们可以做如下的推广计算每一个查询的<strong>权重</strong>。</p>
 <p>$$f(\mathbf{q}, (\mathbf{k_1}, \mathbf{v_1}), \ldots, (\mathbf{k_m}, \mathbf{v_m})) &#x3D; \sum_{i&#x3D;1}^m w_i \mathbf{v}_i \in \mathbb{R}^v$$</p>
 <p>$$f(\mathbf{q}, (\mathbf{k_1}, \mathbf{v_1}), \ldots, (\mathbf{k_m}, \mathbf{v_m})) &#x3D; \sum_{i&#x3D;1}^m \alpha(\mathbf{q}, \mathbf{k_i}) \mathbf{v_i} \in \mathbb{R}^v$$</p>
@@ -807,8 +808,69 @@
 <blockquote>
 <p>注意这里的$w_i$是一个标量，也是$\alpha(\mathbf{q}, \mathbf{k}_i)$的输出。</p>
 </blockquote>
-<p>显然，在更加general的任务上，$q,k,v$的三个维度指标往往不相同。这就导致了<strong>维度不匹配</strong>的情况，单纯的NWKernel公式需要在维度对齐的情况下进行运算（比较两个向量的余弦相似度），因此<strong>后人工作的重点</strong>就是如何设计更好的<strong>注意力评分函数</strong>$\alpha(\mathbf{q}, \mathbf{k}_i)$。下文介绍两种经典的算法：<strong>加性注意力</strong>和<strong>缩放点积注意力</strong>，以及<strong>Bahdanau</strong>注意力。</p>
+<p>显然，在更加general的任务上，$q,k,v$的三个维度指标往往不相同。这就导致了<strong>维度不匹配</strong>的情况，单纯的NWKernel公式需要在维度对齐的情况下进行运算（比较两个向量的余弦相似度），因此<strong>后人工作的重点</strong>就是如何设计更好的 <strong>注意力评分函数</strong> $\alpha(\mathbf{q}, \mathbf{k}_i)$。下文介绍两种经典的算法：<strong>加性注意力</strong>和<strong>缩放点积注意力</strong>，以及<strong>Bahdanau</strong>注意力。</p>
+<blockquote>
+<p>注意力加性函数本身不需要考虑<strong>归一化</strong>的处理方式，因为后面会套一个softmax层。</p>
+</blockquote>
+<h4 id="掩蔽softmax操作"><a href="#掩蔽softmax操作" class="headerlink" title="掩蔽softmax操作"></a>掩蔽softmax操作</h4><p>回到机器翻译的问题上，在使用注意力模型的时候，为了提高效率采用批量处理的形式（方便矩阵并行运算），但是可能会存在同一批次文本序列长度不一致的问题，这个时候常用的方法是<strong>短序列使用特殊字符填充</strong>，即做padding；此外在做序列生成时，我们不希望机器依赖未来的词元做“抄袭”。以上两种情况本质上即为<strong>不希望全部的key被纳入模型考虑的范围内</strong>（例如特殊字符padding的部分&amp;未来词元等），换句话说，我们需要设置有效长度，超过有效长度的键值对<strong>采用掩蔽操作</strong>，忽略其对模型的影响。</p>
+<p>掩蔽的过程在softmax层进行，注意力评分正常计算，但是在进入softmax归一化的时候，对每一个维度设置需要掩蔽的valid_length，因此需要传递进去一个张量，表示每一个批量的valid length，代码见教材，下面给出一个示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># test_tensor 的维度是(2,2,4)</span><br><span class="hljs-built_in">print</span>(masked_softmax(test_tensor, torch.tensor([<span class="hljs-number">2</span>,<span class="hljs-number">3</span>])))<br></code></pre></td></tr></table></figure>
 
+<blockquote>
+<p>这里第一个维度2是batchsize，第2个维度是query的数量，第三个维度是键的数量，这里有点容易搞混。</p>
+<p>这里做softmax是对最后一个维度的行向量做的，因此在下面的结果也可以看到每一行的和为1</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs lua">tensor(<span class="hljs-string">[[[ 0.4140, -1.1542, -1.2127,  0.6286],</span><br><span class="hljs-string">         [-0.6033,  0.5189, -1.4756, -0.0650]]</span>,<br><br>        <span class="hljs-string">[[-0.1864,  0.5557,  0.1935, -1.2823],</span><br><span class="hljs-string">         [ 0.1995, -1.6036,  1.3123, -0.0660]]</span>])<br>tensor(<span class="hljs-string">[[[0.8275, 0.1725, 0.0000, 0.0000],</span><br><span class="hljs-string">         [0.2456, 0.7544, 0.0000, 0.0000]]</span>,<br><br>        <span class="hljs-string">[[0.2192, 0.4604, 0.3205, 0.0000],</span><br><span class="hljs-string">         [0.2377, 0.0392, 0.7232, 0.0000]]</span>])<br></code></pre></td></tr></table></figure>
+
+<p>例如这里矩阵的第一个维度为2（批量数），对于第一个批量，掩蔽有效长度为2，那么对这个二维矩阵的第三列即之后的列元素都做掩蔽操作，对于第二个批量掩蔽的有效程度为3，显然第四列被做了掩码处理。</p>
+<h4 id="加性注意力"><a href="#加性注意力" class="headerlink" title="加性注意力"></a>加性注意力</h4><p>说到底，设计一个好的注意力函数关键在于设计函数：</p>
+<p>$$a(\mathbf{q},\mathbf{k_i}) \in \mathbb{R}, \mathbf{q} \in \mathbb{R}^{q}, \mathbf{k_i} \in \mathbb{R}^{k}$$</p>
+<p>即<strong>衡量两个不同维度空间下向量的相似度问题</strong>。</p>
+<p>加性注意力的做法是<strong>同样扩展到相同维度$h$的向量空间</strong>,即：</p>
+<p>$$a(\mathbf{q},\mathbf{k_i})  &#x3D; \mathbf{\omega_{v}}^{\top} \tanh(W_q \mathbf{q}+W_k\mathbf{k} + \mathbf{b}) \in \mathbb{R}, W_q \in \mathbb{R}^{h \times q}, W_k \in \mathbb{R}^{h \times k}, \mathbf{\omega_{v}}^{\top} \in \mathbb{R}^h $$</p>
+<p>其实就是一个多层感知机…包含一个参数为h的隐藏层，独特的点是存在<strong>两个维度迁移的可学习矩阵</strong>，进而实现维度的统一后“加性”拼接。</p>
+<div class="note note-primary">
+            <p><strong>包含一个隐藏层的感知机的形式化表达</strong>：</p><p>$$ \hat{y} &#x3D; \sigma( \mathbf{W_2} ( \sigma(\mathbf{W_1} \mathbf{x} + \mathbf{b_1}) ) + \mathbf{b_2})$$</p><p>在加性注意力中输入的向量就是$\mathbf{q}$和$\mathbf{k}$，从输入层到隐藏层的激活函数是$\tanh$，从隐藏层到输出层再做一个比较简单的点积处理。</p><p>同时，加性注意力一般会禁用偏置项。</p>
+          </div>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">AdditiveAttention</span>(nn.Module):<br>    <span class="hljs-string">&quot;&quot;&quot;加性注意力&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, key_size, query_size, num_hiddens, dropout, **kwargs</span>):<br>        <span class="hljs-comment"># 相关参数的意义：</span><br>        <span class="hljs-comment"># W_k代表k的可学习矩阵，将key_size映射到num_hiddens的维度</span><br>        <span class="hljs-comment"># W_q代表q（查询）的可学习矩阵，将query_size维度映射到num_hiddens的维度</span><br>        <span class="hljs-comment"># w_v代表最后输出层的参数，将num_hiddens维度映射到单个维度</span><br><br>        <span class="hljs-comment"># *这里调用其他的参数**kwargs传递给父类nn.Module的构造函数</span><br>        <span class="hljs-built_in">super</span>(AdditiveAttention, <span class="hljs-variable language_">self</span>).__init__(**kwargs)<br>        <span class="hljs-variable language_">self</span>.W_k = nn.Linear(key_size, num_hiddens, bias=<span class="hljs-literal">False</span>)<br>        <span class="hljs-variable language_">self</span>.W_q = nn.Linear(query_size, num_hiddens, bias=<span class="hljs-literal">False</span>)<br>        <span class="hljs-variable language_">self</span>.w_v = nn.Linear(num_hiddens, <span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>)<br>        <span class="hljs-variable language_">self</span>.dropout = nn.Dropout(dropout)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, queries, keys, values, valid_lens</span>):<br>        <span class="hljs-comment"># 考虑批量处理，queries，keys和values都是3维张量</span><br>        <span class="hljs-comment"># queries: (batch_size, query_num, query_size), 其中query_size是向量的维度</span><br>        <span class="hljs-comment"># keys: (batch_size, 键值对的个数, key_size)</span><br>        <span class="hljs-comment"># 为了方便后续的维度对齐，扩展到四个维度（后续代码unsqueeze的操作）</span><br>        <span class="hljs-comment"># !其实这里是先做的映射在做的维度扩展</span><br>        <span class="hljs-comment"># *queries: (batch_size, query_num, 1, query_size)</span><br>        <span class="hljs-comment"># *key: (batch_size, 1, 键值对的个数, key_size)</span><br><br>        <span class="hljs-comment"># ! 这一步对上述的两个四维张量的最后一个维度做映射操作，改变最后一个维度</span><br>        queries, keys = <span class="hljs-variable language_">self</span>.W_q(queries), <span class="hljs-variable language_">self</span>.W_k(keys)<br>        features = queries.unsqueeze(<span class="hljs-number">2</span>) + keys.unsqueeze(<span class="hljs-number">1</span>)<br>        <span class="hljs-comment"># 在维度扩展后，</span><br>        <span class="hljs-comment"># queries的形状：(batch_size，查询的个数，1，num_hidden)</span><br>        <span class="hljs-comment"># key的形状：(batch_size，1，“键－值”对的个数，num_hiddens)</span><br><br>        <span class="hljs-comment"># 使用广播方式进行求和</span><br>        <span class="hljs-comment"># 广播规则如下：</span><br>        <span class="hljs-comment">#    从最后一个维度开始向前比较</span><br>        <span class="hljs-comment">#    两个维度要么相等，要么其中一个为1，要么其中一个不存在</span><br>        <span class="hljs-comment"># 很明显，在维度扩展之后，广播机制允许我们实现这两个四维张量的加和</span><br>        features = torch.tanh(features)<br>        <span class="hljs-comment"># self.w_v仅有一个输出，因此从形状中移除最后那个维度。</span><br><br>        <span class="hljs-comment"># 最后输出的features的形状：(batch_size, 查询的个数，键值对的个数，num_hiddens)，在广播操作之后</span><br>        <span class="hljs-comment"># tanh 作为激活函数会逐元素运算，不会对Tensor的维度产生影响</span><br><br>        <span class="hljs-comment"># scores的形状：(batch_size，查询的个数，“键-值”对的个数) (经过点积之后少了一个维度，直接squeeze掉)</span><br>        <span class="hljs-comment"># 将scores传进掩码softmax中，得到Attention weights，形状依然是(batch_size，查询的个数，“键-值”对的个数)</span><br>        scores = <span class="hljs-variable language_">self</span>.w_v(features).squeeze(-<span class="hljs-number">1</span>)<br>        <span class="hljs-variable language_">self</span>.attention_weights = masked_softmax(scores, valid_lens)<br><br>        <span class="hljs-comment"># 为了防止过拟合，对注意力权重矩阵做一定的dropout</span><br>        <span class="hljs-comment"># values的形状：(batch_size，“键－值”对的个数，值的维度)</span><br>        <span class="hljs-comment"># 做一次矩阵批量乘法，最后的形状：(batch_size, 查询的个数，值的维度)，相当于对每一个批量的每一个查询都得到了一个属于value空间下的向量</span><br>        <span class="hljs-keyword">return</span> torch.bmm(<span class="hljs-variable language_">self</span>.dropout(<span class="hljs-variable language_">self</span>.attention_weights), values)<br></code></pre></td></tr></table></figure>
+
+<h4 id="缩放点积注意力-Scaled-Dot-Product-Attention"><a href="#缩放点积注意力-Scaled-Dot-Product-Attention" class="headerlink" title="缩放点积注意力 Scaled Dot-Product Attention"></a>缩放点积注意力 Scaled Dot-Product Attention</h4><p>考虑简单的操作，如果$q &#x3D; k$，即$\mathbf{q}$和$\mathbf{k}$位于相同的空间维度下，那么使用余弦相似度计算是最高效也最直接的方法：</p>
+<p>$$a(\mathbf{q}, \mathbf{k_i}) &#x3D; \frac{\mathbf{q} \cdot \mathbf{k_i}}{|\mathbf{q}| \times |\mathbf{k_i}|}$$</p>
+<p>我们做出简单假设，假设$\mathbf{q}$和$\mathbf{k}$都是均值为0，方差为1的相同维度的向量，那么点积后的均值为0，方差为d，因此在除以一个标量参数$\sqrt{d}$即可得到一个均值为0，方差为1的点积注意力：</p>
+<p>$$a(\mathbf q, \mathbf k) &#x3D; \mathbf{q}^\top \mathbf{k}  &#x2F;\sqrt{d}$$</p>
+<div class="note note-primary">
+            <p><strong>注意，简单的缩放点积注意力只可以用在q和k的维度空间相同的情况下</strong>。</p>
+          </div>
+
+<p>同样的，考虑批量处理，得到矩阵乘法的运算结果：</p>
+<p>例如基于$n$个查询和$m$个键－值对计算注意力，其中查询和键的长度为$d$，值的长度为$v$。查询$\mathbf Q\in\mathbb R^{n\times d}$、键$\mathbf K\in\mathbb R^{m\times d}$和值$\mathbf V\in\mathbb R^{m\times v}$的缩放点积注意力是：</p>
+<p>$$ \mathrm{softmax}\left(\frac{\mathbf Q \mathbf K^\top }{\sqrt{d}}\right) \mathbf V \in \mathbb{R}^{n\times v}$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">DotProductAttention</span>(nn.Module):<br>    <span class="hljs-string">&quot;&quot;&quot;缩放点积注意力&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, dropout, **kwargs</span>):<br>        <span class="hljs-built_in">super</span>(DotProductAttention, <span class="hljs-variable language_">self</span>).__init__(**kwargs)<br>        <span class="hljs-variable language_">self</span>.dropout = nn.Dropout(dropout)<br><br>    <span class="hljs-comment"># queries的形状：(batch_size，查询的个数，d)</span><br>    <span class="hljs-comment"># keys的形状：(batch_size，“键－值”对的个数，d)</span><br>    <span class="hljs-comment"># values的形状：(batch_size，“键－值”对的个数，值的维度)</span><br>    <span class="hljs-comment"># valid_lens的形状:(batch_size，)或者(batch_size，查询的个数)</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, queries, keys, values, valid_lens=<span class="hljs-literal">None</span></span>):<br>        d = queries.shape[-<span class="hljs-number">1</span>]<br>        <span class="hljs-comment"># 设置transpose_b=True为了交换keys的最后两个维度(不考虑批量，对最后两个维度做转置操作)</span><br>        <span class="hljs-comment"># score的维度：(batch_size, 查询的个数，键值对的个数)</span><br>        <span class="hljs-comment"># 后续的操作和加性注意力一样</span><br>        scores = torch.bmm(queries, keys.transpose(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)) / math.sqrt(d)<br>        <span class="hljs-variable language_">self</span>.attention_weights = masked_softmax(scores, valid_lens)<br>        <span class="hljs-keyword">return</span> torch.bmm(<span class="hljs-variable language_">self</span>.dropout(<span class="hljs-variable language_">self</span>.attention_weights), values)<br></code></pre></td></tr></table></figure>
+
+<h4 id="Bahdanau注意力"><a href="#Bahdanau注意力" class="headerlink" title="Bahdanau注意力"></a>Bahdanau注意力</h4><p>我们已经实现了两种比较简单的Attention Scoring Function，我们尝试对机器翻译任务构建模型：</p>
+<p>我们基本的网络结构使用<strong>循环神经网络</strong>，具体而言是基于两个循环神经网络而设计的编码器-解码器架构</p>
+<p>这一部分稍后更新~</p>
+<h3 id="Multihead-Attention"><a href="#Multihead-Attention" class="headerlink" title="Multihead Attention"></a>Multihead Attention</h3><p>在单头注意力模型中，我们粗糙的通过<strong>相似度的比较</strong>来找到尽可能和查询向量匹配的键值对，而在其中的关键步骤就是<strong>维度对齐</strong>，即施加一个线性变换矩阵获得注意力汇聚输出。</p>
+<p>在单头注意力的模式下，我们往往只会使用一个线性变换矩阵，而施加不同的线性变换矩阵产生的效果不相同，因此，如果将单头注意力模型<strong>扩展到多头注意力模型上去</strong>，并施加不同的线性变换矩阵，模型就可以学习到不同的线性变化特征，增加模型的鲁棒性。</p>
+<div class="note note-info">
+            <p>举一个例子，一个HR在选拔人才是关注人才的表达能力，那么他训练出来的可学习矩阵就会映射到“表达能力”的维度空间上，而不同的HR所关注的点可能并不相同，带来的注意力汇聚也会不相同。</p><p>下面的图片节选自教材。</p>
+          </div>
+
+<p><img src="https://zh.d2l.ai/_images/multi-head-attention.svg" srcset="/img/loading.gif" lazyload alt="MultiHead Attention"></p>
+<h4 id="形式化表达"><a href="#形式化表达" class="headerlink" title="形式化表达"></a>形式化表达</h4><p>给定查询$\mathbf{q} \in \mathbb{R}^{d_q}$、键$\mathbf{k} \in \mathbb{R}^{d_k}$和值$\mathbf{v} \in \mathbb{R}^{d_v}$，（<strong>三个向量属于不同的维度空间</strong>），考虑有h个注意力头。</p>
+<p>每个注意力头$\mathbf{h}_i$（$i &#x3D; 1, \ldots, h$）的计算方法为：</p>
+<p>$$\mathbf{h}_i &#x3D; f(\mathbf W_i^{(q)}\mathbf q, \mathbf W_i^{(k)}\mathbf k,\mathbf W_i^{(v)}\mathbf v) \in \mathbb R^{p_v},$$</p>
+<p>其中，可学习的参数包括</p>
+<p>$\mathbf W_i^{(q)}\in\mathbb R^{p_q\times d_q}$、$\mathbf W_i^{(k)}\in\mathbb R^{p_k\times d_k}$和$\mathbf W_i^{(v)}\in\mathbb R^{p_v\times d_v}$，这三个可学习矩阵分别把源向量映射到不同的向量空间上。（这是<strong>相对于单头注意力多的部分</strong>，通过施加不同的线性变化进而考虑原向量的不同特征）</p>
+<p>对于第i个注意力头，经过线性变换后的三个向量为：$q’_i \in \mathbb{R}^{p_q}, k’_i \in \mathbb{R}^{p_k}, v’_i \in \mathbb{R}^{p_v}$。经过线性变换后的三个向量进入注意力评分函数中，可以是缩放点积注意力也可以是加性注意力。最终输出的维度为：</p>
+<p>$$\mathbf{h_i} &#x3D; f(q’_i , k’_i , v’_i ) \in \mathbb{R}^{p_v}$$</p>
+<p>这是多头注意力中<strong>多头的部分</strong>，最终经过h个Attention模块后得到一个二维矩阵，也可以写成列向量的形式：</p>
+<p>$$\begin{bmatrix}\mathbf h_1\\vdots\\mathbf h_h\end{bmatrix} \in \mathbb{R}^{h \times p_v}$$</p>
+<p>最终施加一个全连接层，设计一个可学习矩阵$\mathbf{W_o} \in \mathbb{R}^{p_o \times h \times p_v}$。</p>
+<p>$$\mathbf W_o \begin{bmatrix}\mathbf h_1\\vdots\\mathbf h_h\end{bmatrix} \in \mathbb{R}^{p_o}$$</p>
+<p>基于这种设计，每个头都可能会关注输入的不同部分，可以表示比简单加权平均值更复杂的函数。并且在多头注意力的情况下，单个查询，单个键值对所返回的评分不再是一个标量评分而是一个向量（<strong>因为多头注意力引入了dimension上的注意力</strong>）</p>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4>
                 
               </div>
             
@@ -885,7 +947,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 19, 2025</div>
+          <div>June 24, 2025</div>
         </div>
       
       
