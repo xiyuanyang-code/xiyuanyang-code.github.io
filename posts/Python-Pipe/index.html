@@ -1,0 +1,1288 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="The basic tutorial of using pipes in Python programming, including advanced usage. The blog also introduces the introduction of functional programming.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Pipe">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Python-Pipe/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="The basic tutorial of using pipes in Python programming, including advanced usage. The blog also introduces the introduction of functional programming.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/tuxwelcome.png">
+<meta property="article:published_time" content="2025-07-03T08:32:43.000Z">
+<meta property="article:modified_time" content="2025-07-03T08:53:09.655Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="Finished">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Tutorial">
+<meta property="article:tag" content="Functional Programming">
+<meta property="article:tag" content="pipe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/tuxwelcome.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Python Pipe - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/posts/Above-All-en/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tag</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/Blog-word-counting/" target="_self">
+                    <i class="iconfont icon-plan"></i>
+                    <span>Status</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/My-Posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All Posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Daily Loggings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Python Pipe"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-03 16:32" pubdate>
+          July 3, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          479 words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Code"
+        id="heading-ca0dbad92a874b2f69b549293387925e" role="tab" data-toggle="collapse" href="#collapse-ca0dbad92a874b2f69b549293387925e"
+        aria-expanded="true"
+      >
+        Code
+        <span class="list-group-count">(24)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-ca0dbad92a874b2f69b549293387925e"
+           role="tabpanel" aria-labelledby="heading-ca0dbad92a874b2f69b549293387925e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Regular-Expression/" title="Regular-Expression"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Regular-Expression</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-OwnerShip/" title="Rust-OwnerShip"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust-OwnerShip</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Automaton-NFA/" title="Automaton NFA"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Automaton NFA</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Cpp"
+        id="heading-db4a39bf594c9fbcf318dd39ea19fed3" role="tab" data-toggle="collapse" href="#collapse-db4a39bf594c9fbcf318dd39ea19fed3"
+        aria-expanded="false"
+      >
+        Cpp
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-db4a39bf594c9fbcf318dd39ea19fed3"
+           role="tabpanel" aria-labelledby="heading-db4a39bf594c9fbcf318dd39ea19fed3">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/C-plus-plus-Primer-Plus-tutorial/" title="C-Plus-Plus-Primer-Plus-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C-Plus-Plus-Primer-Plus-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Introduction-to-OOP/" title="Introduction-to-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Introduction-to-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Dynamic-Memory-and-Classes/" title="Dynamic-Memory-and-Classes"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Dynamic-Memory-and-Classes</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Linked-List-Implementation-Based-on-Structs/" title="Linked-List-Implementation-Based-on-Structs"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linked-List-Implementation-Based-on-Structs</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Class-Inheritance/" title="Class-Inheritance"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Class-Inheritance</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Code-Reuse-in-OOP/" title="Code-Reuse-in-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Code-Reuse-in-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Exception-Handling-in-C-plus-plus/" title="Exception-Handling-in-C-Plus-Plus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Exception-Handling-in-C-Plus-Plus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Pointers-Arrays-and-Functions/" title="Pointers-Arrays-and-Functions"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pointers-Arrays-and-Functions</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-Plus-Plus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Input-and-Output-in-C-Plus-Plus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Jotting-References-and-Encapsulation-in-OOP/" title="Jotting-References-and-Encapsulation-in-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jotting-References-and-Encapsulation-in-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Modern-C/" title="Modern C++"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Modern C++</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Full Stack Programming"
+        id="heading-ed70836892f4090a9d2e4a24cc30dcda" role="tab" data-toggle="collapse" href="#collapse-ed70836892f4090a9d2e4a24cc30dcda"
+        aria-expanded="false"
+      >
+        Full Stack Programming
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ed70836892f4090a9d2e4a24cc30dcda"
+           role="tabpanel" aria-labelledby="heading-ed70836892f4090a9d2e4a24cc30dcda">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Frontend"
+        id="heading-d97ba66b283564339628b71975a6e68d" role="tab" data-toggle="collapse" href="#collapse-d97ba66b283564339628b71975a6e68d"
+        aria-expanded="false"
+      >
+        Frontend
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-d97ba66b283564339628b71975a6e68d"
+           role="tabpanel" aria-labelledby="heading-d97ba66b283564339628b71975a6e68d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Javascripts-Memo/" title="Javascripts Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Javascripts Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Javascripts-Advanced/" title="Javascripts Advanced"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Javascripts Advanced</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="true"
+      >
+        Python
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Python-cheatsheet/" title="Python-Cheatsheet"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Cheatsheet</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-File-Management/" title="File Management in Python"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">File Management in Python</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-numpy-cheatsheet/" title="Python-Numpy-Cheatsheet"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Numpy-Cheatsheet</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-visualization/" title="Python-Visualization"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Visualization</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Advanced-Programming/" title="Python Advanced Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Advanced Programming</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Threadings/" title="Python Threadings"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Threadings</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Environment-Modules-Tutorial/" title="Python Environment Modules Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Environment Modules Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Pipe/" title="Python Pipe"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Python Pipe</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Python Pipe</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="From-pipe-in-Python-to-The-introduction-of-Functional-Programming"><a href="#From-pipe-in-Python-to-The-introduction-of-Functional-Programming" class="headerlink" title="From pipe in Python to The introduction of Functional Programming"></a>From <code>pipe</code> in Python to The introduction of Functional Programming</h1><style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+<p>All the source code for section 1 is available for <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Python-Tutorial/blob/master/pipe_tutorial/tutorial.ipynb">this GitHub repo</a>.</p>
+<h1 id="Pipe-Tutorial"><a href="#Pipe-Tutorial" class="headerlink" title="Pipe Tutorial"></a>Pipe Tutorial</h1><h2 id="Pipe-in-Command-Line"><a href="#Pipe-in-Command-Line" class="headerlink" title="Pipe in Command Line"></a>Pipe in Command Line</h2><p>In command line, <strong>pipe</strong> (<code>|</code>) is used to connect different commands, where the input of subsequent commands is the output of previous commands.</p>
+<p>For example, the commands below are basic demos of <strong>pipe</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># check how many commands of &#x27;ls&#x27; you have typed in</span><br><span class="hljs-built_in">history</span> | grep <span class="hljs-string">&quot;ls&quot;</span> | <span class="hljs-built_in">wc</span> -l<br><br><span class="hljs-comment"># check several PID</span><br>ps aux | grep <span class="hljs-string">&quot;zsh&quot;</span><br>!ps aux | grep <span class="hljs-string">&quot;zsh&quot;</span> | <span class="hljs-built_in">wc</span> -l<br></code></pre></td></tr></table></figure>
+
+<h2 id="Pipe-Coding-in-Python"><a href="#Pipe-Coding-in-Python" class="headerlink" title="Pipe Coding in Python"></a>Pipe Coding in Python</h2><h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># using pip</span><br>%pip install pipe <br><span class="hljs-keyword">import</span> pipe<br></code></pre></td></tr></table></figure>
+
+<h2 id="Basic-Usage"><a href="#Basic-Usage" class="headerlink" title="Basic Usage"></a>Basic Usage</h2><p>Official GitHub Repo: <a target="_blank" rel="noopener" href="https://github.com/JulienPalard/Pipe">Repo for Pipe</a></p>
+<p>Website for pypi: <a target="_blank" rel="noopener" href="https://pypi.org/project/pipe/">Pipe in pypi</a></p>
+<h3 id="Basic-Syntax"><a href="#Basic-Syntax" class="headerlink" title="Basic Syntax"></a>Basic Syntax</h3><p>The same as what you use in the shell!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count<br><br><span class="hljs-comment"># itertools is a functional tools for creating and using iterators</span><br><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> select, take<br><br>value = <span class="hljs-built_in">sum</span>(count() | select(<span class="hljs-keyword">lambda</span> x: x**<span class="hljs-number">2</span>) | take(<span class="hljs-number">10</span>))<br><span class="hljs-comment"># or you can use range here!</span><br><br><span class="hljs-built_in">print</span>(value)<br></code></pre></td></tr></table></figure>
+
+<p>You can pass <strong>arguments</strong> in an easier way.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> Pipe<br><br><br><span class="hljs-comment"># a test function</span><br><span class="hljs-meta">@Pipe</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_func</span>(<span class="hljs-params">x</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;x&#125;</span> is the input value&quot;</span>)<br>    <span class="hljs-keyword">return</span> x + <span class="hljs-number">3</span><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-number">5</span> | test_func)<br>    <span class="hljs-comment"># functional programming</span><br></code></pre></td></tr></table></figure>
+
+<p>Making it more complex…</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> Pipe, where, select<br><br><span class="hljs-comment"># we need to find all the square numbers from 1 to 100</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">square</span>(<span class="hljs-params">x</span>):<br>    <span class="hljs-keyword">return</span> x**<span class="hljs-number">2</span><br><br><br>result = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">11</span>) | select(square))<br><span class="hljs-built_in">print</span>(result)<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>generator</strong> in Python</p>
+</blockquote>
+<p>Generators in Python offer significant advantages, primarily due to their <strong>lazy evaluation</strong> and <strong>memory efficiency.</strong> Unlike functions that return entire lists or other collections, generators yield one item at a time, on demand.</p>
+<p>This “<strong>yield-as-you-go</strong>“ approach means that generators don’t store all their values in memory simultaneously. For instance, when processing a massive dataset, a generator won’t try to load everything at once, which could quickly exhaust your system’s RAM. Instead, it computes and provides values only when requested, making them ideal for handling large or even infinite data streams without overwhelming memory resources.</p>
+<blockquote>
+<p><strong>iterable</strong> in Python</p>
+</blockquote>
+<p>If an object is iterable, it means it implements the <strong>iter</strong> method (which returns an iterator) or the <strong>getitem</strong> method (which allows access to elements by index, like lists do).</p>
+<h3 id="where-for-filtering"><a href="#where-for-filtering" class="headerlink" title="where for filtering"></a><code>where</code> for filtering</h3><ul>
+<li><code>where(predicate)</code>: filter elements from iterable objects.</li>
+</ul>
+<p><code>predicate</code> is a function which returns a bool value (true&#x2F;false).</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> where<br><br>list_tobe_filtered = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(list_tobe_filtered | where(<span class="hljs-keyword">lambda</span> x: x % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)))<br></code></pre></td></tr></table></figure>
+
+<p>Built-in filtering <code>dedup</code>:</p>
+<p>Deduplicate values, using the given key function if provided</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> dedup<br><br>original_data = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">7</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">9</span>]<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(original_data | dedup))<br></code></pre></td></tr></table></figure>
+
+<h3 id="select-for-selecting"><a href="#select-for-selecting" class="headerlink" title="select for selecting"></a><code>select</code> for selecting</h3><p>Choose a <strong>mapping</strong> function for every element in an iterable object.</p>
+<p>Quite similar to <code>forEach()</code> method for array in JavaScripts.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> Pipe, select, where<br><br><span class="hljs-comment"># method-1: using lambda function</span><br>numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br>squares = <span class="hljs-built_in">list</span>(numbers | select(<span class="hljs-keyword">lambda</span> x: x**<span class="hljs-number">2</span>))<br><span class="hljs-built_in">print</span>(squares)<br><br><br><span class="hljs-comment"># method-2: using function or decorator</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">square_number</span>(<span class="hljs-params">x</span>):<br>    <span class="hljs-keyword">return</span> x**<span class="hljs-number">2</span><br><br><br>squares_2 = numbers | select(square_number)<br><span class="hljs-comment"># squares_2 is a map! (lazy evaluation and supports iteration)</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(squares_2))<br></code></pre></td></tr></table></figure>
+
+<p>Or you can using the <code>map</code> function, just like javascripts!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># for single map: it need to support 2 arguments</span><br><span class="hljs-comment"># print(list([1,2,3,4] | map(lambda x: x**2))): this will cause error</span><br><span class="hljs-comment"># right way to do so:</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>((<span class="hljs-keyword">lambda</span> x: x**<span class="hljs-number">2</span>), [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])))<br><br><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> <span class="hljs-built_in">map</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>] | <span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> x: x**<span class="hljs-number">2</span>)))<br><br><span class="hljs-comment"># just choose one you like</span><br><span class="hljs-comment"># !pay attention to the name conflict</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="Choosing-elements"><a href="#Choosing-elements" class="headerlink" title="Choosing elements"></a>Choosing elements</h2><ul>
+<li><code>take(n)</code>: take the first <code>n</code> elements from the iterable objects, like the <code>head</code> command in Shell scripts</li>
+<li><code>skip(n)</code>: skip the first <code>n</code> elements from the iterable objects</li>
+<li><code>skip_while(predicate)</code>: using a predicate function to skip certain objects</li>
+</ul>
+<h3 id="groupby-method"><a href="#groupby-method" class="headerlink" title="groupby method"></a><code>groupby</code> method</h3><p>Using <code>groupby(key_selector)</code> to select all the elements by groups.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> groupby<br><br>numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]<br>grouped = numbers | groupby(<span class="hljs-keyword">lambda</span> x: <span class="hljs-string">&quot;even&quot;</span> <span class="hljs-keyword">if</span> x % <span class="hljs-number">2</span> == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;odd&quot;</span>)<br><br><span class="hljs-keyword">for</span> key, group <span class="hljs-keyword">in</span> grouped:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;key&#125;</span>: <span class="hljs-subst">&#123;<span class="hljs-built_in">list</span>(group)&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="Traversing"><a href="#Traversing" class="headerlink" title="Traversing"></a>Traversing</h3><p>Using <code>traverse</code> in Pipe to traverse an iterable object.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> traverse<br><br>numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, [<span class="hljs-number">3</span>, [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], <span class="hljs-number">5</span>], <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> numbers | traverse:<br>    <span class="hljs-built_in">print</span>(i)<br></code></pre></td></tr></table></figure>
+
+<h2 id="Chaining"><a href="#Chaining" class="headerlink" title="Chaining"></a>Chaining</h2><p>Chaining a sequence of iterable objects.</p>
+<blockquote>
+<p>Warning : chain only unfolds an iterable containing ONLY iterables:</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> chain, traverse<br><br>array_1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br>array_2 = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>], <span class="hljs-number">6</span>]<br>array_3 = [<span class="hljs-string">&quot;alice&quot;</span>, <span class="hljs-string">&quot;jim&quot;</span>, <span class="hljs-string">&quot;tom&quot;</span>]<br><br>integrated = <span class="hljs-built_in">list</span>([array_1, array_2, array_3] | chain)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> integrated | traverse:<br>    <span class="hljs-built_in">print</span>(i)<br></code></pre></td></tr></table></figure>
+
+<h2 id="Other-commands"><a href="#Other-commands" class="headerlink" title="Other commands"></a>Other commands</h2><ul>
+<li><code>islice</code>: slice for iterable objects, which is the same as <code>itertools.islice</code>.</li>
+<li><code>izip</code>: zipping like <code>izip</code> or <code>zip</code> in Python 3.</li>
+</ul>
+<p>We do not need to load all the elements into the RAM, instead, it will slice (<code>start:stop:step</code>) and return a new iterator.</p>
+<ul>
+<li><code>tee</code>: tee outputs to the standard output and yield unchanged items, useful for debugging a pipe stage by stage:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> islice, izip<br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>((<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>) | islice(<span class="hljs-number">1</span>, <span class="hljs-number">100</span>, <span class="hljs-number">2</span>)))<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>] | izip([<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>])))<br><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> tee<br><br><span class="hljs-built_in">list</span>([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>] | tee)<br></code></pre></td></tr></table></figure>
+
+<h2 id="Creating-my-own-Pipes"><a href="#Creating-my-own-Pipes" class="headerlink" title="Creating my own Pipes"></a>Creating my own Pipes</h2><p>Using the <code>Pipe</code> class.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Pipe</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Represent a Pipeable Element :</span><br><span class="hljs-string">    Described as :</span><br><span class="hljs-string">    first = Pipe(lambda iterable: next(iter(iterable)))</span><br><span class="hljs-string">    and used as :</span><br><span class="hljs-string">    print [1, 2, 3] | first</span><br><span class="hljs-string">    printing 1</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Or represent a Pipeable Function :</span><br><span class="hljs-string">    It&#x27;s a function returning a Pipe</span><br><span class="hljs-string">    Described as :</span><br><span class="hljs-string">    select = Pipe(lambda iterable, pred: (pred(x) for x in iterable))</span><br><span class="hljs-string">    and used as :</span><br><span class="hljs-string">    print [1, 2, 3] | select(lambda x: x * 2)</span><br><span class="hljs-string">    # 2, 4, 6</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, function, *args, **kwargs</span>):<br>        <span class="hljs-variable language_">self</span>.function = <span class="hljs-keyword">lambda</span> iterable, *args2, **kwargs2: function(<br>            iterable, *args, *args2, **kwargs, **kwargs2<br>        )<br>        functools.update_wrapper(<span class="hljs-variable language_">self</span>, function)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__ror__</span>(<span class="hljs-params">self, other</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.function(other)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__call__</span>(<span class="hljs-params">self, *args, **kwargs</span>):<br>        <span class="hljs-keyword">return</span> Pipe(<br>            <span class="hljs-keyword">lambda</span> iterable, *args2, **kwargs2: <span class="hljs-variable language_">self</span>.function(<br>                iterable, *args, *args2, **kwargs, **kwargs2<br>            )<br>        )<br><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> Pipe<br><br><span class="hljs-comment"># you need to pass in a necessary function variables</span><br>square = Pipe(<span class="hljs-keyword">lambda</span> iterable: (x ** <span class="hljs-number">2</span> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> iterable))<br></code></pre></td></tr></table></figure>
+
+<h1 id="Introduction-to-functional-programming"><a href="#Introduction-to-functional-programming" class="headerlink" title="Introduction to functional programming"></a>Introduction to functional programming</h1><p>to be done in the future.</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Code/" class="category-chain-item">Code</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Code/Python/" class="category-chain-item">Python</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/Tutorial/" class="print-no-link">#Tutorial</a>
+      
+        <a href="/tags/Functional-Programming/" class="print-no-link">#Functional Programming</a>
+      
+        <a href="/tags/pipe/" class="print-no-link">#pipe</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Python Pipe</div>
+      <div>https://xiyuanyang-code.github.io/posts/Python-Pipe/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>July 3, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>July 3, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Torch-Memo-TensorBoard/" title="Torch Memo TensorBoard">
+                        <span class="hidden-mobile">Torch Memo TensorBoard</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <a href="https://xiyuanyang-code.github.io/Loving-Count/" target="_blank" rel="nofollow noopener"><span>❤️</span></a> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

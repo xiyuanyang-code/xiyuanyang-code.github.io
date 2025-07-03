@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Tensorboard.png">
 <meta property="article:published_time" content="2025-07-01T04:12:49.000Z">
-<meta property="article:modified_time" content="2025-07-02T02:58:01.657Z">
+<meta property="article:modified_time" content="2025-07-03T08:49:47.181Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Finished">
 <meta property="article:tag" content="Python">
@@ -933,7 +933,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>July 2, 2025</div>
+          <div>July 3, 2025</div>
         </div>
       
       
@@ -963,6 +963,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/posts/Python-Pipe/" title="Python Pipe">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Python Pipe</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
@@ -1070,6 +1076,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -1262,6 +1274,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/js/leancloud.js" ></script>
 
