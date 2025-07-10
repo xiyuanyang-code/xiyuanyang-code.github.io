@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/fp.jpg">
 <meta property="article:published_time" content="2025-04-26T14:57:35.000Z">
-<meta property="article:modified_time" content="2025-05-18T16:19:13.604Z">
+<meta property="article:modified_time" content="2025-07-07T03:34:14.997Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Finished">
 <meta property="article:tag" content="Python">
@@ -343,7 +343,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k words
+          1.9k words
         
       </span>
     
@@ -831,6 +831,14 @@
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">fuction</span> sum_test runs wirh time: <span class="hljs-number">0</span>.<span class="hljs-number">000316</span> seconds<br><span class="hljs-attribute">The</span> final answer is <span class="hljs-number">50281843</span><br></code></pre></td></tr></table></figure>
 
 <ul>
+<li>A more advanced time decorator!</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> functools<br><span class="hljs-keyword">from</span> colorama <span class="hljs-keyword">import</span> Fore, Style<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">time_method</span>(<span class="hljs-params">func</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    A decorator to measure the execution time of a method. (For class usage)</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br><span class="hljs-meta">    @functools.wraps(<span class="hljs-params">func</span>)</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">wrapper</span>(<span class="hljs-params">self, *args, **kwargs</span>):<br>        object_name = <span class="hljs-built_in">getattr</span>(<span class="hljs-variable language_">self</span>, <span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">f&quot;Unnamed <span class="hljs-subst">&#123;self.__class__.__name__&#125;</span>&quot;</span>)<br><br>        <span class="hljs-built_in">print</span>(<br>            <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;Fore.CYAN&#125;</span>Starting &#x27;<span class="hljs-subst">&#123;func.__name__&#125;</span>&#x27; for <span class="hljs-subst">&#123;object_name&#125;</span>...<span class="hljs-subst">&#123;Style.RESET_ALL&#125;</span>&quot;</span><br>        )<br>        start_time = time.time()<br>        result = func(<span class="hljs-variable language_">self</span>, *args, **kwargs)<br>        end_time = time.time()<br>        elapsed_time = end_time - start_time<br>        <span class="hljs-built_in">print</span>(<br>            <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;Fore.GREEN&#125;</span>Finished &#x27;<span class="hljs-subst">&#123;func.__name__&#125;</span>&#x27; for <span class="hljs-subst">&#123;object_name&#125;</span>. Elapsed time: <span class="hljs-subst">&#123;elapsed_time:<span class="hljs-number">.4</span>f&#125;</span> seconds.<span class="hljs-subst">&#123;Style.RESET_ALL&#125;</span>&quot;</span><br>        )<br>        <span class="hljs-keyword">return</span> result<br><br>    <span class="hljs-keyword">return</span> wrapper<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name=<span class="hljs-string">&quot;MyObject&quot;</span></span>):<br>        <span class="hljs-variable language_">self</span>.name = name<br><br><span class="hljs-meta">    @time_method</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test</span>(<span class="hljs-params">self</span>):  <span class="hljs-comment"># Add &#x27;self&#x27; here to make it an instance method</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  <span class="hljs-subst">&#123;self.name&#125;</span> is executing its test method...&quot;</span>)<br>        time.sleep(<span class="hljs-number">2</span>)  <span class="hljs-comment"># Simulate work for 2 seconds</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  <span class="hljs-subst">&#123;self.name&#125;</span> finished its test method.&quot;</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    my_instance = MyClass(name=<span class="hljs-string">&quot;MyCoolInstance&quot;</span>)<br>    my_instance.test()  <span class="hljs-comment"># Call the method on an instance</span><br><br>    another_instance = MyClass(name=<span class="hljs-string">&quot;AnotherInstance&quot;</span>)<br>    another_instance.test()<br><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>This decorator is specially designed for class method’s usage, rather than a simple function.</p>
+</blockquote>
+<ul>
 <li>Decorator for type check (<strong>Reflection for Meta Programming</strong>)</li>
 </ul>
 <p>因为Python是一种弱类型的编程语言，我们可以在写一个decorator来实现简单的语法类型检查。</p>
@@ -995,7 +1003,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 19, 2025</div>
+          <div>July 7, 2025</div>
         </div>
       
       
