@@ -1,0 +1,1418 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="Tutorials on managing import paths when programming in Python with multiple files, including understanding import priority, absolute imports, and relative imports.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Architecture Patterns: Multi-File Programming">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Python-Architecture-Patterns-Multi-file-Progarmming/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="Tutorials on managing import paths when programming in Python with multiple files, including understanding import priority, absolute imports, and relative imports.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/filespython.jpg">
+<meta property="article:published_time" content="2025-07-12T09:09:37.000Z">
+<meta property="article:modified_time" content="2025-07-12T12:21:09.472Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Tutorial">
+<meta property="article:tag" content="finished">
+<meta property="article:tag" content="Modules">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/filespython.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Python Architecture Patterns: Multi-File Programming - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/posts/Above-All-en/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tag</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/Blog-word-counting/" target="_self">
+                    <i class="iconfont icon-plan"></i>
+                    <span>Status</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/My-Posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All Posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Daily Loggings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Python Architecture Patterns: Multi-File Programming"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-12 17:09" pubdate>
+          July 12, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.5k words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Code"
+        id="heading-ca0dbad92a874b2f69b549293387925e" role="tab" data-toggle="collapse" href="#collapse-ca0dbad92a874b2f69b549293387925e"
+        aria-expanded="true"
+      >
+        Code
+        <span class="list-group-count">(26)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-ca0dbad92a874b2f69b549293387925e"
+           role="tabpanel" aria-labelledby="heading-ca0dbad92a874b2f69b549293387925e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Regular-Expression/" title="Regular-Expression"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Regular-Expression</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-OwnerShip/" title="Rust-OwnerShip"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust-OwnerShip</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Automaton-NFA/" title="Automaton NFA"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Automaton NFA</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Architecture Design"
+        id="heading-ae64194051878ec826a5a24ebf799d69" role="tab" data-toggle="collapse" href="#collapse-ae64194051878ec826a5a24ebf799d69"
+        aria-expanded="true"
+      >
+        Architecture Design
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-ae64194051878ec826a5a24ebf799d69"
+           role="tabpanel" aria-labelledby="heading-ae64194051878ec826a5a24ebf799d69">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Python-Architecture-Patterns/" title="Python Architecture Patterns"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Architecture Patterns</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Architecture-Patterns-Multi-file-Progarmming/" title="Python Architecture Patterns: Multi-File Programming"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Python Architecture Patterns: Multi-File Programming</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Cpp"
+        id="heading-db4a39bf594c9fbcf318dd39ea19fed3" role="tab" data-toggle="collapse" href="#collapse-db4a39bf594c9fbcf318dd39ea19fed3"
+        aria-expanded="false"
+      >
+        Cpp
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-db4a39bf594c9fbcf318dd39ea19fed3"
+           role="tabpanel" aria-labelledby="heading-db4a39bf594c9fbcf318dd39ea19fed3">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/C-plus-plus-Primer-Plus-tutorial/" title="C-Plus-Plus-Primer-Plus-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C-Plus-Plus-Primer-Plus-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Introduction-to-OOP/" title="Introduction-to-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Introduction-to-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Dynamic-Memory-and-Classes/" title="Dynamic-Memory-and-Classes"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Dynamic-Memory-and-Classes</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Linked-List-Implementation-Based-on-Structs/" title="Linked-List-Implementation-Based-on-Structs"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linked-List-Implementation-Based-on-Structs</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Class-Inheritance/" title="Class-Inheritance"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Class-Inheritance</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Code-Reuse-in-OOP/" title="Code-Reuse-in-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Code-Reuse-in-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Exception-Handling-in-C-plus-plus/" title="Exception-Handling-in-C-Plus-Plus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Exception-Handling-in-C-Plus-Plus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Pointers-Arrays-and-Functions/" title="Pointers-Arrays-and-Functions"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pointers-Arrays-and-Functions</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-Plus-Plus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Input-and-Output-in-C-Plus-Plus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Jotting-References-and-Encapsulation-in-OOP/" title="Jotting-References-and-Encapsulation-in-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jotting-References-and-Encapsulation-in-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Modern-C/" title="Modern C++"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Modern C++</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Full Stack Programming"
+        id="heading-ed70836892f4090a9d2e4a24cc30dcda" role="tab" data-toggle="collapse" href="#collapse-ed70836892f4090a9d2e4a24cc30dcda"
+        aria-expanded="false"
+      >
+        Full Stack Programming
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ed70836892f4090a9d2e4a24cc30dcda"
+           role="tabpanel" aria-labelledby="heading-ed70836892f4090a9d2e4a24cc30dcda">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Frontend"
+        id="heading-d97ba66b283564339628b71975a6e68d" role="tab" data-toggle="collapse" href="#collapse-d97ba66b283564339628b71975a6e68d"
+        aria-expanded="false"
+      >
+        Frontend
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-d97ba66b283564339628b71975a6e68d"
+           role="tabpanel" aria-labelledby="heading-d97ba66b283564339628b71975a6e68d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Javascripts-Memo/" title="Javascripts Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Javascripts Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Javascripts-Advanced/" title="Javascripts Advanced"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Javascripts Advanced</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="false"
+      >
+        Python
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Python-cheatsheet/" title="Python-Cheatsheet"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Cheatsheet</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-File-Management/" title="File Management in Python"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">File Management in Python</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-numpy-cheatsheet/" title="Python-Numpy-Cheatsheet"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Numpy-Cheatsheet</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-visualization/" title="Python-Visualization"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Visualization</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Advanced-Programming/" title="Python Advanced Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Advanced Programming</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Threadings/" title="Python Threadings"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Threadings</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Environment-Modules-Tutorial/" title="Python Environment Modules Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Environment Modules Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Pipe/" title="Python Pipe"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Pipe</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Python Architecture Patterns: Multi-File Programming</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+
+<h1 id="PAP-series-Multi-file-Programming"><a href="#PAP-series-Multi-file-Programming" class="headerlink" title="PAP series: Multi-file Programming"></a>PAP series: Multi-file Programming</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In Python, <code>import</code> command is frequently used to import <strong>modules</strong>, <strong>classes</strong>, <strong>functions</strong>, etc. </p>
+<blockquote>
+<p>Make sure you have access to the basic concepts of modules in Python and several basic commands to importing a module!</p>
+</blockquote>
+<h2 id="识别和优先级"><a href="#识别和优先级" class="headerlink" title="识别和优先级"></a>识别和优先级</h2><p>import的识别文件范围非常广泛，包括：</p>
+<ul>
+<li><p><code>.py</code>的模块文件</p>
+</li>
+<li><p>编译后的Python文件 <code>.pyc</code> &amp; <code>.pyo</code>，可以提高运行速度</p>
+</li>
+<li><p>Packages: 含有<code>__init__.py</code>文件的含有多个模块的目录</p>
+</li>
+</ul>
+<p>但是在import的顺序上，Python有自己设计的一套优先级：</p>
+<ul>
+<li>当前模块：（运行脚本）所在的目录。注意，当前目录是指该文件所在的目录地址，<strong>而不是运行脚本的地址</strong>。</li>
+</ul>
+<p>搜索优先级如下：</p>
+<ul>
+<li><p>内置模块 (Built-in Modules): 首先，Python 会查找内置模块。这些模块直接编译到 Python 解释器中，无需文件查找。例如 <code>sys</code>, <code>os</code>, <code>math</code> 等。运行bash命令 <code>ls /usr/lib/python3.12/</code> 就可以查看相当多的Python自带的标准库模块。</p>
+</li>
+<li><p><code>sys.modules</code> 缓存: 接下来，Python 会检查 sys.modules 字典。这是一个缓存，存储了所有已经被导入过的模块。如果模块已经在 sys.modules 中，Python 会直接返回缓存中的模块对象，避免重复导入和重复执行模块代码。</p>
+</li>
+<li><p><code>sys.path</code> 中的路径: 如果模块不在 sys.modules 中，Python 会按照 sys.path 列表中的顺序，逐个目录地查找模块。sys.path 的默认组成部分通常包括：</p>
+<ul>
+<li><p>当前工作目录 (Current Working Directory): 脚本运行时的当前目录。(<strong>通常这是第一个条目</strong>)</p>
+</li>
+<li><p><code>PYTHONPATH</code> 环境变量: 如果设置了 PYTHONPATH 环境变量，它会包含在 sys.path 中。</p>
+</li>
+<li><p>标准库目录: Python 安装时自带的标准库模块的路径。</p>
+</li>
+<li><p>第三方库目录 (site-packages): 通过 pip 等工具安装的第三方库通常会被安装到 site-packages 目录中。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>下面我们逐一介绍之。</p>
+<h3 id="sys-modules"><a href="#sys-modules" class="headerlink" title="sys.modules"></a><code>sys.modules</code></h3><p>缓存机制设计的最大好处就是<strong>快速导入之前已经重复导入的库</strong>，例如，在该进程中两处Python文件中都有代码<code>import torch</code>，在第二次导入的时候会使用首次导入的缓存机制，快速导入。</p>
+<p>例如下面的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> sys<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_import</span>(<span class="hljs-params">index</span>):<br>    start_time = time.time()<br>    <span class="hljs-keyword">import</span> torch<br><br>    end_time = time.time()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Spend time <span class="hljs-subst">&#123;index&#125;</span>: <span class="hljs-subst">&#123;(end_time - start_time):<span class="hljs-number">.8</span>f&#125;</span> seconds&quot;</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    cache_modules = sys.modules.keys()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;numbers of modules in cache: <span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(cache_modules)&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Is torch module in the cache? <span class="hljs-subst">&#123;(<span class="hljs-string">&quot;torch&quot;</span> <span class="hljs-keyword">in</span> cache_modules)&#125;</span>&quot;</span>)<br><br>    test_import(<span class="hljs-number">1</span>)<br><br>    cache_modules = sys.modules.keys()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;numbers of modules in cache: <span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(cache_modules)&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Is torch module in the cache? <span class="hljs-subst">&#123;(<span class="hljs-string">&quot;torch&quot;</span> <span class="hljs-keyword">in</span> cache_modules)&#125;</span>&quot;</span>)<br><br>    test_import(<span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
+
+<p>Output:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">numbers of modules in cache: 44<br>Is torch module in the cache? False<br>Spend time 1: 1.36842155 seconds<br>numbers of modules in cache: 1053<br>Is torch module in the cache? True<br>Spend time 2: 0.00000262 seconds<br></code></pre></td></tr></table></figure>
+
+<p>从代码中很容易可以看见，<strong>缓存机制</strong>的设计使得第二次导入torch库所花的时间远低于第一次。</p>
+<h3 id="sys-path"><a href="#sys-path" class="headerlink" title="sys.path"></a><code>sys.path</code></h3><p>如果未在缓存中寻找到相关文件，解释器就会<strong>寻找特定的路径</strong>，这些路径会在<code>sys.path</code>中给出。</p>
+<h4 id="Current-Directory-and-Absolute-Path-of-files"><a href="#Current-Directory-and-Absolute-Path-of-files" class="headerlink" title="Current Directory and Absolute Path of files"></a>Current Directory and Absolute Path of files</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Current Working Directory: <span class="hljs-subst">&#123;os.getcwd()&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Absolute path of this file: <span class="hljs-subst">&#123;os.path.abspath(__file__)&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>运行这段代码，笔者的命令是<code>python &quot;/home/xiyuanyang/python/test/test_inner/test_inner_inner/test.py&quot;</code>，在<code>/home/xiyuanyang/python/test</code>目录下运行，得到结果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">Current Working Directory: /home/xiyuanyang/python/test<br>Absolute path of this file: /home/xiyuanyang/python/test/test_inner/test_inner_inner/test.py<br></code></pre></td></tr></table></figure>
+
+<p>这就涉及到两个<strong>极易被混淆的概念：当前工作目录和文件目录</strong>：</p>
+<ul>
+<li><p><strong>Current Working Directory</strong> (CWD) - <code>os.getcwd()</code>：当前工作目录 (CWD) 是你执行 Python 脚本命令时所处的那个目录。无论你的脚本文件实际存储在哪里，os.getcwd() 都会返回你敲下 python 命令并按下回车键时，终端光标所在的目录。<strong>CWD 是 Python 解析相对路径的起点</strong>。（这一点很重要，并且在<strong>任何一种调用情况下都成立</strong>！）。例如，如果你在脚本中尝试打开一个文件，比如 with open(“my_data.txt”, “r”) as f:，Python 会首先在 CWD (&#x2F;home&#x2F;xiyuanyang&#x2F;python&#x2F;test) 中查找 my_data.txt。</p>
+</li>
+<li><p><strong>Absolute path of this file</strong> - <code>os.path.abspath(__file__)</code>：这是正在执行的 Python 脚本文件本身在文件系统中的完整、绝对路径。它与你从哪个目录启动脚本无关，而是文件在磁盘上的固定位置。</p>
+</li>
+</ul>
+<p>在Python的多文件编程中，因为不同的代码文件具有不同的层次关系，在代码树中的位置自然不同，因此<strong>当前工作目录</strong>和<strong>文件位置</strong>不一致是非常常见的事情。</p>
+<p>回到<code>sys.path</code>，下面我们来尝试两种不同的调用方式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Current Working Directory: <span class="hljs-subst">&#123;os.getcwd()&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Absolute path of this file: <span class="hljs-subst">&#123;os.path.abspath(__file__)&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;sys.path: <span class="hljs-subst">&#123;sys.path&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>run as scripts: <strong>prepend the script’s directory</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># run in ~/python/test </span><br>python <span class="hljs-string">&quot;/home/xiyuanyang/python/test/test_inner/test_inner_inner/test.py&quot;</span> <br></code></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">Current Working Directory: /home/xiyuanyang/python/test<br>Absolute path of this file: /home/xiyuanyang/python/test/test_inner/test_inner_inner/test.py<br>sys.path: [&#x27;/home/xiyuanyang/python/test/test_inner/test_inner_inner&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python312.zip&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12/lib-dynload&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12/site-packages&#x27;]<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>run <code>-m</code> as modules: <strong>prepend CWD</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># run in ~/python/test </span><br>python -m test_inner.test_inner_inner.test<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">Current Working Directory: /home/xiyuanyang/python/test<br>Absolute path of this file: /home/xiyuanyang/python/test/test_inner/test_inner_inner/test.py<br>sys.path: [&#x27;/home/xiyuanyang/python/test&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python312.zip&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12/lib-dynload&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12/site-packages&#x27;]<br></code></pre></td></tr></table></figure>
+
+<p>观察易得，两种调用方式会得到<strong>不同的sys.path</strong>，即解释器在导入模块的时候查找的目录也不一样。对于正常的<strong>按脚本导入</strong>，会查找<strong>脚本所在的文件位置</strong>，然而按模块导入会<strong>查找当前工作目录</strong>。</p>
+<p>当然，<code>sys.path</code>返回是是一个列表，因此，你可以手动<strong>添加自定义的文件路径</strong>。这也可以作为一种快速修复导入问题的途径。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Current Working Directory: <span class="hljs-subst">&#123;os.getcwd()&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Absolute path of this file: <span class="hljs-subst">&#123;os.path.abspath(__file__)&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;sys.path: <span class="hljs-subst">&#123;sys.path&#125;</span>&quot;</span>)<br><br>    sys.path.append(os.getcwd())<br>    <span class="hljs-comment"># append at the bottom</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;After appending&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;sys.path: <span class="hljs-subst">&#123;sys.path&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">Current Working Directory: /home/xiyuanyang/python/test<br>Absolute path of this file: /home/xiyuanyang/python/test/test_inner/test_inner_inner/test.py<br>sys.path: [&#x27;/home/xiyuanyang/python/test/test_inner/test_inner_inner&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python312.zip&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12/lib-dynload&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12/site-packages&#x27;]<br>After appending<br>sys.path: [&#x27;/home/xiyuanyang/python/test/test_inner/test_inner_inner&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python312.zip&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12/lib-dynload&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12/site-packages&#x27;, &#x27;/home/xiyuanyang/python/test&#x27;]<br></code></pre></td></tr></table></figure>
+
+<h4 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h4><p>在掌握上文知识后，修复这样的bug也是信手拈来了。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">.<br>├── greetings.py<br>└── test_inner<br>    └── hello_world.py<br><br>2 directories, 2 files<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># ./greetings.py</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">greetings</span>():<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Hello world&quot;</span>)<br><br><span class="hljs-comment"># ./test_inner/hello_world.py</span><br><span class="hljs-keyword">import</span> os<br><span class="hljs-built_in">print</span>(os.getcwd())<br><br><span class="hljs-keyword">import</span> greetings<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    greetings.greetings()<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python test_inner/hello_world.py<br></code></pre></td></tr></table></figure>
+
+<div class="note note-error">
+            <p>Traceback (most recent call last):<br>  File “&#x2F;home&#x2F;xiyuanyang&#x2F;test&#x2F;test_inner&#x2F;hello_world.py”, line 10, in <module><br>    import greetings<br>ModuleNotFoundError: No module named ‘greetings’</p>
+          </div>
+
+<p>FIX:</p>
+<ul>
+<li><p>Fix Method 1: run <code>python -m test_inner.hello_world</code> and run as scripts.</p>
+</li>
+<li><p>Fix Method 2: add <code>sys.path.append(os.getcwd())</code> into the code before importing.</p>
+</li>
+</ul>
+<h2 id="绝对路径和相对路径"><a href="#绝对路径和相对路径" class="headerlink" title="绝对路径和相对路径"></a>绝对路径和相对路径</h2><p>在搞懂import内部的操作原理后，我们来看最后一个比较复杂的问题：<strong>绝对路径和相对路径导入</strong>。</p>
+<hr>
+<h2 id="Python-中的绝对路径导入与相对路径导入"><a href="#Python-中的绝对路径导入与相对路径导入" class="headerlink" title="Python 中的绝对路径导入与相对路径导入"></a>Python 中的绝对路径导入与相对路径导入</h2><p>在 Python 中，当我们组织代码成模块和包时，如何正确地导入这些模块就变得非常重要。Python 提供了两种主要的导入方式：<strong>绝对路径导入 (Absolute Imports)</strong> 和 **相对路径导入 (Relative Imports)**。理解它们的区别和适用场景是编写清晰、可维护代码的关键。</p>
+<h3 id="绝对路径导入-Absolute-Imports"><a href="#绝对路径导入-Absolute-Imports" class="headerlink" title="绝对路径导入 (Absolute Imports)"></a>绝对路径导入 (Absolute Imports)</h3><p>绝对路径导入是从项目的<strong>根目录</strong>或<strong>顶级包</strong>开始的导入方式。它明确指定了模块在整个项目结构中的完整位置。无论你在哪个文件或哪个目录执行导入语句，只要项目的根目录在 <code>sys.path</code> 中，绝对路径导入都会指向同一个确切的模块。因此，<strong>绝对路径导入也会受到上述两种Python运行方式的差异</strong>。</p>
+<p>假设你的项目结构如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">my_project/             <span class="hljs-comment"># 项目根目录</span><br>├── main.py<br>├── package_a/<br>│   ├── __init__.py     <span class="hljs-comment"># 使 package_a 成为一个包</span><br>│   ├── module_x.py<br>│   └── subpackage_b/<br>│       ├── __init__.py <span class="hljs-comment"># 使 subpackage_b 成为一个包</span><br>│       └── module_y.py<br>└── package_c/<br>    ├── __init__.py     <span class="hljs-comment"># 使 package_c 成为一个包</span><br>    └── module_z.py<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在 <code>main.py</code> 中导入 <code>module_x</code> 和 <code>module_y</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># my_project/main.py</span><br><span class="hljs-keyword">import</span> package_a.module_x              <span class="hljs-comment"># 导入整个模块</span><br><span class="hljs-keyword">from</span> package_a.subpackage_b <span class="hljs-keyword">import</span> module_y <span class="hljs-comment"># 从子包中导入特定模块</span><br><br><span class="hljs-comment"># 接下来你就可以使用它们了</span><br>package_a.module_x.some_function()<br>module_y.another_function()<br></code></pre></td></tr></table></figure>
+
+<p>这里，<code>package_a</code> 和 <code>package_a.subpackage_b</code> 都是从 <code>my_project</code> 这个顶级目录（假设它在 <code>sys.path</code> 中）开始的绝对路径。</p>
+</li>
+<li><p>在 <code>package_a/module_x.py</code> 中导入 <code>module_z</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># my_project/package_a/module_x.py</span><br><span class="hljs-keyword">from</span> package_c <span class="hljs-keyword">import</span> module_z <span class="hljs-comment"># 即使 module_x 和 module_z 在不同的顶级包下，也可以通过绝对路径导入</span><br><br>module_z.do_something()<br></code></pre></td></tr></table></figure>
+
+<p>同样，<code>package_c</code> 是从项目根目录开始的绝对路径。</p>
+</li>
+</ul>
+<h3 id="相对路径导入-Relative-Imports"><a href="#相对路径导入-Relative-Imports" class="headerlink" title="相对路径导入 (Relative Imports)"></a>相对路径导入 (Relative Imports)</h3><p>相对路径导入是相对于<strong>当前模块所在的包</strong>的位置进行导入。它使用 <code>.</code> 和 <code>..</code> 来表示相对位置，类似于文件系统中的相对路径。</p>
+<div class="note note-primary">
+            <p><strong>无论哪种调用方式，相对路径导入都是从CWD出发的</strong>！</p>
+          </div>
+
+<ul>
+<li><code>.</code> 表示<strong>当前包</strong>。</li>
+<li><code>..</code> 表示<strong>当前包的父级包</strong>。可以有多个 <code>..</code> (<code>...</code> 表示祖父级包，以此类推)。</li>
+</ul>
+<blockquote>
+<p><strong>建议尽量少用或者不用相对路径</strong>，尤其是<code>..</code>，这会带来很多难以名状的导入错误。对于跨目录的包尽可能使用绝对路径导入。</p>
+</blockquote>
+<p><strong>重要：相对导入只能在包内部的模块中使用，不能在顶层脚本（即不属于任何包的 <code>.py</code> 文件）中使用。</strong></p>
+<p><strong>示例 (基于上面的项目结构):</strong></p>
+<ul>
+<li><p><strong>在 <code>package_a/subpackage_b/module_y.py</code> 中导入 <code>module_x</code>：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># my_project/package_a/subpackage_b/module_y.py</span><br><span class="hljs-keyword">from</span> .. <span class="hljs-keyword">import</span> module_x <span class="hljs-comment"># 从父级包 (package_a) 导入 module_x</span><br><br>module_x.some_function()<br></code></pre></td></tr></table></figure>
+
+<p><code>module_y.py</code> 位于 <code>subpackage_b</code> 包中。<code>..</code> 指的是 <code>subpackage_b</code> 的父包，即 <code>package_a</code>。</p>
+</li>
+<li><p><strong>在 <code>package_a/module_x.py</code> 中导入 <code>subpackage_b</code> 下的 <code>module_y</code>：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># my_project/package_a/module_x.py</span><br><span class="hljs-keyword">from</span> .subpackage_b <span class="hljs-keyword">import</span> module_y <span class="hljs-comment"># 从当前包 (package_a) 的子包导入 module_y</span><br><br>module_y.another_function()<br></code></pre></td></tr></table></figure>
+
+<p><code>module_x.py</code> 位于 <code>package_a</code> 包中。<code>.</code> 指的是 <code>package_a</code> 自身。</p>
+</li>
+<li><p><strong>首选绝对路径导入：</strong> 在绝大多数情况下，尤其是在大型、多层次的项目中，<strong>推荐使用绝对路径导入</strong>。它使代码更清晰、更易于理解和维护，并且在重构时更不容易出错。当你需要导入不同顶级包中的模块时，绝对路径导入是唯一选择。</p>
+</li>
+<li><p><strong>相对路径导入的适用场景：</strong> 相对路径导入通常只在<strong>包内部</strong>用于模块间的相互引用。它能让导入语句更简洁，并且在将包作为一个整体移动时保持其内部逻辑的完整性。</p>
+</li>
+<li><p><strong>避免在顶层脚本中使用相对导入：</strong> 如果你直接运行一个不属于任何包的 Python 脚本，并尝试在其中使用相对导入，你会遇到 <code>ImportError: attempted relative import with no known parent package</code> 错误。这是因为 Python 解释器在直接运行脚本时，无法确定它的“父包”。</p>
+</li>
+</ul>
+<h2 id="Demo-1"><a href="#Demo-1" class="headerlink" title="Demo"></a>Demo</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">.<br>├── __init__.py<br>├── main.py<br>├── module_a<br>│   ├── __init__.py<br>│   ├── a.py<br>│   └── a_need_b.py<br>├── module_b<br>│   ├── __init__.py<br>│   ├── b.py<br>│   └── b_need_c.py<br>└── module_c<br>    ├── __init__.py<br>    └── c.py<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># main</span><br><span class="hljs-keyword">from</span> module_a <span class="hljs-keyword">import</span> a, a_need_b<br><span class="hljs-keyword">from</span> module_b <span class="hljs-keyword">import</span> b, b_need_c<br><span class="hljs-keyword">from</span> module_c <span class="hljs-keyword">import</span> c<br><br><span class="hljs-comment"># module_a/a_need_b</span><br><span class="hljs-keyword">from</span> module_b <span class="hljs-keyword">import</span> b_need_c<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;It is file a_need_b !&quot;</span>)<br><br><span class="hljs-comment"># module_a/a</span><br><span class="hljs-keyword">from</span> .a_need_b <span class="hljs-keyword">import</span> *<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;It is file a!&quot;</span>)<br><br><span class="hljs-comment"># module_b/b_need_c</span><br><span class="hljs-keyword">from</span> module_c <span class="hljs-keyword">import</span> c<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;C, i need you!&quot;</span>)<br><br><span class="hljs-comment"># module_b/b: empty</span><br><br><span class="hljs-comment"># module_c/c:</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;It is the module C!&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<div class="note note-info">
+            <p>为什么 <code>from .a_need_b import *</code> 在 <code>python -m</code> 下能正常工作，但是正常运行就不可以？</p><p>当你运行像 <code>python -m your_package.your_module</code> 这样的命令时，Python 解释器会做几件关键的事情：</p><ol><li><strong>它将你的顶级包视为一个真正的包。</strong> Python 会查找 <code>your_package</code> 在 <code>sys.path</code> 中的位置（通常是当前工作目录），并将其标记为**顶级包 (top-level package)**。</li><li><strong>它设置了 <code>__package__</code> 和 <code>__name__</code> 属性。</strong> 当一个模块通过 <code>import</code> 机制（包括 <code>python -m</code>）被加载时，Python 会为它设置 <code>__package__</code> 属性，这个属性指明了模块所属的包。这是进行相对导入的先决条件。</li><li><strong>它确保了相对导入的上下文。</strong> 有了正确的 <code>__package__</code> 上下文，当遇到 <code>from .a_need_b import *</code> 这样的相对导入时，Python 就能准确地知道 <code>.</code> 指的是当前模块所在的包，<code>..</code> 指的是当前包的父包，以此类推。</li></ol><p>如果你在 <code>my_project</code> 目录下执行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python -m module_a.a<br></code></pre></td></tr></table></figure><p>这将发生以下情况：</p><ol><li><strong>设置 <code>sys.path</code>：</strong> <code>my_project</code> (你的当前工作目录) 被添加到 <code>sys.path</code> 的最前面。</li><li><strong>识别顶级包：</strong> Python 知道它正在尝试运行 <code>module_a.a</code>。由于 <code>my_project</code> 在 <code>sys.path</code> 中，并且 <code>my_project/module_a/__init__.py</code> 存在，Python 就能够将 <code>my_project</code> 识别为一个<strong>顶级包的上下文</strong>，并且 <code>module_a</code> 是 <code>my_project</code> 下的一个子包。</li><li><strong>执行 <code>module_a.a</code>：</strong> 当 <code>a.py</code> 文件中的代码开始执行时：<ul><li>Python 知道 <code>a.py</code> 的<strong>完整模块名</strong>是 <code>module_a.a</code>。</li><li>因此，<code>a.py</code> 的 <code>__package__</code> 属性被设置为 <code>&#39;module_a&#39;</code>。</li></ul></li><li><strong>处理相对导入 <code>from .a_need_b import *</code>：</strong><ul><li><code>a.py</code> 内部的这个导入语句看到 <code>.</code>。</li><li>因为 <code>a.py</code> 的 <code>__package__</code> 是 <code>module_a</code>，所以 <code>.</code> 被解析为 <code>&#39;module_a&#39;</code>。</li><li>因此，<code>from .a_need_b import *</code> 实际上被解释为 <code>from module_a.a_need_b import *</code>。</li><li>由于 <code>module_a.a_need_b</code> 在 <code>module_a</code> 包内是可用的，并且 <code>module_a</code> 已经被正确识别，所以导入成功。</li></ul></li></ol><p>如果你直接运行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python my_project/module_a/a.py<br></code></pre></td></tr></table></figure><p>会发生不同的事情：</p><ol><li><strong>设置 <code>sys.path</code>：</strong> 此时，Python 会将 <strong><code>a.py</code> 所在的目录</strong> (<code>my_project/module_a/</code>) 添加到 <code>sys.path</code> 的最前面。</li><li><strong>不识别包上下文：</strong> 当 <code>a.py</code> 被直接作为脚本执行时，Python 不会将其视为 <code>module_a</code> 包的一部分，更不会将其父目录 <code>my_project</code> 视为一个顶级包。</li><li><strong><code>__package__</code> 为 <code>None</code>：</strong> 此时 <code>a.py</code> 的 <code>__package__</code> 属性会被设置为 <code>None</code> (或者根本不存在，取决于 Python 版本和加载方式)。</li><li><strong>相对导入失败：</strong> 当 Python 尝试解析 <code>from .a_need_b import *</code> 时，由于 <code>__package__</code> 是 <code>None</code>，它无法确定 <code>.</code> 到底指代什么包的上下文，因此会抛出 <code>ImportError: attempted relative import with no known parent package</code> (或者在你之前遇到的 <code>ImportError: attempted relative import beyond top-level package</code>，这取决于更复杂的包结构和导入链)。</li></ol><p><code>python -m</code> 的核心价值在于它明确地将你的程序作为一个<strong>包或模块</strong>来运行，从而为相对导入提供了必要的上下文 (<code>__package__</code> 属性)。这使得 Python 能够正确地解析诸如 <code>.</code> 和 <code>..</code> 这样的相对引用，从而在复杂的项目结构中实现模块间的顺畅通信。而直接运行一个文件，Python 倾向于将其视为一个独立的脚本，剥夺了它作为包内模块的身份，从而导致相对导入失败。</p><p>所以，当你的代码需要利用包的内部结构进行相对导入时，**<code>python -m</code> 通常是运行它的正确方式**。</p>
+          </div>
+
+
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>千言万语汇成一句话：<strong>多用绝对路径</strong>！！！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Code/" class="category-chain-item">Code</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Code/Architecture-Design/" class="category-chain-item">Architecture Design</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/Tutorial/" class="print-no-link">#Tutorial</a>
+      
+        <a href="/tags/finished/" class="print-no-link">#finished</a>
+      
+        <a href="/tags/Modules/" class="print-no-link">#Modules</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Python Architecture Patterns: Multi-File Programming</div>
+      <div>https://xiyuanyang-code.github.io/posts/Python-Architecture-Patterns-Multi-file-Progarmming/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>July 12, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>July 12, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Python-Architecture-Patterns/" title="Python Architecture Patterns">
+                        <span class="hidden-mobile">Python Architecture Patterns</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <a href="https://xiyuanyang-code.github.io/Loving-Count/" target="_blank" rel="nofollow noopener"><span>❤️</span></a> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

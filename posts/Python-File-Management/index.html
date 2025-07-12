@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/filespython.jpg">
 <meta property="article:published_time" content="2025-01-16T05:02:00.000Z">
-<meta property="article:modified_time" content="2025-05-18T16:19:20.388Z">
+<meta property="article:modified_time" content="2025-07-12T09:07:29.299Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="Tutorial">
@@ -404,7 +404,7 @@
         aria-expanded="true"
       >
         Code
-        <span class="list-group-count">(25)</span>
+        <span class="list-group-count">(26)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -458,7 +458,7 @@
         aria-expanded="false"
       >
         Architecture Design
-        <span class="list-group-count">(1)</span>
+        <span class="list-group-count">(2)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -476,6 +476,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">Python Architecture Patterns</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Architecture-Patterns-Multi-file-Progarmming/" title="Python Architecture Patterns: Multi-File Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Architecture Patterns: Multi-File Programming</span>
         </a>
       
     
@@ -817,8 +826,8 @@
 </style>
 
 <h1 id="Advanced-Python-Techniques-File-Management"><a href="#Advanced-Python-Techniques-File-Management" class="headerlink" title="Advanced Python Techniques: File Management"></a>Advanced Python Techniques: File Management</h1><p>It is the learning lecture notes of Python tutorial (from scratch).</p>
-<h2 id="Import-Modules"><a href="#Import-Modules" class="headerlink" title="Import Modules"></a>Import Modules</h2><p>在Python中，<strong>模块（Module）</strong>是一个包含Python代码的文件，通常以 <code>.py</code> 为扩展名。模块可以包含函数、类、变量和可执行代码。</p>
-<h3 id="Basic-Grammer"><a href="#Basic-Grammer" class="headerlink" title="Basic Grammer"></a>Basic Grammer</h3><p>导入模块最常用的命令是<code>import</code>命令，我们可以使用<code>import</code>命令导入<strong>Python中的第三方模块</strong>。（类似于C++中的<code>#include</code>命令）</p>
+<h2 id="Import-Modules"><a href="#Import-Modules" class="headerlink" title="Import Modules"></a>Import Modules</h2><p>在Python中，<strong>模块</strong>是一个包含Python代码的文件，通常以 <code>.py</code> 为扩展名。模块可以包含函数、类、变量和可执行代码。</p>
+<h3 id="Basic-Grammar"><a href="#Basic-Grammar" class="headerlink" title="Basic Grammar"></a>Basic Grammar</h3><p>导入模块最常用的命令是<code>import</code>命令，我们可以使用<code>import</code>命令导入<strong>Python中的第三方模块</strong>。（类似于C++中的<code>#include</code>命令）</p>
 <p>在导入模块的过程中，有如下的四种方法：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-comment"># 第一种导入方式：把整个模块全部导入</span><br><span class="hljs-keyword">import</span> math<br><span class="hljs-comment"># 使用 math 模块中的 sqrt 函数</span><br>result = math.sqrt(<span class="hljs-number">16</span>)<br><span class="hljs-built_in">print</span>(result)  <span class="hljs-comment"># 输出: 4.0</span><br><br><br><span class="hljs-comment"># 第二种导入方式：导入模块的特定内容</span><br><span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> sqrt<br><span class="hljs-comment"># 直接使用 sqrt 函数</span><br>result = sqrt(<span class="hljs-number">16</span>)<br><span class="hljs-built_in">print</span>(result)  <span class="hljs-comment"># 输出: 4.0</span><br><br><br><span class="hljs-comment"># 第三种导入方式：导入模块的全部内容</span><br><span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> *<br><span class="hljs-comment"># 直接使用 sqrt 函数</span><br>result = sqrt(<span class="hljs-number">16</span>)<br><span class="hljs-built_in">print</span>(result)  <span class="hljs-comment"># 输出: 4.0</span><br><br><br><span class="hljs-comment"># 第四种导入方式：起别名 </span><br><span class="hljs-keyword">import</span> math <span class="hljs-keyword">as</span> m<br><span class="hljs-comment"># 使用别名 m 访问 sqrt 函数</span><br>result = m.sqrt(<span class="hljs-number">16</span>)<br><span class="hljs-built_in">print</span>(result)  <span class="hljs-comment"># 输出: 4.0</span><br><br><span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> sqrt <span class="hljs-keyword">as</span> square_root<br><span class="hljs-comment"># 使用别名 square_root</span><br>result = square_root(<span class="hljs-number">16</span>)<br><span class="hljs-built_in">print</span>(result)  <span class="hljs-comment"># 输出: 4.0</span><br></code></pre></td></tr></table></figure>
 
@@ -944,9 +953,9 @@
 <p>归根结底就一句话：<code>FileNotFoundError: [Errno 2] No such file or directory: &#39;exammple.txt&#39;</code>。</p>
 <p>和C++一样，Python也有<strong>异常处理</strong>的机制。<code>FileNotFoundError</code> 是 Python 中的一个<strong>内置异常类</strong>，用于表示程序尝试访问一个不存在的文件或目录时抛出的错误。它是 <code>OSError</code> 的子类（在 Python 3.3 之前是 <code>IOError</code> 的子类），专门用于处理文件未找到的情况。</p>
 <p>在C++中，我们可以使用<code>try-catch</code>块来捕获异常，保证其他程序的正常运行，在Python中，<code>try-except</code>块也发挥了类似的作用。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path<br><br><span class="hljs-comment"># for a neater traceback information</span><br><span class="hljs-keyword">from</span> rich <span class="hljs-keyword">import</span> traceback<br>traceback.install(show_locals=<span class="hljs-literal">True</span>)<br><br><br>correct_path = Path(<span class="hljs-string">&quot;example.txt&quot;</span>)<br>wrong_path = Path(<span class="hljs-string">&quot;exammple.txt&quot;</span>)<br><br>contents_correct = correct_path.read_text()<br><br><span class="hljs-keyword">try</span>:<br>    contents_wrong = wrong_path.read_text()<br><span class="hljs-keyword">except</span> FileNotFoundError:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Haha,File not found!&quot;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path<br><br><span class="hljs-comment"># for a neater traceback information</span><br><span class="hljs-keyword">from</span> rich <span class="hljs-keyword">import</span> traceback<br>traceback.install(show_locals=<span class="hljs-literal">True</span>)<br><br><br>correct_path = Path(<span class="hljs-string">&quot;example.txt&quot;</span>)<br>wrong_path = Path(<span class="hljs-string">&quot;exammple.txt&quot;</span>)<br><br>contents_correct = correct_path.read_text()<br><br><span class="hljs-keyword">try</span>:<br>    contents_wrong = wrong_path.read_text()<br><span class="hljs-keyword">except</span> FileNotFoundError:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;HaHa, File not found!&quot;</span>)<br></code></pre></td></tr></table></figure>
 
-<p>再次运行程序，就不会出现<code>traceback</code>报错，而只会输出：<code>Haha,File not found!</code></p>
+<p>再次运行程序，就不会出现<code>traceback</code>报错，而只会输出：<code>HaHa,File not found!</code></p>
 <h2 id="Data-Storage：JSON"><a href="#Data-Storage：JSON" class="headerlink" title="Data Storage：JSON"></a>Data Storage：<code>JSON</code></h2><h3 id="What-is-JSON"><a href="#What-is-JSON" class="headerlink" title="What is JSON ?"></a>What is <code>JSON</code> ?</h3><p><strong>JSON 文件</strong> 是一种用于<strong>存储和交换数据的文件格式</strong>，全称是 <strong>JavaScript Object Notation</strong>（JavaScript 对象表示法）。它的设计目标是易于人类阅读和编写，同时也易于机器解析和生成。</p>
 <p>JSON 文件的内容是由 <strong>“键值对”</strong> 组成的，就像字典一样。是一种轻量级的数据格式。</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Alice&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;age&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">25</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;isStudent&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;courses&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Math&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Science&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;History&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;city&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Beijing&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;postalCode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;100000&quot;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
@@ -1140,7 +1149,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 19, 2025</div>
+          <div>July 12, 2025</div>
         </div>
       
       
