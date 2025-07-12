@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/os.png">
 <meta property="article:published_time" content="2025-05-03T06:06:14.000Z">
-<meta property="article:modified_time" content="2025-05-18T16:19:10.027Z">
+<meta property="article:modified_time" content="2025-07-12T07:30:33.453Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="Tutorial">
@@ -404,7 +404,7 @@
         aria-expanded="true"
       >
         Code
-        <span class="list-group-count">(24)</span>
+        <span class="list-group-count">(25)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -447,6 +447,43 @@
   </div>
 
           
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Architecture Design"
+        id="heading-ae64194051878ec826a5a24ebf799d69" role="tab" data-toggle="collapse" href="#collapse-ae64194051878ec826a5a24ebf799d69"
+        aria-expanded="false"
+      >
+        Architecture Design
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ae64194051878ec826a5a24ebf799d69"
+           role="tabpanel" aria-labelledby="heading-ae64194051878ec826a5a24ebf799d69">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Python-Architecture-Patterns/" title="Python Architecture Patterns"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Architecture Patterns</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
   
     
     
@@ -810,7 +847,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Traverse current directory and subdirectories</span><br><span class="hljs-keyword">for</span> root, dirs, files <span class="hljs-keyword">in</span> os.walk(<span class="hljs-string">&#x27;.&#x27;</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Current directory: <span class="hljs-subst">&#123;root&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Subdirectories: <span class="hljs-subst">&#123;dirs&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Files: <span class="hljs-subst">&#123;files&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;-&quot;</span> * <span class="hljs-number">40</span>)<br></code></pre></td></tr></table></figure>
 
 <h3 id="os-path"><a href="#os-path" class="headerlink" title="os.path"></a><code>os.path</code></h3><p>In [ ]:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># path joining: it will automatically combine the two adddress together.</span><br>path_1 = <span class="hljs-string">&quot;/GPFS/rhome/xiyuanyang/python_basic/&quot;</span><br>path_2 = <span class="hljs-string">&quot;Python-environment-modules-tutorial/helloworld.txt&quot;</span><br>new_path = os.path.join(path_1, path_2)<br><span class="hljs-built_in">print</span>(new_path)<br><br><span class="hljs-comment"># path split</span><br><span class="hljs-built_in">dir</span>, file = os.path.split(new_path)<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">dir</span>, file)<br><br><span class="hljs-keyword">assert</span> os.path.isdir(<span class="hljs-built_in">dir</span>) <span class="hljs-keyword">and</span> os.path.isfile(file)<br><br><span class="hljs-comment"># path exists</span><br><span class="hljs-built_in">open</span>(new_path, <span class="hljs-string">&quot;a&quot;</span>).close()<br><span class="hljs-keyword">assert</span> os.path.exists(new_path)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;size: <span class="hljs-subst">&#123;os.path.getsize(new_path)&#125;</span>&quot;</span>)<br><br><span class="hljs-comment"># print all kinds of names</span><br><span class="hljs-built_in">print</span>(new_path)<br><span class="hljs-built_in">print</span>(os.path.basename(new_path))<br><span class="hljs-built_in">print</span>(os.path.dirname(new_path))<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># path joining: it will automatically combine the two address together.</span><br>path_1 = <span class="hljs-string">&quot;/GPFS/rhome/xiyuanyang/python_basic/&quot;</span><br>path_2 = <span class="hljs-string">&quot;Python-environment-modules-tutorial/helloworld.txt&quot;</span><br>new_path = os.path.join(path_1, path_2)<br><span class="hljs-built_in">print</span>(new_path)<br><br><span class="hljs-comment"># path split</span><br><span class="hljs-built_in">dir</span>, file = os.path.split(new_path)<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">dir</span>, file)<br><br><span class="hljs-keyword">assert</span> os.path.isdir(<span class="hljs-built_in">dir</span>) <span class="hljs-keyword">and</span> os.path.isfile(file)<br><br><span class="hljs-comment"># path exists</span><br><span class="hljs-built_in">open</span>(new_path, <span class="hljs-string">&quot;a&quot;</span>).close()<br><span class="hljs-keyword">assert</span> os.path.exists(new_path)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;size: <span class="hljs-subst">&#123;os.path.getsize(new_path)&#125;</span>&quot;</span>)<br><br><span class="hljs-comment"># print all kinds of names</span><br><span class="hljs-built_in">print</span>(new_path)<br><span class="hljs-built_in">print</span>(os.path.basename(new_path))<br><span class="hljs-built_in">print</span>(os.path.dirname(new_path))<br></code></pre></td></tr></table></figure>
 
 <p>Now, you can combine <code>os.walk()</code> and <code>os.path()</code> together to implement a small <code>grep</code> command!</p>
 <p>In [ ]:</p>
@@ -891,7 +928,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 19, 2025</div>
+          <div>July 12, 2025</div>
         </div>
       
       
