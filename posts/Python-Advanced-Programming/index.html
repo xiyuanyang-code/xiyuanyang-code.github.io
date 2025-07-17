@@ -21,14 +21,14 @@
   
     <meta name="description" content="This article introduces advanced Python programming concepts, including Pythonic style, metaprogramming, functional programming, and more.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python Advanced Programming">
+<meta property="og:title" content="Python Pythonic">
 <meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Python-Advanced-Programming/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
 <meta property="og:description" content="This article introduces advanced Python programming concepts, including Pythonic style, metaprogramming, functional programming, and more.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/fp.jpg">
 <meta property="article:published_time" content="2025-04-26T14:57:35.000Z">
-<meta property="article:modified_time" content="2025-07-07T03:34:14.997Z">
+<meta property="article:modified_time" content="2025-07-17T13:05:41.954Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Finished">
 <meta property="article:tag" content="Python">
@@ -40,7 +40,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Python Advanced Programming - Xiyuan Yang&#39;s Blog</title>
+  <title>Python Pythonic - Xiyuan Yang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -315,7 +315,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Python Advanced Programming"></span>
+            <span id="subtitle" data-typed-text="Python Pythonic"></span>
           
         </div>
 
@@ -343,7 +343,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k words
+          4.1k words
         
       </span>
     
@@ -404,7 +404,7 @@
         aria-expanded="true"
       >
         Code
-        <span class="list-group-count">(27)</span>
+        <span class="list-group-count">(28)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -708,7 +708,7 @@
         aria-expanded="true"
       >
         Python
-        <span class="list-group-count">(9)</span>
+        <span class="list-group-count">(10)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -758,10 +758,10 @@
     
       
       
-        <a href="/posts/Python-Advanced-Programming/" title="Python Advanced Programming"
+        <a href="/posts/Python-Advanced-Programming/" title="Python Pythonic"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">Python Advanced Programming</span>
+          <span class="category-post">Python Pythonic</span>
         </a>
       
     
@@ -785,10 +785,10 @@
     
       
       
-        <a href="/posts/Python-Pipe/" title="Python Pipe"
+        <a href="/posts/Python-Pipe/" title="Python Pipe &amp; Functional Programming"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">Python Pipe</span>
+          <span class="category-post">Python Pipe &amp; Functional Programming</span>
         </a>
       
     
@@ -798,6 +798,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">Python Package Manager</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Pythonic-Functional-Programming/" title="Pythonic Functional Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pythonic Functional Programming</span>
         </a>
       
     
@@ -823,7 +832,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Python Advanced Programming</h1>
+            <h1 id="seo-header">Python Pythonic</h1>
             
             
               <div class="markdown-body">
@@ -833,10 +842,19 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h1 id="Python-Advanced-Programming"><a href="#Python-Advanced-Programming" class="headerlink" title="Python Advanced Programming"></a>Python Advanced Programming</h1><h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><ul>
-<li><a href="#Meta-Programming">Meta Programming</a><ul>
-<li><a href="#Decorators">Decorators</a></li>
-</ul>
+<h1 id="Python-Advanced-Programming"><a href="#Python-Advanced-Programming" class="headerlink" title="Python Advanced Programming"></a>Python Advanced Programming</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><a target="_blank" rel="noopener" href="https://mail.python.org/pipermail/tutor/2003-October/025932.html">What is Pythonic?</a></p>
+<p>简单来说，Pythonic不仅仅指编写出能够运行的 Python 代码，更深层次地，它代表了一种<strong>符合 Python 语言哲学和最佳实践的编程风格。简单来说，Pythonic 的代码就是“用 Python 的思维方式”写出来的代码</strong>。</p>
+<p>它强调代码的<strong>可读性、简洁性、明确性以及效率</strong>。</p>
+<h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><ul>
+<li><p>Meta Programming</p>
+</li>
+<li><p>Duck Typing</p>
+</li>
+<li><p>Callable &amp; Iterable</p>
+</li>
+<li><p>Generator</p>
+</li>
+<li><p>Functional Programming &amp; FCC (First Class Citizen)</p>
 </li>
 </ul>
 <h2 id="Meta-Programming"><a href="#Meta-Programming" class="headerlink" title="Meta Programming"></a>Meta Programming</h2><p><strong>元编程（Meta Programming）</strong> 是一种编程技术，允许<strong>程序在运行时动态地生成、分析或修改代码结构</strong>，甚至改变自身的行为。它的核心思想是“<strong>编写能够操作代码的代码</strong>”，从而提升抽象层次，减少重复工作，增强灵活性。</p>
@@ -856,7 +874,7 @@
 <p>程序将会输出<code>Hello, world</code>。<code>exec()</code> 是 Python 中用来执行 <strong>Python 代码字符串</strong>的（比如 <code>exec(&quot;print(1+1)&quot;)</code>）。</p>
 <p>这就是Meta Programming中<strong>Code as Data</strong>的思想，即编写操作代码的代码。</p>
 <blockquote>
-<p>如果这样想的话，各种脚本文件（bash，Dockerfile，Cmakelists）不都是Code as Data的思想吗？</p>
+<p>如果这样想的话，各种脚本文件（bash，Dockerfile，CMakelists）不都是Code as Data的思想吗？</p>
 </blockquote>
 <p>当然，你也可以使用<code>os</code>库实现更加高级的操作：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br>command1 = <span class="hljs-string">&quot;python test2.py&quot;</span><br>os.system(command1)<br>os.system(<span class="hljs-string">&quot;echo &#x27;This is a bash command&#x27;&quot;</span>)<br>os.system(<span class="hljs-string">&quot;mkdir test_for_os&quot;</span>)<br></code></pre></td></tr></table></figure>
@@ -880,10 +898,10 @@
 <ul>
 <li>Time Decorator</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Author: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">Date: 2025-04-28 14:58:15</span><br><span class="hljs-string">LastEditors: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">LastEditTime: 2025-04-28 14:58:20</span><br><span class="hljs-string">FilePath: /Lec8_MetaProgramming/time_decorator.py</span><br><span class="hljs-string">Description:</span><br><span class="hljs-string">Do you code and make progress today?</span><br><span class="hljs-string">Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved.</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> wraps<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">timer</span>(<span class="hljs-params">func</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Measuring time&quot;&quot;&quot;</span><br><br><span class="hljs-meta">    @wraps(<span class="hljs-params">func</span>)</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">wrapper</span>(<span class="hljs-params">*args, **kwargs</span>):<br>        start_time = time.perf_counter()<br>        result = func(*args, **kwargs)<br>        end_time = time.perf_counter()<br>        elapsed_time = end_time - start_time<br><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;fuction <span class="hljs-subst">&#123;func.__name__&#125;</span> runs wirh time: <span class="hljs-subst">&#123;elapsed_time:<span class="hljs-number">.6</span>f&#125;</span> seconds&quot;</span>)<br>        <span class="hljs-keyword">return</span> result<br><br>    <span class="hljs-keyword">return</span> wrapper<br><br><span class="hljs-meta">@timer</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">sum_test</span>(<span class="hljs-params">arr: <span class="hljs-built_in">dict</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-built_in">sum</span> = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> arr:<br>        <span class="hljs-built_in">sum</span> += num<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    test_arr = []<br>    arr_size = <span class="hljs-number">10000</span><br>    left_bound = <span class="hljs-number">1</span><br>    right_bound = <span class="hljs-number">10000</span><br><br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(arr_size):<br>        test_arr.append(random.randint(left_bound, right_bound))<br>    <br>    ans = sum_test(test_arr)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;The final answer is <span class="hljs-subst">&#123;ans&#125;</span>&quot;</span>)<br><br><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Author: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">Date: 2025-04-28 14:58:15</span><br><span class="hljs-string">LastEditors: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">LastEditTime: 2025-04-28 14:58:20</span><br><span class="hljs-string">FilePath: /Lec8_MetaProgramming/time_decorator.py</span><br><span class="hljs-string">Description:</span><br><span class="hljs-string">Do you code and make progress today?</span><br><span class="hljs-string">Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved.</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> wraps<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">timer</span>(<span class="hljs-params">func</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Measuring time&quot;&quot;&quot;</span><br><br><span class="hljs-meta">    @wraps(<span class="hljs-params">func</span>)</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">wrapper</span>(<span class="hljs-params">*args, **kwargs</span>):<br>        start_time = time.perf_counter()<br>        result = func(*args, **kwargs)<br>        end_time = time.perf_counter()<br>        elapsed_time = end_time - start_time<br><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;function <span class="hljs-subst">&#123;func.__name__&#125;</span> runs with time: <span class="hljs-subst">&#123;elapsed_time:<span class="hljs-number">.6</span>f&#125;</span> seconds&quot;</span>)<br>        <span class="hljs-keyword">return</span> result<br><br>    <span class="hljs-keyword">return</span> wrapper<br><br><span class="hljs-meta">@timer</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">sum_test</span>(<span class="hljs-params">arr: <span class="hljs-built_in">dict</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-built_in">sum</span> = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> arr:<br>        <span class="hljs-built_in">sum</span> += num<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    test_arr = []<br>    arr_size = <span class="hljs-number">10000</span><br>    left_bound = <span class="hljs-number">1</span><br>    right_bound = <span class="hljs-number">10000</span><br><br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(arr_size):<br>        test_arr.append(random.randint(left_bound, right_bound))<br>    <br>    ans = sum_test(test_arr)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;The final answer is <span class="hljs-subst">&#123;ans&#125;</span>&quot;</span>)<br><br><br></code></pre></td></tr></table></figure>
 
 <p>程序的输出结果：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">fuction</span> sum_test runs wirh time: <span class="hljs-number">0</span>.<span class="hljs-number">000316</span> seconds<br><span class="hljs-attribute">The</span> final answer is <span class="hljs-number">50281843</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ada"><span class="hljs-keyword">function</span> <span class="hljs-title">sum_test</span> runs <span class="hljs-keyword">with</span> time: <span class="hljs-number">0.000316</span> seconds<br>The final answer <span class="hljs-keyword">is</span> <span class="hljs-number">50281843</span><br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>A more advanced time decorator!</li>
@@ -900,7 +918,7 @@
 <blockquote>
 <p><code>*args</code>代表接受任意的关键字参数，而<code>**kwargs</code>可以接受任意的位置参数。</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Author: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">Date: 2025-04-28 15:05:43</span><br><span class="hljs-string">LastEditors: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">LastEditTime: 2025-04-28 15:05:48</span><br><span class="hljs-string">FilePath: /Lec8_MetaProgramming/type_check.py</span><br><span class="hljs-string">Description:</span><br><span class="hljs-string">Do you code and make progress today?</span><br><span class="hljs-string">Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved.</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">type_check</span>(<span class="hljs-params">func</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">wrapper</span>(<span class="hljs-params">*args, **kwargs</span>):<br>        <span class="hljs-comment"># get the annotations (data types of the paramaters and return value)</span><br>        annotations: <span class="hljs-built_in">dict</span> = func.__annotations__<br><br>        <span class="hljs-comment"># check parameters</span><br>        <span class="hljs-keyword">for</span> arg, (param_name, param_value) <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(args, annotations.items()):<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">isinstance</span>(arg, param_value):<br>                <span class="hljs-keyword">raise</span> TypeError(<span class="hljs-string">f&quot;Argument <span class="hljs-subst">&#123;param_name&#125;</span> must be <span class="hljs-subst">&#123;param_value&#125;</span>&quot;</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;All args check passed.&quot;</span>)<br><br>        <span class="hljs-comment"># run the function</span><br>        result = func(*args, **kwargs)<br><br>        <span class="hljs-comment"># check return value</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;return&quot;</span> <span class="hljs-keyword">in</span> annotations <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">isinstance</span>(result, annotations[<span class="hljs-string">&quot;return&quot;</span>]):<br>            <span class="hljs-keyword">raise</span> TypeError(<span class="hljs-string">f&quot;Return value must be <span class="hljs-subst">&#123;annotations[<span class="hljs-string">&#x27;return&#x27;</span>]&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Return value is <span class="hljs-subst">&#123;annotations[<span class="hljs-string">&#x27;return&#x27;</span>]&#125;</span>, check passed.&quot;</span>)<br><br>        <span class="hljs-keyword">return</span> result<br><br>    <span class="hljs-keyword">return</span> wrapper<br><br><br><span class="hljs-meta">@type_check</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">a: <span class="hljs-built_in">int</span>, b: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-keyword">return</span> a + b<br><br><br><span class="hljs-meta">@type_check</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">add_fail</span>(<span class="hljs-params">a: <span class="hljs-built_in">int</span>, b: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-keyword">return</span> a + b<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">add_fail_2</span>(<span class="hljs-params">a: <span class="hljs-built_in">str</span>, b: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-keyword">return</span> a + b<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    x = add(<span class="hljs-number">5</span>, <span class="hljs-number">6</span>)<br>    <span class="hljs-built_in">print</span>(x)<br><br>    <span class="hljs-keyword">try</span>:<br>        add_fail(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>)<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Error, <span class="hljs-subst">&#123;e&#125;</span>!&quot;</span>)<br><br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-built_in">print</span>(add_fail_2(<span class="hljs-string">&quot;Hello, world&quot;</span>, <span class="hljs-string">&quot; Wow&quot;</span>))<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Error, <span class="hljs-subst">&#123;e&#125;</span>!&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Author: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">Date: 2025-04-28 15:05:43</span><br><span class="hljs-string">LastEditors: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-string">LastEditTime: 2025-04-28 15:05:48</span><br><span class="hljs-string">FilePath: /Lec8_MetaProgramming/type_check.py</span><br><span class="hljs-string">Description:</span><br><span class="hljs-string">Do you code and make progress today?</span><br><span class="hljs-string">Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved.</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">type_check</span>(<span class="hljs-params">func</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">wrapper</span>(<span class="hljs-params">*args, **kwargs</span>):<br>        <span class="hljs-comment"># get the annotations (data types of the parameters and return value)</span><br>        annotations: <span class="hljs-built_in">dict</span> = func.__annotations__<br><br>        <span class="hljs-comment"># check parameters</span><br>        <span class="hljs-keyword">for</span> arg, (param_name, param_value) <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(args, annotations.items()):<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">isinstance</span>(arg, param_value):<br>                <span class="hljs-keyword">raise</span> TypeError(<span class="hljs-string">f&quot;Argument <span class="hljs-subst">&#123;param_name&#125;</span> must be <span class="hljs-subst">&#123;param_value&#125;</span>&quot;</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;All args check passed.&quot;</span>)<br><br>        <span class="hljs-comment"># run the function</span><br>        result = func(*args, **kwargs)<br><br>        <span class="hljs-comment"># check return value</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;return&quot;</span> <span class="hljs-keyword">in</span> annotations <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">isinstance</span>(result, annotations[<span class="hljs-string">&quot;return&quot;</span>]):<br>            <span class="hljs-keyword">raise</span> TypeError(<span class="hljs-string">f&quot;Return value must be <span class="hljs-subst">&#123;annotations[<span class="hljs-string">&#x27;return&#x27;</span>]&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Return value is <span class="hljs-subst">&#123;annotations[<span class="hljs-string">&#x27;return&#x27;</span>]&#125;</span>, check passed.&quot;</span>)<br><br>        <span class="hljs-keyword">return</span> result<br><br>    <span class="hljs-keyword">return</span> wrapper<br><br><br><span class="hljs-meta">@type_check</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">a: <span class="hljs-built_in">int</span>, b: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-keyword">return</span> a + b<br><br><br><span class="hljs-meta">@type_check</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">add_fail</span>(<span class="hljs-params">a: <span class="hljs-built_in">int</span>, b: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-keyword">return</span> a + b<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">add_fail_2</span>(<span class="hljs-params">a: <span class="hljs-built_in">str</span>, b: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-keyword">return</span> a + b<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    x = add(<span class="hljs-number">5</span>, <span class="hljs-number">6</span>)<br>    <span class="hljs-built_in">print</span>(x)<br><br>    <span class="hljs-keyword">try</span>:<br>        add_fail(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>)<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Error, <span class="hljs-subst">&#123;e&#125;</span>!&quot;</span>)<br><br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-built_in">print</span>(add_fail_2(<span class="hljs-string">&quot;Hello, world&quot;</span>, <span class="hljs-string">&quot; Wow&quot;</span>))<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Error, <span class="hljs-subst">&#123;e&#125;</span>!&quot;</span>)<br><br></code></pre></td></tr></table></figure>
 
 <p>Python的类型审查相对比较松散，因此通过类型审查的decorator可以使Python函数的编写变的更加安全。</p>
 <figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs smali">All args<span class="hljs-built_in"> check </span>passed.<br>Return value is &lt;class &#x27;int&#x27;&gt;,<span class="hljs-built_in"> check </span>passed.<br>11<br>All args<span class="hljs-built_in"> check </span>passed.<br>Error, Return value must be &lt;class &#x27;str&#x27;&gt;!<br>Hello, world Wow<br></code></pre></td></tr></table></figure>
@@ -983,6 +1001,248 @@
 </ul>
 </li>
 </ol>
+<h2 id="Iterable"><a href="#Iterable" class="headerlink" title="Iterable"></a>Iterable</h2><h3 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h3><p>In Python, an <strong>iterable</strong> is an object that can be iterated over. More technically, an iterator is an object which implements the iterator protocol, which consist of the methods <code>__iter__()</code> and <code>__next__()</code>. An iterator is an object that can be iterated upon, meaning that you can traverse through all the values.</p>
+<ul>
+<li><p><code>__iter__()</code>: init an iterator</p>
+</li>
+<li><p><code>__next__()</code>: get the next element of the iterator.</p>
+</li>
+</ul>
+<p>For examples:</p>
+<ul>
+<li><p>Lists, tuples and Sets and are all iterable objects!</p>
+</li>
+<li><p>For custom classes, you need to implement yourself!</p>
+</li>
+<li><p>They are iterable containers which you can get an iterator from.</p>
+</li>
+<li><p>All these objects have an <code>iter()</code> method to get an iterator.</p>
+</li>
+</ul>
+<div class="note note-primary">
+            <p><strong>Traditional Index</strong> &amp; <strong>Generalized Index</strong></p><p><strong>Traditional Index</strong> allows you to directly access an element at a specific position using an integer, like <code>my_list[0]</code> or <code>my_string[2]</code>.</p><p>However, in generalized iterable object, we cannot access to an element at a specific position, (<strong>就像字符串和链表的区别</strong>，为了内存友好，对于较大的迭代器对象不可能将一整段存储全部读入，但是迭代器的设置只需要读入一个单个元素就可以)</p><blockquote><p>for 循环通常和迭代器搭配使用。或者说for循环的本质，就是调用<code>__iter__()</code> 和 <code>__next__()</code>方法的过程。</p></blockquote>
+          </div>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">ilst = <span class="hljs-built_in">iter</span>([<span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>])<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):<br>    <span class="hljs-built_in">print</span>(ilst.__next__())<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">test_dict = <span class="hljs-built_in">iter</span>(&#123;<span class="hljs-number">1</span>: <span class="hljs-number">1</span>, <span class="hljs-number">2</span>: <span class="hljs-number">2</span>, <span class="hljs-number">4</span>: <span class="hljs-number">45</span>, <span class="hljs-number">5</span>: <span class="hljs-number">5</span>&#125;)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>):<br>    <span class="hljs-built_in">print</span>(test_dict.__next__())<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">ilst = <span class="hljs-built_in">iter</span>(<span class="hljs-string">&quot;SJTU&quot;</span>)<br><span class="hljs-built_in">print</span>(ilst)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>):<br>    <span class="hljs-built_in">print</span>(ilst.__next__())<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">test_tuple = <span class="hljs-built_in">iter</span>(<span class="hljs-built_in">tuple</span>((<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>)))<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">6</span>):<br>    <span class="hljs-built_in">print</span>(test_tuple.__next__())<br></code></pre></td></tr></table></figure>
+
+<p><strong>迭代器的迭代器是他本身</strong>：当一个对象是本身就是迭代器时，它的 <code>__iter__()</code> 方法（也就是 iter() 函数在后台调用的方法）被设计成直接返回 <code>self</code>（也就是它自己）。</p>
+<p>这保证了<strong>无法重置迭代器</strong>以及<strong>惰性求值</strong>。并且，迭代器的消耗是一个<strong>不可逆过程</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">my_list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>my_iterator = <span class="hljs-built_in">iter</span>(my_list) <span class="hljs-comment"># 从可迭代对象中获取迭代器</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(my_iterator)) <span class="hljs-comment"># 输出: 1</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(my_iterator)) <span class="hljs-comment"># 输出: 2</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(my_iterator)) <span class="hljs-comment"># 输出: 3</span><br><br><span class="hljs-comment"># 尝试获取第四个元素</span><br><span class="hljs-keyword">try</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(my_iterator))<br><span class="hljs-keyword">except</span> StopIteration:<br>    <span class="hljs-comment"># 迭代器的消耗是不可逆的，为了性能考虑，此时会抛出StopIteration的异常</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Caught StopIteration: No more elements in the iterator.&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>对于自定义的类和对象，需要完成<code>__iter__()</code> 和 <code>__next__()</code> 的方法实现，之后就可以通过for循环进行调用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Mynumber</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, init_number, increasing_round</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-variable language_">self</span>.num = init_number<br>        <span class="hljs-variable language_">self</span>.bound = increasing_round + init_number<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__iter__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-comment"># initialize a iterator</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;__iter__ is called, now the value is <span class="hljs-subst">&#123;self.num&#125;</span>&quot;</span>)<br>        <span class="hljs-comment"># !attention, it need to return self</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span><br><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__next__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.num &lt; <span class="hljs-variable language_">self</span>.bound:<br>            value = <span class="hljs-variable language_">self</span>.num<br>            <span class="hljs-variable language_">self</span>.num += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">return</span> value<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">raise</span> StopIteration<br><br>test_number = Mynumber(<span class="hljs-number">10</span>, <span class="hljs-number">4</span>)<br><br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> test_number:<br>    <span class="hljs-built_in">print</span>(x)<br></code></pre></td></tr></table></figure>
+
+<h3 id="Iterable-1"><a href="#Iterable-1" class="headerlink" title="Iterable"></a>Iterable</h3><p>如果一个类型是iterable的，那其就可以实现很多<strong>更加高级</strong>的操作。</p>
+<ul>
+<li>Unpacking</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">a, b, c, *other = &#123;<span class="hljs-number">1</span>: <span class="hljs-number">2</span>, <span class="hljs-number">3</span>: <span class="hljs-number">4</span>, <span class="hljs-number">5</span>: <span class="hljs-number">7</span>, <span class="hljs-number">9</span>: <span class="hljs-number">1</span>, <span class="hljs-number">10</span>: <span class="hljs-number">10</span>&#125;<br><span class="hljs-built_in">print</span>(a)<br><span class="hljs-built_in">print</span>(b)<br><span class="hljs-built_in">print</span>(c)<br><span class="hljs-built_in">print</span>(other)<br><span class="hljs-comment"># the object to be unpacked must be iterable</span><br></code></pre></td></tr></table></figure>
+
+<p>Something more interesting…</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># tuple unpacking</span><br>i = <span class="hljs-number">0</span><br>L = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>i, L[i] = L[i], i<br><span class="hljs-comment"># in this line, it seems that the two elements swap its position, actually, it is called a simultaneous assignment (tuple unpacking). The right side will be evaluated first.</span><br><br><span class="hljs-comment"># i, L[i] = 1, 0</span><br><span class="hljs-comment"># In tuple unpacking, the right side is fully evaluated before any assignment happens</span><br><span class="hljs-comment"># Python evaluates the right-hand side of an assignment completely before performing any assignments on the left-hand side.</span><br><span class="hljs-built_in">print</span>(i, L)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Other methods</p>
+<ul>
+<li><code>find()</code> and <code>join()</code> in <code>str</code></li>
+<li><code>merge()</code> in List &amp; Dict</li>
+<li><code>update()</code> in dict</li>
+</ul>
+</li>
+</ul>
+<h3 id="itertools"><a href="#itertools" class="headerlink" title="itertools"></a><code>itertools</code></h3><div class="note note-primary">
+            <p>itertools: <strong>Functions creating iterators for efficient looping</strong><br>This module implements a number of iterator building blocks inspired by constructs from APL, Haskell, and SML. Each has been recast in a form suitable for Python.</p><p>The module standardizes a core set of fast, memory efficient tools that are useful by themselves or in combination. Together, they form an “iterator algebra” making it possible to construct specialized tools succinctly and efficiently in pure Python.</p>
+          </div>
+
+<p>See <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/itertools.html">itertools</a> for more info.</p>
+<ul>
+<li><code>product()</code>: generating a list for cartesian product, equivalent to a nested for-loop.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> itertools<br><br>list_1 = [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br>list_2 = [<span class="hljs-string">&quot;alice&quot;</span>, <span class="hljs-string">&quot;tom&quot;</span>, <span class="hljs-string">&quot;bob&quot;</span>, <span class="hljs-string">&quot;warning&quot;</span>]<br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(itertools.product(list_1, list_2)))<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>permutations(p[,r])</code>: r-length tuples, all possible orderings, no repeated elements</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> itertools<br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(itertools.permutations(list_2)))<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>combinations(p, r)</code>: r-length tuples, in sorted order, no repeated elements</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> itertools<br><br>items = [<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;D&#x27;</span>]<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(itertools.combinations(items, <span class="hljs-number">2</span>)))<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>combinations_with_replacement</code>: r-length tuples, in sorted order, with repeated elements.</li>
+</ul>
+<h3 id="collection"><a href="#collection" class="headerlink" title="collection"></a><code>collection</code></h3><table>
+<thead>
+<tr>
+<th align="left">Container Datatype</th>
+<th align="left">Usage Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>namedtuple()</code></td>
+<td align="left">Factory function for <strong>creating tuple subclasses with named fields</strong>.</td>
+</tr>
+<tr>
+<td align="left"><code>deque</code></td>
+<td align="left">List-like container with fast appends and pops on either end.</td>
+</tr>
+<tr>
+<td align="left"><code>ChainMap</code></td>
+<td align="left">Dict-like class for creating a single view of multiple mappings.</td>
+</tr>
+<tr>
+<td align="left"><code>Counter</code></td>
+<td align="left">Dict subclass for counting hashable objects.</td>
+</tr>
+<tr>
+<td align="left"><code>OrderedDict</code></td>
+<td align="left">Dict subclass that remembers the order entries were added.</td>
+</tr>
+<tr>
+<td align="left"><code>defaultdict</code></td>
+<td align="left">Dict subclass that calls a factory function to supply missing values.</td>
+</tr>
+<tr>
+<td align="left"><code>UserDict</code></td>
+<td align="left">Wrapper around dictionary objects for easier dict subclassing.</td>
+</tr>
+<tr>
+<td align="left"><code>UserList</code></td>
+<td align="left">Wrapper around list objects for easier list subclassing.</td>
+</tr>
+<tr>
+<td align="left"><code>UserString</code></td>
+<td align="left">Wrapper around string objects for easier string subclassing.</td>
+</tr>
+</tbody></table>
+<p>For more info, you can visit: <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/collections.html">Collections</a></p>
+<h2 id="Structural-Pattern-Matching-PEP-636"><a href="#Structural-Pattern-Matching-PEP-636" class="headerlink" title="Structural Pattern Matching (PEP 636)"></a>Structural Pattern Matching (PEP 636)</h2><p>Source Code: <a target="_blank" rel="noopener" href="https://peps.python.org/pep-0636/">PEP 636</a></p>
+<p>First, we can have a small demo, where <code>split()</code> is a string function which returns a list of the substrings in the string, using sep as the separator string.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">input_command = <span class="hljs-string">&quot;Hello world, this is xiyuanyang speaking &quot;</span><br><br><span class="hljs-built_in">print</span>(input_command.strip())<br><br>[action, *obj] = input_command.split()<br><br><span class="hljs-built_in">print</span>(input_command.split())<br><span class="hljs-built_in">print</span>(obj)<br><span class="hljs-built_in">print</span>(action)<br></code></pre></td></tr></table></figure>
+
+<p>The problem with that line of code is that it’s missing something: <strong>what if the user types more or fewer than 2 words</strong>? To prevent this problem you can either check the length of the list of words, or capture the ValueError that the statement above would raise. Or, we can use a string matching instead!</p>
+<div class="note note-primary">
+            <p>The match statement evaluates the “subject” (the value after the match keyword), and checks it against the pattern (the code next to case). A pattern is able to do two different things:</p><p>Verify that the subject has certain structure. In your case, the <code>[action, obj]</code> pattern matches any sequence of exactly two elements. This is called <strong>matching</strong>.<br>It will bind some names in the pattern to component elements of your subject. In this case, if the list has two elements, it will bind <code>action = subject[0]</code> and <code>obj = subject[1]</code>.<br>If there’s a match, the statements inside the case block will be executed with the bound variables. If there’s no match, nothing happens and the statement after match is executed next.</p>
+          </div>
+
+<ul>
+<li>For example, if I use <code>match()</code> in previous situation:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python">test_input = <span class="hljs-built_in">str</span>(<span class="hljs-string">&quot;Hello, this is xiyuanyang&#x27;s speaking&quot;</span>).strip()<br><br><span class="hljs-keyword">match</span> test_input.split():<br>    <span class="hljs-keyword">case</span> [single_action]:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Wow, it is single!&quot;</span>)<br>    <span class="hljs-keyword">case</span> [obj_1, obj_2]:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;two&#x27;</span>)<br>    <span class="hljs-keyword">case</span> [obj_3, onj_4, onj_5]:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;three&quot;</span>)<br>    <span class="hljs-keyword">case</span> [test1, *test2]:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;wow&quot;</span>)<br>    <span class="hljs-keyword">case</span> _: <span class="hljs-comment"># a wild card</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Final&quot;</span>)<br><br><span class="hljs-comment"># final output: wow</span><br></code></pre></td></tr></table></figure>
+
+<div class="note note-info">
+            <p>It is much more convenient and easier than <code>switch</code> in C++!</p>
+          </div>
+
+<ul>
+<li>Or you can match specific value:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">match</span> command.split():<br>    <span class="hljs-keyword">case</span> [<span class="hljs-string">&quot;quit&quot;</span>]:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Goodbye!&quot;</span>)<br>        quit_game()<br>    <span class="hljs-keyword">case</span> [<span class="hljs-string">&quot;look&quot;</span>]:<br>        current_room.describe()<br>    <span class="hljs-keyword">case</span> [<span class="hljs-string">&quot;get&quot;</span>, obj]:<br>        character.get(obj, current_room)<br>    <span class="hljs-keyword">case</span> [<span class="hljs-string">&quot;go&quot;</span>, direction]:<br>        current_room = current_room.neighbor(direction)<br>    <span class="hljs-comment"># The rest of your commands go here</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>Or patterns:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">match</span> command.split():<br>    ... <span class="hljs-comment"># Other cases</span><br>    <span class="hljs-keyword">case</span> [<span class="hljs-string">&quot;north&quot;</span>] | [<span class="hljs-string">&quot;go&quot;</span>, <span class="hljs-string">&quot;north&quot;</span>]:<br>        current_room = current_room.neighbor(<span class="hljs-string">&quot;north&quot;</span>)<br>    <span class="hljs-keyword">case</span> [<span class="hljs-string">&quot;get&quot;</span>, obj] | [<span class="hljs-string">&quot;pick&quot;</span>, <span class="hljs-string">&quot;up&quot;</span>, obj] | [<span class="hljs-string">&quot;pick&quot;</span>, obj, <span class="hljs-string">&quot;up&quot;</span>]:<br>        ... <span class="hljs-comment"># Code for picking up the given object</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">match</span> command.split():<br>    <span class="hljs-keyword">case</span> [<span class="hljs-string">&quot;go&quot;</span>, (<span class="hljs-string">&quot;north&quot;</span> | <span class="hljs-string">&quot;south&quot;</span> | <span class="hljs-string">&quot;east&quot;</span> | <span class="hljs-string">&quot;west&quot;</span>) <span class="hljs-keyword">as</span> direction]:<br>        current_room = current_room.neighbor(direction)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Adding conditions for simple if judgement</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">match</span> command.split():<br>    <span class="hljs-keyword">case</span> [<span class="hljs-string">&quot;go&quot;</span>, direction] <span class="hljs-keyword">if</span> direction <span class="hljs-keyword">in</span> current_room.exits:<br>        current_room = current_room.neighbor(direction)<br>    <span class="hljs-keyword">case</span> [<span class="hljs-string">&quot;go&quot;</span>, _]:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Sorry, you can&#x27;t go that way&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s1.imagehub.cc/images/2025/07/17/492d1f7b809ba062bd9bede5d9d05e1a.png" srcset="/img/loading.gif" lazyload alt="conclusion"></p>
+<h2 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h2><p>迭代器和<strong>可迭代属性</strong>是Python抽象编程中非常重要的属性，他不仅和Python中常见的<strong>数据结构</strong>相耦合（列表，元组，字典等），并且灵活性高，也支持自定义类型。下面，我们重点关注一类built-in的可迭代数据结构：<strong>列表</strong>及其高阶玩法。</p>
+<h3 id="List-Comprehension"><a href="#List-Comprehension" class="headerlink" title="List Comprehension"></a>List Comprehension</h3><p>请看下面的demo:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><br><br>total_num = <span class="hljs-number">8000000</span><br><br><span class="hljs-comment"># for simple while_loop</span><br>time_start = time.time()<br>list_1 = []<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(total_num):<br>    list_1.append(i * i)<br>time_end = time.time()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Time for single for loop: <span class="hljs-subst">&#123;time_end - time_start&#125;</span>&quot;</span>)<br><br>time_start = time.time()<br>list_2 = [i * i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(total_num)]<br>time_end = time.time()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Time for list comprehension: <span class="hljs-subst">&#123;time_end - time_start&#125;</span>&quot;</span>)<br><br><span class="hljs-keyword">assert</span> list_1 == list_2<br><span class="hljs-comment"># just a demo, the experiment is not very accurate</span><br><span class="hljs-comment"># Time for single for loop: 1.133270263671875</span><br><span class="hljs-comment"># Time for list comprehension: 0.7049026489257812</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>A list comprehension consists of brackets [ ] containing an expression followed by a for clause, then zero<br>or more for or if clauses.</p>
+</li>
+<li><p>Format:</p>
+<ul>
+<li><p><code>[expression for target in iterable if condition]</code>: <strong>single loop</strong></p>
+</li>
+<li><p><code>[expression for target1 in iterable1 if condition1 for target2 in iterable2 if condition2 .. for targetN in iterableN if conditionN]</code>: <strong>multiple loop</strong></p>
+</li>
+</ul>
+</li>
+<li><p>The result will be a new list resulting from evaluating the expression in the context of the for and if clauses which follow it.</p>
+</li>
+</ul>
+<h3 id="List-is-Fast"><a href="#List-is-Fast" class="headerlink" title="List is Fast"></a>List is Fast</h3><p>CPython 是 Python 最常用的解释器，它是用 C 语言实现的。这意味着 Python 代码在执行时，很多底层操作实际上是通过 C 语言代码完成的。C 语言的执行速度远快于 Python 本身。当你编写纯粹的 Python 循环或逻辑时，解释器需要执行大量的字节码操作，这些操作本身就带有 Python 层面的开销。但是，像列表推导式、内置函数（如 sum()、map()、filter() 等）以及某些列表方法（如 append()、sort() 等）在 CPython 内部都有高度优化的 C 语言实现。当你的代码调用这些 C 实现的部分时，速度会大大提升。</p>
+<ul>
+<li><p>能用系统操作就不要用for循环，Python已经优化好了</p>
+</li>
+<li><p>能用列表推导 &amp; 切片等操作就不要用for循环</p>
+</li>
+</ul>
+<div class="note note-primary">
+            <p>SIMD 是一种处理器架构或指令集，允许 CPU 在单个指令周期内同时处理多个数据点。例如，如果你要对一个数组中的每个元素进行相同的加法操作，SIMD 可以在一次操作中同时对多个元素执行加法，而不是一个一个地处理。</p>
+          </div>
+
+<h3 id="Generator-Functions"><a href="#Generator-Functions" class="headerlink" title="Generator Functions"></a>Generator Functions</h3><p>使用<code>range()</code>而不是<code>list</code>生成数据就是为了减少存储，只在需要的时候生成即可。</p>
+<ul>
+<li><p>Generator functions (available since 2.3) are coded as normal def statements, but use <strong>yield</strong> statements to return results one at a time, suspending and resuming their state between each. 当一个函数包含 yield 关键字时，它就不再是一个普通的函数，而变成了生成器函数。调用生成器函数不会立即执行函数体内的代码，而是返回一个生成器对象（Generator Object）。</p>
+</li>
+<li><p>Generator expressions (available since 2.4) are similar to the <strong>list comprehensions</strong> of the prior section, but they return an object that produces results on demand instead of building a result list.</p>
+<ul>
+<li><p>函数执行到 yield 后暂停，并返回一个值。</p>
+</li>
+<li><p>函数的状态（包括局部变量）会被保存下来。</p>
+</li>
+<li><p>下次调用 next() 时，函数会从上次暂停的地方继续执行。</p>
+</li>
+<li><p>一个生成器函数可以包含多个 yield 表达式，每次调用 next() 返回一个不同的值。</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">my_generator</span>():<br>    n = <span class="hljs-number">1</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;This is the first print&quot;</span>)<br>    <span class="hljs-keyword">yield</span> n<br><br>    n += <span class="hljs-number">1</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;This is the second print&quot;</span>)<br>    <span class="hljs-keyword">yield</span> n<br><br>    n += <span class="hljs-number">1</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;This is the third print&quot;</span>)<br>    <span class="hljs-keyword">yield</span> n<br><br><span class="hljs-comment"># 创建生成器对象</span><br>gen = my_generator()<br><br><span class="hljs-comment"># 每次调用 next() 都会执行到下一个 yield</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(gen)) <span class="hljs-comment"># 输出: This is the first print \n 1</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(gen)) <span class="hljs-comment"># 输出: This is the second print \n 2</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(gen)) <span class="hljs-comment"># 输出: This is the third print \n 3</span><br><br><span class="hljs-comment"># 再次调用 next() 会触发 StopIteration</span><br><span class="hljs-keyword">try</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(gen))<br><span class="hljs-keyword">except</span> StopIteration:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;No more values from generator.&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">gene_squares</span>(<span class="hljs-params">N: <span class="hljs-built_in">int</span></span>):<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(N):<br>        <span class="hljs-keyword">yield</span> i*i<br><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> gene_squares(<span class="hljs-number">5</span>):<br>    <span class="hljs-comment"># 此处调用for循环本身就是调用迭代器的__next__()属性</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;i is <span class="hljs-subst">&#123;i&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="Generator-Expressions"><a href="#Generator-Expressions" class="headerlink" title="Generator Expressions"></a>Generator Expressions</h3><p>Syntactically, generator expressions are just like normal list comprehensions, and support all their syntax, including if filters and loop nesting, but they are <strong>enclosed in parentheses</strong> instead of square brackets (like tuples, their enclosing parentheses are often optional)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">lst_1 = [x**<span class="hljs-number">2</span> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">20</span>)]<br><span class="hljs-built_in">print</span>(lst_1)<br><br>lst_2 = (x**<span class="hljs-number">2</span> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">20</span>))<br><span class="hljs-built_in">print</span>(lst_2)<br><span class="hljs-comment"># [0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289, 324, 361]</span><br><span class="hljs-comment"># &lt;generator object &lt;genexpr&gt; at 0x7f25a96fbe00&gt;</span><br><span class="hljs-comment"># tuple and list can also be generated via: tuple(lst_2) and set(lst_2)</span><br><br>lst_3 = (&#123;x: x**<span class="hljs-number">2</span> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">20</span>)&#125;)<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(lst_3))<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">set</span>(lst_3))<br><span class="hljs-comment"># &lt;class &#x27;dict&#x27;&gt;</span><br><span class="hljs-comment"># &#123;0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19&#125;</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当你把一个生成器对象作为参数传递给 list() 构造函数时，list() 会完全消耗这个生成器。它会从生成器中取出所有可用的值，直到生成器耗尽（即抛出 StopIteration 异常），然后用这些值构建一个完整的列表。一旦生成器被消耗，它就不能再次生成值了，因为它是一个一次性迭代器。</p>
+</blockquote>
+<h2 id="Functional-Programming"><a href="#Functional-Programming" class="headerlink" title="Functional Programming"></a>Functional Programming</h2><p>函数式编程（<strong>Functional Programming</strong>，简称 FP）是一种编程范式，它将计算视为数学函数的求值，并强调避免状态改变和可变数据。</p>
+<ul>
+<li><p>纯函数（Pure Functions）：</p>
+<ul>
+<li><p>相同输入，相同输出： 每次给定相同的输入，函数总是产生相同的输出。</p>
+</li>
+<li><p>无副作用： 函数不会修改其外部的任何数据（比如全局变量）或对外部产生任何可见的影响（比如打印到控制台、修改文件等）。</p>
+</li>
+</ul>
+</li>
+<li><p>不可变性（Immutability）：</p>
+<ul>
+<li>数据一旦创建就不能被修改。如果需要改变数据，你会创建一个新的数据副本，而不是原地修改。</li>
+</ul>
+</li>
+<li><p>函数是一等公民（First-Class Functions）：</p>
+<ul>
+<li><p>函数可以像任何其他数据类型（如数字、字符串）一样被处理。</p>
+</li>
+<li><p>这意味着函数可以作为参数传递给其他函数，可以作为其他函数的返回值，也可以赋值给变量。</p>
+</li>
+</ul>
+</li>
+<li><p>避免共享状态（No Shared State）：</p>
+<ul>
+<li>程序中的不同部分不会共享和修改同一个可变状态。这使得代码更模块化，减少了并发编程中的复杂性。</li>
+</ul>
+</li>
+</ul>
+<p>Let’s discuss it in the future!</p>
 
                 
               </div>
@@ -1039,7 +1299,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Python Advanced Programming</div>
+      <div>Python Pythonic</div>
       <div>https://xiyuanyang-code.github.io/posts/Python-Advanced-Programming/</div>
     </div>
     <div class="license-meta">
@@ -1058,7 +1318,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>July 7, 2025</div>
+          <div>July 17, 2025</div>
         </div>
       
       
