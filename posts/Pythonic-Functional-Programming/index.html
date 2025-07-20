@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/functionpro.jpg">
 <meta property="article:published_time" content="2025-07-16T04:18:17.000Z">
-<meta property="article:modified_time" content="2025-07-18T06:02:08.774Z">
+<meta property="article:modified_time" content="2025-07-20T08:58:46.104Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="Tutorial">
@@ -343,7 +343,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.7k words
+          4k words
         
       </span>
     
@@ -837,7 +837,13 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Functional-Programming"><a href="#Functional-Programming" class="headerlink" title="Functional Programming"></a>Functional Programming</h1><h2 id="Coding-Style"><a href="#Coding-Style" class="headerlink" title="Coding Style"></a>Coding Style</h2><p><strong>编程范式</strong>是相比于编程语法规则更加高级并且抽象的概念，他规范并且指导程序员如何组织规范的代码。编程范式的设计往往和语言本身的特性与应用场景息息相关，例如：</p>
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+
+<h1 id="Functional-Programming"><a href="#Functional-Programming" class="headerlink" title="Functional Programming"></a>Functional Programming</h1><h2 id="Coding-Style"><a href="#Coding-Style" class="headerlink" title="Coding Style"></a>Coding Style</h2><p><strong>编程范式</strong>是相比于编程语法规则更加高级并且抽象的概念，他规范并且指导程序员如何组织规范的代码。编程范式的设计往往和语言本身的特性与应用场景息息相关，例如：</p>
 <ul>
 <li><strong>面向过程的编程范式</strong>：比较低级且简单的编程范式，将程序分解为一系列的“过程”或“函数”，这些过程按照顺序执行，共同完成任务。数据和操作数据的函数是分离的。</li>
 </ul>
@@ -1154,7 +1160,7 @@
 <h4 id="Closure"><a href="#Closure" class="headerlink" title="Closure"></a>Closure</h4><ul>
 <li><p>Functions can be nested in another function!</p>
 </li>
-<li><p>Function Factory in Design Pattern</p>
+<li><p><strong>Function Factory in Design Pattern</strong>: a function that generate a function.</p>
 </li>
 <li><p>It should satisfy:</p>
 <ul>
@@ -1176,7 +1182,50 @@
 <blockquote>
 <p>当然 ，lambda匿名函数也可以，the return value is the value of single expression.</p>
 </blockquote>
+<h4 id="map-filter-reduce"><a href="#map-filter-reduce" class="headerlink" title="map &amp; filter &amp; reduce"></a><code>map</code> &amp; <code>filter</code> &amp; <code>reduce</code></h4><p>The same as <code>pipe</code> and <code>js</code>!</p>
+<h5 id="map"><a href="#map" class="headerlink" title="map"></a>map</h5><p><code>map(function, iterable)</code>: It is equivalent to for x in iterable: f(x), but returning a map.</p>
+<ul>
+<li>Return an <strong>iterator</strong> that applies functions to every item of this iterable, yielding the result.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_function</span>(<span class="hljs-params">a</span>):<br>    <span class="hljs-keyword">return</span> a + a<br><br>numbers = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>))<br><br>result = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(test_function, numbers))<br><span class="hljs-built_in">print</span>(result)<br></code></pre></td></tr></table></figure>
 
+<p>A map is an iterator which can be iterated, which is different from a list.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># the usage of map as an iterator</span><br><br>result_2 = <span class="hljs-built_in">map</span>(test_function, numbers)<br><br><span class="hljs-built_in">print</span>(result_2.__iter__() == result_2)<br><span class="hljs-keyword">try</span>:<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">11</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Value is <span class="hljs-subst">&#123;result_2.__next__()&#125;</span>&quot;</span>)<br><span class="hljs-keyword">except</span> StopIteration:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;The iteration has stopped&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h5 id="filter"><a href="#filter" class="headerlink" title="filter"></a><code>filter</code></h5><p><code>filter(function, iterable)</code>: select the element <code>x</code> where <code>function(x)</code> is True.</p>
+<p>Construct an <strong>iterator</strong> from those elements of iterable for which function returns true. iterable may be either a sequence, a container which supports iteration, or an iterator. If function is None, the identity function is assumed, that is, all elements of iterable that are false are removed.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">is_happy</span>(<span class="hljs-params">x</span>):<br>    <span class="hljs-keyword">if</span> x % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br>result_3 = <span class="hljs-built_in">filter</span>(is_happy, <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">11</span>))<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(result_3))<br><br>result_3 = <span class="hljs-built_in">filter</span>(is_happy, <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">11</span>))<br><span class="hljs-keyword">try</span>:<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">11</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Value is <span class="hljs-subst">&#123;result_3.__next__()&#125;</span>&quot;</span>)<br><span class="hljs-keyword">except</span> StopIteration:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Stop Iteration&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h5 id="Reduce"><a href="#Reduce" class="headerlink" title="Reduce"></a><code>Reduce</code></h5><ul>
+<li><p>The <code>reduce(fun, iterable)</code> function is used to apply a particular function passed in its argument to <strong>all of the list elements mentioned in the sequence passed along</strong>.</p>
+</li>
+<li><p>This function is defined in <code>functools</code> module</p>
+</li>
+<li><p>The same in JavaScripts.</p>
+</li>
+</ul>
+<p>params: <code>reduce(function, iterable, initial)</code>:</p>
+<ul>
+<li><p>If <code>initial</code> is given as $x_{\text{ini}}$:</p>
+<ul>
+<li><p>$y_0 &#x3D; f(x_{\text{ini}}, x_0)$, where $x_0$ is the first value in the iterable object.</p>
+</li>
+<li><p>$y_1 &#x3D; f(y_0, x_1), y_2 &#x3D; f(y_1, x_2), \dots , y_{n-1} &#x3D; f(y_{n-2}, x_{n-1})$, <strong>the iteration</strong>!</p>
+</li>
+<li><p>The return value is $y_{n-1}$.</p>
+</li>
+</ul>
+</li>
+<li><p>If <code>initial</code> is not given:</p>
+<ul>
+<li><p>$y_0 &#x3D; f(x_0, x_1), y_1 &#x3D; f(y_0, x_2), \dots , y_{n-2} &#x3D; f(y_{n-3}, x_{n-1})$.</p>
+</li>
+<li><p>The return value is $y_{n-2}$.</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> reduce<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">my_add</span>(<span class="hljs-params">a, b</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Value: <span class="hljs-subst">&#123;a&#125;</span> + <span class="hljs-subst">&#123;b&#125;</span> = <span class="hljs-subst">&#123;a + b&#125;</span>&quot;</span>)<br>    <span class="hljs-keyword">return</span> a + b<br><br>ini_list = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">30</span>, <span class="hljs-number">50</span>))<br>result = reduce(my_add, ini_list, <span class="hljs-number">0</span>)<br><span class="hljs-built_in">print</span>(result)<br><br><span class="hljs-comment"># Value: 0 + 30 = 30</span><br><span class="hljs-comment"># Value: 30 + 31 = 61</span><br><span class="hljs-comment"># Value: 61 + 32 = 93</span><br><span class="hljs-comment"># Value: 93 + 33 = 126</span><br><span class="hljs-comment"># Value: 126 + 34 = 160</span><br><span class="hljs-comment"># Value: 160 + 35 = 195</span><br><span class="hljs-comment"># Value: 195 + 36 = 231</span><br><span class="hljs-comment"># Value: 231 + 37 = 268</span><br><span class="hljs-comment"># Value: 268 + 38 = 306</span><br><span class="hljs-comment"># Value: 306 + 39 = 345</span><br><span class="hljs-comment"># Value: 345 + 40 = 385</span><br><span class="hljs-comment"># Value: 385 + 41 = 426</span><br><span class="hljs-comment"># Value: 426 + 42 = 468</span><br><span class="hljs-comment"># Value: 468 + 43 = 511</span><br><span class="hljs-comment"># Value: 511 + 44 = 555</span><br><span class="hljs-comment"># Value: 555 + 45 = 600</span><br><span class="hljs-comment"># Value: 600 + 46 = 646</span><br><span class="hljs-comment"># Value: 646 + 47 = 693</span><br><span class="hljs-comment"># Value: 693 + 48 = 741</span><br><span class="hljs-comment"># Value: 741 + 49 = 790</span><br><span class="hljs-comment"># 790</span><br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -1251,7 +1300,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>July 18, 2025</div>
+          <div>July 20, 2025</div>
         </div>
       
       
