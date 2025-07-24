@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/fs.jpg">
 <meta property="article:published_time" content="2025-07-24T06:20:54.000Z">
-<meta property="article:modified_time" content="2025-07-24T06:30:56.652Z">
+<meta property="article:modified_time" content="2025-07-24T13:07:53.217Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Finished">
 <meta property="article:tag" content="Python">
@@ -529,7 +529,13 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Feishu-GPU-Auto-Monitoring"><a href="#Feishu-GPU-Auto-Monitoring" class="headerlink" title="Feishu GPU Auto Monitoring"></a>Feishu GPU Auto Monitoring</h1><div class="note note-primary">
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+
+<h1 id="Feishu-GPU-Auto-Monitoring"><a href="#Feishu-GPU-Auto-Monitoring" class="headerlink" title="Feishu GPU Auto Monitoring"></a>Feishu GPU Auto Monitoring</h1><div class="note note-primary">
             <p>All the source code is available in <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Feishu-GPU-Auto-Monitoring">Github</a></p>
           </div>
 
@@ -548,9 +554,10 @@
 <li>Create a <code>config.yaml</code> file in the root directory.</li>
 <li>Add the server details, user credentials, and Feishu bot information. See the example below for the required structure.</li>
 </ul>
-<blockquote>
-<p>[!TIP]<br>You need to get <strong>Feishu Webhook URL</strong>, see <a target="_blank" rel="noopener" href="https://open.feishu.cn/community/articles/7271149634339422210">this blog</a> for more info.</p>
-</blockquote>
+<div class="note note-warning">
+            <p>You need to get <strong>Feishu Webhook URL</strong>, see <a target="_blank" rel="noopener" href="https://open.feishu.cn/community/articles/7271149634339422210">this blog</a> for more info.</p>
+          </div>
+
 <p>Create a <code>config.yaml</code> file with the following structure:</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># list of ip to be monitored</span><br><span class="hljs-attr">ip_list:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;192.168.1.101&quot;</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;192.168.1.102&quot;</span><br><span class="hljs-comment"># ssh port</span><br><span class="hljs-attr">port:</span> <span class="hljs-number">22</span><br><span class="hljs-comment"># ssh password</span><br><span class="hljs-attr">password:</span> <span class="hljs-string">&quot;your_ssh_password&quot;</span><br><span class="hljs-comment"># ssh username</span><br><span class="hljs-attr">user:</span> <span class="hljs-string">&quot;your_ssh_username&quot;</span><br><br><span class="hljs-comment"># feishu bot webhook url</span><br><span class="hljs-attr">feishu_url:</span> <span class="hljs-string">&quot;your_feishu_webhook_url&quot;</span><br><span class="hljs-comment"># feishu keyword</span><br><span class="hljs-attr">feishu_keyword:</span> <span class="hljs-string">&quot;your_feishu_keyword&quot;</span><br></code></pre></td></tr></table></figure>
 
@@ -692,6 +699,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/posts/Python-Scraping-Tutorial/" title="Python Scraping Tutorial">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Python Scraping Tutorial</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
