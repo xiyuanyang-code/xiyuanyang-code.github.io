@@ -745,38 +745,18 @@
   }
 </style>
 <div class="note note-primary">
-            <p>Final Assignment for <strong>MATH1116: Introduction to artificialintelligence</strong>. All rights reserved.</p><p>Source LaTeX code is <ahref="https://latex.sjtu.edu.cn/read/nyfpqwfwjvgj#febe02">here</a>.</p><p>It hasn’t been all done yet! Collaborators welcome, feel free tocontact the author: <ahref="mailto:yangxiyuan@sjtu.edu.cn">yangxiyuan@sjtu.edu.cn</a></p>
+            <p>Final Assignment for <strong>MATH1116: Introduction to artificial intelligence</strong>. All rights reserved.</p><p>Source LaTeX code is <a target="_blank" rel="noopener" href="https://latex.sjtu.edu.cn/read/nyfpqwfwjvgj#febe02">here</a>.</p><p>It hasn’t been all done yet! Collaborators welcome, feel free to contact the author: <a href="mailto:yangxiyuan@sjtu.edu.cn">yangxiyuan@sjtu.edu.cn</a></p>
           </div>
-<h1 id="ai-agents-in-coding-a-survey">AI Agents in Coding: A Survey</h1>
+<h1>AI Agents in Coding: A Survey</h1>
 <p><strong>Author</strong>: Xiyuan Yang</p>
-<h2 id="abstract">Abstract</h2>
-<p>随着大语言模型（LLMs）的突破性进展，AI智能体（AI
-Agents）正逐步从理论概念转化为编程领域的变革性工具。本文系统性地探讨了编程智能体（AI
-Coding
-Agents）的技术演进、核心架构及其在软件工程中的应用范式。本文首先聚焦于基于Agent的三大关键技术突破：(1)
-通过<strong>思维链（CoT）推理</strong>-行动协同机制；(2)
-基于<strong>检索增强生成（RAG）</strong>和<strong>函数调用</strong>的环境交互能力；(3)
-通过<strong>智能体的ReAct框架</strong>实现推理和外部工具调用等的统一。</p>
-<p>接着，本文进一步分析了针对代码问题所面临的技术难点，包括<strong>执行环境的定义问题</strong>、<strong>多智能体协作问题</strong>、<strong>长上下文编码问题</strong>和<strong>多文件代码检索问题</strong>等，并以此为基础介绍了已有的技术革新，例如建立<strong>智能体环境交互界面
-(Agent-Computer Interfaces)</strong>
-、<strong>OpenHands社区</strong>支持多智能体框架、<strong>RoPE等优化位置编码</strong>的延长上下文方法和协议以及<strong>基于代码的检索增强生成</strong>
-(Retrieval-Augmented Generation for
-Code)等。本文进一步总结了若干标准化评测体系（SWE-Bench,
-ProjectEval等）对智能体能力的量化评估方法。最后，针对智能体协议碎片化问题，本文展望了<strong>模型上下文协议（MCP）</strong>在工具链集成和跨平台协作中的关键作用。研究表明，编程智能体已在代码生成（79%
-GSM8K准确率）、错误修复（12.47%
-SWE-Bench解决率）等任务中展现出显著优势，标志着软件工程正迈向智能化协作的新范式。</p>
-<h2 id="introduction-ai-agents">Introduction: AI Agents</h2>
-<h3 id="the-rise-and-development-of-ai-agents">The Rise and Development
-of AI Agents</h3>
-<p>2024年9月，OpenAI发布了关于未来人工智能发展的五级划分体系，系统地描绘了从最初的聊天机器人
-到最终实现与人类智能相当甚至超越人类的<strong>通用人工智能</strong>（Artificial
-General Intelligence,
-AGI）的演进路径。当前，随着<strong>大语言模型</strong>（Large Language
-Models,
-LLMs）的迅猛发展，AI在基础对话任务中的表现已不仅限于模拟人类交流，在诸如机器翻译、图像识别与自然语言理解等多个领域中，其能力已经接近甚至在某些方面超越了人类水平。</p>
+<h2 id="Abstract">Abstract</h2>
+<p>随着大语言模型（LLMs）的突破性进展，AI智能体（AI Agents）正逐步从理论概念转化为编程领域的变革性工具。本文系统性地探讨了编程智能体（AI Coding Agents）的技术演进、核心架构及其在软件工程中的应用范式。本文首先聚焦于基于Agent的三大关键技术突破：(1) 通过<strong>思维链（CoT）推理</strong>-行动协同机制；(2) 基于<strong>检索增强生成（RAG）<strong>和</strong>函数调用</strong>的环境交互能力；(3) 通过<strong>智能体的ReAct框架</strong>实现推理和外部工具调用等的统一。</p>
+<p>接着，本文进一步分析了针对代码问题所面临的技术难点，包括<strong>执行环境的定义问题</strong>、<strong>多智能体协作问题</strong>、<strong>长上下文编码问题</strong>和<strong>多文件代码检索问题</strong>等，并以此为基础介绍了已有的技术革新，例如建立<strong>智能体环境交互界面 (Agent-Computer Interfaces)</strong> 、<strong>OpenHands社区</strong>支持多智能体框架、<strong>RoPE等优化位置编码</strong>的延长上下文方法和协议以及<strong>基于代码的检索增强生成</strong> (Retrieval-Augmented Generation for Code)等。本文进一步总结了若干标准化评测体系（SWE-Bench, ProjectEval等）对智能体能力的量化评估方法。最后，针对智能体协议碎片化问题，本文展望了**模型上下文协议（MCP）**在工具链集成和跨平台协作中的关键作用。研究表明，编程智能体已在代码生成（79% GSM8K准确率）、错误修复（12.47% SWE-Bench解决率）等任务中展现出显著优势，标志着软件工程正迈向智能化协作的新范式。</p>
+<h2 id="Introduction-AI-Agents">Introduction: AI Agents</h2>
+<h3 id="The-Rise-and-Development-of-AI-Agents">The Rise and Development of AI Agents</h3>
+<p>2024年9月，OpenAI发布了关于未来人工智能发展的五级划分体系，系统地描绘了从最初的聊天机器人 到最终实现与人类智能相当甚至超越人类的<strong>通用人工智能</strong>（Artificial General Intelligence, AGI）的演进路径。当前，随着<strong>大语言模型</strong>（Large Language Models, LLMs）的迅猛发展，AI在基础对话任务中的表现已不仅限于模拟人类交流，在诸如机器翻译、图像识别与自然语言理解等多个领域中，其能力已经接近甚至在某些方面超越了人类水平。</p>
 <p><strong>人工智能发展的五个阶段</strong></p>
 <table>
-
 <thead>
 <tr>
 <th><strong>级别</strong></th>
@@ -812,148 +792,75 @@ LLMs）的迅猛发展，AI在基础对话任务中的表现已不仅限于模�
 </tr>
 </tbody>
 </table>
-<p>与此同时，以数学推理和复杂逻辑处理为代表的认知能力也取得了显著突破。以
-o3<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span
-class="hint--top hint--rounded"
-aria-label="https://openai.com/index/introducing-o3-and-o4-mini/">[1]</span></a></sup>
-和 Deepseek [1]
-等为代表的新一代推理模型在多项标准化测试与数学基准任务中展现出卓越的表现，标志着人工智能正逐步从感知层面迈向更高层次的理性思考,即将跨越第二个阶段
-“推理者”的门槛。</p>
-<p>背靠LLM解决问题能力和推理能力的快速发展，基于LLM构建的<strong>智能体</strong>
-(AI
-Agents)正在快速崛起，当前的人工智能正处于从第二阶段（推理者）迈向第三阶段（智能体）的关键节点，2025或将成为智能体爆发的元年<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span
-class="hint--top hint--rounded"
-aria-label="https://finance.people.com.cn/n1/2025/0309/c1004-40434744.html">[2]</span></a></sup>。</p>
-<p><strong>智能体</strong>被广泛地定义为任何能够通过传感器感知其所处环境，并通过执行器对环境施加影响的实体
-[2]。基于LLM构建的智能体因其强大的泛化能力和适应性，正在深刻重塑编程领域。AI
-Coding Agent
-已经展现出卓越的代码生成、错误检测与自动修复能力，显著提升了开发效率与代码质量。本文将聚焦于AI智能体在编程领域的应用现状、技术挑战及未来发展趋势，探讨其对软件工程范式的深远影响。</p>
-<h3 id="architecture-design-of-ai-agents">Architecture Design of AI
-Agents</h3>
-<h4 id="reasoning-enhancement-for-agents">Reasoning Enhancement for
-Agents</h4>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/05/10/fe15e8ca74e0bbc0aa11419f35910522.png" srcset="/img/loading.gif" lazyload
-alt="reasoning" />
-<figcaption aria-hidden="true">reasoning</figcaption>
-</figure>
-<p>基于LLM的智能体仍然遵循<strong>Next-Token
-Prediction</strong>架构，即<strong>自回归（Autoregressive）生成</strong>。模型从左到右依次预测序列中的每个词元
-(tokens)，每一步的预测都依赖之前生成的文本，在模型输出的每一个过程中，输出的是对不同词元的概率分布，并且最终通过采样
-(贪心搜索、束搜索)等方法确定最新词元的输出。</p>
+<p>与此同时，以数学推理和复杂逻辑处理为代表的认知能力也取得了显著突破。以 o3<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://openai.com/index/introducing-o3-and-o4-mini/">[1]</span></a></sup> 和 Deepseek [1] 等为代表的新一代推理模型在多项标准化测试与数学基准任务中展现出卓越的表现，标志着人工智能正逐步从感知层面迈向更高层次的理性思考,即将跨越第二个阶段 &quot;推理者&quot;的门槛。</p>
+<p>背靠LLM解决问题能力和推理能力的快速发展，基于LLM构建的<strong>智能体</strong> (AI Agents)正在快速崛起，当前的人工智能正处于从第二阶段（推理者）迈向第三阶段（智能体）的关键节点，2025或将成为智能体爆发的元年<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://finance.people.com.cn/n1/2025/0309/c1004-40434744.html">[2]</span></a></sup>。</p>
+<p><strong>智能体</strong>被广泛地定义为任何能够通过传感器感知其所处环境，并通过执行器对环境施加影响的实体 [2]。基于LLM构建的智能体因其强大的泛化能力和适应性，正在深刻重塑编程领域。AI Coding Agent 已经展现出卓越的代码生成、错误检测与自动修复能力，显著提升了开发效率与代码质量。本文将聚焦于AI智能体在编程领域的应用现状、技术挑战及未来发展趋势，探讨其对软件工程范式的深远影响。</p>
+<h3 id="Architecture-Design-of-AI-Agents">Architecture Design of AI Agents</h3>
+<h4 id="Reasoning-Enhancement-for-Agents">Reasoning Enhancement for Agents</h4>
+<p><img src="https://s1.imagehub.cc/images/2025/05/10/fe15e8ca74e0bbc0aa11419f35910522.png" srcset="/img/loading.gif" lazyload alt="reasoning"></p>
+<p>基于LLM的智能体仍然遵循<strong>Next-Token Prediction</strong>架构，即<strong>自回归（Autoregressive）生成</strong>。模型从左到右依次预测序列中的每个词元 (tokens)，每一步的预测都依赖之前生成的文本，在模型输出的每一个过程中，输出的是对不同词元的概率分布，并且最终通过采样 (贪心搜索、束搜索)等方法确定最新词元的输出。</p>
 <p>前人的研究表明让LLM在解决复杂推理问题时加入推理的步骤，可以提升其解决复杂问题的准确率。</p>
-<ol type="1">
+<ol>
 <li><strong>思维链 (Chain of Thought)</strong></li>
 </ol>
-<p><strong>思维链方法</strong> (Chain of Thought) [3]
-通过引导LLM显式生成中间推理步骤，显著提升了其在数学推理的性能，并且可以通过通过Few-shot示例或Zero-shot指令（如”Let’s
-think step by
-step”）激活模型预训练中学到的逻辑模式。实验表明在在GSM8K数学数据集上，CoT使GPT-3的准确率从17%提升至79%。</p>
-<ol start="2" type="1">
+<p><strong>思维链方法</strong> (Chain of Thought) [3] 通过引导LLM显式生成中间推理步骤，显著提升了其在数学推理的性能，并且可以通过通过Few-shot示例或Zero-shot指令（如&quot;Let’s think step by step&quot;）激活模型预训练中学到的逻辑模式。实验表明在在GSM8K数学数据集上，CoT使GPT-3的准确率从17%提升至79%。</p>
+<ol start="2">
 <li><strong>思维树 (Tree of Thought)</strong></li>
 </ol>
-<p><strong>思维树</strong> (Tree of Thought) [4]
-在思维链的基础之上，将单一路径的链式推理升级为树形结构的多路径探索，以解决CoT的局部最优局限。其关键创新点在于<strong>并行推理分支</strong>，即在每一步生成多个可能的中间步骤，通过评估函数筛选最优路径，并结合传统的树搜索算法。例如在需要多步规划的24点游戏中，ToT达到了74%的准确率，远超CoT的9%。</p>
+<p><strong>思维树</strong> (Tree of Thought) [4] 在思维链的基础之上，将单一路径的链式推理升级为树形结构的多路径探索，以解决CoT的局部最优局限。其关键创新点在于<strong>并行推理分支</strong>，即在每一步生成多个可能的中间步骤，通过评估函数筛选最优路径，并结合传统的树搜索算法。例如在需要多步规划的24点游戏中，ToT达到了74%的准确率，远超CoT的9%。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">Algorithm: ToT-BFS(x, pθ, G, k, V, T, b) [<span class="hljs-number">4</span>]<br>Require: Input x, LM pθ, thought generator G(), size limit k, states evaluator V(), step limit T, breadth limit b.<br><span class="hljs-number">1</span>: S0 ← &#123;x&#125;<br><span class="hljs-number">2</span>: <span class="hljs-keyword">for</span> t = <span class="hljs-number">1</span>,...,T do<br><span class="hljs-number">3</span>:     S<span class="hljs-string">&#x27;t ← &#123;(s, z) | s ∈ St-1, zt ∈ G(pθ, s, k)&#125;</span><br><span class="hljs-string">4:     Vt ← V(pθ, S&#x27;</span>t)<br><span class="hljs-number">5</span>:     St ← argmaxS⊆S<span class="hljs-string">&#x27;t, |S|=b ∑s∈S Vt(s)</span><br><span class="hljs-string">6: end for</span><br><span class="hljs-string">7: return G(pθ, argmaxs∈ST VT(s), 1)</span><br></code></pre></td></tr></table></figure>
-<h4 id="external-tool-use-for-agents">External Tool Use for Agents</h4>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/05/10/500b35f2d3f35aa6d3284f127690a5fa.png" srcset="/img/loading.gif" lazyload
-alt="environ" />
-<figcaption aria-hidden="true">environ</figcaption>
-</figure>
-<p>基于预训练参数的大语言模型具有滞后性，即孤立的大语言模型很难获取到网络上的最新资讯，成为了LLM应用的重要瓶颈之一。因此，“<strong>让模型联网</strong>”是解决智能体滞后性的关键。</p>
+<h4 id="External-Tool-Use-for-Agents">External Tool Use for Agents</h4>
+<p><img src="https://s1.imagehub.cc/images/2025/05/10/500b35f2d3f35aa6d3284f127690a5fa.png" srcset="/img/loading.gif" lazyload alt="environ"></p>
+<p>基于预训练参数的大语言模型具有滞后性，即孤立的大语言模型很难获取到网络上的最新资讯，成为了LLM应用的重要瓶颈之一。因此，&quot;<strong>让模型联网</strong>&quot;是解决智能体滞后性的关键。</p>
 <p>在之前的研究中，已经有多种行之有效的方法使LLM及时获取外部信息，与环境进行交互。</p>
-<ol type="1">
+<ol>
 <li><strong>检索增强生成 (Retrieval-Augmented Generation)</strong></li>
 </ol>
-<p><strong>检索增强生成</strong> (Retrieval-Augmented Generation,
-<strong>RAG</strong>) [5]
-允许LLM在生成回答前从外部知识库中检索相关信息。RAG首先使用预训练分词模型
-(如BERT [6])
-将查询文本和文档编码为固定维度的向量建立索引，在检索时，计算查询向量与文档向量的相似度，返回Top-K最相关的文档片段。最终在推理阶段引入一个检索器
-(retriever)，提取目标文档作为上下文传递给生成模型，从而提升答案的准确性和时效性。</p>
-<ol start="2" type="1">
+<p><strong>检索增强生成</strong> (Retrieval-Augmented Generation, <strong>RAG</strong>) [5] 允许LLM在生成回答前从外部知识库中检索相关信息。RAG首先使用预训练分词模型 (如BERT [6]) 将查询文本和文档编码为固定维度的向量建立索引，在检索时，计算查询向量与文档向量的相似度，返回Top-K最相关的文档片段。最终在推理阶段引入一个检索器 (retriever)，提取目标文档作为上下文传递给生成模型，从而提升答案的准确性和时效性。</p>
+<ol start="2">
 <li><strong>函数调用机制 (Function Calling)</strong></li>
 </ol>
-<p><strong>函数调用</strong> (Function Calling) 允许LLM
-Agent在执行任务时调用外部API、工具或数据库接口，实现更加复杂的任务，例如网络搜索，天气查询等。</p>
+<p><strong>函数调用</strong> (Function Calling) 允许LLM Agent在执行任务时调用外部API、工具或数据库接口，实现更加复杂的任务，例如网络搜索，天气查询等。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> openai <span class="hljs-keyword">import</span> OpenAI<br>client = OpenAI()<br>tools = [&#123;<br>    <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;function&quot;</span>,<br>    <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;get_weather&quot;</span>,<br>    <span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;Get current temperature for a given location.&quot;</span>,<br>    <span class="hljs-string">&quot;parameters&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>,<br>        <span class="hljs-string">&quot;properties&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;location&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,<br>                <span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;Shanghai， China&quot;</span><br>            &#125;<br>        &#125;,<br>        <span class="hljs-string">&quot;required&quot;</span>: [<br>            <span class="hljs-string">&quot;location&quot;</span><br>        ],<br>        <span class="hljs-string">&quot;additionalProperties&quot;</span>: <span class="hljs-literal">False</span><br>    &#125;<br>&#125;]<br><br>response = client.responses.create(<br>    model=<span class="hljs-string">&quot;gpt-4.1&quot;</span>,<br>    <span class="hljs-built_in">input</span>=[&#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;What is the weather like in Shanghai, China today?&quot;</span>&#125;],<br>    tools=tools<br>)<br><br><span class="hljs-built_in">print</span>(response.output)<br></code></pre></td></tr></table></figure>
-<h4 id="the-react-reasoning-and-action-agent-model">The ReAct (Reasoning
-and Action) Agent Model</h4>
-<p>结合上文两种增强智能体解决现实问题能力的方法，基于智能体的<strong>ReAct框架</strong>
-(Reasoning and Actions)
-[7]，可以从内外两方面同时提升智能体在复杂环境中的自主决策能力。其核通过一个结构化的循环机制，使智能体在每一步决策中先进行”思考”（即推理），再决定”执行什么动作”（即行动）。这种”思考-行动”的交替过程，使智能体能够根据当前状态和历史经验，动态调整策略。实验结果表明，ReAct框架使智能体在<strong>HotpotQA</strong>
-[8] 数据集上获得了35.1%的准确率，远高于仅仅使用CoT
-(29.4%)或者<strong>Act</strong>架构
-(25.7%)。此外，React架构支持<strong>单样本提示</strong> (One-shot
-Prompting)，<strong>多样本提示</strong> (Few-shot Prompting)
-和<strong>模型微调</strong> (Fine-tuning)。</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/05/10/5c20f60d68bb95cd733ae45df4368a31.png" srcset="/img/loading.gif" lazyload
-alt="react" />
-<figcaption aria-hidden="true">react</figcaption>
-</figure>
-<h3 id="ai-coding-agents">AI Coding Agents</h3>
-<p>在智能体技术迅速发展的背景下，<strong>AI Coding
-Agent</strong>（编程智能体）作为人工智能与软件工程深度融合的产物，正逐步成为推动软件开发范式变革的重要力量。AI
-Coding Agent
-是指能够理解用户需求、自动编写、调试和优化代码的人工智能系统，其核心任务包括但不限于：<strong>代码生成</strong>
-(Code Generation)， <strong>程序理解</strong> (Program
-Understanding)，<strong>错误检测</strong> (Bug Detection and
-Fixing)，<strong>自动化测试</strong> (Test Case Generation) 和
-<strong>代码优化</strong> (Code Optimization)等。</p>
-<p><strong>OpenHands</strong><sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span
-class="hint--top hint--rounded"
-aria-label="https://docs.all-hands.dev/">[3]</span></a></sup>社区，聚力于AI智能体在软件工程领域的应用。其提出编程智能体的基本行为模式是：智能体能够感知环境状态（例如先前的操作和观察结果），并在处理用户指定任务时生成可执行的操作，并以此为基础定义了<strong>状态和事件流</strong>(State
-and Event Flow)，
-<strong>环境观察</strong>(Observations)和<strong>智能体的抽象</strong>
-(Agent Abstraction)等定义，为Coding Agents的构建提供基本框架。</p>
-<h2 id="key-technical-components">Key Technical Components</h2>
-<h3 id="technical-difficulties">Technical Difficulties</h3>
-<p>基于在 1.3
-所介绍的编程智能体所需要解决的问题，可归纳出如下若干技术难点：</p>
-<ol type="1">
-<li><p><strong>环境适配的复杂性 (Difficulty in defining
-environment)</strong>:
-智能体在面对软件开发任务时需要自动配置编码环境和测试环境，并且外部工具的嵌入和在GitHub等仓库中多种类型的文档的解析等操作为智能体定义合适的开发环境增添了阻力。对于人类来说较为轻松的环境识别工作对于AI智能体来说颇具难度。</p></li>
-<li><p><strong>复杂编程任务和错误自动化处理 (Bug detection and automated
-fixing)</strong>：智能体在遇到复杂代码报错等问题时，需要能够自主规划行为并且修复代码错误。</p></li>
-<li><p><strong>多智能体协作任务</strong>：智能体在做开发时往往会涉及<strong>多智能体协作</strong>的任务，例如不同的智能体分别处理不同的代码并之间相互交流，模拟人类开发团队的沟通提升单智能体编码的效率。</p></li>
-<li><p><strong>多文件代码处理 (File
-Localization)</strong>：智能体在操作GitHub等代码仓库是需要快速检索并且定位到关键代码的位置，并且了解不同文件代码的逻辑结构。</p></li>
+<h4 id="The-ReAct-Reasoning-and-Action-Agent-Model">The ReAct (Reasoning and Action) Agent Model</h4>
+<p>结合上文两种增强智能体解决现实问题能力的方法，基于智能体的<strong>ReAct框架</strong> (Reasoning and Actions) [7]，可以从内外两方面同时提升智能体在复杂环境中的自主决策能力。其核通过一个结构化的循环机制，使智能体在每一步决策中先进行&quot;思考&quot;（即推理），再决定&quot;执行什么动作&quot;（即行动）。这种&quot;思考-行动&quot;的交替过程，使智能体能够根据当前状态和历史经验，动态调整策略。实验结果表明，ReAct框架使智能体在<strong>HotpotQA</strong> [8] 数据集上获得了35.1%的准确率，远高于仅仅使用CoT (29.4%)或者<strong>Act</strong>架构 (25.7%)。此外，React架构支持<strong>单样本提示</strong> (One-shot Prompting)，<strong>多样本提示</strong> (Few-shot Prompting) 和<strong>模型微调</strong> (Fine-tuning)。</p>
+<p><img src="https://s1.imagehub.cc/images/2025/05/10/5c20f60d68bb95cd733ae45df4368a31.png" srcset="/img/loading.gif" lazyload alt="react"></p>
+<h3 id="AI-Coding-Agents">AI Coding Agents</h3>
+<p>在智能体技术迅速发展的背景下，<strong>AI Coding Agent</strong>（编程智能体）作为人工智能与软件工程深度融合的产物，正逐步成为推动软件开发范式变革的重要力量。AI Coding Agent 是指能够理解用户需求、自动编写、调试和优化代码的人工智能系统，其核心任务包括但不限于：<strong>代码生成</strong> (Code Generation)， <strong>程序理解</strong> (Program Understanding)，<strong>错误检测</strong> (Bug Detection and Fixing)，<strong>自动化测试</strong> (Test Case Generation) 和 <strong>代码优化</strong> (Code Optimization)等。</p>
+<p><strong>OpenHands</strong><sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://docs.all-hands.dev/">[3]</span></a></sup>社区，聚力于AI智能体在软件工程领域的应用。其提出编程智能体的基本行为模式是：智能体能够感知环境状态（例如先前的操作和观察结果），并在处理用户指定任务时生成可执行的操作，并以此为基础定义了<strong>状态和事件流</strong>(State and Event Flow)， <strong>环境观察</strong>(Observations)和<strong>智能体的抽象</strong> (Agent Abstraction)等定义，为Coding Agents的构建提供基本框架。</p>
+<h2 id="Key-Technical-Components">Key Technical Components</h2>
+<h3 id="Technical-Difficulties">Technical Difficulties</h3>
+<p>基于在 1.3 所介绍的编程智能体所需要解决的问题，可归纳出如下若干技术难点：</p>
+<ol>
+<li>
+<p><strong>环境适配的复杂性 (Difficulty in defining environment)</strong>: 智能体在面对软件开发任务时需要自动配置编码环境和测试环境，并且外部工具的嵌入和在GitHub等仓库中多种类型的文档的解析等操作为智能体定义合适的开发环境增添了阻力。对于人类来说较为轻松的环境识别工作对于AI智能体来说颇具难度。</p>
+</li>
+<li>
+<p><strong>复杂编程任务和错误自动化处理 (Bug detection and automated fixing)</strong>：智能体在遇到复杂代码报错等问题时，需要能够自主规划行为并且修复代码错误。</p>
+</li>
+<li>
+<p><strong>多智能体协作任务</strong>：智能体在做开发时往往会涉及<strong>多智能体协作</strong>的任务，例如不同的智能体分别处理不同的代码并之间相互交流，模拟人类开发团队的沟通提升单智能体编码的效率。</p>
+</li>
+<li>
+<p><strong>多文件代码处理 (File Localization)</strong>：智能体在操作GitHub等代码仓库是需要快速检索并且定位到关键代码的位置，并且了解不同文件代码的逻辑结构。</p>
+</li>
 </ol>
-<h3 id="innovations">Innovations</h3>
+<h3 id="Innovations">Innovations</h3>
 <p>为了解决上述难点，相关工作做出了若干技术创新，下面一一介绍之。</p>
-<h4 id="agent-computer-interfaces">Agent-Computer Interfaces</h4>
-<p>在传统的开发环境中，主要包括<strong>命令行界面(Command Line
-Interface)</strong> 和 <strong>图形用户界面(Graphical User
-Interface)</strong>，Agent在面对传统的两种用户交互界面适配性低，同时，Agent的开发依赖于外部工具的使用，例如Shell环境和Python解释器等，而<strong>SWEAgent</strong>
-[9]
-通过构建<strong>智能体交互环境</strong>，实现提升智能体在编码领域的表现。</p>
+<h4 id="Agent-Computer-Interfaces">Agent-Computer Interfaces</h4>
+<p>在传统的开发环境中，主要包括<strong>命令行界面(Command Line Interface)</strong> 和 <strong>图形用户界面(Graphical User Interface)</strong>，Agent在面对传统的两种用户交互界面适配性低，同时，Agent的开发依赖于外部工具的使用，例如Shell环境和Python解释器等，而<strong>SWEAgent</strong> [9] 通过构建<strong>智能体交互环境</strong>，实现提升智能体在编码领域的表现。</p>
 <p>文中总结了<strong>ACI</strong>相比于传统<strong>UI</strong>的相关特点，包括：</p>
-<ol type="1">
+<ol>
 <li><strong>简洁高效的操作指令</strong>：例如在Bash命令行下需要更加简洁的参数后缀，并且需要将操作设计整合为紧凑的最小化的操作单元。</li>
 <li><strong>环境反馈需信息浓缩</strong>：优质反馈应当精炼呈现环境状态关键信息（及代理操作产生的效果），避免冗余细节。例如文件编辑时，仅反馈变更内容的核心更新即可。</li>
 <li><strong>防护机制能遏制错误传播</strong>：与人类类似，语言模型在编辑/搜索时会产生错误且难以自主修正。内置防护措施（如自动检测语法错误的代码检查器）可加速错误识别与修复。</li>
 </ol>
-<p>使用简洁高效的环境配置符合Linux哲学中<strong>小即是美</strong> (Write
-programs that do one thing and do it well
-<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span
-class="hint--top hint--rounded"
-aria-label="https://en.wikipedia.org/wiki/Unix_philosophy">[4]</span></a></sup>)的思想，解决了环境配置复杂性的问题。</p>
-<p>最终的实验结果表明，以<strong>GPT-4
-Turbo</strong>作为基座模型，SWE-Agent在SWE-Bench
-[10]上获得了<strong>12.47%</strong>的准确率，远高于纯RAG的Agent或者Shell-Only的Agent。</p>
-<h4 id="multi-agent-collaboration-in-coding">Multi-Agent Collaboration
-in Coding</h4>
-<p>在<strong>OpenHands</strong>框架中，社区接入了多种多智能体框架并测试其功能，例如<strong>Autogen</strong>和<strong>Camel</strong>等。下表展示了在OpenHands社区支持的若干智能体框架以及其支持的功能，例如外部工具箱
-(External Tool Libraries) 和 指标集评测 (Evaluation FrameWork) 等。</p>
+<p>使用简洁高效的环境配置符合Linux哲学中<strong>小即是美</strong> (Write programs that do one thing and do it well <sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://en.wikipedia.org/wiki/Unix_philosophy">[4]</span></a></sup>)的思想，解决了环境配置复杂性的问题。</p>
+<p>最终的实验结果表明，以<strong>GPT-4 Turbo</strong>作为基座模型，SWE-Agent在SWE-Bench [10]上获得了**12.47%**的准确率，远高于纯RAG的Agent或者Shell-Only的Agent。</p>
+<h4 id="Multi-Agent-Collaboration-in-Coding">Multi-Agent Collaboration in Coding</h4>
+<p>在<strong>OpenHands</strong>框架中，社区接入了多种多智能体框架并测试其功能，例如<strong>Autogen</strong>和<strong>Camel</strong>等。下表展示了在OpenHands社区支持的若干智能体框架以及其支持的功能，例如外部工具箱 (External Tool Libraries) 和 指标集评测 (Evaluation FrameWork) 等。</p>
 <p><strong>Comparison of Agent Frameworks in OpenHands [11]</strong></p>
-<table style="width:100%;">
-
+<table>
 <thead>
 <tr>
 <th>Framework</th>
@@ -1129,41 +1036,19 @@ in Coding</h4>
 </tbody>
 </table>
 <p>*No native support. Third-party commercial options are available.</p>
-<h4 id="agents-handling-with-long-context-code-filling-tasks">Agents
-Handling with Long-Context Code-filling Tasks</h4>
-<p>Transformer [12] 架构存在<strong>位置编码</strong> (Positional
-Encoding)的概念，用来实现对序列文本的位置信息的建模。但是，常规Transformer架构通常仅支持512-4k
-tokens的上下文窗口，对于较长的代码任务，其面对超长代码文本会出现生成准确率下降，幻觉严重等问题。</p>
-<p><strong>旋转位置编码</strong> (Rotary Position Embedding(RoPE)) [13]
-等方法，可以通过旋转位置编码的方式，构造旋转矩阵来存储位置信息。</p>
+<h4 id="Agents-Handling-with-Long-Context-Code-filling-Tasks">Agents Handling with Long-Context Code-filling Tasks</h4>
+<p>Transformer [12] 架构存在<strong>位置编码</strong> (Positional Encoding)的概念，用来实现对序列文本的位置信息的建模。但是，常规Transformer架构通常仅支持512-4k tokens的上下文窗口，对于较长的代码任务，其面对超长代码文本会出现生成准确率下降，幻觉严重等问题。</p>
+<p><strong>旋转位置编码</strong> (Rotary Position Embedding(RoPE)) [13] 等方法，可以通过旋转位置编码的方式，构造旋转矩阵来存储位置信息。</p>
 <figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="language-xml">f</span><span class="hljs-template-variable">&#123;q, k&#125;</span><span class="language-xml">(xₘ, m) = RΘ,md W</span><span class="hljs-template-variable">&#123;q, k&#125;</span><span class="language-xml"> xₘ</span><br></code></pre></td></tr></table></figure>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">RΘ,md = <br>[cos mθ₁ -sin mθ₁ 0 0 <span class="hljs-string">...</span> 0 0<br> sin mθ₁ cos mθ₁ 0 0 <span class="hljs-string">...</span> 0 0<br> 0 0 cos mθ₂ -sin mθ₂ <span class="hljs-string">...</span> 0 0<br> 0 0 sin mθ₂ cos mθ₂ <span class="hljs-string">...</span> 0 0<br> <span class="hljs-string">...</span> <span class="hljs-string">...</span> <span class="hljs-string">...</span> <span class="hljs-string">...</span> <span class="hljs-string">...</span> <span class="hljs-string">...</span> <span class="hljs-string">...</span><br> 0 0 0 0 <span class="hljs-string">...</span> cos mθd/2 -sin mθd/2<br> 0 0 0 0 <span class="hljs-string">...</span> sin mθd/2 cos mθd/2]<br></code></pre></td></tr></table></figure>
-<p>此外，基于<strong>RoPE</strong>， <strong>NTK-aware scaling</strong>
-[14] 等注意力算法的优化机制，<strong>针对超长文本的延伸协议</strong>
-(Long-Context Extension Protocol)
-[15]，实现了测试若干方法在不同数据集（例如<strong>RULER</strong> [16]
-等）上的表现，最终得出结论：在不同的注意力机制下，<strong>困惑度（perplexity）</strong>作为核心性能指标发挥关键作用。</p>
-<h4
-id="retrieval-augmented-generation-for-code-localization">Retrieval-Augmented
-Generation for Code Localization</h4>
-<p>对于代码复杂的函数调用逻辑，智能体有时需要<strong>在代码块中检索特定片段</strong>，来学习用户的代码框架和逻辑。<strong>DocPrompting</strong>
-[17]，利用<strong>Retriever -
-Generator</strong>架构从文档池中检索得到相关代码的教程文档，并返回给代码生成器，使其根据检索增强出的文档和用户自然语言的输入生成最终代码。实验表明，在DocPrompting帮助下的LLM帮助生成代码的效果都远高于直接生成，尤其在用户需要处理个性化任务的情况下。</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/05/10/53e3b4741b908078150506d58dccbe59.png" srcset="/img/loading.gif" lazyload
-alt="DocPrompting" />
-<figcaption aria-hidden="true">DocPrompting</figcaption>
-</figure>
-<h2 id="benchmark">Benchmark</h2>
-<p>正如Shunyu
-Yao提出<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span
-class="hint--top hint--rounded"
-aria-label="https://ysymyth.github.io/The-Second-Half/">[5]</span></a></sup>，对智能体的更加准确的评测(Evaluation)、指标集(BenchMark)和环境(Environment)在未来的重要性将要超过模型的训练和若干优化方法。下表列举出如今评测Code
-Agent表现的若干数据集及其具体表现。</p>
+<p>此外，基于<strong>RoPE</strong>， <strong>NTK-aware scaling</strong> [14] 等注意力算法的优化机制，<strong>针对超长文本的延伸协议</strong> (Long-Context Extension Protocol) [15]，实现了测试若干方法在不同数据集（例如<strong>RULER</strong> [16] 等）上的表现，最终得出结论：在不同的注意力机制下，**困惑度（perplexity）**作为核心性能指标发挥关键作用。</p>
+<h4 id="Retrieval-Augmented-Generation-for-Code-Localization">Retrieval-Augmented Generation for Code Localization</h4>
+<p>对于代码复杂的函数调用逻辑，智能体有时需要<strong>在代码块中检索特定片段</strong>，来学习用户的代码框架和逻辑。<strong>DocPrompting</strong> [17]，利用<strong>Retriever - Generator</strong>架构从文档池中检索得到相关代码的教程文档，并返回给代码生成器，使其根据检索增强出的文档和用户自然语言的输入生成最终代码。实验表明，在DocPrompting帮助下的LLM帮助生成代码的效果都远高于直接生成，尤其在用户需要处理个性化任务的情况下。</p>
+<p><img src="https://s1.imagehub.cc/images/2025/05/10/53e3b4741b908078150506d58dccbe59.png" srcset="/img/loading.gif" lazyload alt="DocPrompting"></p>
+<h2 id="Benchmark">Benchmark</h2>
+<p>正如Shunyu Yao提出<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://ysymyth.github.io/The-Second-Half/">[5]</span></a></sup>，对智能体的更加准确的评测(Evaluation)、指标集(BenchMark)和环境(Environment)在未来的重要性将要超过模型的训练和若干优化方法。下表列举出如今评测Code Agent表现的若干数据集及其具体表现。</p>
 <p><strong>Several Benchmark for Coding Agents</strong></p>
 <table>
-
 <thead>
 <tr>
 <th><strong>数据集名称</strong></th>
@@ -1181,8 +1066,7 @@ Agent表现的若干数据集及其具体表现。</p>
 </tr>
 <tr>
 <td>StackEval [20]</td>
-<td>包含StackEval（大规模Stack
-Overflow问题基准）和StackUnseen（动态新内容基准）两个数据集，评估编码辅助任务性能。</td>
+<td>包含StackEval（大规模Stack Overflow问题基准）和StackUnseen（动态新内容基准）两个数据集，评估编码辅助任务性能。</td>
 </tr>
 <tr>
 <td>TheAgentCompany [21]</td>
@@ -1202,142 +1086,57 @@ Overflow问题基准）和StackUnseen（动态新内容基准）两个数据集�
 </tr>
 </tbody>
 </table>
-<h2 id="future-outlook">Future Outlook</h2>
-<p>如今，随着算力资源的蓬勃发展和各种新兴架构的提出，基于LLM的Coding
-Agent的表现也随着基座模型能力的提升而不断提升。与此同时，构建多智能体系统
-(Multi-Agent
-Systems)将会是未来智能体区别于Only-LLM的发展趋势。基于对未来智能体的展望，下文将详细介绍<strong>模型上下文协议</strong>
-(Model Context Protocol (MCP))在未来编程智能体发展会发挥的巨大作用。</p>
-<h3 id="model-context-protocol">Model Context Protocol</h3>
-<p>Model Context Protocol（MCP）是由 Anthropic
-在2024年底推出的基于LLM的开放标准<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span
-class="hint--top hint--rounded"
-aria-label="https://www.anthropic.com/news/model-context-protocol">[6]</span></a></sup>，是一种<strong>智能体调用语言模型或工具的标准化协议</strong>。其定义智能体如何与语言模型进行交互、支持多模型协同推理并且提供统一接口来调用外部工具和服务。</p>
-<ol type="1">
-<li><strong>解耦模型与代码逻辑</strong>：面对不同API厂商的不同接口，传统的LLM调用需要硬编码针对不同模型的接口格式，使模型设置和代码逻辑高度耦合。MCP起到了<strong>中间层协议</strong>的作用，通过定义通用的请求/响应格式支持抽象模型调用逻辑且支持本地模型,
-API模型等多种服务。</li>
+<h2 id="Future-Outlook">Future Outlook</h2>
+<p>如今，随着算力资源的蓬勃发展和各种新兴架构的提出，基于LLM的Coding Agent的表现也随着基座模型能力的提升而不断提升。与此同时，构建多智能体系统 (Multi-Agent Systems)将会是未来智能体区别于Only-LLM的发展趋势。基于对未来智能体的展望，下文将详细介绍<strong>模型上下文协议</strong> (Model Context Protocol (MCP))在未来编程智能体发展会发挥的巨大作用。</p>
+<h3 id="Model-Context-Protocol">Model Context Protocol</h3>
+<p>Model Context Protocol（MCP）是由 Anthropic 在2024年底推出的基于LLM的开放标准<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://www.anthropic.com/news/model-context-protocol">[6]</span></a></sup>，是一种<strong>智能体调用语言模型或工具的标准化协议</strong>。其定义智能体如何与语言模型进行交互、支持多模型协同推理并且提供统一接口来调用外部工具和服务。</p>
+<ol>
+<li><strong>解耦模型与代码逻辑</strong>：面对不同API厂商的不同接口，传统的LLM调用需要硬编码针对不同模型的接口格式，使模型设置和代码逻辑高度耦合。MCP起到了<strong>中间层协议</strong>的作用，通过定义通用的请求/响应格式支持抽象模型调用逻辑且支持本地模型, API模型等多种服务。</li>
 </ol>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;gpt-4o-mini-2024-07-18&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;model_list&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>            <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;model_name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;gpt-4o-mini-2024-07-18&quot;</span><span class="hljs-punctuation">,</span> <br>             <span class="hljs-attr">&quot;model_url&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://api.example.com/&quot;</span><span class="hljs-punctuation">,</span><br>             <span class="hljs-attr">&quot;api_key&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sk-zk12345678example&quot;</span><span class="hljs-punctuation">&#125;</span><br>        <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;max_workers_per_model&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li><strong>集成外部工具与服务</strong>：聚焦Agent对外部工具的调用，MCP同样提供了一套标准化协议，使得智能体可以使用标准化的接口调用第三方的工具API工具，例如GoogleMap，
-GoogleSearch等等。</li>
+<ol start="2">
+<li><strong>集成外部工具与服务</strong>：聚焦Agent对外部工具的调用，MCP同样提供了一套标准化协议，使得智能体可以使用标准化的接口调用第三方的工具API工具，例如GoogleMap， GoogleSearch等等。</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> httpx<br><span class="hljs-keyword">from</span> mcp.server.fastmcp <span class="hljs-keyword">import</span> FastMCP<br><br>mcp = FastMCP(<span class="hljs-string">&quot;My App&quot;</span>)<br><br><br><span class="hljs-meta">@mcp.tool()</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_bmi</span>(<span class="hljs-params">weight_kg: <span class="hljs-built_in">float</span>, height_m: <span class="hljs-built_in">float</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Calculate BMI given weight in kg and height in meters&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> weight_kg / (height_m**<span class="hljs-number">2</span>)<br><br><br><span class="hljs-meta">@mcp.tool()</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_weather</span>(<span class="hljs-params">city: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Fetch current weather for a city&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">async</span> <span class="hljs-keyword">with</span> httpx.AsyncClient() <span class="hljs-keyword">as</span> client:<br>        response = <span class="hljs-keyword">await</span> client.get(<span class="hljs-string">f&quot;https://api.weather.com/<span class="hljs-subst">&#123;city&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">return</span> response.text<br></code></pre></td></tr></table></figure>
-<p>针对代码问题，MCP的出现和普及有利于主流IDE的插件生态的不断丰富
-(例如Vscode extension的扩展)，使Coding
-Agent在代码问题上可以更快速地调用第三方工具链，现如今，<strong>cline</strong>
-<sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span
-class="hint--top hint--rounded"
-aria-label="https://github.com/cline/cline">[7]</span></a></sup>等支持MCP的插件已经初具规模。</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>本文在介绍了Agent的三大基础技术突破 (CoT, RAG, ReAct
-Model)之后，分析了针对AI Coding Agents
-解决代码问题所面临的技术难点，包括执行环境的定义问题、多智能体协作问题、长上下文编码问题和多文件代码检索问题等，并以此为基础介绍了已有的技术革新，例如建立智能体环境交互界面
-(Agent-Computer Interfaces)
-、OpenHands社区支持多智能体框架、RoPE等优化位置编码的延长上下文方法和协议以及基于代码的检索增强生成
-(Retrieval-Augmented Generation for
-Code)等。结论表明MCP协议是未来多元化智能体实现统一架构的关键，且当今若干测评智能体代码能力的数据集显示编程智能体已在代码生成（79%
-GSM8K准确率）、错误修复（12.47%
-SWE-Bench解决率）等任务中展现出显著优势，已经在多个指标和数据表现上超越一般人类程序员
-(例如MLE-Bench)。未来软件工程将要接受智能体的深刻变革。</p>
-<h2 id="references">References</h2>
-<p>[1] DeepseekAI. (2025). Deepseek-V3 Technical Report.<br />
-[2] Russell, S., &amp; Norvig, P. (2016). Artificial Intelligence: A
-Modern Approach.<br />
-[3] Wei, J., et al. (2022). Chain of Thought Prompting Elicits Reasoning
-in Large Language Models.<br />
-[4] Yao, S., et al. (2023). Tree of Thoughts: Deliberate Problem Solving
-with Large Language Models.<br />
-[5] Gao, L., et al. (2024). Retrieval-Augmented Generation for Large
-Language Models: A Survey.<br />
-[6] Devlin, J., et al. (2019). BERT: Pre-training of Deep Bidirectional
-Transformers for Language Understanding.<br />
-[7] Yao, S., et al. (2023). ReAct: Synergizing Reasoning and Acting in
-Language Models.<br />
-[8] Yang, Z., et al. (2018). HotpotQA: A Dataset for Diverse,
-Explainable Multi-hop Question Answering.<br />
-[9] Yang, J., et al. (2024). SWE-Agent: Agent-Computer Interfaces Enable
-Automated Software Engineering.<br />
-[10] Jimenez, C., et al. (2024). SWE-Bench: Language Models Resolve
-Real-World GitHub Issues.<br />
-[11] Wang, L., et al. (2025). OpenHands: An Open Platform for AI Agent
-Development and Evaluation.<br />
-[12] Vaswani, A., et al. (2023). Attention Is All You Need.<br />
-[13] Su, J., et al. (2023). RoFormer: Enhanced Transformer with Rotary
-Position Embedding.<br />
-[14] Peng, B., et al. (2023). YARN: Efficient Context Window Extension
-of Large Language Models.<br />
-[15] Lu, X., et al. (2024). A Controlled Study on Long Context
-Understanding of Large Language Models.<br />
-[16] Hsieh, C., et al. (2024). RULER: What’s the Real Context Window of
-Your Language Model?<br />
-[17] Zhou, S., et al. (2023). DocPrompting: Generating Code by
-Retrieving the Docs.<br />
-[18] Guo, B., et al. (2024). RedCode: Risky Code Execution Detection
-Benchmark.<br />
-[19] Mündler, N., et al. (2025). SWT-Bench: Testing and Validating
-Real-World Software Engineering Tasks.<br />
-[20] Shah, P., et al. (2024). StackEval: Benchmarking LLMs on Coding
-Assistance Tasks.<br />
-[21] Xu, L., et al. (2024). TheAgentCompany: Benchmarking LLM Agents in
-Simulated Work Environments.<br />
-[22] Xiang, Y., et al. (2025). SciReplicate-Bench: Benchmarking LLMs on
-Agent-Driven Scientific Code Generation.<br />
-[23] Liu, J., et al. (2025). ProjectEval: A Benchmark for Programming
-Agents.<br />
-[24] Chan, S., et al. (2025). MLE-Bench: Evaluating Machine Learning
-Agents on Kaggle-Style Competitions.</p>
+<p>针对代码问题，MCP的出现和普及有利于主流IDE的插件生态的不断丰富 (例如Vscode extension的扩展)，使Coding Agent在代码问题上可以更快速地调用第三方工具链，现如今，<strong>cline</strong> <sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://github.com/cline/cline">[7]</span></a></sup>等支持MCP的插件已经初具规模。</p>
+<h2 id="Conclusion">Conclusion</h2>
+<p>本文在介绍了Agent的三大基础技术突破 (CoT, RAG, ReAct Model)之后，分析了针对AI Coding Agents 解决代码问题所面临的技术难点，包括执行环境的定义问题、多智能体协作问题、长上下文编码问题和多文件代码检索问题等，并以此为基础介绍了已有的技术革新，例如建立智能体环境交互界面 (Agent-Computer Interfaces) 、OpenHands社区支持多智能体框架、RoPE等优化位置编码的延长上下文方法和协议以及基于代码的检索增强生成 (Retrieval-Augmented Generation for Code)等。结论表明MCP协议是未来多元化智能体实现统一架构的关键，且当今若干测评智能体代码能力的数据集显示编程智能体已在代码生成（79% GSM8K准确率）、错误修复（12.47% SWE-Bench解决率）等任务中展现出显著优势，已经在多个指标和数据表现上超越一般人类程序员 (例如MLE-Bench)。未来软件工程将要接受智能体的深刻变革。</p>
+<h2 id="References">References</h2>
+<p>[1] DeepseekAI. (2025). Deepseek-V3 Technical Report.<br>
+[2] Russell, S., &amp; Norvig, P. (2016). Artificial Intelligence: A Modern Approach.<br>
+[3] Wei, J., et al. (2022). Chain of Thought Prompting Elicits Reasoning in Large Language Models.<br>
+[4] Yao, S., et al. (2023). Tree of Thoughts: Deliberate Problem Solving with Large Language Models.<br>
+[5] Gao, L., et al. (2024). Retrieval-Augmented Generation for Large Language Models: A Survey.<br>
+[6] Devlin, J., et al. (2019). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding.<br>
+[7] Yao, S., et al. (2023). ReAct: Synergizing Reasoning and Acting in Language Models.<br>
+[8] Yang, Z., et al. (2018). HotpotQA: A Dataset for Diverse, Explainable Multi-hop Question Answering.<br>
+[9] Yang, J., et al. (2024). SWE-Agent: Agent-Computer Interfaces Enable Automated Software Engineering.<br>
+[10] Jimenez, C., et al. (2024). SWE-Bench: Language Models Resolve Real-World GitHub Issues.<br>
+[11] Wang, L., et al. (2025). OpenHands: An Open Platform for AI Agent Development and Evaluation.<br>
+[12] Vaswani, A., et al. (2023). Attention Is All You Need.<br>
+[13] Su, J., et al. (2023). RoFormer: Enhanced Transformer with Rotary Position Embedding.<br>
+[14] Peng, B., et al. (2023). YARN: Efficient Context Window Extension of Large Language Models.<br>
+[15] Lu, X., et al. (2024). A Controlled Study on Long Context Understanding of Large Language Models.<br>
+[16] Hsieh, C., et al. (2024). RULER: What’s the Real Context Window of Your Language Model?<br>
+[17] Zhou, S., et al. (2023). DocPrompting: Generating Code by Retrieving the Docs.<br>
+[18] Guo, B., et al. (2024). RedCode: Risky Code Execution Detection Benchmark.<br>
+[19] Mündler, N., et al. (2025). SWT-Bench: Testing and Validating Real-World Software Engineering Tasks.<br>
+[20] Shah, P., et al. (2024). StackEval: Benchmarking LLMs on Coding Assistance Tasks.<br>
+[21] Xu, L., et al. (2024). TheAgentCompany: Benchmarking LLM Agents in Simulated Work Environments.<br>
+[22] Xiang, Y., et al. (2025). SciReplicate-Bench: Benchmarking LLMs on Agent-Driven Scientific Code Generation.<br>
+[23] Liu, J., et al. (2025). ProjectEval: A Benchmark for Programming Agents.<br>
+[24] Chan, S., et al. (2025). MLE-Bench: Evaluating Machine Learning Agents on Kaggle-Style Competitions.</p>
 <div class="note note-primary">
-            <p><strong>Update to be done in the future (Maybe?😊)</strong></p><ul><li>Add more specific description of MCP.</li><li>Add more Key technical innovations.</li><li>Make the passage more logical and concise.</li><li>Try to run my own experiments!</li><li>Explain ROPE more clearly! Try to have some my own points ofview.</li></ul>
+            <p><strong>Update to be done in the future (Maybe?😊)</strong></p><ul><li>Add more specific description of MCP.</li><li>Add more Key technical innovations.</li><li>Make the passage more logical and concise.</li><li>Try to run my own experiments!</li><li>Explain ROPE more clearly! Try to have some my own points of view.</li></ul>
           </div>
-<section class="footnotes">
-<div class="footnote-list">
-<ol>
-<li>
-<span id="fn:1"
-class="footnote-text"><span>https://openai.com/index/introducing-o3-and-o4-mini/
-<a href="#fnref:1" rev="footnote" class="footnote-backref">
-↩︎</a></span></span>
-</li>
-<li>
-<span id="fn:2"
-class="footnote-text"><span>https://finance.people.com.cn/n1/2025/0309/c1004-40434744.html
-<a href="#fnref:2" rev="footnote" class="footnote-backref">
-↩︎</a></span></span>
-</li>
-<li>
-<span id="fn:3" class="footnote-text"><span>https://docs.all-hands.dev/
-<a href="#fnref:3" rev="footnote" class="footnote-backref">
-↩︎</a></span></span>
-</li>
-<li>
-<span id="fn:4"
-class="footnote-text"><span>https://en.wikipedia.org/wiki/Unix_philosophy
-<a href="#fnref:4" rev="footnote" class="footnote-backref">
-↩︎</a></span></span>
-</li>
-<li>
-<span id="fn:5"
-class="footnote-text"><span>https://ysymyth.github.io/The-Second-Half/
-<a href="#fnref:5" rev="footnote" class="footnote-backref">
-↩︎</a></span></span>
-</li>
-<li>
-<span id="fn:6"
-class="footnote-text"><span>https://www.anthropic.com/news/model-context-protocol
-<a href="#fnref:6" rev="footnote" class="footnote-backref">
-↩︎</a></span></span>
-</li>
-<li>
-<span id="fn:7"
-class="footnote-text"><span>https://github.com/cline/cline
-<a href="#fnref:7" rev="footnote" class="footnote-backref">
-↩︎</a></span></span>
-</li>
-</ol>
-</div>
-</section>
-
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://openai.com/index/introducing-o3-and-o4-mini/">https://openai.com/index/introducing-o3-and-o4-mini/</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://finance.people.com.cn/n1/2025/0309/c1004-40434744.html">https://finance.people.com.cn/n1/2025/0309/c1004-40434744.html</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://docs.all-hands.dev/">https://docs.all-hands.dev/</a>
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Unix_philosophy">https://en.wikipedia.org/wiki/Unix_philosophy</a>
+<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:5" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://ysymyth.github.io/The-Second-Half/">https://ysymyth.github.io/The-Second-Half/</a>
+<a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:6" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.anthropic.com/news/model-context-protocol">https://www.anthropic.com/news/model-context-protocol</a>
+<a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:7" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/cline/cline">https://github.com/cline/cline</a>
+<a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             

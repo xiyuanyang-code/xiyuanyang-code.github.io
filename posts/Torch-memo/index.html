@@ -741,20 +741,18 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h1 id="torch-memo">Torch Memo</h1>
-<h2 id="preliminaries">Preliminaries</h2>
+<h1>Torch Memo</h1>
+<h2 id="Preliminaries">Preliminaries</h2>
 <ul>
-<li><code>.__dir__()</code>: Getting all the functions in the module
-(<strong>Tool function</strong>)</li>
+<li><code>.__dir__()</code>: Getting all the functions in the module (<strong>Tool function</strong>)</li>
 </ul>
-<h2 id="tensorboard">TensorBoard</h2>
+<h2 id="TensorBoard">TensorBoard</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><br>writer = SummaryWriter(<span class="hljs-string">&quot;logs&quot;</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">compute</span>(<span class="hljs-params">x</span>):<br>    <span class="hljs-keyword">return</span> (torch.sin(torch.tensor(x)) + torch.randn(<span class="hljs-number">1</span>) * torch.sin(torch.tensor(x)))<br><br><br><span class="hljs-comment"># writer.add_scalar()</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>):<br>    writer.add_scalar(<span class="hljs-string">&quot;y=x&quot;</span>, compute(i).item(), i)<br><br><br><span class="hljs-comment"># writer.add_image()</span><br>img = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;003.jpg&quot;</span>)<br>img_array = np.array(img)<br><br><span class="hljs-comment"># dataformats is HWC</span><br>writer.add_image(<span class="hljs-string">&quot;test&quot;</span>, img_array, <span class="hljs-number">1</span>, dataformats=<span class="hljs-string">&#x27;HWC&#x27;</span>)<br><br></code></pre></td></tr></table></figure>
-<h2 id="transforms">Transforms</h2>
-<p>Use Transforms to make <strong>Data Augmentation</strong> and design
-your own class of data!</p>
-<h2 id="use-gpu-in-torch">Use GPU in torch</h2>
+<h2 id="Transforms">Transforms</h2>
+<p>Use Transforms to make <strong>Data Augmentation</strong> and design your own class of data!</p>
+<h2 id="Use-GPU-in-torch">Use GPU in torch</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Memo: Using GPU in Pytorch</span><br><br><span class="hljs-keyword">import</span> torch<br><br><span class="hljs-keyword">import</span> argparse<br><br><span class="hljs-comment"># Using parser</span><br>parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;Selecting device for Pytorch&quot;</span>)<br>parser.add_argument(<br>    <span class="hljs-string">&quot;--device&quot;</span>,<br>    <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>,<br>    choices=[<span class="hljs-string">&quot;cuda&quot;</span>, <span class="hljs-string">&quot;cpu&quot;</span>],<br>    default=<span class="hljs-string">&quot;cuda&quot;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span>,<br>    <span class="hljs-built_in">help</span>= <span class="hljs-string">&quot;Device to use, cuda or cpu&quot;</span><br>)<br>args = parser.parse_args()<br><br><span class="hljs-comment"># Usage</span><br>device = args.device<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Device selectd, using <span class="hljs-subst">&#123;device&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
-<h2 id="tensor-operations">Tensor Operations</h2>
+<h2 id="Tensor-Operations">Tensor Operations</h2>
 <p>torch中最关键的数据结构就是张量，因此对张量做操作是数据预处理的关键操作之一。</p>
 
                 

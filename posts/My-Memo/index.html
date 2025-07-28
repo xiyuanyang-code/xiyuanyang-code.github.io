@@ -435,26 +435,22 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h1 id="my-memo">My Memo</h1>
+<h1>My Memo</h1>
 <p>All kinds of stuffs… Mostly for the lab and AI usage.</p>
-<h2 id="table-of-contents">Table of Contents</h2>
+<h2 id="Table-of-Contents">Table of Contents</h2>
 <ul>
-<li><a href="#Hugging-Face-数据集下载">Hugging Face 下载数据集</a></li>
-<li><a href="#Markdown-文本内设置超链接">Markdown
-文本内设置超链接</a></li>
-<li><a href="#日志书写">日志书写</a></li>
-<li><a href="#Tmux-使用备忘录">Tmux 使用备忘录</a></li>
-<li><a
-href="https://xiyuanyang-code.github.io/posts/Python-cheatsheet/">Python
-Tutorial</a></li>
+<li><a href="#Hugging-Face-%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8B%E8%BD%BD">Hugging Face 下载数据集</a></li>
+<li><a href="#Markdown-%E6%96%87%E6%9C%AC%E5%86%85%E8%AE%BE%E7%BD%AE%E8%B6%85%E9%93%BE%E6%8E%A5">Markdown 文本内设置超链接</a></li>
+<li><a href="#%E6%97%A5%E5%BF%97%E4%B9%A6%E5%86%99">日志书写</a></li>
+<li><a href="#Tmux-%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95">Tmux 使用备忘录</a></li>
+<li><a href="https://xiyuanyang-code.github.io/posts/Python-cheatsheet/">Python Tutorial</a></li>
 <li><a href="#Conda-Quick-Setup">Conda Quick Setup</a></li>
 </ul>
-<h2 id="hugging-face-数据集下载">Hugging Face 数据集下载</h2>
+<h2 id="Hugging-Face-数据集下载">Hugging Face 数据集下载</h2>
 <p>Upd: <code>2025/04/25</code></p>
-<p>由于网络限制，无法使用原生的Hugging
-Face或者官方提供的<code>huggface-cli</code>或者<code>datasets</code>等第三方库下载数据集。在此笔者给出可操作的方法之一：</p>
+<p>由于网络限制，无法使用原生的Hugging Face或者官方提供的<code>huggface-cli</code>或者<code>datasets</code>等第三方库下载数据集。在此笔者给出可操作的方法之一：</p>
 <div class="note note-primary">
-            <p><strong>相关网站的集合</strong>：</p><ul><li><a target="_blank" rel="noopener" href="https://huggingface.co/">原始网站</a></li><li><a target="_blank" rel="noopener" href="https://hf-mirror.com/">镜像站</a></li><li><ahref="https://zhuanlan.zhihu.com/p/663712983">超级详细的教程</a></li></ul>
+            <p><strong>相关网站的集合</strong>：</p><ul><li><a target="_blank" rel="noopener" href="https://huggingface.co/">原始网站</a></li><li><a target="_blank" rel="noopener" href="https://hf-mirror.com/">镜像站</a></li><li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/663712983">超级详细的教程</a></li></ul>
           </div>
 <h3 id="环境变量的配置">环境变量的配置</h3>
 <p>环境声明：<strong>本地环境和服务器环境</strong>均测试通过。</p>
@@ -469,7 +465,7 @@ Face或者官方提供的<code>huggface-cli</code>或者<code>datasets</code>等
 <p>在<code>.bashrc</code>或者<code>.zshrc</code>中加入如下export：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> HUGGINGFACE_HUB_URL=<span class="hljs-string">&quot;https://mirrors.tuna.tsinghua.edu.cn/hugging-face-hub&quot;</span><br><span class="hljs-built_in">export</span> HF_DATASETS_URL=<span class="hljs-string">&quot;https://mirrors.tuna.tsinghua.edu.cn/hugging-face-datasets&quot;</span><br><span class="hljs-built_in">export</span> HF_METRICS_URL=<span class="hljs-string">&quot;https://mirrors.tuna.tsinghua.edu.cn/hugging-face-metrics&quot;</span><br><span class="hljs-built_in">export</span> HF_HOME=<span class="hljs-string">&quot;/GPFS/rhome/xiyuanyang/HuggingFace/HF_HOME&quot;</span><br><span class="hljs-built_in">export</span> TRANSFORMERS_CACHE=<span class="hljs-string">&quot;/GPFS/rhome/xiyuanyang/HuggingFace/TRANSFORMER_HOME&quot;</span><br><span class="hljs-built_in">export</span> HF_DATASETS_CACHE=<span class="hljs-string">&quot;/GPFS/rhome/xiyuanyang/HuggingFace/HF_DATASETS_CACHE&quot;</span><br><span class="hljs-built_in">export</span> HF_ENDPOINT=<span class="hljs-string">&quot;https://hf-mirror.com&quot;</span><br></code></pre></td></tr></table></figure>
 <p>（不知道是否有用）</p>
-<h3 id="cli-下载数据集和模型">CLI 下载数据集和模型</h3>
+<h3 id="CLI-下载数据集和模型">CLI 下载数据集和模型</h3>
 <h4 id="下载aria2">下载aria2</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> apt install aria2<br></code></pre></td></tr></table></figure>
 <p>检查如下命令是否通过：</p>
@@ -494,26 +490,23 @@ Face或者官方提供的<code>huggface-cli</code>或者<code>datasets</code>等
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">Dataset</span>(&#123;<br>    <span class="hljs-attr">features</span>: [<span class="hljs-string">&#x27;dataset&#x27;</span>, <span class="hljs-string">&#x27;instruction&#x27;</span>],<br>    <span class="hljs-attr">num_rows</span>: <span class="hljs-number">805</span><br>&#125;)<br></code></pre></td></tr></table></figure>
 <p>很明显，我们成功加载了数据集。</p>
 <blockquote>
-<p>但貌似还是很被动…很多数据集测评的库接口都默认要使用Hugging
-Face，无法避免的问题…</p>
+<p>但貌似还是很被动…很多数据集测评的库接口都默认要使用Hugging Face，无法避免的问题…</p>
 <p>希望日后能解决。</p>
 </blockquote>
-<h2 id="markdown-文本内设置超链接">Markdown 文本内设置超链接</h2>
+<h2 id="Markdown-文本内设置超链接">Markdown 文本内设置超链接</h2>
 <p>Upd: <code>2025/04/25</code></p>
 <p>对于文本内的链接跳转（例如<strong>目录跳转</strong>）：</p>
 <div class="note note-primary">
-            <p>例如：<a href="#Hugging-Face-数据集下载">Hugging Face下载数据集</a></p>
+            <p>例如：<a href="#Hugging-Face-%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8B%E8%BD%BD">Hugging Face 下载数据集</a></p>
           </div>
 <ul>
 <li>注意圆括号内部的字符串需要使用<code>-</code>来替代空格。</li>
 <li>注意需要加几个<code>#</code>（可以看HTML的链接确定）</li>
 </ul>
 <h2 id="日志书写">日志书写</h2>
-<p>详见博客：<a
-href="https://xiyuanyang-code.github.io/posts/Profiling-and-Debugging/">Debugging
-and Profiling</a></p>
+<p>详见博客：<a href="https://xiyuanyang-code.github.io/posts/Profiling-and-Debugging/">Debugging and Profiling</a></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># import logging package for python:</span><br><span class="hljs-keyword">import</span> logging<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime<br><br><span class="hljs-comment"># Getting time stamp</span><br>timestamp = datetime.now().strftime(<span class="hljs-string">&quot;%Y%m%d_%H-%M-%S&quot;</span>)<br><br><span class="hljs-comment"># Configure logging</span><br>logging.basicConfig(<br>    level=logging.DEBUG,<br>    <span class="hljs-built_in">format</span>=<span class="hljs-string">&quot;%(asctime)s - %(levelname)s - %(message)s&quot;</span>,<br>    handlers=[<br>        logging.FileHandler(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;timestamp&#125;</span>.log&quot;</span>),<br>    ],<br>)<br><br><span class="hljs-comment"># Create a StreamHandler for console output</span><br>console_handler = logging.StreamHandler()<br>console_handler.setLevel(logging.ERROR)<br>formatter = logging.Formatter(<span class="hljs-string">&quot;%(asctime)s - %(levelname)s - %(message)s&quot;</span>)<br>console_handler.setFormatter(formatter)<br><br><span class="hljs-comment"># Add the console handler to the root logger</span><br>logging.getLogger().addHandler(console_handler)<br>logger = logging.getLogger(__name__)<br></code></pre></td></tr></table></figure>
-<h2 id="tmux-使用备忘录">Tmux 使用备忘录</h2>
+<h2 id="Tmux-使用备忘录">Tmux 使用备忘录</h2>
 <ul>
 <li><code>tmux new -t name</code></li>
 <li><code>tmux attach -t name</code></li>
@@ -523,30 +516,27 @@ and Profiling</a></p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs css">TMUX MEMO<br>tmux new -s &lt;session-name&gt; for create <span class="hljs-selector-tag">a</span> new tmux session.<br>tmux attach -t &lt;session-name&gt; for attach <span class="hljs-selector-tag">a</span> new tmux session.<br>tmux kill-session -t &lt;session-name&gt; for kill <span class="hljs-selector-tag">a</span> session.<br>tmux tmux <span class="hljs-selector-tag">switch</span> -t &lt;session-name&gt; for switching different sessions.<br>tmux rename-session -t <span class="hljs-number">0</span> &lt;new-name&gt; for renaming the sessions.<br>tmux split-window for spliting windows, -h for <span class="hljs-attribute">left</span> and <span class="hljs-attribute">right</span>.<br>mux <span class="hljs-selector-tag">select</span>-pane for moving <span class="hljs-attribute">cursor</span>, -UDLR<br>tmux swap-pane -U for swapping the current pane up.<br>tmux swap-pane -D for swapping the current pane down.<br>Ctrl+<span class="hljs-selector-tag">b</span> % for splitting the window vertically.<br>Ctrl+<span class="hljs-selector-tag">b</span> &quot; for splitting the window horizontally.<br>Ctrl+<span class="hljs-selector-tag">b</span> &lt;arrow key&gt; for switching <span class="hljs-selector-tag">to</span> another pane.<br>Ctrl+<span class="hljs-selector-tag">b</span> ; for switching <span class="hljs-selector-tag">to</span> the last pane.<br>Ctrl+<span class="hljs-selector-tag">b</span> o for switching <span class="hljs-selector-tag">to</span> the next pane.<br>Ctrl+<span class="hljs-selector-tag">b</span> &#123; for swapping the current pane with the previous one.<br>Ctrl+<span class="hljs-selector-tag">b</span> &#125; for swapping the current pane with the next one.<br>Ctrl+<span class="hljs-selector-tag">b</span> Ctrl+o for moving <span class="hljs-attribute">all</span> panes forward.<br>Ctrl+<span class="hljs-selector-tag">b</span> Alt+o for moving <span class="hljs-attribute">all</span> panes backward.<br>Ctrl+<span class="hljs-selector-tag">b</span> <span class="hljs-attribute">x</span> for closing the current pane.<br>Ctrl+<span class="hljs-selector-tag">b</span> ! for splitting the current pane into <span class="hljs-selector-tag">a</span> new window.<br>Ctrl+<span class="hljs-selector-tag">b</span> z for toggling the current pane <span class="hljs-selector-tag">to</span> fullscreen.<br>Ctrl+<span class="hljs-selector-tag">b</span> Ctrl+&lt;arrow key&gt; for resizing panes.<br>Ctrl+<span class="hljs-selector-tag">b</span> <span class="hljs-selector-tag">q</span> for displaying pane numbers.<br>tmux new-window for creating <span class="hljs-selector-tag">a</span> new window.<br>tmux new-window -n &lt;window-name&gt; for creating <span class="hljs-selector-tag">a</span> new window with <span class="hljs-selector-tag">a</span> specific name.<br>tmux <span class="hljs-selector-tag">select</span>-window -t &lt;window-number&gt; for switching <span class="hljs-selector-tag">to</span> <span class="hljs-selector-tag">a</span> specific window by number.<br>tmux <span class="hljs-selector-tag">select</span>-window -t &lt;window-name&gt; for switching <span class="hljs-selector-tag">to</span> <span class="hljs-selector-tag">a</span> specific window by name.<br>tmux rename-window &lt;new-name&gt; for renaming the current window.<br>Ctrl+<span class="hljs-selector-tag">b</span> c for creating <span class="hljs-selector-tag">a</span> new window.<br>Ctrl+<span class="hljs-selector-tag">b</span> <span class="hljs-selector-tag">p</span> for switching <span class="hljs-selector-tag">to</span> the previous window.<br>Ctrl+<span class="hljs-selector-tag">b</span> n for switching <span class="hljs-selector-tag">to</span> the next window.<br>Ctrl+<span class="hljs-selector-tag">b</span> &lt;number&gt; for switching <span class="hljs-selector-tag">to</span> <span class="hljs-selector-tag">a</span> specific window by its number.<br>Ctrl+<span class="hljs-selector-tag">b</span> w for selecting <span class="hljs-selector-tag">a</span> window <span class="hljs-selector-tag">from</span> <span class="hljs-selector-tag">a</span> list.<br>Ctrl+<span class="hljs-selector-tag">b</span> , for renaming the current window.<br>tmux list-keys for listing <span class="hljs-attribute">all</span> key bindings.<br>tmux list-commands for listing <span class="hljs-attribute">all</span> tmux commands and their parameters.<br>tmux info for listing information about current tmux sessions.<br>tmux <span class="hljs-selector-tag">source</span>-file ~/<span class="hljs-selector-class">.tmux</span><span class="hljs-selector-class">.conf</span> for reloading the current tmux configuration.<br></code></pre></td></tr></table></figure>
 <p>写成脚本函数再source一下可以随时查看：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Tmux memo</span><br><span class="hljs-comment"># This funcion shows the basic usage of several tmux commands.</span><br><span class="hljs-function"><span class="hljs-title">TMUXH</span></span>()&#123;<br>    print_colored red <span class="hljs-string">&quot;TMUX MEMO&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux new -s &lt;session-name&gt;\033[0m for create a new tmux session.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux attach -t &lt;session-name&gt;\033[0m for attach a new tmux session.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux kill-session -t &lt;session-name&gt;\033[0m for kill a session.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux tmux switch -t &lt;session-name&gt;\033[0m for switching different sessions.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux rename-session -t 0 &lt;new-name&gt;\033[0m for renaming the sessions.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux split-window\033[0m for spliting windows, -h for left and right.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36tmux select-pane\033[0m for moving cursor, -UDLR&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux swap-pane -U\033[0m for swapping the current pane up.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux swap-pane -D\033[0m for swapping the current pane down.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b %\033[0m for splitting the window vertically.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b \&quot;\033[0m for splitting the window horizontally.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b &lt;arrow key&gt;\033[0m for switching to another pane.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b ;\033[0m for switching to the last pane.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b o\033[0m for switching to the next pane.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b &#123;\033[0m for swapping the current pane with the previous one.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b &#125;\033[0m for swapping the current pane with the next one.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b Ctrl+o\033[0m for moving all panes forward.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b Alt+o\033[0m for moving all panes backward.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b x\033[0m for closing the current pane.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b !\033[0m for splitting the current pane into a new window.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b z\033[0m for toggling the current pane to fullscreen.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b Ctrl+&lt;arrow key&gt;\033[0m for resizing panes.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b q\033[0m for displaying pane numbers.&quot;</span><br><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux new-window\033[0m for creating a new window.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux new-window -n &lt;window-name&gt;\033[0m for creating a new window with a specific name.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux select-window -t &lt;window-number&gt;\033[0m for switching to a specific window by number.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux select-window -t &lt;window-name&gt;\033[0m for switching to a specific window by name.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux rename-window &lt;new-name&gt;\033[0m for renaming the current window.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b c\033[0m for creating a new window.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b p\033[0m for switching to the previous window.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b n\033[0m for switching to the next window.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b &lt;number&gt;\033[0m for switching to a specific window by its number.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b w\033[0m for selecting a window from a list.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mCtrl+b ,\033[0m for renaming the current window.&quot;</span><br><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux list-keys\033[0m for listing all key bindings.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux list-commands\033[0m for listing all tmux commands and their parameters.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux info\033[0m for listing information about current tmux sessions.&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;\033[36mtmux source-file ~/.tmux.conf\033[0m for reloading the current tmux configuration.&quot;</span><br><br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="python-memo">Python Memo</h2>
-<p><a
-href="https://xiyuanyang-code.github.io/posts/Python-cheatsheet/">See
-this Blog for more details!</a>:</p>
+<h2 id="Python-Memo">Python Memo</h2>
+<p><a href="https://xiyuanyang-code.github.io/posts/Python-cheatsheet/">See this Blog for more details!</a>:</p>
 <ul>
 <li>字符串</li>
 <li>列表 &amp; 元组 &amp; 字典</li>
 <li>OOP</li>
 </ul>
-<h2 id="conda-quick-setup">Conda Quick Setup</h2>
+<h2 id="Conda-Quick-Setup">Conda Quick Setup</h2>
 <p>Conda常见的命令：</p>
 <ul>
 <li>Conda创建虚拟环境</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create --name aflow -y<br></code></pre></td></tr></table></figure>
-<p>其中<code>--name</code>后缀名代表创建的虚拟环境的名称（或者使用
-<code>-n</code>）</p>
+<p>其中<code>--name</code>后缀名代表创建的虚拟环境的名称（或者使用 <code>-n</code>）</p>
 <ul>
 <li>Conda创建指定版本号的虚拟环境</li>
 </ul>
 <p>如果需要Python的版本回退，需要指定的Python版本号：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create --name aflow python=3.8 -y<br></code></pre></td></tr></table></figure>
 <div class="note note-primary">
-            <p><strong>语义版本控制（Semantic Versioning）</strong></p><p>版本号由三部分组成：<code>主版本号.次版本号.修订号</code>（<code>MAJOR.MINOR.PATCH</code>），例如<code>2.5.3</code>：</p><ol type="1"><li><strong>主版本号（MAJOR）</strong><ul><li><strong>不兼容的变更</strong>：当代码发生破坏性（BackwardIncompatible）修改时递增。</li><li><strong>示例</strong>：移除 API、重大架构调整。</li><li><strong>升级风险</strong>：用户需检查代码是否适配新版本。</li></ul></li><li><strong>次版本号（MINOR）</strong><ul><li><strong>向下兼容的功能新增</strong>：新增功能或改进，但不影响现有接口。</li><li><strong>示例</strong>：添加新 API、性能优化。</li><li><strong>升级建议</strong>：通常可安全升级。</li></ul></li><li><strong>修订号（PATCH）</strong><ul><li><strong>向下兼容的问题修复</strong>：修复漏洞或小改进，不影响功能。</li><li><strong>示例</strong>：Bug 修复、文档更新。</li><li><strong>升级建议</strong>：建议立即更新。</li></ul></li></ol>
+            <p><strong>语义版本控制（Semantic Versioning）</strong></p><p>版本号由三部分组成：<code>主版本号.次版本号.修订号</code>（<code>MAJOR.MINOR.PATCH</code>），例如 <code>2.5.3</code>：</p><ol><li><strong>主版本号（MAJOR）</strong><ul><li><strong>不兼容的变更</strong>：当代码发生破坏性（Backward Incompatible）修改时递增。</li><li><strong>示例</strong>：移除 API、重大架构调整。</li><li><strong>升级风险</strong>：用户需检查代码是否适配新版本。</li></ul></li><li><strong>次版本号（MINOR）</strong><ul><li><strong>向下兼容的功能新增</strong>：新增功能或改进，但不影响现有接口。</li><li><strong>示例</strong>：添加新 API、性能优化。</li><li><strong>升级建议</strong>：通常可安全升级。</li></ul></li><li><strong>修订号（PATCH）</strong><ul><li><strong>向下兼容的问题修复</strong>：修复漏洞或小改进，不影响功能。</li><li><strong>示例</strong>：Bug 修复、文档更新。</li><li><strong>升级建议</strong>：建议立即更新。</li></ul></li></ol>
           </div>
 <ul>
 <li>Conda激活环境</li>
@@ -563,25 +553,27 @@ this Blog for more details!</a>:</p>
 <blockquote>
 <p>使用pip查看信息会比conda要快很多，强烈建议安装miniconda而非anaconda。</p>
 </blockquote>
-<h2 id="ssh-usage">SSH Usage</h2>
-<p>See <a
-href="https://xiyuanyang-code.github.io/posts/Secure-Shell-and-Encryption/">this
-blog</a> for more details.</p>
-<h2 id="ipdb-usage"><code>ipdb</code> Usage</h2>
-<p>IPDB 是 Python 的交互式调试器，是 <code>pdb</code>
-的增强版，提供了更好的体验，例如自动补全、语法高亮等。</p>
+<h2 id="SSH-Usage">SSH Usage</h2>
+<p>See <a href="https://xiyuanyang-code.github.io/posts/Secure-Shell-and-Encryption/">this blog</a> for more details.</p>
+<h2 id="ipdb-Usage"><code>ipdb</code> Usage</h2>
+<p>IPDB 是 Python 的交互式调试器，是 <code>pdb</code> 的增强版，提供了更好的体验，例如自动补全、语法高亮等。</p>
 <ul>
-<li><p><strong>在代码中设置断点：</strong></p>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> ipdb<br>ipdb.set_trace()<br></code></pre></td></tr></table></figure></p></li>
-<li><p><strong>出现异常时自动进入：</strong></p>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> ipdb<br>ipdb.set_trace(context=<span class="hljs-number">2</span>) <span class="hljs-comment"># 可以在异常发生时自动进入，并显示上下文行数</span><br></code></pre></td></tr></table></figure></p>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 在命令行运行脚本并发生异常后</span><br><span class="hljs-comment"># 在交互式环境中输入：</span><br><span class="hljs-keyword">import</span> ipdb<br>ipdb.pm()<br></code></pre></td></tr></table></figure></p>
-<p>这会在最近的异常发生点启动 IPDB。</p></li>
-<li><p><strong>在命令行启动：</strong></p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python -m ipdb your_script.py<br></code></pre></td></tr></table></figure></p></li>
+<li>
+<p><strong>在代码中设置断点：</strong></p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> ipdb<br>ipdb.set_trace()<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>出现异常时自动进入：</strong></p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> ipdb<br>ipdb.set_trace(context=<span class="hljs-number">2</span>) <span class="hljs-comment"># 可以在异常发生时自动进入，并显示上下文行数</span><br></code></pre></td></tr></table></figure>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 在命令行运行脚本并发生异常后</span><br><span class="hljs-comment"># 在交互式环境中输入：</span><br><span class="hljs-keyword">import</span> ipdb<br>ipdb.pm()<br></code></pre></td></tr></table></figure>
+<p>这会在最近的异常发生点启动 IPDB。</p>
+</li>
+<li>
+<p><strong>在命令行启动：</strong></p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python -m ipdb your_script.py<br></code></pre></td></tr></table></figure>
+</li>
 </ul>
 <table>
-
 <thead>
 <tr>
 <th><strong>命令</strong></th>
@@ -613,15 +605,12 @@ blog</a> for more details.</p>
 <tr>
 <td><code>b</code> (breakpoint)</td>
 <td>设置/查看断点。</td>
-<td><code>b 10</code>
-(在第10行设置断点)&lt;br&gt;<code>b func_name</code>
-(在函数入口设置断点)&lt;br&gt;<code>b</code> (查看所有断点)</td>
+<td><code>b 10</code> (在第10行设置断点)&lt;br&gt;<code>b func_name</code> (在函数入口设置断点)&lt;br&gt;<code>b</code> (查看所有断点)</td>
 </tr>
 <tr>
 <td><code>cl</code> (clear)</td>
 <td>清除断点。</td>
-<td><code>cl 1</code> (清除断点编号1)&lt;br&gt;<code>cl</code>
-(清除所有断点)</td>
+<td><code>cl 1</code> (清除断点编号1)&lt;br&gt;<code>cl</code> (清除所有断点)</td>
 </tr>
 <tr>
 <td><code>l</code> (list)</td>
@@ -661,8 +650,7 @@ blog</a> for more details.</p>
 <tr>
 <td><code>h</code> (help)</td>
 <td>获取帮助。</td>
-<td><code>h</code> (<code>h b</code> 查看 <code>b</code>
-命令的帮助)</td>
+<td><code>h</code> (<code>h b</code> 查看 <code>b</code> 命令的帮助)</td>
 </tr>
 <tr>
 <td><code>!</code></td>

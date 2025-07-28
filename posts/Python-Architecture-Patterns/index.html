@@ -872,45 +872,50 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h1 id="architecture-patterns-in-python">Architecture Patterns in
-Python</h1>
-<h2 id="introduction">Introduction</h2>
+<h1>Architecture Patterns in Python</h1>
+<h2 id="Introduction">Introduction</h2>
 <ul>
-<li><p>In the class of “Introduction to Programming”, we learn how to
-<strong>write code in a right way</strong>, which means your code will
-output the right answer, no matter what it cost and how ugly your code
-looks like. Actually, this is the basis of advanced programming courses,
-where the correctness should always be prioritized.</p></li>
-<li><p>In the class of <strong>Data Structure and Algorithms</strong>,
-we learn how to evaluate the time ans space loss of some code and
-algorithms. We analyze the code, trying to solve the problem more
-quickly.</p></li>
-<li><p>Now, in today’s course: <strong>Architecture Patterns in
-Python</strong>, we will learn how to write code <strong>in a better
-manner</strong>. What is called a better manner? Well, it means your
-code is more:</p>
+<li>
+<p>In the class of “Introduction to Programming”, we learn how to <strong>write code in a right way</strong>, which means your code will output the right answer, no matter what it cost and how ugly your code looks like. Actually, this is the basis of advanced programming courses, where the correctness should always be prioritized.</p>
+</li>
+<li>
+<p>In the class of <strong>Data Structure and Algorithms</strong>, we learn how to evaluate the time ans space loss of some code and algorithms. We analyze the code, trying to solve the problem more quickly.</p>
+</li>
+<li>
+<p>Now, in today’s course: <strong>Architecture Patterns in Python</strong>, we will learn how to write code <strong>in a better manner</strong>. What is called a better manner? Well, it means your code is more:</p>
 <ul>
-<li><p><strong>Performance</strong>: Responsiveness,
-throughput.</p></li>
-<li><p><strong>Scalability</strong>: Ability to handle increasing
-load.</p></li>
-<li><p><strong>Availability</strong>: Uptime, fault tolerance.</p></li>
-<li><p><strong>Security</strong>: Protection against unauthorized access
-and attacks.</p></li>
-<li><p><strong>Modifiability</strong>/<strong>Maintainability</strong>:
-Ease of change and evolution.</p></li>
-<li><p><strong>Usability</strong>: User-friendliness.</p></li>
-<li><p><strong>Testability</strong>: Ease of testing.</p></li>
-</ul></li>
+<li>
+<p><strong>Performance</strong>: Responsiveness, throughput.</p>
+</li>
+<li>
+<p><strong>Scalability</strong>: Ability to handle increasing load.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Uptime, fault tolerance.</p>
+</li>
+<li>
+<p><strong>Security</strong>: Protection against unauthorized access and attacks.</p>
+</li>
+<li>
+<p><strong>Modifiability</strong>/<strong>Maintainability</strong>: Ease of change and evolution.</p>
+</li>
+<li>
+<p><strong>Usability</strong>: User-friendliness.</p>
+</li>
+<li>
+<p><strong>Testability</strong>: Ease of testing.</p>
+</li>
+</ul>
+</li>
 </ul>
 <div class="note note-info">
-            <p>This series can be seen as the learning notes for the course:<strong>Architecture Patterns with Python</strong></p>
+            <p>This series can be seen as the learning notes for the course: <strong>Architecture Patterns with Python</strong></p>
           </div>
-<h2 id="the-zen-of-python">The zen of Python</h2>
+<h2 id="The-zen-of-Python">The zen of Python</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python -c <span class="hljs-string">&quot;import this&quot;</span><br></code></pre></td></tr></table></figure>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs text">The Zen of Python, by Tim Peters<br><br>Beautiful is better than ugly.<br>Explicit is better than implicit.<br>Simple is better than complex.<br>Complex is better than complicated.<br>Flat is better than nested.<br>Sparse is better than dense.<br>Readability counts.<br>Special cases aren&#x27;t special enough to break the rules.<br>Although practicality beats purity.<br>Errors should never pass silently.<br>Unless explicitly silenced.<br>In the face of ambiguity, refuse the temptation to guess.<br>There should be one-- and preferably only one --obvious way to do it.<br>Although that way may not be obvious at first unless you&#x27;re Dutch.<br>Now is better than never.<br>Although never is often better than *right* now.<br>If the implementation is hard to explain, it&#x27;s a bad idea.<br>If the implementation is easy to explain, it may be a good idea.<br>Namespaces are one honking great idea -- let&#x27;s do more of those!<br></code></pre></td></tr></table></figure>
 <div class="note note-primary">
-            <p>Fun Fact: if you dive into source code of <code>this</code> module,you will see:</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python">s = <span class="hljs-string">&quot;&quot;&quot;Gur Mra bs Clguba, ol Gvz Crgref</span><br><span class="hljs-string"></span><br><span class="hljs-string">Ornhgvshy vf orggre guna htyl.</span><br><span class="hljs-string">Rkcyvpvg vf orggre guna vzcyvpvg.</span><br><span class="hljs-string">Fvzcyr vf orggre guna pbzcyrk.</span><br><span class="hljs-string">Pbzcyrk vf orggre guna pbzcyvpngrq.</span><br><span class="hljs-string">Syng vf orggre guna arfgrq.</span><br><span class="hljs-string">Fcnefr vf orggre guna qrafr.</span><br><span class="hljs-string">Ernqnovyvgl pbhagf.</span><br><span class="hljs-string">Fcrpvny pnfrf nera&#x27;g fcrpvny rabhtu gb oernx gur ehyrf.</span><br><span class="hljs-string">Nygubhtu cenpgvpnyvgl orngf chevgl.</span><br><span class="hljs-string">Reebef fubhyq arire cnff fvyragyl.</span><br><span class="hljs-string">Hayrff rkcyvpvgyl fvyraprq.</span><br><span class="hljs-string">Va gur snpr bs nzovthvgl, ershfr gur grzcgngvba gb thrff.</span><br><span class="hljs-string">Gurer fubhyq or bar-- naq cersrenoyl bayl bar --boivbhf jnl gb qb vg.</span><br><span class="hljs-string">Nygubhtu gung jnl znl abg or boivbhf ng svefg hayrff lbh&#x27;er Qhgpu.</span><br><span class="hljs-string">Abj vf orggre guna arire.</span><br><span class="hljs-string">Nygubhtu arire vf bsgra orggre guna *evtug* abj.</span><br><span class="hljs-string">Vs gur vzcyrzragngvba vf uneq gb rkcynva, vg&#x27;f n onq vqrn.</span><br><span class="hljs-string">Vs gur vzcyrzragngvba vf rnfl gb rkcynva, vg znl or n tbbq vqrn.</span><br><span class="hljs-string">Anzrfcnprf ner bar ubaxvat terng vqrn -- yrg&#x27;f qb zber bs gubfr!&quot;&quot;&quot;</span><br><br>d = &#123;&#125;<br><span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> (<span class="hljs-number">65</span>, <span class="hljs-number">97</span>):<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">26</span>):<br>        d[<span class="hljs-built_in">chr</span>(i+c)] = <span class="hljs-built_in">chr</span>((i+<span class="hljs-number">13</span>) % <span class="hljs-number">26</span> + c)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&quot;</span>.join([d.get(c, c) <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> s]))<br></code></pre></td></tr></table></figure>
+            <p>Fun Fact: if you dive into source code of <code>this</code> module, you will see:</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python">s = <span class="hljs-string">&quot;&quot;&quot;Gur Mra bs Clguba, ol Gvz Crgref</span><br><span class="hljs-string"></span><br><span class="hljs-string">Ornhgvshy vf orggre guna htyl.</span><br><span class="hljs-string">Rkcyvpvg vf orggre guna vzcyvpvg.</span><br><span class="hljs-string">Fvzcyr vf orggre guna pbzcyrk.</span><br><span class="hljs-string">Pbzcyrk vf orggre guna pbzcyvpngrq.</span><br><span class="hljs-string">Syng vf orggre guna arfgrq.</span><br><span class="hljs-string">Fcnefr vf orggre guna qrafr.</span><br><span class="hljs-string">Ernqnovyvgl pbhagf.</span><br><span class="hljs-string">Fcrpvny pnfrf nera&#x27;g fcrpvny rabhtu gb oernx gur ehyrf.</span><br><span class="hljs-string">Nygubhtu cenpgvpnyvgl orngf chevgl.</span><br><span class="hljs-string">Reebef fubhyq arire cnff fvyragyl.</span><br><span class="hljs-string">Hayrff rkcyvpvgyl fvyraprq.</span><br><span class="hljs-string">Va gur snpr bs nzovthvgl, ershfr gur grzcgngvba gb thrff.</span><br><span class="hljs-string">Gurer fubhyq or bar-- naq cersrenoyl bayl bar --boivbhf jnl gb qb vg.</span><br><span class="hljs-string">Nygubhtu gung jnl znl abg or boivbhf ng svefg hayrff lbh&#x27;er Qhgpu.</span><br><span class="hljs-string">Abj vf orggre guna arire.</span><br><span class="hljs-string">Nygubhtu arire vf bsgra orggre guna *evtug* abj.</span><br><span class="hljs-string">Vs gur vzcyrzragngvba vf uneq gb rkcynva, vg&#x27;f n onq vqrn.</span><br><span class="hljs-string">Vs gur vzcyrzragngvba vf rnfl gb rkcynva, vg znl or n tbbq vqrn.</span><br><span class="hljs-string">Anzrfcnprf ner bar ubaxvat terng vqrn -- yrg&#x27;f qb zber bs gubfr!&quot;&quot;&quot;</span><br><br>d = &#123;&#125;<br><span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> (<span class="hljs-number">65</span>, <span class="hljs-number">97</span>):<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">26</span>):<br>        d[<span class="hljs-built_in">chr</span>(i+c)] = <span class="hljs-built_in">chr</span>((i+<span class="hljs-number">13</span>) % <span class="hljs-number">26</span> + c)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&quot;</span>.join([d.get(c, c) <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> s]))<br></code></pre></td></tr></table></figure>
           </div>
 <h2 id="基本概念">基本概念</h2>
 <p><strong>设计模式</strong>的概念本身是为了解决<strong>现代软件工程开发中</strong>代码量大，难以重构的问题。语言层面在给予开发者灵活性的同时，有不可避免地带来了管理和统一上的复杂性。如此以往便会产生雪崩效应，甚至于产生难以理解，晦涩难懂或者说，<strong>屎山代码</strong>。</p>
@@ -918,129 +923,96 @@ Ease of change and evolution.</p></li>
 <p>而设计模式就是类似于一本<strong>葵花宝典</strong>，他讲实际软件开发过程中的常见场景进行归纳和抽象，并且配上解决这些场景的代码范式。这有利于开发者在开发过程中形成统一的共识，提升合作开发的效率。</p>
 <h3 id="封装和抽象">封装和抽象</h3>
 <ul>
-<li><p>封装：<strong>简化行为</strong> &amp;
-<strong>隐藏数据</strong></p></li>
-<li><p>设计模式中的“抽象”是指从<strong>具体的实现中分离出概念或本质特征的过程</strong>。它允许你关注事物的“是什么”（what
-it is），而不是“怎么做”（how it’s done）。</p>
+<li>
+<p>封装：<strong>简化行为</strong> &amp; <strong>隐藏数据</strong></p>
+</li>
+<li>
+<p>设计模式中的“抽象”是指从<strong>具体的实现中分离出概念或本质特征的过程</strong>。它允许你关注事物的“是什么”（what it is），而不是“怎么做”（how it’s done）。</p>
 <ul>
 <li>Python 调用第三方包就是一种高级抽象行为。</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <blockquote>
 <p>You can see Duck Programming in Python.</p>
 </blockquote>
 <h3 id="分层">分层</h3>
 <p>在复杂代码中，各种各样的变量，函数，对象形成了<strong>复杂的依赖关系</strong>，这也让代码重构变的困难，因为各个组件都深度的耦合在一起，调整接口会引发各种不兼容的冲突。因此，<strong>将业务和代码分层是常见的做法之一</strong>。</p>
-<h3 id="solid">SOLID</h3>
-<p>SOLID
-是面向对象设计（OOD）和编程中，<strong>五个基本原则</strong>的首字母缩写。这些原则旨在使软件设计更易于理解、更灵活、更易于维护和扩展。它们由罗伯特·C·马丁推广，是许多现代软件开发实践的基础。</p>
-<h4 id="单一职责原则-srp-single-responsibility-principle">单一职责原则
-(SRP: Single Responsibility Principle)</h4>
-<p><strong>核心思想：</strong>
-一个类或模块只应该有一个改变的理由。换句话说，一个类应该只负责一项功能或一个责任。</p>
-<h4 id="开放封闭原则-ocp-openclosed-principle">开放封闭原则 (OCP:
-Open/Closed Principle)</h4>
-<p><strong>核心思想：</strong>
-软件实体（类、模块、函数等）应该对扩展开放，对修改封闭。这意味着你可以在不修改现有代码的前提下，增加新的功能。</p>
+<h3 id="SOLID">SOLID</h3>
+<p>SOLID 是面向对象设计（OOD）和编程中，<strong>五个基本原则</strong>的首字母缩写。这些原则旨在使软件设计更易于理解、更灵活、更易于维护和扩展。它们由罗伯特·C·马丁推广，是许多现代软件开发实践的基础。</p>
+<h4 id="单一职责原则-SRP-Single-Responsibility-Principle">单一职责原则 (SRP: Single Responsibility Principle)</h4>
+<p><strong>核心思想：</strong> 一个类或模块只应该有一个改变的理由。换句话说，一个类应该只负责一项功能或一个责任。</p>
+<h4 id="开放封闭原则-OCP-Open-Closed-Principle">开放封闭原则 (OCP: Open/Closed Principle)</h4>
+<p><strong>核心思想：</strong> 软件实体（类、模块、函数等）应该对扩展开放，对修改封闭。这意味着你可以在不修改现有代码的前提下，增加新的功能。</p>
 <ul>
-<li><p><strong>举例：</strong>
-假设你有一个计算不同形状面积的函数。如果每次增加一种新形状（比如三角形），你都要修改这个函数内部的
-<code>if/else if</code> 语句来添加新的面积计算逻辑，那就违反了
-OCP。</p></li>
-<li><p><strong>OCP 提倡：</strong> 定义一个 <code>Shape</code>
-接口或抽象基类，其中包含一个抽象的 <code>calculate_area()</code>
-方法。然后，<code>Circle</code>、<code>Rectangle</code>、<code>Triangle</code>
-等具体形状类都实现这个接口或继承这个抽象类，并提供自己的
-<code>calculate_area()</code> 实现。这样，当你需要增加
-<code>Triangle</code> 时，只需创建新的 <code>Triangle</code>
-类，而无需修改原有的面积计算函数。</p></li>
+<li>
+<p><strong>举例：</strong> 假设你有一个计算不同形状面积的函数。如果每次增加一种新形状（比如三角形），你都要修改这个函数内部的 <code>if/else if</code> 语句来添加新的面积计算逻辑，那就违反了 OCP。</p>
+</li>
+<li>
+<p><strong>OCP 提倡：</strong> 定义一个 <code>Shape</code> 接口或抽象基类，其中包含一个抽象的 <code>calculate_area()</code> 方法。然后，<code>Circle</code>、<code>Rectangle</code>、<code>Triangle</code> 等具体形状类都实现这个接口或继承这个抽象类，并提供自己的 <code>calculate_area()</code> 实现。这样，当你需要增加 <code>Triangle</code> 时，只需创建新的 <code>Triangle</code> 类，而无需修改原有的面积计算函数。</p>
+</li>
 </ul>
-<h4 id="里氏替换原则-lsp-liskov-substitution-principle">里氏替换原则
-(LSP: Liskov Substitution Principle)</h4>
-<p><strong>核心思想：</strong>
-子类型必须能够替换掉它们的基类型，并且客户端程序不会因此而受到影响。简而言之，如果
-S 是 T 的子类型，那么在任何使用 T 的地方，都可以用 S
-来替换，而不会导致程序出错或行为异常。</p>
+<h4 id="里氏替换原则-LSP-Liskov-Substitution-Principle">里氏替换原则 (LSP: Liskov Substitution Principle)</h4>
+<p><strong>核心思想：</strong> 子类型必须能够替换掉它们的基类型，并且客户端程序不会因此而受到影响。简而言之，如果 S 是 T 的子类型，那么在任何使用 T 的地方，都可以用 S 来替换，而不会导致程序出错或行为异常。</p>
 <ul>
-<li><p><strong>举例：</strong> 考虑一个 <code>Bird</code> 类和它的
-<code>fly()</code> 方法。如果 <code>Penguin</code>（企鹅）继承了
-<code>Bird</code> 类，但是 <code>Penguin</code> 的 <code>fly()</code>
-方法会抛出错误（因为企鹅不会飞），那就违反了 LSP。</p></li>
-<li><p><strong>LSP 提倡：</strong>
-设计继承关系时，<strong>要确保子类在行为上与父类兼容</strong>
-(这也是设计类之间复杂继承关系的依据之一! Is B a kind of
-A?)。对于企鹅的例子，可以考虑重新设计继承结构，比如引入一个
-<code>FlyingBird</code> 接口，只有会飞的鸟才实现它；或者
-<code>Bird</code> 类本身不包含 <code>fly()</code>
-方法，而是让特定的子类（如 <code>Sparrow</code>）去实现。</p></li>
+<li>
+<p><strong>举例：</strong> 考虑一个 <code>Bird</code> 类和它的 <code>fly()</code> 方法。如果 <code>Penguin</code>（企鹅）继承了 <code>Bird</code> 类，但是 <code>Penguin</code> 的 <code>fly()</code> 方法会抛出错误（因为企鹅不会飞），那就违反了 LSP。</p>
+</li>
+<li>
+<p><strong>LSP 提倡：</strong> 设计继承关系时，<strong>要确保子类在行为上与父类兼容</strong> (这也是设计类之间复杂继承关系的依据之一! Is B a kind of A?)。对于企鹅的例子，可以考虑重新设计继承结构，比如引入一个 <code>FlyingBird</code> 接口，只有会飞的鸟才实现它；或者 <code>Bird</code> 类本身不包含 <code>fly()</code> 方法，而是让特定的子类（如 <code>Sparrow</code>）去实现。</p>
+</li>
 </ul>
-<h4 id="接口隔离原则-isp-interface-segregation-principle">接口隔离原则
-(ISP: Interface Segregation Principle)</h4>
-<p><strong>核心思想：</strong>
-客户端不应该被强迫依赖于它们不使用的接口。换句话说，大型的、臃肿的接口应该被拆分成更小、更具体的接口，每个客户端只依赖它实际需要的方法。</p>
+<h4 id="接口隔离原则-ISP-Interface-Segregation-Principle">接口隔离原则 (ISP: Interface Segregation Principle)</h4>
+<p><strong>核心思想：</strong> 客户端不应该被强迫依赖于它们不使用的接口。换句话说，大型的、臃肿的接口应该被拆分成更小、更具体的接口，每个客户端只依赖它实际需要的方法。</p>
 <ul>
-<li><p><strong>举例：</strong> 假设你有一个 <code>Worker</code>
-接口，它包含了 <code>work()</code> 和 <code>eat()</code> 两个方法。如果
-<code>RobotWorker</code>
-实现了这个接口，但机器人不需要“吃”，那么它就被迫依赖了一个它不使用的方法。</p></li>
-<li><p><strong>ISP 提倡：</strong>
-将大接口拆分成多个小接口。比如，可以定义 <code>Workable</code>
-接口（包含 <code>work()</code>）和 <code>Eatable</code> 接口（包含
-<code>eat()</code>）。这样，<code>HumanWorker</code> 可以同时实现
-<code>Workable</code> 和 <code>Eatable</code>，而
-<code>RobotWorker</code> 只实现 <code>Workable</code> 即可。</p></li>
+<li>
+<p><strong>举例：</strong> 假设你有一个 <code>Worker</code> 接口，它包含了 <code>work()</code> 和 <code>eat()</code> 两个方法。如果 <code>RobotWorker</code> 实现了这个接口，但机器人不需要“吃”，那么它就被迫依赖了一个它不使用的方法。</p>
+</li>
+<li>
+<p><strong>ISP 提倡：</strong> 将大接口拆分成多个小接口。比如，可以定义 <code>Workable</code> 接口（包含 <code>work()</code>）和 <code>Eatable</code> 接口（包含 <code>eat()</code>）。这样，<code>HumanWorker</code> 可以同时实现 <code>Workable</code> 和 <code>Eatable</code>，而 <code>RobotWorker</code> 只实现 <code>Workable</code> 即可。</p>
+</li>
 </ul>
-<h4 id="依赖倒置原则-dip-dependency-inversion-principle">依赖倒置原则
-(DIP: Dependency Inversion Principle)</h4>
-<p><strong>核心思想：</strong> 1.
-高层模块不应该依赖低层模块，两者都应该依赖抽象。 2.
-抽象不应该依赖于细节，细节应该依赖于抽象。（<strong>在开始写代码前规划项目非常重要</strong>！！！）</p>
+<h4 id="依赖倒置原则-DIP-Dependency-Inversion-Principle">依赖倒置原则 (DIP: Dependency Inversion Principle)</h4>
+<p><strong>核心思想：</strong></p>
+<ol>
+<li>高层模块不应该依赖低层模块，两者都应该依赖抽象。</li>
+<li>抽象不应该依赖于细节，细节应该依赖于抽象。（<strong>在开始写代码前规划项目非常重要</strong>！！！）</li>
+</ol>
 <ul>
-<li><p><strong>举例：</strong>
-传统上，高层模块（如业务逻辑）直接调用低层模块（如数据库访问代码）。例如，一个
-<code>OrderProcessor</code> 直接依赖于 <code>MySQLDatabase</code>
-类。这样，当需要更换数据库时，<code>OrderProcessor</code>
-也要修改。</p></li>
-<li><p><strong>DIP 提倡：</strong>
-引入抽象层（接口或抽象类）。<code>OrderProcessor</code> 应该依赖于一个
-<code>IDatabase</code> 接口，而 <code>MySQLDatabase</code> 和
-<code>PostgreSQLDatabase</code> 等具体数据库实现都去实现
-<code>IDatabase</code>
-接口。这样，高层模块只与抽象交互，解除了与具体实现之间的耦合。</p>
+<li>
+<p><strong>举例：</strong> 传统上，高层模块（如业务逻辑）直接调用低层模块（如数据库访问代码）。例如，一个 <code>OrderProcessor</code> 直接依赖于 <code>MySQLDatabase</code> 类。这样，当需要更换数据库时，<code>OrderProcessor</code> 也要修改。</p>
+</li>
+<li>
+<p><strong>DIP 提倡：</strong> 引入抽象层（接口或抽象类）。<code>OrderProcessor</code> 应该依赖于一个 <code>IDatabase</code> 接口，而 <code>MySQLDatabase</code> 和 <code>PostgreSQLDatabase</code> 等具体数据库实现都去实现 <code>IDatabase</code> 接口。这样，高层模块只与抽象交互，解除了与具体实现之间的耦合。</p>
 <ul>
 <li>这其实就是一个<strong>统一度量衡</strong>的事情，引入<strong>不会经常改变的第三方抽象接口</strong>来规范原有代码的行为。</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <blockquote>
 <p>计算机科学的所有问题都可以通过<strong>增加另一个间接层次来解决</strong>。</p>
 </blockquote>
 <h3 id="其他设计模式概览">其他设计模式概览</h3>
-<p>在介绍复杂的设计模式之前，<strong>勿忘Python之禅：Simple is better
-than complex</strong>!
-任何设计模式的初衷都是为了简化代码复杂性（注意不是简化代码，有时候代码长度太短也不一定是件好事情）。因此，我们首先从几个简单的设计模式思想开始讲起。</p>
+<p>在介绍复杂的设计模式之前，<strong>勿忘Python之禅：Simple is better than complex</strong>! 任何设计模式的初衷都是为了简化代码复杂性（注意不是简化代码，有时候代码长度太短也不一定是件好事情）。因此，我们首先从几个简单的设计模式思想开始讲起。</p>
 <ul>
 <li><strong>TDD</strong>：测试驱动开发</li>
 </ul>
-<p>TDD
-的核心思想是“<strong>先写测试，再写代码</strong>”。根据需求，先写一个自动化测试用例，这个测试一开始肯定是失败的，因为它所对应的功能还没实现，接着，编写刚好能让这个测试通过的代码。在测试通过后，对代码进行重构，优化结构、消除冗余，同时确保所有测试仍然通过。</p>
+<p>TDD 的核心思想是“<strong>先写测试，再写代码</strong>”。根据需求，先写一个自动化测试用例，这个测试一开始肯定是失败的，因为它所对应的功能还没实现，接着，编写刚好能让这个测试通过的代码。在测试通过后，对代码进行重构，优化结构、消除冗余，同时确保所有测试仍然通过。</p>
 <p>这个过程是循环进行的，通过不断地“红（测试失败）-绿（测试通过）-重构”循环，来逐步完善功能。</p>
 <p>这也是绝大部分开发者会采用的步骤：<strong>在测试中不断重构并且优化代码</strong>，不过，编写<strong>强有力的测试</strong>也是本课程讨论的重点之一。</p>
 <ul>
 <li><strong>DDD</strong>：领域驱动设计</li>
 </ul>
-<p>DDD
-是一种软件开发方法论，它强调将软件设计与核心业务领域（Domain）的概念和逻辑紧密结合。简单来说，就是让开发人员深入理解业务，并用业务的语言来构建软件模型。</p>
+<p>DDD 是一种软件开发方法论，它强调将软件设计与核心业务领域（Domain）的概念和逻辑紧密结合。简单来说，就是让开发人员深入理解业务，并用业务的语言来构建软件模型。</p>
 <blockquote>
 <p>这个概念相对更加复杂，我们稍后逐步深入。</p>
 </blockquote>
 <ul>
 <li><strong>松耦合微服务</strong>：</li>
 </ul>
-<p>松耦合微服务
-是一种架构风格，它将一个大型的单一应用程序（单体应用）分解成一组小型、独立部署的服务。这些服务之间尽可能地减少相互依赖，每个服务都围绕着特定的业务功能构建，并且可以独立开发、部署和扩展。</p>
-<p>例如，现代软件架构中的前后端分离<del>人不分离</del>，Linux哲学的小而美原则，都和这种微服务的思想有着异曲同工之妙。</p>
-<h2 id="table-of-content-in-the-future">Table of Content (in the
-future)</h2>
+<p>松耦合微服务 是一种架构风格，它将一个大型的单一应用程序（单体应用）分解成一组小型、独立部署的服务。这些服务之间尽可能地减少相互依赖，每个服务都围绕着特定的业务功能构建，并且可以独立开发、部署和扩展。</p>
+<p>例如，现代软件架构中的前后端分离<s>人不分离</s>，Linux哲学的小而美原则，都和这种微服务的思想有着异曲同工之妙。</p>
+<h2 id="Table-of-Content-in-the-future">Table of Content (in the future)</h2>
 <p>Roadmap to be done.</p>
 
                 

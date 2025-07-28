@@ -52,6 +52,8 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -363,7 +365,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          503 words
+          578 words
         
       </span>
     
@@ -741,117 +743,75 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h1 id="reward-is-all-you-need">Reward is All you need?</h1>
+<h1>Reward is All you need?</h1>
 <p>Several speeches regarding reinforcement learning.</p>
-<h2
-id="speech_1-turing-award-winner-richard-s.-sutton-in-conversation-with-cam-linke-no-authorities-in-science">Speech_1:
-TURING AWARD WINNER Richard S. Sutton in Conversation with Cam Linke |
-No Authorities in Science</h2>
-<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9_PepvnqIfU">Link on
-Y2b</a></p>
+<h2 id="Speech-1-TURING-AWARD-WINNER-Richard-S-Sutton-in-Conversation-with-Cam-Linke-No-Authorities-in-Science">Speech_1: TURING AWARD WINNER Richard S. Sutton in Conversation with Cam Linke | No Authorities in Science</h2>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9_PepvnqIfU">Link on Y2b</a></p>
 <p>Turing award, wow!</p>
-<h3 id="about-rl">About RL</h3>
-<p>The essence of Reinforcement Learning is <strong>learning from
-experiences</strong>, which differs from current large language models
-<strong>mimic people</strong>. Learning from experience is the obvious
-way to learn, thus this is the first principle of reinforcement
-learning.</p>
-<p>The basic learning is learning from <strong>rewards and
-penalties</strong>, like interacting the world gives you instructive
-feedback.</p>
-<h3
-id="how-to-be-through-keeping-focus-on-what-you-believe-is-right">How to
-be through keeping focus on what you believe is right</h3>
+<h3 id="About-RL">About RL</h3>
+<p>The essence of Reinforcement Learning is <strong>learning from experiences</strong>, which differs from current large language models <strong>mimic people</strong>. Learning from experience is the obvious way to learn, thus this is the first principle of reinforcement learning.</p>
+<p>The basic learning is learning from <strong>rewards and penalties</strong>, like interacting the world gives you instructive feedback.</p>
+<h3 id="How-to-be-through-keeping-focus-on-what-you-believe-is-right">How to be through keeping focus on what you believe is right</h3>
 <p>Let’s make it a field!</p>
-<p>The process of AI is a marathon, we still have far to go the greatest
-impactful aspects of AI.</p>
-<p><strong>To be ambitious, rather arrogant</strong>. Despite the
-different perspectives, stay humble enough to support each other.
-<strong>There is no one who can just say well this is the direction for
-AI</strong>!</p>
+<p>The process of AI is a marathon, we still have far to go the greatest impactful aspects of AI.</p>
+<p><strong>To be ambitious, rather arrogant</strong>. Despite the different perspectives, stay humble enough to support each other. <strong>There is no one who can just say well this is the direction for AI</strong>!</p>
 <div class="note note-primary">
-            <p><strong>This is an introduction of RL</strong>! (Partly a celebrityspeech, rather than a lecture or something academically.) Just wait forthe contents below!</p>
+            <p><strong>This is an introduction of RL</strong>! (Partly a celebrity speech, rather than a lecture or something academically.) Just wait for the contents below!</p>
           </div>
-<h2 id="speech_2-about-policy-gradient">Speech_2: About Policy
-gradient</h2>
-<p>Excerpted from the reinforcement learning lecture at Shanghai Jiao
-Tong University.</p>
-<p>In reinforcement learning (RL), a <strong>policy</strong> <span
-class="math inline">(<em>p</em><em>i</em>(<em>a</em>|<em>s</em>; <em>θ</em>))</span>
-defines the probability of taking action (<span
-class="math inline"><em>a</em></span>) in state (<span
-class="math inline"><em>s</em></span>) given parameters (<span
-class="math inline"><em>θ</em></span>). The goal is to <strong>maximize
-the expected cumulative reward</strong>.</p>
-<h3 id="objective-function"><strong>Objective Function</strong></h3>
-<p>The objective function we want to maximize is the expected
-return:</p>
-<p><span
-class="math display"><em>J</em>(<em>θ</em>) = 𝔼<sub><em>τ</em> ∼ <em>π</em><sub><em>θ</em></sub></sub>[<em>R</em>(<em>τ</em>)]</span></p>
-<p>where (<span class="math inline"><em>τ</em></span>) is a
-<strong>trajectory (sequence of states and actions)</strong>, and (<span
-class="math inline"><em>R</em>(<em>τ</em>)</span>) is the total reward
-obtained from trajectory (<span
-class="math inline"><em>τ</em></span>).</p>
-<h3 id="gradient-calculation"><strong>Gradient Calculation</strong></h3>
-<p>According to the <strong>policy gradient theorem</strong>, the
-gradient of the objective function can be expressed as:</p>
-<p><span
-class="math display">∇<em>J</em>(<em>θ</em>) = 𝔼<sub><em>τ</em> ∼ <em>π</em><sub><em>θ</em></sub></sub>[∇log <em>π</em>(<em>a</em>|<em>s</em>; <em>θ</em>)<em>R</em>(<em>τ</em>)]</span></p>
-<p>This indicates that we can update the policy parameters by weighting
-the gradient of the log-probability of actions taken by the total
-reward.</p>
+<h2 id="Speech-2-About-Policy-gradient">Speech_2: About Policy gradient</h2>
+<p>Excerpted from the reinforcement learning lecture at Shanghai Jiao Tong University.</p>
+<p>In reinforcement learning (RL), a <strong>policy</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>p</mi><mi>i</mi><mo stretchy="false">(</mo><mi>a</mi><mi mathvariant="normal">∣</mi><mi>s</mi><mo separator="true">;</mo><mi>θ</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(pi(a|s; \theta))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mord mathnormal">i</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mord">∣</span><span class="mord mathnormal">s</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mclose">))</span></span></span></span> defines the probability of taking action (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span>) in state (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">s</span></span></span></span>) given parameters (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span></span></span></span>). The goal is to <strong>maximize the expected cumulative reward</strong>.</p>
+<h3 id="Objective-Function"><strong>Objective Function</strong></h3>
+<p>The objective function we want to maximize is the expected return:</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>J</mi><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi mathvariant="double-struck">E</mi><mrow><mi>τ</mi><mo>∼</mo><msub><mi>π</mi><mi>θ</mi></msub></mrow></msub><mrow><mo fence="true">[</mo><mi>R</mi><mo stretchy="false">(</mo><mi>τ</mi><mo stretchy="false">)</mo><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta} \left[ R(\tau) \right]
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.09618em;">J</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0059em;vertical-align:-0.2559em;"></span><span class="mord"><span class="mord mathbb">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span><span class="mrel mtight">∼</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:-0.0359em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2559em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">[</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;">]</span></span></span></span></span></span></p>
+<p>where (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span></span>) is a <strong>trajectory (sequence of states and actions)</strong>, and (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo stretchy="false">(</mo><mi>τ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">R(\tau)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span></span></span></span>) is the total reward obtained from trajectory (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span></span>).</p>
+<h3 id="Gradient-Calculation"><strong>Gradient Calculation</strong></h3>
+<p>According to the <strong>policy gradient theorem</strong>, the gradient of the objective function can be expressed as:</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">∇</mi><mi>J</mi><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi mathvariant="double-struck">E</mi><mrow><mi>τ</mi><mo>∼</mo><msub><mi>π</mi><mi>θ</mi></msub></mrow></msub><mrow><mo fence="true">[</mo><mi mathvariant="normal">∇</mi><mi>log</mi><mo>⁡</mo><mi>π</mi><mo stretchy="false">(</mo><mi>a</mi><mi mathvariant="normal">∣</mi><mi>s</mi><mo separator="true">;</mo><mi>θ</mi><mo stretchy="false">)</mo><mi>R</mi><mo stretchy="false">(</mo><mi>τ</mi><mo stretchy="false">)</mo><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">\nabla J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta} \left[ \nabla \log \pi(a|s; \theta) R(\tau) \right]
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∇</span><span class="mord mathnormal" style="margin-right:0.09618em;">J</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0059em;vertical-align:-0.2559em;"></span><span class="mord"><span class="mord mathbb">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span><span class="mrel mtight">∼</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:-0.0359em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2559em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">[</span><span class="mord">∇</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mord">∣</span><span class="mord mathnormal">s</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;">]</span></span></span></span></span></span></p>
+<p>This indicates that we can update the policy parameters by weighting the gradient of the log-probability of actions taken by the total reward.</p>
 <p>Using gradient ascent, we update the parameters as follows:</p>
-<p><span
-class="math display"><em>θ</em> ← <em>θ</em> + <em>α</em>∇<em>J</em>(<em>θ</em>)</span></p>
-<p>where (<span class="math inline"><em>α</em></span>) is the learning
-rate.</p>
-<h3
-id="comparison-between-reinforcement-learning-and-supervised-learning">Comparison
-Between Reinforcement Learning and Supervised Learning</h3>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>θ</mi><mo>←</mo><mi>θ</mi><mo>+</mo><mi>α</mi><mi mathvariant="normal">∇</mi><mi>J</mi><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\theta \leftarrow \theta + \alpha \nabla J(\theta)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">←</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mord">∇</span><span class="mord mathnormal" style="margin-right:0.09618em;">J</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span></span></span></span></span></p>
+<p>where (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span>) is the learning rate.</p>
+<h3 id="Comparison-Between-Reinforcement-Learning-and-Supervised-Learning">Comparison Between Reinforcement Learning and Supervised Learning</h3>
 <p>Powered by GPT, but I think it truly make sense.</p>
-<h4 id="objective">1. <strong>Objective</strong></h4>
+<h4 id="1-Objective">1. <strong>Objective</strong></h4>
 <ul>
-<li><p><strong>Reinforcement Learning</strong>: The objective is to
-learn a policy that maximizes cumulative rewards through interaction
-with the environment. The agent learns through trial and error, and
-rewards can be sparse and delayed.</p></li>
-<li><p><strong>Supervised Learning</strong>: The objective is to learn a
-mapping function from inputs to outputs by minimizing the error between
-predicted values and true labels. The data is labeled, and the learning
-process relies on these labels.</p></li>
+<li>
+<p><strong>Reinforcement Learning</strong>: The objective is to learn a policy that maximizes cumulative rewards through interaction with the environment. The agent learns through trial and error, and rewards can be sparse and delayed.</p>
+</li>
+<li>
+<p><strong>Supervised Learning</strong>: The objective is to learn a mapping function from inputs to outputs by minimizing the error between predicted values and true labels. The data is labeled, and the learning process relies on these labels.</p>
+</li>
 </ul>
-<h4 id="data-handling">2. <strong>Data Handling</strong></h4>
+<h4 id="2-Data-Handling">2. <strong>Data Handling</strong></h4>
 <ul>
-<li><p><strong>Reinforcement Learning</strong>: Data is generated
-through interactions with the environment. The agent selects actions at
-each time step and observes the results. The data is dynamic and may be
-influenced by changes in the policy.</p></li>
-<li><p><strong>Supervised Learning</strong>: Data is static, typically
-obtained from a fixed dataset. The model learns from these fixed
-input-output pairs during training.</p></li>
+<li>
+<p><strong>Reinforcement Learning</strong>: Data is generated through interactions with the environment. The agent selects actions at each time step and observes the results. The data is dynamic and may be influenced by changes in the policy.</p>
+</li>
+<li>
+<p><strong>Supervised Learning</strong>: Data is static, typically obtained from a fixed dataset. The model learns from these fixed input-output pairs during training.</p>
+</li>
 </ul>
-<h4 id="feedback-mechanism">3. <strong>Feedback Mechanism</strong></h4>
+<h4 id="3-Feedback-Mechanism">3. <strong>Feedback Mechanism</strong></h4>
 <ul>
-<li><p><strong>Reinforcement Learning</strong>: Feedback is provided
-through reward signals, which may be delayed. The agent must explore to
-discover which actions are effective.</p></li>
-<li><p><strong>Supervised Learning</strong>: Feedback is direct, with
-the model receiving explicit label information during each training
-iteration, and the learning process is based on these labels.</p></li>
+<li>
+<p><strong>Reinforcement Learning</strong>: Feedback is provided through reward signals, which may be delayed. The agent must explore to discover which actions are effective.</p>
+</li>
+<li>
+<p><strong>Supervised Learning</strong>: Feedback is direct, with the model receiving explicit label information during each training iteration, and the learning process is based on these labels.</p>
+</li>
 </ul>
-<h4 id="mathematical-principles">4. <strong>Mathematical
-Principles</strong></h4>
+<h4 id="4-Mathematical-Principles">4. <strong>Mathematical Principles</strong></h4>
 <ul>
-<li><p><strong>Reinforcement Learning</strong>: It uses Markov Decision
-Processes (MDPs) to model the environment. Policy gradient methods
-optimize expected returns and involve concepts from stochastic processes
-and dynamic programming.</p></li>
-<li><p><strong>Supervised Learning</strong>: It typically uses a loss
-function (e.g., mean squared error, cross-entropy) to measure model
-performance and employs optimization algorithms like gradient descent to
-update model parameters, involving statistical learning and optimization
-theory.</p></li>
+<li>
+<p><strong>Reinforcement Learning</strong>: It uses Markov Decision Processes (MDPs) to model the environment. Policy gradient methods optimize expected returns and involve concepts from stochastic processes and dynamic programming.</p>
+</li>
+<li>
+<p><strong>Supervised Learning</strong>: It typically uses a loss function (e.g., mean squared error, cross-entropy) to measure model performance and employs optimization algorithms like gradient descent to update model parameters, involving statistical learning and optimization theory.</p>
+</li>
 </ul>
 
     <div class="fold">
@@ -860,88 +820,51 @@ theory.</p></li>
       </div>
       <div class="fold-collapse collapse" id="collapse-541ac937">
         <div class="fold-content">
-          <ul><li>数据是交互出来的</li><li>每个数据具有“强化”和“弱化”的规定</li></ul><p>强化学习的历史</p><ul><li><p>从游戏AI到强化学习</p></li><li><p>强化学习 + 深度神经网络</p></li><li><p>模仿学习</p><ul><li>数据并非由策略本身交互出来的</li><li>本质上还是<strong>大数据量</strong>的有监督学习拟合</li><li><strong>学习的关键是和环境的交互</strong>！</li><li>Offline RL 是专家数据集的交互，与传统神经网络的拟合存在差异</li></ul></li><li><p><strong>Reward is all you need</strong></p></li></ul><p>定义好奖励函数是交互的关键。</p><p><strong>Next-token prediction</strong>:如果大语言模型的本质还是监督学习，那模型如何实现<strong>推理能力的提升</strong>？如今Pre-training已经陷入瓶颈。强化学习是构建推理模型的有效方法之一，<strong>但RLis all you need</strong>.</p><p>强化学习和<strong>LLMs</strong></p><ul><li><p>Prompt Engineering</p></li><li><p>传统的API调用的问题？prompt的描述过于笨重，计算代价很高</p><ul><li>Agent的API调用 without having API descriptions</li><li><strong>使用强化学习的必要性</strong></li></ul></li><li><p>The Bitter Lessons</p><ul><li><strong>瞄准方向很重要</strong></li></ul></li></ul>
+          <ul><li>数据是交互出来的</li><li>每个数据具有“强化”和“弱化”的规定</li></ul><p>强化学习的历史</p><ul><li><p>从游戏AI到强化学习</p></li><li><p>强化学习 + 深度神经网络</p></li><li><p>模仿学习</p><ul><li>数据并非由策略本身交互出来的</li><li>本质上还是<strong>大数据量</strong>的有监督学习拟合</li><li><strong>学习的关键是和环境的交互</strong>！</li><li>Offline RL 是专家数据集的交互，与传统神经网络的拟合存在差异</li></ul></li><li><p><strong>Reward is all you need</strong></p></li></ul><p>定义好奖励函数是交互的关键。</p><p><strong>Next-token prediction</strong>: 如果大语言模型的本质还是监督学习，那模型如何实现<strong>推理能力的提升</strong>？如今Pre-training已经陷入瓶颈。强化学习是构建推理模型的有效方法之一，<strong>但RL is all you need</strong>.</p><p>强化学习和<strong>LLMs</strong></p><ul><li><p>Prompt Engineering</p></li><li><p>传统的API调用的问题？prompt的描述过于笨重，计算代价很高</p><ul><li>Agent的API调用 without having API descriptions</li><li><strong>使用强化学习的必要性</strong></li></ul></li><li><p>The Bitter Lessons</p><ul><li><strong>瞄准方向很重要</strong></li></ul></li></ul>
         </div>
       </div>
     </div>
-<h2 id="lecture_3-classics-the-bitter-lesson">Lecture_3: Classics: The
-Bitter Lesson</h2>
+<h2 id="Lecture-3-Classics-The-Bitter-Lesson">Lecture_3: Classics: The Bitter Lesson</h2>
 <div class="note note-primary">
-            <p>The “bitter lesson” originates from a classic 2019 article by AIpioneer Rich Sutton titled “The Bitter Lesson.” By examining the detoursartificial intelligence has taken over the past few decades, he presentsa core argument: for AI to achieve long-term improvement, leveragingpowerful computational resources is paramount. <strong>Thiscomputational power inherently implies the use of vast amounts oftraining data and large models</strong>.</p>
+            <p>The “bitter lesson” originates from a classic 2019 article by AI pioneer Rich Sutton titled “The Bitter Lesson.” By examining the detours artificial intelligence has taken over the past few decades, he presents a core argument: for AI to achieve long-term improvement, leveraging powerful computational resources is paramount. <strong>This computational power inherently implies the use of vast amounts of training data and large models</strong>.</p>
           </div>
-<p><strong>The biggest lesson that can be read from 70 years of AI
-research is that general methods that leverage computation are
-ultimately the most effective, and by a large margin.</strong></p>
-<p>The only thing that matters in the long run is <strong>the leveraging
-of computations</strong>. Researchers’ initial effort was directed
-towards utilizing human understanding (so that less search was needed)
-and only much later was much greater success had by <strong>embracing
-search and learning</strong>.</p>
+<p><strong>The biggest lesson that can be read from 70 years of AI research is that general methods that leverage computation are ultimately the most effective, and by a large margin.</strong></p>
+<p>The only thing that matters in the long run is <strong>the leveraging of computations</strong>. Researchers’ initial effort was directed towards utilizing human understanding (so that less search was needed) and only much later was much greater success had by <strong>embracing search and learning</strong>.</p>
 <p>(The initial state of <strong>Scaling Law</strong>?)</p>
-<p>The bitter lesson is based on the historical observations that 1) AI
-researchers have often tried to build knowledge into their agents, 2)
-this always helps in the short term, and is personally satisfying to the
-researcher, but 3) in the long run it plateaus and even inhibits further
-progress, and 4) <strong>breakthrough progress eventually arrives by an
-opposing approach based on scaling computation by search and
-learning</strong>. The eventual success is tinged with bitterness, and
-often incompletely digested, because it is success over a favored,
-human-centric approach.</p>
+<p>The bitter lesson is based on the historical observations that 1) AI researchers have often tried to build knowledge into their agents, 2) this always helps in the short term, and is personally satisfying to the researcher, but 3) in the long run it plateaus and even inhibits further progress, and 4) <strong>breakthrough progress eventually arrives by an opposing approach based on scaling computation by search and learning</strong>. The eventual success is tinged with bitterness, and often incompletely digested, because it is success over a favored, human-centric approach.</p>
 <div class="note note-info">
             <p>My own <strong>inspections</strong> of this passage:</p><p>TBD</p>
           </div>
-<h2
-id="speech_4-jason-wei-scaling-paradigms-for-large-language-models">Speech_4:
-Jason Wei: Scaling Paradigms for Large Language Models</h2>
-<p>The original video on Youtube is <a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=yhpjpNXJDco">here</a>.<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span
-class="hint--top hint--rounded"
-aria-label="[Jason&#39;s sp](https://www.youtube.com/watch?v=yhpjpNXJDco)">[1]</span></a></sup></p>
-<h3 id="paradigm-scaling-rl-on-chain-of-thought">Paradigm: Scaling RL on
-chain-of-thought</h3>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/03/18/abb2f17809f5f030ff81e0dc42218401.png" srcset="/img/loading.gif" lazyload
-alt="AI fu" />
-<figcaption aria-hidden="true">AI fu</figcaption>
-</figure>
-<h2
-id="speech_5-llms-self-enhancement-based-on-reinforcement-learning">Speech_5:
-LLMs self-enhancement based on reinforcement learning</h2>
+<h2 id="Speech-4-Jason-Wei-Scaling-Paradigms-for-Large-Language-Models">Speech_4: Jason Wei: Scaling Paradigms for Large Language Models</h2>
+<p>The original video on Youtube is <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=yhpjpNXJDco">here</a>.<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Jason's sp](https://www.youtube.com/watch?v=yhpjpNXJDco)">[1]</span></a></sup></p>
+<h3 id="Paradigm-Scaling-RL-on-chain-of-thought">Paradigm: Scaling RL on chain-of-thought</h3>
+<p><img src="https://s1.imagehub.cc/images/2025/03/18/abb2f17809f5f030ff81e0dc42218401.png" srcset="/img/loading.gif" lazyload alt="AI fu"></p>
+<h2 id="Speech-5-LLMs-self-enhancement-based-on-reinforcement-learning">Speech_5: LLMs self-enhancement based on reinforcement learning</h2>
 <p>从人类抽象化的符号化表达————&gt; 多模态大模型</p>
-<p><strong>The next token prediction</strong> at essence is the
-simulation of labeled data!</p>
+<p><strong>The next token prediction</strong> at essence is the simulation of labeled data!</p>
 <h3 id="霍尔德和海因">霍尔德和海因</h3>
 <p>生物智能不仅和感知相关，也和具身行为与环境交互有关！</p>
-<h3 id="the-world-scope-of-natural-language-processing">The World Scope
-of Natural Language Processing</h3>
+<h3 id="The-World-Scope-of-Natural-Language-Processing">The World Scope of Natural Language Processing</h3>
 <ul>
 <li>WS 3 Multi-model</li>
 <li>WS 4 Interact with the environment</li>
 <li>WS 5 Interact with the society</li>
 </ul>
-<h3 id="the-basis-of-reinforcement-learning">The Basis of Reinforcement
-Learning</h3>
+<h3 id="The-Basis-of-Reinforcement-Learning">The Basis of Reinforcement Learning</h3>
 <ul>
 <li>Environment</li>
 <li>action and observation</li>
 <li>reward function
 <ul>
 <li>巴浦洛夫的狗（交互与奖励）</li>
-</ul></li>
+</ul>
+</li>
 <li>Yann’s Cake</li>
 </ul>
-<figure>
-<img
-src="https://miro.medium.com/v2/resize:fit:4416/1*bvMhd_xpVxfJYoKXYp5hug.png" srcset="/img/loading.gif" lazyload
-alt="Yann’s Cake" />
-<figcaption aria-hidden="true">Yann’s Cake</figcaption>
-</figure>
-<h3 id="reinforcement-learning-for-llm">Reinforcement Learning for
-LLM</h3>
-<p>In early stages, reinforcement learning is for alignment and
-finetuning.</p>
-<h4 id="policy-optimization">Policy Optimization</h4>
+<p><img src="https://miro.medium.com/v2/resize:fit:4416/1*bvMhd_xpVxfJYoKXYp5hug.png" srcset="/img/loading.gif" lazyload alt="Yann's Cake"></p>
+<h3 id="Reinforcement-Learning-for-LLM">Reinforcement Learning for LLM</h3>
+<p>In early stages, reinforcement learning is for alignment and finetuning.</p>
+<h4 id="Policy-Optimization">Policy Optimization</h4>
 <blockquote>
 <p><strong>TBD</strong></p>
 </blockquote>
@@ -950,41 +873,27 @@ finetuning.</p>
 <li>The space of LLMs is huge but sparse.
 <ul>
 <li>It’s time-consuming for LLMs to use Reinforcement Learning</li>
-</ul></li>
+</ul>
+</li>
 <li>Limited Enhancement</li>
 </ul>
-<h3 id="llm-reasoning-is-all-you-need">LLM reasoning is all you
-need</h3>
+<h3 id="LLM-reasoning-is-all-you-need">LLM reasoning is all you need</h3>
 <p>We need inference models!</p>
 <ul>
-<li>OpenAI o1 illustrates that <strong>leveraging reinforcement
-learning</strong> explicitly incorporate reasoning steps can
-significantly enhance the performance.</li>
+<li>OpenAI o1 illustrates that <strong>leveraging reinforcement learning</strong> explicitly incorporate reasoning steps can significantly enhance the performance.</li>
 </ul>
-<h4 id="non-autoregressive-reasoning">Non-autoregressive reasoning</h4>
+<h4 id="Non-autoregressive-reasoning">Non-autoregressive reasoning</h4>
 <p>MDP environment is important</p>
-<h4 id="the-bitter-lesson">The bitter lesson</h4>
-<h3 id="reward-is-enough">Reward is Enough (?)</h3>
-<p>Reward is enough to <strong>drive behavior that exhibits
-abilities</strong> studied in natural and AI.</p>
-<h3 id="attempts">Attempts</h3>
+<h4 id="The-bitter-lesson">The bitter lesson</h4>
+<h3 id="Reward-is-Enough">Reward is Enough (?)</h3>
+<p>Reward is enough to <strong>drive behavior that exhibits abilities</strong> studied in natural and AI.</p>
+<h3 id="Attempts">Attempts</h3>
 <ul>
 <li>CoT</li>
 </ul>
-<h1 id="references">References</h1>
-<section class="footnotes">
-<div class="footnote-list">
-<ol>
-<li>
-<span id="fn:1"
-class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=yhpjpNXJDco">Jason’s
-sp</a> <a href="#fnref:1" rev="footnote" class="footnote-backref">
-↩︎</a></span></span>
-</li>
-</ol>
-</div>
-</section>
-
+<h1>References</h1>
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=yhpjpNXJDco">Jason’s sp</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -1207,7 +1116,6 @@ sp</a> <a href="#fnref:1" rev="footnote" class="footnote-backref">
 
 
 
-
     
 
     
@@ -1393,49 +1301,6 @@ sp</a> <a href="#fnref:1" rev="footnote" class="footnote-backref">
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/js/leancloud.js" ></script>
 

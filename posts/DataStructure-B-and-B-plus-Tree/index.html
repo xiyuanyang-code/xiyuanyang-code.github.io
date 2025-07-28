@@ -57,6 +57,8 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -368,7 +370,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k words
+          4.2k words
         
       </span>
     
@@ -916,58 +918,43 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h1 id="外部查找和排序">外部查找和排序</h1>
+<h1>外部查找和排序</h1>
 <h2 id="外部存储">外部存储</h2>
 <p>我们考虑如下的数据单元：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">KEY</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">OTHER</span>&gt;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">set</span> &#123;<br>    KEY key = <span class="hljs-built_in">KEY</span>();<br>    OTHER other = <span class="hljs-built_in">OTHER</span>();<br>&#125;;<br></code></pre></td></tr></table></figure>
 <p><code>key</code>储存的是关键字值，而<code>other</code>储存的是其他信息。这样一种数据储存的方式非常的常见，例如<code>json</code>文件，或者我们在建立一个人口数据库，对每个人会有一个身份证号（关键字值）和其他信息（Other）组成。</p>
 <p>但是问题在于，计算机的内存是非常有限的，如今配置较高的笔记本内存也仅仅在32GB中，如果为了一个查找程序把所有的数据塞入内存中，很显然是不显示的，因此我们需要<strong>储存在外部</strong>。</p>
-<p>储存在外部的代价是<strong>访问速度的大幅度下降</strong>，1秒钟，可以执行<span
-class="math inline">25000000</span>条指令或进行<span
-class="math inline">6</span>次磁盘访问。对于储存在外存的数据中，数据的性能瓶颈关键在于<strong>外存数据的访问</strong>，即<strong>磁盘的访问数据</strong>。因此，如果我们要实现外部数据的高效查找，首先需要实现的就是<strong>尽可能少的做磁盘读写</strong>。</p>
-<h3 id="如何解决">如何解决？</h3>
+<p>储存在外部的代价是<strong>访问速度的大幅度下降</strong>，1秒钟，可以执行<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>25000000</mn></mrow><annotation encoding="application/x-tex">25000000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">25000000</span></span></span></span>条指令或进行<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn></mrow><annotation encoding="application/x-tex">6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">6</span></span></span></span>次磁盘访问。对于储存在外存的数据中，数据的性能瓶颈关键在于<strong>外存数据的访问</strong>，即<strong>磁盘的访问数据</strong>。因此，如果我们要实现外部数据的高效查找，首先需要实现的就是<strong>尽可能少的做磁盘读写</strong>。</p>
+<h3 id="如何解决？">如何解决？</h3>
 <p>如果我们还是使用树的结构，毋庸置疑<strong>我们需要降低树的高度</strong>，即一棵树储存的不止两个子节点，这样就可以降低树的高度，实现尽可能少的内存访问次数。但是这样还是存在一个问题：<strong>我如何保证树的平衡特性</strong>？</p>
 <p>因此，我们介绍新的数据结构：B树。</p>
-<h1 id="b树">B树</h1>
+<h1>B树</h1>
 <p>显然，我们不希望外存上的数据变成一颗二叉查找树，因为<strong>这样树的每一次访问都将举步维艰</strong>。</p>
 <p>先来看一颗B树长什么样子：</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/04/24/58574316a986c5ef143e6033844d1b35.png" srcset="/img/loading.gif" lazyload
-alt="B树" />
-<figcaption aria-hidden="true">B树</figcaption>
-</figure>
-<p><span
-class="math inline"><em>n</em></span>代表每一个节点的关键字的个数。（此时这个节点就有<span
-class="math inline"><em>n</em> + 1</span>个儿子节点）</p>
+<p><img src="https://s1.imagehub.cc/images/2025/04/24/58574316a986c5ef143e6033844d1b35.png" srcset="/img/loading.gif" lazyload alt="B树"></p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>代表每一个节点的关键字的个数。（此时这个节点就有<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>个儿子节点）</p>
 <p>右下角红色的就是<strong>按照顺序存储的</strong>在外存中的数据文件，我们在内存中储存了一个B树，对于每一次问询（给出一个关键字），我们都需要现在储存在内存中的B树中进行查询，在查询到对应元素<strong>在外存中的地址之后</strong>再去访问磁盘，即去访问外存中对应的数据。</p>
 <blockquote>
 <p>在B树中，储存的都是数据元素的指针。</p>
 </blockquote>
-<h2 id="definition">Definition</h2>
+<h2 id="Definition">Definition</h2>
 <p>为了保证树的平衡性，B树需要再M岔树的基础之上额外添加一些定义的约束：</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/04/24/8229843ff6f313298c7753060e4b9424.png" srcset="/img/loading.gif" lazyload
-alt="Definition" />
-<figcaption aria-hidden="true">Definition</figcaption>
-</figure>
+<p><img src="https://s1.imagehub.cc/images/2025/04/24/8229843ff6f313298c7753060e4b9424.png" srcset="/img/loading.gif" lazyload alt="Definition"></p>
 <div class="note note-primary">
-            <p>了解定义之后，再来看一眼B树：</p><figure><imgsrc="https://s1.imagehub.cc/images/2025/04/24/58574316a986c5ef143e6033844d1b35.png"alt="B树" /><figcaption aria-hidden="true">B树</figcaption></figure>
+            <p>了解定义之后，再来看一眼B树：</p><p><img src="https://s1.imagehub.cc/images/2025/04/24/58574316a986c5ef143e6033844d1b35.png" srcset="/img/loading.gif" lazyload alt="B树"></p>
           </div>
 <p>同时，随着高度的增加，<strong>节点存储的关键字的个数增加，故可以保证树的高度是平衡的</strong>（这个被写进定义了）</p>
-<p><span class="math display">$$h \le  \frac{\log_{t}(n + 1)}{2} +
-1$$</span></p>
-<p>其中<span
-class="math inline"><em>t</em></span>为树的最小度数，n为含有的关键字的总数。</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>h</mi><mo>≤</mo><mfrac><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>t</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><mn>2</mn></mfrac><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h \le  \frac{\log_{t}(n + 1)}{2} + 1
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304em;vertical-align:-0.136em;"></span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.113em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1864em;"><span style="top:-2.4559em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2441em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span></p>
+<p>其中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span>为树的最小度数，n为含有的关键字的总数。</p>
 <p>有关B树的定义非常的抽象，我们做一点注解：</p>
 <ul>
 <li>每一个关键字可以看做是对后续节点做分化的<strong>隔板</strong>。
 <ul>
 <li>这本质上还是一颗有序的查找树！</li>
-</ul></li>
-<li><strong>为什么B树</strong>会保证不会退化始终平衡？因为他<strong>简单粗暴的保证了</strong>每一个节点存在一个最小度数$
-$。</li>
+</ul>
+</li>
+<li><strong>为什么B树</strong>会保证不会退化始终平衡？因为他<strong>简单粗暴的保证了</strong>每一个节点存在一个最小度数$\left \lceil \frac{m}{2} \right \rceil $。</li>
 <li>B树是为外存储器设计的，这里的节点是<strong>广义节点</strong>，每一个节点内部可以储存<strong>很多个关键字值的信息</strong>。在实际中，可以把一个磁盘块储存为一个B树的节点，根据磁盘块的物理参数来决定B树的阶数。</li>
 </ul>
 <h2 id="查找">查找</h2>
@@ -979,48 +966,29 @@ $。</li>
 <li>有：新增加一个关键字。</li>
 <li>没有：此时设计<strong>节点的分裂操作</strong>。</li>
 </ul>
-<p>对于节点的分裂操作，可以看做如果当前节点在插入后存在<span
-class="math inline"><em>M</em></span>个关键字，我们需要将这个节点进行分裂：</p>
+<p>对于节点的分裂操作，可以看做如果当前节点在插入后存在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span>个关键字，我们需要将这个节点进行分裂：</p>
 <ul>
 <li>对关键字值进行排序后切分：
 <ul>
-<li><span
-class="math inline">[1, <em>m</em><em>i</em><em>d</em> − 1]</span>，<span
-class="math inline"><em>m</em><em>i</em><em>d</em></span>，<span
-class="math inline">[<em>m</em><em>i</em><em>d</em> + 1, <em>r</em><em>i</em><em>g</em><em>h</em><em>t</em>]</span></li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>1</mn><mo separator="true">,</mo><mi>m</mi><mi>i</mi><mi>d</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[1,mid-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">mi</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">{mid}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord"><span class="mord mathnormal">mi</span><span class="mord mathnormal">d</span></span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>m</mi><mi>i</mi><mi>d</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[mid +1, right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal">mi</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mclose">]</span></span></span></span></li>
 <li>左右两个区间重现变成两个新的节点。</li>
 <li>中间元素？因为需要保证二叉树的定义，现在分裂后父亲节点的子节点数增加1，因此对应的父亲节点的关键字数要加1，因此这是一个不断向上访问的过程，<strong>直到访问的根节点</strong>，因此在最坏情况下我们可能需要让这棵树的整个元素+1！</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h2 id="删除">删除</h2>
 <p>基本逻辑一样：先进行查询之后再<strong>寻找位于底层的替身元素</strong>。（其儿子节点中最小的值）</p>
 <p>接着进行删除的操作：如果删除之后仍然满足二叉树的定义，直接删除关键字值（对应的索引）即可，否则需要调整。（<strong>我们需要保证度数不小于最小度数</strong>）</p>
 <h3 id="领养">领养</h3>
-<p>领养父亲的一个关键字值，同时把兄弟的一个关键字值上提到父亲节点处。例如在这里删除<span
-class="math inline">50</span>的关键字值，此时需要将父亲节点的53下放（领养）到儿子节点。</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/04/24/1122482aa64614dd50f7903fdd26c17a.png" srcset="/img/loading.gif" lazyload
-alt="领养操作" />
-<figcaption aria-hidden="true">领养操作</figcaption>
-</figure>
+<p>领养父亲的一个关键字值，同时把兄弟的一个关键字值上提到父亲节点处。例如在这里删除<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>50</mn></mrow><annotation encoding="application/x-tex">50</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">50</span></span></span></span>的关键字值，此时需要将父亲节点的53下放（领养）到儿子节点。</p>
+<p><img src="https://s1.imagehub.cc/images/2025/04/24/1122482aa64614dd50f7903fdd26c17a.png" srcset="/img/loading.gif" lazyload alt="领养操作"></p>
 <h3 id="合并">合并</h3>
 <p>如果相邻的兄弟节点囊中羞涩，无法给出空余的节点，那么这个时候就需要将<strong>父亲节点的一个关键字下移合并给兄弟节点</strong>。</p>
 <p>同样的，和分裂节点类似，此时需要继续向上调整祖父节点。</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/04/24/5bf66dcc195788a2e78f9bda91d7fa7d.png" srcset="/img/loading.gif" lazyload
-alt="合并" />
-<figcaption aria-hidden="true">合并</figcaption>
-</figure>
+<p><img src="https://s1.imagehub.cc/images/2025/04/24/5bf66dcc195788a2e78f9bda91d7fa7d.png" srcset="/img/loading.gif" lazyload alt="合并"></p>
 <p>同样，也有可能出现整棵树高度减少1的情况：</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/04/24/ad7bcbaa0e81edfc86562d25d311793c.png" srcset="/img/loading.gif" lazyload
-alt="删除的示例" />
-<figcaption aria-hidden="true">删除的示例</figcaption>
-</figure>
-<h2 id="b树的特点">B树的特点</h2>
+<p><img src="https://s1.imagehub.cc/images/2025/04/24/ad7bcbaa0e81edfc86562d25d311793c.png" srcset="/img/loading.gif" lazyload alt="删除的示例"></p>
+<h2 id="B树的特点">B树的特点</h2>
 <p>回顾B树的数据结构，我们发现B树本质上是对<strong>在外存上一段连续空间内存上数据</strong>建立了索引文件，并且按照关键字值的大小构建起了一颗二叉搜索树。</p>
 <p>这样的结构设计对于<strong>单点搜索</strong>操作是非常方便的，因为树的分支因子较大，因此可以尽可能的减少树的高度，实现更少的磁盘访问次数。对于数据的删除和插入操作：</p>
 <ul>
@@ -1028,126 +996,101 @@ alt="删除的示例" />
 <li>删除：直接删除B+树的索引项即可，不可以挪动外存中其他位置的数据，不然索引会乱掉。</li>
 </ul>
 <h3 id="缺陷">缺陷</h3>
-<p>但是B树的缺陷也非常明显，从插入操作中可以看出，<strong>B树并没有对外存数据的储存做过多的约束</strong>（就直接append到这个连续内存数组的末尾，也不会清理删除的数据），这样就会导致：<strong>外存数据储存中关键字的值是乱序排列的</strong>！也就是说，B树实现顺序遍历的时间复杂度是灾难性的，因为他需要中序遍历一整颗树然后做<span
-class="math inline"><em>N</em></span>次单点操作。</p>
+<p>但是B树的缺陷也非常明显，从插入操作中可以看出，<strong>B树并没有对外存数据的储存做过多的约束</strong>（就直接append到这个连续内存数组的末尾，也不会清理删除的数据），这样就会导致：<strong>外存数据储存中关键字的值是乱序排列的</strong>！也就是说，B树实现顺序遍历的时间复杂度是灾难性的，因为他需要中序遍历一整颗树然后做<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span>次单点操作。</p>
 <p>我们继续介绍B+树来弥补这个漏洞。</p>
-<h1 id="b树-1">B+树</h1>
-<p><strong>索引数据文件</strong>：即支持对单个数据的访问
-又支持对这个文件<strong>按关键字的次序</strong>进行顺序访问。</p>
+<h1>B+树</h1>
+<p><strong>索引数据文件</strong>：即支持对单个数据的访问 又支持对这个文件<strong>按关键字的次序</strong>进行顺序访问。</p>
 <p>B树建立了一个索引树（<strong>索引文件</strong>），可以支持快速查找某个记录，但是无法实现对磁盘的顺序访问，因此无法被称作<strong>索引数据文件</strong>，关键就在于<strong>数据是储存在外存的一个一段连续数组上的</strong>，而B树仅储存对应值的索引。</p>
 <p>我们在B树的基础上可以得到<strong>B+树</strong>，实现<strong>顺序访问</strong>。</p>
-<h2 id="chunking">Chunking</h2>
+<h2 id="Chunking">Chunking</h2>
 <p>我们期望B+树可以达到：</p>
 <ul>
 <li>和B树时间复杂度相当的<strong>单点操作</strong></li>
 <li><strong>可以实现按照关键字值</strong>对外存数据顺序遍历</li>
 <li>插入 &amp; 删除等操作的时间复杂度也应该和B树相当</li>
 </ul>
-<p>我们自然会想到使用<strong>链表</strong>来储存外存中的数据，如果使用普通链表，时间效率会很低（随着<span
-class="math inline"><em>N</em></span>的不断增大），因此我们需要使用<strong>块状链表</strong>即分块的思想来实现这个数据结构。</p>
-<h2 id="definition-1">Definition</h2>
+<p>我们自然会想到使用<strong>链表</strong>来储存外存中的数据，如果使用普通链表，时间效率会很低（随着<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span>的不断增大），因此我们需要使用<strong>块状链表</strong>即分块的思想来实现这个数据结构。</p>
+<h2 id="Definition-2">Definition</h2>
 <p>B+树的设计和B树略有不同：</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/05/08/a2b23c8eb0592123f92e59f898b0ba27.png" srcset="/img/loading.gif" lazyload
-alt="image" />
-<figcaption aria-hidden="true">image</figcaption>
-</figure>
+<p><img src="https://s1.imagehub.cc/images/2025/05/08/a2b23c8eb0592123f92e59f898b0ba27.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <p>一些不同的地方：</p>
 <ul>
 <li>B+树直接将数据储存在叶子结点上（<strong>分块的思想</strong>）</li>
-<li>对于每一个分块储存的数据元素的数量也有$ x L $的限制，保证平衡。</li>
+<li>对于每一个分块储存的数据元素的数量也有$\left \lceil \frac{L}{2} \right \rceil \le x \le L $的限制，保证平衡。</li>
 <li><strong>为了支持顺序访问</strong>，块内部和外部都<strong>必须保证有序</strong>。</li>
 </ul>
 <blockquote>
 <p>其他关于索引树的节点的定义和B树类似，不做重复介绍。</p>
 </blockquote>
-<h2 id="insert">Insert</h2>
+<h2 id="Insert">Insert</h2>
 <p>和B树的操作类似，首先需要查找数据块知道叶子结点（数据节点的上一层）。</p>
 <ul>
 <li>将新的数据插入对应的叶子（保证块外部的有序），并对块内部的元素顺序进行调整（保证块内部的有序）</li>
 <li>如果出现非法情况：
 <ul>
 <li><strong>需要被插入的块已经满员了</strong>，需要做节点的分裂操作。</li>
-<li>如果当前节点还有空位（<span
-class="math inline"><em>n</em> ≤ <em>M</em></span>），即生成一个新的关键字储存在当前节点中（因为多了一个儿子）</li>
-<li>如果没有空位了（<span
-class="math inline"><em>n</em> = <em>M</em>, <em>n</em> + 1 &gt; <em>M</em></span>）,此时需要继续分裂，并且继续向上更新父亲节点</li>
-</ul></li>
+<li>如果当前节点还有空位（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">n \le M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span>），即生成一个新的关键字储存在当前节点中（因为多了一个儿子）</li>
+<li>如果没有空位了（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mi>M</mi><mo separator="true">,</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>&gt;</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">n = M, n + 1 &gt; M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6835em;vertical-align:-0.0391em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span>）,此时需要继续分裂，并且继续向上更新父亲节点</li>
+</ul>
+</li>
 </ul>
 <p>例如，在当前的树中插入22：</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/05/08/a180824f04513c136132f10204ddae45.png" srcset="/img/loading.gif" lazyload
-alt="初始状态" />
-<figcaption aria-hidden="true">初始状态</figcaption>
-</figure>
+<p><img src="https://s1.imagehub.cc/images/2025/05/08/a180824f04513c136132f10204ddae45.png" srcset="/img/loading.gif" lazyload alt="初始状态"></p>
 <p>在这里发现插入之后满员了，分裂节点发现也没有办法容纳新的儿子，于是分裂上一层的节点。</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/05/08/86bc502a26128cef67ed85d86be35fb1.png" srcset="/img/loading.gif" lazyload
-alt="Now" />
-<figcaption aria-hidden="true">Now</figcaption>
-</figure>
-<h2 id="deletion">Deletion</h2>
+<p><img src="https://s1.imagehub.cc/images/2025/05/08/86bc502a26128cef67ed85d86be35fb1.png" srcset="/img/loading.gif" lazyload alt="Now"></p>
+<h2 id="Deletion">Deletion</h2>
 <p>和B树非常类似，首先在<strong>对应的叶节点数据块删除对应的数据</strong>。如果满足定义就不作操作。（<strong>保证有序就可以</strong>）</p>
 <ul>
-<li>如果删除元素导致某个块的数量不足<span class="math inline">$\left
-\lceil \frac{L}{2} \right
-\rceil$</span>，需要调整树的结构。（唯一可能出错的情况）</li>
+<li>如果删除元素导致某个块的数量不足<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">⌈</mo><mfrac><mi>L</mi><mn>2</mn></mfrac><mo fence="true">⌉</mo></mrow><annotation encoding="application/x-tex">\left \lceil \frac{L}{2} \right \rceil</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2223em;vertical-align:-0.35em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">⌈</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8723em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">⌉</span></span></span></span></span></span>，需要调整树的结构。（唯一可能出错的情况）</li>
 </ul>
 <p>首先想到的是领养操作，即看左右的邻居节点，如果没办法领养，就需要合并邻居节点。</p>
 <p>继续，此时父亲节点的儿子数和关键字树不匹配，父亲节点需要删除一个关键字值，继续<strong>向上过滤</strong>作删除操作。</p>
-<h2 id="m和l的选择"><code>M</code>和<code>L</code>的选择</h2>
-<p>外存读写的单位为<strong>块</strong>，一个块存放一个节点能使<strong>IO效率</strong>最高。对于一个<span
-class="math inline"><em>M</em></span>阶B+树来说：</p>
-<p><span
-class="math display">(<em>M</em> − 1) × 32 + <em>M</em> × 4 ≤ 8192</span></p>
-<p><span class="math display"><em>M</em> ≤ 228</span></p>
+<h2 id="M和L的选择"><code>M</code>和<code>L</code>的选择</h2>
+<p>外存读写的单位为<strong>块</strong>，一个块存放一个节点能使<strong>IO效率</strong>最高。对于一个<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span>阶B+树来说：</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mi>M</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>×</mo><mn>32</mn><mo>+</mo><mi>M</mi><mo>×</mo><mn>4</mn><mo>≤</mo><mn>8192</mn></mrow><annotation encoding="application/x-tex">(M - 1)\times 32 + M \times 4 \le 8192
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">32</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7804em;vertical-align:-0.136em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8192</span></span></span></span></span></p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>M</mi><mo>≤</mo><mn>228</mn></mrow><annotation encoding="application/x-tex">M \le 228
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.136em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">228</span></span></span></span></span></p>
 <ul>
 <li>32是关键字值的字节数（例如<code>int</code>或者<code>size_t</code>）</li>
 <li>4代表分支的字节数（储存地址）</li>
-<li><span class="math inline">8192</span>是单个磁盘块的大小</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8192</mn></mrow><annotation encoding="application/x-tex">8192</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8192</span></span></span></span>是单个磁盘块的大小</li>
 </ul>
-<p><span
-class="math inline"><em>L</em></span>的选择和数据块的大小有关，通常<span
-class="math inline"><em>L</em> = 32</span>（假设每一条数据记录256个字节）</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi></mrow><annotation encoding="application/x-tex">L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">L</span></span></span></span>的选择和数据块的大小有关，通常<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>32</mn></mrow><annotation encoding="application/x-tex">L = 32</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">32</span></span></span></span>（假设每一条数据记录256个字节）</p>
 <h2 id="复杂度分析">复杂度分析</h2>
-<p>最坏情况下，所有节点都在下界，即有$ $个叶节点。</p>
-<p>树的最高深度 <span class="math inline">$\log_{\left \lceil
-\frac{M}{2}\right \rceil}(\left \lceil \frac{2N}{L} \right \rceil
-)$</span></p>
-<p>我们取<span
-class="math inline"><em>M</em> = 228</span>，此时M是非常大的，树的层数就很低，把磁盘的访问次数下降到最低。（包括插入
-&amp; 删除 &amp; 归并等等操作）</p>
+<p>最坏情况下，所有节点都在下界，即有$\left \lceil \frac{2N}{L} \right \rceil $个叶节点。</p>
+<p>树的最高深度 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mrow><mo fence="true">⌈</mo><mfrac><mi>M</mi><mn>2</mn></mfrac><mo fence="true">⌉</mo></mrow></msub><mo stretchy="false">(</mo><mrow><mo fence="true">⌈</mo><mfrac><mrow><mn>2</mn><mi>N</mi></mrow><mi>L</mi></mfrac><mo fence="true">⌉</mo></mrow><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\log_{\left \lceil \frac{M}{2}\right \rceil}(\left \lceil \frac{2N}{L} \right \rceil )</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.5275em;vertical-align:-0.6552em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.6473em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="minner mtight"><span class="mopen sizing reset-size3 size6 mtight delimcenter" style="top:0.075em;"><span class="mtight">⌈</span></span><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8721em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.2255em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span><span class="mclose sizing reset-size3 size6 mtight delimcenter" style="top:0.075em;"><span class="mtight">⌉</span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.6552em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">⌈</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8723em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">⌉</span></span></span><span class="mclose">)</span></span></span></span></p>
+<p>我们取<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mn>228</mn></mrow><annotation encoding="application/x-tex">M = 228</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">228</span></span></span></span>，此时M是非常大的，树的层数就很低，把磁盘的访问次数下降到最低。（包括插入 &amp; 删除 &amp; 归并等等操作）</p>
 <blockquote>
 <p>对于最坏的情况，分裂和归并到顶层，可能会导致树的高度升高1或者下降1，但是均摊来看还是很高效的复杂度。</p>
 </blockquote>
-<h1 id="additional">Additional</h1>
-<h2 id="b树-2">B*树</h2>
-<p>B*树是在B+树基础上的进一步优化，<strong>在 B+
-树的非根和非叶子节点再增加指向兄弟的指针</strong>：</p>
-<figure>
-<img
-src="https://zq99299.github.io/dsalg-tutorial/assets/img/image-20201223220236107.a72d6e7a.png" srcset="/img/loading.gif" lazyload
-alt="B*树" />
-<figcaption aria-hidden="true">B*树</figcaption>
-</figure>
+<h1>Additional</h1>
+<h2 id="B-树">B*树</h2>
+<p>B*树是在B+树基础上的进一步优化，<strong>在 B+ 树的非根和非叶子节点再增加指向兄弟的指针</strong>：</p>
+<p><img src="https://zq99299.github.io/dsalg-tutorial/assets/img/image-20201223220236107.a72d6e7a.png" srcset="/img/loading.gif" lazyload alt="B*树"></p>
 <ul>
-<li><p>B*树要求非根节点至少2/3满(约66.7%)，提高了空间利用率</p></li>
-<li><p>当节点满时，B*树不是立即分裂，而是<strong>尝试将部分键值重新分配到兄弟节点</strong>（使用链表链接，可以“转移”）</p></li>
-<li><p>只有当两个相邻兄弟节点都已满时，才会将这三个节点分裂为两个</p></li>
-<li><p>这种策略减少了分裂频率，提高了空间利用率</p></li>
+<li>
+<p>B*树要求非根节点至少2/3满(约66.7%)，提高了空间利用率</p>
+</li>
+<li>
+<p>当节点满时，B*树不是立即分裂，而是<strong>尝试将部分键值重新分配到兄弟节点</strong>（使用链表链接，可以“转移”）</p>
+</li>
+<li>
+<p>只有当两个相邻兄弟节点都已满时，才会将这三个节点分裂为两个</p>
+</li>
+<li>
+<p>这种策略减少了分裂频率，提高了空间利用率</p>
+</li>
 </ul>
-<h2 id="r树">R树</h2>
+<h2 id="R树">R树</h2>
 <div class="note note-primary">
-            <p>R树是为空间数据(如地理坐标、多边形等)设计的索引结构，与B+树家族有显著不同：</p><ol type="1"><li><strong>空间索引能力</strong>：<ul><li>B+树只能索引一维数据</li><li>R树可以高效索引多维数据(如二维坐标、三维空间数据)</li></ul></li><li><strong>基于最小边界矩形(MBR)</strong>：<ul><li>每个节点存储的是空间对象的最小边界矩形</li><li>允许快速过滤不相关的空间查询</li></ul></li><li><strong>查询类型支持</strong>：<ul><li>支持空间查询如”查找附近的所有点”</li><li>支持范围查询如”查找这个矩形区域内的所有对象”</li><li>支持最近邻查询</li></ul></li><li><strong>变体改进</strong>：<ul><li>R+树：避免节点覆盖区域的重叠，提高查询效率</li><li>R*树：通过优化插入、分裂策略和强制重新插入来提高性能</li><li>Hilbert R树：使用空间填充曲线对对象排序，改善结构</li></ul></li></ol>
+            <p>R树是为空间数据(如地理坐标、多边形等)设计的索引结构，与B+树家族有显著不同：</p><ol><li><strong>空间索引能力</strong>：<ul><li>B+树只能索引一维数据</li><li>R树可以高效索引多维数据(如二维坐标、三维空间数据)</li></ul></li><li><strong>基于最小边界矩形(MBR)</strong>：<ul><li>每个节点存储的是空间对象的最小边界矩形</li><li>允许快速过滤不相关的空间查询</li></ul></li><li><strong>查询类型支持</strong>：<ul><li>支持空间查询如&quot;查找附近的所有点&quot;</li><li>支持范围查询如&quot;查找这个矩形区域内的所有对象&quot;</li><li>支持最近邻查询</li></ul></li><li><strong>变体改进</strong>：<ul><li>R+树：避免节点覆盖区域的重叠，提高查询效率</li><li>R*树：通过优化插入、分裂策略和强制重新插入来提高性能</li><li>Hilbert R树：使用空间填充曲线对对象排序，改善结构</li></ul></li></ol>
           </div>
 <p><strong>R树</strong>的关键在于对点做分类，并以此建立MBR，然后一层层向上建树，知道囊括数据中的所有点。</p>
 <blockquote>
 <p>怎么一股线段树的味道。</p>
 </blockquote>
-<h1 id="外排序">外排序</h1>
+<h1>外排序</h1>
 <p>显而易见，外排序就是对储存在外部储存器上数据进行的排序。以<strong>磁带储存器</strong>为例，其为顺序存储设备，完成有效的排序至少需要两个<strong>磁盘机</strong>，当然，多多益善。</p>
 <blockquote>
 <p>三个磁盘机可以实现轮转的排序（<strong>并行的思想</strong>）</p>
@@ -1160,57 +1103,37 @@ alt="B*树" />
 <ul>
 <li>多路归并</li>
 <li>多阶段归并</li>
-</ul></li>
 </ul>
-<h2 id="预处理置换选择">预处理：置换选择</h2>
+</li>
+</ul>
+<h2 id="预处理：置换选择">预处理：置换选择</h2>
 <p>把外存的数据读入内存进行内排序的时候，我们希望每一个排序片段的size尽可能的大（即排序片段的数量尽可能的少），这样就可以使<strong>归并的次数尽可能的少</strong>，因为每一次归并操作都需要线性扫描两个待归并的序列，如果归并次数过多，意味着存在重复被扫描的元素。</p>
-<p>我们介绍<strong>置换选择法</strong>，可以在<span
-class="math inline"><em>p</em></span>的内存空间中实现平均长度<span
-class="math inline">2<em>p</em></span>的序列排序，这比最笨的一段一段排序要快很多。</p>
+<p>我们介绍<strong>置换选择法</strong>，可以在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span>的内存空间中实现平均长度<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>p</mi></mrow><annotation encoding="application/x-tex">2p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">2</span><span class="mord mathnormal">p</span></span></span></span>的序列排序，这比最笨的一段一段排序要快很多。</p>
 <ul>
-<li>在初始状态下，读入size为<span
-class="math inline"><em>p</em></span>的序列，进行内排序（保证有序性），输出最小值。</li>
+<li>在初始状态下，读入size为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span>的序列，进行内排序（保证有序性），输出最小值。</li>
 <li>这个时候内存存在<strong>空间剩余</strong>（<strong>这是我们需要利用的地方！</strong>），我们可以再读入一个值，并调整这个值所在的位置，维持有序性。</li>
 </ul>
 <blockquote>
 <p>在这里内排序的时间开销远小于外排序，因此可以忽略这一点小小的优化。</p>
 </blockquote>
-<p>我们既输出的值为<span
-class="math inline"><em>x</em><sub><em>o</em></sub></span>，输入的值为<span
-class="math inline"><em>x</em><sub><em>i</em></sub></span>：</p>
+<p>我们既输出的值为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>o</mi></msub></mrow><annotation encoding="application/x-tex">x_o</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">o</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，输入的值为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：</p>
 <ul>
-<li><span
-class="math inline"><em>x</em><sub><em>o</em></sub> &lt; <em>x</em><sub><em>i</em></sub></span>：说明如果<span
-class="math inline"><em>x</em><sub><em>i</em></sub></span>参与这一次排序的话，他的位置肯定在<span
-class="math inline"><em>x</em><sub><em>o</em></sub></span>的后面（还有机会！），因此作为新元素被插入，参与排序</li>
-<li><span
-class="math inline"><em>x</em><sub><em>i</em></sub> &lt; <em>x</em><sub><em>o</em></sub></span>：没有机会，<span
-class="math inline"><em>x</em><sub><em>i</em></sub></span>不会参与这一次排序，但是可以一直占着坑，自动进入下一次排序。</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>o</mi></msub><mo>&lt;</mo><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_o &lt; x_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6891em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">o</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：说明如果<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>参与这一次排序的话，他的位置肯定在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>o</mi></msub></mrow><annotation encoding="application/x-tex">x_o</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">o</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>的后面（还有机会！），因此作为新元素被插入，参与排序</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub><mo>&lt;</mo><msub><mi>x</mi><mi>o</mi></msub></mrow><annotation encoding="application/x-tex">x_i &lt; x_o</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6891em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">o</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：没有机会，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>不会参与这一次排序，但是可以一直占着坑，自动进入下一次排序。</li>
 </ul>
 <h2 id="归并">归并</h2>
 <h3 id="多路归并">多路归并</h3>
-<p>我们首先介绍两路归并：<span
-class="math inline"><em>k</em> = 2</span></p>
-<p>两路归并需要四条磁带的使用：<span
-class="math inline"><em>A</em><sub>1</sub>, <em>A</em><sub>2</sub>, <em>B</em><sub>1</sub>, <em>B</em><sub>2</sub></span>，每两条作为一组，两根作为输入，两根作为输出。</p>
+<p>我们首先介绍两路归并：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k = 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span></p>
+<p>两路归并需要四条磁带的使用：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>A</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>B</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>B</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">A_1, A_2, B_1, B_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0502em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0502em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，每两条作为一组，两根作为输入，两根作为输出。</p>
 <ul>
-<li>轮流将已被排序的片段写到<span
-class="math inline"><em>A</em><sub>1</sub>, <em>A</em><sub>2</sub></span>两条磁带上。</li>
-<li>取<span class="math inline"><em>A</em><sub>1</sub></span>, <span
-class="math inline"><em>A</em><sub>2</sub></span>上各一个片段，进行归并操作，生成的新片段写入<span
-class="math inline"><em>B</em><sub>1</sub></span>。</li>
-<li>再将<span class="math inline"><em>A</em><sub>1</sub></span>, <span
-class="math inline"><em>A</em><sub>2</sub></span>上剩下的片段转移到<span
-class="math inline"><em>B</em><sub>1</sub>, <em>B</em><sub>2</sub></span>上，在同样的做类似的操作。</li>
+<li>轮流将已被排序的片段写到<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>A</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">A_1, A_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>两条磁带上。</li>
+<li>取<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">A_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">A_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>上各一个片段，进行归并操作，生成的新片段写入<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">B_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0502em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。</li>
+<li>再将<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">A_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">A_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>上剩下的片段转移到<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>B</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">B_1, B_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0502em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0502em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>上，在同样的做类似的操作。</li>
 </ul>
-<p>一般地，对于<span
-class="math inline"><em>k</em></span>路归并，我们需要<span
-class="math inline">2<em>k</em></span>条磁带做运算，并且我们需要维护一个堆来找到最小的元素。</p>
+<p>一般地，对于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>路归并，我们需要<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>k</mi></mrow><annotation encoding="application/x-tex">2k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>条磁带做运算，并且我们需要维护一个堆来找到最小的元素。</p>
 <h3 id="多阶段归并">多阶段归并</h3>
-<p>使用多阶段归并可以实现<span
-class="math inline"><em>k</em> + 1</span>条磁带的<span
-class="math inline"><em>k</em></span>路归并。</p>
-<p><img src="https://s1.imagehub.cc/images/2025/05/08/912cc21d3d3a2de92f78ce823f03b62c.png" srcset="/img/loading.gif" lazyload alt="image" style="zoom:67%;" /></p>
+<p>使用多阶段归并可以实现<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>条磁带的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>路归并。</p>
+<img src="https://s1.imagehub.cc/images/2025/05/08/912cc21d3d3a2de92f78ce823f03b62c.png" srcset="/img/loading.gif" lazyload alt="image" style="zoom:67%;" />
 
                 
               </div>
@@ -1451,7 +1374,6 @@ class="math inline"><em>k</em></span>路归并。</p>
 
 
 
-
     
 
     
@@ -1637,49 +1559,6 @@ class="math inline"><em>k</em></span>路归并。</p>
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/js/leancloud.js" ></script>
 

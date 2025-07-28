@@ -872,8 +872,8 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h1 id="rust-ownership">Rust Ownership</h1>
-<h2 id="introduction">Introduction</h2>
+<h1>Rust Ownership</h1>
+<h2 id="Introduction">Introduction</h2>
 <h2 id="所有权机制">所有权机制</h2>
 <ul>
 <li>一些程序语言的垃圾收集器会自动收集不再使用的内存（Java）</li>
@@ -885,12 +885,14 @@
 <li>栈内存（栈帧空间），LIFO
 <ul>
 <li><strong>所有存储在栈上的数据必须具有已知并且固定的大小</strong>。</li>
-</ul></li>
+</ul>
+</li>
 <li>堆内存
 <ul>
 <li>在堆上进行内存分配（寻找可用的空间并且标记指针）</li>
 <li>访问堆内存会更加慢（因为需要<strong>指针间接跳转访问</strong>）</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>在C++中，我们经常在堆内存中为程序分配内存，并且需要手动删除，因此<strong>所有权需要解决的问题主要就集中在堆内存的分配和管理上</strong>，即跟踪代码的哪些部分使用了heap的哪些数据，并且需要清理heap中的数据来避免空间不足的问题。</p>
 <h2 id="所有权规则">所有权规则</h2>
@@ -906,16 +908,13 @@
 <p>在这里执行第10行代码会产生比较严重的编译错误，输出如下：</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs applescript">Compiling ownership v0<span class="hljs-number">.1</span><span class="hljs-number">.0</span> (/home/xiyuanyang/Rust/ownership)<br><span class="hljs-keyword">error</span>[E0382]: borrow <span class="hljs-keyword">of</span> moved value: `s1`<br>  <span class="hljs-comment">--&gt; src/main.rs:21:20</span><br>   |<br><span class="hljs-number">13</span> |     let s1 = String::<span class="hljs-keyword">from</span>(<span class="hljs-string">&quot;Hello world&quot;</span>);<br>   |         <span class="hljs-comment">-- move occurs because `s1` has type `String`, which does not implement the `Copy` trait</span><br>...<br><span class="hljs-number">17</span> |         let s2 = s1;<br>   |                  <span class="hljs-comment">-- value moved here</span><br>...<br><span class="hljs-number">21</span> |     println!(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, s1);<br>   |                    ^^ value borrowed here <span class="hljs-keyword">after</span> move<br>   |<br>   = note: this <span class="hljs-keyword">error</span> originates <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> macro `$crate::format_args_nl` which comes <span class="hljs-keyword">from</span> <span class="hljs-keyword">the</span> expansion <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> macro `println` (<span class="hljs-keyword">in</span> Nightly builds, <span class="hljs-built_in">run</span> <span class="hljs-keyword">with</span> -Z macro-backtrace <span class="hljs-keyword">for</span> more info)<br>help: consider cloning <span class="hljs-keyword">the</span> value <span class="hljs-keyword">if</span> <span class="hljs-keyword">the</span> performance cost <span class="hljs-keyword">is</span> acceptable<br>   |<br><span class="hljs-number">17</span> |         let s2 = s1.clone();<br>   |                    ++++++++<br><br>For more information <span class="hljs-keyword">about</span> this <span class="hljs-keyword">error</span>, <span class="hljs-keyword">try</span> `rustc <span class="hljs-comment">--explain E0382`.</span><br><span class="hljs-keyword">error</span>: could <span class="hljs-keyword">not</span> compile `ownership` (bin <span class="hljs-string">&quot;ownership&quot;</span>) due <span class="hljs-keyword">to</span> <span class="hljs-number">1</span> previous <span class="hljs-keyword">error</span><br></code></pre></td></tr></table></figure>
 <p>为了理解这个编译错误，我们需要理解程序在内存上都干了什么：</p>
-<p>对于一个<strong>String</strong>类的变量，程序会在内存中储存三个信息：<strong>ptr,
-length and
-capacity</strong>，这三个信息本身储存在栈内存中。而指针所指向的具体的内存（就是实际的data）是分配在堆内存中的，在进行赋值操作的时候，程序会将指针，长度和capacity这三个变量的值都拷贝一份给新的变量s2,但是<strong>不会开辟一块新的内存</strong>给s2使用！（这就是严重的<strong>对指针变量的浅拷贝</strong>）</p>
-<p>这会带来很严重的问题，例如当两个变量各自离开自己作用域的时候，变量的所有内存会被销毁返回给操作系统，而这就意味着所开辟的那一块堆内存会被<strong>释放两次</strong>！这就是非常著名的<strong>Double
-Free Bug</strong>（二次释放）</p>
+<p>对于一个<strong>String</strong>类的变量，程序会在内存中储存三个信息：<strong>ptr, length and capacity</strong>，这三个信息本身储存在栈内存中。而指针所指向的具体的内存（就是实际的data）是分配在堆内存中的，在进行赋值操作的时候，程序会将指针，长度和capacity这三个变量的值都拷贝一份给新的变量s2,但是<strong>不会开辟一块新的内存</strong>给s2使用！（这就是严重的<strong>对指针变量的浅拷贝</strong>）</p>
+<p>这会带来很严重的问题，例如当两个变量各自离开自己作用域的时候，变量的所有内存会被销毁返回给操作系统，而这就意味着所开辟的那一块堆内存会被<strong>释放两次</strong>！这就是非常著名的<strong>Double Free Bug</strong>（二次释放）</p>
 <p>对于C++来说，解决的办法是<strong>手动设计String类的拷贝构造函数</strong>，使其复制一块新的内存给s2，这样实现深拷贝就可以让两个变量互不干扰，独立活动。（现代C++也设计了移动语义来应对<strong>不需要复制</strong>的高效率场景）而对于Rust来说，其解决方案是让赋值后的s1失效。也就是说，当s1离开作用域的时候，原先的字符串数据已经不再属于他了，程序也不需要再释放新的内存。</p>
 <blockquote>
 <p>这就是<strong>移动语义</strong>，到底是谁抄谁的呢。。。</p>
 </blockquote>
-<h3 id="clone">Clone</h3>
+<h3 id="Clone">Clone</h3>
 <p>可否进行补救？当然可以，Rust提供了<code>clone()</code>函数来实现深拷贝。</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * @Author: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-comment"> * @Date: 2025-04-16 19:57:16</span><br><span class="hljs-comment"> * @LastEditors: Xiyuan Yang   xiyuan_yang@outlook.com</span><br><span class="hljs-comment"> * @LastEditTime: 2025-04-19 01:19:36</span><br><span class="hljs-comment"> * @FilePath: /Rust/ownership/src/main.rs</span><br><span class="hljs-comment"> * @Description:</span><br><span class="hljs-comment"> * Do you code and make progress today?</span><br><span class="hljs-comment"> * Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved.</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">s1</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Hello world&quot;</span>);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;s1: &#123;&#125;&quot;</span>, s1);<br>    &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Entering the scope of s2&quot;</span>);<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">s2</span> = s1.<span class="hljs-title function_ invoke__">clone</span>();<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;s2: &#123;&#125;&quot;</span>, s2);<br>    &#125;<br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, s1);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>输出结果：</p>
@@ -923,22 +922,18 @@ Free Bug</strong>（二次释放）</p>
 <div class="note note-primary">
             <p><strong>对于一些非常简单的值，深拷贝和浅拷贝是等价的，因为数据本身就储存在栈上面</strong>，不涉及堆内存的管理。</p><p>例如下面的程序可以正常执行：</p><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">x</span> = <span class="hljs-number">5</span>;<br>    &#123;<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">y</span> = x;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;y = &#123;&#125;&quot;</span>, y);<br>    &#125; <br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;x = &#123;&#125;&quot;</span>, x);<br>&#125;<br><br></code></pre></td></tr></table></figure>
           </div>
-<h3 id="trait">Trait</h3>
+<h3 id="Trait">Trait</h3>
 <ul>
-<li>Copy Trait
-可以使用于<strong>像整数完全可以被存放在stack上面的类型</strong>。</li>
-<li>如果一个类实现了Copy
-Trait，那么旧的变量在赋值之后仍然可以被使用。</li>
+<li>Copy Trait 可以使用于<strong>像整数完全可以被存放在stack上面的类型</strong>。</li>
+<li>如果一个类实现了Copy Trait，那么旧的变量在赋值之后仍然可以被使用。</li>
 <li>如果一个类实现了Drop Trait，那么Copy Trait将不被允许实现。</li>
 <li>如果一个元组的所有字段都是可以被copy的，那么其本身也是可以被copy的。</li>
 </ul>
 <h3 id="所有权与函数">所有权与函数</h3>
 <p>本质上和变量赋值完全类似，<strong>可以进行移动或者复制</strong>。</p>
 <ul>
-<li>对于Copy
-Trait，函数的传参就是复制的过程，不会影响原变量的内容。</li>
-<li>但是对于非 Copy
-Trait，就相当于C++中的&amp;&amp;右值引用，直接交出了变量的所有权。</li>
+<li>对于Copy Trait，函数的传参就是复制的过程，不会影响原变量的内容。</li>
+<li>但是对于非 Copy Trait，就相当于C++中的&amp;&amp;右值引用，直接交出了变量的所有权。</li>
 </ul>
 <p>函数的返回值也是如此。</p>
 <h2 id="引用和借用">引用和借用</h2>
@@ -955,7 +950,7 @@ Trait，就相当于C++中的&amp;&amp;右值引用，直接交出了变量的�
 <p><strong>Definition</strong>：允许你取得某些值但不获得所有权。</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-comment">// println!(&quot;Hello, world!&quot;);</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">s1</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Hello world&quot;</span>);<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">length</span> = <span class="hljs-title function_ invoke__">cauculate_length</span>(&amp;s1);<br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, length);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, s1);<br>&#125;<br><br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">cauculate_length</span>(s: &amp;<span class="hljs-type">String</span>) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">usize</span>&#123;<br>    s.<span class="hljs-title function_ invoke__">len</span>()<br>&#125;<br></code></pre></td></tr></table></figure>
 <div class="note note-info">
-            <p>引用的本质就是一个<strong>指针</strong>！</p><figure><imgsrc="https://s1.imagehub.cc/images/2025/04/19/595ceb3d5d105ec448dfbd9a809503c9.png"alt="引用" /><figcaption aria-hidden="true">引用</figcaption></figure>
+            <p>引用的本质就是一个<strong>指针</strong>！</p><p><img src="https://s1.imagehub.cc/images/2025/04/19/595ceb3d5d105ec448dfbd9a809503c9.png" srcset="/img/loading.gif" lazyload alt="引用"></p>
           </div>
 <p>这样就可以保证<strong>临时变量在走出作用域的时候</strong>，因为没有所有权所以内存不会被回收。</p>
 <p><strong>但是我们不可以修改借用的东西！</strong>（const T&amp;）</p>
@@ -972,10 +967,8 @@ Trait，就相当于C++中的&amp;&amp;右值引用，直接交出了变量的�
 <ul>
 <li><strong>不可以同时拥有一个可变引用和一个不可变引用</strong>。（允许只存在多个不可变的引用）</li>
 </ul>
-<h3 id="悬空引用-dangling-references">悬空引用 (Dangling
-References)</h3>
-<p>在C++中，存在Dangling
-Pointer的概念，即一个指针指向了内存中的某个有效地址，而该内存被释放之后指针本身的值（所指向的地址）并没有发生变化，但此时<strong>指向了一块无效的内存</strong>，产生严重的错误，并且这个错误不会被编译器检查到。</p>
+<h3 id="悬空引用-Dangling-References">悬空引用 (Dangling References)</h3>
+<p>在C++中，存在Dangling Pointer的概念，即一个指针指向了内存中的某个有效地址，而该内存被释放之后指针本身的值（所指向的地址）并没有发生变化，但此时<strong>指向了一块无效的内存</strong>，产生严重的错误，并且这个错误不会被编译器检查到。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> *ptr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">5</span>);<br>    *ptr += <span class="hljs-number">1</span>;<br>    std::cout &lt;&lt; ptr &lt;&lt; std::endl;<br>    std::cout &lt;&lt; *ptr &lt;&lt; std::endl;<br>    <span class="hljs-keyword">delete</span> ptr;<br><br>    std::cout &lt;&lt; ptr &lt;&lt; std::endl;<br>    std::cout &lt;&lt; *ptr &lt;&lt; std::endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>程序输出：</p>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-number">0x55aba4ee42b0</span><br><span class="hljs-number">6</span><br><span class="hljs-number">0x55aba4ee42b0</span><br><span class="hljs-number">1522159332</span><br></code></pre></td></tr></table></figure>

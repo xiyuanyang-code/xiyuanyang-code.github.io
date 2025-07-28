@@ -633,9 +633,8 @@
 <blockquote>
 <p>好稚嫩的文笔，笔者自己都看不下去… 仅留作纪念。</p>
 </blockquote>
-<h1 id="about-latex">About LaTeX</h1>
-<p>​
-听说过LaTeX吗？亦或是老师突然要求你们使用LaTeX进行写论文，自己面对奇奇怪怪的复杂代码毫无头绪，下不去手？</p>
+<h1>About LaTeX</h1>
+<p>​	听说过LaTeX吗？亦或是老师突然要求你们使用LaTeX进行写论文，自己面对奇奇怪怪的复杂代码毫无头绪，下不去手？</p>
 <p><strong>需要提前准备的内容</strong>：</p>
 <ul>
 <li>无</li>
@@ -654,208 +653,159 @@
 <li>尝试接触一些LaTeX的高级功能（Optional）；</li>
 <li>获得一些精进LaTeX技能包的方法和途径；</li>
 </ul>
-<p><strong>准备好了吗？</strong>
-在接下来的时光里，就让我们一起走进LaTeX的世界。</p>
-<figure>
-<img src="LaTeX.png" srcset="/img/loading.gif" lazyload alt="LaTeX" />
-<figcaption aria-hidden="true">LaTeX</figcaption>
-</figure>
+<p><strong>准备好了吗？</strong> 在接下来的时光里，就让我们一起走进LaTeX的世界。</p>
+<p><img src="LaTeX.png" srcset="/img/loading.gif" lazyload alt="LaTeX"></p>
 <h2 id="参考文献">参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/TeX">TeX - Wikipedia</a></p>
-<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/LaTeX">LaTeX -
-Wikipedia</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.overleaf.com/">Overleaf, Online LaTeX
-Editor</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.latex-project.org/">LaTeX - A document
-preparation system</a></p>
-<h2 id="introduction">1 Introduction</h2>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/LaTeX">LaTeX - Wikipedia</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.overleaf.com/">Overleaf, Online LaTeX Editor</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.latex-project.org/">LaTeX - A document preparation system</a></p>
+<h2 id="1-Introduction">1 Introduction</h2>
 <p><strong>又来到了讲故事环节，可跳过</strong></p>
-<p>​ 在开始我们今天的话题之前，我想先向各位介绍一位老先生，<a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Donald_Knuth">Donald Knuth</a>。</p>
-<figure>
-<img src="Knuth.jpg" srcset="/img/loading.gif" lazyload alt="Donald Knuth" />
-<figcaption aria-hidden="true">Donald Knuth</figcaption>
-</figure>
-<p>​
-先来看看他到底有多牛逼，这是维基百科对这位老爷爷（还没有去世哦）的评价：He
-is the 1974 recipient of <strong>the <a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Acm_Turing_award">ACM Turing
-Award</a></strong>, informally considered the <a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Nobel_Prize">Nobel Prize</a> of
-computer science. Knuth has been called the “<strong>father of the <a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Analysis_of_algorithms">analysis of
-algorithms</a></strong>”。 <a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Donald_Knuth">原文</a></p>
-<p>​
-ACM图灵奖不必多说，能拿奖的都是计算机科学领域大牛中的大牛，他甚至还有第二个称号，<strong>the
-father of the analysis of algorithms</strong>,
-算法分析之父！更不可思议的是，他的主要贡献竟然是一系列至今尚未完篇的鸿篇巨著：<em><a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/The_Art_of_Computer_Programming">The
-Art of Computer
-Programming</a></em>。<strong>计算机程序设计艺术</strong>，简称TAOCP，是关于计算机程序设计之七卷本著作。作者并因此获得美国计算机协会1974年<a
-target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/图灵奖">图灵奖</a>。</p>
+<p>​	在开始我们今天的话题之前，我想先向各位介绍一位老先生，<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Donald_Knuth">Donald Knuth</a>。</p>
+<p><img src="Knuth.jpg" srcset="/img/loading.gif" lazyload alt="Donald Knuth"></p>
+<p>​	先来看看他到底有多牛逼，这是维基百科对这位老爷爷（还没有去世哦）的评价：He is the 1974 recipient of <strong>the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Acm_Turing_award">ACM Turing Award</a></strong>, informally considered the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Nobel_Prize">Nobel Prize</a> of computer science. Knuth has been called the “<strong>father of the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Analysis_of_algorithms">analysis of algorithms</a></strong>”。 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Donald_Knuth">原文</a></p>
+<p>​	ACM图灵奖不必多说，能拿奖的都是计算机科学领域大牛中的大牛，他甚至还有第二个称号，<strong>the father of the analysis of algorithms</strong>, 算法分析之父！更不可思议的是，他的主要贡献竟然是一系列至今尚未完篇的鸿篇巨著：<em><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/The_Art_of_Computer_Programming">The Art of Computer Programming</a></em>。<strong>计算机程序设计艺术</strong>，简称TAOCP，是关于计算机程序设计之七卷本著作。作者并因此获得美国计算机协会1974年<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%9B%BE%E7%81%B5%E5%A5%96">图灵奖</a>。</p>
 <blockquote>
-<p>对我来说，读完这本书不仅花了好几个月，而且还要求我有极高的自律性。如果你能读完这本书，不妨给我发个简历。——Bill
-Gates</p>
+<p>对我来说，读完这本书不仅花了好几个月，而且还要求我有极高的自律性。如果你能读完这本书，不妨给我发个简历。——Bill Gates</p>
 </blockquote>
-<p>​ 这一套书涵盖了计算机领域几乎所有的底层知识，目录如下：</p>
-<figure>
-<img src="theartofprogramming.png" srcset="/img/loading.gif" lazyload alt="TAOCP" />
-<figcaption aria-hidden="true">TAOCP</figcaption>
-</figure>
-<p><a
-target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/计算机程序设计艺术">链接指路：计算机程序设计艺术</a></p>
-<p>​
-这本书的具体内容我们不做过多的介绍，那这位老者和LaTeX有什么关系呢？<strong>他是LaTeX的前身——TeX的发明者！</strong></p>
-<p>​ 维基百科在这一块写的比较含蓄哈哈哈：</p>
+<p>​	这一套书涵盖了计算机领域几乎所有的底层知识，目录如下：</p>
+<p><img src="theartofprogramming.png" srcset="/img/loading.gif" lazyload alt="TAOCP"></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF">链接指路：计算机程序设计艺术</a></p>
+<p>​	这本书的具体内容我们不做过多的介绍，那这位老者和LaTeX有什么关系呢？<strong>他是LaTeX的前身——TeX的发明者！</strong></p>
+<p>​	维基百科在这一块写的比较含蓄哈哈哈：</p>
 <blockquote>
-<p>In 1977, he decided to spend some time <strong>creating something
-more suitable</strong>. Eight years later, he returned with <a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/TeX">TEX</a>, which is currently
-used for all volumes.</p>
+<p>In 1977, he decided to spend some time <strong>creating something more suitable</strong>. Eight years later, he returned with <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/TeX">TEX</a>, which is currently used for all volumes.</p>
 </blockquote>
 <p>什么是<strong>something more suitable</strong>？Maybe the LaTeX！</p>
-<h2 id="latex">2 LaTeX</h2>
-<p>​ 举一个非常简单的例子，你想在word文档中输入这样一个公式：</p>
-<figure>
-<img src="QianJianTec1732279187844.png" srcset="/img/loading.gif" lazyload alt="Gradient Descent" />
-<figcaption aria-hidden="true">Gradient Descent</figcaption>
-</figure>
+<h2 id="2-LaTeX">2 LaTeX</h2>
+<p>​	举一个非常简单的例子，你想在word文档中输入这样一个公式：</p>
+<p><img src="QianJianTec1732279187844.png" srcset="/img/loading.gif" lazyload alt="Gradient Descent"></p>
 <blockquote>
 <p>这是机器学习中梯度下降的基本数学原理。</p>
 </blockquote>
-<p>​ 我们来看看word是怎么编辑公式的：</p>
-<figure>
-<img src="word.png" srcset="/img/loading.gif" lazyload alt="How does Microsoft Word handle it?" />
-<figcaption aria-hidden="true">How does Microsoft Word handle
-it?</figcaption>
-</figure>
-<p>​
-Word等文字编辑器始终秉持着一种<strong>所见即所得</strong>的思想，我打出一个字符，这个字符就实时的反映在我的文本文档中，至于图片缩放，表格插入，文字大小，排版，以及以上所涉及的数学符号等等，在word中虽然能实现，但是调试的时间成本非常高，难度非常大，而且十分的低效！笔者在高中时期曾经有过写数学小论文卡在编辑公式和统一插入图片的格式等细枝末节的小事上的惨痛的回忆。(不过好像现在word也支持LaTeX了)</p>
-<p>​ 但是在LaTeX中，我们可以利用下面的代码生成：</p>
+<p>​	我们来看看word是怎么编辑公式的：</p>
+<p><img src="word.png" srcset="/img/loading.gif" lazyload alt="How does Microsoft Word handle it?"></p>
+<p>​	Word等文字编辑器始终秉持着一种<strong>所见即所得</strong>的思想，我打出一个字符，这个字符就实时的反映在我的文本文档中，至于图片缩放，表格插入，文字大小，排版，以及以上所涉及的数学符号等等，在word中虽然能实现，但是调试的时间成本非常高，难度非常大，而且十分的低效！笔者在高中时期曾经有过写数学小论文卡在编辑公式和统一插入图片的格式等细枝末节的小事上的惨痛的回忆。(不过好像现在word也支持LaTeX了)</p>
+<p>​	但是在LaTeX中，我们可以利用下面的代码生成：</p>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;aligned&#125;<br><span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;j&#125;:=<span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;j&#125;- <span class="hljs-built_in">&amp;</span> <span class="hljs-keyword">\alpha</span> <span class="hljs-keyword">\frac</span>&#123;<span class="hljs-keyword">\partial</span>&#125;&#123;<span class="hljs-keyword">\partial</span> <span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;j&#125;&#125; J(<span class="hljs-keyword">\theta</span>) <span class="hljs-keyword">\\</span><br><span class="hljs-keyword">\frac</span>&#123;<span class="hljs-keyword">\partial</span>&#125;&#123;<span class="hljs-keyword">\partial</span> <span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;j&#125;&#125; J(<span class="hljs-keyword">\theta</span>) <span class="hljs-built_in">&amp;</span> =<span class="hljs-keyword">\frac</span>&#123;<span class="hljs-keyword">\partial</span>&#125;&#123;<span class="hljs-keyword">\partial</span> <span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;j&#125;&#125; <span class="hljs-keyword">\frac</span>&#123;1&#125;&#123;2&#125;<span class="hljs-keyword">\left</span>(h<span class="hljs-built_in">_</span>&#123;<span class="hljs-keyword">\theta</span>&#125;(x)-y<span class="hljs-keyword">\right</span>)<span class="hljs-built_in">^</span>&#123;2&#125; <span class="hljs-keyword">\\</span><br><span class="hljs-built_in">&amp;</span> =2 <span class="hljs-keyword">\cdot</span> <span class="hljs-keyword">\frac</span>&#123;1&#125;&#123;2&#125;<span class="hljs-keyword">\left</span>(h<span class="hljs-built_in">_</span>&#123;<span class="hljs-keyword">\theta</span>&#125;(x)-y<span class="hljs-keyword">\right</span>) <span class="hljs-keyword">\cdot</span> <span class="hljs-keyword">\frac</span>&#123;<span class="hljs-keyword">\partial</span>&#125;&#123;<span class="hljs-keyword">\partial</span> <span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;j&#125;&#125;<span class="hljs-keyword">\left</span>(h<span class="hljs-built_in">_</span>&#123;<span class="hljs-keyword">\theta</span>&#125;(x)-y<span class="hljs-keyword">\right</span>) <span class="hljs-keyword">\\</span><br><span class="hljs-built_in">&amp;</span> =<span class="hljs-keyword">\left</span>(h<span class="hljs-built_in">_</span>&#123;<span class="hljs-keyword">\theta</span>&#125;(x)-y<span class="hljs-keyword">\right</span>) <span class="hljs-keyword">\cdot</span> <span class="hljs-keyword">\frac</span>&#123;<span class="hljs-keyword">\partial</span>&#125;&#123;<span class="hljs-keyword">\partial</span> <span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;j&#125;&#125;<span class="hljs-keyword">\left</span>(<span class="hljs-keyword">\sum</span><span class="hljs-built_in">_</span>&#123;i=0&#125;<span class="hljs-built_in">^</span>&#123;n&#125; <span class="hljs-keyword">\theta</span><span class="hljs-built_in">_</span>&#123;i&#125; x<span class="hljs-built_in">_</span>&#123;i&#125;-y<span class="hljs-keyword">\right</span>) <span class="hljs-keyword">\\</span><br><span class="hljs-built_in">&amp;</span> =<span class="hljs-keyword">\left</span>(h<span class="hljs-built_in">_</span>&#123;<span class="hljs-keyword">\theta</span>&#125;(x)-y<span class="hljs-keyword">\right</span>) x<span class="hljs-built_in">_</span>&#123;j&#125;<br><span class="hljs-keyword">\end</span>&#123;aligned&#125;<br></code></pre></td></tr></table></figure>
-<p>​
-完全看不懂是不是？没关系，这就是<strong>LaTeX的精髓</strong>：<strong>将可视化的文本编辑转化成一种严谨的代码语言</strong>，当你学会并且快速上手之后，你便会越来越体会到LaTeX在学术写作上的强大之处。</p>
-<h2 id="latex-入门">3 LaTeX 入门</h2>
-<p>​
-由上面的示例我们可以看出，<strong>LaTeX可以生成极为精美的文档，涵盖公式，表格，图片等等各种形式（你甚至可以用来做PPT！后面会讲到）</strong>，但代价就是<strong>LaTeX牺牲了市面上主流文本编辑器的”所见即所得”的思想</strong>，将所有文字和图片的生成都转化为了一种规则和<strong>编程语言</strong>，初学者入门可能会很吃力，但相信我，熟练后你会爱上他的！</p>
-<h3 id="开始你的第一篇latex文档">3.1 开始你的第一篇LaTeX文档！</h3>
-<p>​ 万事万物第一步：配环境！一般来说有两种方式：</p>
+<p>​	完全看不懂是不是？没关系，这就是<strong>LaTeX的精髓</strong>：<strong>将可视化的文本编辑转化成一种严谨的代码语言</strong>，当你学会并且快速上手之后，你便会越来越体会到LaTeX在学术写作上的强大之处。</p>
+<h2 id="3-LaTeX-入门">3 LaTeX 入门</h2>
+<p>​	由上面的示例我们可以看出，<strong>LaTeX可以生成极为精美的文档，涵盖公式，表格，图片等等各种形式（你甚至可以用来做PPT！后面会讲到）</strong>，但代价就是<strong>LaTeX牺牲了市面上主流文本编辑器的&quot;所见即所得&quot;的思想</strong>，将所有文字和图片的生成都转化为了一种规则和<strong>编程语言</strong>，初学者入门可能会很吃力，但相信我，熟练后你会爱上他的！</p>
+<h3 id="3-1-开始你的第一篇LaTeX文档！">3.1 开始你的第一篇LaTeX文档！</h3>
+<p>​	万事万物第一步：配环境！一般来说有两种方式：</p>
 <ul>
-<li>本地环境配置：<a target="_blank" rel="noopener" href="https://www.tug.org/texlive/">TeX Live - TeX
-Users
-Group</a>。需要安装textlive，后续可以集成在vscode中使用，具体的操作方法比较繁琐，读者可以自行搜索，网上有很多保姆级的环境搭建教程。（<strong>不推荐，个人建议是等上手熟悉了之后再考虑是否安装，配环境报错真的能把人给烦死</strong>）</li>
-<li><strong>推荐在线LaTeX网站：</strong>使用LaTeX在线网站，例如<a
-target="_blank" rel="noopener" href="https://www.overleaf.com/">Overleaf</a>，国内有些高校也会开通自己的LaTeX平台。在线网站更加轻量化，隐藏了配置环境的细节，注册一个账号就可以使用，<strong>非常推荐新手小白使用！</strong></li>
-<li>在接下来的新手教程中，我们将全程在<a
-target="_blank" rel="noopener" href="https://www.overleaf.com/">Overleaf</a>上进行演示，请登录网站并注册好你的账号。（使用免费版即可）</li>
+<li>本地环境配置：<a target="_blank" rel="noopener" href="https://www.tug.org/texlive/">TeX Live - TeX Users Group</a>。需要安装textlive，后续可以集成在vscode中使用，具体的操作方法比较繁琐，读者可以自行搜索，网上有很多保姆级的环境搭建教程。（<strong>不推荐，个人建议是等上手熟悉了之后再考虑是否安装，配环境报错真的能把人给烦死</strong>）</li>
+<li>**推荐在线LaTeX网站：**使用LaTeX在线网站，例如<a target="_blank" rel="noopener" href="https://www.overleaf.com/">Overleaf</a>，国内有些高校也会开通自己的LaTeX平台。在线网站更加轻量化，隐藏了配置环境的细节，注册一个账号就可以使用，<strong>非常推荐新手小白使用！</strong></li>
+<li>在接下来的新手教程中，我们将全程在<a target="_blank" rel="noopener" href="https://www.overleaf.com/">Overleaf</a>上进行演示，请登录网站并注册好你的账号。（使用免费版即可）</li>
 </ul>
-<h3 id="建立一个模版latex">3.2 建立一个模版LaTeX</h3>
-<p>​
-对新手而言，<strong>快速上手熟悉LaTeX比了解LaTeX背后的原理重要的多</strong>。因此，我们将会从一个模版LaTeX出发，从实操慢慢过渡到原理的讲解。</p>
-<figure>
-<img src="s1.png" srcset="/img/loading.gif" lazyload alt="Choose a template" />
-<figcaption aria-hidden="true">Choose a template</figcaption>
-</figure>
-<p>​ 点击左上角的new project——然后有四个选项：</p>
+<h3 id="3-2-建立一个模版LaTeX">3.2 建立一个模版LaTeX</h3>
+<p>​	对新手而言，<strong>快速上手熟悉LaTeX比了解LaTeX背后的原理重要的多</strong>。因此，我们将会从一个模版LaTeX出发，从实操慢慢过渡到原理的讲解。</p>
+<p><img src="s1.png" srcset="/img/loading.gif" lazyload alt="Choose a template"></p>
+<p>​	点击左上角的new project——然后有四个选项：</p>
 <ul>
-<li><p>Blank project（完全的空文本）</p></li>
-<li><p>Example Project（模版）</p></li>
-<li><p>Upload Project（上传本地项目，通常是压缩包形式）</p></li>
-<li><p>Import Project（从Github引入）</p>
-<p>在这里我们选择Example Project。输入自己的Project
-Name(建议英文)。我在这里输入的是Hello world。</p></li>
+<li>
+<p>Blank project（完全的空文本）</p>
+</li>
+<li>
+<p>Example Project（模版）</p>
+</li>
+<li>
+<p>Upload Project（上传本地项目，通常是压缩包形式）</p>
+</li>
+<li>
+<p>Import Project（从Github引入）</p>
+<p>在这里我们选择Example Project。输入自己的Project Name(建议英文)。我在这里输入的是Hello world。</p>
+</li>
 </ul>
-<h3 id="探索latex模版">3.3 探索LaTeX模版！</h3>
-<figure>
-<img src="image_9.png" srcset="/img/loading.gif" lazyload alt="Hello world!" />
-<figcaption aria-hidden="true">Hello world!</figcaption>
-</figure>
-<p>​
-当你看到一只经典的绿色小青蛙时，恭喜你，你已经成功创建了第一个LaTeX文档！</p>
+<h3 id="3-3-探索LaTeX模版！">3.3 探索LaTeX模版！</h3>
+<p><img src="image_9.png" srcset="/img/loading.gif" lazyload alt="Hello world!"></p>
+<p>​	当你看到一只经典的绿色小青蛙时，恭喜你，你已经成功创建了第一个LaTeX文档！</p>
 <blockquote>
 <p>没有看到？试试点一下右上侧绿色的<strong>Recompile</strong>按钮试试看，可能要等一会。</p>
 </blockquote>
-<p>​ 简单介绍一下各模块都是干啥用的：</p>
+<p>​	简单介绍一下各模块都是干啥用的：</p>
 <ul>
 <li>最左边：文件栏和<strong>File Outline</strong>
 <ul>
 <li>文件栏可以理解为<strong>一个存放这个LaTeX文档所有资源的文件夹</strong>。我们现在中间所打开的就是文件夹中的<strong>main.tex</strong>文件，这也是LaTeX文档的核心部分。还有一些附属的资源也会存放在文件栏中，包括插入的图片，还有参考文献(.bib)。目前大家知道这些就足够了。</li>
 <li>File Outline 不必多说，展示文章大纲的地方。</li>
-</ul></li>
+</ul>
+</li>
 <li>正中间：文本编辑区，也就是敲代码的地方。</li>
 <li>最右边：视图区：当你点击<strong>Recompile</strong>的按钮之后，<strong>编译器</strong>（点击左上方的menu可以查看，<strong>新手不要随便改变这一项！</strong>）会根据main.tex的代码以及一些附属文件（例如frog.jpg）生成最终的LaTeX文档（PDF），在右侧可以预览，也可以导出保存。</li>
 </ul>
-<figure>
-<img src="image_11.png" srcset="/img/loading.gif" lazyload alt="The Compiler" />
-<figcaption aria-hidden="true">The Compiler</figcaption>
-</figure>
+<p><img src="image_11.png" srcset="/img/loading.gif" lazyload alt="The Compiler"></p>
 <ul>
 <li>上方一栏的一些工具看名字应该就知道是干什么的了，和普通的文本编辑器差不太多，都是一些附加功能，读者可以自己来探索。</li>
 </ul>
-<h3 id="进入main.tex">3.4 进入main.tex</h3>
-<p>​ 接下来，让我们把重点放在main.tex的代码上。</p>
-<h4 id="整体架构">3.4.1 整体架构</h4>
-<p>​ 一篇标准的LaTeX代码架构如下：</p>
+<h3 id="3-4-进入main-tex">3.4 进入main.tex</h3>
+<p>​	接下来，让我们把重点放在main.tex的代码上。</p>
+<h4 id="3-4-1-整体架构">3.4.1 整体架构</h4>
+<p>​	一篇标准的LaTeX代码架构如下：</p>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-comment">% 这是一行注释，不会对代码产生任何影响</span><br><span class="hljs-keyword">\documentclass</span>&#123;article&#125;<br><span class="hljs-comment">%导言区（相当于前期的准备工作）</span><br><span class="hljs-keyword">\begin</span>&#123;document&#125;<br><span class="hljs-comment">%正文（文章内容）</span><br><span class="hljs-keyword">\end</span>&#123;document&#125;<br><span class="hljs-comment">% \end&#123;document&#125;代表着main.tex的结尾，相当于C++的return 0;这个语句后面不要加上任何的东西！（因为加了也没有任何意义）</span><br></code></pre></td></tr></table></figure>
-<p>​
-<code>\</code>在LaTeX中是非常重要的一个字符，类似于C/C++中的转义字符，在后面跟着的都是<strong>LaTeX的关键词和命令</strong>（会有代码高亮），我们<strong>重点学习的内容</strong>就是<strong>这些命令代表什么意思，以及如何使用这些命令</strong>。</p>
-<p>​
-首先，我们来介绍LaTeX中的<strong>导言区</strong>，即<code>\begin&#123;document&#125;</code>之前的部分。</p>
+<p>​	<code>\</code>在LaTeX中是非常重要的一个字符，类似于C/C++中的转义字符，在后面跟着的都是<strong>LaTeX的关键词和命令</strong>（会有代码高亮），我们<strong>重点学习的内容</strong>就是<strong>这些命令代表什么意思，以及如何使用这些命令</strong>。</p>
+<p>​	首先，我们来介绍LaTeX中的<strong>导言区</strong>，即<code>\begin&#123;document&#125;</code>之前的部分。</p>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\documentclass</span>&#123;article&#125;<br><span class="hljs-comment">%这行代码指定了文档的类型为 article，即文章类型。LaTeX 中有几种文档类型（如 report、book 等），article 是最常用的一种，适用于论文、报告、演讲稿等。</span><br></code></pre></td></tr></table></figure>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs LaTeX"><span class="hljs-comment">% Language setting</span><br><span class="hljs-comment">% Replace `english&#x27; with e.g. `spanish&#x27; to change the document language</span><br><span class="hljs-keyword">\usepackage</span>[english]&#123;babel&#125;<br><span class="hljs-comment">% Useful packages</span><br><span class="hljs-keyword">\usepackage</span>&#123;amsmath&#125;<br><span class="hljs-keyword">\usepackage</span>&#123;graphicx&#125;<br><span class="hljs-keyword">\usepackage</span>[colorlinks=true, allcolors=blue]&#123;hyperref&#125;<br></code></pre></td></tr></table></figure>
-<p>​
-在LaTeX，几乎所有的高级操作都是建立在<strong>导入宏包</strong>的基础之上的，类似于C++中的#include和Python中的import，导入宏包可以让你的LaTeX代码变的更加强大。在此处导入的三个常用宏包分别用于数学公式(amsmath)，图形处理(graphix)和引用(hyperref)。
-​
-在之后的学习过程中，你可以根据需求自己导入特定的宏包，不过别担心，后面会具体教你怎么做的。</p>
+<p>​	在LaTeX，几乎所有的高级操作都是建立在<strong>导入宏包</strong>的基础之上的，类似于C++中的#include和Python中的import，导入宏包可以让你的LaTeX代码变的更加强大。在此处导入的三个常用宏包分别用于数学公式(amsmath)，图形处理(graphix)和引用(hyperref)。<br>
+​	在之后的学习过程中，你可以根据需求自己导入特定的宏包，不过别担心，后面会具体教你怎么做的。</p>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\title</span>&#123;Your Paper&#125;<br><span class="hljs-keyword">\author</span>&#123;You&#125;<br><span class="hljs-comment">% 作者的信息和文章标题，这一块也可以自己魔改（属于高级功能）</span><br></code></pre></td></tr></table></figure>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;document&#125;<br><span class="hljs-comment">%正文</span><br><span class="hljs-keyword">\end</span>&#123;document&#125;<br></code></pre></td></tr></table></figure>
-<p>​
-夹在<code>\begin&#123;document&#125;</code>和<code>\end&#123;document&#125;</code>之间的是文章的正文部分，<strong>任何你想在最后PDF出现的内容，无论是图片，文字，都需要在<code>\begin&#123;document&#125;</code>和<code>\end&#123;document&#125;</code>之间通过命令表达出来！</strong>接下来我们来重点介绍正文部分。</p>
-<h4 id="正文部分①文字">3.4.2 正文部分①——文字</h4>
+<p>​	夹在<code>\begin&#123;document&#125;</code>和<code>\end&#123;document&#125;</code>之间的是文章的正文部分，**任何你想在最后PDF出现的内容，无论是图片，文字，都需要在<code>\begin&#123;document&#125;</code>和<code>\end&#123;document&#125;</code>之间通过命令表达出来！**接下来我们来重点介绍正文部分。</p>
+<h4 id="3-4-2-正文部分①——文字">3.4.2 正文部分①——文字</h4>
 <blockquote>
 <p>在这里为了方便演示，我创建了一个新的空白文档，所以和LaTeX模版之间存在差异。读者可以先尝试理解这些指令都代表着什么功能，然后回到自己的template中尝试“读懂”他！也可以自己尝试修改一些内容看看最后生成的文档有什么不同~</p>
 </blockquote>
 <p>正文的代码开始看不懂了？别着急，先来看看我写的简化版的</p>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;document&#125;<br><span class="hljs-keyword">\maketitle</span><br><br><span class="hljs-keyword">\begin</span>&#123;abstract&#125;<br>Your abstract.<br><span class="hljs-keyword">\end</span>&#123;abstract&#125;<br><span class="hljs-keyword">\section</span>&#123;introducccction&#125;<br><span class="hljs-keyword">\section</span>&#123;Part1&#125;<br><span class="hljs-keyword">\subsection</span>&#123;hello&#125;<br>Hello, this is a test file.<br>is this a new paragraph?<br><br>is this a new paragraph?<br><span class="hljs-keyword">\subsection</span>&#123;world!&#125;<br><span class="hljs-keyword">\subsubsection</span>&#123;hahah&#125;<br><span class="hljs-keyword">\subsubsection</span>&#123;hahahahahah&#125;<br>i know you are very smart!<br><span class="hljs-keyword">\section</span>&#123;Part22&#125;<br><span class="hljs-keyword">\begin</span>&#123;enumerate&#125;<br>    <span class="hljs-keyword">\item</span> this is the firrst point<br>    <span class="hljs-keyword">\item</span> this is the 2nd points<br><span class="hljs-keyword">\end</span>&#123;enumerate&#125;<br><span class="hljs-keyword">\section</span>&#123;p3&#125;<br><span class="hljs-keyword">\section</span>&#123;Conclusion&#125;<br><br><span class="hljs-keyword">\end</span>&#123;document&#125;<br></code></pre></td></tr></table></figure>
 <p>包含一些必要的文件准备工作，这份PDF输出如下：</p>
-<figure>
-<img src="image_12.png" srcset="/img/loading.gif" lazyload alt="The Output" />
-<figcaption aria-hidden="true">The Output</figcaption>
-</figure>
+<p><img src="image_12.png" srcset="/img/loading.gif" lazyload alt="The Output"></p>
 <blockquote>
 <p>为了让展示变得更加清晰，我故意拼错了许多单词，请勿模仿！</p>
 </blockquote>
 <ul>
-<li><p><code>\maketitle</code>命令首先输出文章的标题（包括作者信息和时间），不要删除。</p></li>
-<li><p>摘要（abstract）</p>
+<li>
+<p><code>\maketitle</code>命令首先输出文章的标题（包括作者信息和时间），不要删除。</p>
+</li>
+<li>
+<p>摘要（abstract）</p>
 <ul>
 <li>论文的一个组成部分，由<code>\begin&#123;abstract&#125;</code>和<code>\end&#123;abstract&#125;</code>包裹。</li>
-</ul></li>
-<li><p><code>\section</code>,<code>\subsection</code>,<code>\subsubsection</code></p>
+</ul>
+</li>
+<li>
+<p><code>\section</code>,<code>\subsection</code>,<code>\subsubsection</code></p>
 <ul>
 <li>类似于论文中1,2,3级小标题的概念，读者可以将代码中的文字和最终输出在PDF中的位置对应起来，应该很快就能够理解。</li>
 <li>这就是LaTeX的强大之处，可能用起来没有word可视化，但是他省去了很多文字排版以及大小调整优化的工作，实际上大大地提高了工作效率。</li>
-</ul></li>
-<li><p>正文</p>
+</ul>
+</li>
+<li>
+<p>正文</p>
 <ul>
-<li><p>文章中<em>i know you are very smart!</em> 和<em>Hello, this is a
-test file. is this a new paragraph?</em> 都是正文语句。</p></li>
-<li><p><strong>缩进</strong>：LaTeX默认模版中首段不缩进，第二段才缩进，如果想更改这个设置，可以在导言区加入命令：</p>
+<li>
+<p>文章中<em>i know you are very smart!</em> 和<em>Hello, this is a test file. is this a new paragraph?</em> 都是正文语句。</p>
+</li>
+<li>
+<p><strong>缩进</strong>：LaTeX默认模版中首段不缩进，第二段才缩进，如果想更改这个设置，可以在导言区加入命令：</p>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\usepackage</span>&#123;indentfirst&#125;<br><span class="hljs-comment">% 这是你加入的第一个宏包！快来compile一下看看有什么变化吧！</span><br></code></pre></td></tr></table></figure>
-<figure>
-<img src="image_13.png" srcset="/img/loading.gif" lazyload alt="Indient" />
-<figcaption aria-hidden="true">Indient</figcaption>
-</figure>
-<p>你会发现，第一段也缩进啦！</p></li>
-<li><p><strong>换行</strong>：</p>
+<p><img src="image_13.png" srcset="/img/loading.gif" lazyload alt="Indient"></p>
+<p>你会发现，第一段也缩进啦！</p>
+</li>
+<li>
+<p><strong>换行</strong>：</p>
 <ul>
-<li><p>第一个雷点：<strong>在源代码中换行并不代表真的换行了！</strong>比如第一个is
-this a new paragraph和Hello, this is a test
-file.分属两行，但他们实际输出上只在一行上面。</p></li>
-<li><p>最简单的换行方法：<strong>直接在段落中添加一个空行，即按下两个回车键</strong>，这样就能成功实现换行。</p>
-<p><strong>以下内容新手自动跳过！</strong></p></li>
-<li><p>使用<code>\\</code>换行，一种更紧凑的写法（但有风险）</p></li>
+<li>
+<p>第一个雷点：**在源代码中换行并不代表真的换行了！**比如第一个is this a new paragraph和Hello, this is a test file.分属两行，但他们实际输出上只在一行上面。</p>
+</li>
+<li>
+<p>最简单的换行方法：<strong>直接在段落中添加一个空行，即按下两个回车键</strong>，这样就能成功实现换行。</p>
+<p><strong>以下内容新手自动跳过！</strong></p>
+</li>
+<li>
+<p>使用<code>\\</code>换行，一种更紧凑的写法（但有风险）</p>
+</li>
 </ul>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs LaTeX">This is the first line.<span class="hljs-keyword">\\</span><br>This is the second line.<br></code></pre></td></tr></table></figure>
 <ul>
@@ -863,29 +813,25 @@ file.分属两行，但他们实际输出上只在一行上面。</p></li>
 </ul>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs latex">This is the first line.<br><span class="hljs-keyword">\newline</span><br>This is the second line.<br><span class="hljs-comment">% 类比的，你应该就知道命令</span><br><span class="hljs-keyword">\newpage</span><br><span class="hljs-comment">% 是什么意思了吧！</span><br></code></pre></td></tr></table></figure>
 <p>注意，使用<code>\\</code>和<code>\newline</code>进行强制换行时，两行之间没有额外的垂直间距！格式会有差异，<strong>建议非必要不要使用强制换行符</strong>。</p>
-<figure>
-<img src="image_14.png" srcset="/img/loading.gif" lazyload alt="Using Newline Carefully" />
-<figcaption aria-hidden="true">Using Newline Carefully</figcaption>
-</figure>
+<p><img src="image_14.png" srcset="/img/loading.gif" lazyload alt="Using Newline Carefully"></p>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-comment">% 一些补充命令：</span><br><br><span class="hljs-comment">%有垂直间距的换行</span><br>This is the first line.<br><span class="hljs-keyword">\vspace</span>&#123;1cm&#125;<br><br>This is the second line.<br><br><span class="hljs-comment">%无垂直间距的换行</span><br>This is the first line.<br><span class="hljs-keyword">\noindent</span><br><br>This is the second line without extra space.<br><br></code></pre></td></tr></table></figure>
-<figure>
-<img src="image_15.png" srcset="/img/loading.gif" lazyload alt="Some advanced techniques" />
-<figcaption aria-hidden="true">Some advanced techniques</figcaption>
-</figure></li>
-</ul></li>
-<li><p><code>enumerate</code></p>
+<p><img src="image_15.png" srcset="/img/loading.gif" lazyload alt="Some advanced techniques"></p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>enumerate</code></p>
 <ul>
 <li>中文翻译“枚举”，用于文章中生成小标号，不作为小标题出现</li>
 </ul>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\section</span>&#123;Part22&#125;<br><span class="hljs-keyword">\begin</span>&#123;enumerate&#125;<br>    <span class="hljs-keyword">\item</span> this is the firrst point<br>    <span class="hljs-keyword">\item</span> this is the 2nd points<br><span class="hljs-keyword">\end</span>&#123;enumerate&#125;<br><span class="hljs-comment">% 注意一个begin对应一个end，不然会报错！</span><br></code></pre></td></tr></table></figure>
-<figure>
-<img src="image_16.png" srcset="/img/loading.gif" lazyload alt="Enumerate" />
-<figcaption aria-hidden="true">Enumerate</figcaption>
-</figure>
+<p><img src="image_16.png" srcset="/img/loading.gif" lazyload alt="Enumerate"></p>
 <ul>
 <li>可以和一些指令搭配使用，例如加粗<code>\textbf&#123;&#125;</code>等等。</li>
-</ul></li>
-<li><p>文本美化：</p>
+</ul>
+</li>
+<li>
+<p>文本美化：</p>
 <blockquote>
 <p>这里的命令都是比较简单的，大家可以自行尝试~</p>
 </blockquote>
@@ -904,28 +850,36 @@ file.分属两行，但他们实际输出上只在一行上面。</p></li>
 <ul>
 <li>等宽字体</li>
 </ul>
-<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\texttt</span>&#123;This text is in typewriter font.&#125;<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\texttt</span>&#123;This text is in typewriter font.&#125;<br></code></pre></td></tr></table></figure>
+</li>
 </ul>
-<h4 id="正文部分②图片和图表">3.4.3 正文部分②——图片和图表</h4>
+<h4 id="3-4-3-正文部分②——图片和图表">3.4.3 正文部分②——图片和图表</h4>
 <h5 id="插入图片">插入图片</h5>
 <p>在LaTeX中插入图片需要使用<code>graphicx</code>宏包（通常已默认加载）。基本语法如下：</p>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;figure&#125;[htbp]<br>    <span class="hljs-keyword">\centering</span><br>    <span class="hljs-keyword">\includegraphics</span>[width=0.8<span class="hljs-keyword">\textwidth</span>]&#123;frog.jpg&#125;<br>    <span class="hljs-keyword">\caption</span>&#123;This is a frog&#125;<br>    <span class="hljs-keyword">\label</span>&#123;fig:frog&#125;<br><span class="hljs-keyword">\end</span>&#123;figure&#125;<br></code></pre></td></tr></table></figure>
-<p>关键参数说明： - <code>[htbp]</code>：图片位置参数（here, top,
-bottom, page） - <code>\centering</code>：使图片居中 -
-<code>\includegraphics</code>：实际插入图片的命令 -
-<code>width=0.8\textwidth</code>：设置图片宽度为文本宽度的80% -
-<code>\caption</code>：图片标题 -
-<code>\label</code>：为图片创建引用标签</p>
+<p>关键参数说明：</p>
+<ul>
+<li><code>[htbp]</code>：图片位置参数（here, top, bottom, page）</li>
+<li><code>\centering</code>：使图片居中</li>
+<li><code>\includegraphics</code>：实际插入图片的命令</li>
+<li><code>width=0.8\textwidth</code>：设置图片宽度为文本宽度的80%</li>
+<li><code>\caption</code>：图片标题</li>
+<li><code>\label</code>：为图片创建引用标签</li>
+</ul>
 <h5 id="插入统计图">插入统计图</h5>
 <p>对于更复杂的统计图表，推荐使用<code>pgfplots</code>宏包：</p>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\usepackage</span>&#123;pgfplots&#125;<br><span class="hljs-keyword">\pgfplotsset</span>&#123;width=0.9<span class="hljs-keyword">\textwidth</span>,compat=1.9&#125;<br><br><span class="hljs-keyword">\begin</span>&#123;tikzpicture&#125;<br><span class="hljs-keyword">\begin</span>&#123;axis&#125;[<br>    title=Example Plot,<br>    xlabel=Time,<br>    ylabel=Value,<br>    xmin=0, xmax=10,<br>    ymin=0, ymax=10,<br>    xtick=&#123;0,2,4,6,8,10&#125;,<br>    ytick=&#123;0,2,4,6,8,10&#125;,<br>    legend pos=north west,<br>    ymajorgrids=true,<br>    grid style=dashed,<br>]<br><br><span class="hljs-keyword">\addplot</span>[<br>    color=blue,<br>    mark=square,<br>    ]<br>    coordinates &#123;<br>    (1,1)(2,4)(3,9)(4,16)(5,25)<br>    &#125;;<br>    <span class="hljs-keyword">\legend</span>&#123;Square Function&#125;<br>    <br><span class="hljs-keyword">\end</span>&#123;axis&#125;<br><span class="hljs-keyword">\end</span>&#123;tikzpicture&#125;<br></code></pre></td></tr></table></figure>
 <h5 id="插入统计表">插入统计表</h5>
 <p>使用<code>tabular</code>环境创建表格：</p>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;table&#125;[htbp]<br><span class="hljs-keyword">\centering</span><br><span class="hljs-keyword">\caption</span>&#123;Example Table&#125;<br><span class="hljs-keyword">\label</span>&#123;tab:example&#125;<br><span class="hljs-keyword">\begin</span>&#123;tabular&#125;&#123;|l|c|r|&#125;<br><span class="hljs-keyword">\hline</span><br>Left Aligned <span class="hljs-built_in">&amp;</span> Centered <span class="hljs-built_in">&amp;</span> Right Aligned <span class="hljs-keyword">\\</span><br><span class="hljs-keyword">\hline</span><br>Item 1 <span class="hljs-built_in">&amp;</span> 12 <span class="hljs-built_in">&amp;</span> 1.5 <span class="hljs-keyword">\\</span><br>Item 2 <span class="hljs-built_in">&amp;</span> 24 <span class="hljs-built_in">&amp;</span> 2.5 <span class="hljs-keyword">\\</span><br>Item 3 <span class="hljs-built_in">&amp;</span> 36 <span class="hljs-built_in">&amp;</span> 3.5 <span class="hljs-keyword">\\</span><br><span class="hljs-keyword">\hline</span><br><span class="hljs-keyword">\end</span>&#123;tabular&#125;<br><span class="hljs-keyword">\end</span>&#123;table&#125;<br></code></pre></td></tr></table></figure>
-<p>表格说明： - <code>&#123;|l|c|r|&#125;</code>：定义列对齐方式（左中右）和竖线 -
-<code>\hline</code>：水平线 - <code>&amp;</code>：列分隔符 -
-<code>\\</code>：行结束符</p>
-<h4 id="正文部分③数学公式">3.4.4 正文部分③——数学公式</h4>
+<p>表格说明：</p>
+<ul>
+<li><code>&#123;|l|c|r|&#125;</code>：定义列对齐方式（左中右）和竖线</li>
+<li><code>\hline</code>：水平线</li>
+<li><code>&amp;</code>：列分隔符</li>
+<li><code>\\</code>：行结束符</li>
+</ul>
+<h4 id="3-4-4-正文部分③——数学公式">3.4.4 正文部分③——数学公式</h4>
 <p>LaTeX最强大的功能之一就是数学公式排版。数学公式分为两种模式：</p>
 <h5 id="行内公式">行内公式</h5>
 <p>用<code>$...$</code>或<code>\(...)</code>包裹：</p>
@@ -937,15 +891,15 @@ bottom, page） - <code>\centering</code>：使图片居中 -
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs latex">希腊字母：<span class="hljs-built_in">$</span><span class="hljs-keyword">\alpha</span>, <span class="hljs-keyword">\beta</span>, <span class="hljs-keyword">\gamma</span>, <span class="hljs-keyword">\Gamma</span><span class="hljs-built_in">$</span><br><br>上下标：<span class="hljs-built_in">$</span>x<span class="hljs-built_in">^</span>2, x<span class="hljs-built_in">_</span>i, x<span class="hljs-built_in">_</span>&#123;i,j&#125;, x<span class="hljs-built_in">^</span>&#123;y<span class="hljs-built_in">^</span>z&#125;<span class="hljs-built_in">$</span><br><br>分数：<span class="hljs-built_in">$</span><span class="hljs-keyword">\frac</span>&#123;a&#125;&#123;b&#125;, <span class="hljs-keyword">\dfrac</span>&#123;a&#125;&#123;b&#125;<span class="hljs-built_in">$</span><br><br>根式：<span class="hljs-built_in">$</span><span class="hljs-keyword">\sqrt</span>&#123;x&#125;, <span class="hljs-keyword">\sqrt</span>[n]&#123;x&#125;<span class="hljs-built_in">$</span><br><br>求和/积分：<span class="hljs-built_in">$</span><span class="hljs-keyword">\sum</span><span class="hljs-built_in">_</span>&#123;i=1&#125;<span class="hljs-built_in">^</span>n, <span class="hljs-keyword">\prod</span><span class="hljs-built_in">_</span>&#123;i=1&#125;<span class="hljs-built_in">^</span>n, <span class="hljs-keyword">\int</span><span class="hljs-built_in">_</span>a<span class="hljs-built_in">^</span>b<span class="hljs-built_in">$</span><br><br>矩阵：<br><span class="hljs-keyword">\[</span><br><span class="hljs-keyword">\begin</span>&#123;bmatrix&#125;<br>1 <span class="hljs-built_in">&amp;</span> 2 <span class="hljs-keyword">\\</span><br>3 <span class="hljs-built_in">&amp;</span> 4 <span class="hljs-keyword">\\</span><br><span class="hljs-keyword">\end</span>&#123;bmatrix&#125;<br><span class="hljs-keyword">\]</span><br><br>多行公式：<br><span class="hljs-keyword">\begin</span>&#123;align&#125;<br>f(x) <span class="hljs-built_in">&amp;</span>= (x+1)<span class="hljs-built_in">^</span>2 <span class="hljs-keyword">\\</span><br>     <span class="hljs-built_in">&amp;</span>= x<span class="hljs-built_in">^</span>2 + 2x + 1<br><span class="hljs-keyword">\end</span>&#123;align&#125;<br></code></pre></td></tr></table></figure>
 <h5 id="定理环境">定理环境</h5>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\usepackage</span>&#123;amsthm&#125;<br><br><span class="hljs-keyword">\newtheorem</span>&#123;theorem&#125;&#123;Theorem&#125;<br><span class="hljs-keyword">\newtheorem</span>&#123;lemma&#125;&#123;Lemma&#125;<br><br><span class="hljs-keyword">\begin</span>&#123;theorem&#125;[Pythagorean]<br>In a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides.<br><span class="hljs-keyword">\end</span>&#123;theorem&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="进阶技巧">4 进阶技巧</h2>
+<h2 id="4-进阶技巧">4 进阶技巧</h2>
 <h3 id="参考文献管理">参考文献管理</h3>
 <p>使用BibTeX管理文献：</p>
-<ol type="1">
+<ol>
 <li>创建<code>.bib</code>文件</li>
 <li>引用文献：</li>
 </ol>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\cite</span>&#123;key&#125;  <span class="hljs-comment">% 文中引用</span><br></code></pre></td></tr></table></figure>
-<ol start="3" type="1">
+<ol start="3">
 <li>在文档末尾添加：</li>
 </ol>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\bibliographystyle</span>&#123;plain&#125;<br><span class="hljs-keyword">\bibliography</span>&#123;references&#125;<br></code></pre></td></tr></table></figure>
@@ -954,13 +908,11 @@ bottom, page） - <code>\centering</code>：使图片居中 -
 <h3 id="幻灯片制作">幻灯片制作</h3>
 <p>使用<code>beamer</code>制作幻灯片：</p>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\documentclass</span>&#123;beamer&#125;<br><br><span class="hljs-keyword">\begin</span>&#123;document&#125;<br><br><span class="hljs-keyword">\begin</span>&#123;frame&#125;<br><span class="hljs-keyword">\frametitle</span>&#123;First Slide&#125;<br>Content of the first slide<br><span class="hljs-keyword">\end</span>&#123;frame&#125;<br><br><span class="hljs-keyword">\end</span>&#123;document&#125;<br></code></pre></td></tr></table></figure>
-<h1 id="学习资源推荐">5 学习资源推荐</h1>
-<ol type="1">
+<h1>5 学习资源推荐</h1>
+<ol>
 <li><a target="_blank" rel="noopener" href="https://www.overleaf.com/learn">Overleaf文档</a></li>
-<li><a target="_blank" rel="noopener" href="https://en.wikibooks.org/wiki/LaTeX">LaTeX
-Wikibook</a></li>
-<li><a
-target="_blank" rel="noopener" href="http://detexify.kirelabs.org/classify.html">Detexify符号识别工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikibooks.org/wiki/LaTeX">LaTeX Wikibook</a></li>
+<li><a target="_blank" rel="noopener" href="http://detexify.kirelabs.org/classify.html">Detexify符号识别工具</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.ctan.org/">CTAN宏包仓库</a></li>
 </ol>
 

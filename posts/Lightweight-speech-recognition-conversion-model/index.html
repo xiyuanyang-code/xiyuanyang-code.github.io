@@ -554,117 +554,90 @@
   }
 </style>
 <div class="note note-info">
-            <p>This is <strong>My Github Project</strong>: <ahref="https://github.com/xiyuanyang-code/Vosk-based-bilingual-speech-recognition-application">Vosk-based-bilingual-speech-recognition-application</a></p><p>The text below is <code>README.md</code> file.</p>
+            <p>This is <strong>My Github Project</strong>:  <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Vosk-based-bilingual-speech-recognition-application">Vosk-based-bilingual-speech-recognition-application</a></p><p>The text below is <code>README.md</code> file.</p>
           </div>
-<h1
-id="a-vosk-based-chinese-english-bilingual-speech-recognition-python-application">A
-Vosk-based Chinese-English bilingual speech recognition Python
-Application</h1>
-<h2 id="introduction">😊Introduction</h2>
-<p><strong><a
-target="_blank" rel="noopener" href="https://alphacephei.com/vosk/index">Vosk</a></strong> is an open
-source <strong>speech recognition</strong> toolk. It focused on
-providing efficient and accurate speech-to-text functionality. It is
-based on Kaldi (another famous speech recognition toolkit), but compared
-to Kaldi, Vosk is more <strong>lightweight</strong> and easy to use, and
-is suitable for embedding into various applications.</p>
-<p>This application is developed on the basis of vosk, implementing
-<strong>real-time bilingual speech-to-text function</strong>.</p>
+<h1>A Vosk-based Chinese-English bilingual speech recognition Python Application</h1>
+<h2 id="😊Introduction">😊Introduction</h2>
+<p><strong><a target="_blank" rel="noopener" href="https://alphacephei.com/vosk/index">Vosk</a></strong> is an open source <strong>speech recognition</strong> toolk. It focused on providing efficient and accurate speech-to-text functionality. It is based on Kaldi (another famous speech recognition toolkit), but compared to Kaldi, Vosk is more <strong>lightweight</strong> and easy to use, and is suitable for embedding into various applications.</p>
+<p>This application is developed on the basis of vosk, implementing <strong>real-time bilingual speech-to-text function</strong>.</p>
 <blockquote>
-<p>All the installation and usage are demonstrated under <strong>Win 11
-Systems</strong>.</p>
+<p>All the installation and usage are demonstrated under <strong>Win 11 Systems</strong>.</p>
 </blockquote>
-<h2 id="installation">🚀Installation</h2>
-<h3 id="requirements">Requirements</h3>
+<h2 id="🚀Installation">🚀Installation</h2>
+<h3 id="Requirements">Requirements</h3>
 <p>You need to prepare these stuffs in advance:</p>
 <ul>
 <li>🐍Available Python Environments (<strong>Python &gt;= 3.6</strong>)
 <ul>
 <li><strong>WE RECOMMEND Python 3.9</strong> !</li>
-</ul></li>
+</ul>
+</li>
 <li>🪟Windows Operating Systems
 <ul>
-<li><strong>Maybe in MacOS works.</strong> (I don’t have a Macbook.
-🤑)</li>
-</ul></li>
+<li><strong>Maybe in MacOS works.</strong> (I don’t have a Macbook. 🤑)</li>
+</ul>
+</li>
 <li>🎙️Available Micro devices.</li>
 </ul>
-<p>We strongly recommend you to install <strong><a
-target="_blank" rel="noopener" href="https://docs.anaconda.com/getting-started/">Anaconda</a> or <a
-target="_blank" rel="noopener" href="https://docs.anaconda.com/miniconda/">Miniconda</a></strong> to
-create a virtual environment to run the python code.</p>
-<h3 id="clone-the-project">Clone the project</h3>
-<p>Clone the remote repository from Git to obtain the Python source
-code.</p>
+<p>We strongly recommend you to install <strong><a target="_blank" rel="noopener" href="https://docs.anaconda.com/getting-started/">Anaconda</a> or <a target="_blank" rel="noopener" href="https://docs.anaconda.com/miniconda/">Miniconda</a></strong> to create a virtual environment to run the python code.</p>
+<h3 id="Clone-the-project">Clone the project</h3>
+<p>Clone the remote repository from Git to obtain the Python source code.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/xiyuanyang-code/voice_translation.git<br></code></pre></td></tr></table></figure>
 <p>Open the folder as the current directory.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> voice_translation<br></code></pre></td></tr></table></figure>
-<h3 id="create-python-environments">Create Python environments</h3>
-<h4 id="if-you-have-installed-anaconda">🥳If you have installed
-Anaconda…</h4>
+<h3 id="Create-Python-environments">Create Python environments</h3>
+<h4 id="🥳If-you-have-installed-Anaconda…">🥳If you have installed Anaconda…</h4>
 <p>Great! Now run the following commands in the command line:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create -n translate python=3.9<br></code></pre></td></tr></table></figure>
-<p>This would create a new <strong>Conda</strong> environment named
-<strong>“translate”</strong>. You can also customize your own
-environment name!</p>
-<p>After that, switch to activate the new environment to install the
-required packages.</p>
+<p>This would create a new <strong>Conda</strong> environment named <strong>“translate”</strong>. You can also customize your own environment name!</p>
+<p>After that, switch to activate the new environment to install the required packages.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda activate translate<br><span class="hljs-comment"># or change to your own virtual environment name!</span><br></code></pre></td></tr></table></figure>
 <p>Then install the required packages.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install -r requirements.txt<br></code></pre></td></tr></table></figure>
 <p>You can also <strong>install packages manually</strong>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install sounddevice numpy vosk<br></code></pre></td></tr></table></figure>
-<h4 id="if-not">🙂‍↕️If not?</h4>
-<p>Then go to install <a
-target="_blank" rel="noopener" href="https://docs.anaconda.com/getting-started/">Anaconda</a>
-first!😋</p>
-<p>Just a joke. Anaconda is too huge for its size. You can still install
-these packages using:</p>
+<h4 id="🙂‍↕️If-not">🙂‍↕️If not?</h4>
+<p>Then go to install <a target="_blank" rel="noopener" href="https://docs.anaconda.com/getting-started/">Anaconda</a> first!😋</p>
+<p>Just a joke. Anaconda is too huge for its size. You can still install these packages using:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install sounddevice numpy vosk<br></code></pre></td></tr></table></figure>
-<h4 id="required-packages">Required packages</h4>
+<h4 id="Required-packages">Required packages</h4>
 <p>Required packages are as follows:</p>
-<ol type="1">
-<li><p><strong>tkinter</strong>: This is the standard GUI toolkit for
-Python, allowing developers to create graphical user interfaces easily.
-(Standard Library)</p></li>
-<li><p><strong>threading</strong>: A standard library module that
-provides a way to create and manage threads, enabling concurrent
-execution of code. (Standard Library)</p></li>
-<li><p><strong>queue</strong>: This standard library module provides a
-thread-safe FIFO implementation, useful for managing tasks between
-threads. (Standard Library)</p></li>
-<li><p><strong>time</strong>: A standard library module that provides
-various time-related functions, including time manipulation and
-formatting. (Standard Library)</p></li>
-<li><p><strong>json</strong>: This standard library module is used for
-parsing JSON data and converting Python objects to JSON format.
-(Standard Library)</p></li>
-<li><p><strong>sounddevice</strong>: A third-party library that allows
-for audio input and output using NumPy arrays, facilitating sound
-processing tasks. <strong>(Requires manual
-installation)</strong></p></li>
-<li><p><strong>numpy</strong>: A widely-used third-party library for
-numerical computations in Python, providing support for large,
-multi-dimensional arrays and matrices. <strong>(Requires manual
-installation)</strong></p></li>
-<li><p><strong>vosk</strong>: A third-party library for speech
-recognition that provides models for various languages using Kaldi’s
-speech recognition capabilities. <strong>(Requires manual
-installation)</strong></p></li>
-<li><p><strong>os</strong>: A standard library module that provides a
-way to interact with the operating system, including file and directory
-management functions. (Standard Library)</p></li>
-<li><p><strong>platform</strong>: This standard library module allows
-access to underlying platform’s identifying data, such as OS type and
-version. (Standard Library)</p></li>
+<ol>
+<li>
+<p><strong>tkinter</strong>: This is the standard GUI toolkit for Python, allowing developers to create graphical user interfaces easily. (Standard Library)</p>
+</li>
+<li>
+<p><strong>threading</strong>: A standard library module that provides a way to create and manage threads, enabling concurrent execution of code. (Standard Library)</p>
+</li>
+<li>
+<p><strong>queue</strong>: This standard library module provides a thread-safe FIFO implementation, useful for managing tasks between threads. (Standard Library)</p>
+</li>
+<li>
+<p><strong>time</strong>: A standard library module that provides various time-related functions, including time manipulation and formatting. (Standard Library)</p>
+</li>
+<li>
+<p><strong>json</strong>: This standard library module is used for parsing JSON data and converting Python objects to JSON format. (Standard Library)</p>
+</li>
+<li>
+<p><strong>sounddevice</strong>: A third-party library that allows for audio input and output using NumPy arrays, facilitating sound processing tasks. <strong>(Requires manual installation)</strong></p>
+</li>
+<li>
+<p><strong>numpy</strong>: A widely-used third-party library for numerical computations in Python, providing support for large, multi-dimensional arrays and matrices. <strong>(Requires manual installation)</strong></p>
+</li>
+<li>
+<p><strong>vosk</strong>: A third-party library for speech recognition that provides models for various languages using Kaldi’s speech recognition capabilities. <strong>(Requires manual installation)</strong></p>
+</li>
+<li>
+<p><strong>os</strong>: A standard library module that provides a way to interact with the operating system, including file and directory management functions. (Standard Library)</p>
+</li>
+<li>
+<p><strong>platform</strong>: This standard library module allows access to underlying platform’s identifying data, such as OS type and version. (Standard Library)</p>
+</li>
 </ol>
-<h2 id="usage">💓Usage</h2>
-<p><strong>Make sure you have passed through the
-<code>installation</code> section successfully.</strong></p>
-<h3 id="create-a-folder-to-store-results">Create a folder to store
-results</h3>
-<p>Firstly, create a folder named <strong>“results”</strong> in the
-current directory.</p>
+<h2 id="💓Usage">💓Usage</h2>
+<p><strong>Make sure you have passed through the <code>installation</code> section successfully.</strong></p>
+<h3 id="Create-a-folder-to-store-results">Create a folder to store results</h3>
+<p>Firstly, create a folder named <strong>“results”</strong> in the current directory.</p>
 <ul>
 <li>For <strong>Bash</strong></li>
 </ul>
@@ -673,83 +646,58 @@ current directory.</p>
 <li>For <strong>Powershell</strong></li>
 </ul>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">New-Item</span> <span class="hljs-literal">-Path</span> . <span class="hljs-literal">-Name</span> <span class="hljs-string">&quot;results&quot;</span> <span class="hljs-literal">-ItemType</span> Directory<br></code></pre></td></tr></table></figure>
-<h3 id="download-and-unzip-the-vosk-model">Download and Unzip the
-vosk-model</h3>
-<p>For the core part of the translation model, we use
-<strong>Vosk-model</strong>, which is both lightweight and powerful.</p>
+<h3 id="Download-and-Unzip-the-vosk-model">Download and Unzip the vosk-model</h3>
+<p>For the core part of the translation model, we use <strong>Vosk-model</strong>, which is both lightweight and powerful.</p>
 <p>For <strong>Bash</strong> and <strong>Powershell</strong> both:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Install the Chinese packages</span><br>wget https://alphacephei.com/vosk/models/vosk-model-cn-0.22.zip<br><br><span class="hljs-comment"># Install the English packages</span><br>wget https://alphacephei.com/vosk/models/vosk-model-en-us-0.22.zip<br></code></pre></td></tr></table></figure>
 <blockquote>
-<p>Or you can just download the zip file online and drag the zip-file
-into the current folder.</p>
+<p>Or you can just download the zip file online and drag the zip-file into the current folder.</p>
 </blockquote>
 <p>Then extract the downloaded ZIP file:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">unzip vosk-model-cn-0.22.zip<br><br>unzip vosk-model-en-us-0.22.zip<br></code></pre></td></tr></table></figure>
-<p>(Optional) After the unzip process, you can delete the
-<code>zip</code> file, it’s too huge!</p>
-<p>After all these requirements, your current directory should be like
-this:</p>
+<p>(Optional) After the unzip process, you can delete the <code>zip</code> file, it’s too huge!</p>
+<p>After all these requirements, your current directory should be like this:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs bash">.<br>├── LICENSE<br>├── README.md<br>├── main<br>│   └── main.py<br>├── requirements.txt<br>├── results<br>├── vosk-model-cn-0.22<br>│   ├── README<br>│   ├── am<br>│   │   └── final.mdl<br>│   ├── conf<br>│   │   ├── mfcc.conf<br>│   │   └── model.conf<br>│   ├── graph<br>│   │   ├── HCLG.fst<br>│   │   ├── phones<br>│   │   │   └── word_boundary.int<br>│   │   └── words.txt<br>│   ├── ivector<br>│   │   ├── final.dubm<br>│   │   ├── final.ie<br>│   │   ├── final.mat<br>│   │   ├── global_cmvn.stats<br>│   │   ├── online_cmvn.conf<br>│   │   └── splice.conf<br>│   ├── rescore<br>│   │   ├── G.carpa<br>│   │   └── G.fst<br>│   └── rnnlm<br>│       ├── feat_embedding.final.mat<br>│       ├── features.txt<br>│       ├── final.raw<br>│       ├── oov.txt<br>│       ├── special_symbol_opts.conf<br>│       ├── special_symbol_opts.txt<br>│       └── word_feats.txt<br>└── vosk-model-en-us-0.22<br>    ├── README<br>    ├── am<br>    │   ├── final.mdl<br>    │   └── tree<br>    ├── conf<br>    │   ├── ivector.conf<br>    │   ├── mfcc.conf<br>    │   └── model.conf<br>    ├── graph<br>    │   ├── HCLG.fst<br>    │   ├── disambig_tid.int<br>    │   ├── num_pdfs<br>    │   ├── phones<br>    │   │   ├── align_lexicon.int<br>    │   │   ├── align_lexicon.txt<br>    │   │   ├── disambig.int<br>    │   │   ├── disambig.txt<br>    │   │   ├── optional_silence.csl<br>    │   │   ├── optional_silence.int<br>    │   │   ├── optional_silence.txt<br>    │   │   ├── silence.csl<br>    │   │   ├── word_boundary.int<br>    │   │   └── word_boundary.txt<br>    │   ├── phones.txt<br>    │   └── words.txt<br>    ├── ivector<br>    │   ├── final.dubm<br>    │   ├── final.ie<br>    │   ├── final.mat<br>    │   ├── global_cmvn.stats<br>    │   ├── online_cmvn.conf<br>    │   └── splice.conf<br>    ├── rescore<br>    │   ├── G.carpa<br>    │   └── G.fst<br>    └── rnnlm<br>        ├── feat_embedding.final.mat<br>        ├── final.raw<br>        ├── special_symbol_opts.conf<br>        ├── special_symbol_opts.txt<br>        └── word_feats.txt<br></code></pre></td></tr></table></figure>
-<p>Check your current directory or simply using <strong>tree</strong>
-command for WSL.</p>
-<h3 id="run-python-code">Run Python code</h3>
-<p>You should run the python code using the conda environment you have
-created <strong>accordingly</strong>!</p>
-<p>Switch to the <code>main</code> folder and run
-<code>main.py</code>:</p>
+<p>Check your current directory or simply using <strong>tree</strong> command for WSL.</p>
+<h3 id="Run-Python-code">Run Python code</h3>
+<p>You should run the python code using the conda environment you have created <strong>accordingly</strong>!</p>
+<p>Switch to the <code>main</code> folder and run <code>main.py</code>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> main<br>python main.py<br></code></pre></td></tr></table></figure>
 <p>You will probably see the following pop-up window as follows.</p>
-<figure>
-<img src="https://ooo.0x0.ooo/2025/01/29/OGRa7L.png" srcset="/img/loading.gif" lazyload alt="Demo 1" />
-<figcaption aria-hidden="true">Demo 1</figcaption>
-</figure>
-<p>We have three modes to choose from, including “Chinese Mode”,
-“English Mode” and “Bilingual Mode”.</p>
+<p><img src="https://ooo.0x0.ooo/2025/01/29/OGRa7L.png" srcset="/img/loading.gif" lazyload alt="Demo 1"></p>
+<p>We have three modes to choose from, including “Chinese Mode”, “English Mode” and “Bilingual Mode”.</p>
 <p>Choose the mode you like and then the translation will begin!</p>
 <blockquote>
-<p><strong>Warning:</strong> It may take approximately 10~20 seconds for
-the code to load the <strong>Vosk-model</strong>, for the Bilingual one,
-it may even take longer.😭Sorry about that.</p>
+<p><strong>Warning:</strong> It may take approximately 10~20 seconds for the code to load the <strong>Vosk-model</strong>, for the Bilingual one, it may even take longer.😭Sorry about that.</p>
 </blockquote>
-<p>After the long wait, you will see a green-colored information said
-“Model loaded successfully!” That means you can begin your words
-now!</p>
+<p>After the long wait, you will see a green-colored information said “Model loaded successfully!” That means you can begin your words now!</p>
 <ul>
-<li>The results of the conversion will be displayed in real-time in the
-terminal.</li>
-<li>To end the conversion process, you can <strong>right-click your
-mouse</strong>, which will terminate the program.</li>
-<li>For the bilingual model, you can click on
-<code>Select Language</code> in the middle to switch languages. <img
-src="https://ooo.0x0.ooo/2025/01/29/OGRqXX.png" srcset="/img/loading.gif" lazyload alt="demo 2" /></li>
+<li>The results of the conversion will be displayed in real-time in the terminal.</li>
+<li>To end the conversion process, you can <strong>right-click your mouse</strong>, which will terminate the program.</li>
+<li>For the bilingual model, you can click on <code>Select Language</code> in the middle to switch languages.<br>
+<img src="https://ooo.0x0.ooo/2025/01/29/OGRqXX.png" srcset="/img/loading.gif" lazyload alt="demo 2"></li>
 </ul>
-<h3 id="obtain-transcriptions">Obtain transcriptions</h3>
-<p>You can get the transcriptions in the <code>results</code> folder,
-including the <code>.txt</code> file and <code>.md</code> file.</p>
-<h2 id="discussion">🤖Discussion</h2>
-<h3 id="advantages">Advantages</h3>
+<h3 id="Obtain-transcriptions">Obtain transcriptions</h3>
+<p>You can get the transcriptions in the <code>results</code> folder, including the <code>.txt</code> file and <code>.md</code> file.</p>
+<h2 id="🤖Discussion">🤖Discussion</h2>
+<h3 id="Advantages">Advantages</h3>
 <ul>
-<li>If you want to get the voice transcriptions for free instead of
-paying for professional apps. This one is suitable for you!</li>
-<li>You can modify the source code to customize your own GUI interface
-or implement some advanced functions on your own!
+<li>If you want to get the voice transcriptions for free instead of paying for professional apps. This one is suitable for you!</li>
+<li>You can modify the source code to customize your own GUI interface or implement some advanced functions on your own!
 <ul>
 <li>I think it’s a great chance to learn Python, isn’t it?</li>
-</ul></li>
 </ul>
-<h3 id="disadvantages-future-outlook"><del>Disadvantages</del> FUTURE
-OUTLOOK</h3>
+</li>
+</ul>
+<h3 id="Disadvantages-FUTURE-OUTLOOK"><s>Disadvantages</s> FUTURE OUTLOOK</h3>
 <ul>
 <li>WE WILL create a more lightweight version.</li>
-<li>WE WILL implement the speech-to-text conversion for mixed input of
-Chinese and English.</li>
+<li>WE WILL implement the speech-to-text conversion for mixed input of Chinese and English.</li>
 <li>WE WILL build a more aesthetically pleasing GUI.</li>
-<li>WE WILL optimize the transcriptions, including automatically add
-punctuation, segment text, and organize it into a coherent article.</li>
+<li>WE WILL optimize the transcriptions, including automatically add punctuation, segment text, and organize it into a coherent article.</li>
 </ul>
-<h2 id="advertisement">👍Advertisement</h2>
-<p>My personal Blog: <a href="https://xiyuanyang-code.github.io/">Xiyuan
-Yang’s Blog</a></p>
+<h2 id="👍Advertisement">👍Advertisement</h2>
+<p>My personal Blog: <a href="https://xiyuanyang-code.github.io/">Xiyuan Yang’s Blog</a></p>
 
                 
               </div>

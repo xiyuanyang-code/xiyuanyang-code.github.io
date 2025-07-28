@@ -554,68 +554,50 @@
   }
 </style>
 <div class="note note-primary">
-            <p>Github Repo: <ahref="https://github.com/xiyuanyang-code/Integral-CheatSheet">repo</a></p>
+            <p>Github Repo: <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Integral-CheatSheet">repo</a></p>
           </div>
-<h1 id="integral-cheatsheet">Integral CheatSheet</h1>
-<p>This project provides a web-based cheat sheet for common integral
-formulas. All formulas are maintained in LaTeX, automatically converted
-to JSON, and rendered beautifully on a web page using MathJax.</p>
-<h2 id="project-structure">Project Structure</h2>
+<h1>Integral CheatSheet</h1>
+<p>This project provides a web-based cheat sheet for common integral formulas. All formulas are maintained in LaTeX, automatically converted to JSON, and rendered beautifully on a web page using MathJax.</p>
+<h2 id="Project-Structure">Project Structure</h2>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">.<br>├── README.md				 # Project documentation<br>├── index.html				# Main web page displaying the formulas<br>├── main.tex				# LaTeX source file with all integral formulas<br>└── src<br>    ├── get_json.py			# Python script to extract formulas into JSON<br>    ├── integrals.json		 # Generated JSON file with formulas and notes<br>    └── main.pdf<br></code></pre></td></tr></table></figure>
-<h2 id="usage">Usage</h2>
-<h3 id="quickly-setup">Quickly Setup</h3>
+<h2 id="Usage">Usage</h2>
+<h3 id="Quickly-Setup">Quickly Setup</h3>
 <ul>
-<li>Using the webpage: <a
-href="https://xiyuanyang-code.github.io/Integral-CheatSheet/">Integral
-Cheatsheet</a></li>
-<li><code>git clone</code> all the source code to get the
-<code>main.tex</code> or the <code>src/main.pdf</code></li>
-<li>Download <a
-target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Integral-CheatSheet/releases/download/v1.1.0/main.pdf">main.pdf</a>
-directly.</li>
+<li>Using the webpage: <a href="https://xiyuanyang-code.github.io/Integral-CheatSheet/">Integral Cheatsheet</a></li>
+<li><code>git clone</code> all the source code to get the <code>main.tex</code> or the <code>src/main.pdf</code></li>
+<li>Download <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Integral-CheatSheet/releases/download/v1.1.0/main.pdf">main.pdf</a> directly.</li>
 </ul>
-<h3 id="using-overleaf">Using Overleaf</h3>
-<p>Download <a
-target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Integral-CheatSheet/releases/download/v1.1.0/files.zip">files.zip</a>
-from the release page and drag the zip file to overleaf.</p>
-<h3 id="want-to-build-your-own">Want to build your own?</h3>
+<h3 id="Using-Overleaf">Using Overleaf</h3>
+<p>Download <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Integral-CheatSheet/releases/download/v1.1.0/files.zip">files.zip</a> from the release page and drag the zip file to overleaf.</p>
+<h3 id="Want-to-build-your-own">Want to build your own?</h3>
 <p>Fork this repo and make some modifications on your own!</p>
-<ol type="1">
+<ol>
 <li>Edit Integral Formulas</li>
 </ol>
-<p>Edit or add formulas in <code>src/main.tex</code> using LaTeX,
-preferably within <code>enumerate</code> environments.</p>
-<ol start="2" type="1">
+<p>Edit or add formulas in <code>src/main.tex</code> using LaTeX, preferably within <code>enumerate</code> environments.</p>
+<ol start="2">
 <li>Generate JSON Data</li>
 </ol>
-<p>Run the Python script to extract formulas from the LaTeX file and
-generate the JSON file:</p>
+<p>Run the Python script to extract formulas from the LaTeX file and generate the JSON file:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> src<br>python get_json.py<br></code></pre></td></tr></table></figure>
-<p>This will read <code>main.tex</code> and output
-<code>integrals.json</code>.</p>
-<ol start="3" type="1">
+<p>This will read <code>main.tex</code> and output <code>integrals.json</code>.</p>
+<ol start="3">
 <li>View in Browser</li>
 </ol>
-<p>Open <code>index.html</code> in your browser to view all integral
-formulas with LaTeX rendering and notes.</p>
+<p>Open <code>index.html</code> in your browser to view all integral formulas with LaTeX rendering and notes.</p>
 <blockquote>
-<p><strong>Note:</strong><br />
-Make sure the path to <code>integrals.json</code> in
-<code>index.html</code> matches its actual location (default:
-<code>src/integrals.json</code>).</p>
+<p><strong>Note:</strong><br>
+Make sure the path to <code>integrals.json</code> in <code>index.html</code> matches its actual location (default: <code>src/integrals.json</code>).</p>
 </blockquote>
-<h2 id="technology-stack">Technology Stack</h2>
+<h2 id="Technology-Stack">Technology Stack</h2>
 <ul>
 <li><strong>LaTeX:</strong> For editing and maintaining formulas</li>
-<li><strong>Python:</strong> For extracting and converting formulas to
-JSON</li>
+<li><strong>Python:</strong> For extracting and converting formulas to JSON</li>
 <li><strong>HTML + JavaScript:</strong> For web display</li>
-<li><strong><a target="_blank" rel="noopener" href="https://www.mathjax.org/">MathJax</a>:</strong> For
-rendering LaTeX formulas</li>
+<li><strong><a target="_blank" rel="noopener" href="https://www.mathjax.org/">MathJax</a>:</strong> For rendering LaTeX formulas</li>
 </ul>
-<h2 id="contribution">Contribution</h2>
-<p>Contributions are welcome! Feel free to add or correct formulas,
-improve scripts, or submit issues and pull requests.</p>
+<h2 id="Contribution">Contribution</h2>
+<p>Contributions are welcome! Feel free to add or correct formulas, improve scripts, or submit issues and pull requests.</p>
 <p>In one word, <strong>PR Welcome!😍</strong></p>
 
                 

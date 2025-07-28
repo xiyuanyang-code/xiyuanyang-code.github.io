@@ -54,6 +54,8 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -365,7 +367,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k words
+          1.3k words
         
       </span>
     
@@ -913,164 +915,97 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h1 id="several-algorithms-for-strong-connected-components">Several
-Algorithms for Strong Connected Components</h1>
-<h2 id="introduction">Introduction</h2>
-<p>问题很简单，给定图<span
-class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>，请设计高效的算法找出联通分量。</p>
+<h1>Several Algorithms for Strong Connected Components</h1>
+<h2 id="Introduction">Introduction</h2>
+<p>问题很简单，给定图<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mo stretchy="false">(</mo><mi>V</mi><mo separator="true">,</mo><mi>E</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">G = (V, E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span>，请设计高效的算法找出联通分量。</p>
 <ul>
 <li>对于无向图，扫一次DFS，生成的DFS树的集合就是联通分量。</li>
-<li><strong>对于有向图</strong>，即<strong>强联通分量</strong> (Strong
-Connected Components,
-SCC)的寻找非常的困难，需要高级且独特的算法设计。</li>
+<li><strong>对于有向图</strong>，即<strong>强联通分量</strong> (Strong Connected Components, SCC)的寻找非常的困难，需要高级且独特的算法设计。</li>
 </ul>
 <p>下面介绍经典的两种寻找SCC的算法：<strong>Tarjan算法</strong>和<strong>Kosaraju</strong>算法。</p>
-<h2 id="kosaraju">Kosaraju</h2>
+<h2 id="Kosaraju">Kosaraju</h2>
 <ul>
-<li>从任意结点开始对有向图<span
-class="math inline"><em>G</em></span>进行深度优先搜索，得到一个深度优先森林。</li>
-<li>将节点遍历：<strong>按照生成树的次序 +
-对每一棵树上的节点进行后序遍历</strong></li>
-<li>将图<span class="math inline"><em>G</em></span>逆向得到<span
-class="math inline"><em>G</em><sub><em>r</em></sub></span>。</li>
-<li>从编号最大的节点开始深度优先搜索<span
-class="math inline"><em>G</em><sub><em>r</em></sub></span>,得到的森林就是<strong>原图的强联通分量</strong>。</li>
+<li>从任意结点开始对有向图<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span></span></span></span>进行深度优先搜索，得到一个深度优先森林。</li>
+<li>将节点遍历：<strong>按照生成树的次序 + 对每一棵树上的节点进行后序遍历</strong></li>
+<li>将图<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span></span></span></span>逆向得到<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">G_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。</li>
+<li>从编号最大的节点开始深度优先搜索<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">G_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,得到的森林就是<strong>原图的强联通分量</strong>。</li>
 </ul>
-<h3 id="thm">Thm</h3>
+<h3 id="Thm">Thm</h3>
 <ul>
-<li><span class="math inline"><em>x</em></span> is the root for the tree
-which contains <span class="math inline"><em>v</em></span> in <span
-class="math inline"><em>G</em><sub><em>r</em></sub></span>, then <span
-class="math inline">∃<em>x</em> → <em>v</em> ∈ <em>G</em><sub><em>r</em></sub>
-and <em>v</em> → <em>x</em> ∈ <em>G</em></span>.</li>
-<li><span class="math inline"><em>x</em></span> is the root for the tree
-which contains <span class="math inline"><em>w</em></span> in <span
-class="math inline"><em>G</em><sub><em>r</em></sub></span>, then <span
-class="math inline">∃<em>x</em> → <em>w</em> ∈ <em>G</em><sub><em>r</em></sub>
-and <em>w</em> → <em>x</em> ∈ <em>G</em></span>.</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> is the root for the tree which contains <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span> in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">G_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, then <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∃</mi><mi>x</mi><mo>→</mo><mi>v</mi><mo>∈</mo><msub><mi>G</mi><mi>r</mi></msub><mtext> and </mtext><mi>v</mi><mo>→</mo><mi>x</mi><mo>∈</mo><mi>G</mi></mrow><annotation encoding="application/x-tex">\exists x \to v \in G_r \text{ and } v \to x \in G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">∃</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord text"><span class="mord"> and </span></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span></span></span></span>.</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> is the root for the tree which contains <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span> in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">G_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, then <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∃</mi><mi>x</mi><mo>→</mo><mi>w</mi><mo>∈</mo><msub><mi>G</mi><mi>r</mi></msub><mtext> and </mtext><mi>w</mi><mo>→</mo><mi>x</mi><mo>∈</mo><mi>G</mi></mrow><annotation encoding="application/x-tex">\exists x \to w \in G_r \text{ and } w \to x \in G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">∃</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord text"><span class="mord"> and </span></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span></span></span></span>.</li>
 </ul>
 <p>Then it suffices to prove:</p>
 <ul>
-<li>If <span class="math inline"><em>v</em></span> and <span
-class="math inline"><em>w</em></span> are in the same BFS tree for <span
-class="math inline"><em>G</em><sub><em>r</em></sub></span>, then <span
-class="math inline">∃<em>v</em> → <em>w</em> and
-<em>w</em> → <em>v</em> ∈ <em>G</em></span>.</li>
+<li>If <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span> are in the same BFS tree for <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">G_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, then <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∃</mi><mi>v</mi><mo>→</mo><mi>w</mi><mtext> and </mtext><mi>w</mi><mo>→</mo><mi>v</mi><mo>∈</mo><mi>G</mi></mrow><annotation encoding="application/x-tex">\exists v \to w \text{ and } w \to v \in G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">∃</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord text"><span class="mord"> and </span></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span></span></span></span>.</li>
 </ul>
 <p>Hence, we only need to prove:</p>
-<p><span class="math inline"><em>x</em></span> is the root for the tree
-which contains <span class="math inline"><em>v</em></span> in <span
-class="math inline"><em>G</em><sub><em>r</em></sub></span>, then <span
-class="math inline">∃<em>x</em> → <em>v</em> ∈ <em>G</em><sub><em>r</em></sub>
-and <em>v</em> → <em>x</em> ∈ <em>G</em></span>.</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> is the root for the tree which contains <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span> in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">G_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, then <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∃</mi><mi>x</mi><mo>→</mo><mi>v</mi><mo>∈</mo><msub><mi>G</mi><mi>r</mi></msub><mtext> and </mtext><mi>v</mi><mo>→</mo><mi>x</mi><mo>∈</mo><mi>G</mi></mrow><annotation encoding="application/x-tex">\exists x \to v \in G_r \text{ and } v \to x \in G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">∃</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord text"><span class="mord"> and </span></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span></span></span></span>.</p>
 <ul>
-<li>For <span class="math inline"><em>x</em></span> is the root node,
-there exists a path from <span class="math inline"><em>x</em></span> to
-<span class="math inline"><em>v</em></span> in <span
-class="math inline"><em>G</em><sub><em>r</em></sub></span>.</li>
-<li>For <span class="math inline"><em>x</em></span> is the root node,
-the index for <span class="math inline"><em>x</em></span> is greater
-than <span class="math inline"><em>v</em></span>. Hence, all work of
-<span class="math inline"><em>v</em></span> will be finished before
-<span class="math inline"><em>x</em></span>.</li>
-<li>Hence, there exists a path from <span
-class="math inline"><em>v</em></span> to <span
-class="math inline"><em>x</em></span>. (<span
-class="math inline"><em>v</em></span> finishes before <span
-class="math inline"><em>x</em></span>)</li>
+<li>For <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> is the root node, there exists a path from <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span> in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">G_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.</li>
+<li>For <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> is the root node, the index for <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> is greater than <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span>. Hence, all work of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span> will be finished before <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>.</li>
+<li>Hence, there exists a path from <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span> to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>. (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span> finishes before <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>)</li>
 </ul>
-<h2 id="tarjan">Tarjan</h2>
-<h3 id="dfs-tree">DFS Tree</h3>
+<h2 id="Tarjan">Tarjan</h2>
+<h3 id="DFS-Tree">DFS Tree</h3>
 <p>在DFS过程中，按照生成的顺序会生成一颗结构良好的DFS树。DFS得到的序列（DFS序并不能保证相邻节点一定有边相连），但是DFS树的节点一定都是<strong>图中的节点</strong>，换句话说，<strong>DFS树</strong>在本质上就是一个在<strong>中序遍历上完全等价的树</strong>。</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/05/19/1ab0422dbc62a6665562a6ef7a06c4a4.png" srcset="/img/loading.gif" lazyload
-alt="DFS Tree" />
-<figcaption aria-hidden="true">DFS Tree</figcaption>
-</figure>
+<p><img src="https://s1.imagehub.cc/images/2025/05/19/1ab0422dbc62a6665562a6ef7a06c4a4.png" srcset="/img/loading.gif" lazyload alt="DFS Tree"></p>
 <p>但是很显然，一颗DFS树上的顶点不代表联通。我们需要考虑<strong>不在DFS树上的边</strong>，例如这里的：</p>
 <ul>
 <li>反向边</li>
 <li>前向边</li>
 <li>交叉边</li>
 </ul>
-<h3 id="lemma">Lemma</h3>
-<p>考虑<span
-class="math inline"><em>u</em></span>节点的强联通分量，我们可以证明：如果<span
-class="math inline"><em>u</em></span>是强联通分量等价类中dfs序最小的节点，那么在DFS树中<span
-class="math inline"><em>u</em></span>的其他强联通节点一定都在以<span
-class="math inline"><em>u</em></span>为根节点的子树上。</p>
-<h3 id="algorithm">Algorithm</h3>
+<h3 id="Lemma">Lemma</h3>
+<p>考虑<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">u</span></span></span></span>节点的强联通分量，我们可以证明：如果<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">u</span></span></span></span>是强联通分量等价类中dfs序最小的节点，那么在DFS树中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">u</span></span></span></span>的其他强联通节点一定都在以<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">u</span></span></span></span>为根节点的子树上。</p>
+<h3 id="Algorithm">Algorithm</h3>
 <p>Tarjan算法通过一次DFS遍历，利用<strong>栈</strong>和<strong>时间戳</strong>来识别SCC。其核心思想是：</p>
 <ul>
 <li><strong>每个SCC在DFS树中会形成一棵子树</strong>。</li>
-<li>通过维护<strong>访问顺序（<code>dfn</code>）</strong>和<strong>能回溯到的最早节点（<code>low</code>）</strong>，可以判断哪些节点属于同一个SCC。</li>
-<li><span
-class="math inline"><em>d</em><em>f</em><em>n</em>[<em>u</em>]</span>代表了节点<span
-class="math inline"><em>u</em></span>的DFS序，<span
-class="math inline"><em>l</em><em>o</em><em>w</em>[<em>u</em>]</span>代表了在<span
-class="math inline"><em>u</em></span>的子树中能够回溯到的最早的已经在栈中的结点。
+<li>通过维护<strong>访问顺序（<code>dfn</code>）<strong>和</strong>能回溯到的最早节点（<code>low</code>）</strong>，可以判断哪些节点属于同一个SCC。</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>f</mi><mi>n</mi><mo stretchy="false">[</mo><mi>u</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">dfn[u]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">df</span><span class="mord mathnormal">n</span><span class="mopen">[</span><span class="mord mathnormal">u</span><span class="mclose">]</span></span></span></span>代表了节点<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">u</span></span></span></span>的DFS序，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>w</mi><mo stretchy="false">[</mo><mi>u</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">low[u]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mopen">[</span><span class="mord mathnormal">u</span><span class="mclose">]</span></span></span></span>代表了在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">u</span></span></span></span>的子树中能够回溯到的最早的已经在栈中的结点。
 <ul>
 <li><strong>我们要求从<code>v</code>到<code>low(v)</code>的过程中最多只能有一条非树边</strong>。</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>我们在全程将会维护一个栈，每次把搜索树中未处理的节点加入栈中。</p>
 <div class="note note-primary">
-            <p>栈（<code>stack</code>）用于<strong>动态存储当前DFS路径上的节点</strong>，并帮助判断哪些节点属于同一个强连通分量（SCC）。它的核心作用是：</p><ol type="1"><li><strong>记录当前DFS遍历的路径</strong>（可能构成SCC的候选节点）。</li><li><strong>在发现SCC的根节点时，弹出该SCC的所有节点</strong>。</li></ol><p><strong>当节点 <code>u</code> 第一次被DFS访问时</strong>（即<code>dfn[u]</code> 被赋值后），立即入栈</p><p>如何判断弹栈的时机？</p><p><strong>当发现 <code>dfn[u] == low[u]</code> 时</strong>，说明<code>u</code> 是一个SCC的<strong>根节点</strong>，此时：</p><ol type="1"><li>从栈顶开始弹出节点，直到 <code>u</code> 被弹出。</li><li>弹出的所有节点构成一个SCC。</li></ol><p>因为<code>low</code>在本质上就是在维护栈的顺序性，或者说DFS树的顺序性。当上述条件成立，即代表节点<spanclass="math inline"><em>u</em></span>就是其强联通分量在DFS树中的跟节点。而后入栈的都是节点<spanclass="math inline"><em>u</em></span>的子树部分，和其属于相同的SCC。</p>
+            <p>栈（<code>stack</code>）用于<strong>动态存储当前DFS路径上的节点</strong>，并帮助判断哪些节点属于同一个强连通分量（SCC）。它的核心作用是：</p><ol><li><strong>记录当前DFS遍历的路径</strong>（可能构成SCC的候选节点）。</li><li><strong>在发现SCC的根节点时，弹出该SCC的所有节点</strong>。</li></ol><p><strong>当节点 <code>u</code> 第一次被DFS访问时</strong>（即 <code>dfn[u]</code> 被赋值后），立即入栈</p><p>如何判断弹栈的时机？</p><p><strong>当发现 <code>dfn[u] == low[u]</code> 时</strong>，说明 <code>u</code> 是一个SCC的<strong>根节点</strong>，此时：</p><ol><li>从栈顶开始弹出节点，直到 <code>u</code> 被弹出。</li><li>弹出的所有节点构成一个SCC。</li></ol><p>因为<code>low</code>在本质上就是在维护栈的顺序性，或者说DFS树的顺序性。当上述条件成立，即代表节点<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">u</span></span></span></span>就是其强联通分量在DFS树中的跟节点。而后入栈的都是节点<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">u</span></span></span></span>的子树部分，和其属于相同的SCC。</p>
           </div>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/05/19/92cfd00c9534efaa7041d75ec06bdb49.png" srcset="/img/loading.gif" lazyload
-alt="Tarjan Algorithm" />
-<figcaption aria-hidden="true">Tarjan Algorithm</figcaption>
-</figure>
+<p><img src="https://s1.imagehub.cc/images/2025/05/19/92cfd00c9534efaa7041d75ec06bdb49.png" srcset="/img/loading.gif" lazyload alt="Tarjan Algorithm"></p>
 <ul>
-<li>如果需要递归访问<span
-class="math inline"><em>v</em></span>,在访问结束之后需要更新<span
-class="math inline"><em>l</em><em>o</em><em>w</em></span>的值，因为有可能节点<span
-class="math inline"><em>v</em></span>通过非树边走向了更前面的节点。</li>
-<li>如果<span
-class="math inline"><em>v</em></span>已经被访问过了（说明<span
-class="math inline">(<em>u</em>, <em>v</em>)</span>是非树边）
+<li>如果需要递归访问<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span>,在访问结束之后需要更新<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>w</mi></mrow><annotation encoding="application/x-tex">low</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span>的值，因为有可能节点<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span>通过非树边走向了更前面的节点。</li>
+<li>如果<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span>已经被访问过了（说明<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(u,v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span>是非树边）
 <ul>
-<li>如果<span class="math inline"><em>v</em></span>是<span
-class="math inline"><em>u</em></span>的祖先：
+<li>如果<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span>是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">u</span></span></span></span>的祖先：
 <ul>
-<li>此时 <code>dfn[v] &lt; dfn[u]</code>，更新
-<code>low[u] = min(low[u], dfn[v])</code>，表示 <code>u</code>
-可以回溯到更早的节点 <code>v</code>。</li>
-</ul></li>
-<li>如果<span
-class="math inline">(<em>u</em>, <em>v</em>)</span>是一条横线边：
+<li>此时 <code>dfn[v] &lt; dfn[u]</code>，更新 <code>low[u] = min(low[u], dfn[v])</code>，表示 <code>u</code> 可以回溯到更早的节点 <code>v</code>。</li>
+</ul>
+</li>
+<li>如果<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(u,v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span>是一条横线边：
 <ul>
-<li><strong><code>dfn[v]</code> 是严格的时间戳</strong>，表示
-<code>v</code> 的访问顺序。</li>
-<li>如果使用 <code>low[v]</code>，可能会错误地跨SCC传递 <code>low</code>
-值（因为 <code>v</code> 可能属于其他已处理的SCC）。</li>
+<li><strong><code>dfn[v]</code> 是严格的时间戳</strong>，表示 <code>v</code> 的访问顺序。</li>
+<li>如果使用 <code>low[v]</code>，可能会错误地跨SCC传递 <code>low</code> 值（因为 <code>v</code> 可能属于其他已处理的SCC）。</li>
 <li><strong>核心原则</strong>：
 <ul>
 <li>只有<strong>栈内节点</strong>（<code>in_stack[v] == True</code>）才能参与当前SCC的构成。</li>
-<li>用 <code>dfn[v]</code>
-保证只利用当前DFS路径上的信息，避免污染其他SCC。</li>
-</ul></li>
-</ul></li>
-</ul></li>
+<li>用 <code>dfn[v]</code> 保证只利用当前DFS路径上的信息，避免污染其他SCC。</li>
 </ul>
-<p>时间复杂度：<span
-class="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span></p>
-<h3 id="applications">Applications</h3>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi mathvariant="normal">∣</mi><mi>V</mi><mi mathvariant="normal">∣</mi><mo>+</mo><mi mathvariant="normal">∣</mi><mi>E</mi><mi mathvariant="normal">∣</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(|V| + |E|)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord">∣</span><span class="mclose">)</span></span></span></span></p>
+<h3 id="Applications">Applications</h3>
 <p>通过SCC缩点（这些点在联通性上是完全等价的），我们可以将<strong>有向图</strong>转化为<strong>DAG</strong>！</p>
 <p>例如下面的图：</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/05/19/f1dd428d2a804aa9eeadbafd45451825.png" srcset="/img/loading.gif" lazyload
-alt="image" />
-<figcaption aria-hidden="true">image</figcaption>
-</figure>
-<p>要在缩点后证明点<span
-class="math inline"><em>v</em></span>是唯一出度为0的点。</p>
+<p><img src="https://s1.imagehub.cc/images/2025/05/19/f1dd428d2a804aa9eeadbafd45451825.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>要在缩点后证明点<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span>是唯一出度为0的点。</p>
 <div class="note note-primary">
-            <p>DAG 就是一个偏序关系！（自反 反对称 传递）</p><p>若从 u 能到 v 则 u ⩾ v</p><p><strong>偏序关系中，若存在最小元，则最小元唯一，且不大于等于任何其他元素</strong>。</p><p>DAG中，若存在一个所有点都可达的点，则这个点唯一，且不能到达除自身外任何点</p>
+            <p>DAG 就是一个偏序关系！（自反 反对称 传递）</p><p>若从 u 能到 v 则 u ⩾ v</p><p><strong>偏序关系中，若存在最小元，则最小元唯一，且不大于等于任何其他元素</strong>。</p><p>DAG 中，若存在一个所有点都可达的点，则这个点唯一，且不能到达除自身外任何点</p>
           </div>
 
                 
@@ -1306,7 +1241,6 @@ class="math inline"><em>v</em></span>是唯一出度为0的点。</p>
 
 
 
-
     
 
     
@@ -1492,49 +1426,6 @@ class="math inline"><em>v</em></span>是唯一出度为0的点。</p>
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/js/leancloud.js" ></script>
 

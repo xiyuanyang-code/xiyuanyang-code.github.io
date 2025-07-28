@@ -54,6 +54,8 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -365,7 +367,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k words
+          1.3k words
         
       </span>
     
@@ -913,33 +915,21 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h2 id="introduction">Introduction</h2>
+<h2 id="Introduction">Introduction</h2>
 <p>在本文，我们将会介绍<strong>两种</strong>DFS算法的基本应用：<strong>AOV</strong>网络和<strong>AOE</strong>网络</p>
-<h1 id="aov">AOV</h1>
+<h1>AOV</h1>
 <p>我们假设一个工作流如下：</p>
-<p>我们定义一个原子化任务为<span class="math inline">$T_k =  \\{ A_k,
-S_k \\}$</span>，其中<span class="math inline">$S_k \subseteq \bigcup
-\\{T_i \\}$</span>代表<strong>前置任务的集合</strong>。</p>
-<p>在访问<span
-class="math inline"><em>T</em><sub><em>k</em></sub></span>之前，需要满足以下的前提条件：</p>
-<p><span
-class="math display">∀<em>x</em> ∈ <em>S</em><sub><em>k</em></sub>(<em>x</em>
-is visited.)</span></p>
+<p>我们定义一个原子化任务为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>k</mi></msub><mo>=</mo><mspace linebreak="newline"></mspace><mrow><msub><mi>A</mi><mi>k</mi></msub><mo separator="true">,</mo><msub><mi>S</mi><mi>k</mi></msub><mspace linebreak="newline"></mspace></mrow></mrow><annotation encoding="application/x-tex">T_k =  \\{ A_k, S_k \\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace newline"></span></span></span></span></span>，其中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>k</mi></msub><mo>⊆</mo><mo>⋃</mo><mspace linebreak="newline"></mspace><mrow><msub><mi>T</mi><mi>i</mi></msub><mspace linebreak="newline"></mspace></mrow></mrow><annotation encoding="application/x-tex">S_k \subseteq \bigcup \\{T_i \\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">⊆</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop op-symbol small-op" style="position:relative;top:0em;">⋃</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace newline"></span></span></span></span></span>代表<strong>前置任务的集合</strong>。</p>
+<p>在访问<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">T_k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>之前，需要满足以下的前提条件：</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">∀</mi><mi>x</mi><mo>∈</mo><msub><mi>S</mi><mi>k</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mtext> is visited.</mtext><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\forall x \in S_k(x \text{ is visited.})
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7335em;vertical-align:-0.0391em;"></span><span class="mord">∀</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mord text"><span class="mord"> is visited.</span></span><span class="mclose">)</span></span></span></span></span></p>
 <div class="note note-primary">
             <p>AOV网是对现实工作的真实建模，不同的工作之间往往存在<strong>先后之分</strong>。例如，你需要在学习数据结构之前学习程序设计。</p>
           </div>
 <p>如何根据工作流建立<strong>数据结构</strong>？很显然，我们可以使用<strong>拓扑排序</strong>和<strong>深度优先搜索</strong>来实现！首先，我们需要保证图是<strong>有向无环图</strong>，因为我们需要建模的是不同节点之间的依赖关系。</p>
 <p>建模之后示例如下：</p>
-<figure>
-<img
-src="https://blog.kakaocdn.net/dn/bp3O22/btrSmrK5Ze9/zcYCnmUzYaLHao72TMCKQ1/img.png" srcset="/img/loading.gif" lazyload
-alt="AOV Network" />
-<figcaption aria-hidden="true">AOV Network</figcaption>
-</figure>
-<p>可以看到有向边代表的信息是<strong>不同节点之间的继承关系</strong>，而每个节点表示具体的原子任务，上文建模中的<span
-class="math inline"><em>S</em><sub><em>k</em></sub></span>就是对应节点的所有first
-endpoint组成的集合，也就是<strong>入度</strong>。因此，我们把这种网络叫做
-Activity on Vertex Network (AOV Network).</p>
+<p><img src="https://blog.kakaocdn.net/dn/bp3O22/btrSmrK5Ze9/zcYCnmUzYaLHao72TMCKQ1/img.png" srcset="/img/loading.gif" lazyload alt="AOV Network"></p>
+<p>可以看到有向边代表的信息是<strong>不同节点之间的继承关系</strong>，而每个节点表示具体的原子任务，上文建模中的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">S_k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>就是对应节点的所有first endpoint组成的集合，也就是<strong>入度</strong>。因此，我们把这种网络叫做 Activity on Vertex Network (AOV Network).</p>
 <h2 id="拓扑排序">拓扑排序</h2>
 <p>如何实现拓扑排序？</p>
 <ul>
@@ -950,49 +940,44 @@ Activity on Vertex Network (AOV Network).</p>
 <li><strong>在逻辑上删除它和从它出发的所有边</strong>。</li>
 <li>对它的后继检查入度是否为0。</li>
 <li>如果其后继存在入度为0的点，继续push进入队列。</li>
-</ul></li>
+</ul>
+</li>
 <li>如果<strong>队列为空</strong>但是并没有遍历完全，说明<strong>节点存在环</strong>，不符合有向无环图的定义。</li>
 </ul>
-<p>时间复杂度：<span
-class="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span></p>
+<p>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi mathvariant="normal">∣</mi><mi>V</mi><mi mathvariant="normal">∣</mi><mo>+</mo><mi mathvariant="normal">∣</mi><mi>E</mi><mi mathvariant="normal">∣</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(|V| + |E|)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord">∣</span><span class="mclose">)</span></span></span></span></p>
 <div class="note note-primary">
-            <p>一般来说，线性的图论算法如果使用<strong>邻接表</strong>存储可以达到<spanclass="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span>的时间复杂度，如果使用<strong>邻接矩阵</strong>存储可以达到<spanclass="math inline"><em>O</em>(|<em>V</em>|<sup>2</sup>)</span>的时间复杂度。</p><ul><li>如果为<strong>稀疏图</strong>，<spanclass="math inline">|<em>V</em>|</span>很大但是<spanclass="math inline">|<em>E</em>|</span>很小，此时<strong>邻接矩阵</strong>会存在严重的空间浪费问题，因此使用邻接表储存更方便。</li><li>如果为稠密图，<spanclass="math inline">|<em>V</em>|</span>很小但是<spanclass="math inline">|<em>E</em>|</span>很大，那此时邻接表的存储是非常高效且简单的，反而<strong>邻接表</strong>的使用更加的复杂。</li></ul>
+            <p>一般来说，线性的图论算法如果使用<strong>邻接表</strong>存储可以达到<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi mathvariant="normal">∣</mi><mi>V</mi><mi mathvariant="normal">∣</mi><mo>+</mo><mi mathvariant="normal">∣</mi><mi>E</mi><mi mathvariant="normal">∣</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(|V| + |E|)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord">∣</span><span class="mclose">)</span></span></span></span>的时间复杂度，如果使用<strong>邻接矩阵</strong>存储可以达到<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi mathvariant="normal">∣</mi><mi>V</mi><msup><mi mathvariant="normal">∣</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(|V|^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>的时间复杂度。</p><ul><li>如果为<strong>稀疏图</strong>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi>V</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">|V|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord">∣</span></span></span></span>很大但是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi>E</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">|E|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord">∣</span></span></span></span>很小，此时<strong>邻接矩阵</strong>会存在严重的空间浪费问题，因此使用邻接表储存更方便。</li><li>如果为稠密图，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi>V</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">|V|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord">∣</span></span></span></span>很小但是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi>E</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">|E|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord">∣</span></span></span></span>很大，那此时邻接表的存储是非常高效且简单的，反而<strong>邻接表</strong>的使用更加的复杂。</li></ul>
           </div>
-<h1 id="aoe">AOE</h1>
-<p>In contrast, we have Activity on Edge Network (AOE Network) as
-follows:</p>
+<h1>AOE</h1>
+<p>In contrast, we have Activity on Edge Network (AOE Network) as follows:</p>
 <p>顾名思义，我们此时需要把<strong>活动定义在有向边上</strong>，而不是在节点上。</p>
-<p>我们假设在一个工作流存在若干个时刻，<span
-class="math inline"><em>t</em><sub>0</sub>, <em>t</em><sub>1</sub>, <em>t</em><sub>2</sub>, <em>t</em><sub>3</sub>, ⋯, <em>t</em><sub><em>n</em></sub></span>.这里只考虑离散化的时刻。我们把第一个时间节点定义为源点(<span
-class="math inline"><em>t</em><sub>0</sub></span>),
-把最后一个时间节点定义为<span
-class="math inline"><em>t</em><sub><em>n</em></sub></span>，即<strong>汇点</strong>。</p>
+<p>我们假设在一个工作流存在若干个时刻，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>t</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>t</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>t</mi><mn>3</mn></msub><mo separator="true">,</mo><mo>⋯</mo><mtext> </mtext><mo separator="true">,</mo><msub><mi>t</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">t_0,t_1, t_2, t_3, \cdots,t_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8095em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.这里只考虑离散化的时刻。我们把第一个时间节点定义为源点(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">t_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>), 把最后一个时间节点定义为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">t_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，即<strong>汇点</strong>。</p>
 <ul>
-<li><p>我们允许并行事件的发生</p></li>
-<li><p>但是和AOV一样，事件之间存在<strong>严格的先后关系</strong>。</p></li>
-<li><p>将活动定义在<strong>有向边</strong>上，而不是定义在<strong>节点</strong>上。</p></li>
-<li><p>顶点代表事件，而有向边的权值代表某个活动的持续时间。有向边的方向代表事件先后的发生次序。</p></li>
+<li>
+<p>我们允许并行事件的发生</p>
+</li>
+<li>
+<p>但是和AOV一样，事件之间存在<strong>严格的先后关系</strong>。</p>
+</li>
+<li>
+<p>将活动定义在<strong>有向边</strong>上，而不是定义在<strong>节点</strong>上。</p>
+</li>
+<li>
+<p>顶点代表事件，而有向边的权值代表某个活动的持续时间。有向边的方向代表事件先后的发生次序。</p>
+</li>
 </ul>
 <p>AOE网的关键：<strong>遍历所有节点的最长时间</strong>，以及那些节点事件是影响工程进度的关键事件。</p>
 <p>因为我们允许时间并行，因此<strong>从源点到汇点</strong>的最长时间就是完成工程的最短时间。（当最长路径上的活动完成之后，其他路径长的活动肯定已经完成）</p>
 <div class="note note-primary">
-            <p>这貌似是一件很荒谬的事情，不过是正确的。</p><figure><imgsrc="https://s1.imagehub.cc/images/2025/05/15/bda878383a5659c168910dc5172ebd47.png"alt="AOE" /><figcaption aria-hidden="true">AOE</figcaption></figure><p>我们来看上面的图，把<spanclass="math inline"><em>t</em><sub>0</sub></span>作为源点，<spanclass="math inline"><em>t</em><sub>3</sub></span>作为汇点，我们的任务是要在<strong>尽可能的短的长度内</strong>遍历图上所有的点（允许并行）。</p><p>很显然，从起点到终点的最短路径长度为2，即走最下方的那条路。但是问题在于此时<strong>达到汇点之后</strong>需要等待上游两条路结束，此时我们的任务还没有完成。</p><p>我们可以理解为<strong>我们需要等最慢的支路完成了，此时才可以认为整体的支路完成了</strong>。</p>
+            <p>这貌似是一件很荒谬的事情，不过是正确的。</p><p><img src="https://s1.imagehub.cc/images/2025/05/15/bda878383a5659c168910dc5172ebd47.png" srcset="/img/loading.gif" lazyload alt="AOE"></p><p>我们来看上面的图，把<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">t_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>作为源点，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">t_3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>作为汇点，我们的任务是要在<strong>尽可能的短的长度内</strong>遍历图上所有的点（允许并行）。</p><p>很显然，从起点到终点的最短路径长度为2，即走最下方的那条路。但是问题在于此时<strong>达到汇点之后</strong>需要等待上游两条路结束，此时我们的任务还没有完成。</p><p>我们可以理解为<strong>我们需要等最慢的支路完成了，此时才可以认为整体的支路完成了</strong>。</p>
           </div>
 <p>因此，我们就可以明确我们的目标：求<strong>从起点到终点最长的路径</strong>。</p>
-<p>Given the starting point <span class="math inline"><em>x</em></span>
-and the ending point <span class="math inline"><em>y</em></span>, we
-need to find the longest path from <span
-class="math inline"><em>x</em></span> to <span
-class="math inline"><em>y</em></span>. (Practically, it means the worst
-situation of an event). We call it a <strong>critical
-event</strong>.</p>
+<p>Given the starting point <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> and the ending point <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>, we need to find the longest path from <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>. (Practically, it means the worst situation of an event). We call it a <strong>critical event</strong>.</p>
 <p>更新的算法也很简单，使用类似于动态规划的思想：</p>
-<p><span class="math inline">$ee(v_i) = \max \\{ ee(v_k) + L_{k,i}
-\\}$</span></p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>e</mi><mo stretchy="false">(</mo><msub><mi>v</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mo>=</mo><mi>max</mi><mo>⁡</mo><mspace linebreak="newline"></mspace><mrow><mi>e</mi><mi>e</mi><mo stretchy="false">(</mo><msub><mi>v</mi><mi>k</mi></msub><mo stretchy="false">)</mo><mo>+</mo><msub><mi>L</mi><mrow><mi>k</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><mspace linebreak="newline"></mspace></mrow></mrow><annotation encoding="application/x-tex">ee(v_i) = \max \\{ ee(v_k) + L_{k,i} \\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">ee</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mop">max</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">ee</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace newline"></span></span></span></span></span></p>
 <p>使用一次DFS遍历，不断更新下一个节点的最长长度。</p>
 <p>不过同时，我们还需要计算<strong>顶点的最迟发生时间</strong>，转化一下就是如果我们倒着看，就是从终点向起点的<strong>最长发生时间</strong>。（在我们已知收点的最迟发生时间的情况下），按照逆拓扑序的顺序找到最小值。</p>
-<p>如果<strong>最早发生时间 ==
-最迟发生时间</strong>，说明这个节点很关键（被卡脖子了）。</p>
+<p>如果<strong>最早发生时间 == 最迟发生时间</strong>，说明这个节点很关键（被卡脖子了）。</p>
 
                 
               </div>
@@ -1227,7 +1212,6 @@ event</strong>.</p>
 
 
 
-
     
 
     
@@ -1413,49 +1397,6 @@ event</strong>.</p>
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/js/leancloud.js" ></script>
 

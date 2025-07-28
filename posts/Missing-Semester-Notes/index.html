@@ -630,156 +630,81 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h1 id="lecture-notes-missing-semester-for-your-cs-education">Lecture
-Notes: Missing Semester for your CS education</h1>
-<h2 id="introduction">Introduction</h2>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/02/12/2fba209f139c83bb6212f0f589baac2a.png" srcset="/img/loading.gif" lazyload
-alt="Missing Semester of Your CS education" />
-<figcaption aria-hidden="true">Missing Semester of Your CS
-education</figcaption>
-</figure>
-<p><strong>Welcome to the course: The Missing Semester of Your CS
-Education!</strong></p>
-<p>When I first learned about this course at the beginning of my
-freshman year, I had no concept of command lines, development, and other
-related topics. Additionally, since the course was taught entirely in
-English, I tried attending a few lectures but eventually gave up, and my
-absorption rate was also low. During this winter break, after a semester
-of experience in my freshman year, I installed <strong>the WSL subsystem
-and mastered the most basic Bash knowledge</strong>. When I revisited
-this course, I felt a sudden clarity. Now, the command line has become a
-tool I frequently use, greatly improving my learning and development
-efficiency. Therefore, I will organize my <strong>Missing Semester
-notes</strong> in this blog, hoping to inspire and help future
-learners.</p>
-<p>Before starting the learning exploration, I strongly recommend you to
-<strong>ensure all these questions and contents below are carefully
-read</strong>, which will help you gain a better learning
-experience.</p>
-<h3 id="where-to-find-the-course">Where to find the course?</h3>
-<p><strong>On YouTube:</strong> https://www.youtube.com/<span
-class="citation"
-data-cites="MissingSemester">@MissingSemester</span></p>
+<h1>Lecture Notes: Missing Semester for your CS education</h1>
+<h2 id="Introduction">Introduction</h2>
+<p><img src="https://s1.imagehub.cc/images/2025/02/12/2fba209f139c83bb6212f0f589baac2a.png" srcset="/img/loading.gif" lazyload alt="Missing Semester of Your CS education"></p>
+<p><strong>Welcome to the course: The Missing Semester of Your CS Education!</strong></p>
+<p>When I first learned about this course at the beginning of my freshman year, I had no concept of command lines, development, and other related topics. Additionally, since the course was taught entirely in English, I tried attending a few lectures but eventually gave up, and my absorption rate was also low. During this winter break, after a semester of experience in my freshman year, I installed <strong>the WSL subsystem and mastered the most basic Bash knowledge</strong>. When I revisited this course, I felt a sudden clarity. Now, the command line has become a tool I frequently use, greatly improving my learning and development efficiency. Therefore, I will organize my <strong>Missing Semester notes</strong> in this blog, hoping to inspire and help future learners.</p>
+<p>Before starting the learning exploration, I strongly recommend you to <strong>ensure all these questions and contents below are carefully read</strong>, which will help you gain a better learning experience.</p>
+<h3 id="Where-to-find-the-course">Where to find the course?</h3>
+<p><strong>On YouTube:</strong> <a target="_blank" rel="noopener" href="https://www.youtube.com/@MissingSemester">https://www.youtube.com/@MissingSemester</a></p>
 <p>The course also has its own websites for clear lecture notes!</p>
 <ul>
-<li>https://missing.csail.mit.edu/</li>
-<li>https://github.com/missing-semester/missing-semester</li>
+<li><a target="_blank" rel="noopener" href="https://missing.csail.mit.edu/">https://missing.csail.mit.edu/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/missing-semester/missing-semester">https://github.com/missing-semester/missing-semester</a></li>
 </ul>
-<p>For domestic users, you can browse <a
-target="_blank" rel="noopener" href="https://www.bilibili.com/">Bilibili</a> for reposting of the
-original course and Chinese subtitle translation.</p>
+<p>For domestic users, you can browse <a target="_blank" rel="noopener" href="https://www.bilibili.com/">Bilibili</a> for reposting of the original course and Chinese subtitle translation.</p>
 <ul>
-<li><a
-target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1x7411H7wa/?vd_source=6955add1d28c52cd48096d58e09ce798">Repost
-on Bilibili</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1x7411H7wa/?vd_source=6955add1d28c52cd48096d58e09ce798">Repost on Bilibili</a></li>
 </ul>
-<h3 id="whats-this-course-about">What’s this course about?</h3>
-<p>Let’s take a look at how the course instructor evaluates the
-positioning of this course.</p>
+<h3 id="What’s-this-course-about">What’s this course about?</h3>
+<p>Let’s take a look at how the course instructor evaluates the positioning of this course.</p>
 <blockquote>
-<p><strong>Missing semester Lec1 Beginning- The overall introduction of
-this course</strong></p>
-<p>This class stems from an observation that Anish, Jose, and I have
-made while attending various classes at MIT. The observation is that, as
-computer scientists, we all know that computers are great at performing
-repetitive tasks and automating things. However, we often fail to
-realize that there are many tools that can make our own development
-processes better. We can be much more efficient in how we use our
-computers because <strong>we can use the computer as a tool for
-ourselves</strong>, not just for building websites or software. This
-class is an attempt to address this issue. It is an attempt to show you
-some of the tools that you can use to great effect in your day-to-day
-work, in your research, and in your studies. It’s going to be a class
-where we want to teach you <strong>both how to make the most of the
-tools that you already know and, hopefully, introduce you to some tools
-that you don’t know yet</strong>. We also want to show you how to
-combine these tools to produce more powerful results than you might
-think possible with what you know today.</p>
+<p><strong>Missing semester Lec1 Beginning- The overall introduction of this course</strong></p>
+<p>This class stems from an observation that Anish, Jose, and I have made while attending various classes at MIT. The observation is that, as computer scientists, we all know that computers are great at performing repetitive tasks and automating things. However, we often fail to realize that there are many tools that can make our own development processes better. We can be much more efficient in how we use our computers because <strong>we can use the computer as a tool for ourselves</strong>, not just for building websites or software. This class is an attempt to address this issue. It is an attempt to show you some of the tools that you can use to great effect in your day-to-day work, in your research, and in your studies. It’s going to be a class where we want to teach you <strong>both how to make the most of the tools that you already know and, hopefully, introduce you to some tools that you don’t know yet</strong>. We also want to show you how to combine these tools to produce more powerful results than you might think possible with what you know today.</p>
 <p><strong>Chinese Translation</strong>:</p>
 <p>这门课程源于Anish、Jose和我在MIT参加各种课程时的一个观察。我们发现，作为计算机科学家，我们都知道计算机非常擅长执行重复性任务和自动化工作。然而，我们常常没有意识到，有许多工具可以让我们的开发过程变得更好。我们可以更高效地使用计算机，因为我们可以将计算机作为我们自己的工具，而不仅仅是用来构建网站或软件。这门课程旨在解决这个问题。它试图向你展示一些可以在日常工作、研究和学习中高效使用的工具。这门课程的目标是教你如何充分利用你已经知道的工具，同时也希望向你介绍一些你以前不知道的工具，并展示如何将这些工具结合起来，产生比你今天所知道的更强大的结果。</p>
 </blockquote>
-<p>So this lecture is for <strong>Tool-using</strong> during your CS
-education. Several Tools can be seen in the subtitle of each
-courses.</p>
-<h3 id="am-i-ready-to-take-the-course">Am I ready to take the
-course?</h3>
-<p><strong>However</strong>, I am unwilling to announce the fact that:
-This course is not suitable for
-<strong>Totally-Green-Hand</strong>.🙂‍↕️🙂‍↕️🙂‍↕️ Here are two following
-reasons I have summarized:</p>
+<p>So this lecture is for <strong>Tool-using</strong> during your CS education. Several Tools can be seen in the subtitle of each courses.</p>
+<h3 id="Am-I-ready-to-take-the-course">Am I ready to take the course?</h3>
+<p><strong>However</strong>, I am unwilling to announce the fact that: This course is not suitable for <strong>Totally-Green-Hand</strong>.🙂‍↕️🙂‍↕️🙂‍↕️ Here are two following reasons I have summarized:</p>
 <ul>
-<li>The course progresses <strong>very quickly</strong>. If you have no
-prior knowledge of these concepts, there’s a high chance you won’t keep
-up with the pace! Although you can pause while learning on video
-platforms, <strong>previewing the basic knowledge before taking the
-course can provide a better learning experience</strong>.</li>
-<li>In learning tools, <strong>practice is a very important
-component</strong>. This course mainly focuses on lectures and lacks
-opportunities for hands-on practice.</li>
+<li>The course progresses <strong>very quickly</strong>. If you have no prior knowledge of these concepts, there’s a high chance you won’t keep up with the pace! Although you can pause while learning on video platforms, <strong>previewing the basic knowledge before taking the course can provide a better learning experience</strong>.</li>
+<li>In learning tools, <strong>practice is a very important component</strong>. This course mainly focuses on lectures and lacks opportunities for hands-on practice.</li>
 </ul>
-<p>Thus, I strongly recommend you to do such things before entering the
-courses:</p>
+<p>Thus, I strongly recommend you to do such things before entering the courses:</p>
 <ul>
-<li><p><strong>Make sure you have installed command-line environment
-before the course begins!</strong> (Most important)</p>
+<li>
+<p><strong>Make sure you have installed command-line environment before the course begins!</strong> (Most important)</p>
 <ul>
 <li><strong>MacOS</strong> or <strong>Linux</strong> is preferred.</li>
 <li><strong>WSL</strong> for <strong>Windows</strong></li>
 </ul>
 <blockquote>
-<p><strong>While learning the course content, practice hands-on
-operations simultaneously!</strong></p>
+<p><strong>While learning the course content, practice hands-on operations simultaneously!</strong></p>
 </blockquote>
 <blockquote>
 <p>Still updating~</p>
-</blockquote></li>
+</blockquote>
+</li>
 </ul>
-<h2 id="lec1-2-shell-tools-and-scripting">Lec1-2: Shell Tools and
-Scripting</h2>
+<h2 id="Lec1-2-Shell-Tools-and-Scripting">Lec1-2: Shell Tools and Scripting</h2>
 <p>You can see several Blogs for help:</p>
 <ul>
-<li><a
-href="https://xiyuanyang-code.github.io/posts/Bash-commands/">Bash
-Commands</a></li>
-<li><a
-href="https://xiyuanyang-code.github.io/posts/Bash-exercises/">Bash
-Exercises</a></li>
-<li><a
-href="https://xiyuanyang-code.github.io/posts/Linux-Bash-Introduction/">Linux-Bash-Introduction</a></li>
+<li><a href="https://xiyuanyang-code.github.io/posts/Bash-commands/">Bash Commands</a></li>
+<li><a href="https://xiyuanyang-code.github.io/posts/Bash-exercises/">Bash Exercises</a></li>
+<li><a href="https://xiyuanyang-code.github.io/posts/Linux-Bash-Introduction/">Linux-Bash-Introduction</a></li>
 </ul>
-<h2 id="lec3-vim-editors">Lec3: Vim editors</h2>
-<p>You can just go to <a
-href="https://xiyuanyang-code.github.io/posts/Vim-tutorial/">Vim
-tutorial</a> for help.</p>
-<h2 id="lec4-data-wrangling">Lec4: Data Wrangling</h2>
-<p>You can go to <a
-href="https://xiyuanyang-code.github.io/posts/Regular-Expression/">Regular
-Expression</a> for help.</p>
-<h2 id="lec5-command-line-environment">Lec5: Command Line
-Environment</h2>
+<h2 id="Lec3-Vim-editors">Lec3: Vim editors</h2>
+<p>You can just go to <a href="https://xiyuanyang-code.github.io/posts/Vim-tutorial/">Vim tutorial</a> for help.</p>
+<h2 id="Lec4-Data-Wrangling">Lec4: Data Wrangling</h2>
+<p>You can go to <a href="https://xiyuanyang-code.github.io/posts/Regular-Expression/">Regular Expression</a> for help.</p>
+<h2 id="Lec5-Command-Line-Environment">Lec5: Command Line Environment</h2>
 <p>I just skip that part…</p>
-<p>Maybe I will open-source all my dotfiles one day? Perhaps, but who
-knows?</p>
+<p>Maybe I will open-source all my dotfiles one day? Perhaps, but who knows?</p>
 <blockquote>
 <p>For beginners, you can just skip that part.</p>
 </blockquote>
-<h2 id="lec6-git-version-control">Lec6: Git (Version Control)</h2>
+<h2 id="Lec6-Git-Version-Control">Lec6: Git (Version Control)</h2>
 <p>Very important!</p>
 <p>But it is too hard to write a satisfying git tutorial.</p>
-<h2 id="lec7-debugging-and-profiling">Lec7: Debugging and Profiling</h2>
-<p>You can just go to <a
-href="https://xiyuanyang-code.github.io/posts/Profiling-and-Debugging/">Profiling
-and Debugging</a> for help.</p>
-<h2 id="lec8-metaprogramming">Lec8: Metaprogramming</h2>
-<p>You can just go to <a
-href="https://xiyuanyang-code.github.io/posts/Python-Advanced-Programming/">Meta
-Programming</a> for help.</p>
-<h2 id="lec9-security-and-cryptography">Lec9: Security and
-Cryptography</h2>
+<h2 id="Lec7-Debugging-and-Profiling">Lec7: Debugging and Profiling</h2>
+<p>You can just go to <a href="https://xiyuanyang-code.github.io/posts/Profiling-and-Debugging/">Profiling and Debugging</a> for help.</p>
+<h2 id="Lec8-Metaprogramming">Lec8: Metaprogramming</h2>
+<p>You can just go to <a href="https://xiyuanyang-code.github.io/posts/Python-Advanced-Programming/">Meta Programming</a> for help.</p>
+<h2 id="Lec9-Security-and-Cryptography">Lec9: Security and Cryptography</h2>
 <p>To be done.</p>
-<h2 id="conclusion">Conclusion</h2>
+<h2 id="Conclusion">Conclusion</h2>
 <p>To be do</p>
 
                 

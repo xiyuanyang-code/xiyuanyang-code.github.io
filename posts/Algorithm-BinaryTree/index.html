@@ -55,6 +55,8 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -366,7 +368,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          754 words
+          965 words
         
       </span>
     
@@ -914,9 +916,8 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h1 id="binary-tree-for-mit-6.006">Binary Tree for MIT 6.006</h1>
-<h2 id="maybe-you-just-need-a-binary-tree">Maybe you just need a binary
-tree…</h2>
+<h1>Binary Tree for MIT 6.006</h1>
+<h2 id="Maybe-you-just-need-a-binary-tree…">Maybe you just need a binary tree…</h2>
 
 <pre>
 <code class="mermaid" >
@@ -940,172 +941,108 @@ graph TD;
     
 </code>
 </pre>
-<h2 id="introduction">Introduction</h2>
-<p>Assume we have discussed <strong>Sequence Data Structure</strong> and
-<strong>Set Data Structure</strong>. Different data structures have
-different advantages as well as disadvantages.(Linked List and Array,
-etc) We hope to design a data structure with lower time complexity!</p>
-<p>What’s the sacirfices? Maybe the <strong>container and
-space</strong>.</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/03/13/4f0fb70e1a0c00421731e9deba50d90b.png" srcset="/img/loading.gif" lazyload
-alt="Time complexity" />
-<figcaption aria-hidden="true">Time complexity</figcaption>
-</figure>
-<p>We just ignore the basic definition of binary tree! You can go
-through this blog: <a
-href="https://xiyuanyang-code.github.io/posts/DataStructure-Tree-Binary-Tree/">Binary
-Tree</a>.</p>
-<p>Thus a node in binary tree needs to store three pointers:
-<strong>parent node, left-child node and right-child node</strong>.</p>
-<h2 id="definitions-and-terminology">Definitions and Terminology</h2>
+<h2 id="Introduction">Introduction</h2>
+<p>Assume we have discussed <strong>Sequence Data Structure</strong> and <strong>Set Data Structure</strong>. Different data structures have different advantages as well as disadvantages.(Linked List and Array, etc) We hope to design a data structure with lower time complexity!</p>
+<p>What’s the sacirfices? Maybe the <strong>container and space</strong>.</p>
+<p><img src="https://s1.imagehub.cc/images/2025/03/13/4f0fb70e1a0c00421731e9deba50d90b.png" srcset="/img/loading.gif" lazyload alt="Time complexity"></p>
+<p>We just ignore the basic definition of binary tree! You can go through this blog: <a href="https://xiyuanyang-code.github.io/posts/DataStructure-Tree-Binary-Tree/">Binary Tree</a>.</p>
+<p>Thus a node in binary tree needs to store three pointers: <strong>parent node, left-child node and right-child node</strong>.</p>
+<h2 id="Definitions-and-Terminology">Definitions and Terminology</h2>
 <ul>
 <li>Subtree
 <ul>
 <li>We can give the recursive definition of binary tree.</li>
-<li>subtree of <span class="math inline"><em>x</em></span> is <span
-class="math inline"><em>x</em></span> and its
-<strong>descendants</strong>. (x to be the root)</li>
-</ul></li>
+<li>subtree of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> and its <strong>descendants</strong>. (x to be the root)</li>
+</ul>
+</li>
 <li>root node, leafs</li>
 <li>depth
 <ul>
-<li>Every node has <strong>unique path</strong> from the current node to
-the root node.</li>
-</ul></li>
+<li>Every node has <strong>unique path</strong> from the current node to the root node.</li>
+</ul>
+</li>
 <li>height
 <ul>
 <li>the maximum depth of nodes in x’s subtree.</li>
 <li><strong>the longest road to get to the leaf nodes</strong>.</li>
-</ul></li>
 </ul>
-<p><strong>We first ensure all operations shown above is O(h)</strong>,
-where h is the height of the root node. We will then try to ensure that
-<span class="math inline"><em>O</em>(<em>h</em>)</span> is equinumerous
-to <span
-class="math inline"><em>O</em>(<em>l</em><em>o</em><em>g</em><em>n</em>)</span>
-by AVL Tree.</p>
-<h2 id="traversal-order-of-nodes">Traversal Order of Nodes</h2>
-<p>The basic sequence of traversal order:
-<strong>left-root-right</strong>.</p>
+</li>
+</ul>
+<p><strong>We first ensure all operations shown above is O(h)</strong>, where h is the height of the root node. We will then try to ensure that <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span></span></span></span> is equinumerous to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(logn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> by AVL Tree.</p>
+<h2 id="Traversal-Order-of-Nodes">Traversal Order of Nodes</h2>
+<p>The basic sequence of traversal order: <strong>left-root-right</strong>.</p>
 <p>Algorithm:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">iterate(node):<br>	iterate(node.left)<br>	node<br>	iterate(node.right)<br></code></pre></td></tr></table></figure>
-<p><strong>The traversal order provides a way to deal with a sequential
-list of data</strong> by binary tree.</p>
-<h2 id="operations">Operations</h2>
-<h3 id="traversal-operations">Traversal Operations</h3>
-<h4 id="subtree_firstnode"><code>subtree_first(node)</code></h4>
-<p>Given a subtree (of its node), which comes first in traversal
-order?</p>
+<p><strong>The traversal order provides a way to deal with a sequential list of data</strong> by binary tree.</p>
+<h2 id="Operations">Operations</h2>
+<h3 id="Traversal-Operations">Traversal Operations</h3>
+<h4 id="subtree-first-node"><code>subtree_first(node)</code></h4>
+<p>Given a subtree (of its node), which comes first in traversal order?</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">while</span>(node.left != <span class="hljs-literal">nullptr</span>)&#123;<br>	node = node.left;<br>&#125;<br><span class="hljs-keyword">return</span> node;<br></code></pre></td></tr></table></figure>
 <ul>
 <li>Go left as much as possible!</li>
-<li>When the current node is <strong>leaf node</strong> or simply has no
-left node, just <strong>undo</strong> to the previous layer.
+<li>When the current node is <strong>leaf node</strong> or simply has no left node, just <strong>undo</strong> to the previous layer.
 <ul>
-<li>The process itself is like a <strong>recursion</strong>! (Just
-follow the recursive definition of a tree)</li>
-</ul></li>
+<li>The process itself is like a <strong>recursion</strong>! (Just follow the recursive definition of a tree)</li>
+</ul>
+</li>
 </ul>
 <p>Of course, you can define <code>subtree_last(node)</code>.</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">while</span>(node.right != <span class="hljs-literal">nullptr</span>)&#123;<br>	node = node.right;<br>&#125;<br><span class="hljs-keyword">return</span> node;<br></code></pre></td></tr></table></figure>
-<h4 id="successornode"><code>successor(node)</code></h4>
-<p>Return the next node after the given node in tree’s traversal
-order.</p>
-<p>Firstly, check whether the right node of this node is empty. If no,
-then <strong>go to its right node and traverse the new subtree formed by
-its right node</strong>, which means return the node of
-<code>subtree_first(node.right)</code>.</p>
-<p>If yes, we need to ensure whether its parent node has been traversed.
-If this node is the left child of its parent node, then just go to the
-parent node followed by traversal orders. However, if it is the right
-child of its parent node, we just need to go upper to the parent node of
-its parent node, <strong>until the current node is the left child of its
-parent node</strong>!</p>
+<h4 id="successor-node"><code>successor(node)</code></h4>
+<p>Return the next node after the given node in tree’s traversal order.</p>
+<p>Firstly, check whether the right node of this node is empty. If no, then <strong>go to its right node and traverse the new subtree formed by its right node</strong>, which means return the node of <code>subtree_first(node.right)</code>.</p>
+<p>If yes, we need to ensure whether its parent node has been traversed. If this node is the left child of its parent node, then just go to the parent node followed by traversal orders. However, if it is the right child of its parent node, we just need to go upper to the parent node of its parent node, <strong>until the current node is the left child of its parent node</strong>!</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">if</span>(node.right == <span class="hljs-literal">nullptr</span>)&#123;<br>	<span class="hljs-comment">//the right child is empty</span><br>	<span class="hljs-keyword">while</span>(node.parent != <span class="hljs-literal">nullptr</span> &amp;&amp; node != node.parent.left)&#123;<br>		node = node.parent;<br>	&#125;<br>    <span class="hljs-keyword">return</span> node.parent;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">subtree_first</span>(node.right);<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>These operations above just takes <span
-class="math inline"><em>O</em>(<em>h</em>)</span>, where h is the height
-of the tree. You just need to check at most one single node in the same
-layer.</p>
-<p>We can also define the <code>predecessor()</code> function to get the
-previous node similarly.</p>
+<p>These operations above just takes <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span></span></span></span>, where h is the height of the tree. You just need to check at most one single node in the same layer.</p>
+<p>We can also define the <code>predecessor()</code> function to get the previous node similarly.</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">if</span>(node.left != <span class="hljs-literal">nullptr</span>)&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">subtree_last</span>(node.left);<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-keyword">while</span>(node.parent != <span class="hljs-literal">nullptr</span> &amp;&amp; node.parent.right != node)&#123;<br>        node = node.parent;<br>    &#125;<br>    <span class="hljs-keyword">return</span> node.parent;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="insert-and-delete">Insert and delete</h3>
-<h4
-id="subtree_insert_afternode-new"><code>subtree_insert_after(node, new)</code></h4>
-<p>Insert the new node <code>new</code> through the traversal order,
-enabling it to be right before <code>node</code> in the tree.</p>
+<h3 id="Insert-and-delete">Insert and delete</h3>
+<h4 id="subtree-insert-after-node-new"><code>subtree_insert_after(node, new)</code></h4>
+<p>Insert the new node <code>new</code> through the traversal order, enabling it to be right before <code>node</code> in the tree.</p>
 <ul>
-<li>If there is no <strong>right child</strong>: put <code>new</code>
-there!
+<li>If there is no <strong>right child</strong>: put <code>new</code> there!
 <ul>
-<li>You just need to “create” a right child of the <code>node</code>
-node.</li>
-</ul></li>
+<li>You just need to “create” a right child of the <code>node</code> node.</li>
+</ul>
+</li>
 <li>If there is a right child:
 <ul>
-<li>Then we want the <code>new</code> node to be in the position
-<strong>before</strong> <code>node.right</code>. Thus, it needs to be
-<code>node.right</code>’s left child!</li>
+<li>Then we want the <code>new</code> node to be in the position <strong>before</strong> <code>node.right</code>. Thus, it needs to be <code>node.right</code>’s left child!</li>
 <li>We should return <code>subtree_first(node.right)</code>.</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">if</span>(node.right == <span class="hljs-literal">nullptr</span>)&#123;<br>	node.right = <span class="hljs-keyword">new</span>;<br>	<span class="hljs-keyword">new</span>.parent = node;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>	<span class="hljs-keyword">new</span>.parent = <span class="hljs-built_in">subtree_first</span>(node.right);<br>	<span class="hljs-built_in">subtree_first</span>(node.right).left = <span class="hljs-keyword">new</span>;  <br>&#125;<br></code></pre></td></tr></table></figure>
-<h4 id="subtree_deletenode"><code>subtree_delete(node)</code></h4>
+<h4 id="subtree-delete-node"><code>subtree_delete(node)</code></h4>
 <p>Delete the node without changing other node’s traversal order.</p>
-<p>In order to make the tree no to be “<strong>crashed</strong>”, we
-first need to get the previous node of the <code>node</code> to be
-deleted. We can use the <code>predecessor()</code> function which is
-symmetric to <code>successor()</code> function.</p>
-<p>As is shown obviously, <strong>deleting a leaf node</strong> is very
-simple, thus we want to <strong>exchange</strong> the node into the leaf
-node without breaking the traversal order.</p>
-<p>To be more specific, we can understand <code>node</code> as an
-“invisible” element in the traversal order, which can freely swap
-positions with other elements without changing the traversal order of
-the other elements. Ultimately, we hope to move <code>node</code> to the
-position of a leaf node.</p>
+<p>In order to make the tree no to be “<strong>crashed</strong>”, we first need to get the previous node of the <code>node</code> to be deleted. We can use the <code>predecessor()</code> function which is symmetric to <code>successor()</code> function.</p>
+<p>As is shown obviously, <strong>deleting a leaf node</strong> is very simple, thus we want to <strong>exchange</strong> the node into the leaf node without breaking the traversal order.</p>
+<p>To be more specific, we can understand <code>node</code> as an “invisible” element in the traversal order, which can freely swap positions with other elements without changing the traversal order of the other elements. Ultimately, we hope to move <code>node</code> to the position of a leaf node.</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">if</span>(node.right == <span class="hljs-literal">nullptr</span> &amp;&amp; node.left == <span class="hljs-literal">nullptr</span>)&#123;<br>	<span class="hljs-comment">//is the leaf node</span><br>	<span class="hljs-keyword">if</span>(node == node.parent.left)&#123;<br>		node.parent.left = <span class="hljs-literal">nullptr</span>;<br>	&#125;<span class="hljs-keyword">else</span>&#123;<br>        node.parent.right = <span class="hljs-literal">nullptr</span>;<br>    &#125;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-keyword">if</span>(node.right != <span class="hljs-literal">nullptr</span>)&#123;<br>        <span class="hljs-comment">//then we can go deeper to get to the leaf node!</span><br>        <span class="hljs-keyword">while</span>(!(node.right == <span class="hljs-literal">nullptr</span> &amp;&amp; node.left == <span class="hljs-literal">nullptr</span>))&#123;<br>            <span class="hljs-built_in">swap</span>(node, <span class="hljs-built_in">predecessor</span>(node));<br>            <span class="hljs-comment">//just swap the content </span><br>        &#125;<br>        <span class="hljs-built_in">delete</span>(node)<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-comment">//the node only have right child</span><br>        <span class="hljs-comment">//swap items with the successor of &lt;X&gt; and recurse</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>In a word, you just need to go down deeper and deeper, until you
-reach the <strong>leaf node</strong>. Then delete it!</p>
-<h2 id="applications">Applications</h2>
+<p>In a word, you just need to go down deeper and deeper, until you reach the <strong>leaf node</strong>. Then delete it!</p>
+<h2 id="Applications">Applications</h2>
 <ul>
 <li><strong>Sequence</strong>: traversal order = sequence order.</li>
 <li><strong>Set</strong>: traversal order = increasing item key.
 <ul>
 <li>Binary search tree.</li>
-</ul></li>
 </ul>
-<p>For example, if you want to find an element in the tree, it’s just
-<strong>like the binary search</strong>! (If is bigger than the target,
-than go right. Else, go left)</p>
-<p>For we let the Binary search tree to be sorted strictly by value:
-<code>node.left.value</code> &lt; <code>node.value</code> &lt;
-<code>node.right.value</code>. This property of Binary Search Tree (BST)
-is the key of implementing the time complexity of <span
-class="math inline"><em>O</em>(<em>h</em>)</span>!</p>
+</li>
+</ul>
+<p>For example, if you want to find an element in the tree, it’s just <strong>like the binary search</strong>! (If is bigger than the target, than go right. Else, go left)</p>
+<p>For we let the Binary search tree to be sorted strictly by value: <code>node.left.value</code> &lt; <code>node.value</code> &lt; <code>node.right.value</code>. This property of Binary Search Tree (BST) is the key of implementing the time complexity of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span></span></span></span>!</p>
 <blockquote>
-<p>We can also implement <code>find_next()</code> and
-<code>find_pre()</code>.</p>
+<p>We can also implement <code>find_next()</code> and <code>find_pre()</code>.</p>
 </blockquote>
-<p>We have implemented that the time complexity of Binary tree is <span
-class="math inline"><em>O</em>(<em>h</em>)</span>. Now, think of the
-question, what is the relation between tree’s height <code>h</code> and
-the number of nodes <code>n</code>?</p>
+<p>We have implemented that the time complexity of Binary tree is  <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span></span></span></span>. Now, think of the question, what is the relation between tree’s height <code>h</code> and the number of nodes <code>n</code>?</p>
 <ul>
-<li>Case 1: This tree is a full binary tree, which means all nodes are
-saturated (except for the leaf nodes on the bottom layer). In this case,
-<span class="math inline"><em>n</em></span> is strictly <span
-class="math inline">2<sup><em>h</em></sup> − 1</span>.</li>
-<li>Case 2: <strong>A singly linked list</strong> is a degenerate binary
-tree, where the height <span class="math inline"><em>h</em></span> of
-the tree equals the number of nodes <span
-class="math inline"><em>n</em></span>.</li>
+<li>Case 1: This tree is a full binary tree, which means all nodes are saturated (except for the leaf nodes on the bottom layer). In this case, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> is strictly <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^h-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9324em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>.</li>
+<li>Case 2: <strong>A singly linked list</strong> is a degenerate binary tree, where the height <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow><annotation encoding="application/x-tex">h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">h</span></span></span></span> of the tree equals the number of nodes <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>.</li>
 </ul>
 <p>Thus, we have</p>
-<p><span
-class="math display">2<sup><em>h</em></sup> − 1 ≥ <em>n</em> ≥ <em>h</em></span></p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mn>2</mn><mi>h</mi></msup><mo>−</mo><mn>1</mn><mo>≥</mo><mi>n</mi><mo>≥</mo><mi>h</mi></mrow><annotation encoding="application/x-tex">2^h-1 \ge n \ge h
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9824em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7804em;vertical-align:-0.136em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">h</span></span></span></span></span></p>
 
 <pre>
 <code class="mermaid" >
@@ -1152,95 +1089,46 @@ graph TD;
 
 </code>
 </pre>
-<h2 id="subtree_atnode-i"><code>subtree_at(node, i)</code></h2>
-<p><code>subtree_at(node, i)</code> requires a node and the index i
-(0-based), asking to find the ith node in the subtree of
-<code>node</code>.</p>
-<p>We first assume we have already known the <code>size(node)</code>
-function which can return the number of nodes in the <code>node</code>’s
-subtree. Then we can implement this algorithm.</p>
+<h2 id="subtree-at-node-i"><code>subtree_at(node, i)</code></h2>
+<p><code>subtree_at(node, i)</code> requires a node and the index i (0-based), asking to find the ith node in the subtree of <code>node</code>.</p>
+<p>We first assume we have already known the <code>size(node)</code> function which can return the number of nodes in the <code>node</code>’s subtree. Then we can implement this algorithm.</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">int</span> nL = <span class="hljs-built_in">size</span>(node.left);<br><span class="hljs-comment">//this is the index of node in the subtree</span><br><span class="hljs-keyword">if</span>(i &lt; nL)&#123;<br>    <span class="hljs-comment">//find the node recursively!</span><br>    <span class="hljs-comment">//for it&#x27;s in the left tree, thus the index of the subtree of node and the index in the subtree of node.right is equal.</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">subtree_at</span>(node.left,i);<br>&#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(i == nL)&#123;<br>    <span class="hljs-keyword">return</span> node;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-comment">//i &gt; nL</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">subtree_at</span>(node.right, i-nL<span class="hljs-number">-1</span>);<br>    <span class="hljs-comment">//i - nL -1 is the new index in the subtree of node.right. </span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="subtree-augmentation">Subtree augmentation</h3>
+<h3 id="Subtree-augmentation">Subtree augmentation</h3>
 <ul>
-<li>each node can store <span class="math inline"><em>O</em>(1)</span>
-extra fields/properties.</li>
+<li>each node can store <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span> extra fields/properties.</li>
 <li><code>node.size = node.left.size + node.right.size + 1</code></li>
-<li><strong>Subtree property (node)</strong> can be computed from
-properties of node’s children (and node) in <span
-class="math inline"><em>O</em>(1)</span> time.</li>
+<li><strong>Subtree property (node)</strong> can be computed from properties of node’s children (and node) in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span> time.</li>
 </ul>
-<p>However, if you don’t have any information, computing the size of a
-subtree achieves <span class="math inline"><em>O</em>(<em>n</em>)</span>
-time complexity. (You just need to go through all nodes recursively!) So
-we <strong>need to sacrefice the space</strong>: for every node, we have
-a private member called <code>node.size</code>. Then we should update
-this variable no matter what operations are.</p>
-<p><strong>For insertion and deletion</strong>, we ultimately add a leaf
-node in the tree. We need to modify all nodes that are ancestors of the
-added node. It;s also <span
-class="math inline"><em>O</em>(<em>h</em>)</span> time complexity.</p>
+<p>However, if you don’t have any information, computing the size of a subtree achieves <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> time complexity. (You just need to go through all nodes recursively!) So we <strong>need to sacrefice the space</strong>: for every node, we have a private member called <code>node.size</code>. Then we should update this variable no matter what operations are.</p>
+<p><strong>For insertion and deletion</strong>, we ultimately add a leaf node in the tree. We need to modify all nodes that are ancestors of the added node. It;s also <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span></span></span></span> time complexity.</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">while</span>(node != <span class="hljs-literal">nullptr</span>)&#123;<br>	node.size ++;<br>    node = node.parent;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="subtree-properties">Subtree properties</h3>
+<h3 id="Subtree-properties">Subtree properties</h3>
 <ul>
-<li>sum, product, min, max of some features of every node in
-subtree.</li>
-<li><strong>index</strong> in the traversal order is not the properties
-that need to be maintained because modifications may change all node’s
-indexes.</li>
+<li>sum, product, min, max of some features of every node in subtree.</li>
+<li><strong>index</strong> in the traversal order is not the properties that need to be maintained because modifications may change all node’s indexes.</li>
 </ul>
-<h1 id="part2-avl-tree">Part2: AVL Tree</h1>
-<p>We now need to <strong>bound <span
-class="math inline"><em>h</em></span> to <span
-class="math inline"><em>l</em><em>o</em><em>g</em>(<em>n</em>)</span></strong>!</p>
-<p><strong>Definitions</strong>: Balanced Binary Tree is a tree that
-enjoys <span
-class="math inline"><em>h</em> = <em>l</em><em>o</em><em>g</em>(<em>n</em>)</span>.</p>
-<p>A more strict definition: We define the <code>skew</code> of the
-node:</p>
-<p><span
-class="math display">|<em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em>(<em>n</em><em>o</em><em>d</em><em>e</em>.<em>l</em><em>e</em><em>f</em><em>t</em>) − <em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em>(<em>n</em><em>o</em><em>d</em><em>e</em>.<em>r</em><em>i</em><em>g</em><em>h</em><em>t</em>)| ≤ 1</span></p>
-<h2 id="rotation">Rotation</h2>
-<p>We want to modify the tree in a way that doesn’t <strong>modify it in
-traversal order</strong>. That is rotation, including <strong>right
-rotation and left rotation</strong>.</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/03/13/843efdc5dd2b9de11c4b4cbe5d5b83a0.png" srcset="/img/loading.gif" lazyload
-alt="rotate" />
-<figcaption aria-hidden="true">rotate</figcaption>
-</figure>
-<p>During the process shown above, we can get to manipulate the tree
-from an unbalanced tree into a <strong>balanced</strong> tree.</p>
-<h3 id="balanced-tree">Balanced Tree</h3>
-<p><strong>All balanced Trees have a logarithmic time
-complexity.</strong></p>
-<p>We consider the worst balanced tree, which all nodes of the left
-subtree has the height of h-2, while all nodes of the right subtree has
-the height of h-1.(The total height, including the root node, is h).</p>
-<p>Then we suppose <span
-class="math inline"><em>N</em><sub><em>h</em></sub></span> is
-<strong>the number of nodes in this tree</strong> (height of the tree is
-h), Then we can solve this case using a recursive equation:</p>
-<p><span
-class="math display"><em>N</em><sub><em>h</em></sub> = <em>N</em><sub><em>h</em> − 1</sub> + <em>N</em><sub><em>h</em> − 2</sub> + 1</span></p>
-<p>Then is the boring math… We can just skip that part and we can prove
-that <strong>All balanced Trees have a logarithmic time
-complexity.</strong></p>
-<h3 id="height-and-the-unbalanced">Height and the unbalanced…</h3>
-<p>Consider the lowest <strong>unbalanced node</strong> <span
-class="math inline"><em>x</em></span>. We want to build a balanced tree
-where all nodes enjoys the property of $|
-height(node.left)-height(node.right) | $ or we can say $
-height(node.left)-height(node.right) { 1,0,-1 }$.</p>
-<p>Now we know the node <span class="math inline"><em>x</em></span>
-doesn’t enjoy the property above. Moreover, due to it is the lowest
-unbalanced node, the <strong>out of range</strong> situation will only
-be <span class="math inline">−2</span> or <span
-class="math inline">2</span>.</p>
-<p>Hence, we have properties below: <span
-class="math display"><em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em>(<em>n</em><em>o</em><em>d</em><em>e</em>.<em>l</em><em>e</em><em>f</em><em>t</em>) − <em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em>(<em>n</em><em>o</em><em>d</em><em>e</em>.<em>r</em><em>i</em><em>g</em><em>h</em><em>t</em>) ∈ {2, −2}</span></p>
-<p>Without the loss of generality, we just assume that <span
-class="math inline"><em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em>(<em>n</em><em>o</em><em>d</em><em>e</em>.<em>l</em><em>e</em><em>f</em><em>t</em>) − <em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em>(<em>n</em><em>o</em><em>d</em><em>e</em>.<em>r</em><em>i</em><em>g</em><em>h</em><em>t</em>) = 2</span>!</p>
+<h1>Part2: AVL Tree</h1>
+<p>We now need to <strong>bound <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow><annotation encoding="application/x-tex">h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">h</span></span></span></span> to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">log(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></strong>!</p>
+<p><strong>Definitions</strong>: Balanced Binary Tree is a tree that enjoys <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">h=log(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>.</p>
+<p>A more strict definition: We define the <code>skew</code> of the node:</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mrow><mo fence="true">∣</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo stretchy="false">(</mo><mi>n</mi><mi>o</mi><mi>d</mi><mi>e</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo stretchy="false">)</mo><mo>−</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo stretchy="false">(</mo><mi>n</mi><mi>o</mi><mi>d</mi><mi>e</mi><mi mathvariant="normal">.</mi><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo stretchy="false">)</mo><mo fence="true">∣</mo></mrow><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\left | height(node.left)-height(node.right) \right |\le 1 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">∣</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord mathnormal">o</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord mathnormal">o</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;">∣</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span></p>
+<h2 id="Rotation">Rotation</h2>
+<p>We want to modify the tree in a way that doesn’t <strong>modify it in traversal order</strong>. That is rotation, including <strong>right rotation and left rotation</strong>.</p>
+<p><img src="https://s1.imagehub.cc/images/2025/03/13/843efdc5dd2b9de11c4b4cbe5d5b83a0.png" srcset="/img/loading.gif" lazyload alt="rotate"></p>
+<p>During the process shown above, we can get to manipulate the tree from an unbalanced tree into a <strong>balanced</strong> tree.</p>
+<h3 id="Balanced-Tree">Balanced Tree</h3>
+<p><strong>All balanced Trees have a logarithmic time complexity.</strong></p>
+<p>We consider the worst balanced tree, which all nodes of the left subtree has the height of h-2, while all nodes of the right subtree has the height of h-1.(The total height, including the root node, is h).</p>
+<p>Then we suppose <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mi>h</mi></msub></mrow><annotation encoding="application/x-tex">N_{h}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> is <strong>the number of nodes in this tree</strong> (height of the tree is h), Then we can solve this case using a recursive equation:</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>N</mi><mi>h</mi></msub><mo>=</mo><msub><mi>N</mi><mrow><mi>h</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>N</mi><mrow><mi>h</mi><mo>−</mo><mn>2</mn></mrow></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N_{h} = N_{h-1} + N_{h -2} + 1
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8917em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8917em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mbin mtight">−</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span></p>
+<p>Then is the boring math… We can just skip that part and we can prove that <strong>All balanced Trees have a logarithmic time complexity.</strong></p>
+<h3 id="Height-and-the-unbalanced…">Height and the unbalanced…</h3>
+<p>Consider the lowest <strong>unbalanced node</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>. We want to build a balanced tree where all nodes enjoys the property of $\left | height(node.left)-height(node.right) \right |\le 1 $ or we can say $ height(node.left)-height(node.right) \in { 1,0,-1 }$.</p>
+<p>Now we know the node <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> doesn’t enjoy the property above. Moreover, due to it is the lowest unbalanced node, the <strong>out of range</strong> situation will only be <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">-2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">2</span></span></span></span> or <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span>.</p>
+<p>Hence, we have properties below: $$height(node.left)-height(node.right) \in {2 , -2  }$$</p>
+<p>Without the loss of generality, we just assume that <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo stretchy="false">(</mo><mi>n</mi><mi>o</mi><mi>d</mi><mi>e</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo stretchy="false">)</mo><mo>−</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo stretchy="false">(</mo><mi>n</mi><mi>o</mi><mi>d</mi><mi>e</mi><mi mathvariant="normal">.</mi><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">height(node.left)-height(node.right) = 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord mathnormal">o</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord mathnormal">o</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span>!</p>
 
 <pre>
 <code class="mermaid" >
@@ -1255,80 +1143,23 @@ graph TD
 
 </code>
 </pre>
-<p>Then we suppose the left child of node <span
-class="math inline"><em>x</em></span> is <span
-class="math inline"><em>y</em></span>. Then we have three subtrees,
-where they are: <strong>the right subtree</strong> of node <span
-class="math inline"><em>x</em></span> and the left and the right subtree
-of node <span class="math inline"><em>y</em></span>. If we assume <span
-class="math inline"><em>x</em>.<em>r</em><em>i</em><em>g</em><em>h</em><em>t</em>.<em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em> = <em>k</em> − 1</span>,
-then <span
-class="math inline"><em>x</em>.<em>l</em><em>e</em><em>f</em><em>t</em>.<em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em> = <em>k</em> + 1</span>
-and $x.height = max(x.left.height, x.right.height) + 1 = k+2 $. And for
-the subtree of <span
-class="math inline"><em>x</em>.<em>l</em><em>e</em><em>f</em><em>t</em></span>,
-there are three possibilities:</p>
+<p>Then we suppose the left child of node <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>. Then we have three subtrees, where they are: <strong>the right subtree</strong> of node <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> and the left and the right subtree of node <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>. If we assume <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mi mathvariant="normal">.</mi><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>=</mo><mi>k</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x.right.height = k-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">x</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>, then <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>=</mo><mi>k</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x.left.height = k+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">x</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span> and $x.height = max(x.left.height, x.right.height) + 1 = k+2 $. And for the subtree of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">x.left</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">x</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span></span></span></span>, there are three possibilities:</p>
 <ul>
-<li><span
-class="math inline"><em>x</em>.<em>l</em><em>e</em><em>f</em><em>t</em>.<em>l</em><em>e</em><em>f</em><em>t</em>.<em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em> = <em>x</em>.<em>l</em><em>e</em><em>f</em><em>t</em>.<em>r</em><em>i</em><em>g</em><em>h</em><em>t</em>.<em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em> + 1 = <em>k</em> + 1</span>:
-Then we can just rotate the node <span
-class="math inline"><em>y</em></span> into the balanced tree!</li>
-<li><span
-class="math inline"><em>x</em>.<em>l</em><em>e</em><em>f</em><em>t</em>.<em>l</em><em>e</em><em>f</em><em>t</em>.<em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em> = <em>x</em>.<em>l</em><em>e</em><em>f</em><em>t</em>.<em>r</em><em>i</em><em>g</em><em>h</em><em>t</em>.<em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em> = <em>k</em> + 1</span>:
-The situation is just the same!</li>
-<li><span
-class="math inline"><em>x</em>.<em>l</em><em>e</em><em>f</em><em>t</em>.<em>l</em><em>e</em><em>f</em><em>t</em>.<em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em> + 1 = <em>x</em>.<em>l</em><em>e</em><em>f</em><em>t</em>.<em>r</em><em>i</em><em>g</em><em>h</em><em>t</em>.<em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em> = <em>k</em> + 1</span></li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>=</mo><mi>x</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>+</mo><mn>1</mn><mo>=</mo><mi>k</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x.left.left.height =x.left.right.height + 1 = k +1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">x</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">x</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>: Then we can just rotate the node <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span> into the balanced tree!</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>=</mo><mi>x</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>=</mo><mi>k</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x.left.left.height =x.left.right.height  = k +1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">x</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">x</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>: The situation is just the same!</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>+</mo><mn>1</mn><mo>=</mo><mi>x</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>=</mo><mi>k</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x.left.left.height + 1 =x.left.right.height = k +1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">x</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">x</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></li>
 </ul>
 <p>For the first two questions, you can see the demo shown below:</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/03/22/ce857b9d3497c8092f71e2d5a1ef990c.png" srcset="/img/loading.gif" lazyload
-alt="Rotation" />
-<figcaption aria-hidden="true">Rotation</figcaption>
-</figure>
-<p><strong>For case 3</strong>, it’s a little bit harder! We can just
-see this picture shown previously:</p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/03/13/843efdc5dd2b9de11c4b4cbe5d5b83a0.png" srcset="/img/loading.gif" lazyload
-alt="rotate" />
-<figcaption aria-hidden="true">rotate</figcaption>
-</figure>
-<p>In this case, we will operate <strong>two operations</strong>
-totally. Firstly, we will right rotate the node <span
-class="math inline">39</span> (Just like the operations in the other two
-cases). Secondly, we will left rotate the node <span
-class="math inline">47</span>, and it will become a balances tree!</p>
-<h3 id="if-you-want-to-memorize-this">If you want to memorize this:</h3>
-<p>Video Clip: <a
-target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV11N4y1x7od/">AVL balanced
-Tree</a></p>
-<figure>
-<img
-src="https://s1.imagehub.cc/images/2025/03/23/4c704b275bd511867ed2934d22a7134f.png" srcset="/img/loading.gif" lazyload
-alt="Memorization" />
-<figcaption aria-hidden="true">Memorization</figcaption>
-</figure>
-<h1 id="conclusion">Conclusion</h1>
-<p>In the first section, we talk about the basis of <strong>Binary
-Tree</strong>, regarding several operations like <strong>delete and
-insert a node</strong> and <strong>the traversal order of the binary
-tree</strong>. Why we need to do this, because the special storage of
-binary tree ensures all operations is within the time limit of <span
-class="math inline"><em>O</em>(<em>h</em>)</span>, and the
-<strong>sequence of traversal</strong> ensures the relations of
-<strong>a sequential list</strong> and a binary tree. (For the set
-structure, we have BST)</p>
-<p>In the second part, we need to ensure <span
-class="math inline"><em>O</em>(<em>h</em>) ≡ <em>O</em>(<em>l</em><em>o</em><em>g</em><em>n</em>)</span>.If
-we don’t do anything, there are some bad situations (like the
-<strong>singly linked list</strong>) where <span
-class="math inline"><em>O</em>(<em>h</em>) = <em>O</em>(<em>n</em>)</span>.
-To avoid this situation, we need to <strong>rotate the binary tree to a
-balanced tree</strong> to make the <span
-class="math inline"><em>O</em>(<em>h</em>) ≡ <em>O</em>(<em>l</em><em>o</em><em>g</em><em>n</em>)</span>
-is true without <strong>changing the traversal order of the binary
-tree</strong>.</p>
+<p><img src="https://s1.imagehub.cc/images/2025/03/22/ce857b9d3497c8092f71e2d5a1ef990c.png" srcset="/img/loading.gif" lazyload alt="Rotation"></p>
+<p><strong>For case 3</strong>, it’s a little bit harder! We can just see this picture shown previously:</p>
+<p><img src="https://s1.imagehub.cc/images/2025/03/13/843efdc5dd2b9de11c4b4cbe5d5b83a0.png" srcset="/img/loading.gif" lazyload alt="rotate"></p>
+<p>In this case, we will operate <strong>two operations</strong> totally. Firstly, we will right rotate the node <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>39</mn></mrow><annotation encoding="application/x-tex">39</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">39</span></span></span></span> (Just like the operations in the other two cases). Secondly, we will left rotate the node <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>47</mn></mrow><annotation encoding="application/x-tex">47</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">47</span></span></span></span>, and it will become a balances tree!</p>
+<h3 id="If-you-want-to-memorize-this">If you want to memorize this:</h3>
+<p>Video Clip: <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV11N4y1x7od/">AVL balanced Tree</a></p>
+<p><img src="https://s1.imagehub.cc/images/2025/03/23/4c704b275bd511867ed2934d22a7134f.png" srcset="/img/loading.gif" lazyload alt="Memorization"></p>
+<h1>Conclusion</h1>
+<p>In the first section, we talk about the basis of <strong>Binary Tree</strong>, regarding several operations like <strong>delete and insert a node</strong> and <strong>the traversal order of the binary tree</strong>. Why we need to do this, because the special storage of binary tree ensures all operations is within the time limit of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span></span></span></span>, and the <strong>sequence of traversal</strong> ensures the relations of <strong>a sequential list</strong> and a binary tree. (For the set structure, we have BST)</p>
+<p>In the second part, we need to ensure <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>≡</mo><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(h) \equiv O(logn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>.If we don’t do anything, there are some bad situations (like the <strong>singly linked list</strong>) where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>=</mo><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(h)=O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>. To avoid this situation, we need to <strong>rotate the binary tree to a balanced tree</strong> to make the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>≡</mo><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(h) \equiv O(logn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> is true without <strong>changing the traversal order of the binary tree</strong>.</p>
 
                 
               </div>
@@ -1554,7 +1385,6 @@ tree</strong>.</p>
 
 
 
-
   <script>
   Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
     mermaid.initialize({"theme":"default"});
@@ -1759,49 +1589,6 @@ tree</strong>.</p>
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script defer src="/js/leancloud.js" ></script>
 

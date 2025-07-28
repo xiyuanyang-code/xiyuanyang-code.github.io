@@ -912,187 +912,135 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h1
-id="leetcode-mistake-collection-11-20">Leetcode-Mistake-collection-11-20</h1>
-<h1 id="程设错题-6-10-20241015-20241020">程设错题 6-10
-20241015-20241020</h1>
-<h2 id="acwing-776-字符串移位问题">1.ACwing 776 字符串移位问题</h2>
+<h1>Leetcode-Mistake-collection-11-20</h1>
+<h1>程设错题 6-10 20241015-20241020</h1>
+<h2 id="1-ACwing-776-字符串移位问题">1.ACwing 776 字符串移位问题</h2>
 <p>对于一个字符串来说，定义一次循环移位操作为：将字符串的第一个字符移动到末尾形成新的字符串。</p>
-<p>给定两个字符串 s1s1 和
-s2s2，要求判定其中一个字符串是否是另一字符串通过若干次循环移位后的新字符串的子串。</p>
-<p>例如 <code>CDAA</code> 是由 <code>AABCD</code> 两次移位后产生的新串
-<code>BCDAA</code> 的子串，而 <code>ABCD</code> 与 <code>ACBD</code>
-则不能通过多次移位来得到其中一个字符串是新串的子串。</p>
+<p>给定两个字符串 s1s1 和 s2s2，要求判定其中一个字符串是否是另一字符串通过若干次循环移位后的新字符串的子串。</p>
+<p>例如 <code>CDAA</code> 是由 <code>AABCD</code> 两次移位后产生的新串 <code>BCDAA</code> 的子串，而 <code>ABCD</code> 与 <code>ACBD</code> 则不能通过多次移位来得到其中一个字符串是新串的子串。</p>
 <p><strong>输入格式</strong></p>
 <p>共一行，包含两个字符串，中间由单个空格隔开。</p>
 <p>字符串只包含字母和数字，长度不超过 3030。</p>
 <p><strong>输出格式</strong></p>
-<p>如果一个字符串是另一字符串通过若干次循环移位产生的新串的子串，则输出
-<code>true</code>，否则输出 <code>false</code>。</p>
-<h3 id="基本思路">基本思路：</h3>
+<p>如果一个字符串是另一字符串通过若干次循环移位产生的新串的子串，则输出 <code>true</code>，否则输出 <code>false</code>。</p>
+<h3 id="基本思路：">基本思路：</h3>
 <ul>
 <li>使用函数，判断一个字符串是不是另一个字符串的子串</li>
 <li>利用for循环实现对目标数组的移位处理，并且对每个新移位的字符串调用该函数</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">judgestring</span><span class="hljs-params">(string teststring,string standardstring)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(teststring.<span class="hljs-built_in">length</span>()&lt;standardstring.<span class="hljs-built_in">length</span>())&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">if</span>(teststring.<span class="hljs-built_in">find</span>(standardstring)==<span class="hljs-number">-1</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    string movestring,standardstring;<br>    cin&gt;&gt;movestring&gt;&gt;standardstring;<br>    <br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;movestring.<span class="hljs-built_in">length</span>()<span class="hljs-number">-1</span>;)&#123;<br>        movestring.<span class="hljs-built_in">push_back</span>(movestring[<span class="hljs-number">0</span>]);<br>        movestring.<span class="hljs-built_in">erase</span>(movestring.<span class="hljs-built_in">begin</span>());<br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">judgestring</span>(movestring,standardstring))&#123;<br>            cout&lt;&lt;<span class="hljs-string">&quot;true&quot;</span>;<br>            <span class="hljs-keyword">goto</span> end;<br>        &#125;<br>    &#125;<br>    cout&lt;&lt;<span class="hljs-string">&quot;false&quot;</span>;<br>    end:;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h3 id="优化思路">优化思路：</h3>
+<h3 id="优化思路：">优化思路：</h3>
 <p>若将一个字符串首尾相接，则不需要进行移项操作（相当于顺序没有发生变化）</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">check</span><span class="hljs-params">(string a, string b)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> len = a.<span class="hljs-built_in">size</span>();<br>    a += a; <span class="hljs-comment">//复制字符串并连接</span><br>    <span class="hljs-comment">//if (a.find(b) &gt;= 0 &amp;&amp; a.find(b) &lt; len) return true; //判断是否包含</span><br>    <span class="hljs-keyword">if</span> (a.<span class="hljs-built_in">find</span>(b) != string::npos) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <span class="hljs-comment">//判断a中是否包含b</span><br>    <span class="hljs-comment">//两种判断方式，推荐第二种，若find函数未找到，则会返回一个特殊常量string::npos</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    string a, b;<br>    cin &gt;&gt; a &gt;&gt; b;<br>    <span class="hljs-keyword">if</span> (a.<span class="hljs-built_in">size</span>() &lt; b.<span class="hljs-built_in">size</span>()) <span class="hljs-built_in">swap</span>(a, b);<br>    <span class="hljs-comment">//默认a是更大的string类</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">check</span>(a, b)) cout &lt;&lt; <span class="hljs-string">&quot;true&quot;</span>;<br>    <span class="hljs-keyword">else</span> cout &lt;&lt; <span class="hljs-string">&quot;false&quot;</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h2 id="acwing-777-字符串的最小周期问题">2.ACwing 777
-字符串的最小周期问题</h2>
+<h2 id="2-ACwing-777-字符串的最小周期问题">2.ACwing 777 字符串的最小周期问题</h2>
 <p>给定一个字符串s,求其最小的周期格段</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    string s;<br>    <span class="hljs-type">int</span> flag=<span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=s.<span class="hljs-built_in">length</span>();++i)&#123;<br>        <span class="hljs-comment">//外层循环：枚举可能的周期，从小到大枚举，第一个得到的值就是目标值</span><br>        flag=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">if</span>(len%i!=<span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">continue</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;i&lt;s.<span class="hljs-built_in">length</span>();j++)&#123;<br>            <span class="hljs-keyword">if</span>(s[j]!=s[j%i])&#123;<br>                <span class="hljs-comment">//核心代码:判断每一个j和j%i是否相等，判断是否符合周期性的定义。</span><br>                flag=<span class="hljs-number">0</span>;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(flag)&#123;<br>                cout&lt;&lt;s.<span class="hljs-built_in">length</span>()/i&lt;&lt;endl;<br>                <span class="hljs-keyword">goto</span> :end;<br>            &#125;<br>        &#125;<br>        cout&lt;&lt;<span class="hljs-string">&quot;-1&quot;</span>;<br>        end:;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="leetcode-217-存在重复元素进阶版">3.Leetcode 217
-存在重复元素（进阶版）</h2>
-<p><a
-target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate/">原题链接</a></p>
-<p>给你一个整数数组 <code>nums</code> 。如果任一值在数组中出现
-<strong>至少两次</strong> ，返回 <code>true</code>
-；如果数组中每个元素互不相同，返回 <code>false</code> 。</p>
+<h2 id="3-Leetcode-217-存在重复元素（进阶版）">3.Leetcode 217 存在重复元素（进阶版）</h2>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate/">原题链接</a></p>
+<p>给你一个整数数组 <code>nums</code> 。如果任一值在数组中出现 <strong>至少两次</strong> ，返回 <code>true</code> ；如果数组中每个元素互不相同，返回 <code>false</code> 。</p>
 <p><strong>示例 1：</strong></p>
-<p><strong>输入：</strong>nums = [1,2,3,1]</p>
-<p><strong>输出：</strong>true</p>
+<p>**输入：**nums = [1,2,3,1]</p>
+<p>**输出：**true</p>
 <p><strong>解释：</strong></p>
 <p>元素 1 在下标 0 和 3 出现。</p>
-<h3 id="最暴力方法使用枚举筛查-on2">1.最暴力方法：使用枚举筛查
-O(n^2)</h3>
+<h3 id="1-最暴力方法：使用枚举筛查-O-n-2">1.最暴力方法：使用枚举筛查 O(n^2)</h3>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">containsDuplicate</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        vector&lt;<span class="hljs-type">int</span>&gt; findnums;<br>        findnums.<span class="hljs-built_in">reserve</span>(<span class="hljs-number">10000</span>);<br>        <span class="hljs-type">int</span> input=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.<span class="hljs-built_in">size</span>();i++)&#123;<br>            <span class="hljs-keyword">auto</span> it=std::<span class="hljs-built_in">find</span>(findnums.<span class="hljs-built_in">begin</span>(),findnums.<span class="hljs-built_in">end</span>(),nums[i]);<br>            <span class="hljs-keyword">if</span>(it!=findnums.<span class="hljs-built_in">end</span>())&#123;<br>                input=<span class="hljs-number">1</span>;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                findnums.<span class="hljs-built_in">push_back</span>(nums[i]);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">bool</span>(input);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <p>分析：效率过低，每次插入一个新值都需要重新查找一遍findnums数组</p>
 <p>优化：将findnums数组优化为unordered_set（使用哈希表来存储出现过的元素效率更高）</p>
-<h3 id="优化代码">优化代码：</h3>
+<h3 id="优化代码：">优化代码：</h3>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">containsDuplicate</span><span class="hljs-params">(std::vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        std::unordered_set&lt;<span class="hljs-type">int</span>&gt; seen;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> num : nums) &#123;<br>            <span class="hljs-comment">//编程习惯：遍历的简化写法</span><br>            <span class="hljs-keyword">if</span> (seen.<span class="hljs-built_in">find</span>(num) != seen.<span class="hljs-built_in">end</span>()) &#123;<br>                <span class="hljs-comment">//如果找到了num,直接输出true</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125;<br>            seen.<span class="hljs-built_in">insert</span>(num);<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
-<h3 id="知识补充哈希表">知识补充：哈希表</h3>
-<p>​ 使用哈希表（如
-<code>std::unordered_set</code>）存储已经遇到的元素，<strong>时间复杂度更低</strong>的原因主要在于哈希表的查找和插入操作的平均时间复杂度是
-O(1)。这是因为哈希表通过哈希函数将元素映射到一个数组中的特定位置，从而实现了快速的查找和插入。以下是详细解释：</p>
+<h3 id="知识补充：哈希表">知识补充：哈希表</h3>
+<p>​	使用哈希表（如 <code>std::unordered_set</code>）存储已经遇到的元素，<strong>时间复杂度更低</strong>的原因主要在于哈希表的查找和插入操作的平均时间复杂度是 O(1)。这是因为哈希表通过哈希函数将元素映射到一个数组中的特定位置，从而实现了快速的查找和插入。以下是详细解释：</p>
 <h5 id="哈希表的工作原理">哈希表的工作原理</h5>
-<ol type="1">
+<ol>
 <li><strong>哈希函数</strong>：哈希表使用一个哈希函数将每个元素的值转换为一个哈希码（通常是一个整数），这个哈希码对应哈希表中的一个位置（桶）。</li>
 <li><strong>存储位置</strong>：元素被存储在对应的桶中，查找和插入操作都可以通过计算哈希码直接定位到相应的桶，从而避免了线性扫描。</li>
 <li><strong>冲突处理</strong>：当多个元素映射到同一个桶时，哈希表使用冲突处理机制（如链地址法或开放地址法）来处理这些冲突。</li>
 </ol>
 <h5 id="时间复杂度分析">时间复杂度分析</h5>
 <ul>
-<li><strong>查找</strong>：在理想情况下，哈希表的查找操作只需计算一次哈希函数并访问一个桶，时间复杂度为
-O(1)。</li>
-<li><strong>插入</strong>：插入操作也只需计算一次哈希函数并将元素放入相应的桶中，时间复杂度为
-O(1)。</li>
-<li><strong>删除</strong>：类似于查找和插入，删除操作也可以在 O(1)
-时间内完成。</li>
+<li><strong>查找</strong>：在理想情况下，哈希表的查找操作只需计算一次哈希函数并访问一个桶，时间复杂度为 O(1)。</li>
+<li><strong>插入</strong>：插入操作也只需计算一次哈希函数并将元素放入相应的桶中，时间复杂度为 O(1)。</li>
+<li><strong>删除</strong>：类似于查找和插入，删除操作也可以在 O(1) 时间内完成。</li>
 </ul>
 <h5 id="对比线性查找">对比线性查找</h5>
 <ul>
-<li><strong>线性查找</strong>：在向量或链表中查找一个元素需要遍历所有元素，时间复杂度为
-O(n)。（例如vector)</li>
-<li><strong>哈希查找</strong>：在哈希表中查找一个元素平均只需要 O(1)
-时间，可以显著提高查找效率。</li>
+<li><strong>线性查找</strong>：在向量或链表中查找一个元素需要遍历所有元素，时间复杂度为 O(n)。（例如vector)</li>
+<li><strong>哈希查找</strong>：在哈希表中查找一个元素平均只需要 O(1) 时间，可以显著提高查找效率。</li>
 </ul>
 <h5 id="实际应用中的考虑">实际应用中的考虑</h5>
-<p>虽然哈希表的平均时间复杂度是
-O(1)，但在最坏情况下（例如哈希函数不均匀导致所有元素映射到同一个桶），时间复杂度可以退化到
-O(n)。然而，通过选择合适的哈希函数和合理的负载因子，最坏情况发生的概率可以被大大降低。</p>
+<p>虽然哈希表的平均时间复杂度是 O(1)，但在最坏情况下（例如哈希函数不均匀导致所有元素映射到同一个桶），时间复杂度可以退化到 O(n)。然而，通过选择合适的哈希函数和合理的负载因子，最坏情况发生的概率可以被大大降低。</p>
 <h5 id="结论">结论</h5>
-<p>使用哈希表存储已经遇到的元素，可以利用其快速查找和插入的特性，将包含重复元素的检查操作的时间复杂度从
-O(n^2) 降低到 O(n)，在处理大数据集时显著提高性能。</p>
-<h2 id="leetcode-219-存在重复元素ii-进阶版">4.Leetcode 219
-存在重复元素II （进阶版）</h2>
-<p>给你一个整数数组 <code>nums</code> 和一个整数 <code>k</code>
-，判断数组中是否存在两个 <strong>不同的索引</strong> <code>i</code> 和
-<code>j</code> ，满足 <code>nums[i] == nums[j]</code> 且
-<code>abs(i - j) &lt;= k</code> 。如果存在，返回 <code>true</code>
-；否则，返回 <code>false</code> 。</p>
-<p>思路：此处使用unordered_set会比较麻烦，unordered_set
-键值对就是自己本身，这里可以使用unordered_map类型的容器，实现两个值之间的一一映射。</p>
-<p>（在上一题中只是判断是否存在，对元素的索引和顺序并未提出要求，故使用unordered_set
-即可）</p>
-<h3 id="代码实现使用映射">代码实现：使用映射</h3>
+<p>使用哈希表存储已经遇到的元素，可以利用其快速查找和插入的特性，将包含重复元素的检查操作的时间复杂度从 O(n^2) 降低到 O(n)，在处理大数据集时显著提高性能。</p>
+<h2 id="4-Leetcode-219-存在重复元素II-（进阶版）">4.Leetcode 219 存在重复元素II （进阶版）</h2>
+<p>给你一个整数数组 <code>nums</code> 和一个整数 <code>k</code> ，判断数组中是否存在两个 <strong>不同的索引</strong> <code>i</code> 和 <code>j</code> ，满足 <code>nums[i] == nums[j]</code> 且 <code>abs(i - j) &lt;= k</code> 。如果存在，返回 <code>true</code> ；否则，返回 <code>false</code> 。</p>
+<p>思路：此处使用unordered_set会比较麻烦，unordered_set 键值对就是自己本身，这里可以使用unordered_map类型的容器，实现两个值之间的一一映射。</p>
+<p>（在上一题中只是判断是否存在，对元素的索引和顺序并未提出要求，故使用unordered_set 即可）</p>
+<h3 id="代码实现：使用映射">代码实现：使用映射</h3>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">containsNearbyDuplicate</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> k)</span> </span>&#123;<br>        unordered_map&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt; dictionary; <span class="hljs-comment">// 用于存储每个元素的最新索引</span><br>        <span class="hljs-type">int</span> length = nums.<span class="hljs-built_in">size</span>(); <span class="hljs-comment">// 获取数组的长度</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) &#123; <span class="hljs-comment">// 遍历数组</span><br>            <span class="hljs-type">int</span> num = nums[i]; <span class="hljs-comment">// 当前元素</span><br>            <span class="hljs-comment">// 如果当前元素已经存在于字典中，并且当前索引与存储的索引之差小于等于 k</span><br>            <span class="hljs-keyword">if</span> (dictionary.<span class="hljs-built_in">count</span>(num) &amp;&amp; i - dictionary[num] &lt;= k) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <span class="hljs-comment">// 找到符合条件的重复元素，返回 true</span><br>            &#125;<br>            dictionary[num] = i; <span class="hljs-comment">// 更新字典中的索引  nums[i]-&gt;i的映射</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; <span class="hljs-comment">// 遍历完数组后，未找到符合条件的重复元素，返回 false</span><br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
 <h4 id="相关代码解释">相关代码解释</h4>
 <ul>
-<li><p>基本思路：创建dictionary的map映射，并对nums数组不断进行操作，如果找到两个相同的元素并且索引小于k，直接return
-true，如果没有，则储存一对新的映射（元素唯一）</p></li>
-<li><p>unordered_map容器中键值保持唯一性，使用 <code>[]</code>
-运算符插入相同键时，新值会覆盖旧值。使用 <code>insert</code>
-方法插入相同键时，插入操作会失败，原值保持不变。</p></li>
-<li><p>count函数：</p>
-<p><code>std::unordered_map</code> 的 <code>count</code>
-函数用于检查特定键是否存在于映射中。它返回一个整数值，表示具有指定键的元素数量。在
-<code>std::unordered_map</code> 中，每个键是唯一的，因此
-<code>count</code> 函数的返回值只能是 <code>0</code> 或
-<code>1</code>。</p>
+<li>
+<p>基本思路：创建dictionary的map映射，并对nums数组不断进行操作，如果找到两个相同的元素并且索引小于k，直接return true，如果没有，则储存一对新的映射（元素唯一）</p>
+</li>
+<li>
+<p>unordered_map容器中键值保持唯一性，使用 <code>[]</code> 运算符插入相同键时，新值会覆盖旧值。使用 <code>insert</code> 方法插入相同键时，插入操作会失败，原值保持不变。</p>
+</li>
+<li>
+<p>count函数：</p>
+<p><code>std::unordered_map</code> 的 <code>count</code> 函数用于检查特定键是否存在于映射中。它返回一个整数值，表示具有指定键的元素数量。在 <code>std::unordered_map</code> 中，每个键是唯一的，因此 <code>count</code> 函数的返回值只能是 <code>0</code> 或 <code>1</code>。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">size_t</span> <span class="hljs-title">count</span><span class="hljs-params">(<span class="hljs-type">const</span> Key&amp; key)</span> <span class="hljs-type">const</span></span>;<br></code></pre></td></tr></table></figure>
 <ul>
 <li><code>key</code>：要检查的键。</li>
-<li>返回值：如果键存在，则返回 <code>1</code>；否则返回
-<code>0</code>。</li>
+<li>返回值：如果键存在，则返回 <code>1</code>；否则返回 <code>0</code>。</li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unordered_map&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    std::unordered_map&lt;<span class="hljs-type">int</span>, std::string&gt; myMap;<br>    myMap[<span class="hljs-number">1</span>] = <span class="hljs-string">&quot;one&quot;</span>;<br>    myMap[<span class="hljs-number">2</span>] = <span class="hljs-string">&quot;two&quot;</span>;<br>    myMap[<span class="hljs-number">3</span>] = <span class="hljs-string">&quot;three&quot;</span>;<br><br>    <span class="hljs-type">int</span> key = <span class="hljs-number">2</span>;<br><br>    <span class="hljs-comment">// 使用 count 函数检查键是否存在</span><br>    <span class="hljs-keyword">if</span> (myMap.<span class="hljs-built_in">count</span>(key)) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Key &quot;</span> &lt;&lt; key &lt;&lt; <span class="hljs-string">&quot; exists in the map with value: &quot;</span> &lt;&lt; myMap[key] &lt;&lt; std::endl;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Key &quot;</span> &lt;&lt; key &lt;&lt; <span class="hljs-string">&quot; does not exist in the map.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">Key <span class="hljs-number">2</span> exists <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> map <span class="hljs-keyword">with</span> <span class="hljs-built_in">value</span>: <span class="hljs-literal">two</span><br></code></pre></td></tr></table></figure></li>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">Key <span class="hljs-number">2</span> exists <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> map <span class="hljs-keyword">with</span> <span class="hljs-built_in">value</span>: <span class="hljs-literal">two</span><br></code></pre></td></tr></table></figure>
+</li>
 </ul>
-<h4 id="容器unordered_map简介">容器：unordered_map简介</h4>
-<p><code>unordered_map</code> 是 C++
-标准库中的一个关联容器，用于存储键值对。它基于哈希表实现，提供了平均常数时间复杂度的插入、删除和查找操作。</p>
+<h4 id="容器：unordered-map简介">容器：unordered_map简介</h4>
+<p><code>unordered_map</code> 是 C++ 标准库中的一个关联容器，用于存储键值对。它基于哈希表实现，提供了平均常数时间复杂度的插入、删除和查找操作。</p>
 <p>特性</p>
-<ol type="1">
+<ol>
 <li><strong>无序存储</strong>：元素存储在哈希表中，因此没有特定的顺序。</li>
 <li><strong>唯一键</strong>：每个键在容器中是唯一的。</li>
-<li><strong>高效操作</strong>：插入、删除和查找操作的平均时间复杂度为
-<code>O(1)</code>，最坏情况下为
-<code>O(n)</code>，但这种情况很少发生。</li>
+<li><strong>高效操作</strong>：插入、删除和查找操作的平均时间复杂度为 <code>O(1)</code>，最坏情况下为 <code>O(n)</code>，但这种情况很少发生。</li>
 </ol>
 <p>常用操作</p>
 <ul>
-<li><strong>插入元素</strong>：使用 <code>insert</code> 方法或
-<code>[]</code> 运算符。</li>
+<li><strong>插入元素</strong>：使用 <code>insert</code> 方法或 <code>[]</code> 运算符。</li>
 <li><strong>删除元素</strong>：使用 <code>erase</code> 方法。</li>
-<li><strong>查找元素</strong>：使用 <code>find</code> 方法或
-<code>count</code> 方法。</li>
+<li><strong>查找元素</strong>：使用 <code>find</code> 方法或 <code>count</code> 方法。</li>
 <li><strong>访问元素</strong>：使用 <code>[]</code> 运算符。</li>
 </ul>
 <p>示例</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unordered_map&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    std::unordered_map&lt;<span class="hljs-type">int</span>, std::string&gt; myMap;<br><br>    <span class="hljs-comment">// 插入元素</span><br>    myMap[<span class="hljs-number">1</span>] = <span class="hljs-string">&quot;one&quot;</span>;<br>    myMap[<span class="hljs-number">2</span>] = <span class="hljs-string">&quot;two&quot;</span>;<br>    myMap.<span class="hljs-built_in">insert</span>(&#123;<span class="hljs-number">3</span>, <span class="hljs-string">&quot;three&quot;</span>&#125;);<br><br>    <span class="hljs-comment">// 访问元素</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Key 1: &quot;</span> &lt;&lt; myMap[<span class="hljs-number">1</span>] &lt;&lt; std::endl;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Key 2: &quot;</span> &lt;&lt; myMap[<span class="hljs-number">2</span>] &lt;&lt; std::endl;<br><br>    <span class="hljs-comment">// 查找元素</span><br>    <span class="hljs-keyword">auto</span> it = myMap.<span class="hljs-built_in">find</span>(<span class="hljs-number">3</span>);<br>    <span class="hljs-comment">//find函数用来返回一个迭代器，如果找到就返回特定键值的迭代器，如果没有找到就返回对应的.end()迭代器</span><br>    <span class="hljs-keyword">if</span> (it != myMap.<span class="hljs-built_in">end</span>()) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Found key 3 with value: &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Key 3 not found.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-comment">// 删除元素</span><br>    myMap.<span class="hljs-built_in">erase</span>(<span class="hljs-number">2</span>);<br><br>    <span class="hljs-comment">// 检查元素是否存在</span><br>    <span class="hljs-keyword">if</span> (myMap.<span class="hljs-built_in">count</span>(<span class="hljs-number">2</span>)) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Key 2 exists in the map.&quot;</span> &lt;&lt; std::endl;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Key 2 does not exist in the map.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>输出：</p>
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">Key <span class="hljs-number">1</span>: <span class="hljs-literal">one</span><br>Key <span class="hljs-number">2</span>: <span class="hljs-literal">two</span><br>Found key <span class="hljs-number">3</span> <span class="hljs-keyword">with</span> <span class="hljs-built_in">value</span>: <span class="hljs-literal">three</span><br>Key <span class="hljs-number">2</span> does <span class="hljs-keyword">not</span> exist <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> map.<br></code></pre></td></tr></table></figure>
-<h3 id="思路2滑动窗口">思路2：滑动窗口</h3>
+<h3 id="思路2：滑动窗口">思路2：滑动窗口</h3>
 <p>根据题目要求，并不是所有的题目的数据都要用一个数组进行储存再查找的过程。</p>
 <p>思路：设置滑动窗口的双枚举i，j</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">containsNearbyDuplicate</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> k)</span> </span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.<span class="hljs-built_in">size</span>();i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=i<span class="hljs-number">+1</span>;j&lt;=i+k&amp;&amp;j&lt;nums.<span class="hljs-built_in">size</span>();j++)&#123;<br>                <span class="hljs-keyword">if</span>(nums[i]==nums[j])&#123;<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>时间复杂度：O(Kn) 空间复杂度O(1)</p>
+<p>时间复杂度：O(Kn)      空间复杂度O(1)</p>
 <p>算法优化：</p>
-<p>​ 考虑数组 nums 中的每个长度不超过 k+1
-的滑动窗口，同一个滑动窗口中的任意两个下标差的绝对值不超过
-k。如果存在一个滑动窗口，其中有重复元素，则<strong>存在两个不同的下标 i
-和 j 满足 nums[i]=nums[j] 且
-∣i−j∣≤k</strong>。如果所有滑动窗口中都没有重复元素，则不存在符合要求的下标。因此，只要<strong>遍历每个滑动窗口，判断滑动窗口中是否有重复元素即可</strong>。</p>
-<p>​ 如果一个滑动窗口的结束下标是 i，则该滑动窗口的开始下标是
-max(0,i−k)。可以使用哈希集合存储滑动窗口中的元素。从左到右遍历数组
-nums，当遍历到下标 i 时，具体操作如下：</p>
-<p>​ 如果 i&gt;k，则下标 i−k−1 处的元素被移出滑动窗口，因此将 nums[i−k−1]
-从哈希集合中删除；</p>
-<p>​ 判断 nums[i]
-是否在哈希集合中，如果在哈希集合中则在同一个滑动窗口中有重复元素，返回
-true，如果不在哈希集合中则将其加入哈希集合。</p>
-<p>​ 当遍历结束时，如果所有滑动窗口中都没有重复元素，返回 false。</p>
+<p>​	考虑数组 nums 中的每个长度不超过 k+1 的滑动窗口，同一个滑动窗口中的任意两个下标差的绝对值不超过 k。如果存在一个滑动窗口，其中有重复元素，则<strong>存在两个不同的下标 i 和 j 满足 nums[i]=nums[j] 且 ∣i−j∣≤k</strong>。如果所有滑动窗口中都没有重复元素，则不存在符合要求的下标。因此，只要<strong>遍历每个滑动窗口，判断滑动窗口中是否有重复元素即可</strong>。</p>
+<p>​	如果一个滑动窗口的结束下标是 i，则该滑动窗口的开始下标是 max(0,i−k)。可以使用哈希集合存储滑动窗口中的元素。从左到右遍历数组 nums，当遍历到下标 i 时，具体操作如下：</p>
+<p>​	如果 i&gt;k，则下标 i−k−1 处的元素被移出滑动窗口，因此将 nums[i−k−1] 从哈希集合中删除；</p>
+<p>​	判断 nums[i] 是否在哈希集合中，如果在哈希集合中则在同一个滑动窗口中有重复元素，返回 true，如果不在哈希集合中则将其加入哈希集合。</p>
+<p>​	当遍历结束时，如果所有滑动窗口中都没有重复元素，返回 false。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">containsNearbyDuplicate</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> k)</span> </span>&#123;<br>        unordered_set&lt;<span class="hljs-type">int</span>&gt; s;<br>        <span class="hljs-comment">//s就是滑动窗口，用一个unordered_set存储，可以减少一个for循环，降低时间复杂度</span><br>        <span class="hljs-type">int</span> length = nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) &#123;<br>            <span class="hljs-keyword">if</span> (i &gt; k) &#123;<br>                s.<span class="hljs-built_in">erase</span>(nums[i - k - <span class="hljs-number">1</span>]);<br>            &#125;<br>            <span class="hljs-comment">//当i&gt;k时，每次执行i++时都需要将滑动窗口的最后一个元素驱逐出窗口</span><br>            <span class="hljs-keyword">if</span> (s.<span class="hljs-built_in">count</span>(nums[i])) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125;<br>            s.<span class="hljs-built_in">emplace</span>(nums[i]);<br>            <span class="hljs-comment">//在每一次i++前，都会插入一个新元素，之后会执行命令count，判断新插入的元素是否已经存在在滑动窗口中，如果是，直接return true</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
 <p>时间复杂度：O(n)</p>
 <h4 id="emplace函数">emplace函数</h4>
-<p><code>emplace</code> 是 C++11
-引入的一个成员函数，用于在容器中原地构造元素。对于
-<code>unordered_map</code>，<code>emplace</code>
-可以避免不必要的临时对象创建和复制，从而提高性能。<code>emplace</code>
-方法接受键和值的构造参数，并直接在容器中构造元素。</p>
+<p><code>emplace</code> 是 C++11 引入的一个成员函数，用于在容器中原地构造元素。对于 <code>unordered_map</code>，<code>emplace</code> 可以避免不必要的临时对象创建和复制，从而提高性能。<code>emplace</code> 方法接受键和值的构造参数，并直接在容器中构造元素。</p>
 <p><code>emplace</code> 的用法</p>
 <p><code>emplace</code> 的函数签名如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span>... Args&gt;<br><span class="hljs-function">std::pair&lt;iterator, <span class="hljs-type">bool</span>&gt; <span class="hljs-title">emplace</span><span class="hljs-params">(Args&amp;&amp;... args)</span></span>;<br></code></pre></td></tr></table></figure>
 <ul>
-<li><strong>参数</strong>：<code>args</code>
-是传递给元素构造函数的参数。</li>
-<li><strong>返回值</strong>：返回一个
-<code>std::pair</code>，其中第一个元素是指向插入元素的迭代器，第二个元素是一个布尔值，表示插入是否成功。</li>
+<li><strong>参数</strong>：<code>args</code> 是传递给元素构造函数的参数。</li>
+<li><strong>返回值</strong>：返回一个 <code>std::pair</code>，其中第一个元素是指向插入元素的迭代器，第二个元素是一个布尔值，表示插入是否成功。</li>
 </ul>
 <p>示例</p>
-<p>以下示例展示了如何使用 <code>emplace</code> 在
-<code>unordered_map</code> 中插入元素：</p>
+<p>以下示例展示了如何使用 <code>emplace</code> 在 <code>unordered_map</code> 中插入元素：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unordered_map&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    std::unordered_map&lt;<span class="hljs-type">int</span>, std::string&gt; myMap;<br><br>    <span class="hljs-comment">// 使用 emplace 插入元素</span><br>    myMap.<span class="hljs-built_in">emplace</span>(<span class="hljs-number">1</span>, <span class="hljs-string">&quot;one&quot;</span>);<br>    myMap.<span class="hljs-built_in">emplace</span>(<span class="hljs-number">2</span>, <span class="hljs-string">&quot;two&quot;</span>);<br><br>    <span class="hljs-comment">// 打印初始内容</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Initial map:&quot;</span> &lt;&lt; std::endl;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">const</span> <span class="hljs-keyword">auto</span>&amp; pair : myMap) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Key: &quot;</span> &lt;&lt; pair.first &lt;&lt; <span class="hljs-string">&quot;, Value: &quot;</span> &lt;&lt; pair.second &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-comment">// 尝试使用 emplace 插入相同键</span><br>    <span class="hljs-keyword">auto</span> result = myMap.<span class="hljs-built_in">emplace</span>(<span class="hljs-number">1</span>, <span class="hljs-string">&quot;uno&quot;</span>);<br><br>    <span class="hljs-keyword">if</span> (result.second) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Emplace succeeded.&quot;</span> &lt;&lt; std::endl;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Emplace failed. Key 1 already exists with value: &quot;</span> &lt;&lt; myMap[<span class="hljs-number">1</span>] &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-comment">// 打印更新后的内容</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Updated map:&quot;</span> &lt;&lt; std::endl;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">const</span> <span class="hljs-keyword">auto</span>&amp; pair : myMap) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Key: &quot;</span> &lt;&lt; pair.first &lt;&lt; <span class="hljs-string">&quot;, Value: &quot;</span> &lt;&lt; pair.second &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>输出：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">Initial map:</span><br><span class="hljs-attr">Key:</span> <span class="hljs-number">1</span><span class="hljs-string">,</span> <span class="hljs-attr">Value:</span> <span class="hljs-string">one</span><br><span class="hljs-attr">Key:</span> <span class="hljs-number">2</span><span class="hljs-string">,</span> <span class="hljs-attr">Value:</span> <span class="hljs-string">two</span><br><span class="hljs-attr">Emplace failed. Key 1 already exists with value:</span> <span class="hljs-string">one</span><br><span class="hljs-attr">Updated map:</span><br><span class="hljs-attr">Key:</span> <span class="hljs-number">1</span><span class="hljs-string">,</span> <span class="hljs-attr">Value:</span> <span class="hljs-string">one</span><br><span class="hljs-attr">Key:</span> <span class="hljs-number">2</span><span class="hljs-string">,</span> <span class="hljs-attr">Value:</span> <span class="hljs-string">two</span><br></code></pre></td></tr></table></figure>
@@ -1103,18 +1051,13 @@ true，如果不在哈希集合中则将其加入哈希集合。</p>
 </ul>
 <p>总结</p>
 <ul>
-<li><code>emplace</code> 方法用于在 <code>unordered_map</code>
-中原地构造元素，避免不必要的临时对象创建和复制操作。</li>
-<li>如果插入的键已经存在，<code>emplace</code>
-操作将失败，原值保持不变。</li>
+<li><code>emplace</code> 方法用于在 <code>unordered_map</code> 中原地构造元素，避免不必要的临时对象创建和复制操作。</li>
+<li>如果插入的键已经存在，<code>emplace</code> 操作将失败，原值保持不变。</li>
 </ul>
-<h1 id="程设错题-15-20-20241027-20241031">程设错题 15-20
-20241027-20241031</h1>
-<h2 id="leetcode-283-移动零">1.Leetcode 283 移动零</h2>
-<p>给定一个数组 <code>nums</code>，编写一个函数将所有 <code>0</code>
-移动到数组的末尾，同时保持非零元素的相对顺序。</p>
-<p><strong>请注意</strong>
-，必须在不复制数组的情况下原地对数组进行操作。</p>
+<h1>程设错题 15-20 20241027-20241031</h1>
+<h2 id="1-Leetcode-283-移动零">1.Leetcode 283 移动零</h2>
+<p>给定一个数组 <code>nums</code>，编写一个函数将所有 <code>0</code> 移动到数组的末尾，同时保持非零元素的相对顺序。</p>
+<p><strong>请注意</strong> ，必须在不复制数组的情况下原地对数组进行操作。</p>
 <p><strong>示例 1:</strong></p>
 <figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">输入: nums = <span class="hljs-string">[0,1,0,3,12]</span><br>输出: <span class="hljs-string">[1,3,12,0,0]</span><br></code></pre></td></tr></table></figure>
 <p><strong>示例 2:</strong></p>
@@ -1136,12 +1079,9 @@ true，如果不在哈希集合中则将其加入哈希集合。</p>
 <h3 id="解法③-双指针并行处理">解法③ 双指针并行处理</h3>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">moveZeroes</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = nums.<span class="hljs-built_in">size</span>(), left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span> (right &lt; n) &#123;<br>            <span class="hljs-keyword">if</span> (nums[right]) &#123;<br>                <span class="hljs-built_in">swap</span>(nums[left], nums[right]);<br>                left++;<br>                <span class="hljs-comment">//如果nums[right]不是0，那么和左指针发生交换，右指针是试探指针，左指针代表已经检查过是非零值的元素，并将左指针右移一位</span><br>                <span class="hljs-comment">//最坏的情况:没有0，则左指针和右指针完全同步</span><br>            &#125;<br>            right++;<br>        &#125;<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
 <p>时间复杂度：O(n)</p>
-<h2 id="leetcode-290-单词映射">2.Leetcode 290 单词映射</h2>
-<p>给定一种规律 <code>pattern</code> 和一个字符串 <code>s</code> ，判断
-<code>s</code> 是否遵循相同的规律。</p>
-<p>这里的 <strong>遵循</strong> 指完全匹配，例如， <code>pattern</code>
-里的每个字母和字符串 <code>s</code>
-中的每个非空单词之间存在着双向连接的对应规律。</p>
+<h2 id="2-Leetcode-290-单词映射">2.Leetcode 290 单词映射</h2>
+<p>给定一种规律 <code>pattern</code> 和一个字符串 <code>s</code> ，判断 <code>s</code> 是否遵循相同的规律。</p>
+<p>这里的 <strong>遵循</strong> 指完全匹配，例如， <code>pattern</code> 里的每个字母和字符串 <code>s</code> 中的每个非空单词之间存在着双向连接的对应规律。</p>
 <p><strong>示例1:</strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">输入: <span class="hljs-keyword">pattern</span> <span class="hljs-operator">=</span> &quot;abba&quot;, s <span class="hljs-operator">=</span> &quot;dog cat cat dog&quot;<br>输出: <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
 <p><strong>示例 2:</strong></p>
@@ -1151,13 +1091,18 @@ true，如果不在哈希集合中则将其加入哈希集合。</p>
 <p>代码解法</p>
 <p>思路：</p>
 <ul>
-<li><p>如何获得子字符串作为单词？</p>
+<li>
+<p>如何获得子字符串作为单词？</p>
 <ul>
-<li><p>使用substr()</p></li>
-<li><p>使用双指针</p></li>
-<li><p><code>substr</code> 是 C++ 中 <code>std::string</code>
-类的一个成员函数，用于从字符串中提取子字符串。它有两个参数：</p>
-<ol type="1">
+<li>
+<p>使用substr()</p>
+</li>
+<li>
+<p>使用双指针</p>
+</li>
+<li>
+<p><code>substr</code> 是 C++ 中 <code>std::string</code> 类的一个成员函数，用于从字符串中提取子字符串。它有两个参数：</p>
+<ol>
 <li><strong>起始位置（pos）</strong>：要提取的子字符串的起始索引。</li>
 <li><strong>长度（len）</strong>：要提取的子字符串的长度（可选）。如果不指定，则提取到字符串的末尾。</li>
 </ol>
@@ -1172,38 +1117,38 @@ true，如果不在哈希集合中则将其加入哈希集合。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    std::string text = <span class="hljs-string">&quot;Hello, World!&quot;</span>;<br>    <br>    <span class="hljs-comment">// 提取从位置 7 开始的子字符串，长度为 5</span><br>    std::string sub1 = text.<span class="hljs-built_in">substr</span>(<span class="hljs-number">7</span>, <span class="hljs-number">5</span>);<br>    std::cout &lt;&lt; sub1 &lt;&lt; std::endl;  <span class="hljs-comment">// 输出 &quot;World&quot;</span><br>    <br>    <span class="hljs-comment">// 提取从位置 7 开始的子字符串，直到字符串末尾</span><br>    std::string sub2 = text.<span class="hljs-built_in">substr</span>(<span class="hljs-number">7</span>);<br>    std::cout &lt;&lt; sub2 &lt;&lt; std::endl;  <span class="hljs-comment">// 输出 &quot;World!&quot;</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>注意事项</p>
 <ul>
-<li>如果 <code>pos</code> 超出字符串长度，会抛出
-<code>std::out_of_range</code> 异常。</li>
+<li>如果 <code>pos</code> 超出字符串长度，会抛出 <code>std::out_of_range</code> 异常。</li>
 <li>如果 <code>len</code> 超出可用长度，则提取到字符串的末尾。</li>
 </ul>
-<p><code>substr</code>
-是处理字符串时非常有用的工具，尤其是在需要提取特定部分的场景中。</p></li>
-</ul></li>
-<li><p>如何构建一一映射的关系</p>
+<p><code>substr</code> 是处理字符串时非常有用的工具，尤其是在需要提取特定部分的场景中。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>如何构建一一映射的关系</p>
 <ul>
 <li>使用两个unordered_map</li>
-</ul></li>
-<li><p>如何处理两个数量不相等的情况</p>
+</ul>
+</li>
+<li>
+<p>如何处理两个数量不相等的情况</p>
 <ul>
 <li>使用计数器</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">wordPattern</span><span class="hljs-params">(string pattern, string str)</span> </span>&#123;<br>        unordered_map&lt;string, <span class="hljs-type">char</span>&gt; str2ch;<br>        unordered_map&lt;<span class="hljs-type">char</span>, string&gt; ch2str;<br>        <span class="hljs-type">int</span> m = str.<span class="hljs-built_in">length</span>();<br>        <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> ch : pattern) &#123;<br>            <span class="hljs-keyword">if</span> (i &gt;= m) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>                <span class="hljs-comment">//如果 i 超过或等于 str 的长度，说明 str 中的单词数量不足以匹配 pattern，返回 false(此时ch还在遍历Pattern，但是i已经超过str的长度了，说明str不够长)</span><br>            &#125;<br>            <span class="hljs-type">int</span> j = i;<br>            <span class="hljs-comment">//经典的双指针解法，截取一个子字符串</span><br>            <span class="hljs-keyword">while</span> (j &lt; m &amp;&amp; str[j] != <span class="hljs-string">&#x27; &#x27;</span>) j++;<br>            <span class="hljs-comment">//截取一个单词</span><br>            <span class="hljs-type">const</span> string &amp;tmp = str.<span class="hljs-built_in">substr</span>(i, j - i);<br>            <span class="hljs-comment">//此处已经跳出循环，故包含了&#x27; &#x27;的情况，单词长度就是j-i</span><br>            <span class="hljs-keyword">if</span> (str2ch.<span class="hljs-built_in">count</span>(tmp) &amp;&amp; str2ch[tmp] != ch) &#123;<br>                <span class="hljs-comment">//如果map映射中已经有了这个单词的映射，并且这个单词的映射并不等于现在遍历得到的ch</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (ch2str.<span class="hljs-built_in">count</span>(ch) &amp;&amp; ch2str[ch] != tmp) &#123;<br>                <span class="hljs-comment">//反过来，如果map映射已经有了字符的映射并且这个字符的映射并不等于现在得到的单词</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>            <span class="hljs-comment">//以上两个条件都为false，故在两个映射中填充进新的值。</span><br>            str2ch[tmp] = ch;<br>            ch2str[ch] = tmp;<br>            i = j + <span class="hljs-number">1</span>;<br>            <span class="hljs-comment">//更新双指针ij的位置</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> i &gt;= m;<br>        <span class="hljs-comment">//如果i&lt;m,说明还有单词未被输出，说明Pattern不够长，输出false</span><br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
-<h2 id="leetcode-350-两数组交集">3. Leetcode 350 两数组交集</h2>
-<p>给你两个整数数组 <code>nums1</code> 和 <code>nums2</code>
-，请你以数组形式返回两数组的交集。返回结果中每个元素出现的次数，应与元素在两个数组中都出现的次数一致（如果出现次数不一致，则考虑取较小值）。可以不考虑输出结果的顺序。</p>
-<h3 id="解法1-最基本的思路">解法1 最基本的思路</h3>
+<h2 id="3-Leetcode-350-两数组交集">3. Leetcode 350 两数组交集</h2>
+<p>给你两个整数数组 <code>nums1</code> 和 <code>nums2</code> ，请你以数组形式返回两数组的交集。返回结果中每个元素出现的次数，应与元素在两个数组中都出现的次数一致（如果出现次数不一致，则考虑取较小值）。可以不考虑输出结果的顺序。</p>
+<h3 id="解法1-最基本的思路">解法1   最基本的思路</h3>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">intersect</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums1, vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums2)</span> </span>&#123;<br>        <span class="hljs-type">int</span> list1[<span class="hljs-number">1001</span>]=&#123;<span class="hljs-number">0</span>&#125;;<br>        <span class="hljs-type">int</span> list2[<span class="hljs-number">1001</span>]=&#123;<span class="hljs-number">0</span>&#125;;<br>        vector&lt;<span class="hljs-type">int</span>&gt; succedd;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> num1:nums1)&#123;<br>            list1[num1]++;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> num2:nums2)&#123;<br>            list2[num2]++;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">1001</span>;i++)&#123;<br>            <span class="hljs-keyword">if</span>(list1[i]&amp;&amp;list2[i])&#123;<br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;<span class="hljs-built_in">min</span>(list1[i],list2[i]);j++)&#123;<br>                    succedd.<span class="hljs-built_in">push_back</span>(i);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> succedd;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<h3 id="解法2-优化使用哈希表存储值">解法2 优化：使用哈希表存储值</h3>
+<h3 id="解法2-优化：使用哈希表存储值">解法2 优化：使用哈希表存储值</h3>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">intersect</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums1, vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums2)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (nums<span class="hljs-number">1.</span><span class="hljs-built_in">size</span>() &gt; nums<span class="hljs-number">2.</span><span class="hljs-built_in">size</span>()) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">intersect</span>(nums2, nums1);<br>        &#125;<br>        <span class="hljs-comment">//为了减少空间复杂度，优先遍历元素数较少的数组</span><br>        unordered_map &lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt; m;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> num : nums1) &#123;<br>            ++m[num];<br>        &#125;<br>        <span class="hljs-comment">//遍历nums1</span><br>        vector&lt;<span class="hljs-type">int</span>&gt; intersection;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> num : nums2) &#123;<br>            <span class="hljs-keyword">if</span> (m.<span class="hljs-built_in">count</span>(num)) &#123;<br>                intersection.<span class="hljs-built_in">push_back</span>(num);<br>                <span class="hljs-comment">//如果出现，则插入到目标序列中</span><br>                --m[num];<br>                <span class="hljs-comment">//相当于用掉了num1中的一个数，故要减1</span><br>                <span class="hljs-keyword">if</span> (m[num] == <span class="hljs-number">0</span>) &#123;<br>                    m.<span class="hljs-built_in">erase</span>(num);<br>                &#125;<br>                <span class="hljs-comment">//踢出num出s，代表nums1中对应的数已经被用完了</span><br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> intersection;<br>    &#125;<br>&#125;;<br><br><br></code></pre></td></tr></table></figure>
-<h3 id="解法3-排序双指针遍历">解法3 排序+双指针遍历</h3>
+<h3 id="解法3-排序-双指针遍历">解法3  排序+双指针遍历</h3>
 <p><strong>对于数组问题，可以先进行排序再进行操作！</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">intersect</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums1, vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums2)</span> </span>&#123;<br>        <span class="hljs-built_in">sort</span>(nums<span class="hljs-number">1.</span><span class="hljs-built_in">begin</span>(), nums<span class="hljs-number">1.</span><span class="hljs-built_in">end</span>());<br>        <span class="hljs-built_in">sort</span>(nums<span class="hljs-number">2.</span><span class="hljs-built_in">begin</span>(), nums<span class="hljs-number">2.</span><span class="hljs-built_in">end</span>());<br>        <span class="hljs-type">int</span> length1 = nums<span class="hljs-number">1.</span><span class="hljs-built_in">size</span>(), length2 = nums<span class="hljs-number">2.</span><span class="hljs-built_in">size</span>();<br>        vector&lt;<span class="hljs-type">int</span>&gt; intersection;<br>        <span class="hljs-type">int</span> index1 = <span class="hljs-number">0</span>, index2 = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span> (index1 &lt; length1 &amp;&amp; index2 &lt; length2) &#123;<br>            <span class="hljs-keyword">if</span> (nums1[index1] &lt; nums2[index2]) &#123;<br>                index1++;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums1[index1] &gt; nums2[index2]) &#123;<br>                index2++;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">//nums1[]==nums2[]</span><br>                <span class="hljs-comment">//同时向前前进一位</span><br>                intersection.<span class="hljs-built_in">push_back</span>(nums1[index1]);<br>                index1++;<br>                index2++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> intersection;<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
-<h2 id="leetcode-438-字符串的字母异位词">4. Leetcode 438
-字符串的字母异位词</h2>
-<p>给定两个字符串 <code>s</code> 和 <code>p</code>，找到 <code>s</code>
-中所有 <code>p</code> 的 <strong>异位词</strong>
-的子串，返回这些子串的起始索引。不考虑答案输出的顺序。</p>
+<h2 id="4-Leetcode-438-字符串的字母异位词">4. Leetcode 438 字符串的字母异位词</h2>
+<p>给定两个字符串 <code>s</code> 和 <code>p</code>，找到 <code>s</code> 中所有 <code>p</code> 的 <strong>异位词</strong> 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。</p>
 <p><strong>示例 1:</strong></p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">输入: s = <span class="hljs-string">&quot;cbaebabacd&quot;</span>, <span class="hljs-selector-tag">p</span> = <span class="hljs-string">&quot;abc&quot;</span><br>输出: <span class="hljs-selector-attr">[0,6]</span><br>解释:<br>起始索引等于 <span class="hljs-number">0</span> 的子串是 <span class="hljs-string">&quot;cba&quot;</span>, 它是 <span class="hljs-string">&quot;abc&quot;</span> 的异位词。<br>起始索引等于 <span class="hljs-number">6</span> 的子串是 <span class="hljs-string">&quot;bac&quot;</span>, 它是 <span class="hljs-string">&quot;abc&quot;</span> 的异位词。<br></code></pre></td></tr></table></figure>
 <p><strong>示例 2:</strong></p>
@@ -1213,40 +1158,24 @@ true，如果不在哈希集合中则将其加入哈希集合。</p>
 <p><strong>本质上是优化的滑动窗口</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">findAnagrams</span><span class="hljs-params">(string s, string p)</span> </span>&#123;<br>        vector&lt;<span class="hljs-type">int</span>&gt; ans;<br>        <span class="hljs-keyword">if</span> (s.<span class="hljs-built_in">length</span>() &lt; p.<span class="hljs-built_in">length</span>()) &#123;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i + p.<span class="hljs-built_in">length</span>() - <span class="hljs-number">1</span> &lt; s.<span class="hljs-built_in">length</span>(); i++) &#123;<br>                string s2 = s.<span class="hljs-built_in">substr</span>(i, p.<span class="hljs-built_in">length</span>());<br>                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">judgeyiwei</span>(s2, p)) &#123;<br>                    ans.<span class="hljs-built_in">push_back</span>(i);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">judgeyiwei</span><span class="hljs-params">(string s1, string s2)</span> </span>&#123;<br>        <span class="hljs-type">int</span> numlist[<span class="hljs-number">26</span>] = &#123;<span class="hljs-number">0</span>&#125;;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; s<span class="hljs-number">1.l</span>ength(); i++) &#123;<br>            numlist[s1[i] - <span class="hljs-string">&#x27;a&#x27;</span>]++;<br>            numlist[s2[i] - <span class="hljs-string">&#x27;a&#x27;</span>]--;<br>        &#125;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">26</span>; i++) &#123;<br>            <span class="hljs-keyword">if</span> (numlist[i]) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <h3 id="解法2-不定长滑动窗口优化">解法2 不定长滑动窗口优化</h3>
-<p>基本原理：枚举子串 s ′的右端点，如果发现 s
-′其中一种字母的出现次数大于 p 的这种字母的出现次数，则右移 s
-′的左端点。如果发现 s ′的长度等于 p 的长度，则说明 s
-′的每种字母的出现次数，和 p 的每种字母的出现次数都相同，那么 s ′是 p
-的异位词。</p>
+<p>基本原理：枚举子串 s ′的右端点，如果发现 s ′其中一种字母的出现次数大于 p 的这种字母的出现次数，则右移 s ′的左端点。如果发现 s ′的长度等于 p 的长度，则说明 s ′的每种字母的出现次数，和 p 的每种字母的出现次数都相同，那么 s ′是 p 的异位词。</p>
 <p><strong>有点类似于双指针</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">findAnagrams</span><span class="hljs-params">(string s, string p)</span> </span>&#123;<br>        vector&lt;<span class="hljs-type">int</span>&gt; ans;<br>        <span class="hljs-type">int</span> cnt[<span class="hljs-number">26</span>]&#123;<span class="hljs-number">0</span>&#125;; <span class="hljs-comment">// 统计 p 的每种字母的出现次数</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">char</span> c : p) &#123;<br>            cnt[c - <span class="hljs-string">&#x27;a&#x27;</span>]++;<br>        &#125;<br>        <span class="hljs-comment">//接下来对s字符串进行遍历操作(遍历右端点作为外层循环，在内部用while循环控制左端点)</span><br>        <span class="hljs-type">int</span> left = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> right = <span class="hljs-number">0</span>; right &lt; s.<span class="hljs-built_in">size</span>(); right++) &#123;<br>            <span class="hljs-type">int</span> c = s[right] - <span class="hljs-string">&#x27;a&#x27;</span>;<br>            cnt[c]--; <span class="hljs-comment">// 右端点字母进入窗口，相当于把p中减掉一个对应的字符</span><br>            <span class="hljs-keyword">while</span> (cnt[c] &lt; <span class="hljs-number">0</span>) &#123; <span class="hljs-comment">// c对应的字符(ASCII)太多了</span><br>                cnt[s[left] - <span class="hljs-string">&#x27;a&#x27;</span>]++; <span class="hljs-comment">// 左端点字母离开窗口</span><br>                left++; <br>            &#125;<br>            <span class="hljs-keyword">if</span> (right - left + <span class="hljs-number">1</span> == p.<span class="hljs-built_in">length</span>()) &#123; <span class="hljs-comment">// s&#x27; 和 p 的每种字母的出现次数都相同</span><br>                ans.<span class="hljs-built_in">push_back</span>(left); <span class="hljs-comment">// s&#x27; 左端点下标加入答案</span><br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
-<h2 id="leetcode-443-字符串压缩问题">5.Leetcode 443 字符串压缩问题</h2>
+<h2 id="5-Leetcode-443-字符串压缩问题">5.Leetcode 443 字符串压缩问题</h2>
 <p>给你一个字符数组 <code>chars</code> ，请使用下述算法压缩：</p>
-<p>从一个空字符串 <code>s</code> 开始。对于 <code>chars</code> 中的每组
-<strong>连续重复字符</strong> ：</p>
+<p>从一个空字符串 <code>s</code> 开始。对于 <code>chars</code> 中的每组 <strong>连续重复字符</strong> ：</p>
 <ul>
-<li>如果这一组长度为 <code>1</code> ，则将字符追加到 <code>s</code>
-中。</li>
+<li>如果这一组长度为 <code>1</code> ，则将字符追加到 <code>s</code> 中。</li>
 <li>否则，需要向 <code>s</code> 追加字符，后跟这一组的长度。</li>
 </ul>
-<p>压缩后得到的字符串 <code>s</code> <strong>不应该直接返回</strong>
-，需要转储到字符数组 <code>chars</code> 中。需要注意的是，如果组长度为
-<code>10</code> 或 <code>10</code> 以上，则在 <code>chars</code>
-数组中会被拆分为多个字符。</p>
+<p>压缩后得到的字符串 <code>s</code> <strong>不应该直接返回</strong> ，需要转储到字符数组 <code>chars</code> 中。需要注意的是，如果组长度为 <code>10</code> 或 <code>10</code> 以上，则在 <code>chars</code> 数组中会被拆分为多个字符。</p>
 <p>请在 <strong>修改完输入数组后</strong> ，返回该数组的新长度。</p>
 <p>你必须设计并实现一个只使用常量额外空间的算法来解决此问题。</p>
 <p><strong>必须在原来的数组上进行修改！</strong></p>
-<h3 id="解法双指针">解法：双指针</h3>
-<p>为了实现原地压缩，我们可以使用双指针分别标志我们在字符串中读和写的位置。每次当读指针
-read 移动到某一段连续相同子串的最右侧，我们就在写指针 write
-处依次写入该子串对应的字符和子串长度即可。</p>
-<p>在实际代码中，当读指针 read 位于字符串的末尾，或读指针 read
-指向的字符不同于下一个字符时，我们就认为<strong>读指针 read
-位于某一段连续相同子串的最右侧</strong>。该子串对应的字符即为读指针 read
-指向的字符串。我们使用变量 left
-记录该子串的最左侧的位置，这样子串长度即为 read−left+1。</p>
-<p>特别地，为了达到 O(1)
-空间复杂度，我们需要自行实现将数字转化为字符串写入到原字符串的功能。这里我们采用短除法将子串长度倒序写入原字符串中，然后再将其反转即可。</p>
+<h3 id="解法：双指针">解法：双指针</h3>
+<p>为了实现原地压缩，我们可以使用双指针分别标志我们在字符串中读和写的位置。每次当读指针 read 移动到某一段连续相同子串的最右侧，我们就在写指针 write 处依次写入该子串对应的字符和子串长度即可。</p>
+<p>在实际代码中，当读指针 read 位于字符串的末尾，或读指针 read 指向的字符不同于下一个字符时，我们就认为<strong>读指针 read 位于某一段连续相同子串的最右侧</strong>。该子串对应的字符即为读指针 read 指向的字符串。我们使用变量 left 记录该子串的最左侧的位置，这样子串长度即为 read−left+1。</p>
+<p>特别地，为了达到 O(1) 空间复杂度，我们需要自行实现将数字转化为字符串写入到原字符串的功能。这里我们采用短除法将子串长度倒序写入原字符串中，然后再将其反转即可。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">compress</span><span class="hljs-params">(vector&lt;<span class="hljs-type">char</span>&gt;&amp; chars)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = chars.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">int</span> write = <span class="hljs-number">0</span>, left = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> read = <span class="hljs-number">0</span>; read &lt; n; read++) &#123;<br>            <span class="hljs-keyword">if</span> (read == n - <span class="hljs-number">1</span> || chars[read] != chars[read + <span class="hljs-number">1</span>]) &#123;<br>                <span class="hljs-comment">//由于写的速度肯定没有读的快，故不用担心write会覆盖未被读取的初始值</span><br>                chars[write++] = chars[read];<br>                <span class="hljs-type">int</span> num = read - left + <span class="hljs-number">1</span>;<br>                <span class="hljs-keyword">if</span> (num &gt; <span class="hljs-number">1</span>) &#123;<br>                    <span class="hljs-type">int</span> anchor = write;<br>                    <span class="hljs-keyword">while</span> (num &gt; <span class="hljs-number">0</span>) &#123;<br>                        chars[write++] = num % <span class="hljs-number">10</span> + <span class="hljs-string">&#x27;0&#x27;</span>;<br>                        num /= <span class="hljs-number">10</span>;<br>                    &#125;<br>                    <span class="hljs-built_in">reverse</span>(&amp;chars[anchor], &amp;chars[write]);<br>                    <span class="hljs-comment">//实现输入一个数字倒序插入char数组中（也可以使用stringstream）</span><br>                &#125;<br>                left = read + <span class="hljs-number">1</span>;<br>                <span class="hljs-comment">//后面还会执行read++，本质上就是更新read和left的位置使其对齐</span><br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> write;<br>    &#125;<br>&#125;;<br><br><br></code></pre></td></tr></table></figure>
 
                 

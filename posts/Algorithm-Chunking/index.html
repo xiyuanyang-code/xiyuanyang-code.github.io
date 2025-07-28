@@ -911,22 +911,22 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h1 id="algorithms-chunking">Algorithms: Chunking</h1>
+<h1>Algorithms: Chunking</h1>
 <p><strong>分块算法</strong></p>
-<h2 id="introduction">Introduction</h2>
+<h2 id="Introduction">Introduction</h2>
 <p>现在考虑如下问题：</p>
 <ul>
 <li>对于一个规模较大的数组</li>
 <li>现在需要频繁地发送<strong>区间请求</strong>，例如：
 <ul>
 <li>查询一个区间的数组元素之和</li>
-<li>对一个区间的数组进行批量运算（例如同时+-*/一个数）</li>
+<li>对一个区间的数组进行批量运算（例如同时±*/一个数）</li>
 <li>其他更加复杂的运算</li>
-</ul></li>
 </ul>
-<p>暴力解法是非常容易实现的，但是时间复杂度过高，原因是<strong>进行了很多重复性的运算</strong>。我们需要追求更加高效的算法。在本文中，我们将介绍最基本的<strong>分块算法(Chunking
-Algorithms)</strong>，为这一类问题提供小于线性时间复杂度的算法。</p>
-<h2 id="example1-adding-numbers">Example1: Adding numbers</h2>
+</li>
+</ul>
+<p>暴力解法是非常容易实现的，但是时间复杂度过高，原因是<strong>进行了很多重复性的运算</strong>。我们需要追求更加高效的算法。在本文中，我们将介绍最基本的<strong>分块算法(Chunking Algorithms)</strong>，为这一类问题提供小于线性时间复杂度的算法。</p>
+<h2 id="Example1-Adding-numbers">Example1: Adding numbers</h2>
 <p>题目: 现在给定一个数组<code>arr</code>，给出以下指令：</p>
 <ul>
 <li><code>A l r n</code>：表示对区间[l,r]的所有元素的值都加上n。</li>
@@ -941,8 +941,7 @@ Algorithms)</strong>，为这一类问题提供小于线性时间复杂度的算
 <p>接下来，我们需要解决的问题是：<strong>如何处理区间的add操作</strong>？这便是<strong>分块思想以空间换时间</strong>的思想，通过引入<code>tag</code>数组，来实现数组的批量加法。具体而言就是：</p>
 <ul>
 <li>创建一个新数组<code>add-tag</code>，长度为<code>block_count</code>。用来记录<strong>这一个分块中批量处理的加和值</strong>。</li>
-<li>在查询的时候，元素的实际值 = 数组中元素记录的值 +
-<code>add_tag</code>中元素所在块对应的值。</li>
+<li>在查询的时候，元素的实际值 = 数组中元素记录的值 + <code>add_tag</code>中元素所在块对应的值。</li>
 </ul>
 <blockquote>
 <p><code>add-tag</code>是<strong>分块</strong>的核心，原先需要遍历一整个块的元素实现相同的<strong>重复操作</strong>，但现在只需<strong>额外维护一个数组就可以实现</strong>！</p>

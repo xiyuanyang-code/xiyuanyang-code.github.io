@@ -868,35 +868,25 @@
             
               <div class="markdown-body">
                 
-                <h1
-id="from-pipe-in-python-to-the-introduction-of-functional-programming">From
-<code>pipe</code> in Python to The introduction of Functional
-Programming</h1>
+                <h1>From <code>pipe</code> in Python to The introduction of Functional Programming</h1>
 <style>
   html, body, .markdown-body {
     font-family: Georgia, sans, serif;
   }
 </style>
-<p>All the source code for section 1 is available for <a
-target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Python-Tutorial/blob/master/pipe_tutorial/tutorial.ipynb">this
-GitHub repo</a>.</p>
-<h1 id="pipe-tutorial">Pipe Tutorial</h1>
-<h2 id="pipe-in-command-line">Pipe in Command Line</h2>
-<p>In command line, <strong>pipe</strong> (<code>|</code>) is used to
-connect different commands, where the input of subsequent commands is
-the output of previous commands.</p>
-<p>For example, the commands below are basic demos of
-<strong>pipe</strong>:</p>
+<p>All the source code for section 1 is available for <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Python-Tutorial/blob/master/pipe_tutorial/tutorial.ipynb">this GitHub repo</a>.</p>
+<h1>Pipe Tutorial</h1>
+<h2 id="Pipe-in-Command-Line">Pipe in Command Line</h2>
+<p>In command line, <strong>pipe</strong> (<code>|</code>) is used to connect different commands, where the input of subsequent commands is the output of previous commands.</p>
+<p>For example, the commands below are basic demos of <strong>pipe</strong>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># check how many commands of &#x27;ls&#x27; you have typed in</span><br><span class="hljs-built_in">history</span> | grep <span class="hljs-string">&quot;ls&quot;</span> | <span class="hljs-built_in">wc</span> -l<br><br><span class="hljs-comment"># check several PID</span><br>ps aux | grep <span class="hljs-string">&quot;zsh&quot;</span><br>!ps aux | grep <span class="hljs-string">&quot;zsh&quot;</span> | <span class="hljs-built_in">wc</span> -l<br></code></pre></td></tr></table></figure>
-<h2 id="pipe-coding-in-python">Pipe Coding in Python</h2>
-<h2 id="installation">Installation</h2>
+<h2 id="Pipe-Coding-in-Python">Pipe Coding in Python</h2>
+<h2 id="Installation">Installation</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># using pip</span><br>%pip install pipe <br><span class="hljs-keyword">import</span> pipe<br></code></pre></td></tr></table></figure>
-<h2 id="basic-usage">Basic Usage</h2>
-<p>Official GitHub Repo: <a
-target="_blank" rel="noopener" href="https://github.com/JulienPalard/Pipe">Repo for Pipe</a></p>
-<p>Website for pypi: <a target="_blank" rel="noopener" href="https://pypi.org/project/pipe/">Pipe in
-pypi</a></p>
-<h3 id="basic-syntax">Basic Syntax</h3>
+<h2 id="Basic-Usage">Basic Usage</h2>
+<p>Official GitHub Repo: <a target="_blank" rel="noopener" href="https://github.com/JulienPalard/Pipe">Repo for Pipe</a></p>
+<p>Website for pypi: <a target="_blank" rel="noopener" href="https://pypi.org/project/pipe/">Pipe in pypi</a></p>
+<h3 id="Basic-Syntax">Basic Syntax</h3>
 <p>The same as what you use in the shell!</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count<br><br><span class="hljs-comment"># itertools is a functional tools for creating and using iterators</span><br><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> select, take<br><br>value = <span class="hljs-built_in">sum</span>(count() | select(<span class="hljs-keyword">lambda</span> x: x**<span class="hljs-number">2</span>) | take(<span class="hljs-number">10</span>))<br><span class="hljs-comment"># or you can use range here!</span><br><br><span class="hljs-built_in">print</span>(value)<br></code></pre></td></tr></table></figure>
 <p>You can pass <strong>arguments</strong> in an easier way.</p>
@@ -906,84 +896,56 @@ pypi</a></p>
 <blockquote>
 <p><strong>generator</strong> in Python</p>
 </blockquote>
-<p>Generators in Python offer significant advantages, primarily due to
-their <strong>lazy evaluation</strong> and <strong>memory
-efficiency.</strong> Unlike functions that return entire lists or other
-collections, generators yield one item at a time, on demand.</p>
-<p>This “<strong>yield-as-you-go</strong>” approach means that
-generators don’t store all their values in memory simultaneously. For
-instance, when processing a massive dataset, a generator won’t try to
-load everything at once, which could quickly exhaust your system’s RAM.
-Instead, it computes and provides values only when requested, making
-them ideal for handling large or even infinite data streams without
-overwhelming memory resources.</p>
+<p>Generators in Python offer significant advantages, primarily due to their <strong>lazy evaluation</strong> and <strong>memory efficiency.</strong> Unlike functions that return entire lists or other collections, generators yield one item at a time, on demand.</p>
+<p>This “<strong>yield-as-you-go</strong>” approach means that generators don’t store all their values in memory simultaneously. For instance, when processing a massive dataset, a generator won’t try to load everything at once, which could quickly exhaust your system’s RAM. Instead, it computes and provides values only when requested, making them ideal for handling large or even infinite data streams without overwhelming memory resources.</p>
 <blockquote>
 <p><strong>iterable</strong> in Python</p>
 </blockquote>
-<p>If an object is iterable, it means it implements the
-<strong>iter</strong> method (which returns an iterator) or the
-<strong>getitem</strong> method (which allows access to elements by
-index, like lists do).</p>
+<p>If an object is iterable, it means it implements the <strong>iter</strong> method (which returns an iterator) or the <strong>getitem</strong> method (which allows access to elements by index, like lists do).</p>
 <h3 id="where-for-filtering"><code>where</code> for filtering</h3>
 <ul>
-<li><code>where(predicate)</code>: filter elements from iterable
-objects.</li>
+<li><code>where(predicate)</code>: filter elements from iterable objects.</li>
 </ul>
-<p><code>predicate</code> is a function which returns a bool value
-(true/false).</p>
+<p><code>predicate</code> is a function which returns a bool value (true/false).</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> where<br><br>list_tobe_filtered = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(list_tobe_filtered | where(<span class="hljs-keyword">lambda</span> x: x % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)))<br></code></pre></td></tr></table></figure>
 <p>Built-in filtering <code>dedup</code>:</p>
 <p>Deduplicate values, using the given key function if provided</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> dedup<br><br>original_data = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">7</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">9</span>]<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(original_data | dedup))<br></code></pre></td></tr></table></figure>
 <h3 id="select-for-selecting"><code>select</code> for selecting</h3>
-<p>Choose a <strong>mapping</strong> function for every element in an
-iterable object.</p>
-<p>Quite similar to <code>forEach()</code> method for array in
-JavaScripts.</p>
+<p>Choose a <strong>mapping</strong> function for every element in an iterable object.</p>
+<p>Quite similar to <code>forEach()</code> method for array in JavaScripts.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> Pipe, select, where<br><br><span class="hljs-comment"># method-1: using lambda function</span><br>numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br>squares = <span class="hljs-built_in">list</span>(numbers | select(<span class="hljs-keyword">lambda</span> x: x**<span class="hljs-number">2</span>))<br><span class="hljs-built_in">print</span>(squares)<br><br><br><span class="hljs-comment"># method-2: using function or decorator</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">square_number</span>(<span class="hljs-params">x</span>):<br>    <span class="hljs-keyword">return</span> x**<span class="hljs-number">2</span><br><br><br>squares_2 = numbers | select(square_number)<br><span class="hljs-comment"># squares_2 is a map! (lazy evaluation and supports iteration)</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(squares_2))<br></code></pre></td></tr></table></figure>
-<p>Or you can using the <code>map</code> function, just like
-javascripts!</p>
+<p>Or you can using the <code>map</code> function, just like javascripts!</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># for single map: it need to support 2 arguments</span><br><span class="hljs-comment"># print(list([1,2,3,4] | map(lambda x: x**2))): this will cause error</span><br><span class="hljs-comment"># right way to do so:</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>((<span class="hljs-keyword">lambda</span> x: x**<span class="hljs-number">2</span>), [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])))<br><br><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> <span class="hljs-built_in">map</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>] | <span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> x: x**<span class="hljs-number">2</span>)))<br><br><span class="hljs-comment"># just choose one you like</span><br><span class="hljs-comment"># !pay attention to the name conflict</span><br></code></pre></td></tr></table></figure>
-<h2 id="choosing-elements">Choosing elements</h2>
+<h2 id="Choosing-elements">Choosing elements</h2>
 <ul>
-<li><code>take(n)</code>: take the first <code>n</code> elements from
-the iterable objects, like the <code>head</code> command in Shell
-scripts</li>
-<li><code>skip(n)</code>: skip the first <code>n</code> elements from
-the iterable objects</li>
-<li><code>skip_while(predicate)</code>: using a predicate function to
-skip certain objects</li>
+<li><code>take(n)</code>: take the first <code>n</code> elements from the iterable objects, like the <code>head</code> command in Shell scripts</li>
+<li><code>skip(n)</code>: skip the first <code>n</code> elements from the iterable objects</li>
+<li><code>skip_while(predicate)</code>: using a predicate function to skip certain objects</li>
 </ul>
 <h3 id="groupby-method"><code>groupby</code> method</h3>
-<p>Using <code>groupby(key_selector)</code> to select all the elements
-by groups.</p>
+<p>Using <code>groupby(key_selector)</code> to select all the elements by groups.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> groupby<br><br>numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]<br>grouped = numbers | groupby(<span class="hljs-keyword">lambda</span> x: <span class="hljs-string">&quot;even&quot;</span> <span class="hljs-keyword">if</span> x % <span class="hljs-number">2</span> == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;odd&quot;</span>)<br><br><span class="hljs-keyword">for</span> key, group <span class="hljs-keyword">in</span> grouped:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;key&#125;</span>: <span class="hljs-subst">&#123;<span class="hljs-built_in">list</span>(group)&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
-<h3 id="traversing">Traversing</h3>
-<p>Using <code>traverse</code> in Pipe to traverse an iterable
-object.</p>
+<h3 id="Traversing">Traversing</h3>
+<p>Using <code>traverse</code> in Pipe to traverse an iterable object.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> traverse<br><br>numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, [<span class="hljs-number">3</span>, [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], <span class="hljs-number">5</span>], <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> numbers | traverse:<br>    <span class="hljs-built_in">print</span>(i)<br></code></pre></td></tr></table></figure>
-<h2 id="chaining">Chaining</h2>
+<h2 id="Chaining">Chaining</h2>
 <p>Chaining a sequence of iterable objects.</p>
 <blockquote>
-<p>Warning : chain only unfolds an iterable containing ONLY
-iterables:</p>
+<p>Warning : chain only unfolds an iterable containing ONLY iterables:</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> chain, traverse<br><br>array_1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br>array_2 = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>], <span class="hljs-number">6</span>]<br>array_3 = [<span class="hljs-string">&quot;alice&quot;</span>, <span class="hljs-string">&quot;jim&quot;</span>, <span class="hljs-string">&quot;tom&quot;</span>]<br><br>integrated = <span class="hljs-built_in">list</span>([array_1, array_2, array_3] | chain)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> integrated | traverse:<br>    <span class="hljs-built_in">print</span>(i)<br></code></pre></td></tr></table></figure>
-<h2 id="other-commands">Other commands</h2>
+<h2 id="Other-commands">Other commands</h2>
 <ul>
-<li><code>islice</code>: slice for iterable objects, which is the same
-as <code>itertools.islice</code>.</li>
-<li><code>izip</code>: zipping like <code>izip</code> or
-<code>zip</code> in Python 3.</li>
+<li><code>islice</code>: slice for iterable objects, which is the same as <code>itertools.islice</code>.</li>
+<li><code>izip</code>: zipping like <code>izip</code> or <code>zip</code> in Python 3.</li>
 </ul>
-<p>We do not need to load all the elements into the RAM, instead, it
-will slice (<code>start:stop:step</code>) and return a new iterator.</p>
+<p>We do not need to load all the elements into the RAM, instead, it will slice (<code>start:stop:step</code>) and return a new iterator.</p>
 <ul>
-<li><code>tee</code>: tee outputs to the standard output and yield
-unchanged items, useful for debugging a pipe stage by stage:</li>
+<li><code>tee</code>: tee outputs to the standard output and yield unchanged items, useful for debugging a pipe stage by stage:</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> islice, izip<br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>((<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>) | islice(<span class="hljs-number">1</span>, <span class="hljs-number">100</span>, <span class="hljs-number">2</span>)))<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>] | izip([<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>])))<br><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> tee<br><br><span class="hljs-built_in">list</span>([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>] | tee)<br></code></pre></td></tr></table></figure>
-<h2 id="creating-my-own-pipes">Creating my own Pipes</h2>
+<h2 id="Creating-my-own-Pipes">Creating my own Pipes</h2>
 <p>Using the <code>Pipe</code> class.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Pipe</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Represent a Pipeable Element :</span><br><span class="hljs-string">    Described as :</span><br><span class="hljs-string">    first = Pipe(lambda iterable: next(iter(iterable)))</span><br><span class="hljs-string">    and used as :</span><br><span class="hljs-string">    print [1, 2, 3] | first</span><br><span class="hljs-string">    printing 1</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Or represent a Pipeable Function :</span><br><span class="hljs-string">    It&#x27;s a function returning a Pipe</span><br><span class="hljs-string">    Described as :</span><br><span class="hljs-string">    select = Pipe(lambda iterable, pred: (pred(x) for x in iterable))</span><br><span class="hljs-string">    and used as :</span><br><span class="hljs-string">    print [1, 2, 3] | select(lambda x: x * 2)</span><br><span class="hljs-string">    # 2, 4, 6</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, function, *args, **kwargs</span>):<br>        <span class="hljs-variable language_">self</span>.function = <span class="hljs-keyword">lambda</span> iterable, *args2, **kwargs2: function(<br>            iterable, *args, *args2, **kwargs, **kwargs2<br>        )<br>        functools.update_wrapper(<span class="hljs-variable language_">self</span>, function)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__ror__</span>(<span class="hljs-params">self, other</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.function(other)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__call__</span>(<span class="hljs-params">self, *args, **kwargs</span>):<br>        <span class="hljs-keyword">return</span> Pipe(<br>            <span class="hljs-keyword">lambda</span> iterable, *args2, **kwargs2: <span class="hljs-variable language_">self</span>.function(<br>                iterable, *args, *args2, **kwargs, **kwargs2<br>            )<br>        )<br><span class="hljs-keyword">from</span> pipe <span class="hljs-keyword">import</span> Pipe<br><br><span class="hljs-comment"># you need to pass in a necessary function variables</span><br>square = Pipe(<span class="hljs-keyword">lambda</span> iterable: (x ** <span class="hljs-number">2</span> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> iterable))<br></code></pre></td></tr></table></figure>
 

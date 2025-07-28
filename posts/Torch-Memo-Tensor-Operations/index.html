@@ -743,18 +743,14 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h1 id="several-operations-of-tensor-in-pytorch">Several Operations of
-Tensor in Pytorch</h1>
-<h2 id="introductions">Introductions</h2>
-<p>You can download the source code from <a
-target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Torch_Memo/blob/master/Tensor_operations.ipynb">this
-repo</a>.</p>
-<h2 id="preliminaries">Preliminaries</h2>
+<h1>Several Operations of Tensor in Pytorch</h1>
+<h2 id="Introductions">Introductions</h2>
+<p>You can download the source code from <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Torch_Memo/blob/master/Tensor_operations.ipynb">this repo</a>.</p>
+<h2 id="Preliminaries">Preliminaries</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><br><span class="hljs-built_in">print</span>(torch.__version__)<br><br>device = <span class="hljs-string">&quot;cuda&quot;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span><br><span class="hljs-built_in">print</span>(device)<br><br>torch.manual_seed(<span class="hljs-number">2025</span>)<br></code></pre></td></tr></table></figure>
-<h2 id="creating-tensor">Creating Tensor</h2>
+<h2 id="Creating-Tensor">Creating Tensor</h2>
 <ul>
-<li><code>zeros</code> and <code>ones</code> and
-<code>zeros_like</code></li>
+<li><code>zeros</code> and <code>ones</code> and <code>zeros_like</code></li>
 <li><code>eyes</code> (Identity Matrix)</li>
 <li><code>rand</code> and <code>randm</code> matrix</li>
 </ul>
@@ -771,101 +767,81 @@ repo</a>.</p>
 <p>You can also Padding tensor into random tensors.</p>
 <p>In [ ]:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># First create an uninitialized tensor, then fill it randomly.</span><br>uninitialized = torch.empty(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)<br><br><span class="hljs-comment"># from the continuous uniform distribution</span><br>uninitialized.uniform_()<br><span class="hljs-comment"># rom the normal distribution parameterized</span><br>uninitialized.normal_()<br><br><span class="hljs-comment"># Or you can use the random methods directly</span><br>random_tensor = torch.Tensor(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>).uniform_(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)<br>random_tensor = torch.Tensor(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>).normal_(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>)<br>random_tensor = torch.Tensor(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>).exponential_(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
-<h2 id="check-tensor-information">Check tensor information</h2>
-<p>You can use the following methods to check various information about
-the tensor!</p>
-<h3 id="query-related-dimension-information.">Query related dimension
-information.</h3>
+<h2 id="Check-tensor-information">Check tensor information</h2>
+<p>You can use the following methods to check various information about the tensor!</p>
+<h3 id="Query-related-dimension-information">Query related dimension information.</h3>
 <p>In [ ]:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python">random_tensor = torch.randn(<br>    <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, dtype=torch.float16, device=device, requires_grad=<span class="hljs-literal">True</span><br>)<br><span class="hljs-comment"># print(random_tensor)</span><br><br><span class="hljs-comment"># shape as a list</span><br><span class="hljs-built_in">print</span>(random_tensor.shape)<br><span class="hljs-built_in">print</span>(random_tensor.shape[<span class="hljs-number">0</span>])<br><br><span class="hljs-comment"># dtype</span><br><span class="hljs-built_in">print</span>(random_tensor.dtype)<br><br><span class="hljs-comment"># device</span><br><span class="hljs-built_in">print</span>(random_tensor.device)<br><br><span class="hljs-comment"># dimensions</span><br><span class="hljs-built_in">print</span>(random_tensor.ndim)<br><br><span class="hljs-comment"># requires grad</span><br><span class="hljs-built_in">print</span>(random_tensor.requires_grad)<br></code></pre></td></tr></table></figure>
-<h3 id="query-the-specific-content.">Query the specific content.</h3>
+<h3 id="Query-the-specific-content">Query the specific content.</h3>
 <p>Very similar with the <code>numpy</code> operations.</p>
 <p>In [ ]:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(random_tensor.<span class="hljs-built_in">sum</span>())<br><span class="hljs-built_in">print</span>(random_tensor.<span class="hljs-built_in">min</span>())<br><span class="hljs-built_in">print</span>(random_tensor.<span class="hljs-built_in">max</span>())<br><span class="hljs-built_in">print</span>(random_tensor.std())<br><span class="hljs-built_in">print</span>(random_tensor.mean(dim=<span class="hljs-number">2</span>))<br><span class="hljs-built_in">print</span>(random_tensor.norm())<br><span class="hljs-built_in">print</span>(random_tensor.grad)<br>max_vals, max_indices = random_tensor.<span class="hljs-built_in">max</span>(dim=<span class="hljs-number">1</span>)<br><span class="hljs-built_in">print</span>(max_indices)<br><br><span class="hljs-comment"># Detach needs to be called if it is requires grad</span><br><span class="hljs-built_in">print</span>(random_tensor.detach().cpu().numpy())<br></code></pre></td></tr></table></figure>
-<h2 id="operations">Operations</h2>
+<h2 id="Operations">Operations</h2>
 <ul>
 <li>Basic arithmetic operations and exponentiation. (Skip)</li>
 <li>Matrix multiplication.</li>
-<li>Linear Operations,see <a
-target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/numpy_tutorial">this repo</a>
-for more details. (Skip)</li>
+<li>Linear Operations,see <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/numpy_tutorial">this repo</a> for more details. (Skip)</li>
 <li>Autograd operations.</li>
 <li><strong>Broadcasting mechanism.</strong></li>
 </ul>
-<h3 id="matrix-multiplications">Matrix Multiplications</h3>
+<h3 id="Matrix-Multiplications">Matrix Multiplications</h3>
 <p>In [ ]:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Matrix multiplications</span><br><br>A = torch.randn(<span class="hljs-number">4</span>, <span class="hljs-number">4</span>)<br>B = torch.randn(<span class="hljs-number">4</span>, <span class="hljs-number">4</span>)<br><br><span class="hljs-comment"># Element-wise multiplication of matrices.</span><br><span class="hljs-built_in">print</span>(A * B)<br><br><span class="hljs-comment"># Simple Matrix multiplications</span><br><span class="hljs-built_in">print</span>(A @ B)<br><br>vector_1 = torch.randn(<span class="hljs-number">100</span>)<br>vector_2 = torch.randn(<span class="hljs-number">100</span>)<br><span class="hljs-comment"># vector dots (for 1D only)</span><br><span class="hljs-built_in">print</span>(torch.dot(vector_1, vector_2))<br><br><span class="hljs-comment"># batch matrix multiplications</span><br>batch_1 = torch.randn(<span class="hljs-number">4</span>, <span class="hljs-number">50</span>, <span class="hljs-number">10</span>)<br>batch_2 = torch.randn(<span class="hljs-number">4</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>)<br>result_batch = torch.bmm(batch_1, batch_2)<br><span class="hljs-built_in">print</span>(result_batch.shape)<br></code></pre></td></tr></table></figure>
-<h3 id="autograd-operations">Autograd Operations</h3>
+<h3 id="Autograd-Operations">Autograd Operations</h3>
 <p>In [ ]:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">x = torch.tensor(<span class="hljs-number">2.0</span>, requires_grad=<span class="hljs-literal">True</span>)<br>y = x**<span class="hljs-number">2</span> + <span class="hljs-number">3</span> * x + <span class="hljs-number">1</span><br>y.backward()<br><span class="hljs-built_in">print</span>(y.shape)<br><span class="hljs-built_in">print</span>(x.grad)<br></code></pre></td></tr></table></figure>
-<h3 id="broadcasting-mechanism">Broadcasting mechanism</h3>
+<h3 id="Broadcasting-mechanism">Broadcasting mechanism</h3>
 <p>The same as <code>numpy</code>.</p>
 <p>Broadcasting follows the following rules:</p>
-<ol type="1">
-<li>Start comparing from the trailing dimensions: Begin comparing the
-dimensions of tensors from the rightmost dimension and move
-leftward.</li>
+<ol>
+<li>Start comparing from the trailing dimensions: Begin comparing the dimensions of tensors from the rightmost dimension and move leftward.</li>
 <li>Dimension compatibility conditions:
 <ul>
 <li>The two dimensions are equal.</li>
 <li>One of the dimensions is 1.</li>
-<li>One of the dimensions does not exist (i.e., the tensors have
-different numbers of dimensions).</li>
+<li>One of the dimensions does not exist (i.e., the tensors have different numbers of dimensions).</li>
 <li>If none of the conditions are met, an error is raised.</li>
-</ul></li>
+</ul>
+</li>
 </ol>
 <p>In [ ]:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">A = torch.randn(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>)<br>B = torch.randn(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>)<br>C = torch.randn(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br><br><span class="hljs-built_in">print</span>(A + B)<br><span class="hljs-built_in">print</span>(B + C)<br></code></pre></td></tr></table></figure>
-<h2 id="changing-tensors-shape">Changing Tensors’ shape</h2>
-<p>Matrix multiplication is one of the most common operations in
-PyTorch, so sometimes we need to <strong>change the shape of the created
-tensors</strong>.</p>
+<h2 id="Changing-Tensors’-shape">Changing Tensors’ shape</h2>
+<p>Matrix multiplication is one of the most common operations in PyTorch, so sometimes we need to <strong>change the shape of the created tensors</strong>.</p>
 <ul>
-<li><code>unsqueeze(dim)</code>: Adds a new dimension of size 1 at the
-specified position.</li>
+<li><code>unsqueeze(dim)</code>: Adds a new dimension of size 1 at the specified position.</li>
 </ul>
 <p>In [ ]:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">x = torch.tensor([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br>y = x.unsqueeze(<span class="hljs-number">0</span>)  <span class="hljs-comment"># shape: (1, 3)</span><br>z = x.unsqueeze(<span class="hljs-number">1</span>)  <span class="hljs-comment"># shape: (3, 1)</span><br><span class="hljs-built_in">print</span>(y.shape)<br><span class="hljs-built_in">print</span>(z.shape)<br></code></pre></td></tr></table></figure>
 <ul>
-<li><code>squeeze(dim)</code>: Removes dimensions of size 1. If no dim
-is given, all singleton dimensions are removed.</li>
+<li><code>squeeze(dim)</code>: Removes dimensions of size 1. If no dim is given, all singleton dimensions are removed.</li>
 </ul>
 <p>In [ ]:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">a = torch.rand(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>)<br>b = a.squeeze(<span class="hljs-number">0</span>)  <span class="hljs-comment"># shape: (3, 1, 4)</span><br>d = a.squeeze(<span class="hljs-number">1</span>)  <span class="hljs-comment"># it will do nothing</span><br>c = a.squeeze()  <span class="hljs-comment"># shape: (3, 4) (all size-1 dims removed)</span><br><br><span class="hljs-built_in">print</span>(a.shape)<br><span class="hljs-built_in">print</span>(b.shape)<br><span class="hljs-built_in">print</span>(c.shape)<br><span class="hljs-built_in">print</span>(d.shape)<br></code></pre></td></tr></table></figure>
 <ul>
-<li><code>reshape(new_shape)</code>: Returns a tensor with the same data
-but a new shape. May copy data if non-contiguous.</li>
+<li><code>reshape(new_shape)</code>: Returns a tensor with the same data but a new shape. May copy data if non-contiguous.</li>
 </ul>
 <p>In [ ]:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">x = torch.arange(<span class="hljs-number">6</span>)<br>y = x.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)  <span class="hljs-comment"># shape: (2, 3)</span><br>z = x.reshape(<span class="hljs-number">3</span>, -<span class="hljs-number">1</span>)<br><span class="hljs-built_in">print</span>(x.shape)<br><span class="hljs-built_in">print</span>(y.shape)<br><span class="hljs-built_in">print</span>(z.shape)<br></code></pre></td></tr></table></figure>
 <ul>
-<li><p><code>view(new_shape)</code>: Similar to <code>reshape</code>,
-but requires the tensor to be contiguous (throws an error
-otherwise).</p></li>
-<li><p><code>repeat_interleave(repeats, dim)</code>: Repeats elements of
-a tensor along specified dimensions (similar to NumPy’s
-<code>repeat</code>).</p></li>
+<li>
+<p><code>view(new_shape)</code>: Similar to <code>reshape</code>, but requires the tensor to be contiguous (throws an error otherwise).</p>
+</li>
+<li>
+<p><code>repeat_interleave(repeats, dim)</code>: Repeats elements of a tensor along specified dimensions (similar to NumPy’s <code>repeat</code>).</p>
+</li>
 </ul>
 <p>In [ ]:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">x = torch.tensor([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])<br>y = x.repeat_interleave(<span class="hljs-number">2</span>, dim=<span class="hljs-number">0</span>)  <span class="hljs-comment"># shape: (4, 2)</span><br><span class="hljs-comment"># [[1, 2], [1, 2], [3, 4], [3, 4]]</span><br>z = x.repeat_interleave(<span class="hljs-number">3</span>, dim=<span class="hljs-number">1</span>)  <span class="hljs-comment"># shape: (2, 6)</span><br><span class="hljs-comment"># [[1, 1, 1, 2, 2, 2], [3, 3, 3, 4, 4, 4]]</span><br><br><span class="hljs-built_in">print</span>(y.shape)<br><span class="hljs-built_in">print</span>(z.shape)<br></code></pre></td></tr></table></figure>
 <ul>
-<li><code>repeat</code>: Repeats the entire tensor along specified
-dimensions</li>
+<li><code>repeat</code>: Repeats the entire tensor along specified dimensions</li>
 </ul>
-<p>In PyTorch, the function <code>repeat()</code> is used to
-<strong>replicate the entire tensor along specified dimensions</strong>,
-thereby expanding the shape of the tensor. It differs from
-<code>repeat_interleave()</code>, where <code>repeat()</code> performs
-overall replication, while <code>repeat_interleave()</code> does
-element-wise replication.</p>
-<p><code>repeat(*sizes)</code> accepts a tuple parameter that indicates
-the number of repetitions for each dimension and returns a new
-tensor.</p>
+<p>In PyTorch, the function <code>repeat()</code> is used to <strong>replicate the entire tensor along specified dimensions</strong>, thereby expanding the shape of the tensor. It differs from <code>repeat_interleave()</code>, where <code>repeat()</code> performs overall replication, while <code>repeat_interleave()</code> does element-wise replication.</p>
+<p><code>repeat(*sizes)</code> accepts a tuple parameter that indicates the number of repetitions for each dimension and returns a new tensor.</p>
 <p>In [ ]:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python">x = torch.tensor([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br><span class="hljs-built_in">print</span>(x.shape)<br><br>y = x.repeat(<span class="hljs-number">2</span>)  <span class="hljs-comment"># shape: (6,) → [1, 2, 3, 1, 2, 3]</span><br><span class="hljs-built_in">print</span>(y)<br><span class="hljs-built_in">print</span>(y.shape)<br><br>z = x.repeat(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>)<br><span class="hljs-built_in">print</span>(z.shape)<br><span class="hljs-built_in">print</span>(z)<br><br>w = x.repeat(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>)  <span class="hljs-comment"># shape: (2, 6)</span><br><span class="hljs-comment"># [[1, 2, 3, 1, 2, 3], [1, 2, 3, 1, 2, 3]]</span><br><span class="hljs-built_in">print</span>(w.shape)<br><span class="hljs-built_in">print</span>(w)<br><br>test = torch.randn(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>)<br><span class="hljs-built_in">print</span>(test.shape)<br><span class="hljs-comment"># print(test)</span><br>test = test.repeat(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)<br><span class="hljs-built_in">print</span>(test.shape)<br><span class="hljs-comment"># print(test)</span><br>test = test.unsqueeze(-<span class="hljs-number">1</span>)<br>test = test.repeat(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">4</span>)<br><span class="hljs-built_in">print</span>(test.shape)<br></code></pre></td></tr></table></figure>
 <ul>
-<li><code>expand()</code>: Expands a tensor to a larger size by
-broadcasting (only works for singleton dimensions).</li>
+<li><code>expand()</code>: Expands a tensor to a larger size by broadcasting (only works for singleton dimensions).</li>
 </ul>
 <p>In [ ]:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">x = torch.tensor([[<span class="hljs-number">1</span>], [<span class="hljs-number">2</span>], [<span class="hljs-number">3</span>]])  <span class="hljs-comment"># shape: (3, 1)</span><br>y = x.expand(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>)  <span class="hljs-comment"># shape: (3, 4)</span><br><span class="hljs-comment"># [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3]]</span><br><span class="hljs-built_in">print</span>(y.shape)<br></code></pre></td></tr></table></figure>

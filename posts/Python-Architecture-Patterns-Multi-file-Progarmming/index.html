@@ -872,24 +872,24 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h1 id="pap-series-multi-file-programming">PAP series: Multi-file
-Programming</h1>
-<h2 id="introduction">Introduction</h2>
-<p>In Python, <code>import</code> command is frequently used to import
-<strong>modules</strong>, <strong>classes</strong>,
-<strong>functions</strong>, etc.</p>
+<h1>PAP series: Multi-file Programming</h1>
+<h2 id="Introduction">Introduction</h2>
+<p>In Python, <code>import</code> command is frequently used to import <strong>modules</strong>, <strong>classes</strong>, <strong>functions</strong>, etc.</p>
 <blockquote>
-<p>Make sure you have access to the basic concepts of modules in Python
-and several basic commands to importing a module!</p>
+<p>Make sure you have access to the basic concepts of modules in Python and several basic commands to importing a module!</p>
 </blockquote>
 <h2 id="识别和优先级">识别和优先级</h2>
 <p>import的识别文件范围非常广泛，包括：</p>
 <ul>
-<li><p><code>.py</code>的模块文件</p></li>
-<li><p>编译后的Python文件 <code>.pyc</code> &amp;
-<code>.pyo</code>，可以提高运行速度</p></li>
-<li><p>Packages:
-含有<code>__init__.py</code>文件的含有多个模块的目录</p></li>
+<li>
+<p><code>.py</code>的模块文件</p>
+</li>
+<li>
+<p>编译后的Python文件 <code>.pyc</code> &amp; <code>.pyo</code>，可以提高运行速度</p>
+</li>
+<li>
+<p>Packages: 含有<code>__init__.py</code>文件的含有多个模块的目录</p>
+</li>
 </ul>
 <p>但是在import的顺序上，Python有自己设计的一套优先级：</p>
 <ul>
@@ -897,55 +897,52 @@ and several basic commands to importing a module!</p>
 </ul>
 <p>搜索优先级如下：</p>
 <ul>
-<li><p>内置模块 (Built-in Modules): 首先，Python
-会查找内置模块。这些模块直接编译到 Python 解释器中，无需文件查找。例如
-<code>sys</code>, <code>os</code>, <code>math</code> 等。运行bash命令
-<code>ls /usr/lib/python3.12/</code>
-就可以查看相当多的Python自带的标准库模块。</p></li>
-<li><p><code>sys.modules</code> 缓存: 接下来，Python 会检查 sys.modules
-字典。这是一个缓存，存储了所有已经被导入过的模块。如果模块已经在
-sys.modules 中，Python
-会直接返回缓存中的模块对象，避免重复导入和重复执行模块代码。</p></li>
-<li><p><code>sys.path</code> 中的路径: 如果模块不在 sys.modules
-中，Python 会按照 sys.path 列表中的顺序，逐个目录地查找模块。sys.path
-的默认组成部分通常包括：</p>
+<li>
+<p>内置模块 (Built-in Modules): 首先，Python 会查找内置模块。这些模块直接编译到 Python 解释器中，无需文件查找。例如 <code>sys</code>, <code>os</code>, <code>math</code> 等。运行bash命令 <code>ls /usr/lib/python3.12/</code> 就可以查看相当多的Python自带的标准库模块。</p>
+</li>
+<li>
+<p><code>sys.modules</code> 缓存: 接下来，Python 会检查 sys.modules 字典。这是一个缓存，存储了所有已经被导入过的模块。如果模块已经在 sys.modules 中，Python 会直接返回缓存中的模块对象，避免重复导入和重复执行模块代码。</p>
+</li>
+<li>
+<p><code>sys.path</code> 中的路径: 如果模块不在 sys.modules 中，Python 会按照 sys.path 列表中的顺序，逐个目录地查找模块。sys.path 的默认组成部分通常包括：</p>
 <ul>
-<li><p>当前工作目录 (Current Working Directory):
-脚本运行时的当前目录。(<strong>通常这是第一个条目</strong>)</p></li>
-<li><p><code>PYTHONPATH</code> 环境变量: 如果设置了 PYTHONPATH
-环境变量，它会包含在 sys.path 中。</p></li>
-<li><p>标准库目录: Python 安装时自带的标准库模块的路径。</p></li>
-<li><p>第三方库目录 (site-packages): 通过 pip
-等工具安装的第三方库通常会被安装到 site-packages 目录中。</p></li>
-</ul></li>
+<li>
+<p>当前工作目录 (Current Working Directory): 脚本运行时的当前目录。(<strong>通常这是第一个条目</strong>)</p>
+</li>
+<li>
+<p><code>PYTHONPATH</code> 环境变量: 如果设置了 PYTHONPATH 环境变量，它会包含在 sys.path 中。</p>
+</li>
+<li>
+<p>标准库目录: Python 安装时自带的标准库模块的路径。</p>
+</li>
+<li>
+<p>第三方库目录 (site-packages): 通过 pip 等工具安装的第三方库通常会被安装到 site-packages 目录中。</p>
+</li>
+</ul>
+</li>
 </ul>
 <p>下面我们逐一介绍之。</p>
-<h3 id="sys.modules"><code>sys.modules</code></h3>
+<h3 id="sys-modules"><code>sys.modules</code></h3>
 <p>缓存机制设计的最大好处就是<strong>快速导入之前已经重复导入的库</strong>，例如，在该进程中两处Python文件中都有代码<code>import torch</code>，在第二次导入的时候会使用首次导入的缓存机制，快速导入。</p>
 <p>例如下面的代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> sys<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_import</span>(<span class="hljs-params">index</span>):<br>    start_time = time.time()<br>    <span class="hljs-keyword">import</span> torch<br><br>    end_time = time.time()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Spend time <span class="hljs-subst">&#123;index&#125;</span>: <span class="hljs-subst">&#123;(end_time - start_time):<span class="hljs-number">.8</span>f&#125;</span> seconds&quot;</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    cache_modules = sys.modules.keys()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;numbers of modules in cache: <span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(cache_modules)&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Is torch module in the cache? <span class="hljs-subst">&#123;(<span class="hljs-string">&quot;torch&quot;</span> <span class="hljs-keyword">in</span> cache_modules)&#125;</span>&quot;</span>)<br><br>    test_import(<span class="hljs-number">1</span>)<br><br>    cache_modules = sys.modules.keys()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;numbers of modules in cache: <span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(cache_modules)&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Is torch module in the cache? <span class="hljs-subst">&#123;(<span class="hljs-string">&quot;torch&quot;</span> <span class="hljs-keyword">in</span> cache_modules)&#125;</span>&quot;</span>)<br><br>    test_import(<span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
-<p>Output: <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">numbers of modules in cache: 44<br>Is torch module in the cache? False<br>Spend time 1: 1.36842155 seconds<br>numbers of modules in cache: 1053<br>Is torch module in the cache? True<br>Spend time 2: 0.00000262 seconds<br></code></pre></td></tr></table></figure></p>
+<p>Output:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">numbers of modules in cache: 44<br>Is torch module in the cache? False<br>Spend time 1: 1.36842155 seconds<br>numbers of modules in cache: 1053<br>Is torch module in the cache? True<br>Spend time 2: 0.00000262 seconds<br></code></pre></td></tr></table></figure>
 <p>从代码中很容易可以看见，<strong>缓存机制</strong>的设计使得第二次导入torch库所花的时间远低于第一次。</p>
-<h3 id="sys.path"><code>sys.path</code></h3>
+<h3 id="sys-path"><code>sys.path</code></h3>
 <p>如果未在缓存中寻找到相关文件，解释器就会<strong>寻找特定的路径</strong>，这些路径会在<code>sys.path</code>中给出。</p>
-<h4 id="current-directory-and-absolute-path-of-files">Current Directory
-and Absolute Path of files</h4>
+<h4 id="Current-Directory-and-Absolute-Path-of-files">Current Directory and Absolute Path of files</h4>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Current Working Directory: <span class="hljs-subst">&#123;os.getcwd()&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Absolute path of this file: <span class="hljs-subst">&#123;os.path.abspath(__file__)&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
-<p>运行这段代码，笔者的命令是<code>python "/home/xiyuanyang/python/test/test_inner/test_inner_inner/test.py"</code>，在<code>/home/xiyuanyang/python/test</code>目录下运行，得到结果：</p>
+<p>运行这段代码，笔者的命令是<code>python &quot;/home/xiyuanyang/python/test/test_inner/test_inner_inner/test.py&quot;</code>，在<code>/home/xiyuanyang/python/test</code>目录下运行，得到结果：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">Current Working Directory: /home/xiyuanyang/python/test<br>Absolute path of this file: /home/xiyuanyang/python/test/test_inner/test_inner_inner/test.py<br></code></pre></td></tr></table></figure>
 <p>这就涉及到两个<strong>极易被混淆的概念：当前工作目录和文件目录</strong>：</p>
 <ul>
-<li><p><strong>Current Working Directory</strong> (CWD) -
-<code>os.getcwd()</code>：当前工作目录 (CWD) 是你执行 Python
-脚本命令时所处的那个目录。无论你的脚本文件实际存储在哪里，os.getcwd()
-都会返回你敲下 python
-命令并按下回车键时，终端光标所在的目录。<strong>CWD 是 Python
-解析相对路径的起点</strong>。（这一点很重要，并且在<strong>任何一种调用情况下都成立</strong>！）。例如，如果你在脚本中尝试打开一个文件，比如
-with open(“my_data.txt”, “r”) as f:，Python 会首先在 CWD
-(/home/xiyuanyang/python/test) 中查找 my_data.txt。</p></li>
-<li><p><strong>Absolute path of this file</strong> -
-<code>os.path.abspath(__file__)</code>：这是正在执行的 Python
-脚本文件本身在文件系统中的完整、绝对路径。它与你从哪个目录启动脚本无关，而是文件在磁盘上的固定位置。</p></li>
+<li>
+<p><strong>Current Working Directory</strong> (CWD) - <code>os.getcwd()</code>：当前工作目录 (CWD) 是你执行 Python 脚本命令时所处的那个目录。无论你的脚本文件实际存储在哪里，os.getcwd() 都会返回你敲下 python 命令并按下回车键时，终端光标所在的目录。<strong>CWD 是 Python 解析相对路径的起点</strong>。（这一点很重要，并且在<strong>任何一种调用情况下都成立</strong>！）。例如，如果你在脚本中尝试打开一个文件，比如 with open(“my_data.txt”, “r”) as f:，Python 会首先在 CWD (/home/xiyuanyang/python/test) 中查找 my_data.txt。</p>
+</li>
+<li>
+<p><strong>Absolute path of this file</strong> - <code>os.path.abspath(__file__)</code>：这是正在执行的 Python 脚本文件本身在文件系统中的完整、绝对路径。它与你从哪个目录启动脚本无关，而是文件在磁盘上的固定位置。</p>
+</li>
 </ul>
 <p>在Python的多文件编程中，因为不同的代码文件具有不同的层次关系，在代码树中的位置自然不同，因此<strong>当前工作目录</strong>和<strong>文件位置</strong>不一致是非常常见的事情。</p>
 <p>回到<code>sys.path</code>，下面我们来尝试两种不同的调用方式：</p>
@@ -964,99 +961,86 @@ with open(“my_data.txt”, “r”) as f:，Python 会首先在 CWD
 <p>当然，<code>sys.path</code>返回是是一个列表，因此，你可以手动<strong>添加自定义的文件路径</strong>。这也可以作为一种快速修复导入问题的途径。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Current Working Directory: <span class="hljs-subst">&#123;os.getcwd()&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Absolute path of this file: <span class="hljs-subst">&#123;os.path.abspath(__file__)&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;sys.path: <span class="hljs-subst">&#123;sys.path&#125;</span>&quot;</span>)<br><br>    sys.path.append(os.getcwd())<br>    <span class="hljs-comment"># append at the bottom</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;After appending&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;sys.path: <span class="hljs-subst">&#123;sys.path&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">Current Working Directory: /home/xiyuanyang/python/test<br>Absolute path of this file: /home/xiyuanyang/python/test/test_inner/test_inner_inner/test.py<br>sys.path: [&#x27;/home/xiyuanyang/python/test/test_inner/test_inner_inner&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python312.zip&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12/lib-dynload&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12/site-packages&#x27;]<br>After appending<br>sys.path: [&#x27;/home/xiyuanyang/python/test/test_inner/test_inner_inner&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python312.zip&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12/lib-dynload&#x27;, &#x27;/home/xiyuanyang/anaconda3/lib/python3.12/site-packages&#x27;, &#x27;/home/xiyuanyang/python/test&#x27;]<br></code></pre></td></tr></table></figure>
-<h4 id="demo">Demo</h4>
+<h4 id="Demo">Demo</h4>
 <p>在掌握上文知识后，修复这样的bug也是信手拈来了。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">.<br>├── greetings.py<br>└── test_inner<br>    └── hello_world.py<br><br>2 directories, 2 files<br></code></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># ./greetings.py</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">greetings</span>():<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Hello world&quot;</span>)<br><br><span class="hljs-comment"># ./test_inner/hello_world.py</span><br><span class="hljs-keyword">import</span> os<br><span class="hljs-built_in">print</span>(os.getcwd())<br><br><span class="hljs-keyword">import</span> greetings<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    greetings.greetings()<br></code></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python test_inner/hello_world.py<br></code></pre></td></tr></table></figure>
 <div class="note note-error">
-            <p>Traceback (most recent call last): File“/home/xiyuanyang/test/test_inner/hello_world.py”, line 10, in <module>import greetings ModuleNotFoundError: No module named ‘greetings’</p>
+            <p>Traceback (most recent call last):<br>File “/home/xiyuanyang/test/test_inner/hello_world.py”, line 10, in <module><br>import greetings<br>ModuleNotFoundError: No module named ‘greetings’</p>
           </div>
 <p>FIX:</p>
 <ul>
-<li><p>Fix Method 1: run <code>python -m test_inner.hello_world</code>
-and run as scripts.</p></li>
-<li><p>Fix Method 2: add <code>sys.path.append(os.getcwd())</code> into
-the code before importing.</p></li>
+<li>
+<p>Fix Method 1: run <code>python -m test_inner.hello_world</code> and run as scripts.</p>
+</li>
+<li>
+<p>Fix Method 2: add <code>sys.path.append(os.getcwd())</code> into the code before importing.</p>
+</li>
 </ul>
 <h2 id="绝对路径和相对路径">绝对路径和相对路径</h2>
 <p>在搞懂import内部的操作原理后，我们来看最后一个比较复杂的问题：<strong>绝对路径和相对路径导入</strong>。</p>
-<hr />
-<h2 id="python-中的绝对路径导入与相对路径导入">Python
-中的绝对路径导入与相对路径导入</h2>
-<p>在 Python
-中，当我们组织代码成模块和包时，如何正确地导入这些模块就变得非常重要。Python
-提供了两种主要的导入方式：<strong>绝对路径导入 (Absolute
-Imports)</strong> 和 <strong>相对路径导入 (Relative
-Imports)</strong>。理解它们的区别和适用场景是编写清晰、可维护代码的关键。</p>
-<h3 id="绝对路径导入-absolute-imports">绝对路径导入 (Absolute
-Imports)</h3>
-<p>绝对路径导入是从项目的<strong>根目录</strong>或<strong>顶级包</strong>开始的导入方式。它明确指定了模块在整个项目结构中的完整位置。无论你在哪个文件或哪个目录执行导入语句，只要项目的根目录在
-<code>sys.path</code>
-中，绝对路径导入都会指向同一个确切的模块。因此，<strong>绝对路径导入也会受到上述两种Python运行方式的差异</strong>。</p>
+<hr>
+<h2 id="Python-中的绝对路径导入与相对路径导入">Python 中的绝对路径导入与相对路径导入</h2>
+<p>在 Python 中，当我们组织代码成模块和包时，如何正确地导入这些模块就变得非常重要。Python 提供了两种主要的导入方式：<strong>绝对路径导入 (Absolute Imports)</strong> 和 <strong>相对路径导入 (Relative Imports)</strong>。理解它们的区别和适用场景是编写清晰、可维护代码的关键。</p>
+<h3 id="绝对路径导入-Absolute-Imports">绝对路径导入 (Absolute Imports)</h3>
+<p>绝对路径导入是从项目的<strong>根目录</strong>或<strong>顶级包</strong>开始的导入方式。它明确指定了模块在整个项目结构中的完整位置。无论你在哪个文件或哪个目录执行导入语句，只要项目的根目录在 <code>sys.path</code> 中，绝对路径导入都会指向同一个确切的模块。因此，<strong>绝对路径导入也会受到上述两种Python运行方式的差异</strong>。</p>
 <p>假设你的项目结构如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">my_project/             <span class="hljs-comment"># 项目根目录</span><br>├── main.py<br>├── package_a/<br>│   ├── __init__.py     <span class="hljs-comment"># 使 package_a 成为一个包</span><br>│   ├── module_x.py<br>│   └── subpackage_b/<br>│       ├── __init__.py <span class="hljs-comment"># 使 subpackage_b 成为一个包</span><br>│       └── module_y.py<br>└── package_c/<br>    ├── __init__.py     <span class="hljs-comment"># 使 package_c 成为一个包</span><br>    └── module_z.py<br></code></pre></td></tr></table></figure>
 <ul>
-<li><p>在 <code>main.py</code> 中导入 <code>module_x</code> 和
-<code>module_y</code>：</p>
+<li>
+<p>在 <code>main.py</code> 中导入 <code>module_x</code> 和 <code>module_y</code>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># my_project/main.py</span><br><span class="hljs-keyword">import</span> package_a.module_x              <span class="hljs-comment"># 导入整个模块</span><br><span class="hljs-keyword">from</span> package_a.subpackage_b <span class="hljs-keyword">import</span> module_y <span class="hljs-comment"># 从子包中导入特定模块</span><br><br><span class="hljs-comment"># 接下来你就可以使用它们了</span><br>package_a.module_x.some_function()<br>module_y.another_function()<br></code></pre></td></tr></table></figure>
-<p>这里，<code>package_a</code> 和 <code>package_a.subpackage_b</code>
-都是从 <code>my_project</code> 这个顶级目录（假设它在
-<code>sys.path</code> 中）开始的绝对路径。</p></li>
-<li><p>在 <code>package_a/module_x.py</code> 中导入
-<code>module_z</code>：</p>
+<p>这里，<code>package_a</code> 和 <code>package_a.subpackage_b</code> 都是从 <code>my_project</code> 这个顶级目录（假设它在 <code>sys.path</code> 中）开始的绝对路径。</p>
+</li>
+<li>
+<p>在 <code>package_a/module_x.py</code> 中导入 <code>module_z</code>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># my_project/package_a/module_x.py</span><br><span class="hljs-keyword">from</span> package_c <span class="hljs-keyword">import</span> module_z <span class="hljs-comment"># 即使 module_x 和 module_z 在不同的顶级包下，也可以通过绝对路径导入</span><br><br>module_z.do_something()<br></code></pre></td></tr></table></figure>
-<p>同样，<code>package_c</code> 是从项目根目录开始的绝对路径。</p></li>
+<p>同样，<code>package_c</code> 是从项目根目录开始的绝对路径。</p>
+</li>
 </ul>
-<h3 id="相对路径导入-relative-imports">相对路径导入 (Relative
-Imports)</h3>
-<p>相对路径导入是相对于<strong>当前模块所在的包</strong>的位置进行导入。它使用
-<code>.</code> 和 <code>..</code>
-来表示相对位置，类似于文件系统中的相对路径。</p>
+<h3 id="相对路径导入-Relative-Imports">相对路径导入 (Relative Imports)</h3>
+<p>相对路径导入是相对于<strong>当前模块所在的包</strong>的位置进行导入。它使用 <code>.</code> 和 <code>..</code> 来表示相对位置，类似于文件系统中的相对路径。</p>
 <div class="note note-primary">
             <p><strong>无论哪种调用方式，相对路径导入都是从CWD出发的</strong>！</p>
           </div>
 <ul>
 <li><code>.</code> 表示<strong>当前包</strong>。</li>
-<li><code>..</code> 表示<strong>当前包的父级包</strong>。可以有多个
-<code>..</code> (<code>...</code> 表示祖父级包，以此类推)。</li>
+<li><code>..</code> 表示<strong>当前包的父级包</strong>。可以有多个 <code>..</code> (<code>...</code> 表示祖父级包，以此类推)。</li>
 </ul>
 <blockquote>
 <p><strong>建议尽量少用或者不用相对路径</strong>，尤其是<code>..</code>，这会带来很多难以名状的导入错误。对于跨目录的包尽可能使用绝对路径导入。</p>
 </blockquote>
-<p><strong>重要：相对导入只能在包内部的模块中使用，不能在顶层脚本（即不属于任何包的
-<code>.py</code> 文件）中使用。</strong></p>
+<p><strong>重要：相对导入只能在包内部的模块中使用，不能在顶层脚本（即不属于任何包的 <code>.py</code> 文件）中使用。</strong></p>
 <p><strong>示例 (基于上面的项目结构):</strong></p>
 <ul>
-<li><p><strong>在 <code>package_a/subpackage_b/module_y.py</code> 中导入
-<code>module_x</code>：</strong></p>
+<li>
+<p><strong>在 <code>package_a/subpackage_b/module_y.py</code> 中导入 <code>module_x</code>：</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># my_project/package_a/subpackage_b/module_y.py</span><br><span class="hljs-keyword">from</span> .. <span class="hljs-keyword">import</span> module_x <span class="hljs-comment"># 从父级包 (package_a) 导入 module_x</span><br><br>module_x.some_function()<br></code></pre></td></tr></table></figure>
-<p><code>module_y.py</code> 位于 <code>subpackage_b</code>
-包中。<code>..</code> 指的是 <code>subpackage_b</code> 的父包，即
-<code>package_a</code>。</p></li>
-<li><p><strong>在 <code>package_a/module_x.py</code> 中导入
-<code>subpackage_b</code> 下的 <code>module_y</code>：</strong></p>
+<p><code>module_y.py</code> 位于 <code>subpackage_b</code> 包中。<code>..</code> 指的是 <code>subpackage_b</code> 的父包，即 <code>package_a</code>。</p>
+</li>
+<li>
+<p><strong>在 <code>package_a/module_x.py</code> 中导入 <code>subpackage_b</code> 下的 <code>module_y</code>：</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># my_project/package_a/module_x.py</span><br><span class="hljs-keyword">from</span> .subpackage_b <span class="hljs-keyword">import</span> module_y <span class="hljs-comment"># 从当前包 (package_a) 的子包导入 module_y</span><br><br>module_y.another_function()<br></code></pre></td></tr></table></figure>
-<p><code>module_x.py</code> 位于 <code>package_a</code>
-包中。<code>.</code> 指的是 <code>package_a</code> 自身。</p></li>
-<li><p><strong>首选绝对路径导入：</strong>
-在绝大多数情况下，尤其是在大型、多层次的项目中，<strong>推荐使用绝对路径导入</strong>。它使代码更清晰、更易于理解和维护，并且在重构时更不容易出错。当你需要导入不同顶级包中的模块时，绝对路径导入是唯一选择。</p></li>
-<li><p><strong>相对路径导入的适用场景：</strong>
-相对路径导入通常只在<strong>包内部</strong>用于模块间的相互引用。它能让导入语句更简洁，并且在将包作为一个整体移动时保持其内部逻辑的完整性。</p></li>
-<li><p><strong>避免在顶层脚本中使用相对导入：</strong>
-如果你直接运行一个不属于任何包的 Python
-脚本，并尝试在其中使用相对导入，你会遇到
-<code>ImportError: attempted relative import with no known parent package</code>
-错误。这是因为 Python
-解释器在直接运行脚本时，无法确定它的“父包”。</p></li>
+<p><code>module_x.py</code> 位于 <code>package_a</code> 包中。<code>.</code> 指的是 <code>package_a</code> 自身。</p>
+</li>
+<li>
+<p><strong>首选绝对路径导入：</strong> 在绝大多数情况下，尤其是在大型、多层次的项目中，<strong>推荐使用绝对路径导入</strong>。它使代码更清晰、更易于理解和维护，并且在重构时更不容易出错。当你需要导入不同顶级包中的模块时，绝对路径导入是唯一选择。</p>
+</li>
+<li>
+<p><strong>相对路径导入的适用场景：</strong> 相对路径导入通常只在<strong>包内部</strong>用于模块间的相互引用。它能让导入语句更简洁，并且在将包作为一个整体移动时保持其内部逻辑的完整性。</p>
+</li>
+<li>
+<p><strong>避免在顶层脚本中使用相对导入：</strong> 如果你直接运行一个不属于任何包的 Python 脚本，并尝试在其中使用相对导入，你会遇到 <code>ImportError: attempted relative import with no known parent package</code> 错误。这是因为 Python 解释器在直接运行脚本时，无法确定它的“父包”。</p>
+</li>
 </ul>
-<h2 id="demo-1">Demo</h2>
+<h2 id="Demo-2">Demo</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">.<br>├── __init__.py<br>├── main.py<br>├── module_a<br>│   ├── __init__.py<br>│   ├── a.py<br>│   └── a_need_b.py<br>├── module_b<br>│   ├── __init__.py<br>│   ├── b.py<br>│   └── b_need_c.py<br>└── module_c<br>    ├── __init__.py<br>    └── c.py<br></code></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># main</span><br><span class="hljs-keyword">from</span> module_a <span class="hljs-keyword">import</span> a, a_need_b<br><span class="hljs-keyword">from</span> module_b <span class="hljs-keyword">import</span> b, b_need_c<br><span class="hljs-keyword">from</span> module_c <span class="hljs-keyword">import</span> c<br><br><span class="hljs-comment"># module_a/a_need_b</span><br><span class="hljs-keyword">from</span> module_b <span class="hljs-keyword">import</span> b_need_c<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;It is file a_need_b !&quot;</span>)<br><br><span class="hljs-comment"># module_a/a</span><br><span class="hljs-keyword">from</span> .a_need_b <span class="hljs-keyword">import</span> *<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;It is file a!&quot;</span>)<br><br><span class="hljs-comment"># module_b/b_need_c</span><br><span class="hljs-keyword">from</span> module_c <span class="hljs-keyword">import</span> c<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;C, i need you!&quot;</span>)<br><br><span class="hljs-comment"># module_b/b: empty</span><br><br><span class="hljs-comment"># module_c/c:</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;It is the module C!&quot;</span>)<br></code></pre></td></tr></table></figure>
 <div class="note note-info">
-            <p>为什么 <code>from .a_need_b import *</code> 在 <code>python -m</code>下能正常工作，但是正常运行就不可以？</p><p>当你运行像 <code>python -m your_package.your_module</code>这样的命令时，Python 解释器会做几件关键的事情：</p><ol type="1"><li><strong>它将你的顶级包视为一个真正的包。</strong> Python 会查找<code>your_package</code> 在 <code>sys.path</code>中的位置（通常是当前工作目录），并将其标记为<strong>顶级包 (top-levelpackage)</strong>。</li><li><strong>它设置了 <code>__package__</code> 和 <code>__name__</code>属性。</strong> 当一个模块通过 <code>import</code> 机制（包括<code>python -m</code>）被加载时，Python 会为它设置<code>__package__</code>属性，这个属性指明了模块所属的包。这是进行相对导入的先决条件。</li><li><strong>它确保了相对导入的上下文。</strong> 有了正确的<code>__package__</code> 上下文，当遇到<code>from .a_need_b import *</code> 这样的相对导入时，Python就能准确地知道 <code>.</code> 指的是当前模块所在的包，<code>..</code>指的是当前包的父包，以此类推。</li></ol><p>如果你在 <code>my_project</code> 目录下执行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python -m module_a.a<br></code></pre></td></tr></table></figure><p>这将发生以下情况：</p><ol type="1"><li><strong>设置 <code>sys.path</code>：</strong><code>my_project</code> (你的当前工作目录) 被添加到<code>sys.path</code> 的最前面。</li><li><strong>识别顶级包：</strong> Python 知道它正在尝试运行<code>module_a.a</code>。由于 <code>my_project</code> 在<code>sys.path</code> 中，并且<code>my_project/module_a/__init__.py</code> 存在，Python 就能够将<code>my_project</code> 识别为一个<strong>顶级包的上下文</strong>，并且<code>module_a</code> 是 <code>my_project</code> 下的一个子包。</li><li><strong>执行 <code>module_a.a</code>：</strong> 当 <code>a.py</code>文件中的代码开始执行时：<ul><li>Python 知道 <code>a.py</code> 的<strong>完整模块名</strong>是<code>module_a.a</code>。</li><li>因此，<code>a.py</code> 的 <code>__package__</code> 属性被设置为<code>'module_a'</code>。</li></ul></li><li><strong>处理相对导入 <code>from .a_need_b import *</code>：</strong><ul><li><code>a.py</code> 内部的这个导入语句看到 <code>.</code>。</li><li>因为 <code>a.py</code> 的 <code>__package__</code> 是<code>module_a</code>，所以 <code>.</code> 被解析为<code>'module_a'</code>。</li><li>因此，<code>from .a_need_b import *</code> 实际上被解释为<code>from module_a.a_need_b import *</code>。</li><li>由于 <code>module_a.a_need_b</code> 在 <code>module_a</code>包内是可用的，并且 <code>module_a</code>已经被正确识别，所以导入成功。</li></ul></li></ol><p>如果你直接运行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python my_project/module_a/a.py<br></code></pre></td></tr></table></figure><p>会发生不同的事情：</p><ol type="1"><li><strong>设置 <code>sys.path</code>：</strong> 此时，Python 会将<strong><code>a.py</code> 所在的目录</strong>(<code>my_project/module_a/</code>) 添加到 <code>sys.path</code>的最前面。</li><li><strong>不识别包上下文：</strong> 当 <code>a.py</code>被直接作为脚本执行时，Python 不会将其视为 <code>module_a</code>包的一部分，更不会将其父目录 <code>my_project</code>视为一个顶级包。</li><li><strong><code>__package__</code> 为 <code>None</code>：</strong>此时 <code>a.py</code> 的 <code>__package__</code> 属性会被设置为<code>None</code> (或者根本不存在，取决于 Python 版本和加载方式)。</li><li><strong>相对导入失败：</strong> 当 Python 尝试解析<code>from .a_need_b import *</code> 时，由于 <code>__package__</code>是 <code>None</code>，它无法确定 <code>.</code>到底指代什么包的上下文，因此会抛出<code>ImportError: attempted relative import with no known parent package</code>(或者在你之前遇到的<code>ImportError: attempted relative import beyond top-level package</code>，这取决于更复杂的包结构和导入链)。</li></ol><p><code>python -m</code>的核心价值在于它明确地将你的程序作为一个<strong>包或模块</strong>来运行，从而为相对导入提供了必要的上下文(<code>__package__</code> 属性)。这使得 Python 能够正确地解析诸如<code>.</code> 和 <code>..</code>这样的相对引用，从而在复杂的项目结构中实现模块间的顺畅通信。而直接运行一个文件，Python倾向于将其视为一个独立的脚本，剥夺了它作为包内模块的身份，从而导致相对导入失败。</p><p>所以，当你的代码需要利用包的内部结构进行相对导入时，<strong><code>python -m</code>通常是运行它的正确方式</strong>。</p>
+            <p>为什么 <code>from .a_need_b import *</code> 在 <code>python -m</code> 下能正常工作，但是正常运行就不可以？</p><p>当你运行像 <code>python -m your_package.your_module</code> 这样的命令时，Python 解释器会做几件关键的事情：</p><ol><li><strong>它将你的顶级包视为一个真正的包。</strong> Python 会查找 <code>your_package</code> 在 <code>sys.path</code> 中的位置（通常是当前工作目录），并将其标记为<strong>顶级包 (top-level package)</strong>。</li><li><strong>它设置了 <code>__package__</code> 和 <code>__name__</code> 属性。</strong> 当一个模块通过 <code>import</code> 机制（包括 <code>python -m</code>）被加载时，Python 会为它设置 <code>__package__</code> 属性，这个属性指明了模块所属的包。这是进行相对导入的先决条件。</li><li><strong>它确保了相对导入的上下文。</strong> 有了正确的 <code>__package__</code> 上下文，当遇到 <code>from .a_need_b import *</code> 这样的相对导入时，Python 就能准确地知道 <code>.</code> 指的是当前模块所在的包，<code>..</code> 指的是当前包的父包，以此类推。</li></ol><p>如果你在 <code>my_project</code> 目录下执行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python -m module_a.a<br></code></pre></td></tr></table></figure><p>这将发生以下情况：</p><ol><li><strong>设置 <code>sys.path</code>：</strong> <code>my_project</code> (你的当前工作目录) 被添加到 <code>sys.path</code> 的最前面。</li><li><strong>识别顶级包：</strong> Python 知道它正在尝试运行 <code>module_a.a</code>。由于 <code>my_project</code> 在 <code>sys.path</code> 中，并且 <code>my_project/module_a/__init__.py</code> 存在，Python 就能够将 <code>my_project</code> 识别为一个<strong>顶级包的上下文</strong>，并且 <code>module_a</code> 是 <code>my_project</code> 下的一个子包。</li><li><strong>执行 <code>module_a.a</code>：</strong> 当 <code>a.py</code> 文件中的代码开始执行时：<ul><li>Python 知道 <code>a.py</code> 的<strong>完整模块名</strong>是 <code>module_a.a</code>。</li><li>因此，<code>a.py</code> 的 <code>__package__</code> 属性被设置为 <code>'module_a'</code>。</li></ul></li><li><strong>处理相对导入 <code>from .a_need_b import *</code>：</strong><ul><li><code>a.py</code> 内部的这个导入语句看到 <code>.</code>。</li><li>因为 <code>a.py</code> 的 <code>__package__</code> 是 <code>module_a</code>，所以 <code>.</code> 被解析为 <code>'module_a'</code>。</li><li>因此，<code>from .a_need_b import *</code> 实际上被解释为 <code>from module_a.a_need_b import *</code>。</li><li>由于 <code>module_a.a_need_b</code> 在 <code>module_a</code> 包内是可用的，并且 <code>module_a</code> 已经被正确识别，所以导入成功。</li></ul></li></ol><p>如果你直接运行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python my_project/module_a/a.py<br></code></pre></td></tr></table></figure><p>会发生不同的事情：</p><ol><li><strong>设置 <code>sys.path</code>：</strong> 此时，Python 会将 <strong><code>a.py</code> 所在的目录</strong> (<code>my_project/module_a/</code>) 添加到 <code>sys.path</code> 的最前面。</li><li><strong>不识别包上下文：</strong> 当 <code>a.py</code> 被直接作为脚本执行时，Python 不会将其视为 <code>module_a</code> 包的一部分，更不会将其父目录 <code>my_project</code> 视为一个顶级包。</li><li><strong><code>__package__</code> 为 <code>None</code>：</strong> 此时 <code>a.py</code> 的 <code>__package__</code> 属性会被设置为 <code>None</code> (或者根本不存在，取决于 Python 版本和加载方式)。</li><li><strong>相对导入失败：</strong> 当 Python 尝试解析 <code>from .a_need_b import *</code> 时，由于 <code>__package__</code> 是 <code>None</code>，它无法确定 <code>.</code> 到底指代什么包的上下文，因此会抛出 <code>ImportError: attempted relative import with no known parent package</code> (或者在你之前遇到的 <code>ImportError: attempted relative import beyond top-level package</code>，这取决于更复杂的包结构和导入链)。</li></ol><p><code>python -m</code> 的核心价值在于它明确地将你的程序作为一个<strong>包或模块</strong>来运行，从而为相对导入提供了必要的上下文 (<code>__package__</code> 属性)。这使得 Python 能够正确地解析诸如 <code>.</code> 和 <code>..</code> 这样的相对引用，从而在复杂的项目结构中实现模块间的顺畅通信。而直接运行一个文件，Python 倾向于将其视为一个独立的脚本，剥夺了它作为包内模块的身份，从而导致相对导入失败。</p><p>所以，当你的代码需要利用包的内部结构进行相对导入时，<strong><code>python -m</code> 通常是运行它的正确方式</strong>。</p>
           </div>
-<h2 id="conclusion">Conclusion</h2>
+<h2 id="Conclusion">Conclusion</h2>
 <p>千言万语汇成一句话：<strong>多用绝对路径</strong>！！！</p>
 
                 
