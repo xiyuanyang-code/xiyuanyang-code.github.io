@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/wslnet.jpg">
 <meta property="article:published_time" content="2025-05-18T05:47:04.000Z">
-<meta property="article:modified_time" content="2025-06-30T01:51:40.432Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:36.842Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="WSL">
@@ -625,101 +625,148 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Proxy-Settings-in-WSL"><a href="#Proxy-Settings-in-WSL" class="headerlink" title="Proxy Settings in WSL"></a>Proxy Settings in WSL</h1><h2 id="WSL-网络基础概念"><a href="#WSL-网络基础概念" class="headerlink" title="WSL 网络基础概念"></a>WSL 网络基础概念</h2><h3 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h3><p>NAT（<strong>Network Address Translation</strong>）是一种将私有IP地址转换为公有IP地址的技术。</p>
-<h4 id="IP-Address"><a href="#IP-Address" class="headerlink" title="IP Address"></a>IP Address</h4><p><strong>IP地址</strong><sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://zh.wikipedia.org/wiki/IP%E5%9C%B0%E5%9D%80">[1]</span></a></sup>（英语：IP Address，全称Internet Protocol Address），又译为<strong>网际协议地址</strong>、<strong>互联网协议地址</strong>。是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BD%91%E9%99%85%E5%8D%8F%E8%AE%AE">网际协议</a>中用于标识<strong>发送</strong>或<strong>接收数据报</strong>的设备的一串数字。IP地址是唯一标识网络中设备的数字标签，分为两种：</p>
+                <h1 id="proxy-settings-in-wsl">Proxy Settings in WSL</h1>
+<h2 id="wsl-网络基础概念">WSL 网络基础概念</h2>
+<h3 id="nat">NAT</h3>
+<p>NAT（<strong>Network Address
+Translation</strong>）是一种将私有IP地址转换为公有IP地址的技术。</p>
+<h4 id="ip-address">IP Address</h4>
+<p><strong>IP地址</strong><sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span
+class="hint--top hint--rounded"
+aria-label="https://zh.wikipedia.org/wiki/IP%E5%9C%B0%E5%9D%80">[1]</span></a></sup>（英语：IP
+Address，全称Internet Protocol
+Address），又译为<strong>网际协议地址</strong>、<strong>互联网协议地址</strong>。是<a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/网际协议">网际协议</a>中用于标识<strong>发送</strong>或<strong>接收数据报</strong>的设备的一串数字。IP地址是唯一标识网络中设备的数字标签，分为两种：</p>
 <ul>
-<li><strong>IPv4</strong>：如 <code>192.168.1.10</code>（32位，4组数字）。</li>
-<li><strong>IPv6</strong>：如 <code>fe80::215:5dff:fe20:7c2d</code>（128位，16进制）。</li>
+<li><strong>IPv4</strong>：如
+<code>192.168.1.10</code>（32位，4组数字）。</li>
+<li><strong>IPv6</strong>：如
+<code>fe80::215:5dff:fe20:7c2d</code>（128位，16进制）。</li>
 </ul>
-<h4 id="Public-IP-and-Private-IP"><a href="#Public-IP-and-Private-IP" class="headerlink" title="Public IP and Private IP"></a>Public IP and Private IP</h4><h5 id="私有IP（Private-IP）"><a href="#私有IP（Private-IP）" class="headerlink" title="私有IP（Private IP）"></a>私有IP（Private IP）</h5><ul>
+<h4 id="public-ip-and-private-ip">Public IP and Private IP</h4>
+<h5 id="私有ipprivate-ip">私有IP（Private IP）</h5>
+<ul>
 <li><strong>定义</strong>：在本地网络（如家庭、公司或虚拟网络）内部使用的IP地址，<strong>不可直接从互联网访问</strong>。</li>
-<li><strong>常见范围</strong>：<ul>
+<li><strong>常见范围</strong>：
+<ul>
 <li>IPv4：<code>10.0.0.0/8</code>、<code>172.16.0.0/12</code>、<code>192.168.0.0/16</code>。</li>
-<li>WSL默认使用的子网：<code>172.16.0.0/12</code>（如 <code>172.28.1.1</code>）。</li>
-</ul>
-</li>
+<li>WSL默认使用的子网：<code>172.16.0.0/12</code>（如
+<code>172.28.1.1</code>）。</li>
+</ul></li>
 <li><strong>作用</strong>：用于内部设备通信（如主机与WSL之间）。</li>
 </ul>
-<h5 id="公有IP（Public-IP）"><a href="#公有IP（Public-IP）" class="headerlink" title="公有IP（Public IP）"></a>公有IP（Public IP）</h5><ul>
+<h5 id="公有ippublic-ip">公有IP（Public IP）</h5>
+<ul>
 <li><strong>定义</strong>：互联网全局唯一的IP地址，由ISP（运营商）分配，可直接从外部访问。</li>
-<li><strong>示例</strong>：如 <code>203.0.113.45</code>（此地址由你的路由器或ISP提供）。</li>
+<li><strong>示例</strong>：如
+<code>203.0.113.45</code>（此地址由你的路由器或ISP提供）。</li>
 <li><strong>作用</strong>：主机通过NAT将私有IP转换为公有IP访问互联网。</li>
 </ul>
 <p>WSL在本质上还是一个虚拟机，因此Windows主机和WSL实例各自拥有独立的IP地址。例如：</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># run in powershell</span><br>ipconfig<br></code></pre></td></tr></table></figure>
-
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">以太网适配器 VMware Network Adapter VMnet1:<br><br>   连接特定的 DNS 后缀 . . . . . . . :<br>   本地链接 IPv6 地址. . . . . . . . : fe80::e986:a48d:3a87:372%15<br>   IPv4 地址 . . . . . . . . . . . . : 192.168.191.1<br>   子网掩码  . . . . . . . . . . . . : 255.255.255.0<br>   默认网关. . . . . . . . . . . . . :<br><br>以太网适配器 VMware Network Adapter VMnet8:<br><br>   连接特定的 DNS 后缀 . . . . . . . :<br>   本地链接 IPv6 地址. . . . . . . . : fe80::ffcd:ab80:84f0:628c%9<br>   IPv4 地址 . . . . . . . . . . . . : 192.168.79.1<br>   子网掩码  . . . . . . . . . . . . : 255.255.255.0<br>   默认网关. . . . . . . . . . . . . :<br><br>无线局域网适配器 WLAN:<br><br>   连接特定的 DNS 后缀 . . . . . . . :<br>   IPv6 地址 . . . . . . . . . . . . : 2403:d400:1000:12:95a6:a9db:f142:84c4<br>   临时 IPv6 地址. . . . . . . . . . : 2403:d400:1000:12:35e1:ae0c:4ba0:f169<br>   本地链接 IPv6 地址. . . . . . . . : fe80::4beb:4c8b:bb43:68d4%24<br>   IPv4 地址 . . . . . . . . . . . . : 10.181.219.220<br>   子网掩码  . . . . . . . . . . . . : 255.254.0.0<br>   默认网关. . . . . . . . . . . . . : fe80::56c6:ffff:fe7b:5802%24<br>                                       10.180.0.1<br><br></code></pre></td></tr></table></figure>
-
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># run in WSL</span><br>ifconfig<br></code></pre></td></tr></table></figure>
-
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker0</span>: flags=<span class="hljs-number">4099</span>&lt;UP,BROADCAST,MULTICAST&gt;  mtu <span class="hljs-number">1500</span><br>        <span class="hljs-attribute">inet</span> <span class="hljs-number">172.17.0.1</span>  netmask <span class="hljs-number">255.255.0.0</span>  broadcast <span class="hljs-number">172.17.255.255</span><br>        <span class="hljs-attribute">ether</span> <span class="hljs-number">4</span>a:<span class="hljs-number">39</span>:<span class="hljs-number">01</span>:be:ca:fe  txqueuelen <span class="hljs-number">0</span>  (Ethernet)<br>        <span class="hljs-attribute">RX</span> packets <span class="hljs-number">0</span>  bytes <span class="hljs-number">0</span> (<span class="hljs-number">0</span>.<span class="hljs-number">0</span> B)<br>        <span class="hljs-attribute">RX</span> errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        <span class="hljs-attribute">TX</span> packets <span class="hljs-number">0</span>  bytes <span class="hljs-number">0</span> (<span class="hljs-number">0</span>.<span class="hljs-number">0</span> B)<br>        <span class="hljs-attribute">TX</span> errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br><br><span class="hljs-attribute">eth1</span>: flags=<span class="hljs-number">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="hljs-number">1500</span><br>        <span class="hljs-attribute">inet</span> <span class="hljs-number">10.181.219.220</span>  netmask <span class="hljs-number">255.254.0.0</span>  broadcast <span class="hljs-number">10.181.255.255</span><br>        <span class="hljs-attribute">inet6</span> <span class="hljs-number">2403</span>:d400:<span class="hljs-number">1000</span>:<span class="hljs-number">12</span>:<span class="hljs-number">95</span>a6:a9db:f142:<span class="hljs-number">84</span>c4  prefixlen <span class="hljs-number">64</span>  scopeid <span class="hljs-number">0</span>x0&lt;global&gt;<br>        <span class="hljs-attribute">inet6</span> <span class="hljs-number">2403</span>:d400:<span class="hljs-number">1000</span>:<span class="hljs-number">12</span>:<span class="hljs-number">35</span>e1:ae0c:<span class="hljs-number">4</span>ba0:f169  prefixlen <span class="hljs-number">128</span>  scopeid <span class="hljs-number">0</span>x0&lt;global&gt;<br>        <span class="hljs-attribute">inet6</span> fe80::<span class="hljs-number">4</span>beb:<span class="hljs-number">4</span>c8b:bb43:<span class="hljs-number">68</span>d4  prefixlen <span class="hljs-number">64</span>  scopeid <span class="hljs-number">0</span>x20&lt;link&gt;<br>        <span class="hljs-attribute">ether</span> e8:c8:<span class="hljs-number">29</span>:bb:<span class="hljs-number">02</span>:<span class="hljs-number">92</span>  txqueuelen <span class="hljs-number">1000</span>  (Ethernet)<br>        <span class="hljs-attribute">RX</span> packets <span class="hljs-number">54806</span>  bytes <span class="hljs-number">29007547</span> (<span class="hljs-number">29</span>.<span class="hljs-number">0</span> MB)<br>        <span class="hljs-attribute">RX</span> errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        <span class="hljs-attribute">TX</span> packets <span class="hljs-number">71390</span>  bytes <span class="hljs-number">13607203</span> (<span class="hljs-number">13</span>.<span class="hljs-number">6</span> MB)<br>        <span class="hljs-attribute">TX</span> errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br><br><span class="hljs-attribute">lo</span>: flags=<span class="hljs-number">73</span>&lt;UP,LOOPBACK,RUNNING&gt;  mtu <span class="hljs-number">65536</span><br>        <span class="hljs-attribute">inet</span> <span class="hljs-number">127.0.0.1</span>  netmask <span class="hljs-number">255.0.0.0</span><br>        <span class="hljs-attribute">inet6</span> ::<span class="hljs-number">1</span>  prefixlen <span class="hljs-number">128</span>  scopeid <span class="hljs-number">0</span>x10&lt;host&gt;<br>        <span class="hljs-attribute">loop</span>  txqueuelen <span class="hljs-number">1000</span>  (Local Loopback)<br>        <span class="hljs-attribute">RX</span> packets <span class="hljs-number">8799</span>  bytes <span class="hljs-number">1461027</span> (<span class="hljs-number">1</span>.<span class="hljs-number">4</span> MB)<br>        <span class="hljs-attribute">RX</span> errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        <span class="hljs-attribute">TX</span> packets <span class="hljs-number">8799</span>  bytes <span class="hljs-number">1461027</span> (<span class="hljs-number">1</span>.<span class="hljs-number">4</span> MB)<br>        <span class="hljs-attribute">TX</span> errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br><br><span class="hljs-attribute">loopback0</span>: flags=<span class="hljs-number">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="hljs-number">1500</span><br>        <span class="hljs-attribute">ether</span> <span class="hljs-number">00</span>:<span class="hljs-number">15</span>:<span class="hljs-number">5</span>d:<span class="hljs-number">3</span>f:<span class="hljs-number">7</span>c:<span class="hljs-number">62</span>  txqueuelen <span class="hljs-number">1000</span>  (Ethernet)<br>        <span class="hljs-attribute">RX</span> packets <span class="hljs-number">45719</span>  bytes <span class="hljs-number">46271562</span> (<span class="hljs-number">46</span>.<span class="hljs-number">2</span> MB)<br>        <span class="hljs-attribute">RX</span> errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        <span class="hljs-attribute">TX</span> packets <span class="hljs-number">17592</span>  bytes <span class="hljs-number">44415200</span> (<span class="hljs-number">44</span>.<span class="hljs-number">4</span> MB)<br>        <span class="hljs-attribute">TX</span> errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
-
 <blockquote>
 <p>这里看<strong>eth1</strong>接口，私有IP为<code>10.181.219.220</code>.</p>
 </blockquote>
 <ul>
-<li><p><strong>WSL 内部 IP</strong>: 您的 WSL 发行版（如 Ubuntu）会获得一个私有 IP 地址 (例如 <code>172.17.77.95</code>)，通常在 <code>eth0</code> 网络接口上。</p>
-</li>
-<li><p><strong>Windows 主机在 WSL 虚拟网络中的 IP</strong>: Windows 主机会有一个对应的虚拟网络适配器 (通常名为 <code>vEthernet (WSL)</code>)，它也有一个该虚拟网络内的 IP 地址 (例如 <code>172.17.64.1</code>)。这个 IP 地址非常重要，因为 WSL 通常通过它来访问主机提供的服务（包括 DNS 转发和本地代理）。</p>
-</li>
-<li><p><strong>Mirrored 模式 (实验性)</strong>: 这是 <code>.wslconfig</code> 中的一个实验性设置 (<code>networkingMode=mirrored</code>)，旨在让 WSL 共享 Windows 主机的网络接口和 IP 地址。理论上可以简化网络配置，但可能与某些代理、VPN 或防火墙不兼容，并可能导致 DNS 问题。<strong>在我们的排查中，恢复到默认 NAT 模式是解决复杂网络问题的关键一步。</strong></p>
-</li>
+<li><p><strong>WSL 内部 IP</strong>: 您的 WSL 发行版（如
+Ubuntu）会获得一个私有 IP 地址 (例如 <code>172.17.77.95</code>)，通常在
+<code>eth0</code> 网络接口上。</p></li>
+<li><p><strong>Windows 主机在 WSL 虚拟网络中的 IP</strong>: Windows
+主机会有一个对应的虚拟网络适配器 (通常名为
+<code>vEthernet (WSL)</code>)，它也有一个该虚拟网络内的 IP 地址 (例如
+<code>172.17.64.1</code>)。这个 IP 地址非常重要，因为 WSL
+通常通过它来访问主机提供的服务（包括 DNS 转发和本地代理）。</p></li>
+<li><p><strong>Mirrored 模式 (实验性)</strong>: 这是
+<code>.wslconfig</code> 中的一个实验性设置
+(<code>networkingMode=mirrored</code>)，旨在让 WSL 共享 Windows
+主机的网络接口和 IP 地址。理论上可以简化网络配置，但可能与某些代理、VPN
+或防火墙不兼容，并可能导致 DNS 问题。<strong>在我们的排查中，恢复到默认
+NAT 模式是解决复杂网络问题的关键一步。</strong></p></li>
 </ul>
-<h2 id="WSL-中的-DNS-解析-etc-resolv-conf"><a href="#WSL-中的-DNS-解析-etc-resolv-conf" class="headerlink" title="WSL 中的 DNS 解析 (/etc/resolv.conf)"></a>WSL 中的 DNS 解析 (<code>/etc/resolv.conf</code>)</h2><p><strong>DNS 解析（Domain Name System Resolution）</strong> 是将人类可读的域名（如 <code>google.com</code>）转换为计算机可识别的 <strong>IP 地址</strong>（如 <code>142.250.190.46</code>）的过程。它是互联网运作的基础，类似于“电话簿”，把易记的名字映射到实际的网络地址。</p>
-<p>在DNS解析的流程中，计算机首先会尝试检查计算机的DNS缓存，如果如果缓存中有记录，直接返回 IP，否则继续。如果没有，这像本地配置的DNS服务器 (DNS Server)发起域名解析请求，递归服务器从根域名服务器（<code>.</code>）开始，逐级查询：根服务器告知 <code>.com</code> 的 TLD 服务器地址，TLD 服务器告知 <code>github.com</code> 的权威 DNS 服务器地址，最终从权威服务器获取 <code>github.com</code> 的 IP。</p>
-<p>WSL 中的 <code>/etc/resolv.conf</code> 文件定义了它将使用哪个 <strong>DNS 服务器来解析域名</strong>。</p>
+<h2 id="wsl-中的-dns-解析-etcresolv.conf">WSL 中的 DNS 解析
+(<code>/etc/resolv.conf</code>)</h2>
+<p><strong>DNS 解析（Domain Name System Resolution）</strong>
+是将人类可读的域名（如 <code>google.com</code>）转换为计算机可识别的
+<strong>IP 地址</strong>（如
+<code>142.250.190.46</code>）的过程。它是互联网运作的基础，类似于“电话簿”，把易记的名字映射到实际的网络地址。</p>
+<p>在DNS解析的流程中，计算机首先会尝试检查计算机的DNS缓存，如果如果缓存中有记录，直接返回
+IP，否则继续。如果没有，这像本地配置的DNS服务器 (DNS
+Server)发起域名解析请求，递归服务器从根域名服务器（<code>.</code>）开始，逐级查询：根服务器告知
+<code>.com</code> 的 TLD 服务器地址，TLD 服务器告知
+<code>github.com</code> 的权威 DNS 服务器地址，最终从权威服务器获取
+<code>github.com</code> 的 IP。</p>
+<p>WSL 中的 <code>/etc/resolv.conf</code> 文件定义了它将使用哪个
+<strong>DNS 服务器来解析域名</strong>。</p>
 <p>排查方式：</p>
 <ul>
 <li>首先<code>ping 8.8.8.8</code>，如果成功说明网络没问题，真正出问题的在DNS解析。</li>
-<li>判断DNS解析是否出现问题：<ul>
+<li>判断DNS解析是否出现问题：
+<ul>
 <li>查看DNS server：<code>cat /etc/resolv.conf</code></li>
 <li>测试DNS解析：<code>nslookup github.com</code></li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">cat</span> /etc/resolv.conf<br><span class="hljs-comment"># This file was automatically generated by WSL. To stop automatic generation of this file, add the following entry to /etc/wsl.conf:</span><br><span class="hljs-comment"># [network]</span><br><span class="hljs-comment"># generateResolvConf = false</span><br><span class="hljs-comment"># nameserver 10.255.255.254</span><br>nameserver 8.8.8.8       <span class="hljs-comment"># Google DNS</span><br>nameserver 8.8.4.4       <span class="hljs-comment"># Google DNS for backup</span><br><br>$ nslookup github.com<br>Server:         8.8.8.8<br>Address:        8.8.8.8#53<br><br>Non-authoritative answer:<br>Name:   github.com<br>Address: 20.205.243.166<br></code></pre></td></tr></table></figure>
-
 <p>上面的实例中系统首先使用了<code>8.8.8.8</code>的谷歌DNS服务器，并成功将<code>github.com</code>的域名解析为<code>20.205.243.166</code>.</p>
-<p>如果<code>nslookup</code>过程失败了，请参照后文教程手动修改DNS server设置。</p>
-<h3 id="临时修改DNS-Server"><a href="#临时修改DNS-Server" class="headerlink" title="临时修改DNS Server"></a>临时修改DNS Server</h3><p>我们可以修改<code>/etc/resolve.conf</code>来临时修改DNS配置。使用<code>sudo vim /etc/resolve.conf</code>来配置该文件。</p>
+<p>如果<code>nslookup</code>过程失败了，请参照后文教程手动修改DNS
+server设置。</p>
+<h3 id="临时修改dns-server">临时修改DNS Server</h3>
+<p>我们可以修改<code>/etc/resolve.conf</code>来临时修改DNS配置。使用<code>sudo vim /etc/resolve.conf</code>来配置该文件。</p>
 <div class="note note-danger">
             <p><strong>因为是系统文件</strong>，所以要注意使用sudo权限，并且<strong>注意安全</strong>！</p>
           </div>
-
 <p>并且更换你的DNS服务器，例如更换为谷歌的DNS服务器：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">nameserver 8.8.8.8       <span class="hljs-comment"># Google DNS</span><br>nameserver 8.8.4.4       <span class="hljs-comment"># Google DNS for backup</span><br></code></pre></td></tr></table></figure>
-
 <p>或者你也可以使用如下命令快速配置：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 临时使用 Google 公共 DNS</span><br><span class="hljs-built_in">sudo</span> bash -c <span class="hljs-string">&#x27;echo &quot;nameserver 8.8.8.8&quot; &gt; /etc/resolv.conf&#x27;</span><br><span class="hljs-built_in">sudo</span> bash -c <span class="hljs-string">&#x27;echo &quot;nameserver 8.8.4.4&quot; &gt;&gt; /etc/resolv.conf&#x27;</span><br></code></pre></td></tr></table></figure>
-
 <p>在更改DNS server之后，立即测试连通性：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">nslookup github.com  <span class="hljs-comment"># 现在应该能返回正确的 IP</span><br>ping github.com      <span class="hljs-comment"># 测试连通性</span><br></code></pre></td></tr></table></figure>
-
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">❯ nslookup github.com<br>Server:         8.8.8.8<br>Address:        8.8.8.8#53<br><br>Non-authoritative answer:<br>Name:   github.com<br>Address: 20.205.243.166<br><br><br>❯ ping -c 4 github.com<br>PING github.com (20.205.243.166) 56(84) bytes of data.<br>64 bytes from 20.205.243.166: icmp_seq=1 ttl=112 time=94.2 ms<br>64 bytes from 20.205.243.166: icmp_seq=2 ttl=112 time=96.7 ms<br>64 bytes from 20.205.243.166: icmp_seq=4 ttl=112 time=90.6 ms<br><br>--- github.com ping statistics ---<br>4 packets transmitted, 3 received, 25% packet loss, time 3075ms<br>rtt min/avg/max/mdev = 90.640/93.857/96.741/2.501 ms<br></code></pre></td></tr></table></figure>
-
 <p>DNS 服务器问题可以被正确解决。</p>
-<h3 id="永久化配置"><a href="#永久化配置" class="headerlink" title="永久化配置"></a>永久化配置</h3><p>WSL 默认从 <code>/etc/resolv.conf</code> 读取 DNS 服务器，但该文件由 Windows 自动生成。因此，需要手动设置**不自动生成<code>/etc/resolve.conf</code>**工具来保证DNS服务器不被修改。</p>
+<h3 id="永久化配置">永久化配置</h3>
+<p>WSL 默认从 <code>/etc/resolv.conf</code> 读取 DNS 服务器，但该文件由
+Windows
+自动生成。因此，需要手动设置<strong>不自动生成<code>/etc/resolve.conf</code></strong>工具来保证DNS服务器不被修改。</p>
 <div class="note note-danger">
             <p><strong>不要使用奇奇怪怪的DNS</strong>，小心DNS污染。</p>
           </div>
-
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> vim /etc/wsl.conf<br></code></pre></td></tr></table></figure>
-
 <p>并添加以下两行：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">[network]<br>generateResolvConf = false<br></code></pre></td></tr></table></figure>
-
-<h2 id="诊断工具"><a href="#诊断工具" class="headerlink" title="诊断工具"></a>诊断工具</h2><ul>
+<h2 id="诊断工具">诊断工具</h2>
+<ul>
 <li><code>ip addr</code> (WSL): 查看 WSL 网络接口和 IP 地址。</li>
 <li><code>cat /etc/resolv.conf</code> (WSL): 查看 WSL 的 DNS 配置。</li>
-<li><code>nslookup &lt;domain&gt;</code> (Windows &amp; WSL): 测试 DNS 解析。</li>
-<li><code>ping &lt;ip_or_domain&gt;</code> (Windows &amp; WSL): 测试网络连通性。</li>
-<li><code>nc -zv &lt;host&gt; &lt;port&gt;</code> (WSL): 测试 TCP 端口连通性。</li>
-<li><code>curl -v &lt;URL&gt;</code> (Windows &amp; WSL): 测试 HTTP&#x2F;S 连接并查看详细过程。</li>
-<li><code>ssh -vv &lt;host&gt;</code> (WSL): 获取 SSH 连接的详细调试信息。</li>
-<li><code>netstat -ano | findstr &quot;&lt;port&gt;&quot;</code> (Windows CMD&#x2F;PowerShell): 查看端口监听状态。</li>
+<li><code>nslookup &lt;domain&gt;</code> (Windows &amp; WSL): 测试 DNS
+解析。</li>
+<li><code>ping &lt;ip_or_domain&gt;</code> (Windows &amp; WSL):
+测试网络连通性。</li>
+<li><code>nc -zv &lt;host&gt; &lt;port&gt;</code> (WSL): 测试 TCP
+端口连通性。</li>
+<li><code>curl -v &lt;URL&gt;</code> (Windows &amp; WSL): 测试 HTTP/S
+连接并查看详细过程。</li>
+<li><code>ssh -vv &lt;host&gt;</code> (WSL): 获取 SSH
+连接的详细调试信息。</li>
+<li><code>netstat -ano | findstr "&lt;port&gt;"</code> (Windows
+CMD/PowerShell): 查看端口监听状态。</li>
 </ul>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/IP%E5%9C%B0%E5%9D%80">https://zh.wikipedia.org/wiki/IP%E5%9C%B0%E5%9D%80</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<h2 id="references">References</h2>
+<section class="footnotes">
+<div class="footnote-list">
+<ol>
+<li>
+<span id="fn:1"
+class="footnote-text"><span>https://zh.wikipedia.org/wiki/IP%E5%9C%B0%E5%9D%80
+<a href="#fnref:1" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+</ol>
+</div>
+</section>
+
                 
               </div>
             
@@ -787,7 +834,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>June 30, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       

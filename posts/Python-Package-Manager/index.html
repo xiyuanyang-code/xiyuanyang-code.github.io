@@ -871,65 +871,98 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h1 id="Python-包管理工具"><a href="#Python-包管理工具" class="headerlink" title="Python 包管理工具"></a>Python 包管理工具</h1><p>相比于Rust等语言规整的语法规则和项目结构，Python自由的语法规则和开发的第三方社区导致<strong>Python项目管理问题</strong>一直是令人们头疼的事情之一。</p>
-<h2 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h2><h3 id="What-are-Modules-and-Packages"><a href="#What-are-Modules-and-Packages" class="headerlink" title="What are Modules and Packages"></a>What are Modules and Packages</h3><p>在知道Python包 (Package) 之前，我们有必要先了解一下<strong>模块</strong> (Module) 的概念。</p>
-<p>在官方文档: <a target="_blank" rel="noopener" href="https://docs.python.org/3/tutorial/modules.html">Official Docs for Python 3.13.5</a> 中，Module的定义是这样的：</p>
+<h1 id="python-包管理工具">Python 包管理工具</h1>
+<p>相比于Rust等语言规整的语法规则和项目结构，Python自由的语法规则和开发的第三方社区导致<strong>Python项目管理问题</strong>一直是令人们头疼的事情之一。</p>
+<h2 id="preliminaries">Preliminaries</h2>
+<h3 id="what-are-modules-and-packages">What are Modules and
+Packages</h3>
+<p>在知道Python包 (Package)
+之前，我们有必要先了解一下<strong>模块</strong> (Module) 的概念。</p>
+<p>在官方文档: <a
+target="_blank" rel="noopener" href="https://docs.python.org/3/tutorial/modules.html">Official Docs for
+Python 3.13.5</a> 中，Module的定义是这样的：</p>
 <div class="note note-info">
-            <p>To support this, Python has a way to &#x3D;&#x3D;put definitions in a file&#x3D;&#x3D; and use them in a script or in an interactive instance of the interpreter. <strong>Such a file is called a module</strong>; definitions from a module can be imported into other modules or into the main module (the collection of variables that you have access to in a script executed at the top level and in calculator mode).</p>
+            <p>To support this, Python has a way to ==put definitions in a file==and use them in a script or in an interactive instance of theinterpreter. <strong>Such a file is called a module</strong>;definitions from a module can be imported into other modules or into themain module (the collection of variables that you have access to in ascript executed at the top level and in calculator mode).</p>
           </div>
-
 <p>简单来说，一份<code>.py</code>代码就是模块，或者说模块就是<code>.py</code>文件。使用者可以通过<code>import</code>命令导入相对应的模块，使用其中的函数，变量和类等，实现功能封装和代码复用。</p>
-<p>有关更多<code>import</code>命令的使用技巧，推荐 <a href="https://xiyuanyang-code.github.io/posts/Python-Architecture-Patterns-Multi-file-Progarmming/">this blog</a></p>
+<p>有关更多<code>import</code>命令的使用技巧，推荐 <a
+href="https://xiyuanyang-code.github.io/posts/Python-Architecture-Patterns-Multi-file-Progarmming/">this
+blog</a></p>
 <p>在更复杂的项目管理时，单纯的使用一个文件不可能囊括所有要import的代码，当然，我们可以对每一个文件分别import，但是这样做缺乏逻辑性，并且操作繁琐后续难以维护。</p>
-<p>因此，Python提出了<strong>包</strong> (Packages<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Packages in Python](https://docs.python.org/3/tutorial/modules.html#packages)">[1]</span></a></sup>) 的概念。一个包含多个模块的目录，且必须有一个 <code>__init__.py</code> 文件（即使是空的）。</p>
+<p>因此，Python提出了<strong>包</strong>
+(Packages<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span
+class="hint--top hint--rounded"
+aria-label="[Packages in Python](https://docs.python.org/3/tutorial/modules.html#packages)">[1]</span></a></sup>)
+的概念。一个包含多个模块的目录，且必须有一个 <code>__init__.py</code>
+文件（即使是空的）。</p>
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs 1c">mypackage/<br>├── __init__.py     <span class="hljs-meta"># 必须存在（标识这是一个包）</span><br>├── module1.py      <span class="hljs-meta"># 模块1</span><br>└── module2.py      <span class="hljs-meta"># 模块2</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="Versions-of-Packages-and-Dependency-Hell"><a href="#Versions-of-Packages-and-Dependency-Hell" class="headerlink" title="Versions of Packages and Dependency Hell"></a>Versions of Packages and Dependency Hell</h3><p><strong>站在前人的肩膀上看世界</strong>。在开发过程中，我们经常会依赖许多第三方包 (例如numpy)来加速开发。然而，这些包本身也在不断迭代更新，发布新版本。这就引入了一个复杂的问题：<strong>版本管理</strong>。</p>
-<h4 id="Semantic-Versioning"><a href="#Semantic-Versioning" class="headerlink" title="Semantic Versioning"></a>Semantic Versioning</h4><div class="note note-primary">
-            <p>目前最广泛采用的版本号规范是语义化版本控制 (Semantic Versioning)，简称 SemVer。它通过一套简单、明确的规则来定义版本号，让人们能够从版本号本身推断出版本之间的兼容性和变更类型。<strong>SemVer 的版本号格式通常是 MAJOR.MINOR.PATCH</strong>，例如 1.2.3：</p><ul><li><p>MAJOR (主版本号)：当你做了不兼容的 API 变更时，升级主版本号。这意味着依赖这个库的代码在<strong>升级主版本号后可能需要修改</strong>。例如，从 1.x.x 升级到 2.0.0。</p></li><li><p>MINOR (次版本号)：当你做了向下兼容的功能性新增时，升级次版本号。这意味着新增了功能，但不会破坏现有代码的兼容性。例如，从 1.2.x 升级到 1.3.0。</p></li><li><p>PATCH (修订版本号)：当你做了向下兼容的问题修复时，升级修订版本号。这意味着修复了 bug，但没有增加新功能或改变 API。例如，从 1.2.3 升级到 1.2.4。</p></li></ul><p>除了这三个主要部分，SemVer 还允许使用预发布版本（例如 1.0.0-alpha.1、1.0.0-beta.2）和构建元数据（例如 1.0.0+20130313144700）来表示更细致的版本状态。</p>
+<h3 id="versions-of-packages-and-dependency-hell">Versions of Packages
+and Dependency Hell</h3>
+<p><strong>站在前人的肩膀上看世界</strong>。在开发过程中，我们经常会依赖许多第三方包
+(例如numpy)来加速开发。然而，这些包本身也在不断迭代更新，发布新版本。这就引入了一个复杂的问题：<strong>版本管理</strong>。</p>
+<h4 id="semantic-versioning">Semantic Versioning</h4>
+<div class="note note-primary">
+            <p>目前最广泛采用的版本号规范是语义化版本控制 (SemanticVersioning)，简称SemVer。它通过一套简单、明确的规则来定义版本号，让人们能够从版本号本身推断出版本之间的兼容性和变更类型。<strong>SemVer的版本号格式通常是 MAJOR.MINOR.PATCH</strong>，例如 1.2.3：</p><ul><li><p>MAJOR (主版本号)：当你做了不兼容的 API变更时，升级主版本号。这意味着依赖这个库的代码在<strong>升级主版本号后可能需要修改</strong>。例如，从1.x.x 升级到 2.0.0。</p></li><li><p>MINOR(次版本号)：当你做了向下兼容的功能性新增时，升级次版本号。这意味着新增了功能，但不会破坏现有代码的兼容性。例如，从1.2.x 升级到 1.3.0。</p></li><li><p>PATCH(修订版本号)：当你做了向下兼容的问题修复时，升级修订版本号。这意味着修复了bug，但没有增加新功能或改变 API。例如，从 1.2.3 升级到 1.2.4。</p></li></ul><p>除了这三个主要部分，SemVer 还允许使用预发布版本（例如1.0.0-alpha.1、1.0.0-beta.2）和构建元数据（例如1.0.0+20130313144700）来表示更细致的版本状态。</p>
           </div>
-
-<h4 id="Version-Conflict"><a href="#Version-Conflict" class="headerlink" title="Version Conflict"></a>Version Conflict</h4><p>举个简单的例子，你的本地项目A依赖于第三方包B(Version: 1.2.3)，但是某一天B迎来了一次重大升级或重构(Version: 2.1.0)，废弃了在原先主版本中的一些接口。此时，如果用户使用你的项目A，但是其安装的库B的版本是最新版本，此时就会产生<strong>版本冲突问题</strong>，因为A<strong>依赖的是B库的老版本的接口</strong>。</p>
-<p>在实际应用中，软件包的依赖项更是错综复杂，一个程序往往依赖动辄几十个甚至上百个<strong>版本号各不相同</strong>包，导致项目难以运行和维护。这种情况被叫做<strong>依赖地狱</strong>。(Dependency Hell)。当依赖性过多，且具有多级结构，形成错综复杂的网络，依赖性的解析就会变得异常困难，甚至出现无法解析的致命错误。</p>
+<h4 id="version-conflict">Version Conflict</h4>
+<p>举个简单的例子，你的本地项目A依赖于第三方包B(Version:
+1.2.3)，但是某一天B迎来了一次重大升级或重构(Version:
+2.1.0)，废弃了在原先主版本中的一些接口。此时，如果用户使用你的项目A，但是其安装的库B的版本是最新版本，此时就会产生<strong>版本冲突问题</strong>，因为A<strong>依赖的是B库的老版本的接口</strong>。</p>
+<p>在实际应用中，软件包的依赖项更是错综复杂，一个程序往往依赖动辄几十个甚至上百个<strong>版本号各不相同</strong>包，导致项目难以运行和维护。这种情况被叫做<strong>依赖地狱</strong>。(Dependency
+Hell)。当依赖性过多，且具有多级结构，形成错综复杂的网络，依赖性的解析就会变得异常困难，甚至出现无法解析的致命错误。</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">A</span> depends <span class="hljs-literal">on</span> B(&gt;=<span class="hljs-number">2</span>.<span class="hljs-number">2</span>.<span class="hljs-number">0</span>), and A depends <span class="hljs-literal">on</span> C(&gt;=<span class="hljs-number">2</span>.<span class="hljs-number">4</span>.<span class="hljs-number">0</span>)<br><span class="hljs-attribute">B</span> depends <span class="hljs-literal">on</span> D(&gt;=<span class="hljs-number">2</span>.<span class="hljs-number">3</span>.<span class="hljs-number">4</span>), and D depends <span class="hljs-literal">on</span> C(&gt;=<span class="hljs-number">1</span>.<span class="hljs-number">2</span>.<span class="hljs-number">0</span>)<br><span class="hljs-attribute">C</span> depends <span class="hljs-literal">on</span> B(&lt;=<span class="hljs-number">1</span>.<span class="hljs-number">18</span>.<span class="hljs-number">0</span>)<br><br><span class="hljs-attribute">Can</span> A be successfully installed?<br><span class="hljs-attribute">In</span> real cases, things get worse!<br></code></pre></td></tr></table></figure>
-
-<h3 id="Advanced-Package-Manager"><a href="#Advanced-Package-Manager" class="headerlink" title="Advanced Package Manager"></a>Advanced Package Manager</h3><p>依赖地狱是一个NP难问题 (SAT)，依赖开发者的手动构建和调试是不可能的。此外，一些基本编程语言的非兼容性变更是毁灭性的，例如Python主版本号从2到3的转变<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[From Python2 to Python3](https://www.ibm.com/docs/en/cloud-pak-sec-aas?topic=scripts-python-2-python-3-differences)">[2]</span></a></sup>，许多上层应用都要跟着修改接口和代码。因此，<strong>高级软件管理包</strong>的概念被提出，他就像一个管理者，专门负责管理不同依赖项之间的冲突和版本控制问题。</p>
+<h3 id="advanced-package-manager">Advanced Package Manager</h3>
+<p>依赖地狱是一个NP难问题
+(SAT)，依赖开发者的手动构建和调试是不可能的。此外，一些基本编程语言的非兼容性变更是毁灭性的，例如Python主版本号从2到3的转变<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span
+class="hint--top hint--rounded"
+aria-label="[From Python2 to Python3](https://www.ibm.com/docs/en/cloud-pak-sec-aas?topic=scripts-python-2-python-3-differences)">[2]</span></a></sup>，许多上层应用都要跟着修改接口和代码。因此，<strong>高级软件管理包</strong>的概念被提出，他就像一个管理者，专门负责管理不同依赖项之间的冲突和版本控制问题。</p>
 <div class="note note-primary">
             <p>包管理工具不仅局限于Python开发，现代软件工程中地狱依赖的现象随处可见，常见的包管理工具有：</p><ul><li><p><code>apt</code> for Debian &amp; Ubuntu.</p></li><li><p><code>npm</code> for Nodejs.</p></li><li><p><code>Cargo</code> for Rust.</p></li><li><p><code>bundle</code> for Ruby.</p></li><li><p>Python package manager, which will be discussed today.</p></li></ul>
           </div>
-
-<h2 id="Python-Package-Manager"><a href="#Python-Package-Manager" class="headerlink" title="Python Package Manager"></a>Python Package Manager</h2><h3 id="pip"><a href="#pip" class="headerlink" title="pip"></a><code>pip</code></h3><p><code>pip</code><sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Pip official docs](https://pypi.org/project/pip/)">[3]</span></a></sup> 是 Python 官方推荐的包管理工具，用于安装和管理 Python 包。它可以从 <a target="_blank" rel="noopener" href="https://pypi.org/">PyPI (Python Package Index)</a> 下载并安装第三方库。</p>
+<h2 id="python-package-manager">Python Package Manager</h2>
+<h3 id="pip"><code>pip</code></h3>
+<p><code>pip</code><sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span
+class="hint--top hint--rounded"
+aria-label="[Pip official docs](https://pypi.org/project/pip/)">[3]</span></a></sup>
+是 Python 官方推荐的包管理工具，用于安装和管理 Python 包。它可以从 <a
+target="_blank" rel="noopener" href="https://pypi.org/">PyPI (Python Package Index)</a>
+下载并安装第三方库。</p>
 <blockquote>
-<p>pip is the package installer for Python. You can use pip to install packages from the Python Package Index and other indexes.</p>
+<p>pip is the package installer for Python. You can use pip to install
+packages from the Python Package Index and other indexes.</p>
 </blockquote>
 <blockquote>
-<p>具体的安装过程详见：<a target="_blank" rel="noopener" href="https://pypi.org/project/pip/">https://pypi.org/project/pip/</a></p>
+<p>具体的安装过程详见：<a
+target="_blank" rel="noopener" href="https://pypi.org/project/pip/">https://pypi.org/project/pip/</a></p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装包</span><br>pip install package_name<br><br><span class="hljs-comment"># 指定版本安装</span><br>pip install package_name==1.2.3<br><br><span class="hljs-comment"># 升级包</span><br>pip install --upgrade package_name<br><br><span class="hljs-comment"># 卸载包</span><br>pip uninstall package_name<br><br><span class="hljs-comment"># 查看已安装包</span><br>pip list<br><br><span class="hljs-comment"># 导出当前环境的依赖列表</span><br>pip freeze &gt; requirements.txt<br><br><span class="hljs-comment"># 根据依赖文件安装</span><br>pip install -r requirements.txt<br></code></pre></td></tr></table></figure>
-
 <blockquote>
 <p>你甚至可以使用pip安装自己本地的库并且使用！需要使用<code>pip install .</code>并且配置好<code>pyproject.toml</code>的配置文件。</p>
 </blockquote>
 <p>有了pip，你就可以自由安装除标准库之外第三方开发者写好的库并且在你的代码中使用。</p>
-<h3 id="基于项目的虚拟环境构建工具"><a href="#基于项目的虚拟环境构建工具" class="headerlink" title="基于项目的虚拟环境构建工具"></a>基于项目的虚拟环境构建工具</h3><p>在跑别人的项目时，可以使用<code>pip install -r requirements.txt</code>来安装别人的项目依赖，而不需要自己手动调整并且安装。但是这会带来新的隐患。</p>
+<h3 id="基于项目的虚拟环境构建工具">基于项目的虚拟环境构建工具</h3>
+<p>在跑别人的项目时，可以使用<code>pip install -r requirements.txt</code>来安装别人的项目依赖，而不需要自己手动调整并且安装。但是这会带来新的隐患。</p>
 <div class="note note-primary">
-            <p>例如下面的例子（Python 3.9），我在本地的numpy环境是<code>2.0.2</code>，而matplotlib的版本是<code>3.9.4</code>，相安无事。</p><p>但是如果我在安装他人代码项目依赖的时候，降级安装了<code>numpy==1.22</code>的版本（这在许多比较老的项目版本中比较常见），就会出现如下报错：</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">ERROR: pip&#x27;s dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.<br>matplotlib 3.9.4 requires numpy&gt;=1.23, but you have numpy 1.22.0 which is incompatible.<br></code></pre></td></tr></table></figure><p>后续又会产生一系列兼容性的问题。</p>
+            <p>例如下面的例子（Python3.9），我在本地的numpy环境是<code>2.0.2</code>，而matplotlib的版本是<code>3.9.4</code>，相安无事。</p><p>但是如果我在安装他人代码项目依赖的时候，降级安装了<code>numpy==1.22</code>的版本（这在许多比较老的项目版本中比较常见），就会出现如下报错：</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">ERROR: pip&#x27;s dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.<br>matplotlib 3.9.4 requires numpy&gt;=1.23, but you have numpy 1.22.0 which is incompatible.<br></code></pre></td></tr></table></figure><p>后续又会产生一系列兼容性的问题。</p>
           </div>
-
 <p>对于上述版本冲突问题，往往采用<strong>虚拟环境</strong>解决，即将冲突的相关依赖分别放置在两个虚拟环境中，井水不犯河水。</p>
-<h4 id="venv"><a href="#venv" class="headerlink" title="venv"></a><code>venv</code></h4><p><code>venv</code> 是 Python 3.3+ 内置的虚拟环境管理工具。它允许你为每个项目创建独立的包和解释器环境，避免依赖冲突。</p>
+<h4 id="venv"><code>venv</code></h4>
+<p><code>venv</code> 是 Python 3.3+
+内置的虚拟环境管理工具。它允许你为每个项目创建独立的包和解释器环境，避免依赖冲突。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建虚拟环境</span><br>python3 -m venv venv_name<br><br><span class="hljs-comment"># 激活虚拟环境</span><br><span class="hljs-comment"># Linux/macOS</span><br><span class="hljs-built_in">source</span> venv_name/bin/activate<br><span class="hljs-comment"># Windows</span><br>venv_name\Scripts\activate<br><br><span class="hljs-comment"># 退出虚拟环境</span><br>deactivate<br></code></pre></td></tr></table></figure>
-
-<p><code>venv</code> 是<strong>基于项目的</strong>，即一个项目对应一个venv的环境，这<strong>几乎完美的解决了地狱依赖的问题</strong>，使用者需要激活对应的虚拟环境，就可以配置一个可运行的Python环境，并且这个环境不会影响全局包版本。</p>
-<h4 id="uv"><a href="#uv" class="headerlink" title="uv"></a><code>uv</code></h4><p><strong>URL</strong>：</p>
+<p><code>venv</code>
+是<strong>基于项目的</strong>，即一个项目对应一个venv的环境，这<strong>几乎完美的解决了地狱依赖的问题</strong>，使用者需要激活对应的虚拟环境，就可以配置一个可运行的Python环境，并且这个环境不会影响全局包版本。</p>
+<h4 id="uv"><code>uv</code></h4>
+<p><strong>URL</strong>：</p>
 <ul>
-<li><p><a target="_blank" rel="noopener" href="https://docs.astral.sh/uv/">uv official docs</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://youtube.com/watch?v=gSKTfG1GXYQ">A lecture about uv</a></p>
-</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.astral.sh/uv/">uv official
+docs</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://youtube.com/watch?v=gSKTfG1GXYQ">A lecture about
+uv</a></p></li>
 </ul>
-<p><code>uv</code> 是一个新兴的、极快的 Python 包管理和虚拟环境工具，兼容 pip 和 venv 的大部分功能。它采用 Rust 编写，速度极快，支持依赖解析、虚拟环境管理和包安装。</p>
+<p><code>uv</code> 是一个新兴的、极快的 Python
+包管理和虚拟环境工具，兼容 pip 和 venv 的大部分功能。它采用 Rust
+编写，速度极快，支持依赖解析、虚拟环境管理和包安装。</p>
 <ul>
 <li>安装和解析依赖速度极快。</li>
 <li>兼容 pip 的 requirements.txt。</li>
@@ -938,17 +971,45 @@
 <p><strong>强烈推荐各位使用uv</strong>！尤其在编写自己的项目中。</p>
 <p>虚拟环境在解决版本依赖问题的同时会非常消耗<strong>存储空间</strong>，这是不可避免的。例如，你在10个开发项目中都需要用到<strong>相同版本的torch库</strong>，但是这10个venv创建的虚拟环境会安装10个torch，造成了严重的空间浪费。uv在venv的基础之上利用<strong>符号链接优化</strong>，可以自动识别并且优化虚拟环境，这也是uv如此快速的原因。</p>
 <div class="note note-primary">
-            <p>Pypi的网站服务器在国外，在国内的下载速度会非常慢，因此，<strong>国内设置了很多开源镜像站</strong>，例如阿里源，清华源等，因此，可以配置全局文件实现pip和uv的换源。同理，这样一套思路也适用于其他开源软件的安装，例如apt换源， HuggingFace换源等。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># edit in ~/.bashrc</span><br><span class="hljs-built_in">export</span> UV_DEFAULT_INDEX=<span class="hljs-string">&quot;https://mirrors.aliyun.com/pypi/simple&quot;</span><br></code></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># edit in ~/.pip/pip.conf</span><br>[global]<br>index-url = https://pypi.tuna.tsinghua.edu.cn/simple<br></code></pre></td></tr></table></figure>
+            <p>Pypi的网站服务器在国外，在国内的下载速度会非常慢，因此，<strong>国内设置了很多开源镜像站</strong>，例如阿里源，清华源等，因此，可以配置全局文件实现pip和uv的换源。同理，这样一套思路也适用于其他开源软件的安装，例如apt换源，HuggingFace换源等。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># edit in ~/.bashrc</span><br><span class="hljs-built_in">export</span> UV_DEFAULT_INDEX=<span class="hljs-string">&quot;https://mirrors.aliyun.com/pypi/simple&quot;</span><br></code></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># edit in ~/.pip/pip.conf</span><br>[global]<br>index-url = https://pypi.tuna.tsinghua.edu.cn/simple<br></code></pre></td></tr></table></figure>
           </div>
-
-<h3 id="多项目复用虚拟环境：conda"><a href="#多项目复用虚拟环境：conda" class="headerlink" title="多项目复用虚拟环境：conda"></a>多项目复用虚拟环境：<code>conda</code></h3><p><code>conda</code> 是 Anaconda 发行版自带的包和环境管理工具，支持 Python 及其他语言。它不仅可以管理 Python 包，还能管理 <strong>C&#x2F;C++ 等底层依赖</strong>。conda的虚拟环境管理是全局意义上的，因此，在更广泛的场景上，使用conda作为项目管理会更加方便。</p>
-<p>我们推荐安装更轻量级的miniconda：<a target="_blank" rel="noopener" href="https://www.anaconda.com/docs/getting-started/miniconda/main">Miniconda</a></p>
+<h3
+id="多项目复用虚拟环境conda">多项目复用虚拟环境：<code>conda</code></h3>
+<p><code>conda</code> 是 Anaconda 发行版自带的包和环境管理工具，支持
+Python 及其他语言。它不仅可以管理 Python 包，还能管理 <strong>C/C++
+等底层依赖</strong>。conda的虚拟环境管理是全局意义上的，因此，在更广泛的场景上，使用conda作为项目管理会更加方便。</p>
+<p>我们推荐安装更轻量级的miniconda：<a
+target="_blank" rel="noopener" href="https://www.anaconda.com/docs/getting-started/miniconda/main">Miniconda</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建新环境</span><br>conda create -n env_name python=3.10<br><br><span class="hljs-comment"># 激活环境</span><br>conda activate env_name<br><br><span class="hljs-comment"># 安装包</span><br>conda install package_name<br><br><span class="hljs-comment"># 导出环境</span><br>conda <span class="hljs-built_in">env</span> <span class="hljs-built_in">export</span> &gt; environment.yml<br><br><span class="hljs-comment"># 根据环境文件创建环境</span><br>conda <span class="hljs-built_in">env</span> create -f environment.yml<br><br><span class="hljs-comment"># 删除环境</span><br>conda remove -n env_name --all<br></code></pre></td></tr></table></figure>
+<h2 id="references">References</h2>
+<section class="footnotes">
+<div class="footnote-list">
+<ol>
+<li>
+<span id="fn:1" class="footnote-text"><span><a
+target="_blank" rel="noopener" href="https://docs.python.org/3/tutorial/modules.html#packages">Packages
+in Python</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:2" class="footnote-text"><span><a
+target="_blank" rel="noopener" href="https://www.ibm.com/docs/en/cloud-pak-sec-aas?topic=scripts-python-2-python-3-differences">From
+Python2 to Python3</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:3"
+class="footnote-text"><span><a target="_blank" rel="noopener" href="https://pypi.org/project/pip/">Pip
+official docs</a>
+<a href="#fnref:3" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+</ol>
+</div>
+</section>
 
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://docs.python.org/3/tutorial/modules.html#packages">Packages in Python</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.ibm.com/docs/en/cloud-pak-sec-aas?topic=scripts-python-2-python-3-differences">From Python2 to Python3</a>
-<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://pypi.org/project/pip/">Pip official docs</a>
-<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             

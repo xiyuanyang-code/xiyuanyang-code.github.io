@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/RBT.jpg">
 <meta property="article:published_time" content="2025-04-10T06:48:39.000Z">
-<meta property="article:modified_time" content="2025-05-18T16:12:10.374Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:35.118Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Data Structure">
@@ -913,47 +913,80 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h1 id="Red-Black-Tree"><a href="#Red-Black-Tree" class="headerlink" title="Red-Black Tree"></a>Red-Black Tree</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>红黑树需要满足如下的平衡性：</p>
+<h1 id="red-black-tree">Red-Black Tree</h1>
+<h2 id="definition">Definition</h2>
+<p>红黑树需要满足如下的平衡性：</p>
 <ul>
-<li><p>每个结点被标记为红色或者黑色</p>
-</li>
-<li><p>根节点是黑色</p>
+<li>每个结点被标记为红色或者黑色</li>
+<li>根节点是黑色
 <ul>
-<li>一般来说，我们也会定义nullptr为黑色，并且<strong>把这些空节点定义为“叶节点”会更有利于分析</strong>。（Due to Definition 4）</li>
-</ul>
-</li>
-<li><p>节点红色 -&gt; <strong>子节点是黑色</strong></p>
+<li>一般来说，我们也会定义nullptr为黑色，并且<strong>把这些空节点定义为“叶节点”会更有利于分析</strong>。（Due
+to Definition 4）</li>
+</ul></li>
+<li>节点红色 -&gt; <strong>子节点是黑色</strong>
 <ul>
 <li>不可以存在两个连续的红色节点</li>
+</ul></li>
+<li>从任何一个节点出发到空节点（通常认为空节点为<strong>黑色节点</strong>），必须包含相同数量的<strong>黑色节点</strong>。</li>
 </ul>
-</li>
-<li><p>从任何一个节点出发到空节点（通常认为空节点为<strong>黑色节点</strong>），必须包含相同数量的<strong>黑色节点</strong>。</p>
-</li>
-</ul>
-<p>从红黑树的定义出发，我们可以证明：<strong>红黑树保证$O(h) &#x3D; O(\log n)$.</strong></p>
+<p>从红黑树的定义出发，我们可以证明：<strong>红黑树保证<span
+class="math inline"><em>O</em>(<em>h</em>) = <em>O</em>(log <em>n</em>)</span>.</strong></p>
 <ul>
-<li>如果任何一条从根节点到空节点的路径上存在$H$个黑色的节点，则整棵树必须至少有$2^H -1$个黑色节点，至多有$2^{2H} -1$个节点。<ul>
-<li><strong>证明</strong>:可以形象的理解为一颗被压缩的二叉树，即把所有的红色节点删除，并且每一个黑色节点都有2个儿子（叶子结点除外），则根据完全二叉树的性质，$n \le 2^H -1$，并且$H$同时还代表着全黑的最短路径（如果存在的话）。</li>
-<li>相反的，节点数最多的情况就是<strong>红黑节点交替排列</strong>，因此是一颗高度为$2H$的满二叉树，$n \ge 2^{2H} -1 $。，同时，这也代表着最长的路径。</li>
+<li>如果任何一条从根节点到空节点的路径上存在<span
+class="math inline"><em>H</em></span>个黑色的节点，则整棵树必须至少有<span
+class="math inline">2<sup><em>H</em></sup> − 1</span>个黑色节点，至多有<span
+class="math inline">2<sup>2<em>H</em></sup> − 1</span>个节点。
+<ul>
+<li><strong>证明</strong>:可以形象的理解为一颗被压缩的二叉树，即把所有的红色节点删除，并且每一个黑色节点都有2个儿子（叶子结点除外），则根据完全二叉树的性质，<span
+class="math inline"><em>n</em> ≤ 2<sup><em>H</em></sup> − 1</span>，并且<span
+class="math inline"><em>H</em></span>同时还代表着全黑的最短路径（如果存在的话）。</li>
+<li>相反的，节点数最多的情况就是<strong>红黑节点交替排列</strong>，因此是一颗高度为<span
+class="math inline">2<em>H</em></span>的满二叉树，$n ^{2H} -1
+$。，同时，这也代表着最长的路径。</li>
+</ul></li>
+<li>有公式$n ^{2H} -1 <span
+class="math inline">，<em>取</em><em>对</em><em>数</em><em>即</em><em>可</em><em>证</em><em>明</em></span>O(h)
+= O(n)$。</li>
 </ul>
-</li>
-<li>有公式$n \ge 2^{2H} -1 $，取对数即可证明$O(h) &#x3D; O(\log n)$。</li>
-</ul>
-<h2 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h2><p>将新节点插入到叶子结点，此时<strong>关键需要判断树是否满足RBT的四条基本定义</strong>。为了不破坏定义4，我们需要<strong>将插入的节点</strong>染色成<strong>红色节点</strong>。接下来：</p>
+<h2 id="insert">Insert</h2>
+<p>将新节点插入到叶子结点，此时<strong>关键需要判断树是否满足RBT的四条基本定义</strong>。为了不破坏定义4，我们需要<strong>将插入的节点</strong>染色成<strong>红色节点</strong>。接下来：</p>
 <ul>
 <li>如果父亲节点是<strong>黑色节点</strong>：插入过程完成。</li>
 <li>如果父亲节点是<strong>红色节点</strong>：需要进行调整</li>
 </ul>
 <p>下面，分成两种情况：</p>
-<h3 id="Case1-父亲节点P的兄弟节点S是黑色的"><a href="#Case1-父亲节点P的兄弟节点S是黑色的" class="headerlink" title="Case1: 父亲节点P的兄弟节点S是黑色的"></a>Case1: 父亲节点P的兄弟节点S是黑色的</h3><p>如果X是P的外侧节点，则操作对应LL或者RR的情况，只需要单旋转一次即可，同时保证<strong>当前根节点</strong>仍然保证黑色，这样就不用继续调整后祖先节点，并且也调整了树的结构使其不出现染色冲突的问题。</p>
-<p><img src="https://s1.imagehub.cc/images/2025/04/10/e183ce27fcd339ae11741c0af18d405a.png" srcset="/img/loading.gif" lazyload alt="外侧节点"></p>
+<h3 id="case1-父亲节点p的兄弟节点s是黑色的">Case1:
+父亲节点P的兄弟节点S是黑色的</h3>
+<p>如果X是P的外侧节点，则操作对应LL或者RR的情况，只需要单旋转一次即可，同时保证<strong>当前根节点</strong>仍然保证黑色，这样就不用继续调整后祖先节点，并且也调整了树的结构使其不出现染色冲突的问题。</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/10/e183ce27fcd339ae11741c0af18d405a.png" srcset="/img/loading.gif" lazyload
+alt="外侧节点" />
+<figcaption aria-hidden="true">外侧节点</figcaption>
+</figure>
 <p>如果X是P的内侧节点，类似于RL旋转和LR旋转，实现结构的调整：</p>
-<p><img src="https://s1.imagehub.cc/images/2025/04/10/f773390d7116f037db57d1ade9710871.png" srcset="/img/loading.gif" lazyload alt="内侧节点"></p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/10/f773390d7116f037db57d1ade9710871.png" srcset="/img/loading.gif" lazyload
+alt="内侧节点" />
+<figcaption aria-hidden="true">内侧节点</figcaption>
+</figure>
 <p>同理，也需要注意保持当前根节点依旧是黑色的。</p>
-<h3 id="Case2-父亲节点P的兄弟节点S是红色的"><a href="#Case2-父亲节点P的兄弟节点S是红色的" class="headerlink" title="Case2: 父亲节点P的兄弟节点S是红色的"></a>Case2: 父亲节点P的兄弟节点S是红色的</h3><p>此时<strong>祖父节点</strong>一定是黑色节点，因此只需要父亲层和祖父层的颜色交换即可，但是，此时有可能上部的结构发生了破坏，需要不断向上检查。（此时有可能会变成Case1，见下图）</p>
-<p><img src="https://s1.imagehub.cc/images/2025/04/10/7c8d36c9903e48dbf44f85262c16b18c.png" srcset="/img/loading.gif" lazyload alt="Case2"></p>
-<p><img src="https://s1.imagehub.cc/images/2025/04/10/a6aac3eacf64776dc2175e9da19a2e0a.png" srcset="/img/loading.gif" lazyload alt="Case2 to Case1"></p>
+<h3 id="case2-父亲节点p的兄弟节点s是红色的">Case2:
+父亲节点P的兄弟节点S是红色的</h3>
+<p>此时<strong>祖父节点</strong>一定是黑色节点，因此只需要父亲层和祖父层的颜色交换即可，但是，此时有可能上部的结构发生了破坏，需要不断向上检查。（此时有可能会变成Case1，见下图）</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/10/7c8d36c9903e48dbf44f85262c16b18c.png" srcset="/img/loading.gif" lazyload
+alt="Case2" />
+<figcaption aria-hidden="true">Case2</figcaption>
+</figure>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/10/a6aac3eacf64776dc2175e9da19a2e0a.png" srcset="/img/loading.gif" lazyload
+alt="Case2 to Case1" />
+<figcaption aria-hidden="true">Case2 to Case1</figcaption>
+</figure>
 <p>因此，我们可以归纳出插入过程的基本思路：</p>
 <ul>
 <li>如果在空树上插入，直接将<strong>节点变黑</strong>。（因为RBT要求<strong>根节点必须是黑色的节点，这也是递归的终止条件</strong>）</li>
@@ -961,66 +994,79 @@
 <li>如果是case1（叔叔节点是黑色的），则进行类似于AVL树的<strong>LLb，RRb，LRb和RLb</strong>操作，只通过一次调整就可以实现结构的平衡。</li>
 </ul>
 <div class="note note-primary">
-            <p><strong>红黑树相比于传统AVL树有什么优势</strong>？</p><ul><li>如果父节点是黑色节点，则<strong>不需要执行任何的操作</strong>！这带来的很大的方便。</li><li>如果父节点是红色的并且是Case1，则最多只需要进行一次旋转。（<strong>无需向上回溯</strong>）</li></ul><p>我们发现，如果采用传统的<strong>递归到达叶节点插入对应元素然后再回溯改变染色</strong>，效率肯定没有AVL树高，但是我们可以在<strong>递归向下探索的时候就完成这些操作</strong>：</p><ul><li><p><strong>在寻找插入位置的时候，如果遇到结点$X$的两个儿子节点都是红色节点的时候，就翻转颜色</strong>。（即原来是黑色节点的$X$翻转成红色节点，同时$X$的两个儿子全部染色成红色）</p><ul><li>这样并没有修改任何一条路径上黑色节点的个数（就该次操作而言）</li><li>但是可能会造成染色冲突：<ul><li>$X$的父节点和$X$本身都是红色的节点，此时需要使用旋转操作，此时保证$X$的<strong>兄弟节点一定是黑色的</strong>（满足定义3并且$X$的父亲是红色节点）</li><li>此时需要对$X$的祖父节点进行对应的旋转操作</li></ul></li></ul><p>  这里看图解：</p><p>  <img src="https://s1.imagehub.cc/images/2025/04/10/ae268e918f1bdc5eba7a612bdfce6d07.png" srcset="/img/loading.gif" lazyload alt="染色过程"></p></li><li><p>如果不全为红色：往下走一层</p><ul><li>如果新的$X$是红色的，那么兄弟节点是黑色的</li><li>如果新的$X$是黑色的，那么兄弟节点是红色的</li></ul></li></ul><p>这样就<strong>在向下寻找叶节点的过程中，可以自动的调整红黑树的结构，转化为可以进行性能优化的尾递归，不需要再回溯了！</strong></p>
+            <p><strong>红黑树相比于传统AVL树有什么优势</strong>？</p><ul><li>如果父节点是黑色节点，则<strong>不需要执行任何的操作</strong>！这带来的很大的方便。</li><li>如果父节点是红色的并且是Case1，则最多只需要进行一次旋转。（<strong>无需向上回溯</strong>）</li></ul><p>我们发现，如果采用传统的<strong>递归到达叶节点插入对应元素然后再回溯改变染色</strong>，效率肯定没有AVL树高，但是我们可以在<strong>递归向下探索的时候就完成这些操作</strong>：</p><ul><li><p><strong>在寻找插入位置的时候，如果遇到结点<spanclass="math inline"><em>X</em></span>的两个儿子节点都是红色节点的时候，就翻转颜色</strong>。（即原来是黑色节点的<spanclass="math inline"><em>X</em></span>翻转成红色节点，同时<spanclass="math inline"><em>X</em></span>的两个儿子全部染色成红色）</p><ul><li>这样并没有修改任何一条路径上黑色节点的个数（就该次操作而言）</li><li>但是可能会造成染色冲突：<ul><li><span class="math inline"><em>X</em></span>的父节点和<spanclass="math inline"><em>X</em></span>本身都是红色的节点，此时需要使用旋转操作，此时保证<spanclass="math inline"><em>X</em></span>的<strong>兄弟节点一定是黑色的</strong>（满足定义3并且<spanclass="math inline"><em>X</em></span>的父亲是红色节点）</li><li>此时需要对<spanclass="math inline"><em>X</em></span>的祖父节点进行对应的旋转操作</li></ul></li></ul><p>这里看图解：</p><figure><imgsrc="https://s1.imagehub.cc/images/2025/04/10/ae268e918f1bdc5eba7a612bdfce6d07.png"alt="染色过程" /><figcaption aria-hidden="true">染色过程</figcaption></figure></li><li><p>如果不全为红色：往下走一层</p><ul><li>如果新的<spanclass="math inline"><em>X</em></span>是红色的，那么兄弟节点是黑色的</li><li>如果新的<spanclass="math inline"><em>X</em></span>是黑色的，那么兄弟节点是红色的</li></ul></li></ul><p>这样就<strong>在向下寻找叶节点的过程中，可以自动的调整红黑树的结构，转化为可以进行性能优化的尾递归，不需要再回溯了！</strong></p>
           </div>
-
-<h2 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h2><p>接下来我们来看红黑树的<strong>删除操作</strong>。</p>
+<h2 id="delete">Delete</h2>
+<p>接下来我们来看红黑树的<strong>删除操作</strong>。</p>
 <p>在普通的二叉查找树中，树的删除可以分为三种情况：</p>
 <ul>
 <li>只有一个儿子</li>
 <li>没有儿子</li>
 <li>有两个儿子</li>
 </ul>
-<p>其中前两种情况是比较简单的，因为只涉及较少的移动就可以保证有序性，对于第三种情况，我们<strong>巧妙地找到了一个替身节点</strong>，并且删除了在叶节点的替身节点。因此，在本质上，<strong>有序树的删除操作可以归纳为删除叶节点（case1,3）或者删除只有一个儿子的节点(case 2)。</strong></p>
+<p>其中前两种情况是比较简单的，因为只涉及较少的移动就可以保证有序性，对于第三种情况，我们<strong>巧妙地找到了一个替身节点</strong>，并且删除了在叶节点的替身节点。因此，在本质上，<strong>有序树的删除操作可以归纳为删除叶节点（case1,3）或者删除只有一个儿子的节点(case
+2)。</strong></p>
 <p>如果被删除的节点是<strong>红色的</strong>，此时删除操作结束，因为没有任何违反定义的事情发生。</p>
 <p>如果被删除的节点是<strong>黑色的</strong>，此时肯定会违反定义（每条路径上的黑色节点一样多）。</p>
-<p>因此，我们进行自顶向下的寻找，记$X$为当前节点，$T$为兄弟节点，$P$为他们的父节点。<strong>对于每一个X，我们都尝试将它变成红色</strong>。（我们希望最后到达叶节点的时候可以直接删掉红色节点）</p>
+<p>因此，我们进行自顶向下的寻找，记<span
+class="math inline"><em>X</em></span>为当前节点，<span
+class="math inline"><em>T</em></span>为兄弟节点，<span
+class="math inline"><em>P</em></span>为他们的父节点。<strong>对于每一个X，我们都尝试将它变成红色</strong>。（我们希望最后到达叶节点的时候可以直接删掉红色节点）</p>
 <ul>
-<li>$X$有两个黑色儿子<ul>
+<li><span class="math inline"><em>X</em></span>有两个黑色儿子
+<ul>
 <li>需要<strong>染色</strong>+<strong>旋转</strong></li>
-<li>$T$有两个黑色儿子<ul>
+<li><span class="math inline"><em>T</em></span>有两个黑色儿子
+<ul>
 <li>T的颜色反转不会产生任何影响（对T的分支而言），因此之间父子之间反转颜色</li>
-</ul>
-</li>
-<li>$T$有一个外侧的红色儿子<ul>
+</ul></li>
+<li><span class="math inline"><em>T</em></span>有一个外侧的红色儿子
+<ul>
 <li>在颜色反转后会存在红色冲突，需要进行一次单旋转并且重新着色</li>
-</ul>
-</li>
-<li>$T$有一个内侧的红色儿子<ul>
+</ul></li>
+<li><span class="math inline"><em>T</em></span>有一个内侧的红色儿子
+<ul>
 <li>双旋转+重新着色</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>$X$至少有一个红色儿子<ul>
-<li>如果$X$不是被删除节点，直接进入下一层<ul>
+</ul></li>
+</ul></li>
+<li><span class="math inline"><em>X</em></span>至少有一个红色儿子
+<ul>
+<li>如果<span
+class="math inline"><em>X</em></span>不是被删除节点，直接进入下一层
+<ul>
 <li>如果进入到红色节点处（保证存在红色节点）：万事大吉</li>
-<li>如果进入到黑色节点处：此时需要进行一次单旋转，此时$X$完成了下沉的操作并且父节点一定是黑色的（旋转）<ul>
-<li>但是此时$X$仍然为黑色节点，所以需要继续操作！</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>如果$X$是删除节点并且有两个儿子<ul>
-<li>在右子树寻找替身：<ul>
+<li>如果进入到黑色节点处：此时需要进行一次单旋转，此时<span
+class="math inline"><em>X</em></span>完成了下沉的操作并且父节点一定是黑色的（旋转）
+<ul>
+<li>但是此时<span
+class="math inline"><em>X</em></span>仍然为黑色节点，所以需要继续操作！</li>
+</ul></li>
+</ul></li>
+<li>如果<span
+class="math inline"><em>X</em></span>是删除节点并且有两个儿子
+<ul>
+<li>在右子树寻找替身：
+<ul>
 <li>如果右孩子为红色，直接下移一层</li>
-<li>Otherwise，左孩子为红色，此时执行LL旋转使$X$变为红色。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>如果$X$是删除节点并且只有一个儿子<ul>
+<li>Otherwise，左孩子为红色，此时执行LL旋转使<span
+class="math inline"><em>X</em></span>变为红色。</li>
+</ul></li>
+</ul></li>
+<li>如果<span
+class="math inline"><em>X</em></span>是删除节点并且只有一个儿子
+<ul>
 <li>该孩子一定为红色节点（需要满足定义4）</li>
 <li>做一次单旋转交换即可。</li>
-</ul>
-</li>
-</ul>
-</li>
+</ul></li>
+</ul></li>
 </ul>
 <blockquote>
 <p>此处还是非常复杂的。。。笔者也在努力消化。。。</p>
 </blockquote>
-<h2 id="Codes-Implementation"><a href="#Codes-Implementation" class="headerlink" title="Codes Implementation"></a>Codes Implementation</h2><h1 id="AA-Tree"><a href="#AA-Tree" class="headerlink" title="AA Tree"></a>AA Tree</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>AA树是一种特殊的红黑树，添加了一个限制条件：</p>
+<h2 id="codes-implementation">Codes Implementation</h2>
+<h1 id="aa-tree">AA Tree</h1>
+<h2 id="定义">定义</h2>
+<p>AA树是一种特殊的红黑树，添加了一个限制条件：</p>
 <ul>
 <li><strong>左儿子不可以是红色</strong>，</li>
 </ul>
@@ -1103,7 +1149,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 19, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       

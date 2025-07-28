@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/graphintro.jpg">
 <meta property="article:published_time" content="2025-05-12T03:20:30.000Z">
-<meta property="article:modified_time" content="2025-05-19T13:47:35.169Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:35.842Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Finished">
@@ -365,7 +365,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k words
+          1.9k words
         
       </span>
     
@@ -913,219 +913,453 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<h1 id="SSSP-Problems-for-unweighted-graphs"><a href="#SSSP-Problems-for-unweighted-graphs" class="headerlink" title="SSSP Problems for unweighted graphs"></a>SSSP Problems for unweighted graphs</h1><p>We still focus on <strong>SSSP</strong> problems: single source shortest path. (We focus on directed graphs)</p>
-<p>We will use <strong>BFS</strong> algorithm and <strong>Dynamic Programming</strong> to dynamically update the value from the beginning.</p>
+<h1 id="sssp-problems-for-unweighted-graphs">SSSP Problems for
+unweighted graphs</h1>
+<p>We still focus on <strong>SSSP</strong> problems: single source
+shortest path. (We focus on directed graphs)</p>
+<p>We will use <strong>BFS</strong> algorithm and <strong>Dynamic
+Programming</strong> to dynamically update the value from the
+beginning.</p>
 <ul>
-<li>maintain a queue for BFS:<ul>
-<li><strong>Attention</strong>: this queue holds the increasing order for the distance from the single source vertex $w$.</li>
-<li>Hence, for every vertex, the first time it appears in the queue is the shortest path to the source vertex $w$.</li>
+<li>maintain a queue for BFS:
+<ul>
+<li><strong>Attention</strong>: this queue holds the increasing order
+for the distance from the single source vertex <span
+class="math inline"><em>w</em></span>.</li>
+<li>Hence, for every vertex, the first time it appears in the queue is
+the shortest path to the source vertex <span
+class="math inline"><em>w</em></span>.</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://youtu.be/e7unEsKHW54?si=rWUs4ZoeDVVxkNze">You can see this video for more information</a></p>
-<p>During the updating process, you can recording the information of <strong>its adjacency</strong> for the single path. Hence, despite the SSSP problems, we can still know <strong>how to go to the source</strong> via the found shortest path.</p>
-<p><img src="https://s1.imagehub.cc/images/2025/05/16/5c4586855715ff28cf6b9a17e573fad8.png" srcset="/img/loading.gif" lazyload alt="Pseudo Code"></p>
-<p><img src="https://s1.imagehub.cc/images/2025/05/16/f3d907a836b236d9d0d92d7358bb7166.png" srcset="/img/loading.gif" lazyload alt="Pseudo Code"></p>
+<p><a target="_blank" rel="noopener" href="https://youtu.be/e7unEsKHW54?si=rWUs4ZoeDVVxkNze">You can
+see this video for more information</a></p>
+<p>During the updating process, you can recording the information of
+<strong>its adjacency</strong> for the single path. Hence, despite the
+SSSP problems, we can still know <strong>how to go to the
+source</strong> via the found shortest path.</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/05/16/5c4586855715ff28cf6b9a17e573fad8.png" srcset="/img/loading.gif" lazyload
+alt="Pseudo Code" />
+<figcaption aria-hidden="true">Pseudo Code</figcaption>
+</figure>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/05/16/f3d907a836b236d9d0d92d7358bb7166.png" srcset="/img/loading.gif" lazyload
+alt="Pseudo Code" />
+<figcaption aria-hidden="true">Pseudo Code</figcaption>
+</figure>
 <blockquote>
-<p>The Slides are from: <a target="_blank" rel="noopener" href="https://github.com/wangshusen/AdvancedAlgorithms">https://github.com/wangshusen/AdvancedAlgorithms</a>, really a great course for learning data structures!</p>
+<p>The Slides are from:
+https://github.com/wangshusen/AdvancedAlgorithms, really a great course
+for learning data structures!</p>
 </blockquote>
-<h2 id="Time-Complexity"><a href="#Time-Complexity" class="headerlink" title="Time Complexity"></a>Time Complexity</h2><p>Time complexity:</p>
+<h2 id="time-complexity">Time Complexity</h2>
+<p>Time complexity:</p>
 <ul>
-<li>Initialization: $O(|V|)$</li>
-<li>Queue Operations: $O(|V|)$<ul>
+<li>Initialization: <span
+class="math inline"><em>O</em>(|<em>V</em>|)</span></li>
+<li>Queue Operations: <span
+class="math inline"><em>O</em>(|<em>V</em>|)</span>
+<ul>
 <li>Every vertex will be euqueued and dequeued only once.</li>
+</ul></li>
+<li>Every Edge will be visited only once: <span
+class="math inline"><em>O</em>(|<em>E</em>|)</span>.</li>
 </ul>
-</li>
-<li>Every Edge will be visited only once: $O(|E|)$.</li>
-</ul>
-<p>Hence, the time complexity is $O(|V| + |E|)$.</p>
-<h1 id="SSSP-Problems-for-weighted-graphs"><a href="#SSSP-Problems-for-weighted-graphs" class="headerlink" title="SSSP Problems for weighted graphs"></a>SSSP Problems for weighted graphs</h1><p>Especially for Weighted Shorted Path Problem</p>
+<p>Hence, the time complexity is <span
+class="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span>.</p>
+<h1 id="sssp-problems-for-weighted-graphs">SSSP Problems for weighted
+graphs</h1>
+<p>Especially for Weighted Shorted Path Problem</p>
 <blockquote>
-<p>For unweighted shorted path problems, we can simply use <strong>BFS</strong> algorithms to solve it!</p>
+<p>For unweighted shorted path problems, we can simply use
+<strong>BFS</strong> algorithms to solve it!</p>
 </blockquote>
 <p>Lecture Note for MIT 6.006</p>
 <p>We will introduce several algorithms:</p>
-<p><img src="https://s1.imagehub.cc/images/2025/05/12/6cabf1d734124caf5908b9d97fd420e8.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<h2 id="Previously"><a href="#Previously" class="headerlink" title="Previously"></a>Previously</h2><p><strong>DFS &amp; BFS</strong> problems: </p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/05/12/6cabf1d734124caf5908b9d97fd420e8.png" srcset="/img/loading.gif" lazyload
+alt="image" />
+<figcaption aria-hidden="true">image</figcaption>
+</figure>
+<h2 id="previously">Previously</h2>
+<p><strong>DFS &amp; BFS</strong> problems:</p>
 <ul>
-<li>Single Source Shortest Path: $O(|V| + |E|)$</li>
-<li>Single Source Reachability: $O(|E|)$</li>
-<li>Connected components: $O(|V| + |E|)$</li>
-<li>Topological Sort: $O(|V| + |E|)$</li>
+<li>Single Source Shortest Path: <span
+class="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span></li>
+<li>Single Source Reachability: <span
+class="math inline"><em>O</em>(|<em>E</em>|)</span></li>
+<li>Connected components: <span
+class="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span></li>
+<li>Topological Sort: <span
+class="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span></li>
 </ul>
-<h2 id="Weighted-Graph"><a href="#Weighted-Graph" class="headerlink" title="Weighted Graph"></a>Weighted Graph</h2><p>For <strong>weighted graph</strong>, each edge has a weight. (Full of applications)</p>
+<h2 id="weighted-graph">Weighted Graph</h2>
+<p>For <strong>weighted graph</strong>, each edge has a weight. (Full of
+applications)</p>
 <p>How to store weights:</p>
 <ul>
-<li>with each adjacency, store a weight. Given a node $u$, for every adjacency $v$, stores a weight!</li>
-<li>Set data structure: $E \to W$.</li>
+<li>with each adjacency, store a weight. Given a node <span
+class="math inline"><em>u</em></span>, for every adjacency <span
+class="math inline"><em>v</em></span>, stores a weight!</li>
+<li>Set data structure: <span
+class="math inline"><em>E</em> → <em>W</em></span>.</li>
 </ul>
-<p>Weighted Path: $w(\pi) &#x3D; \sum_{e \in \pi}w(e)$. We need to find the shortest path from given vertices $u$ to $v$.</p>
-<p>$$\delta(u,v) &#x3D; \inf\{ w(\pi)| \pi: u \to v  \}$$</p>
-<p>(if no path, define $\delta(u,v) &#x3D; \infty$)</p>
+<p>Weighted Path: <span
+class="math inline"><em>w</em>(<em>π</em>) = ∑<sub><em>e</em> ∈ <em>π</em></sub><em>w</em>(<em>e</em>)</span>.
+We need to find the shortest path from given vertices <span
+class="math inline"><em>u</em></span> to <span
+class="math inline"><em>v</em></span>.</p>
+<p><span class="math display">$$\delta(u,v) = \inf\\{ w(\pi)| \pi: u \to
+v  \\}$$</span></p>
+<p>(if no path, define <span
+class="math inline"><em>δ</em>(<em>u</em>, <em>v</em>) = ∞</span>)</p>
 <div class="note note-danger">
-            <p><strong>Some problems occurred!</strong> Especially when there are some circle paths and the weight of the circle path is negative! Then due to the definition, $w(\pi)$ should be $-\infty$.</p><p><strong>Negative Weight Cycles</strong>: Not good!</p>
+            <p><strong>Some problems occurred!</strong> Especially when there aresome circle paths and the weight of the circle path is negative! Thendue to the definition, <spanclass="math inline"><em>w</em>(<em>π</em>)</span> should be <spanclass="math inline">−∞</span>.</p><p><strong>Negative Weight Cycles</strong>: Not good!</p>
           </div>
-
-<p>For the shortest path algorithms: we can use simple <strong>BFS</strong> algorithms: <strong>Expand an weighted edge</strong> to several simple edges from $u$ to $v$. (Then we can count the shortest path by the definition of the number of the edges.): Use BFS to solve this shortest-path problems!</p>
-<p><strong>Disadvantages</strong>: It is linear time, needs quite large memory expansion if the weight is quite large.</p>
-<h2 id="Proofs"><a href="#Proofs" class="headerlink" title="Proofs"></a>Proofs</h2><p><strong>Thm</strong>: For weighted shortest path, only need parent of $v$ ($P(v)$) for $v$ only finite $\delta(u,v)$</p>
+<p>For the shortest path algorithms: we can use simple
+<strong>BFS</strong> algorithms: <strong>Expand an weighted
+edge</strong> to several simple edges from <span
+class="math inline"><em>u</em></span> to <span
+class="math inline"><em>v</em></span>. (Then we can count the shortest
+path by the definition of the number of the edges.): Use BFS to solve
+this shortest-path problems!</p>
+<p><strong>Disadvantages</strong>: It is linear time, needs quite large
+memory expansion if the weight is quite large.</p>
+<h2 id="proofs">Proofs</h2>
+<p><strong>Thm</strong>: For weighted shortest path, only need parent of
+<span class="math inline"><em>v</em></span> (<span
+class="math inline"><em>P</em>(<em>v</em>)</span>) for <span
+class="math inline"><em>v</em></span> only finite <span
+class="math inline"><em>δ</em>(<em>u</em>, <em>v</em>)</span></p>
 <ul>
-<li>Init: P is empty, $P(s)$ is None.</li>
-<li>For each $u \in V$, where $\delta(s,u)$ is finite:<ul>
-<li>For each $v \in \text{Adj}^+(u)$:<ul>
-<li>if $v$ not $\in P$ and $\delta(s,u) &#x3D; \delta(s, v) + w(u,v)$. (Suppose it is the shortest path!)</li>
-<li>$\exists w, (u,v) \in w$ and $w$ can be the shortest path. So set $P(v) &#x3D; u$.</li>
-</ul>
-</li>
-</ul>
-</li>
+<li>Init: P is empty, <span
+class="math inline"><em>P</em>(<em>s</em>)</span> is None.</li>
+<li>For each <span class="math inline"><em>u</em> ∈ <em>V</em></span>,
+where <span
+class="math inline"><em>δ</em>(<em>s</em>, <em>u</em>)</span> is finite:
+<ul>
+<li>For each <span
+class="math inline"><em>v</em> ∈ Adj<sup>+</sup>(<em>u</em>)</span>:
+<ul>
+<li>if <span class="math inline"><em>v</em></span> not <span
+class="math inline"> ∈ <em>P</em></span> and <span
+class="math inline"><em>δ</em>(<em>s</em>, <em>u</em>) = <em>δ</em>(<em>s</em>, <em>v</em>) + <em>w</em>(<em>u</em>, <em>v</em>)</span>.
+(Suppose it is the shortest path!)</li>
+<li><span
+class="math inline">∃<em>w</em>, (<em>u</em>, <em>v</em>) ∈ <em>w</em></span>
+and <span class="math inline"><em>w</em></span> can be the shortest
+path. So set <span
+class="math inline"><em>P</em>(<em>v</em>) = <em>u</em></span>.</li>
+</ul></li>
+</ul></li>
 </ul>
 <blockquote>
-<p>$P$ is used to construct one of the existing shortest path.</p>
+<p><span class="math inline"><em>P</em></span> is used to construct one
+of the existing shortest path.</p>
 </blockquote>
-<h2 id="DAG"><a href="#DAG" class="headerlink" title="DAG"></a>DAG</h2><p><strong>有向无环图（DAG, Directed Acyclic Graph）</strong></p>
-<p>It can handle with negative weights, but it cannot handle with <strong>Negative Weight Cycles</strong>.</p>
-<h3 id="Relaxation"><a href="#Relaxation" class="headerlink" title="Relaxation"></a>Relaxation</h3><p>For edges $(u,v)$, we need to check it is possible to shorten the shortest path from $u$ to $v$.</p>
-<p>Obviously, we have: </p>
-<p>$$\delta(u,v) \le \delta(u,w) + \delta(w,v)$$</p>
-<p>Hence, if $d(s,v) &gt; d(s,u) + w(u,v)$, then we can update $d(s,v) &#x3D; d(s,u) + w(u,v)$</p>
-<p>It is <strong>DP Problems</strong>! Because we can assert that there is no loop in the DAGs, hence we use <strong>Topological Order</strong> to ensure all the nodes are sorted in sequence.</p>
-<p>Assume $u$ is ahead in the topological order of $v$, then $\delta(s,u)$ is computed before the $\delta(s,v)$.</p>
-<p>For the first vertex is $s$ itself, init $d(s,s) &#x3D; 0$, and $d(s,u) &#x3D; \infty, u \ne s$.</p>
-<p>In topological order, we update $d(s,v)$ by using the adjacency $u$ ,(which is computed previously) of $d(s,u) + w(u,v)$.</p>
-<p>Then we update the optimization! Finally, $\delta(s,u) &#x3D; d(s,u)$.</p>
-<p>Time complexity: $O(|V| + |E|)$</p>
+<h2 id="dag">DAG</h2>
+<p><strong>有向无环图（DAG, Directed Acyclic Graph）</strong></p>
+<p>It can handle with negative weights, but it cannot handle with
+<strong>Negative Weight Cycles</strong>.</p>
+<h3 id="relaxation">Relaxation</h3>
+<p>For edges <span class="math inline">(<em>u</em>, <em>v</em>)</span>,
+we need to check it is possible to shorten the shortest path from <span
+class="math inline"><em>u</em></span> to <span
+class="math inline"><em>v</em></span>.</p>
+<p>Obviously, we have:</p>
+<p><span
+class="math display"><em>δ</em>(<em>u</em>, <em>v</em>) ≤ <em>δ</em>(<em>u</em>, <em>w</em>) + <em>δ</em>(<em>w</em>, <em>v</em>)</span></p>
+<p>Hence, if <span
+class="math inline"><em>d</em>(<em>s</em>, <em>v</em>) &gt; <em>d</em>(<em>s</em>, <em>u</em>) + <em>w</em>(<em>u</em>, <em>v</em>)</span>,
+then we can update <span
+class="math inline"><em>d</em>(<em>s</em>, <em>v</em>) = <em>d</em>(<em>s</em>, <em>u</em>) + <em>w</em>(<em>u</em>, <em>v</em>)</span></p>
+<p>It is <strong>DP Problems</strong>! Because we can assert that there
+is no loop in the DAGs, hence we use <strong>Topological Order</strong>
+to ensure all the nodes are sorted in sequence.</p>
+<p>Assume <span class="math inline"><em>u</em></span> is ahead in the
+topological order of <span class="math inline"><em>v</em></span>, then
+<span class="math inline"><em>δ</em>(<em>s</em>, <em>u</em>)</span> is
+computed before the <span
+class="math inline"><em>δ</em>(<em>s</em>, <em>v</em>)</span>.</p>
+<p>For the first vertex is <span class="math inline"><em>s</em></span>
+itself, init <span
+class="math inline"><em>d</em>(<em>s</em>, <em>s</em>) = 0</span>, and
+<span
+class="math inline"><em>d</em>(<em>s</em>, <em>u</em>) = ∞, <em>u</em> ≠ <em>s</em></span>.</p>
+<p>In topological order, we update <span
+class="math inline"><em>d</em>(<em>s</em>, <em>v</em>)</span> by using
+the adjacency <span class="math inline"><em>u</em></span> ,(which is
+computed previously) of <span
+class="math inline"><em>d</em>(<em>s</em>, <em>u</em>) + <em>w</em>(<em>u</em>, <em>v</em>)</span>.</p>
+<p>Then we update the optimization! Finally, <span
+class="math inline"><em>δ</em>(<em>s</em>, <em>u</em>) = <em>d</em>(<em>s</em>, <em>u</em>)</span>.</p>
+<p>Time complexity: <span
+class="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span></p>
 <ul>
-<li>Topo sort: $O(|V| + |E|)$</li>
-<li>relaxation: $O(|E|)$</li>
+<li>Topo sort: <span
+class="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span></li>
+<li>relaxation: <span
+class="math inline"><em>O</em>(|<em>E</em>|)</span></li>
 </ul>
 <div class="note note-primary">
-            <p><strong>DAG</strong> is efficiency in SSSP! For it is based on dynamic programming. But it should ensure it is <strong>DAG</strong>! (Needs topo sort first).</p>
+            <p><strong>DAG</strong> is efficiency in SSSP! For it is based ondynamic programming. But it should ensure it is <strong>DAG</strong>!(Needs topo sort first).</p>
           </div>
-
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;climits&gt;</span><span class="hljs-comment">// For INT_MAX</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;queue&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unordered_map&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">DAG</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    unordered_map&lt;<span class="hljs-type">int</span>, vector&lt;pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&gt;&gt; adj;<span class="hljs-comment">// Adjacency list with weights</span><br>    unordered_map&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt; inDegree;              <span class="hljs-comment">// In-degree count, used for topologicalSorting</span><br>    <span class="hljs-type">int</span> vertex_num;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">DAG</span>(<span class="hljs-type">int</span> num = <span class="hljs-number">0</span>) &#123;<br>        vertex_num = num;<br>    &#125;<br><br>    <span class="hljs-comment">// Add a directed edge u -&gt; v with weight w</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">addEdge</span><span class="hljs-params">(<span class="hljs-type">int</span> u, <span class="hljs-type">int</span> v, <span class="hljs-type">int</span> weight)</span> </span>&#123;<br>        adj[u].<span class="hljs-built_in">emplace_back</span>(v, weight);<br>        inDegree[v]++;<span class="hljs-comment">// Increment in-degree of v</span><br>    &#125;<br><br>    <span class="hljs-comment">// Perform topological sort using Kahn&#x27;s algorithm</span><br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">topologicalSort</span><span class="hljs-params">()</span> </span>&#123;<br>        vector&lt;<span class="hljs-type">int</span>&gt; result;<br>        queue&lt;<span class="hljs-type">int</span>&gt; q;<br><br>        <span class="hljs-comment">// Initialize queue with nodes having 0 in-degree</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> node : adj) &#123;<br>            <span class="hljs-type">int</span> u = node.first;<br>            <span class="hljs-keyword">if</span> (inDegree[u] == <span class="hljs-number">0</span>) &#123;<br>                q.<span class="hljs-built_in">push</span>(u);<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">while</span> (!q.<span class="hljs-built_in">empty</span>()) &#123;<br>            <span class="hljs-type">int</span> u = q.<span class="hljs-built_in">front</span>();<br>            q.<span class="hljs-built_in">pop</span>();<br>            result.<span class="hljs-built_in">push_back</span>(u);<br><br>            <span class="hljs-comment">// Reduce in-degree of neighbors</span><br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;neighbor : adj[u]) &#123;<br>                <span class="hljs-type">int</span> v = neighbor.first;<br>                inDegree[v]--;<br>                <span class="hljs-keyword">if</span> (inDegree[v] == <span class="hljs-number">0</span>) &#123;<br>                    q.<span class="hljs-built_in">push</span>(v);<br>                &#125;<br>            &#125;<br>        &#125;<br><br>        cout &lt;&lt; adj.<span class="hljs-built_in">size</span>();<br>        cout &lt;&lt; result.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-comment">// Check for cycles (if result size != number of nodes)</span><br>        cout &lt;&lt; <span class="hljs-string">&quot;a&quot;</span> &lt;&lt; (result.<span class="hljs-built_in">size</span>());<br>        <span class="hljs-keyword">if</span> (result.<span class="hljs-built_in">size</span>() != adj.<span class="hljs-built_in">size</span>()) &#123;<br>            cout &lt;&lt; <span class="hljs-string">&quot;Cycle detected! Not a DAG.&quot;</span> &lt;&lt; endl;<br>            <span class="hljs-keyword">return</span> &#123;&#125;;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br><br>    <span class="hljs-comment">// DAG Relaxation for Single Source Shortest Path (SSSP)</span><br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dagRelaxation</span><span class="hljs-params">(<span class="hljs-type">int</span> source)</span> </span>&#123;<br>        <span class="hljs-comment">// Perform topological sort</span><br>        vector&lt;<span class="hljs-type">int</span>&gt; sortedOrder = <span class="hljs-built_in">topologicalSort</span>();<br>        <span class="hljs-keyword">if</span> (sortedOrder.<span class="hljs-built_in">empty</span>()) &#123;<br>            cout &lt;&lt; <span class="hljs-string">&quot;Cannot perform DAG relaxation due to cycle.&quot;</span> &lt;&lt; endl;<br>            <span class="hljs-keyword">return</span> &#123;&#125;;<br>        &#125;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dist</span><span class="hljs-params">(vertex_num + <span class="hljs-number">1</span>, INT_MAX)</span></span>;<span class="hljs-comment">// Initialize distances to infinity</span><br>        dist[source] = <span class="hljs-number">0</span>;                     <span class="hljs-comment">// Distance to source is 0</span><br><br><br>        <span class="hljs-comment">// Relax edges in topological order</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> u : sortedOrder) &#123;<br>            <span class="hljs-keyword">if</span> (dist[u] == INT_MAX) &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;neighbor : adj[u]) &#123;<br>                <span class="hljs-type">int</span> v = neighbor.first;<br>                <span class="hljs-type">int</span> weight = neighbor.second;<br>                <span class="hljs-comment">// update</span><br>                <span class="hljs-keyword">if</span> (dist[u] + weight &lt; dist[v]) &#123;<br>                    dist[v] = dist[u] + weight;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dist;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">DAG <span class="hljs-title">dag</span><span class="hljs-params">(<span class="hljs-number">5</span>)</span></span>;<br><br>    <span class="hljs-comment">// Build a sample DAG with weights</span><br>    dag.<span class="hljs-built_in">addEdge</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<span class="hljs-comment">// Edge 1 -&gt; 2 with weight 3</span><br>    dag.<span class="hljs-built_in">addEdge</span>(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>);<span class="hljs-comment">// Edge 1 -&gt; 3 with weight 6</span><br>    dag.<span class="hljs-built_in">addEdge</span>(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">4</span>);<span class="hljs-comment">// Edge 2 -&gt; 4 with weight 4</span><br>    dag.<span class="hljs-built_in">addEdge</span>(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>);<span class="hljs-comment">// Edge 3 -&gt; 4 with weight 8</span><br>    dag.<span class="hljs-built_in">addEdge</span>(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">2</span>);<span class="hljs-comment">// Edge 4 -&gt; 5 with weight 2</span><br><br>    <span class="hljs-comment">// Perform DAG relaxation for SSSP</span><br>    <span class="hljs-type">int</span> source = <span class="hljs-number">1</span>;<br>    vector&lt;<span class="hljs-type">int</span>&gt; distances = dag.<span class="hljs-built_in">dagRelaxation</span>(source);<br><br>    <span class="hljs-comment">// Print the shortest distances from the source</span><br>    cout &lt;&lt; <span class="hljs-string">&quot;Shortest distances from node &quot;</span> &lt;&lt; source &lt;&lt; <span class="hljs-string">&quot;:&quot;</span> &lt;&lt; endl;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; distances.<span class="hljs-built_in">size</span>(); i++) &#123;<br>        <span class="hljs-keyword">if</span> (distances[i] == INT_MAX) &#123;<br>            cout &lt;&lt; <span class="hljs-string">&quot;Node &quot;</span> &lt;&lt; i &lt;&lt; <span class="hljs-string">&quot;: Unreachable&quot;</span> &lt;&lt; endl;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            cout &lt;&lt; <span class="hljs-string">&quot;Node &quot;</span> &lt;&lt; i &lt;&lt; <span class="hljs-string">&quot;: &quot;</span> &lt;&lt; distances[i] &lt;&lt; endl;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="Bellman-Ford-Algorithms"><a href="#Bellman-Ford-Algorithms" class="headerlink" title="Bellman-Ford Algorithms"></a>Bellman-Ford Algorithms</h2><p>In DAG, we can perfectly solve this problem with linear time: $O(|V|+|E|)$. But we do not know how to deal with the <strong>negative cycles</strong>. We will introduce <strong>Bellman-Ford</strong> algorithm, which could solve this problem in the general graph (even with the <strong>negative cycles</strong> with $O(|V|\times|E|)$).</p>
+<h3 id="code">Code</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;climits&gt;</span><span class="hljs-comment">// For INT_MAX</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;queue&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unordered_map&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">DAG</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    unordered_map&lt;<span class="hljs-type">int</span>, vector&lt;pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&gt;&gt; adj;<span class="hljs-comment">// Adjacency list with weights</span><br>    unordered_map&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt; inDegree;              <span class="hljs-comment">// In-degree count, used for topologicalSorting</span><br>    <span class="hljs-type">int</span> vertex_num;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">DAG</span>(<span class="hljs-type">int</span> num = <span class="hljs-number">0</span>) &#123;<br>        vertex_num = num;<br>    &#125;<br><br>    <span class="hljs-comment">// Add a directed edge u -&gt; v with weight w</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">addEdge</span><span class="hljs-params">(<span class="hljs-type">int</span> u, <span class="hljs-type">int</span> v, <span class="hljs-type">int</span> weight)</span> </span>&#123;<br>        adj[u].<span class="hljs-built_in">emplace_back</span>(v, weight);<br>        inDegree[v]++;<span class="hljs-comment">// Increment in-degree of v</span><br>    &#125;<br><br>    <span class="hljs-comment">// Perform topological sort using Kahn&#x27;s algorithm</span><br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">topologicalSort</span><span class="hljs-params">()</span> </span>&#123;<br>        vector&lt;<span class="hljs-type">int</span>&gt; result;<br>        queue&lt;<span class="hljs-type">int</span>&gt; q;<br><br>        <span class="hljs-comment">// Initialize queue with nodes having 0 in-degree</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> node : adj) &#123;<br>            <span class="hljs-type">int</span> u = node.first;<br>            <span class="hljs-keyword">if</span> (inDegree[u] == <span class="hljs-number">0</span>) &#123;<br>                q.<span class="hljs-built_in">push</span>(u);<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">while</span> (!q.<span class="hljs-built_in">empty</span>()) &#123;<br>            <span class="hljs-type">int</span> u = q.<span class="hljs-built_in">front</span>();<br>            q.<span class="hljs-built_in">pop</span>();<br>            result.<span class="hljs-built_in">push_back</span>(u);<br><br>            <span class="hljs-comment">// Reduce in-degree of neighbors</span><br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;neighbor : adj[u]) &#123;<br>                <span class="hljs-type">int</span> v = neighbor.first;<br>                inDegree[v]--;<br>                <span class="hljs-keyword">if</span> (inDegree[v] == <span class="hljs-number">0</span>) &#123;<br>                    q.<span class="hljs-built_in">push</span>(v);<br>                &#125;<br>            &#125;<br>        &#125;<br><br>        cout &lt;&lt; adj.<span class="hljs-built_in">size</span>();<br>        cout &lt;&lt; result.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-comment">// Check for cycles (if result size != number of nodes)</span><br>        cout &lt;&lt; <span class="hljs-string">&quot;a&quot;</span> &lt;&lt; (result.<span class="hljs-built_in">size</span>());<br>        <span class="hljs-keyword">if</span> (result.<span class="hljs-built_in">size</span>() != adj.<span class="hljs-built_in">size</span>()) &#123;<br>            cout &lt;&lt; <span class="hljs-string">&quot;Cycle detected! Not a DAG.&quot;</span> &lt;&lt; endl;<br>            <span class="hljs-keyword">return</span> &#123;&#125;;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br><br>    <span class="hljs-comment">// DAG Relaxation for Single Source Shortest Path (SSSP)</span><br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dagRelaxation</span><span class="hljs-params">(<span class="hljs-type">int</span> source)</span> </span>&#123;<br>        <span class="hljs-comment">// Perform topological sort</span><br>        vector&lt;<span class="hljs-type">int</span>&gt; sortedOrder = <span class="hljs-built_in">topologicalSort</span>();<br>        <span class="hljs-keyword">if</span> (sortedOrder.<span class="hljs-built_in">empty</span>()) &#123;<br>            cout &lt;&lt; <span class="hljs-string">&quot;Cannot perform DAG relaxation due to cycle.&quot;</span> &lt;&lt; endl;<br>            <span class="hljs-keyword">return</span> &#123;&#125;;<br>        &#125;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dist</span><span class="hljs-params">(vertex_num + <span class="hljs-number">1</span>, INT_MAX)</span></span>;<span class="hljs-comment">// Initialize distances to infinity</span><br>        dist[source] = <span class="hljs-number">0</span>;                     <span class="hljs-comment">// Distance to source is 0</span><br><br><br>        <span class="hljs-comment">// Relax edges in topological order</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> u : sortedOrder) &#123;<br>            <span class="hljs-keyword">if</span> (dist[u] == INT_MAX) &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;neighbor : adj[u]) &#123;<br>                <span class="hljs-type">int</span> v = neighbor.first;<br>                <span class="hljs-type">int</span> weight = neighbor.second;<br>                <span class="hljs-comment">// update</span><br>                <span class="hljs-keyword">if</span> (dist[u] + weight &lt; dist[v]) &#123;<br>                    dist[v] = dist[u] + weight;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dist;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">DAG <span class="hljs-title">dag</span><span class="hljs-params">(<span class="hljs-number">5</span>)</span></span>;<br><br>    <span class="hljs-comment">// Build a sample DAG with weights</span><br>    dag.<span class="hljs-built_in">addEdge</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<span class="hljs-comment">// Edge 1 -&gt; 2 with weight 3</span><br>    dag.<span class="hljs-built_in">addEdge</span>(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>);<span class="hljs-comment">// Edge 1 -&gt; 3 with weight 6</span><br>    dag.<span class="hljs-built_in">addEdge</span>(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">4</span>);<span class="hljs-comment">// Edge 2 -&gt; 4 with weight 4</span><br>    dag.<span class="hljs-built_in">addEdge</span>(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>);<span class="hljs-comment">// Edge 3 -&gt; 4 with weight 8</span><br>    dag.<span class="hljs-built_in">addEdge</span>(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">2</span>);<span class="hljs-comment">// Edge 4 -&gt; 5 with weight 2</span><br><br>    <span class="hljs-comment">// Perform DAG relaxation for SSSP</span><br>    <span class="hljs-type">int</span> source = <span class="hljs-number">1</span>;<br>    vector&lt;<span class="hljs-type">int</span>&gt; distances = dag.<span class="hljs-built_in">dagRelaxation</span>(source);<br><br>    <span class="hljs-comment">// Print the shortest distances from the source</span><br>    cout &lt;&lt; <span class="hljs-string">&quot;Shortest distances from node &quot;</span> &lt;&lt; source &lt;&lt; <span class="hljs-string">&quot;:&quot;</span> &lt;&lt; endl;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; distances.<span class="hljs-built_in">size</span>(); i++) &#123;<br>        <span class="hljs-keyword">if</span> (distances[i] == INT_MAX) &#123;<br>            cout &lt;&lt; <span class="hljs-string">&quot;Node &quot;</span> &lt;&lt; i &lt;&lt; <span class="hljs-string">&quot;: Unreachable&quot;</span> &lt;&lt; endl;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            cout &lt;&lt; <span class="hljs-string">&quot;Node &quot;</span> &lt;&lt; i &lt;&lt; <span class="hljs-string">&quot;: &quot;</span> &lt;&lt; distances[i] &lt;&lt; endl;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="bellman-ford-algorithms">Bellman-Ford Algorithms</h2>
+<p>In DAG, we can perfectly solve this problem with linear time: <span
+class="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span>. But
+we do not know how to deal with the <strong>negative cycles</strong>. We
+will introduce <strong>Bellman-Ford</strong> algorithm, which could
+solve this problem in the general graph (even with the <strong>negative
+cycles</strong> with <span
+class="math inline"><em>O</em>(|<em>V</em>| × |<em>E</em>|)</span>).</p>
 <p>Hence, we want to solve:</p>
 <ul>
-<li>return the shortest path from every vertex $v$ to a given vertex $w$.<ul>
-<li>if not reachable, return $\infty$</li>
-<li>if has negative loops, return $- \infty$</li>
-</ul>
-</li>
-<li>we want to detect whether a graph has a negative cycle.<ul>
-<li>Given a graph $G &#x3D; (V, E)$, how can we detect whether there has a negative cycle in the graph.</li>
-</ul>
-</li>
-</ul>
-<h3 id="Negative-Weight-Edges"><a href="#Negative-Weight-Edges" class="headerlink" title="Negative Weight Edges"></a>Negative Weight Edges</h3><p>For negative weight edges:</p>
+<li>return the shortest path from every vertex <span
+class="math inline"><em>v</em></span> to a given vertex <span
+class="math inline"><em>w</em></span>.
 <ul>
-<li>For undirected graph: it is meaningless, for a single negative weight can cause $-\infty$.</li>
+<li>if not reachable, return <span class="math inline">∞</span></li>
+<li>if has negative loops, return <span
+class="math inline">−∞</span></li>
+</ul></li>
+<li>we want to detect whether a graph has a negative cycle.
+<ul>
+<li>Given a graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>, how
+can we detect whether there has a negative cycle in the graph.</li>
+</ul></li>
+</ul>
+<h3 id="negative-weight-edges">Negative Weight Edges</h3>
+<p>For negative weight edges:</p>
+<ul>
+<li>For undirected graph: it is meaningless, for a single negative
+weight can cause <span class="math inline">−∞</span>.</li>
 <li><strong>Only for directed graphs</strong>.</li>
 </ul>
-<p>If we have an algorithm that can solve this problem in $O(|V|\times(|V| + |E|))$ time, we can actually optimize this!</p>
-<p>First, use <strong>Kosaraju</strong> algorithms to find all the connected components for this directed graph $G’ &#x3D; (V’, E’)$ with linear time $O(|V| + |E|)$. Then, for each component, we can use the algorithms, where $|V_i| \le |E_i|$. Then we can prove that in this case: $O(|V_i| \times(|V_i| + |E_i|)) &#x3D; O(|V_i||E_i|)$.</p>
-<h3 id="Simple-Shortest-Path"><a href="#Simple-Shortest-Path" class="headerlink" title="Simple Shortest Path"></a>Simple Shortest Path</h3><p><strong>Claim</strong>1: If $\delta(s,v)$ is finite, then there exists a shortest path <strong>that is simple</strong>.</p>
+<p>If we have an algorithm that can solve this problem in <span
+class="math inline"><em>O</em>(|<em>V</em>| × (|<em>V</em>| + |<em>E</em>|))</span>
+time, we can actually optimize this!</p>
+<p>First, use <strong>Kosaraju</strong> algorithms to find all the
+connected components for this directed graph <span
+class="math inline"><em>G</em>′ = (<em>V</em>′, <em>E</em>′)</span> with
+linear time <span
+class="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span>.
+Then, for each component, we can use the algorithms, where <span
+class="math inline">|<em>V</em><sub><em>i</em></sub>| ≤ |<em>E</em><sub><em>i</em></sub>|</span>.
+Then we can prove that in this case: <span
+class="math inline"><em>O</em>(|<em>V</em><sub><em>i</em></sub>| × (|<em>V</em><sub><em>i</em></sub>| + |<em>E</em><sub><em>i</em></sub>|)) = <em>O</em>(|<em>V</em><sub><em>i</em></sub>||<em>E</em><sub><em>i</em></sub>|)</span>.</p>
+<h3 id="simple-shortest-path">Simple Shortest Path</h3>
+<p><strong>Claim</strong>1: If <span
+class="math inline"><em>δ</em>(<em>s</em>, <em>v</em>)</span> is finite,
+then there exists a shortest path <strong>that is simple</strong>.</p>
 <ul>
-<li>This path has less than $|V| -1$ edges.</li>
+<li>This path has less than <span
+class="math inline">|<em>V</em>| − 1</span> edges.</li>
 </ul>
-<p>We define $\delta_k(s,v)$ means the shortest path using less than $k$ edges.</p>
-<p>$$\lim_{k \to \infty} \delta_k(s,v) &#x3D; \delta(s,v)$$.</p>
-<p>If $\delta_{|V|}(s,v) &lt; \delta_{|V|-1}(s,v)$, then we know $\delta(s,v) &#x3D; -\infty$. </p>
-<p><img src="https://s1.imagehub.cc/images/2025/05/15/10ddaf3115bada4b2d06ccdb2d52518b.png" srcset="/img/loading.gif" lazyload alt="Claims"></p>
+<p>We define <span
+class="math inline"><em>δ</em><sub><em>k</em></sub>(<em>s</em>, <em>v</em>)</span>
+means the shortest path using less than <span
+class="math inline"><em>k</em></span> edges.</p>
+<p><span
+class="math display">lim<sub><em>k</em> → ∞</sub><em>δ</em><sub><em>k</em></sub>(<em>s</em>, <em>v</em>) = <em>δ</em>(<em>s</em>, <em>v</em>)</span>.</p>
+<p>If <span
+class="math inline"><em>δ</em><sub>|<em>V</em>|</sub>(<em>s</em>, <em>v</em>) &lt; <em>δ</em><sub>|<em>V</em>| − 1</sub>(<em>s</em>, <em>v</em>)</span>,
+then we know <span
+class="math inline"><em>δ</em>(<em>s</em>, <em>v</em>) = −∞</span>.</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/05/15/10ddaf3115bada4b2d06ccdb2d52518b.png" srcset="/img/loading.gif" lazyload
+alt="Claims" />
+<figcaption aria-hidden="true">Claims</figcaption>
+</figure>
 <ul>
-<li>witness can be described as a vertex in the negative loop cycle.</li>
+<li>witness can be described as a vertex in the negative loop
+cycle.</li>
 </ul>
-<p>Use <strong>graph duplication</strong>: make multiple copies (or levels) of the graph.</p>
-<p>$|V| + 1$ levels: vertex $v_k $ in level $ k$ represents reaching vertex$ v$ from $s$ using $≤ k$ edges.</p>
-<p>If edges only increase in levels, we can use <strong>DAG</strong>!</p>
-<p><img src="https://s1.imagehub.cc/images/2025/05/16/66cf8f610ae4cd99eacbba863e225873.png" srcset="/img/loading.gif" lazyload alt="DAG"></p>
-<p>For the graph $G’$, it has $|V|\times |V + 1|$ vertices and $|V| \times |E|$ edges. And it is a directed graph! We can solve it using DAG with linear time. $O((|V| \times |E|)\times |V|)$.</p>
-<p>Then we can use $\delta_{|V|}(s,v) &lt; \delta_{|V|-1}(s,v)$ to judge whether it is $-\infty$.</p>
-<p>$$\delta_k(s,v) &#x3D; \delta’(s,v_k)$$.</p>
-<h3 id="Fix-Bellman-Ford-Version-2"><a href="#Fix-Bellman-Ford-Version-2" class="headerlink" title="Fix: Bellman-Ford Version 2"></a>Fix: Bellman-Ford Version 2</h3><h2 id="Dijkstra-Algorithm"><a href="#Dijkstra-Algorithm" class="headerlink" title="Dijkstra Algorithm"></a>Dijkstra Algorithm</h2><ul>
-<li>DAG:<ul>
-<li>Best performance, linear time: $O(|V| + |E|)$.</li>
+<p>Use <strong>graph duplication</strong>: make multiple copies (or
+levels) of the graph.</p>
+<p><span class="math inline">|<em>V</em>| + 1</span> levels: vertex $v_k
+$ in level $ k$ represents reaching vertex$ v$ from <span
+class="math inline"><em>s</em></span> using <span
+class="math inline"> ≤ <em>k</em></span> edges.</p>
+<p>If edges only increase in levels, we can use
+<strong>DAG</strong>!</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/05/16/66cf8f610ae4cd99eacbba863e225873.png" srcset="/img/loading.gif" lazyload
+alt="DAG" />
+<figcaption aria-hidden="true">DAG</figcaption>
+</figure>
+<p>For the graph <span class="math inline"><em>G</em>′</span>, it has
+<span class="math inline">|<em>V</em>| × |<em>V</em> + 1|</span>
+vertices and <span
+class="math inline">|<em>V</em>| × |<em>E</em>|</span> edges. And it is
+a directed graph! We can solve it using DAG with linear time. <span
+class="math inline"><em>O</em>((|<em>V</em>| × |<em>E</em>|) × |<em>V</em>|)</span>.</p>
+<p>Then we can use <span
+class="math inline"><em>δ</em><sub>|<em>V</em>|</sub>(<em>s</em>, <em>v</em>) &lt; <em>δ</em><sub>|<em>V</em>| − 1</sub>(<em>s</em>, <em>v</em>)</span>
+to judge whether it is <span class="math inline">−∞</span>.</p>
+<p><span
+class="math display"><em>δ</em><sub><em>k</em></sub>(<em>s</em>, <em>v</em>) = <em>δ</em>′(<em>s</em>, <em>v</em><sub><em>k</em></sub>)</span>.</p>
+<h3 id="fix-bellman-ford-version-2">Fix: Bellman-Ford Version 2</h3>
+<h2 id="dijkstra-algorithm">Dijkstra Algorithm</h2>
+<ul>
+<li>DAG:
+<ul>
+<li>Best performance, linear time: <span
+class="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span>.</li>
 <li><strong>Restriction</strong>: cannot handle with circle path.</li>
-</ul>
-</li>
-<li>Bellman-Ford:<ul>
-<li>$O(|V|(|V| + |E|))$</li>
+</ul></li>
+<li>Bellman-Ford:
+<ul>
+<li><span
+class="math inline"><em>O</em>(|<em>V</em>|(|<em>V</em>| + |<em>E</em>|))</span></li>
 <li>for all kinds of graphs, general.</li>
+</ul></li>
+<li><strong>Dijkstra Algorithms</strong>: for non-negative weights,
+almost linear.</li>
 </ul>
-</li>
-<li><strong>Dijkstra Algorithms</strong>: for non-negative weights, almost linear.</li>
-</ul>
-<h3 id="Intuition"><a href="#Intuition" class="headerlink" title="Intuition"></a>Intuition</h3><div class="note note-primary">
+<h3 id="intuition">Intuition</h3>
+<div class="note note-primary">
             <p>Finally, I know it is <strong>SPFA</strong>…</p>
           </div>
-
-<p>We use <strong>Greedy Algorithms</strong> to handle the single shortest path problem. It makes <strong>locally optimal choices at each step</strong> with the intent of finding a globally optimal solution. </p>
-<p>Like the DAG algorithms, we will start from the $w$, and maintain a <strong>Priority Queue</strong> to implement the greedy algorithms. </p>
+<p>We use <strong>Greedy Algorithms</strong> to handle the single
+shortest path problem. It makes <strong>locally optimal choices at each
+step</strong> with the intent of finding a globally optimal
+solution.</p>
+<p>Like the DAG algorithms, we will start from the <span
+class="math inline"><em>w</em></span>, and maintain a <strong>Priority
+Queue</strong> to implement the greedy algorithms.</p>
 <div class="note note-primary">
-            <p>We will also use the <strong>triangle inequality</strong>, which is of the core principle for the greedy algorithms:</p><p>$$\text{dist}[v] \le \text{dist}[u] + w(u,v)$$</p><p>where $\text{dist}[u]$ means the shortest length from $w$ to $u$.</p><p>If we can ensure the correct path of $u$ will be calculated before the $v$, then we can ensure the rightness of $\text{dist}[v]$!</p>
+            <p>We will also use the <strong>triangle inequality</strong>, which isof the core principle for the greedy algorithms:</p><p><spanclass="math display">dist[<em>v</em>] ≤ dist[<em>u</em>] + <em>w</em>(<em>u</em>, <em>v</em>)</span></p><p>where <span class="math inline">dist[<em>u</em>]</span> means theshortest length from <span class="math inline"><em>w</em></span> to<span class="math inline"><em>u</em></span>.</p><p>If we can ensure the correct path of <spanclass="math inline"><em>u</em></span> will be calculated before the<span class="math inline"><em>v</em></span>, then we can ensure therightness of <span class="math inline">dist[<em>v</em>]</span>!</p>
           </div>
-
-<h3 id="Pseudo-Code"><a href="#Pseudo-Code" class="headerlink" title="Pseudo Code"></a>Pseudo Code</h3><p><img src="https://s1.imagehub.cc/images/2025/05/16/c000ec13dfde44aee058daac9e582202.png" srcset="/img/loading.gif" lazyload alt="Pseudo Code"></p>
-<p><img src="https://s1.imagehub.cc/images/2025/05/16/e5070854787bd869bde7bb2895715ae5.png" srcset="/img/loading.gif" lazyload alt="Loops"></p>
+<h3 id="pseudo-code">Pseudo Code</h3>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/05/16/c000ec13dfde44aee058daac9e582202.png" srcset="/img/loading.gif" lazyload
+alt="Pseudo Code" />
+<figcaption aria-hidden="true">Pseudo Code</figcaption>
+</figure>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/05/16/e5070854787bd869bde7bb2895715ae5.png" srcset="/img/loading.gif" lazyload
+alt="Loops" />
+<figcaption aria-hidden="true">Loops</figcaption>
+</figure>
 <ul>
-<li><strong>How greedy?</strong>: If $\text{dist}[v] \ge \text{dist}[u] + w(u,v)$, then upgrade the $\text{dist}[v]$ for the shorter path! It means that we don’t need to get the correct path for its first time! We can upgrade this during the upcoming process, and for the existence of the shortest path, we can unsure <strong>all the paths can be updated correctedly!</strong></li>
+<li><strong>How greedy?</strong>: If <span
+class="math inline">dist[<em>v</em>] ≥ dist[<em>u</em>] + <em>w</em>(<em>u</em>, <em>v</em>)</span>,
+then upgrade the <span class="math inline">dist[<em>v</em>]</span> for
+the shorter path! It means that we don’t need to get the correct path
+for its first time! We can upgrade this during the upcoming process, and
+for the existence of the shortest path, we can unsure <strong>all the
+paths can be updated correctedly!</strong></li>
 </ul>
-<h3 id="Time-complexity"><a href="#Time-complexity" class="headerlink" title="Time complexity"></a>Time complexity</h3><ul>
-<li>enqueue and dequeue: $O(|V| + |E|)$</li>
-<li>For the enqueue and dequeue: $O(\log|V|)$</li>
+<h3 id="time-complexity-1">Time complexity</h3>
+<ul>
+<li>enqueue and dequeue: <span
+class="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span></li>
+<li>For the enqueue and dequeue: <span
+class="math inline"><em>O</em>(log |<em>V</em>|)</span></li>
 </ul>
-<p>Hence the total time complexity: $O((|V| + |E|)\log(|V|))$</p>
-<p>If we use Fibonacci heap: $O(|E| + |V|\log|V|)$</p>
-<h3 id="Restrictions"><a href="#Restrictions" class="headerlink" title="Restrictions"></a>Restrictions</h3><h4 id="Why-no-negative"><a href="#Why-no-negative" class="headerlink" title="Why no-negative?"></a>Why no-negative?</h4><p>Because we need to ensure the <strong>greedy search</strong> is correct!</p>
+<p>Hence the total time complexity: <span
+class="math inline"><em>O</em>((|<em>V</em>| + |<em>E</em>|)log (|<em>V</em>|))</span></p>
+<p>If we use Fibonacci heap: <span
+class="math inline"><em>O</em>(|<em>E</em>| + |<em>V</em>|log |<em>V</em>|)</span></p>
+<h3 id="restrictions">Restrictions</h3>
+<h4 id="why-no-negative">Why no-negative?</h4>
+<p>Because we need to ensure the <strong>greedy search</strong> is
+correct!</p>
 <div class="note note-primary">
             <p>实际上，上文的<strong>Dijkstra</strong>算法是可以处理负权边的，因为其一个节点可以访问多次，代表着其值可以被不断的更新。并且我们会保证<strong>有穷最短路径</strong>的走法一定会被走到，因此我们可以保证最后答案的正确性。</p><p>但是在原始的Dijkstra算法中，会记录<strong>每一个节点</strong>是否被访问，并且不使用优先级队列来实现。（这个不同算法的实现方式不一样），如果记录每一个节点是否被访问，这个时候为了保证贪心算法的正确性，我们不可以处理负权边。</p><blockquote><p>当然，肯定不可以处理 negative weight cycles.</p></blockquote>
           </div>
-
-<h2 id="Floyd-Algorithms"><a href="#Floyd-Algorithms" class="headerlink" title="Floyd Algorithms"></a>Floyd Algorithms</h2><p>在上文中的若干算法都是为了求解<strong>单源最短路问题</strong>，即Single source shortest path algorithms. 几种算法的时间复杂度如下：</p>
+<h2 id="floyd-algorithms">Floyd Algorithms</h2>
+<p>在上文中的若干算法都是为了求解<strong>单源最短路问题</strong>，即Single
+source shortest path algorithms. 几种算法的时间复杂度如下：</p>
 <ul>
-<li><p>传统的Dijkstra：$O(|E| + |V|\log|V|)$</p>
-</li>
-<li><p>Bellman-Ford: $O(|E||V|)$</p>
+<li>传统的Dijkstra：<span
+class="math inline"><em>O</em>(|<em>E</em>| + |<em>V</em>|log |<em>V</em>|)</span></li>
+<li>Bellman-Ford: <span
+class="math inline"><em>O</em>(|<em>E</em>||<em>V</em>|)</span>
 <ul>
-<li>SPFA: $O(k|V|)$ (在大多数情况下，$k &lt;&lt; |E|$)</li>
+<li>SPFA: <span
+class="math inline"><em>O</em>(<em>k</em>|<em>V</em>|)</span>
+(在大多数情况下，<span
+class="math inline"><em>k</em> &lt;  &lt; |<em>E</em>|</span>)</li>
+</ul></li>
+<li>DAG: <span
+class="math inline"><em>O</em>(|<em>E</em>| + |<em>V</em>|)</span></li>
 </ul>
-</li>
-<li><p>DAG: $O(|E| + |V|)$</p>
-</li>
-</ul>
-<p>如果把问题推广，对于单词查询我希望任意给出两个节点$u$, $v$求其最短路，这如何实现？</p>
+<p>如果把问题推广，对于单词查询我希望任意给出两个节点<span
+class="math inline"><em>u</em></span>, <span
+class="math inline"><em>v</em></span>求其最短路，这如何实现？</p>
 <p>如果使用上面的算法，复杂度如下：</p>
 <ul>
-<li>Dijkstra * $|V|$ times: $O(|V|^2\log|V| + |E|)$</li>
-<li>Bellman Ford: $O(|V|^2|E|)$</li>
+<li>Dijkstra * <span class="math inline">|<em>V</em>|</span> times:
+<span
+class="math inline"><em>O</em>(|<em>V</em>|<sup>2</sup>log |<em>V</em>| + |<em>E</em>|)</span></li>
+<li>Bellman Ford: <span
+class="math inline"><em>O</em>(|<em>V</em>|<sup>2</sup>|<em>E</em>|)</span></li>
 </ul>
-<p>下面介绍<strong>Floyd</strong>算法，基于<strong>动态规划策略</strong>，时间复杂度为$O(|V|^3)$，这在稀疏图中可以达到很高的效率。</p>
-<p>我们定义一个数组 <code>f[k][x][y]</code>，表示只允许经过结点$1$到$k$，结点$x$到结点$y$的最短路长度。</p>
-<p>很显然，<code>f[n][x][y]</code> 就是结点$x$到结点$y$的最短路长度。我们的目标就是在递增$n$的同时记录信息。</p>
-<h3 id="状态转移方程"><a href="#状态转移方程" class="headerlink" title="状态转移方程"></a>状态转移方程</h3><p>$$f[k][x][y] &#x3D; min(f[k-1][x][y], f[k-1][x][k]+f[k-1][k][y])$$</p>
-<p>从$k-1$的节点到允许使用$k$号节点，考虑：</p>
+<p>下面介绍<strong>Floyd</strong>算法，基于<strong>动态规划策略</strong>，时间复杂度为<span
+class="math inline"><em>O</em>(|<em>V</em>|<sup>3</sup>)</span>，这在稀疏图中可以达到很高的效率。</p>
+<p>我们定义一个数组 <code>f[k][x][y]</code>，表示只允许经过结点<span
+class="math inline">1</span>到<span
+class="math inline"><em>k</em></span>，结点<span
+class="math inline"><em>x</em></span>到结点<span
+class="math inline"><em>y</em></span>的最短路长度。</p>
+<p>很显然，<code>f[n][x][y]</code> 就是结点<span
+class="math inline"><em>x</em></span>到结点<span
+class="math inline"><em>y</em></span>的最短路长度。我们的目标就是在递增<span
+class="math inline"><em>n</em></span>的同时记录信息。</p>
+<h3 id="状态转移方程">状态转移方程</h3>
+<p><span
+class="math display"><em>f</em>[<em>k</em>][<em>x</em>][<em>y</em>] = <em>m</em><em>i</em><em>n</em>(<em>f</em>[<em>k</em> − 1][<em>x</em>][<em>y</em>], <em>f</em>[<em>k</em> − 1][<em>x</em>][<em>k</em>] + <em>f</em>[<em>k</em> − 1][<em>k</em>][<em>y</em>])</span></p>
+<p>从<span
+class="math inline"><em>k</em> − 1</span>的节点到允许使用<span
+class="math inline"><em>k</em></span>号节点，考虑：</p>
 <ul>
-<li>$k$号节点被用做最短路的路径，即此时的最短路是$x \to \text{kth node} \to y$，根据最短路的性质，$x \to \text{kth node}$的最短路肯定和$x \to y$的最短路是重合的（<strong>因为能保证第k个节点一定在x到y的最短路中</strong>）<ul>
-<li>因此这一项就是: $f[k-1][x][k]+f[k-1][k][y]$</li>
-</ul>
-</li>
-<li>$k$号节点没有被用作最短路的路径，就是$f[k-1][x][y]$.</li>
+<li><span
+class="math inline"><em>k</em></span>号节点被用做最短路的路径，即此时的最短路是<span
+class="math inline"><em>x</em> → kth
+node → <em>y</em></span>，根据最短路的性质，<span
+class="math inline"><em>x</em> → kth node</span>的最短路肯定和<span
+class="math inline"><em>x</em> → <em>y</em></span>的最短路是重合的（<strong>因为能保证第k个节点一定在x到y的最短路中</strong>）
+<ul>
+<li>因此这一项就是: <span
+class="math inline"><em>f</em>[<em>k</em> − 1][<em>x</em>][<em>k</em>] + <em>f</em>[<em>k</em> − 1][<em>k</em>][<em>y</em>]</span></li>
+</ul></li>
+<li><span
+class="math inline"><em>k</em></span>号节点没有被用作最短路的路径，就是<span
+class="math inline"><em>f</em>[<em>k</em> − 1][<em>x</em>][<em>y</em>]</span>.</li>
 </ul>
 <p>这就是Floyd算法的核心！</p>
 <p>不过缺点显而易见：<strong>时空复杂度</strong>都非常高，因为我们需要维护非常庞大的状态数组。我们下面证明数组的第一位没有影响，即：</p>
-<p>$$f[x][y] &#x3D; min(f[x][y], f[x][k]+f[k][y])$$</p>
+<p><span
+class="math display"><em>f</em>[<em>x</em>][<em>y</em>] = <em>m</em><em>i</em><em>n</em>(<em>f</em>[<em>x</em>][<em>y</em>], <em>f</em>[<em>x</em>][<em>k</em>] + <em>f</em>[<em>k</em>][<em>y</em>])</span></p>
 <div class="note note-primary">
-            <p>对于给定的 <code>k</code>，当更新 <code>f[k][x][y]</code> 时，涉及的元素总是来自 <code>f[k-1]</code> 数组的第 <code>k</code> 行和第 <code>k</code> 列。然后我们可以发现，对于给定的 <code>k</code>，当更新 <code>f[k][k][y]</code> 或 <code>f[k][x][k]</code>，总是不会发生数值更新，因为按照公式 <code>f[k][k][y] = min(f[k-1][k][y], f[k-1][k][k]+f[k-1][k][y])</code>,<code>f[k-1][k][k]</code> 为 0，因此这个值总是 <code>f[k-1][k][y]</code>，对于 <code>f[k][x][k]</code> 的证明类似。</p><p>因此，如果省略第一维，在给定的 <code>k</code> 下，每个元素的更新中使用到的元素都没有在这次迭代中更新，因此第一维的省略并不会影响结果。</p>
+            <p>对于给定的 <code>k</code>，当更新 <code>f[k][x][y]</code>时，涉及的元素总是来自 <code>f[k-1]</code> 数组的第 <code>k</code>行和第 <code>k</code> 列。然后我们可以发现，对于给定的<code>k</code>，当更新 <code>f[k][k][y]</code> 或<code>f[k][x][k]</code>，总是不会发生数值更新，因为按照公式<code>f[k][k][y] = min(f[k-1][k][y], f[k-1][k][k]+f[k-1][k][y])</code>,<code>f[k-1][k][k]</code>为 0，因此这个值总是 <code>f[k-1][k][y]</code>，对于<code>f[k][x][k]</code> 的证明类似。</p><p>因此，如果省略第一维，在给定的 <code>k</code>下，每个元素的更新中使用到的元素都没有在这次迭代中更新，因此第一维的省略并不会影响结果。</p>
           </div>
-
 <p>不过三层循环不可以省略，只是对空间的小优化：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span> (k = <span class="hljs-number">1</span>; k &lt;= n; k++) &#123;<br>  <span class="hljs-keyword">for</span> (x = <span class="hljs-number">1</span>; x &lt;= n; x++) &#123;<br>    <span class="hljs-keyword">for</span> (y = <span class="hljs-number">1</span>; y &lt;= n; y++) &#123;<br>      f[x][y] = <span class="hljs-built_in">min</span>(f[x][y], f[x][k] + f[k][y]);<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="拆点"><a href="#拆点" class="headerlink" title="拆点"></a>拆点</h3><p>分层图最短路，如：有$k$次零代价通过一条路径，求总的最小花费。</p>
-<p>同样的，使用状态转移方程，$dis[i][j] &#x3D; \min(\min(dis[\text{from}][j-1]), \min(dis[\text{from}][j] + w))$</p>
-<p>其中$from$是$i$的父亲节点。</p>
-<p>事实上，这个 DP 就相当于把每个结点拆分成了$k+ 1$个结点，每个新结点代表使用不同多次免费通行后到达的原图结点。换句话说，就是每个结点$u_i$表示使用 $i$ 次免费通行权限后到达 $u$ 结点。</p>
+<h3 id="拆点">拆点</h3>
+<p>分层图最短路，如：有<span
+class="math inline"><em>k</em></span>次零代价通过一条路径，求总的最小花费。</p>
+<p>同样的，使用状态转移方程，<span
+class="math inline"><em>d</em><em>i</em><em>s</em>[<em>i</em>][<em>j</em>] = min (min (<em>d</em><em>i</em><em>s</em>[from][<em>j</em> − 1]), min (<em>d</em><em>i</em><em>s</em>[from][<em>j</em>] + <em>w</em>))</span></p>
+<p>其中<span
+class="math inline"><em>f</em><em>r</em><em>o</em><em>m</em></span>是<span
+class="math inline"><em>i</em></span>的父亲节点。</p>
+<p>事实上，这个 DP 就相当于把每个结点拆分成了<span
+class="math inline"><em>k</em> + 1</span>个结点，每个新结点代表使用不同多次免费通行后到达的原图结点。换句话说，就是每个结点<span
+class="math inline"><em>u</em><sub><em>i</em></sub></span>表示使用 <span
+class="math inline"><em>i</em></span> 次免费通行权限后到达 <span
+class="math inline"><em>u</em></span> 结点。</p>
 
                 
               </div>
@@ -1205,7 +1439,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 19, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       

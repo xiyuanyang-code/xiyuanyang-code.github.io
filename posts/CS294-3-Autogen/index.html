@@ -28,13 +28,13 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/autogen.jpg">
 <meta property="article:published_time" content="2025-03-07T07:08:36.000Z">
-<meta property="article:modified_time" content="2025-05-18T16:23:22.971Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:35.723Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta property="article:tag" content="Deep Learning">
 <meta property="article:tag" content="Finished">
-<meta property="article:tag" content="Autogen">
 <meta property="article:tag" content="Agent">
+<meta property="article:tag" content="Autogen">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/autogen.jpg">
   
@@ -365,7 +365,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          131 words
+          127 words
         
       </span>
     
@@ -743,46 +743,94 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h1 id="CS294-194-196-Autogen"><a href="#CS294-194-196-Autogen" class="headerlink" title="CS294&#x2F;194-196 Autogen"></a>CS294&#x2F;194-196 Autogen</h1><p>Finally back… So sorry for the updating absence these days.</p>
-<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In nowadays GPT models, which is known as <strong>Generative Large Language Models</strong>, is extremely powerful in <strong>generating new tokens</strong>, including generating texts, images, or even videos. We see the hope of <strong>AGI</strong> (Artificial General Intelligence) coming in the next few years. However, for real-world scenario, there is still plenty of room for improvement in <strong>enhancing the breadth and depth of problem-solving</strong> for large language models.</p>
+<h1 id="cs294194-196-autogen">CS294/194-196 Autogen</h1>
+<p>Finally back… So sorry for the updating absence these days.</p>
+<h2 id="introduction">Introduction</h2>
+<p>In nowadays GPT models, which is known as <strong>Generative Large
+Language Models</strong>, is extremely powerful in <strong>generating
+new tokens</strong>, including generating texts, images, or even videos.
+We see the hope of <strong>AGI</strong> (Artificial General
+Intelligence) coming in the next few years. However, for real-world
+scenario, there is still plenty of room for improvement in
+<strong>enhancing the breadth and depth of problem-solving</strong> for
+large language models.</p>
 <ul>
-<li><strong>For depth</strong>: LLM’s reasoning and reinforcement learning may be the final way out! (We won’t discuss this topic now, you can skip to my another blog focusing on LLM reasoning instead)</li>
-<li><strong>For breadth</strong>: Well, let’s dive deeper into this problem.</li>
+<li><strong>For depth</strong>: LLM’s reasoning and reinforcement
+learning may be the final way out! (We won’t discuss this topic now, you
+can skip to my another blog focusing on LLM reasoning instead)</li>
+<li><strong>For breadth</strong>: Well, let’s dive deeper into this
+problem.</li>
 </ul>
-<p>Assume you want to develop a small program for your study (a program for arranging daily plans, etc). You can you <strong>GPT-4o</strong> or <strong>Deepseek</strong> by using prompt of “Please help me develop a python program to arrange my daily routines and tasks automatically.”</p>
+<p>Assume you want to develop a small program for your study (a program
+for arranging daily plans, etc). You can you <strong>GPT-4o</strong> or
+<strong>Deepseek</strong> by using prompt of “Please help me develop a
+python program to arrange my daily routines and tasks
+automatically.”</p>
 <p>Then models may reply a response like this:</p>
-<p><img src="https://s1.imagehub.cc/images/2025/03/07/b3b864199610be7ceaf0158631223db9.png" srcset="/img/loading.gif" lazyload alt="gpt"></p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/03/07/b3b864199610be7ceaf0158631223db9.png" srcset="/img/loading.gif" lazyload
+alt="gpt" />
+<figcaption aria-hidden="true">gpt</figcaption>
+</figure>
 <blockquote>
-<p>I use <strong>Next-chat</strong> applications by filling my <code>gpt-api-key</code>.</p>
+<p>I use <strong>Next-chat</strong> applications by filling my
+<code>gpt-api-key</code>.</p>
 </blockquote>
-<p>It’s great, but <strong>when the task is becoming more complex</strong>, it’s likely for models to make mistakes. For example, if you ask only one AI model to write a brand new <strong>operating system</strong>, it won’t get a satisfied response.</p>
-<p><img src="https://s1.imagehub.cc/images/2025/03/07/85e76179162461fb85698975d7750dca.png" srcset="/img/loading.gif" lazyload alt="When you help AI to build Large-scale projects..."></p>
-<p><strong>So what’s next</strong>? Enhancing the single performance won’t get too much progress compared to the increasing cost of computing resources. Thus, <strong>multi-agent</strong> is here to implement and solve large-scale developing projects!</p>
-<p>Today, we gonna introduce <code>Autogen</code><sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://github.com/microsoft/autogen">[1]</span></a></sup>, a framework for creating multi-agent AI applications that can act autonomously or work alongside humans. This framework is developed by <strong>Microsoft</strong>.</p>
-<h2 id="Multi-Agent-Orchestration"><a href="#Multi-Agent-Orchestration" class="headerlink" title="Multi-Agent Orchestration"></a>Multi-Agent Orchestration</h2><ul>
-<li>Static &#x2F; Dynamic</li>
-<li>Context Sharing &#x2F; isolation</li>
-<li>Cooperation &#x2F; competition</li>
-<li>Centralized &#x2F; decentralized</li>
-<li>Intervention &#x2F; automation</li>
+<p>It’s great, but <strong>when the task is becoming more
+complex</strong>, it’s likely for models to make mistakes. For example,
+if you ask only one AI model to write a brand new <strong>operating
+system</strong>, it won’t get a satisfied response.</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/03/07/85e76179162461fb85698975d7750dca.png" srcset="/img/loading.gif" lazyload
+alt="When you help AI to build Large-scale projects…" />
+<figcaption aria-hidden="true">When you help AI to build Large-scale
+projects…</figcaption>
+</figure>
+<p><strong>So what’s next</strong>? Enhancing the single performance
+won’t get too much progress compared to the increasing cost of computing
+resources. Thus, <strong>multi-agent</strong> is here to implement and
+solve large-scale developing projects!</p>
+<p>Today, we gonna introduce
+<code>Autogen</code><sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span
+class="hint--top hint--rounded"
+aria-label="https://github.com/microsoft/autogen">[1]</span></a></sup>,
+a framework for creating multi-agent AI applications that can act
+autonomously or work alongside humans. This framework is developed by
+<strong>Microsoft</strong>.</p>
+<h2 id="multi-agent-orchestration">Multi-Agent Orchestration</h2>
+<ul>
+<li>Static / Dynamic</li>
+<li>Context Sharing / isolation</li>
+<li>Cooperation / competition</li>
+<li>Centralized / decentralized</li>
+<li>Intervention / automation</li>
 </ul>
-<h2 id="Agent-Design-Patterns"><a href="#Agent-Design-Patterns" class="headerlink" title="Agent Design Patterns"></a>Agent Design Patterns</h2><ul>
+<h2 id="agent-design-patterns">Agent Design Patterns</h2>
+<ul>
 <li>Conversations</li>
-<li>Prompting &amp; Reasoning<ul>
+<li>Prompting &amp; Reasoning
+<ul>
 <li>React</li>
 <li>Chain of thought</li>
-</ul>
-</li>
+</ul></li>
 <li>Tool use</li>
 <li>Planning</li>
 <li>Integrating multiple models, modalities and memories</li>
 </ul>
-<h2 id="2-Core-Operations"><a href="#2-Core-Operations" class="headerlink" title="2 Core Operations"></a>2 Core Operations</h2><ul>
+<h2 id="core-operations">2 Core Operations</h2>
+<ul>
 <li><strong>Define Agents</strong>: Conversable &amp; Customizable</li>
 <li><strong>Get them to talk</strong>: Conversation Programming</li>
 </ul>
-<h1 id="LlamaIndex"><a href="#LlamaIndex" class="headerlink" title="LlamaIndex"></a>LlamaIndex</h1><h2 id="A-better-Knowledge-Assistant"><a href="#A-better-Knowledge-Assistant" class="headerlink" title="A better Knowledge Assistant"></a>A better Knowledge Assistant</h2><p>Basic Rag use the traditional <strong>Embeddings</strong> methods to split the text into chunks and search the text with the similarity… It is too naive sometimes, leading to the hallucination and moreover, large language models only needs to summarize the given text which is a quite simple task for them.</p>
+<h1 id="llamaindex">LlamaIndex</h1>
+<h2 id="a-better-knowledge-assistant">A better Knowledge Assistant</h2>
+<p>Basic Rag use the traditional <strong>Embeddings</strong> methods to
+split the text into chunks and search the text with the similarity… It
+is too naive sometimes, leading to the hallucination and moreover, large
+language models only needs to summarize the given text which is a quite
+simple task for them.</p>
 <p>So we need a better RAG!</p>
 <ul>
 <li><strong>High-Quality Multi-Modal RAG</strong></li>
@@ -791,36 +839,74 @@
 <li>Towards a scalable, full-stack development.</li>
 </ul>
 <p>Traditional Embedding methods only handle with text messages.</p>
-<h3 id="Setting-up-a-Multi-Modal-RAG"><a href="#Setting-up-a-Multi-Modal-RAG" class="headerlink" title="Setting up a Multi Modal RAG"></a>Setting up a Multi Modal RAG</h3><p>Visual Data…</p>
-<p>We need a LLM-PDF-parser to make the parsing and chunking period, which could decrease the <strong>hallucination</strong> when LLMs are faced with visual data.</p>
-<p><img src="https://s1.imagehub.cc/images/2025/04/06/34a89d11e713bb31c1f1facdc9d48342.png" srcset="/img/loading.gif" lazyload alt="Document Parser"></p>
-<h3 id="Agentic-Reasoning-over-complex-inputs"><a href="#Agentic-Reasoning-over-complex-inputs" class="headerlink" title="Agentic Reasoning over complex inputs"></a>Agentic Reasoning over complex inputs</h3><p>Like the ReAct model</p>
+<h3 id="setting-up-a-multi-modal-rag">Setting up a Multi Modal RAG</h3>
+<p>Visual Data…</p>
+<p>We need a LLM-PDF-parser to make the parsing and chunking period,
+which could decrease the <strong>hallucination</strong> when LLMs are
+faced with visual data.</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/06/34a89d11e713bb31c1f1facdc9d48342.png" srcset="/img/loading.gif" lazyload
+alt="Document Parser" />
+<figcaption aria-hidden="true">Document Parser</figcaption>
+</figure>
+<h3 id="agentic-reasoning-over-complex-inputs">Agentic Reasoning over
+complex inputs</h3>
+<p>Like the ReAct model</p>
 <ul>
 <li>Tool Use</li>
 <li>Planning</li>
 <li>Memory</li>
 <li>Reflection</li>
 </ul>
-<h4 id="Unconstrained-Constrained-Flows"><a href="#Unconstrained-Constrained-Flows" class="headerlink" title="Unconstrained &amp; Constrained Flows"></a>Unconstrained &amp; Constrained Flows</h4><ul>
-<li><p>Constrained Flows</p>
-</li>
-<li><p><img src="https://s1.imagehub.cc/images/2025/04/06/c3d3cff5953222f1b9f16ce683176dde.png" srcset="/img/loading.gif" lazyload alt="Constrained FLows"></p>
+<h4 id="unconstrained-constrained-flows">Unconstrained &amp; Constrained
+Flows</h4>
 <ul>
-<li>We design a <strong>router</strong> based on prompts to let LLM design which tools to use, and then let the LLM reflect on the performance, finally getting the output.</li>
-<li>It is more reliable, but less expressive, because the router will only allocate different tasks to relatively fixed-tool use.</li>
-</ul>
-</li>
-<li><p>Unconstrained Flows</p>
-</li>
-<li><p><img src="https://s1.imagehub.cc/images/2025/04/06/e45c84af30feadaf226fa761aba64512.png" srcset="/img/loading.gif" lazyload alt="Unconstrained Flows"></p>
+<li>Constrained Flows</li>
+<li><figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/06/c3d3cff5953222f1b9f16ce683176dde.png" srcset="/img/loading.gif" lazyload
+alt="Constrained FLows" />
+<figcaption aria-hidden="true">Constrained FLows</figcaption>
+</figure>
 <ul>
-<li><strong>Agent Orchestrator</strong> could decide which tools to use automatically and combine different tools together.</li>
-<li>In this case, you no longer use simple if-else allocation logic, but instead give the agent greater autonomy. This can lead to a heavy reliance on the agent’s capabilities and may result in consequences such as <strong>infinite loops</strong>. (That is why it is <strong>less reliable</strong>)</li>
+<li>We design a <strong>router</strong> based on prompts to let LLM
+design which tools to use, and then let the LLM reflect on the
+performance, finally getting the output.</li>
+<li>It is more reliable, but less expressive, because the router will
+only allocate different tasks to relatively fixed-tool use.</li>
+</ul></li>
+<li>Unconstrained Flows</li>
+<li><figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/06/e45c84af30feadaf226fa761aba64512.png" srcset="/img/loading.gif" lazyload
+alt="Unconstrained Flows" />
+<figcaption aria-hidden="true">Unconstrained Flows</figcaption>
+</figure>
+<ul>
+<li><strong>Agent Orchestrator</strong> could decide which tools to use
+automatically and combine different tools together.</li>
+<li>In this case, you no longer use simple if-else allocation logic, but
+instead give the agent greater autonomy. This can lead to a heavy
+reliance on the agent’s capabilities and may result in consequences such
+as <strong>infinite loops</strong>. (That is why it is <strong>less
+reliable</strong>)</li>
+</ul></li>
 </ul>
+<h2 id="references">References</h2>
+<section class="footnotes">
+<div class="footnote-list">
+<ol>
+<li>
+<span id="fn:1"
+class="footnote-text"><span>https://github.com/microsoft/autogen
+<a href="#fnref:1" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
 </li>
-</ul>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/microsoft/autogen">https://github.com/microsoft/autogen</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+</ol>
+</div>
+</section>
+
                 
               </div>
             
@@ -866,9 +952,9 @@
       
         <a href="/tags/Finished/" class="print-no-link">#Finished</a>
       
-        <a href="/tags/Autogen/" class="print-no-link">#Autogen</a>
-      
         <a href="/tags/Agent/" class="print-no-link">#Agent</a>
+      
+        <a href="/tags/Autogen/" class="print-no-link">#Autogen</a>
       
     </div>
   
@@ -899,7 +985,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 19, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       

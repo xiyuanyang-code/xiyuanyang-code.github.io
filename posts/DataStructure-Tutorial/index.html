@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/datastructure.png">
 <meta property="article:published_time" content="2024-12-15T12:12:17.000Z">
-<meta property="article:modified_time" content="2025-05-18T16:13:13.331Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:37.227Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Finished">
@@ -912,153 +912,173 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h1 id="Data-Structure-Tutorial"><a href="#Data-Structure-Tutorial" class="headerlink" title="Data Structure Tutorial"></a>Data Structure Tutorial</h1><p>在本文将要系统梳理之后笔者将要学习的数据结构的内容，这是笔者<strong>遇到的第一门难度较大且较为重要的专业课程</strong>，将成为笔者2025年的更新重点之一。</p>
-<h2 id="Before-Reading"><a href="#Before-Reading" class="headerlink" title="Before Reading"></a>Before Reading</h2><p>在阅读这一系列博客之前，你需要掌握以下知识：</p>
+<h1 id="data-structure-tutorial">Data Structure Tutorial</h1>
+<p>在本文将要系统梳理之后笔者将要学习的数据结构的内容，这是笔者<strong>遇到的第一门难度较大且较为重要的专业课程</strong>，将成为笔者2025年的更新重点之一。</p>
+<h2 id="before-reading">Before Reading</h2>
+<p>在阅读这一系列博客之前，你需要掌握以下知识：</p>
 <ul>
-<li>C++的基本语法（Necessary！）<ul>
+<li>C++的基本语法（Necessary！）
+<ul>
 <li><strong>面向过程</strong></li>
 <li><strong>面向对象</strong></li>
-</ul>
-</li>
+</ul></li>
 <li>Python的基本语法（Optional）</li>
-<li>掌握一些基本的关于算法的基础知识<ul>
+<li>掌握一些基本的关于算法的基础知识
+<ul>
 <li>递归算法</li>
 <li>迭代算法</li>
 <li><strong>STL的一些基本知识</strong>（会使用一些基本的接口）</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li>入门教材：<a target="_blank" rel="noopener" href="https://www.hello-algo.com/">Hello 算法</a><ul>
+<h2 id="references">References</h2>
+<ul>
+<li>入门教材：<a target="_blank" rel="noopener" href="https://www.hello-algo.com/">Hello 算法</a>
+<ul>
 <li>非常经典且优质的一本教材，有在线学习的网站，并且开源了书中所有代码示例。</li>
 <li>内容相对较少，但是都是基础中的基础，非常适合新手的快速入门，<strong>在一轮过后再深入学习一些更深入的知识</strong>。</li>
-</ul>
-</li>
-<li>主力教材：<strong>《数据结构：思想与实现》——翁慧玉，俞勇</strong><ul>
+</ul></li>
+<li>主力教材：<strong>《数据结构：思想与实现》——翁慧玉，俞勇</strong>
+<ul>
 <li>经典教材！</li>
 <li>但是教材的难度较大，是笔者下学期上课的教材，也会作为更新的重点。</li>
-</ul>
-</li>
-<li>其他参考教材：<ul>
+</ul></li>
+<li>其他参考教材：
+<ul>
 <li>图解算法（<strong>可视化做的很好</strong>）</li>
 <li><strong>《大话数据结构》</strong></li>
 <li><strong>《数据结构和算法分析——C语言描述》</strong></li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <blockquote>
 <p><strong>注：示例代码主要都以C++或者Python代码给出。</strong></p>
 </blockquote>
-<h2 id="What’s-have-been-updated"><a href="#What’s-have-been-updated" class="headerlink" title="What’s have been updated"></a>What’s have been updated</h2><ul>
-<li>导论（在本篇发表之前已经更新）<ul>
+<h2 id="whats-have-been-updated">What’s have been updated</h2>
+<ul>
+<li>导论（在本篇发表之前已经更新）
+<ul>
 <li>数据结构和算法</li>
 <li>算法的时间复杂度，空间复杂度</li>
-</ul>
-</li>
-<li>线性结构<ul>
-<li>线性表<ul>
+</ul></li>
+<li>线性结构
+<ul>
+<li>线性表
+<ul>
 <li>线性表的顺序实现（数组）</li>
 <li>线性表的链接实现（链表）</li>
-</ul>
-</li>
+</ul></li>
 <li>栈</li>
 <li>队列</li>
 <li>字符串</li>
-</ul>
-</li>
-<li>树状结构<ul>
+</ul></li>
+<li>树状结构
+<ul>
 <li>二叉树</li>
 <li>哈夫曼树</li>
 <li>优先级队列</li>
-</ul>
-</li>
-<li>集合结构<ul>
+</ul></li>
+<li>集合结构
+<ul>
 <li>集合与静态查找表</li>
-<li>动态查找表<ul>
+<li>动态查找表
+<ul>
 <li>二叉查找树</li>
 <li>AVL树</li>
 <li>红黑树</li>
 <li>AA树</li>
 <li>伸展树</li>
 <li>散列表（哈希表）</li>
-</ul>
-</li>
-<li><strong>算法应用：排序</strong><ul>
+</ul></li>
+<li><strong>算法应用：排序</strong>
+<ul>
 <li>插入排序</li>
 <li>选择排序</li>
 <li>交换排序</li>
 <li>归并排序</li>
 <li>基数排序</li>
-<li>外部查找和排序<ul>
+<li>外部查找和排序
+<ul>
 <li>B树</li>
 <li>B+树</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>图状结构<ul>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>图状结构
+<ul>
 <li>图</li>
 <li>最小生成树</li>
 <li><strong>算法应用问题：最短路径问题</strong></li>
-</ul>
-</li>
-<li>算法设计基础<ul>
+</ul></li>
+<li>算法设计基础
+<ul>
 <li>枚举法</li>
 <li>贪婪法</li>
 <li>分治法</li>
 <li>动态规划</li>
 <li>回溯法</li>
 <li>随机算法</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h1 id="Introduction-to-Data-structure"><a href="#Introduction-to-Data-structure" class="headerlink" title="Introduction to Data structure"></a>Introduction to Data structure</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><ul>
+<h1 id="introduction-to-data-structure">Introduction to Data
+structure</h1>
+<h2 id="definition">Definition</h2>
+<ul>
 <li>A set of elements</li>
 <li>with specific relations</li>
 <li>the same type of data</li>
 <li><strong>Logic relations and operations</strong></li>
 </ul>
-<p>Data structure, in essence, represents the <strong>abstract simulation of logic relations of different objects</strong>.</p>
+<p>Data structure, in essence, represents the <strong>abstract
+simulation of logic relations of different objects</strong>.</p>
 <ul>
 <li><strong>Set relations</strong> (集合结构)</li>
 <li><strong>Linear relations 1-1</strong> (线性结构)</li>
 <li><strong>Tree relations</strong> (节点一对多，树形结构)</li>
 <li><strong>Graph relations</strong> (节点多对多，图结构)</li>
 </ul>
-<p>The difference between these structures lie in different aspects. For instance, the time and space efficiency for <strong>traverse, insert or other basic operations of elements</strong>.</p>
+<p>The difference between these structures lie in different aspects. For
+instance, the time and space efficiency for <strong>traverse, insert or
+other basic operations of elements</strong>.</p>
 <p>Operations are of great importance for data structure!</p>
-<h2 id="Physical-Structure"><a href="#Physical-Structure" class="headerlink" title="Physical Structure"></a>Physical Structure</h2><p>如图 3-3 所示，<strong>物理结构反映了数据在计算机内存中的存储方式</strong>，可分为连续空间存储（数组）和分散空间存储（链表）。物理结构从底层决定了数据的访问、更新、增删等操作方法，两种物理结构在时间效率和空间效率方面呈现出互补的特点。</p>
-<p><img src="https://www.hello-algo.com/chapter_data_structure/classification_of_data_structure.assets/classification_phisical_structure.png" srcset="/img/loading.gif" lazyload alt="连续空间存储与分散空间存储"></p>
+<h2 id="physical-structure">Physical Structure</h2>
+<p>如图 3-3
+所示，<strong>物理结构反映了数据在计算机内存中的存储方式</strong>，可分为连续空间存储（数组）和分散空间存储（链表）。物理结构从底层决定了数据的访问、更新、增删等操作方法，两种物理结构在时间效率和空间效率方面呈现出互补的特点。</p>
+<figure>
+<img
+src="https://www.hello-algo.com/chapter_data_structure/classification_of_data_structure.assets/classification_phisical_structure.png" srcset="/img/loading.gif" lazyload
+alt="连续空间存储与分散空间存储" />
+<figcaption aria-hidden="true">连续空间存储与分散空间存储</figcaption>
+</figure>
 <p>连续空间存储（数组）</p>
 <ul>
 <li><strong>定义</strong>：连续空间存储是指数据元素在内存中连续排列，数组是这种存储方式的典型代表。</li>
-<li><strong>优点</strong>：<ul>
-<li><strong>快速访问</strong>：由于数组元素是连续存储的，可以通过索引直接访问任意元素，时间复杂度为 O(1)。</li>
+<li><strong>优点</strong>：
+<ul>
+<li><strong>快速访问</strong>：由于数组元素是连续存储的，可以通过索引直接访问任意元素，时间复杂度为
+O(1)。</li>
 <li><strong>空间局部性</strong>：连续存储有助于缓存命中率，因为访问一个元素后，后续访问相邻元素时，可能已经在缓存中。</li>
-</ul>
-</li>
-<li><strong>缺点</strong>：<ul>
-<li><strong>插入和删除操作效率低</strong>：在数组中插入或删除元素通常需要移动其他元素以保持数据的连续性，时间复杂度为 <em>O</em>(<em>n</em>)。</li>
+</ul></li>
+<li><strong>缺点</strong>：
+<ul>
+<li><strong>插入和删除操作效率低</strong>：在数组中插入或删除元素通常需要移动其他元素以保持数据的连续性，时间复杂度为
+<em>O</em>(<em>n</em>)。</li>
 <li><strong>固定大小</strong>：数组的大小在创建时确定，扩展数组的大小需要重新分配内存并复制数据。</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <p>分散空间存储（链表）</p>
 <ul>
 <li><strong>定义</strong>：分散空间存储是指数据元素在内存中不必连续排列，链表是这种存储方式的典型代表。</li>
-<li><strong>优点</strong>：<ul>
+<li><strong>优点</strong>：
+<ul>
 <li><strong>动态大小</strong>：链表可以方便地进行动态内存分配，允许在运行时灵活地增加或减少元素。</li>
-<li><strong>高效插入和删除</strong>：在链表中，插入和删除元素只需调整指针，而不需要移动其他元素，时间复杂度为 <em>O</em>(1)（在已知位置的情况下）。</li>
-</ul>
-</li>
-<li><strong>缺点</strong>：<ul>
-<li><strong>访问速度慢</strong>：由于链表元素存储在非连续的内存位置，访问某个特定元素需要从头遍历链表，时间复杂度为 <em>O</em>(<em>n</em>)。</li>
+<li><strong>高效插入和删除</strong>：在链表中，插入和删除元素只需调整指针，而不需要移动其他元素，时间复杂度为
+<em>O</em>(1)（在已知位置的情况下）。</li>
+</ul></li>
+<li><strong>缺点</strong>：
+<ul>
+<li><strong>访问速度慢</strong>：由于链表元素存储在非连续的内存位置，访问某个特定元素需要从头遍历链表，时间复杂度为
+<em>O</em>(<em>n</em>)。</li>
 <li><strong>额外空间开销</strong>：链表需要额外的存储空间来存储指针（如前驱和后继指针），这增加了内存使用量。</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <p>互补特点</p>
 <ul>
@@ -1067,98 +1087,115 @@
 </ul>
 <p>值得说明的是，<strong>所有数据结构都是基于数组、链表或二者的组合实现的</strong>。例如，栈和队列既可以使用数组实现，也可以使用链表实现；而哈希表的实现可能同时包含数组和链表。</p>
 <ul>
-<li><strong>基于数组可实现</strong>：栈、队列、哈希表、树、堆、图、矩阵、张量（维度 ≥3 的数组）等。</li>
+<li><strong>基于数组可实现</strong>：栈、队列、哈希表、树、堆、图、矩阵、张量（维度
+≥3 的数组）等。</li>
 <li><strong>基于链表可实现</strong>：栈、队列、哈希表、树、堆、图等。</li>
 </ul>
-<p>​    哈希表底层是数组，而为了解决哈希冲突，我们可能会使用“链式地址”（后续“哈希冲突”章节会讲）：数组中每个桶指向一个链表，当链表长度超过一定阈值时，又可能被转化为树（通常为红黑树）。</p>
-<p>​    从存储的角度来看，哈希表的底层是数组，其中每一个桶槽位可能包含一个值，也可能包含一个链表或一棵树。因此，哈希表可能同时包含线性数据结构（数组、链表）和非线性数据结构（树）。</p>
-<h2 id="Storage"><a href="#Storage" class="headerlink" title="Storage"></a>Storage</h2><ul>
+<p>​
+哈希表底层是数组，而为了解决哈希冲突，我们可能会使用“链式地址”（后续“哈希冲突”章节会讲）：数组中每个桶指向一个链表，当链表长度超过一定阈值时，又可能被转化为树（通常为红黑树）。</p>
+<p>​
+从存储的角度来看，哈希表的底层是数组，其中每一个桶槽位可能包含一个值，也可能包含一个链表或一棵树。因此，哈希表可能同时包含线性数据结构（数组、链表）和非线性数据结构（树）。</p>
+<h2 id="storage">Storage</h2>
+<ul>
 <li>Sequential Storage</li>
 <li>Linked Storage</li>
 </ul>
-<p><strong>The two mostly used basic storage implementation of all data-structures.</strong></p>
+<p><strong>The two mostly used basic storage implementation of all
+data-structures.</strong></p>
 <ul>
-<li>Hash storage（散列存储&#x2F;哈希存储）<ul>
+<li>Hash storage（散列存储/哈希存储）
+<ul>
 <li>Especially for set structures</li>
-<li><strong>Ideal</strong>: All nodes lies in a continuous space uniformly.<ul>
+<li><strong>Ideal</strong>: All nodes lies in a continuous space
+uniformly.
+<ul>
 <li><strong>Hash collision</strong> and Hash functions</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Index Storage （索引存储）<ul>
+</ul></li>
+</ul></li>
+<li>Index Storage （索引存储）
+<ul>
 <li>All nodes will be placed in a sequential order.</li>
-<li><strong>An index place to show relations of different nodes.</strong></li>
+<li><strong>An index place to show relations of different
+nodes.</strong></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h1 id="Introduction-to-Algorithm"><a href="#Introduction-to-Algorithm" class="headerlink" title="Introduction to Algorithm"></a>Introduction to Algorithm</h1><p>My personal lecture notes of <a target="_blank" rel="noopener" href="https://www.hello-algo.com/en/">https://www.hello-algo.com/en/</a></p>
-<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><ul>
+<h1 id="introduction-to-algorithm">Introduction to Algorithm</h1>
+<p>My personal lecture notes of https://www.hello-algo.com/en/</p>
+<h2 id="abstract">Abstract</h2>
+<ul>
 <li>迭代与递归</li>
 <li>时间复杂度</li>
 <li>空间复杂度</li>
 <li>数据结构的物理结构</li>
 </ul>
-<h2 id="Algorithm-and-complexity"><a href="#Algorithm-and-complexity" class="headerlink" title="Algorithm and complexity"></a>Algorithm and complexity</h2><p>​    由于实际测试具有较大的局限性，因此我们可以考虑仅通过一些计算来评估算法的效率。这种估算方法被称为渐近复杂度分析（asymptotic complexity analysis），简称复杂度分析。</p>
-<p>​    复杂度分析能够体现算法运行所需的时间和空间资源与输入数据大小之间的关系。<strong>它描述了随着输入数据大小的增加，算法执行所需时间和空间的增长趋势</strong>。这个定义有些拗口，我们可以将其分为三个重点来理解。</p>
+<h2 id="algorithm-and-complexity">Algorithm and complexity</h2>
+<p>​
+由于实际测试具有较大的局限性，因此我们可以考虑仅通过一些计算来评估算法的效率。这种估算方法被称为渐近复杂度分析（asymptotic
+complexity analysis），简称复杂度分析。</p>
+<p>​
+复杂度分析能够体现算法运行所需的时间和空间资源与输入数据大小之间的关系。<strong>它描述了随着输入数据大小的增加，算法执行所需时间和空间的增长趋势</strong>。这个定义有些拗口，我们可以将其分为三个重点来理解。</p>
 <ul>
-<li>“<strong>时间和空间资源</strong>”分别对应时间复杂度（time complexity）和空间复杂度（space complexity）。</li>
+<li>“<strong>时间和空间资源</strong>”分别对应时间复杂度（time
+complexity）和空间复杂度（space complexity）。</li>
 <li>“随着输入数据大小的增加”意味着复杂度反映了算法运行效率与输入数据体量之间的关系。</li>
 <li>“<strong>时间和空间的增长趋势</strong>”表示复杂度分析关注的不是运行时间或占用空间的具体值，而是时间或空间增长的“快慢”。（<strong>一种趋势！</strong>）</li>
 </ul>
-<h3 id="Iteration-and-Recursion"><a href="#Iteration-and-Recursion" class="headerlink" title="Iteration and Recursion"></a>Iteration and Recursion</h3><p><strong>迭代：自下而上，小问题积累成大问题</strong></p>
+<h3 id="iteration-and-recursion">Iteration and Recursion</h3>
+<p><strong>迭代：自下而上，小问题积累成大问题</strong></p>
 <p><strong>递归：自上而下，大问题拆解成小问题</strong></p>
 <p>程序实现重复代码块执行的两种方式：</p>
 <ul>
-<li><p>迭代（for循环，while循环）</p>
-</li>
-<li><p>递归</p>
-</li>
+<li><p>迭代（for循环，while循环）</p></li>
+<li><p>递归</p></li>
 </ul>
-<p>​    递归（recursion）是一种算法策略，通过函数调用自身来解决问题。它主要包含两个阶段。</p>
-<ol>
+<p>​
+递归（recursion）是一种算法策略，通过函数调用自身来解决问题。它主要包含两个阶段。</p>
+<ol type="1">
 <li><strong>递</strong>：程序不断深入地调用自身，通常传入更小或更简化的参数，直到达到“终止条件”。</li>
 <li><strong>归</strong>：触发“终止条件”后，程序从最深层的递归函数开始逐层返回，汇聚每一层的结果。</li>
 </ol>
-<p>​    而从实现的角度看，递归代码主要包含三个要素。</p>
-<ol>
+<p>​ 而从实现的角度看，递归代码主要包含三个要素。</p>
+<ol type="1">
 <li><strong>终止条件</strong>：用于决定什么时候由“递”转“归”。</li>
 <li><strong>递归调用</strong>：对应“递”，函数调用自身，通常输入更小或更简化的参数。</li>
 <li><strong>返回结果</strong>：对应“归”，将当前递归层级的结果返回至上一层。</li>
 </ol>
 <p><strong>有关递归的时间问题和空间问题</strong></p>
-<p>​    递归函数每次调用自身时，系统都会为新开启的函数分配内存，以存储局部变量、调用地址和其他信息等。这将导致两方面的结果。</p>
+<p>​
+递归函数每次调用自身时，系统都会为新开启的函数分配内存，以存储局部变量、调用地址和其他信息等。这将导致两方面的结果。</p>
 <ul>
-<li><p>函数的上下文数据都存储在称为“<strong>栈帧空间</strong>”的内存区域中，直至函数返回后才会被释放。因此，<strong>递归通常比迭代更加耗费内存空间</strong>。（需要控制递归深度，否则过深的递归会导致栈的溢出错误）</p>
-</li>
-<li><p><strong>有关栈帧空间</strong>：</p>
-</li>
+<li><p>函数的上下文数据都存储在称为“<strong>栈帧空间</strong>”的内存区域中，直至函数返回后才会被释放。因此，<strong>递归通常比迭代更加耗费内存空间</strong>。（需要控制递归深度，否则过深的递归会导致栈的溢出错误）</p></li>
+<li><p><strong>有关栈帧空间</strong>：</p></li>
 <li><p>栈帧空间是指在程序执行过程中，为每个函数调用分配的一块内存区域，用于存储该函数的局部变量、参数、返回地址以及其他控制信息。每次函数被调用时，都会在调用栈上创建一个新的栈帧，这个栈帧的生命周期与函数的执行周期相同。</p>
-<ol>
+<ol type="1">
 <li><strong>返回地址</strong>：当函数调用完成后，程序需要知道从哪里继续执行，因此返回地址会被压入栈帧中。</li>
 <li><strong>参数</strong>：函数调用时传递给被调用函数的参数也会存储在栈帧中。</li>
 <li><strong>局部变量</strong>：函数内部定义的局部变量会占用栈帧空间。</li>
 <li><strong>控制信息</strong>：包括指向上一个栈帧的指针（帧指针），用于维护调用链。</li>
 </ol>
-<p>  <strong>栈帧的工作机制</strong></p>
+<p><strong>栈帧的工作机制</strong></p>
 <ul>
 <li><strong>入栈</strong>：当一个函数被调用时，首先将参数和返回地址压入栈中，然后分配空间给局部变量，形成新的栈帧。</li>
 <li><strong>出栈</strong>：当函数执行完毕时，局部变量和参数的空间被释放，返回地址被弹出，程序控制流转回调用该函数的位置。</li>
 </ul>
-<p>  <strong>栈帧的优点</strong></p>
+<p><strong>栈帧的优点</strong></p>
 <ul>
 <li><strong>自动管理</strong>：栈帧由系统自动管理，无需手动分配和释放内存。</li>
 <li><strong>高效性</strong>：由于栈的后进先出特性，内存分配和释放速度非常快。</li>
-</ul>
-</li>
-<li><p>递归调用函数会产生额外的开销。<strong>因此递归通常比循环的时间效率更低</strong>。</p>
-</li>
-<li><p><strong>使用尾递归</strong>可以优化递归的效率（系统无需保存函数上一级的上下文）</p>
-</li>
+</ul></li>
+<li><p>递归调用函数会产生额外的开销。<strong>因此递归通常比循环的时间效率更低</strong>。</p></li>
+<li><p><strong>使用尾递归</strong>可以优化递归的效率（系统无需保存函数上一级的上下文）</p></li>
 </ul>
 <p><strong>有关递归树</strong></p>
-<p>我们在函数内递归调用了两个函数，<strong>这意味着从一个调用产生了两个调用分支</strong>。如图 2-6 所示，这样不断递归调用下去，最终将产生一棵层数为 n 的递归树（recursion tree）。</p>
-<p><img src="https://www.hello-algo.com/chapter_computational_complexity/iteration_and_recursion.assets/recursion_tree.png" srcset="/img/loading.gif" lazyload alt="斐波那契数列的递归树"></p>
+<p>我们在函数内递归调用了两个函数，<strong>这意味着从一个调用产生了两个调用分支</strong>。如图
+2-6 所示，这样不断递归调用下去，最终将产生一棵层数为 n
+的递归树（recursion tree）。</p>
+<figure>
+<img
+src="https://www.hello-algo.com/chapter_computational_complexity/iteration_and_recursion.assets/recursion_tree.png" srcset="/img/loading.gif" lazyload
+alt="斐波那契数列的递归树" />
+<figcaption aria-hidden="true">斐波那契数列的递归树</figcaption>
+</figure>
 <blockquote>
 <p>这种递归树可以达到指数阶的时间复杂度。</p>
 </blockquote>
@@ -1171,36 +1208,44 @@
 <p><strong>迭代和递归的本质与内在联系</strong></p>
 <p>以上述递归函数为例，求和操作在递归的“归”阶段进行。这意味着<strong>最初被调用的函数实际上是最后完成其求和操作</strong>的，<strong>这种工作机制与栈的“先入后出”原则异曲同工</strong>。</p>
 <p>事实上，“<strong>调用栈</strong>”和“<strong>栈帧空间</strong>”这类递归术语已经暗示了递归与栈之间的密切关系。</p>
-<ol>
+<ol type="1">
 <li><strong>递</strong>：当函数被调用时，系统会在“调用栈”上为该函数分配新的栈帧，用于<strong>存储函数的局部变量、参数、返回地址</strong>等数据。</li>
 <li><strong>归</strong>：当函数完成执行并返回时，对应的栈帧会被从“调用栈”上移除，恢复之前函数的执行环境。</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">for_loop_recur</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;使用迭代模拟递归&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 使用一个显式的栈来模拟系统调用栈</span><br>    stack = []<br>    res = <span class="hljs-number">0</span><br>    <span class="hljs-comment"># 递：递归调用</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n, <span class="hljs-number">0</span>, -<span class="hljs-number">1</span>):<br>        <span class="hljs-comment"># 通过“入栈操作”模拟“递”</span><br>        stack.append(i)<br>    <span class="hljs-comment"># 归：返回结果</span><br>    <span class="hljs-keyword">while</span> stack:<br>        <span class="hljs-comment"># 通过“出栈操作”模拟“归”</span><br>        res += stack.pop()<br>    <span class="hljs-comment"># res = 1+2+3+...+n</span><br>    <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
-
-<h3 id="Time-complexity"><a href="#Time-complexity" class="headerlink" title="Time complexity"></a>Time complexity</h3><ul>
+<h3 id="time-complexity">Time complexity</h3>
+<ul>
 <li><strong>常数</strong>时间复杂度</li>
 <li><strong>线性</strong>时间复杂度</li>
 <li><strong>平方</strong>时间复杂度</li>
-<li><strong>指数阶</strong>时间复杂度<ul>
+<li><strong>指数阶</strong>时间复杂度
+<ul>
 <li>递归树的一分为二</li>
-</ul>
-</li>
-<li><strong>对数阶</strong>时间复杂度<ul>
+</ul></li>
+<li><strong>对数阶</strong>时间复杂度
+<ul>
 <li>每轮缩减到一半</li>
 <li>也会出现在递归树中（经典例题：快速幂计算）</li>
-</ul>
-</li>
+</ul></li>
 <li><strong>线性对数阶</strong>时间复杂度（<code>O(nlogn)</code>）</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">linear_log_recur</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;线性对数阶&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> n &lt;= <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>    <span class="hljs-comment"># 一分为二，子问题的规模减小一半</span><br>    count = linear_log_recur(n // <span class="hljs-number">2</span>) + linear_log_recur(n // <span class="hljs-number">2</span>)<br>    <span class="hljs-comment"># 与C++不同，//表示地板出发（整数截断）</span><br>    <span class="hljs-comment"># 当前子问题包含 n 个操作</span><br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>        count += <span class="hljs-number">1</span><br>    <span class="hljs-comment"># 代表当前需要执行的n次操作</span><br>    <span class="hljs-keyword">return</span> count<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://www.hello-algo.com/chapter_computational_complexity/time_complexity.assets/time_complexity_logarithmic_linear.png" srcset="/img/loading.gif" lazyload alt="线性对数阶的时间复杂度"></p>
+<figure>
+<img
+src="https://www.hello-algo.com/chapter_computational_complexity/time_complexity.assets/time_complexity_logarithmic_linear.png" srcset="/img/loading.gif" lazyload
+alt="线性对数阶的时间复杂度" />
+<figcaption aria-hidden="true">线性对数阶的时间复杂度</figcaption>
+</figure>
 <ul>
 <li><strong>阶乘阶</strong>时间复杂度</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">factorial_recur</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;阶乘阶（递归实现）&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>    count = <span class="hljs-number">0</span><br>    <span class="hljs-comment"># 从 1 个分裂出 n 个</span><br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>        count += factorial_recur(n - <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> count<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://www.hello-algo.com/chapter_computational_complexity/time_complexity.assets/time_complexity_factorial.png" srcset="/img/loading.gif" lazyload alt="阶乘阶的时间复杂度"></p>
+<figure>
+<img
+src="https://www.hello-algo.com/chapter_computational_complexity/time_complexity.assets/time_complexity_factorial.png" srcset="/img/loading.gif" lazyload
+alt="阶乘阶的时间复杂度" />
+<figcaption aria-hidden="true">阶乘阶的时间复杂度</figcaption>
+</figure>
 <p>时间复杂度的分类：</p>
 <ul>
 <li>最差时间复杂度</li>
@@ -1213,35 +1258,48 @@
 <li>平均时间复杂度</li>
 </ul>
 <blockquote>
-<p><strong>The essence of time complexity</strong> lies in not considering the specific runtime function, but rather focusing only on the order of the runtime function. This is because, when the data size is large, the highest-order term of the time function dominates the overall trend.</p>
+<p><strong>The essence of time complexity</strong> lies in not
+considering the specific runtime function, but rather focusing only on
+the order of the runtime function. This is because, when the data size
+is large, the highest-order term of the time function dominates the
+overall trend.</p>
 </blockquote>
-<h4 id="Symbolic-representation-of-time-complexity"><a href="#Symbolic-representation-of-time-complexity" class="headerlink" title="Symbolic representation of time complexity"></a>Symbolic representation of time complexity</h4><p>时间复杂度的符号表示法主要有三种：<code>O</code>、<code>Ω</code> 和 <code>Θ</code>，它们分别表示算法在不同情况下的性能表现。</p>
-<ol>
-<li><strong>大 O 表示法 (O(f(n)))</strong>：<ul>
+<h4 id="symbolic-representation-of-time-complexity">Symbolic
+representation of time complexity</h4>
+<p>时间复杂度的符号表示法主要有三种：<code>O</code>、<code>Ω</code> 和
+<code>Θ</code>，它们分别表示算法在不同情况下的性能表现。</p>
+<ol type="1">
+<li><strong>大 O 表示法 (O(f(n)))</strong>：
+<ul>
 <li>描述：表示算法在<strong>最坏情况下的时间复杂度</strong>。</li>
 <li>用途：用于描述算法的上界，即算法的执行时间不会超过某个函数的增长速度。</li>
-<li>示例：如果一个算法的时间复杂度是 (O(n^2))，意味着在最坏情况下，算法的执行时间最多是输入规模的平方。</li>
-</ul>
-</li>
-<li><strong>大 Ω 表示法 (Ω(f(n)))</strong>：<ul>
+<li>示例：如果一个算法的时间复杂度是
+(O(n^2))，意味着在最坏情况下，算法的执行时间最多是输入规模的平方。</li>
+</ul></li>
+<li><strong>大 Ω 表示法 (Ω(f(n)))</strong>：
+<ul>
 <li>描述：表示算法在<strong>最好情况下的时间复杂度</strong>。</li>
 <li>用途：用于描述算法的下界，即算法的执行时间至少是某个函数的增长速度。</li>
-<li>示例：如果一个算法的时间复杂度是 (Ω(n))，意味着在最好情况下，算法的执行时间至少是输入规模的线性增长。</li>
-</ul>
-</li>
-<li><strong>大 Θ 表示法 (Θ(f(n)))</strong>：<ul>
+<li>示例：如果一个算法的时间复杂度是
+(Ω(n))，意味着在最好情况下，算法的执行时间至少是输入规模的线性增长。</li>
+</ul></li>
+<li><strong>大 Θ 表示法 (Θ(f(n)))</strong>：
+<ul>
 <li>描述：表示算法在<strong>平均情况下的时间复杂度</strong>。</li>
 <li>用途：用于描述算法的确界，即算法的执行时间既不会超过某个函数的上界，也不会低于某个函数的下界。</li>
-<li>示例：如果一个算法的时间复杂度是 (Θ(n \log n))，意味着在所有情况下，算法的执行时间大致是输入规模的 (n \log n) 级别。</li>
-<li><strong>Explanation in Maths</strong>: exits c1, c2 and N0, when N &gt; N0, c1*F(N) &lt;&#x3D; T(n) &lt;&#x3D; c2*F(N)</li>
-</ul>
-</li>
-<li><strong>小o表示法</strong>:<ul>
+<li>示例：如果一个算法的时间复杂度是 (Θ(n
+n))，意味着在所有情况下，算法的执行时间大致是输入规模的 (n n)
+级别。</li>
+<li><strong>Explanation in Maths</strong>: exits c1, c2 and N0, when N
+&gt; N0, c1*F(N) &lt;= T(n) &lt;= c2*F(N)</li>
+</ul></li>
+<li><strong>小o表示法</strong>:
+<ul>
 <li>T(N) 是 Ω(F(N)) and T(N) 不是 Θ(F(N))</li>
-</ul>
-</li>
+</ul></li>
 </ol>
-<h3 id="Space-complexity"><a href="#Space-complexity" class="headerlink" title="Space complexity"></a>Space complexity</h3><p>算法在运行过程中使用的内存空间主要包括以下几种。</p>
+<h3 id="space-complexity">Space complexity</h3>
+<p>算法在运行过程中使用的内存空间主要包括以下几种。</p>
 <ul>
 <li><strong>输入空间</strong>：用于存储算法的输入数据。</li>
 <li><strong>暂存空间</strong>：用于存储算法在运行过程中的变量、对象、函数上下文等数据。</li>
@@ -1256,8 +1314,8 @@
 </ul>
 <p>在分析一段程序的空间复杂度时，<strong>我们通常统计暂存数据、栈帧空间和输出数据三部分</strong>。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Node</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;类&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, x: <span class="hljs-built_in">int</span></span>):<br>        <span class="hljs-variable language_">self</span>.val: <span class="hljs-built_in">int</span> = x              <span class="hljs-comment"># 节点值</span><br>        <span class="hljs-variable language_">self</span>.<span class="hljs-built_in">next</span>: Node | <span class="hljs-literal">None</span> = <span class="hljs-literal">None</span>  <span class="hljs-comment"># 指向下一节点的引用</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">function</span>() -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;函数&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 执行某些操作...</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">algorithm</span>(<span class="hljs-params">n</span>) -&gt; <span class="hljs-built_in">int</span>:  <span class="hljs-comment"># 输入数据</span><br>    A = <span class="hljs-number">0</span>                 <span class="hljs-comment"># 暂存数据（常量，一般用大写字母表示）</span><br>    b = <span class="hljs-number">0</span>                 <span class="hljs-comment"># 暂存数据（变量）</span><br>    node = Node(<span class="hljs-number">0</span>)        <span class="hljs-comment"># 暂存数据（对象）</span><br>    c = function()        <span class="hljs-comment"># 栈帧空间（调用函数）</span><br>    <span class="hljs-keyword">return</span> A + b + c      <span class="hljs-comment"># 输出数据</span><br></code></pre></td></tr></table></figure>
-
-<p>​    而与时间复杂度不同的是，<strong>我们通常只关注最差空间复杂度</strong>。这是因为内存空间是一项硬性要求，我们必须确保在所有输入数据下都有足够的内存空间预留。</p>
+<p>​
+而与时间复杂度不同的是，<strong>我们通常只关注最差空间复杂度</strong>。这是因为内存空间是一项硬性要求，我们必须确保在所有输入数据下都有足够的内存空间预留。</p>
 <ul>
 <li>以最差输入数据为准</li>
 <li>以算法运行的<strong>峰值内存</strong>（注意不是累积量）为准</li>
@@ -1267,86 +1325,98 @@
 <li><p>常数阶空间复杂度</p>
 <ul>
 <li>在循环中初始化变量或调用函数而占用的内存，在进入下一循环后就会被释放，因此不会累积占用空间，空间复杂度还是<code>O(1)</code>。</li>
-</ul>
-</li>
+</ul></li>
 <li><p>线性阶空间复杂度</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">linear</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;线性阶&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 长度为 n 的列表占用 O(n) 空间</span><br>    nums = [<span class="hljs-number">0</span>] * n<br>    <span class="hljs-comment"># 长度为 n 的哈希表占用 O(n) 空间</span><br>    hmap = <span class="hljs-built_in">dict</span>[<span class="hljs-built_in">int</span>, <span class="hljs-built_in">str</span>]()<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>        hmap[i] = <span class="hljs-built_in">str</span>(i)<br></code></pre></td></tr></table></figure>
-
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">linear_recur</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;线性阶（递归实现）&quot;&quot;&quot;</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;递归 n =&quot;</span>, n)<br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span><br>    linear_recur(n - <span class="hljs-number">1</span>)<br>    <span class="hljs-comment"># 在达到最深的递归深度的时候，会有n个变量n（涉及到局部变量）</span><br></code></pre></td></tr></table></figure>
-</li>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">linear</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;线性阶&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 长度为 n 的列表占用 O(n) 空间</span><br>    nums = [<span class="hljs-number">0</span>] * n<br>    <span class="hljs-comment"># 长度为 n 的哈希表占用 O(n) 空间</span><br>    hmap = <span class="hljs-built_in">dict</span>[<span class="hljs-built_in">int</span>, <span class="hljs-built_in">str</span>]()<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>        hmap[i] = <span class="hljs-built_in">str</span>(i)<br></code></pre></td></tr></table></figure></p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">linear_recur</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;线性阶（递归实现）&quot;&quot;&quot;</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;递归 n =&quot;</span>, n)<br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span><br>    linear_recur(n - <span class="hljs-number">1</span>)<br>    <span class="hljs-comment"># 在达到最深的递归深度的时候，会有n个变量n（涉及到局部变量）</span><br></code></pre></td></tr></table></figure></p></li>
 <li><p>平方阶空间复杂度</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">quadratic</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;平方阶&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 二维列表占用 O(n^2) 空间</span><br>    num_matrix = [[<span class="hljs-number">0</span>] * n <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)]<br></code></pre></td></tr></table></figure>
-
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">quadratic</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;平方阶&quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 二维列表占用 O(n^2) 空间</span><br>    num_matrix = [[<span class="hljs-number">0</span>] * n <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)]<br></code></pre></td></tr></table></figure></p>
 <ul>
 <li><p><code>num_matrix</code>：这是一个变量名，用于存储生成的二维矩阵。</p>
-<p>  <code>[[0] * n for _ in range(n)]</code>：这是一个列表生成式，用于创建一个包含 <code>n</code> 个子列表的列表，每个子列表包含 <code>n</code> 个元素。</p>
+<p><code>[[0] * n for _ in range(n)]</code>：这是一个列表生成式，用于创建一个包含
+<code>n</code> 个子列表的列表，每个子列表包含 <code>n</code>
+个元素。</p>
 <ul>
-<li><code>[0] * n</code>：这一部分创建一个包含 <code>n</code> 个 <code>0</code> 的列表。例如，如果 <code>n</code> 是 <code>3</code>，则生成 <code>[0, 0, 0]</code>。</li>
-<li><code>for _ in range(n)</code>：这一部分用于重复创建上述的子列表 <code>n</code> 次。<code>_</code> 是一个惯用的变量名，表示循环变量在循环体内未被使用。</li>
+<li><code>[0] * n</code>：这一部分创建一个包含 <code>n</code> 个
+<code>0</code> 的列表。例如，如果 <code>n</code> 是
+<code>3</code>，则生成 <code>[0, 0, 0]</code>。</li>
+<li><code>for _ in range(n)</code>：这一部分用于重复创建上述的子列表
+<code>n</code> 次。<code>_</code>
+是一个惯用的变量名，表示循环变量在循环体内未被使用。</li>
 </ul>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">quadratic_recur</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;平方阶（递归实现）&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> n &lt;= <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    <span class="hljs-comment"># 数组 nums 长度为 n, n-1, ..., 2, 1</span><br>    nums = [<span class="hljs-number">0</span>] * n<br>    <span class="hljs-keyword">return</span> quadratic_recur(n - <span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure></li>
-</ul>
-</li>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">quadratic_recur</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;平方阶（递归实现）&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> n &lt;= <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    <span class="hljs-comment"># 数组 nums 长度为 n, n-1, ..., 2, 1</span><br>    nums = [<span class="hljs-number">0</span>] * n<br>    <span class="hljs-keyword">return</span> quadratic_recur(n - <span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure></p></li>
+</ul></li>
 <li><p>指数阶空间复杂度（二叉树）</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">build_tree</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>) -&gt; TreeNode | <span class="hljs-literal">None</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;指数阶（建立满二叉树）&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>    root = TreeNode(<span class="hljs-number">0</span>)<br>    root.left = build_tree(n - <span class="hljs-number">1</span>)<br>    root.right = build_tree(n - <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> root<br></code></pre></td></tr></table></figure>
-
-<p>  <img src="https://www.hello-algo.com/chapter_computational_complexity/space_complexity.assets/space_complexity_exponential.png" srcset="/img/loading.gif" lazyload alt="满二叉树产生的指数阶空间复杂度"></p>
-</li>
-<li><p>对数阶空间复杂度</p>
-</li>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">build_tree</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>) -&gt; TreeNode | <span class="hljs-literal">None</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;指数阶（建立满二叉树）&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>    root = TreeNode(<span class="hljs-number">0</span>)<br>    root.left = build_tree(n - <span class="hljs-number">1</span>)<br>    root.right = build_tree(n - <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> root<br></code></pre></td></tr></table></figure></p>
+<figure>
+<img
+src="https://www.hello-algo.com/chapter_computational_complexity/space_complexity.assets/space_complexity_exponential.png" srcset="/img/loading.gif" lazyload
+alt="满二叉树产生的指数阶空间复杂度" />
+<figcaption
+aria-hidden="true">满二叉树产生的指数阶空间复杂度</figcaption>
+</figure></li>
+<li><p>对数阶空间复杂度</p></li>
 </ul>
-<p>对数阶空间复杂度（(O(\log n))）在算法中并不如其他复杂度（如常数、线性、平方等）常见，因为对数阶通常与递归深度相关联。以下是一些可能具有对数阶空间复杂度的常见算法和场景：</p>
-<ol>
+<p>对数阶空间复杂度（(O(n))）在算法中并不如其他复杂度（如常数、线性、平方等）常见，因为对数阶通常与递归深度相关联。以下是一些可能具有对数阶空间复杂度的常见算法和场景：</p>
+<ol type="1">
 <li><p><strong>递归算法</strong>：</p>
 <ul>
-<li><strong>二分查找</strong>：在递归实现中，二分查找的空间复杂度是 (O(\log n))，因为递归调用栈的深度是对数级别的。</li>
-<li><strong>快速排序</strong>：在最优情况下（即每次分区都能将数组均匀分割），快速排序的递归深度是 (O(\log n))，因此空间复杂度也是 (O(\log n))。</li>
-<li><strong>归并排序</strong>：尽管归并排序的时间复杂度是 (O(n \log n))，其递归实现的空间复杂度可以是 (O(\log n))（不包括用于存储结果的额外数组）。</li>
+<li><strong>二分查找</strong>：在递归实现中，二分查找的空间复杂度是
+(O(n))，因为递归调用栈的深度是对数级别的。</li>
+<li><strong>快速排序</strong>：在最优情况下（即每次分区都能将数组均匀分割），快速排序的递归深度是
+(O(n))，因此空间复杂度也是 (O(n))。</li>
+<li><strong>归并排序</strong>：尽管归并排序的时间复杂度是 (O(n
+n))，其递归实现的空间复杂度可以是
+(O(n))（不包括用于存储结果的额外数组）。</li>
 </ul>
-<h3 id="快速排序（Quick-Sort）"><a href="#快速排序（Quick-Sort）" class="headerlink" title="快速排序（Quick Sort）"></a>快速排序（Quick Sort）</h3><p> 快速排序是一种分而治之的排序算法。它的基本思想是选择一个基准元素（pivot），然后将数组分成两个子数组，一个包含所有小于基准元素的元素，另一个包含所有大于基准元素的元素，然后递归地对这两个子数组进行排序。</p>
- <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">quick_sort</span>(<span class="hljs-params">arr</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(arr) &lt;= <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span> arr<br>    <span class="hljs-keyword">else</span>:<br>        pivot = arr[<span class="hljs-built_in">len</span>(arr) // <span class="hljs-number">2</span>]<br>        left = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> arr <span class="hljs-keyword">if</span> x &lt; pivot]<br>        middle = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> arr <span class="hljs-keyword">if</span> x == pivot]<br>        right = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> arr <span class="hljs-keyword">if</span> x &gt; pivot]<br>        <span class="hljs-keyword">return</span> quick_sort(left) + middle + quick_sort(right)<br><br><span class="hljs-comment"># 示例使用</span><br>arr = [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">10</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Original array:&quot;</span>, arr)<br>sorted_arr = quick_sort(arr)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Sorted array:&quot;</span>, sorted_arr)<br></code></pre></td></tr></table></figure>
-
-<h3 id="归并排序（Merge-Sort）"><a href="#归并排序（Merge-Sort）" class="headerlink" title="归并排序（Merge Sort）"></a>归并排序（Merge Sort）</h3><p> 归并排序也是一种分而治之的排序算法。它的基本思想是将数组分成两个子数组，对这两个子数组分别进行排序，然后将排序后的子数组合并成一个有序的数组。</p>
- <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">merge_sort</span>(<span class="hljs-params">arr</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(arr) &lt;= <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span> arr<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">merge</span>(<span class="hljs-params">left, right</span>):<br>        result = []<br>        i = j = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span> i &lt; <span class="hljs-built_in">len</span>(left) <span class="hljs-keyword">and</span> j &lt; <span class="hljs-built_in">len</span>(right):<br>            <span class="hljs-keyword">if</span> left[i] &lt; right[j]:<br>                result.append(left[i])<br>                i += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                result.append(right[j])<br>                j += <span class="hljs-number">1</span><br>        result.extend(left[i:])<br>        result.extend(right[j:])<br>        <span class="hljs-keyword">return</span> result<br><br>    mid = <span class="hljs-built_in">len</span>(arr) // <span class="hljs-number">2</span><br>    left = merge_sort(arr[:mid])<br>    right = merge_sort(arr[mid:])<br>    <span class="hljs-keyword">return</span> merge(left, right)<br><br><span class="hljs-comment"># 示例使用</span><br>arr = [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">10</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Original array:&quot;</span>, arr)<br>sorted_arr = merge_sort(arr)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Sorted array:&quot;</span>, sorted_arr)<br></code></pre></td></tr></table></figure>
-
-<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><ul>
+<p>### 快速排序（Quick Sort）</p>
+<p>快速排序是一种分而治之的排序算法。它的基本思想是选择一个基准元素（pivot），然后将数组分成两个子数组，一个包含所有小于基准元素的元素，另一个包含所有大于基准元素的元素，然后递归地对这两个子数组进行排序。</p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">quick_sort</span>(<span class="hljs-params">arr</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(arr) &lt;= <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span> arr<br>    <span class="hljs-keyword">else</span>:<br>        pivot = arr[<span class="hljs-built_in">len</span>(arr) // <span class="hljs-number">2</span>]<br>        left = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> arr <span class="hljs-keyword">if</span> x &lt; pivot]<br>        middle = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> arr <span class="hljs-keyword">if</span> x == pivot]<br>        right = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> arr <span class="hljs-keyword">if</span> x &gt; pivot]<br>        <span class="hljs-keyword">return</span> quick_sort(left) + middle + quick_sort(right)<br><br><span class="hljs-comment"># 示例使用</span><br>arr = [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">10</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Original array:&quot;</span>, arr)<br>sorted_arr = quick_sort(arr)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Sorted array:&quot;</span>, sorted_arr)<br></code></pre></td></tr></table></figure></p>
+<p>### 归并排序（Merge Sort）</p>
+<p>归并排序也是一种分而治之的排序算法。它的基本思想是将数组分成两个子数组，对这两个子数组分别进行排序，然后将排序后的子数组合并成一个有序的数组。</p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">merge_sort</span>(<span class="hljs-params">arr</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(arr) &lt;= <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span> arr<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">merge</span>(<span class="hljs-params">left, right</span>):<br>        result = []<br>        i = j = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span> i &lt; <span class="hljs-built_in">len</span>(left) <span class="hljs-keyword">and</span> j &lt; <span class="hljs-built_in">len</span>(right):<br>            <span class="hljs-keyword">if</span> left[i] &lt; right[j]:<br>                result.append(left[i])<br>                i += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                result.append(right[j])<br>                j += <span class="hljs-number">1</span><br>        result.extend(left[i:])<br>        result.extend(right[j:])<br>        <span class="hljs-keyword">return</span> result<br><br>    mid = <span class="hljs-built_in">len</span>(arr) // <span class="hljs-number">2</span><br>    left = merge_sort(arr[:mid])<br>    right = merge_sort(arr[mid:])<br>    <span class="hljs-keyword">return</span> merge(left, right)<br><br><span class="hljs-comment"># 示例使用</span><br>arr = [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">10</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Original array:&quot;</span>, arr)<br>sorted_arr = merge_sort(arr)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Sorted array:&quot;</span>, sorted_arr)<br></code></pre></td></tr></table></figure></p>
+<p>### 说明</p>
+<ul>
 <li><p><strong>快速排序</strong>：</p>
 <ul>
 <li>选择一个基准元素（pivot）。</li>
 <li>将数组分成三个部分：小于基准的部分、等于基准的部分和大于基准的部分。</li>
 <li>递归地对小于基准和大于基准的部分进行排序。</li>
 <li>合并结果。</li>
-</ul>
-</li>
+</ul></li>
 <li><p><strong>归并排序</strong>：</p>
 <ul>
 <li>将数组分成两半。</li>
 <li>递归地对每一半进行排序。</li>
 <li>合并两个排序后的子数组。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<p> 这两种排序算法都是经典的分而治之算法，具有较好的性能和广泛的应用。</p>
-</li>
+<p>这两种排序算法都是经典的分而治之算法，具有较好的性能和广泛的应用。</p></li>
 <li><p><strong>平衡树的数据结构</strong>：</p>
 <ul>
-<li><strong>平衡二叉搜索树（如 AVL 树、红黑树）</strong>：这些数据结构在执行插入、删除和查找操作时的递归深度通常是 (O(\log n))，因此在某些实现中，可能会有 (O(\log n)) 的空间复杂度，主要用于递归调用栈。</li>
-</ul>
-</li>
+<li><strong>平衡二叉搜索树（如 AVL
+树、红黑树）</strong>：这些数据结构在执行插入、删除和查找操作时的递归深度通常是
+(O(n))，因此在某些实现中，可能会有 (O(n))
+的空间复杂度，主要用于递归调用栈。</li>
+</ul></li>
 <li><p><strong>迭代算法</strong>：</p>
 <ul>
-<li>某些迭代算法在实现中可能会使用一个栈来模拟递归，从而使得其空间复杂度为 (O(\log n))。例如，某些树遍历算法在深度优先搜索时可能使用栈来存储路径信息。</li>
-</ul>
-</li>
+<li>某些迭代算法在实现中可能会使用一个栈来模拟递归，从而使得其空间复杂度为
+(O(n))。例如，某些树遍历算法在深度优先搜索时可能使用栈来存储路径信息。</li>
+</ul></li>
 </ol>
-<p>需要注意的是，空间复杂度为 (O(\log n)) 的算法通常涉及递归调用或需要存储某些对数数量的信息。这种复杂度通常与算法的递归深度或树结构的高度相关。</p>
+<p>需要注意的是，空间复杂度为 (O(n))
+的算法通常涉及递归调用或需要存储某些对数数量的信息。这种复杂度通常与算法的递归深度或树结构的高度相关。</p>
 <p><strong>循环与递归在空间复杂度上的差异</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">function</span>() -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-comment"># 执行某些操作</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">loop</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;循环的空间复杂度为 O(1)&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>        function()<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">recur</span>(<span class="hljs-params">n: <span class="hljs-built_in">int</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;递归的空间复杂度为 O(n)&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span><br>    <span class="hljs-keyword">return</span> recur(n - <span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
-
-<p>函数 <code>loop()</code> 和 <code>recur()</code> 的时间复杂度都为 O(n) ，但空间复杂度不同。</p>
+<p>函数 <code>loop()</code> 和 <code>recur()</code> 的时间复杂度都为
+O(n) ，但空间复杂度不同。</p>
 <ul>
-<li>函数 <code>loop()</code> 在循环中调用了 n 次 <code>function()</code> ，每轮中的 <code>function()</code> 都返回并释放了栈帧空间，因此空间复杂度仍为 O(1) 。</li>
-<li>递归函数 <code>recur()</code> 在运行过程中会同时存在 n 个未返回的 <code>recur()</code> ，从而占用 O(n) 的栈帧空间。</li>
+<li>函数 <code>loop()</code> 在循环中调用了 n 次 <code>function()</code>
+，每轮中的 <code>function()</code>
+都返回并释放了栈帧空间，因此空间复杂度仍为 O(1) 。</li>
+<li>递归函数 <code>recur()</code> 在运行过程中会同时存在 n 个未返回的
+<code>recur()</code> ，从而占用 O(n) 的栈帧空间。</li>
 </ul>
 
                 
@@ -1425,7 +1495,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 19, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       

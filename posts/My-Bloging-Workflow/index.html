@@ -30,8 +30,8 @@
 <meta property="article:published_time" content="2025-07-11T02:45:48.000Z">
 <meta property="article:modified_time" content="2025-07-11T04:02:43.901Z">
 <meta property="article:author" content="Xiyuan Yang">
-<meta property="article:tag" content="Workflow">
 <meta property="article:tag" content="CI &amp; CD">
+<meta property="article:tag" content="Workflow">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/cicd.png">
   
@@ -435,80 +435,93 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h1 id="My-Bloging-Workflow"><a href="#My-Bloging-Workflow" class="headerlink" title="My Bloging Workflow"></a>My Bloging Workflow</h1><p>笔者因为Windows误操作导致环境变量丢失之后，一怒之下把所有的博客写作和相关小插件的开发环境全部转换到了WSL上（真的是光速转换，WSL的配置非常的简洁干净）。</p>
+<h1 id="my-bloging-workflow">My Bloging Workflow</h1>
+<p>笔者因为Windows误操作导致环境变量丢失之后，一怒之下把所有的博客写作和相关小插件的开发环境全部转换到了WSL上（真的是光速转换，WSL的配置非常的简洁干净）。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">❯ tree -a | grep &quot;\.sh&quot;<br>│   │   ├── auto_push.sh<br>│   │   └── run.sh<br>│   │   ├── autopush.sh<br>│   │   └── run.sh<br>│   │   ├── backup.sh<br>│   │   ├── count.sh<br>│   │   └── fetching.sh<br>│   │   │   │   ├── bash_completion.sh<br></code></pre></td></tr></table></figure>
-
 <p>上面展示了我写的所有的bash脚本，通过bash脚本可以自动化的<strong>集成命令</strong>并且实现一键运行，提高工作效率。</p>
-<h2 id="CI-CD"><a href="#CI-CD" class="headerlink" title="CI&amp;CD"></a>CI&amp;CD</h2><p>Let’s see the definition first!</p>
-<p>In software engineering, CI&#x2F;CD is the combined practices of <strong>continuous integration (CI) and continuous delivery (CD)</strong> or, less often, continuous deployment.They are sometimes referred to collectively as continuous development or continuous software development.</p>
-<h3 id="Continuous-Integration"><a href="#Continuous-Integration" class="headerlink" title="Continuous Integration"></a>Continuous Integration</h3><h4 id="Git-Branches"><a href="#Git-Branches" class="headerlink" title="Git Branches"></a>Git Branches</h4><p>Git协作可以帮助团队进行版本管理和项目进度控制，和简单的个人微开发不同，团队协作开发的代码往往设计多个人的成千上万行代码，并且设计<strong>开发，测试，部署</strong>等等多个环节，因此，<strong>开发者的核心逻辑是</strong>：<strong>写自己的代码</strong> -&gt; <strong>测试部署</strong> -&gt; <strong>合并到某个分支</strong>。分支不止一个，并且存在分级，因此往往会涉及很多轮的测试部署之后这份代码才会进入main branch。</p>
+<h2 id="cicd">CI&amp;CD</h2>
+<p>Let’s see the definition first!</p>
+<p>In software engineering, CI/CD is the combined practices of
+<strong>continuous integration (CI) and continuous delivery
+(CD)</strong> or, less often, continuous deployment.They are sometimes
+referred to collectively as continuous development or continuous
+software development.</p>
+<h3 id="continuous-integration">Continuous Integration</h3>
+<h4 id="git-branches">Git Branches</h4>
+<p>Git协作可以帮助团队进行版本管理和项目进度控制，和简单的个人微开发不同，团队协作开发的代码往往设计多个人的成千上万行代码，并且设计<strong>开发，测试，部署</strong>等等多个环节，因此，<strong>开发者的核心逻辑是</strong>：<strong>写自己的代码</strong>
+-&gt; <strong>测试部署</strong> -&gt;
+<strong>合并到某个分支</strong>。分支不止一个，并且存在分级，因此往往会涉及很多轮的测试部署之后这份代码才会进入main
+branch。</p>
 <div class="note note-primary">
-            <ul><li><p>主分支 (Main&#x2F;Master Branch):</p><ul><li><p>这是项目的核心分支，代表着生产环境中的稳定代码。</p></li><li><p>所有发布到生产环境的代码都应该来自这个分支。</p></li></ul></li><li><p>开发分支 (Develop Branch) - (Git Flow 策略中常见):</p><ul><li><p>如果团队采用 Git Flow 这种相对复杂的策略，develop 分支会作为所有新功能的集成点。</p></li><li><p>所有特性分支最终都会合并到 develop 分支。</p></li><li><p>develop 分支通常会<strong>周期性地合并</strong>到 main 分支进行发布。</p></li></ul></li><li><p>特性分支 (Feature Branches):</p><ul><li><p>为开发每一个新功能或独立任务而创建的短期分支。</p></li><li><p>通常从 main 或 develop 分支创建。</p></li><li><p>命名通常与功能相关，如 feature&#x2F;user-login, feature&#x2F;payment-gateway。</p></li><li><p>当特性开发完成并经过测试后，会合并回 main 或 develop 分支。</p></li></ul></li><li><p>发布分支 (Release Branches) - (Git Flow 策略中常见):</p><ul><li><p>在发布新版本之前，从 develop 分支创建的预发布分支。</p></li><li><p>主要用于冻结功能，进行最后的 Bug 修复、版本号更新和发布前的测试。</p></li><li><p>一旦稳定并发布，它会被<strong>合并回 main 和 develop 分支</strong>（以确保 Bug 修复被带入开发流程）。</p></li></ul></li><li><p>热修复分支 (Hotfix Branches):</p></li><li><p>为了紧急修复生产环境中的 Bug 而创建的短期分支。</p></li><li><p>直接从 main 分支创建，因为需要快速响应生产问题。</p></li><li><p>修复完成后，会合并回 main 分支，并且通常也会合并回 develop 分支，以确保 Bug 修复不被后续开发覆盖</p></li></ul>
+            <ul><li><p>主分支 (Main/Master Branch):</p><ul><li><p>这是项目的核心分支，代表着生产环境中的稳定代码。</p></li><li><p>所有发布到生产环境的代码都应该来自这个分支。</p></li></ul></li><li><p>开发分支 (Develop Branch) - (Git Flow 策略中常见):</p><ul><li><p>如果团队采用 Git Flow 这种相对复杂的策略，develop分支会作为所有新功能的集成点。</p></li><li><p>所有特性分支最终都会合并到 develop 分支。</p></li><li><p>develop 分支通常会<strong>周期性地合并</strong>到 main分支进行发布。</p></li></ul></li><li><p>特性分支 (Feature Branches):</p><ul><li><p>为开发每一个新功能或独立任务而创建的短期分支。</p></li><li><p>通常从 main 或 develop 分支创建。</p></li><li><p>命名通常与功能相关，如 feature/user-login,feature/payment-gateway。</p></li><li><p>当特性开发完成并经过测试后，会合并回 main 或 develop分支。</p></li></ul></li><li><p>发布分支 (Release Branches) - (Git Flow 策略中常见):</p><ul><li><p>在发布新版本之前，从 develop 分支创建的预发布分支。</p></li><li><p>主要用于冻结功能，进行最后的 Bug修复、版本号更新和发布前的测试。</p></li><li><p>一旦稳定并发布，它会被<strong>合并回 main 和 develop分支</strong>（以确保 Bug 修复被带入开发流程）。</p></li></ul></li><li><p>热修复分支 (Hotfix Branches):</p></li><li><p>为了紧急修复生产环境中的 Bug 而创建的短期分支。</p></li><li><p>直接从 main 分支创建，因为需要快速响应生产问题。</p></li><li><p>修复完成后，会合并回 main 分支，并且通常也会合并回 develop分支，以确保 Bug 修复不被后续开发覆盖</p></li></ul>
           </div>
-
-<h4 id="Integration-Hell"><a href="#Integration-Hell" class="headerlink" title="Integration Hell"></a>Integration Hell</h4><p>集成地狱 (Integration Hell)，特指在项目后期，当团队尝试将来自不同开发者的、<strong>长时间独立开发的代码模块合并到一起时</strong>，所遇到的极其复杂、耗时且令人沮丧的问题集合。</p>
+<h4 id="integration-hell">Integration Hell</h4>
+<p>集成地狱 (Integration
+Hell)，特指在项目后期，当团队尝试将来自不同开发者的、<strong>长时间独立开发的代码模块合并到一起时</strong>，所遇到的极其复杂、耗时且令人沮丧的问题集合。</p>
 <p>这些问题包括但不限于：</p>
 <ul>
-<li><p>各个成员开发的代码模块接口、依赖项等产生冲突</p>
-</li>
-<li><p>分支合并时出现严重的<strong>冲突</strong>问题</p>
-</li>
-<li><p>测试复杂性高，因为涉及到多份代码的测试，难以准确定位是哪里的Bug</p>
-</li>
+<li><p>各个成员开发的代码模块接口、依赖项等产生冲突</p></li>
+<li><p>分支合并时出现严重的<strong>冲突</strong>问题</p></li>
+<li><p>测试复杂性高，因为涉及到多份代码的测试，难以准确定位是哪里的Bug</p></li>
 </ul>
 <blockquote>
 <p>例如，分别复杂后端开发和用户会话管理的两位后端开发在自己的代码中同时修改了<strong>不兼容</strong>实体类文件（例如User类），这样就导致最终合并的使用产生严重的冲突问题，而这两位开发者为了兼容性不得不再修改自己的代码，进而导致无限循环的错误产生。</p>
 </blockquote>
-<h4 id="What-is-continuous"><a href="#What-is-continuous" class="headerlink" title="What is continuous?"></a>What is continuous?</h4><p>集成是<strong>团队开发</strong>过不去的一道坎，尤其面对复杂的代码结构和逻辑时，一点点的对接错误就会产生雪崩式的崩溃。因此，<strong>持续性集成</strong>的概念就产生了，他需要解决的核心问题就是<strong>集成地狱问题</strong>。</p>
+<h4 id="what-is-continuous">What is continuous?</h4>
+<p>集成是<strong>团队开发</strong>过不去的一道坎，尤其面对复杂的代码结构和逻辑时，一点点的对接错误就会产生雪崩式的崩溃。因此，<strong>持续性集成</strong>的概念就产生了，他需要解决的核心问题就是<strong>集成地狱问题</strong>。</p>
 <p>CI的核心解决方案是<strong>频繁的集成小组件</strong>，更小的集成意味着更少的Bug和更加频繁的信息同步。</p>
 <ul>
-<li><p>频繁合并代码： 开发人员每天多次将代码更改集成到共享主干（通常是主分支）中。</p>
-</li>
-<li><p>自动化构建与测试： 每次代码合并都会触发一个自动化的构建过程，包括<strong>编译代码、运行单元测试、集成测试</strong>等。</p>
-</li>
-<li><p>快速反馈： 如果构建或测试失败，团队会立即收到反馈，从而能够及时发现并修复问题。</p>
-</li>
+<li><p>频繁合并代码：
+开发人员每天多次将代码更改集成到共享主干（通常是主分支）中。</p></li>
+<li><p>自动化构建与测试：
+每次代码合并都会触发一个自动化的构建过程，包括<strong>编译代码、运行单元测试、集成测试</strong>等。</p></li>
+<li><p>快速反馈：
+如果构建或测试失败，团队会立即收到反馈，从而能够及时发现并修复问题。</p></li>
 </ul>
-<p>CI 的目标是减少集成问题，确保代码库始终处于可发布状态。 通过频繁集成和自动化测试，开发团队可以尽早发现冲突和错误，避免在开发后期才发现难以解决的大问题。</p>
+<p>CI 的目标是减少集成问题，确保代码库始终处于可发布状态。
+通过频繁集成和自动化测试，开发团队可以尽早发现冲突和错误，避免在开发后期才发现难以解决的大问题。</p>
 <blockquote>
-<p>例如，在实际情况中，开发者创建了一个新的feature branch（<strong>注意CI的精髓！这一个特性分支只能负责一个小的功能开发</strong>），在完成这部分代码后，会尝试集成到Dev Branch中来测试新功能，如果新功能测试成功就成功合并，如果测试失败就会立即得到反馈，并且回退到原来的状态进行Bug Fixing。</p>
+<p>例如，在实际情况中，开发者创建了一个新的feature
+branch（<strong>注意CI的精髓！这一个特性分支只能负责一个小的功能开发</strong>），在完成这部分代码后，会尝试集成到Dev
+Branch中来测试新功能，如果新功能测试成功就成功合并，如果测试失败就会立即得到反馈，并且回退到原来的状态进行Bug
+Fixing。</p>
 </blockquote>
 <div class="note note-primary">
-            <p>一般来说，CI的过程都是<strong>自动化执行的</strong>，意味着<strong>CI 触发</strong>： 此时，CI 服务器通常会检测到这个新的分支或新的提交，并可能在该特性分支上运行预检查（如静态代码分析、单元测试），确保代码质量。 这有助于在合并前就发现问题。</p>
+            <p>一般来说，CI的过程都是<strong>自动化执行的</strong>，意味着<strong>CI触发</strong>： 此时，CI服务器通常会检测到这个新的分支或新的提交，并可能在该特性分支上运行预检查（如静态代码分析、单元测试），确保代码质量。这有助于在合并前就发现问题。</p>
           </div>
-
-<h3 id="Continuous-Delivery"><a href="#Continuous-Delivery" class="headerlink" title="Continuous Delivery"></a>Continuous Delivery</h3><p>持续交付 (CD) 是 CI 的延伸。它意味着：</p>
+<h3 id="continuous-delivery">Continuous Delivery</h3>
+<p>持续交付 (CD) 是 CI 的延伸。它意味着：</p>
 <ul>
-<li><p>代码始终处于可发布状态： 成功通过 CI 阶段的代码可以随时部署到生产环境。</p>
-</li>
-<li><p>自动化发布到预生产环境： 代码会自动部署到测试、UAT（用户验收测试）或预生产环境，以便进行进一步的自动化和手动测试。</p>
-</li>
-<li><p>手动部署到生产环境： 部署到生产环境通常需要人工触发，但这仍然是一个高度自动化的过程。</p>
-</li>
-<li><p>持续交付的目标是确保软件<strong>能够随时、轻松地发布</strong> （而不是把Bug全部积累到发布的最后时刻才合并冲突）。 它让发布新功能或修复bug变得更加简单和可预测，但也需要人工决策来批准最终的生产部署。</p>
-</li>
+<li><p>代码始终处于可发布状态： 成功通过 CI
+阶段的代码可以随时部署到生产环境。</p></li>
+<li><p>自动化发布到预生产环境：
+代码会自动部署到测试、UAT（用户验收测试）或预生产环境，以便进行进一步的自动化和手动测试。</p></li>
+<li><p>手动部署到生产环境：
+部署到生产环境通常需要人工触发，但这仍然是一个高度自动化的过程。</p></li>
+<li><p>持续交付的目标是确保软件<strong>能够随时、轻松地发布</strong>
+（而不是把Bug全部积累到发布的最后时刻才合并冲突）。
+它让发布新功能或修复bug变得更加简单和可预测，但也需要人工决策来批准最终的生产部署。</p></li>
 </ul>
-<h2 id="My-CI-CD-for-blog"><a href="#My-CI-CD-for-blog" class="headerlink" title="My CI&amp;CD for blog"></a>My CI&amp;CD for blog</h2><p>这并不算是一个严格的CI&#x2F;CD（乐），只是引入了一些自动化的组件。</p>
-<p>我的文件结构如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">drwxr-xr-x  7 xiyuanyang xiyuanyang 4.0K Jul 11 10:36 Blog-Update-Fetching-Script <span class="hljs-comment"># 组件：自动化更新博客状态</span><br>drwxr-xr-x  5 xiyuanyang xiyuanyang 4.0K Jul 11 10:19 Blog-word-counting          <span class="hljs-comment"># 组件：博客字数统计  </span><br>drwxr-xr-x 10 xiyuanyang xiyuanyang 4.0K Jul 11 11:16 Blog_Main                   <span class="hljs-comment"># Hexo 主仓库</span><br>drwxr-xr-x  5 xiyuanyang xiyuanyang 4.0K Jul 11 10:08 Blog_source                 <span class="hljs-comment"># 组件：博客源代码备份</span><br></code></pre></td></tr></table></figure>
-
+<h2 id="my-cicd-for-blog">My CI&amp;CD for blog</h2>
+<p>这并不算是一个严格的CI/CD（乐），只是引入了一些自动化的组件。</p>
+<p>我的文件结构如下： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">drwxr-xr-x  7 xiyuanyang xiyuanyang 4.0K Jul 11 10:36 Blog-Update-Fetching-Script <span class="hljs-comment"># 组件：自动化更新博客状态</span><br>drwxr-xr-x  5 xiyuanyang xiyuanyang 4.0K Jul 11 10:19 Blog-word-counting          <span class="hljs-comment"># 组件：博客字数统计  </span><br>drwxr-xr-x 10 xiyuanyang xiyuanyang 4.0K Jul 11 11:16 Blog_Main                   <span class="hljs-comment"># Hexo 主仓库</span><br>drwxr-xr-x  5 xiyuanyang xiyuanyang 4.0K Jul 11 10:08 Blog_source                 <span class="hljs-comment"># 组件：博客源代码备份</span><br></code></pre></td></tr></table></figure></p>
 <p>在完成markdown博客书写之后，运行<code>my_script/backup.sh</code>,就会自动实现Hexo博客部署和将更新部分添加到备份文件夹中并且push到远程。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><br><span class="hljs-comment"># bash scripts for auto-backup</span><br><span class="hljs-comment"># !remember this file must be run in the directory of &quot;Blog_Main&quot;</span><br><br><span class="hljs-comment"># using hexo</span><br>hexo g -d<br><br><span class="hljs-comment"># this should be very fast :)</span><br><span class="hljs-built_in">cp</span> -r ./source ../Blog_source/source_backup <br><span class="hljs-built_in">cp</span> -r public/img ../Blog_source/img_backup<br><br><span class="hljs-comment"># updating git status</span><br><span class="hljs-built_in">cd</span> ../Blog_source || <span class="hljs-built_in">exit</span><br>git add .<br>git commit -m <span class="hljs-string">&quot;Upd: <span class="hljs-subst">$(date &#x27;+%Y-%m-%d %H:%M:%S&#x27;)</span>&quot;</span><br>git push<br><span class="hljs-built_in">cd</span> - || <span class="hljs-built_in">exit</span><br></code></pre></td></tr></table></figure>
-
 <p>如果可以，可以运行剩下两个组件代码：</p>
 <ul>
 <li><code>count.sh</code>：实现博客字数的统计和自动push。</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><br><span class="hljs-comment"># for word counting</span><br>bash ../Blog-word-counting/src/run.sh<br><br></code></pre></td></tr></table></figure>
-
-<p>More information can be seem via: <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Blog-word-counting">GitHub Repo</a></p>
+<p>More information can be seem via: <a
+target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Blog-word-counting">GitHub
+Repo</a></p>
 <ul>
 <li><code>fetching.sh</code>：实现博客更新状态的自动推送。</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><br><span class="hljs-built_in">cd</span> ../Blog-Update-Fetching-Script<br><br>bash scripts/run.sh<br><br>bash scripts/auto_push.sh<br><br><span class="hljs-built_in">cd</span> -<br></code></pre></td></tr></table></figure>
-
-<p>More information can be seen via: <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Blog-Update-Fetching-Script">GitHub Repo</a></p>
+<p>More information can be seen via: <a
+target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Blog-Update-Fetching-Script">GitHub
+Repo</a></p>
 
                 
               </div>
@@ -521,9 +534,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Workflow/" class="print-no-link">#Workflow</a>
-      
         <a href="/tags/CI-CD/" class="print-no-link">#CI & CD</a>
+      
+        <a href="/tags/Workflow/" class="print-no-link">#Workflow</a>
       
     </div>
   

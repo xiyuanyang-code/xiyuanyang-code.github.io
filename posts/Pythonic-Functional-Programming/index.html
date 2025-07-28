@@ -871,8 +871,9 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h1 id="Functional-Programming"><a href="#Functional-Programming" class="headerlink" title="Functional Programming"></a>Functional Programming</h1><h2 id="Coding-Style"><a href="#Coding-Style" class="headerlink" title="Coding Style"></a>Coding Style</h2><p><strong>编程范式</strong>是相比于编程语法规则更加高级并且抽象的概念，他规范并且指导程序员如何组织规范的代码。编程范式的设计往往和语言本身的特性与应用场景息息相关，例如：</p>
+<h1 id="functional-programming">Functional Programming</h1>
+<h2 id="coding-style">Coding Style</h2>
+<p><strong>编程范式</strong>是相比于编程语法规则更加高级并且抽象的概念，他规范并且指导程序员如何组织规范的代码。编程范式的设计往往和语言本身的特性与应用场景息息相关，例如：</p>
 <ul>
 <li><strong>面向过程的编程范式</strong>：比较低级且简单的编程范式，将程序分解为一系列的“过程”或“函数”，这些过程按照顺序执行，共同完成任务。数据和操作数据的函数是分离的。</li>
 </ul>
@@ -880,381 +881,478 @@
 <p>以下两种编程方式依赖于特定的语言和应用场景</p>
 </blockquote>
 <ul>
-<li><p><strong>声明式编程</strong>：关注“做什么”而不是“怎么做”。程序员描述期望的结果，而不是详细的步骤。系统会自动找到实现结果的方法。例如Coq，SQL，HTML&#x2F;CSS</p>
-</li>
-<li><p><strong>事件驱动编程</strong>：程序流程由用户操作、传感器输出或其他程序的“事件”决定。程序响应这些事件来执行相应的处理。例如JavaScript (<code>event.onClick()</code>)</p>
-</li>
+<li><p><strong>声明式编程</strong>：关注“做什么”而不是“怎么做”。程序员描述期望的结果，而不是详细的步骤。系统会自动找到实现结果的方法。例如Coq，SQL，HTML/CSS</p></li>
+<li><p><strong>事件驱动编程</strong>：程序流程由用户操作、传感器输出或其他程序的“事件”决定。程序响应这些事件来执行相应的处理。例如JavaScript
+(<code>event.onClick()</code>)</p></li>
 </ul>
 <blockquote>
 <p>对于更广泛的软件工程而言，以下的两种编程范式是<strong>较为主流且被广泛采纳的</strong>：</p>
 </blockquote>
 <ul>
-<li><p><strong>面相对象编程</strong>：核心在于不同层级的类的继承，封装以及接口的设计。将程序视为一组相互协作的“对象”。每个对象封装了数据（属性）和操作数据的方法（行为）。</p>
-</li>
-<li><p><strong>函数式编程</strong>：将程序视为一系列纯函数的求值过程。强调使用函数来转换数据，而不是改变数据的状态。</p>
-</li>
+<li><p><strong>面相对象编程</strong>：核心在于不同层级的类的继承，封装以及接口的设计。将程序视为一组相互协作的“对象”。每个对象封装了数据（属性）和操作数据的方法（行为）。</p></li>
+<li><p><strong>函数式编程</strong>：将程序视为一系列纯函数的求值过程。强调使用函数来转换数据，而不是改变数据的状态。</p></li>
 </ul>
 <blockquote>
 <p>纯函数式编程的覆盖面叫窄，但是包括很多语言都提供了函数式编程的范式，学习函数式编程的思想对我们有很大的好处。</p>
 </blockquote>
-<h2 id="Functional-Programming-Definition"><a href="#Functional-Programming-Definition" class="headerlink" title="Functional Programming Definition"></a>Functional Programming Definition</h2><div class="note note-primary">
-            <p>函数式编程 (<strong>Functional Programming</strong>, FP) 是一种编程范式，它将计算视为数学函数的求值，并避免使用可变状态和可变数据。简单来说，它强调“做什么”而不是“如何做”，并且更侧重于<strong>表达式</strong>而不是<strong>语句</strong>。</p><blockquote><p>表达式：计算并且产生一个<strong>值</strong><br>语句：执行动作或者命令（表达式可以看做是会产生值的一个特殊的语句）</p></blockquote>
+<h2 id="functional-programming-definition">Functional Programming
+Definition</h2>
+<div class="note note-primary">
+            <p>函数式编程 (<strong>Functional Programming</strong>, FP)是一种编程范式，它将计算视为数学函数的求值，并避免使用可变状态和可变数据。简单来说，它强调“做什么”而不是“如何做”，并且更侧重于<strong>表达式</strong>而不是<strong>语句</strong>。</p><blockquote><p>表达式：计算并且产生一个<strong>值</strong>语句：执行动作或者命令（表达式可以看做是会产生值的一个特殊的语句）</p></blockquote>
           </div>
-
 <p>Well, let’s explain it step by step!</p>
-<h2 id="Why-Function-Programming"><a href="#Why-Function-Programming" class="headerlink" title="Why Function Programming"></a>Why Function Programming</h2><p>在主流的面向对象编程时，程序员会涉及<strong>复杂的类之间继承关系</strong>，设计内部的私有成员和函数，以及设计暴露在外的公有接口等来实现对现实世界的模拟。这样的做法是毫无争议的，但是，随着软件工程项目的不断扩展，面向对象编程，或者说传统的编程范式出现了一些问题：</p>
+<h2 id="why-function-programming">Why Function Programming</h2>
+<p>在主流的面向对象编程时，程序员会涉及<strong>复杂的类之间继承关系</strong>，设计内部的私有成员和函数，以及设计暴露在外的公有接口等来实现对现实世界的模拟。这样的做法是毫无争议的，但是，随着软件工程项目的不断扩展，面向对象编程，或者说传统的编程范式出现了一些问题：</p>
 <ul>
-<li><p><strong>状态爆炸问题</strong>：在图灵机中，计算是通过不断修改共享的纸带状态来完成的。在复杂程序中，这意味着有<strong>大量的变量和数据结构在不断变化</strong>，并且可能在程序的多个部分被修改。例如，一条错误的指令就可能会让程序崩溃，这一个程序往往涉及对成千上万个变量的读写操作，当Bug出现时，可变的数据结构和变量让Debug的过程显的非常复杂。</p>
-</li>
-<li><p><strong>并发性挑战</strong>：对于现代多核CPU的高并发性能，如果多个“读写头”同时操作同一段“纸带”（内存），就可能发生竞态条件 (Race Condition)，导致不可预测的结果，需要复杂的锁机制来同步访问，这增加了巨大的复杂性和调试难度。</p>
-</li>
+<li><p><strong>状态爆炸问题</strong>：在图灵机中，计算是通过不断修改共享的纸带状态来完成的。在复杂程序中，这意味着有<strong>大量的变量和数据结构在不断变化</strong>，并且可能在程序的多个部分被修改。例如，一条错误的指令就可能会让程序崩溃，这一个程序往往涉及对成千上万个变量的读写操作，当Bug出现时，可变的数据结构和变量让Debug的过程显的非常复杂。</p></li>
+<li><p><strong>并发性挑战</strong>：对于现代多核CPU的高并发性能，如果多个“读写头”同时操作同一段“纸带”（内存），就可能发生竞态条件
+(Race
+Condition)，导致不可预测的结果，需要复杂的锁机制来同步访问，这增加了巨大的复杂性和调试难度。</p></li>
 </ul>
 <p>因此，为了提高安全性能和开发效率，现代编程语言越来越引入<strong>不可变性</strong>的概念，即<strong>一旦一个数据或对象被创建后，它的状态就不能再被改变</strong>。不可变性的引入可以解决传统计算机语言的很多问题，例如并发锁，同时带来更好的可预测性和缓存性能。</p>
 <blockquote>
 <p>怎么一股 Rust 味。</p>
 </blockquote>
 <p>因此，OOP的编程范式需要被颠覆！我们不希望直接操作语句修改变量，<strong>不可变性是第一性原理</strong>。</p>
-<h3 id="Pure-Function"><a href="#Pure-Function" class="headerlink" title="Pure Function"></a>Pure Function</h3><p>有了至高无上的不可变性原理，我们来看如何实现并应用到语言层面，下面引入<strong>纯函数</strong> (Pure Function) 的概念。</p>
+<h3 id="pure-function">Pure Function</h3>
+<p>有了至高无上的不可变性原理，我们来看如何实现并应用到语言层面，下面引入<strong>纯函数</strong>
+(Pure Function) 的概念。</p>
 <p>Definition of pure function in Wikipedia:</p>
-<p>In computer programming, a pure function is a function that has the following properties</p>
+<p>In computer programming, a pure function is a function that has the
+following properties</p>
 <ul>
-<li><p>the function return values are <strong>identical</strong> for identical arguments (no variation with local static variables, non-local variables, mutable reference arguments or input streams, i.e., <strong>referential transparency</strong>)</p>
+<li><p>the function return values are <strong>identical</strong> for
+identical arguments (no variation with local static variables, non-local
+variables, mutable reference arguments or input streams, i.e.,
+<strong>referential transparency</strong>)</p>
 <ul>
-<li>referential transparency: 引用透明性，即不存在静态局部变量，非局部变量，可变的引用参数和输入流</li>
-</ul>
-</li>
-<li><p>the function has <strong>no side effects</strong> (no mutation of non-local variables, mutable reference arguments or input&#x2F;output streams).</p>
-</li>
+<li>referential transparency:
+引用透明性，即不存在静态局部变量，非局部变量，可变的引用参数和输入流</li>
+</ul></li>
+<li><p>the function has <strong>no side effects</strong> (no mutation of
+non-local variables, mutable reference arguments or input/output
+streams).</p></li>
 </ul>
 <div class="note note-primary">
-            <p><strong>引用透明性</strong>：一个<strong>表达式</strong>如果具有引用透明性，那么在程序中，你可以用它的值（或计算结果）替换掉这个表达式的<strong>任何出现</strong>，而不会改变程序的行为。</p><p>例如，$2 + 3$这个表达式具有引用透明性，可以用计算结果或者返回值 $5$ 来代替。而下面的函数对应的表达式（例如: <code>increment(5)</code>）不具有引用透明性：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">global_val = <span class="hljs-number">0</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">increment_global</span>(<span class="hljs-params">val</span>):<br>    <span class="hljs-keyword">global</span> global_val<br>    global_val += val<br>    <span class="hljs-keyword">return</span> global_val<br></code></pre></td></tr></table></figure>
+            <p><strong>引用透明性</strong>：一个<strong>表达式</strong>如果具有引用透明性，那么在程序中，你可以用它的值（或计算结果）替换掉这个表达式的<strong>任何出现</strong>，而不会改变程序的行为。</p><p>例如，<spanclass="math inline">2 + 3</span>这个表达式具有引用透明性，可以用计算结果或者返回值<span class="math inline">5</span>来代替。而下面的函数对应的表达式（例如:<code>increment(5)</code>）不具有引用透明性：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">global_val = <span class="hljs-number">0</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">increment_global</span>(<span class="hljs-params">val</span>):<br>    <span class="hljs-keyword">global</span> global_val<br>    global_val += val<br>    <span class="hljs-keyword">return</span> global_val<br></code></pre></td></tr></table></figure>
           </div>
-
-<p>说人话，就是<strong>不受任何外界影响</strong>的黑箱函数，在任何情况下，$y &#x3D; f(x_1, x_2, x_3, \dots x_n)$的取值只和Input Value有关。</p>
+<p>说人话，就是<strong>不受任何外界影响</strong>的黑箱函数，在任何情况下，<span
+class="math inline"><em>y</em> = <em>f</em>(<em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, <em>x</em><sub>3</sub>, …<em>x</em><sub><em>n</em></sub>)</span>的取值只和Input
+Value有关。</p>
 <blockquote>
 <p>这个定义貌似非常宽泛，实际上我们之前写的很多函数都是<strong>纯函数</strong>，纯函数保证了状态上的确定性，一切都服从于不可变性的原则。但是在OOP的世界里，<strong>成员函数</strong>就不属于纯函数的范畴因为这些往往涉及到私有数据变量的操作。</p>
 </blockquote>
 <blockquote>
 <p>纯函数之间可以做 composition，这样的操作也是被KISS所鼓励的。</p>
 </blockquote>
-<h3 id="FCC-Functions-as-first-class-citizens"><a href="#FCC-Functions-as-first-class-citizens" class="headerlink" title="FCC: Functions as first class citizens"></a>FCC: Functions as first class citizens</h3><p>在介绍完纯函数之后，我们进一步探讨函数和变量之间的关系和交互。</p>
-<p>在传统的非函数式编程的编程范式中，变量和函数的功能往往分离，变量主要控制值的赋值和修改操作，而函数作为接口，提供一个计算的 Method. 在函数式编程中，<strong>“函数是一等公民”（Functions as First-Class Citizens）</strong>是一个核心概念。这意味着函数在编程语言中被当作普通的值来对待，拥有与其他数据类型（如数字、字符串、布尔值）相同的权利。</p>
+<h3 id="fcc-functions-as-first-class-citizens">FCC: Functions as first
+class citizens</h3>
+<p>在介绍完纯函数之后，我们进一步探讨函数和变量之间的关系和交互。</p>
+<p>在传统的非函数式编程的编程范式中，变量和函数的功能往往分离，变量主要控制值的赋值和修改操作，而函数作为接口，提供一个计算的
+Method. 在函数式编程中，<strong>“函数是一等公民”（Functions as
+First-Class
+Citizens）</strong>是一个核心概念。这意味着函数在编程语言中被当作普通的值来对待，拥有与其他数据类型（如数字、字符串、布尔值）相同的权利。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">greet</span>(<span class="hljs-params">name</span>):<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;Hello, <span class="hljs-subst">&#123;name&#125;</span>!&quot;</span><br><br>my_greeting_function = greet <span class="hljs-comment"># 将函数 greet 赋值给变量 my_greeting_function</span><br><span class="hljs-built_in">print</span>(my_greeting_function(<span class="hljs-string">&quot;Alice&quot;</span>)) <span class="hljs-comment"># 调用这个变量，效果和直接调用 greet 一样</span><br></code></pre></td></tr></table></figure>
-
 <p>将函数视为一等公民打破了现有的OOP的编程范式（在OOP中，函数的层级往往低于类和对象），提高了代码的可抽象性和灵活性，在次之上，你也可以写更高级的高阶函数（函数作为参数被传递进去）</p>
-<h4 id="Everything-in-Python-is-an-object"><a href="#Everything-in-Python-is-an-object" class="headerlink" title="Everything in Python is an object!"></a>Everything in Python is an object!</h4><p>Function is callable!</p>
+<h4 id="everything-in-python-is-an-object">Everything in Python is an
+object!</h4>
+<p>Function is callable!</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">func</span>(<span class="hljs-params">va_test = <span class="hljs-number">1</span></span>):<br>    <span class="hljs-built_in">print</span>(va_test)<br><br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">dir</span>(func))<br><span class="hljs-comment"># [&#x27;__annotations__&#x27;, &#x27;__builtins__&#x27;, &#x27;__call__&#x27;, &#x27;__class__&#x27;, &#x27;__closure__&#x27;, &#x27;__code__&#x27;, &#x27;__defaults__&#x27;, &#x27;__delattr__&#x27;, &#x27;__dict__&#x27;, &#x27;__dir__&#x27;, &#x27;__doc__&#x27;, &#x27;__eq__&#x27;, &#x27;__format__&#x27;, &#x27;__ge__&#x27;, &#x27;__get__&#x27;, &#x27;__getattribute__&#x27;, &#x27;__getstate__&#x27;, &#x27;__globals__&#x27;, &#x27;__gt__&#x27;, &#x27;__hash__&#x27;, &#x27;__init__&#x27;, &#x27;__init_subclass__&#x27;, &#x27;__kwdefaults__&#x27;, &#x27;__le__&#x27;, &#x27;__lt__&#x27;, &#x27;__module__&#x27;, &#x27;__name__&#x27;, &#x27;__ne__&#x27;, &#x27;__new__&#x27;, &#x27;__qualname__&#x27;, &#x27;__reduce__&#x27;, &#x27;__reduce_ex__&#x27;, &#x27;__repr__&#x27;, &#x27;__setattr__&#x27;, &#x27;__sizeof__&#x27;, &#x27;__str__&#x27;, &#x27;__subclasshook__&#x27;, &#x27;__type_params__&#x27;]</span><br></code></pre></td></tr></table></figure>
-
-<p>在 Python 中查看一个函数对象（或者更广义地说，一个可调用对象）时，它所拥有的特殊属性（Special Attributes）或“魔术方法”（Magic Methods &#x2F; Dunder Methods）。因为一切皆对象，所以函数本身也是一个对象，它拥有自己的属性和方法。这些以双下划线 <code>__</code> 开头和结尾的名称，是 Python 内部使用的约定，用来表示对象的特殊行为或特性。</p>
+<p>在 Python
+中查看一个函数对象（或者更广义地说，一个可调用对象）时，它所拥有的特殊属性（Special
+Attributes）或“魔术方法”（Magic Methods / Dunder
+Methods）。因为一切皆对象，所以函数本身也是一个对象，它拥有自己的属性和方法。这些以双下划线
+<code>__</code> 开头和结尾的名称，是 Python
+内部使用的约定，用来表示对象的特殊行为或特性。</p>
 <table>
+
 <thead>
 <tr>
-<th align="left">名称</th>
-<th align="left">类型</th>
-<th align="left">描述</th>
-<th align="left">常见用途&#x2F;备注</th>
+<th style="text-align: left;">名称</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">描述</th>
+<th style="text-align: left;">常见用途/备注</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left"><code>__annotations__</code></td>
-<td align="left">属性</td>
-<td align="left">一个字典，存储函数的参数和返回值的<strong>类型注解</strong>（type hints）。例如 <code>def func(a: int) -&gt; str:</code> 这里的注解就会存储在这里。</td>
-<td align="left">静态类型检查工具（如 MyPy）使用；代码文档；运行时元编程。</td>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>__annotations__</code></td>
+<td style="text-align: left;">属性</td>
+<td
+style="text-align: left;">一个字典，存储函数的参数和返回值的<strong>类型注解</strong>（type
+hints）。例如 <code>def func(a: int) -&gt; str:</code>
+这里的注解就会存储在这里。</td>
+<td style="text-align: left;">静态类型检查工具（如
+MyPy）使用；代码文档；运行时元编程。</td>
 </tr>
 <tr>
-<td align="left"><code>__builtins__</code></td>
-<td align="left">属性</td>
-<td align="left">函数定义时所在的模块的全局命名空间中的内置函数（<code>__builtins__</code>）的引用。</td>
-<td align="left">调试或高级元编程，通常不直接使用。</td>
+<td style="text-align: left;"><code>__builtins__</code></td>
+<td style="text-align: left;">属性</td>
+<td
+style="text-align: left;">函数定义时所在的模块的全局命名空间中的内置函数（<code>__builtins__</code>）的引用。</td>
+<td style="text-align: left;">调试或高级元编程，通常不直接使用。</td>
 </tr>
 <tr>
-<td align="left"><code>__call__</code></td>
-<td align="left">方法</td>
-<td align="left">如果一个对象定义了这个方法，那么它就是<strong>可调用</strong>的，你可以像调用函数一样调用它。函数对象本身就实现了这个方法。</td>
-<td align="left">使类的实例像函数一样被调用（例如，装饰器类）。</td>
+<td style="text-align: left;"><code>__call__</code></td>
+<td style="text-align: left;">方法</td>
+<td
+style="text-align: left;">如果一个对象定义了这个方法，那么它就是<strong>可调用</strong>的，你可以像调用函数一样调用它。函数对象本身就实现了这个方法。</td>
+<td
+style="text-align: left;">使类的实例像函数一样被调用（例如，装饰器类）。</td>
 </tr>
 <tr>
-<td align="left"><code>__class__</code></td>
-<td align="left">属性</td>
-<td align="left">对象所属的类。对于函数，通常是 <code>&lt;class &#39;function&#39;&gt;</code>。</td>
-<td align="left">反射、类型检查。</td>
+<td style="text-align: left;"><code>__class__</code></td>
+<td style="text-align: left;">属性</td>
+<td style="text-align: left;">对象所属的类。对于函数，通常是
+<code>&lt;class 'function'&gt;</code>。</td>
+<td style="text-align: left;">反射、类型检查。</td>
 </tr>
 <tr>
-<td align="left"><code>__closure__</code></td>
-<td align="left">属性</td>
-<td align="left">如果函数是一个<strong>闭包</strong>，这个属性会是一个元组，包含外部作用域变量的绑定（cell 对象）。如果不是闭包，则为 <code>None</code>。</td>
-<td align="left">检查闭包的实现细节，高级调试。</td>
+<td style="text-align: left;"><code>__closure__</code></td>
+<td style="text-align: left;">属性</td>
+<td
+style="text-align: left;">如果函数是一个<strong>闭包</strong>，这个属性会是一个元组，包含外部作用域变量的绑定（cell
+对象）。如果不是闭包，则为 <code>None</code>。</td>
+<td style="text-align: left;">检查闭包的实现细节，高级调试。</td>
 </tr>
 <tr>
-<td align="left"><code>__code__</code></td>
-<td align="left">属性</td>
-<td align="left">函数的<strong>字节码对象</strong>。包含了函数的编译代码信息（如参数名、局部变量名、字节码指令等）。</td>
-<td align="left">运行时代码检查、动态代码生成、调试工具。</td>
+<td style="text-align: left;"><code>__code__</code></td>
+<td style="text-align: left;">属性</td>
+<td
+style="text-align: left;">函数的<strong>字节码对象</strong>。包含了函数的编译代码信息（如参数名、局部变量名、字节码指令等）。</td>
+<td
+style="text-align: left;">运行时代码检查、动态代码生成、调试工具。</td>
 </tr>
 <tr>
-<td align="left"><code>__defaults__</code></td>
-<td align="left">属性</td>
-<td align="left">一个元组，包含函数的<strong>位置参数默认值</strong>。例如 <code>def func(a, b=1):</code>，那么 <code>__defaults__</code> 会是 <code>(1,)</code>。</td>
-<td align="left">运行时检查或修改默认参数。</td>
+<td style="text-align: left;"><code>__defaults__</code></td>
+<td style="text-align: left;">属性</td>
+<td
+style="text-align: left;">一个元组，包含函数的<strong>位置参数默认值</strong>。例如
+<code>def func(a, b=1):</code>，那么 <code>__defaults__</code> 会是
+<code>(1,)</code>。</td>
+<td style="text-align: left;">运行时检查或修改默认参数。</td>
 </tr>
 <tr>
-<td align="left"><code>__delattr__</code></td>
-<td align="left">方法</td>
-<td align="left">当尝试删除对象的属性时调用（例如 <code>del obj.attr</code>）。</td>
-<td align="left">自定义属性删除行为，通常不直接在函数对象上使用。</td>
+<td style="text-align: left;"><code>__delattr__</code></td>
+<td style="text-align: left;">方法</td>
+<td style="text-align: left;">当尝试删除对象的属性时调用（例如
+<code>del obj.attr</code>）。</td>
+<td
+style="text-align: left;">自定义属性删除行为，通常不直接在函数对象上使用。</td>
 </tr>
 <tr>
-<td align="left"><code>__dict__</code></td>
-<td align="left">属性</td>
-<td align="left">存储对象的可写属性的字典。对于函数，你可以通过 <code>func.my_attr = value</code> 的方式添加自定义属性，它们会存储在这里。</td>
-<td align="left">存储动态添加的属性。</td>
+<td style="text-align: left;"><code>__dict__</code></td>
+<td style="text-align: left;">属性</td>
+<td
+style="text-align: left;">存储对象的可写属性的字典。对于函数，你可以通过
+<code>func.my_attr = value</code>
+的方式添加自定义属性，它们会存储在这里。</td>
+<td style="text-align: left;">存储动态添加的属性。</td>
 </tr>
 <tr>
-<td align="left"><code>__dir__</code></td>
-<td align="left">方法</td>
-<td align="left">当调用 <code>dir()</code> 函数时被调用，返回对象可用的属性和方法的列表。</td>
-<td align="left">自定义 <code>dir()</code> 的行为。</td>
+<td style="text-align: left;"><code>__dir__</code></td>
+<td style="text-align: left;">方法</td>
+<td style="text-align: left;">当调用 <code>dir()</code>
+函数时被调用，返回对象可用的属性和方法的列表。</td>
+<td style="text-align: left;">自定义 <code>dir()</code> 的行为。</td>
 </tr>
 <tr>
-<td align="left"><code>__doc__</code></td>
-<td align="left">属性</td>
-<td align="left">函数的<strong>文档字符串</strong>（docstring）。如果你在函数定义的第一行写了字符串，它就会存储在这里。</td>
-<td align="left">生成文档、帮助系统 (<code>help(func)</code>)。</td>
+<td style="text-align: left;"><code>__doc__</code></td>
+<td style="text-align: left;">属性</td>
+<td
+style="text-align: left;">函数的<strong>文档字符串</strong>（docstring）。如果你在函数定义的第一行写了字符串，它就会存储在这里。</td>
+<td style="text-align: left;">生成文档、帮助系统
+(<code>help(func)</code>)。</td>
 </tr>
 <tr>
-<td align="left"><code>__eq__</code></td>
-<td align="left">方法</td>
-<td align="left">定义对象之间的<strong>相等性</strong>（<code>==</code> 操作符）。</td>
-<td align="left">自定义对象比较行为。</td>
+<td style="text-align: left;"><code>__eq__</code></td>
+<td style="text-align: left;">方法</td>
+<td
+style="text-align: left;">定义对象之间的<strong>相等性</strong>（<code>==</code>
+操作符）。</td>
+<td style="text-align: left;">自定义对象比较行为。</td>
 </tr>
 <tr>
-<td align="left"><code>__format__</code></td>
-<td align="left">方法</td>
-<td align="left">定义使用 <code>format()</code> 函数或 f-string 时对象的格式化行为。</td>
-<td align="left">自定义对象格式化输出。</td>
+<td style="text-align: left;"><code>__format__</code></td>
+<td style="text-align: left;">方法</td>
+<td style="text-align: left;">定义使用 <code>format()</code> 函数或
+f-string 时对象的格式化行为。</td>
+<td style="text-align: left;">自定义对象格式化输出。</td>
 </tr>
 <tr>
-<td align="left"><code>__ge__</code></td>
-<td align="left">方法</td>
-<td align="left">定义对象的“大于等于”比较（<code>&gt;=</code> 操作符）。</td>
-<td align="left">自定义对象比较行为。</td>
+<td style="text-align: left;"><code>__ge__</code></td>
+<td style="text-align: left;">方法</td>
+<td
+style="text-align: left;">定义对象的“大于等于”比较（<code>&gt;=</code>
+操作符）。</td>
+<td style="text-align: left;">自定义对象比较行为。</td>
 </tr>
 <tr>
-<td align="left"><code>__get__</code></td>
-<td align="left">方法</td>
-<td align="left">如果函数是<strong>描述符</strong>，当它被访问时调用。通常用于实现属性、方法和类方法等。</td>
-<td align="left">实现自定义的属性访问控制。</td>
+<td style="text-align: left;"><code>__get__</code></td>
+<td style="text-align: left;">方法</td>
+<td
+style="text-align: left;">如果函数是<strong>描述符</strong>，当它被访问时调用。通常用于实现属性、方法和类方法等。</td>
+<td style="text-align: left;">实现自定义的属性访问控制。</td>
 </tr>
 <tr>
-<td align="left"><code>__getattribute__</code></td>
-<td align="left">方法</td>
-<td align="left">每次访问对象的所有属性时调用（即使属性不存在）。</td>
-<td align="left">非常高级的属性访问控制，慎用。</td>
+<td style="text-align: left;"><code>__getattribute__</code></td>
+<td style="text-align: left;">方法</td>
+<td
+style="text-align: left;">每次访问对象的所有属性时调用（即使属性不存在）。</td>
+<td style="text-align: left;">非常高级的属性访问控制，慎用。</td>
 </tr>
 <tr>
-<td align="left"><code>__getstate__</code></td>
-<td align="left">方法</td>
-<td align="left">用于对象序列化（如 <code>pickle</code> 模块）。定义对象在被 pickle 化时要保存的状态。</td>
-<td align="left">自定义对象的序列化。</td>
+<td style="text-align: left;"><code>__getstate__</code></td>
+<td style="text-align: left;">方法</td>
+<td style="text-align: left;">用于对象序列化（如 <code>pickle</code>
+模块）。定义对象在被 pickle 化时要保存的状态。</td>
+<td style="text-align: left;">自定义对象的序列化。</td>
 </tr>
 <tr>
-<td align="left"><code>__globals__</code></td>
-<td align="left">属性</td>
-<td align="left">函数定义时所在的模块的<strong>全局命名空间</strong>的字典引用。</td>
-<td align="left">检查或修改函数运行时的全局变量，高级调试。</td>
+<td style="text-align: left;"><code>__globals__</code></td>
+<td style="text-align: left;">属性</td>
+<td
+style="text-align: left;">函数定义时所在的模块的<strong>全局命名空间</strong>的字典引用。</td>
+<td
+style="text-align: left;">检查或修改函数运行时的全局变量，高级调试。</td>
 </tr>
 <tr>
-<td align="left"><code>__gt__</code></td>
-<td align="left">方法</td>
-<td align="left">定义对象的“大于”比较（<code>&gt;</code> 操作符）。</td>
-<td align="left">自定义对象比较行为。</td>
+<td style="text-align: left;"><code>__gt__</code></td>
+<td style="text-align: left;">方法</td>
+<td style="text-align: left;">定义对象的“大于”比较（<code>&gt;</code>
+操作符）。</td>
+<td style="text-align: left;">自定义对象比较行为。</td>
 </tr>
 <tr>
-<td align="left"><code>__hash__</code></td>
-<td align="left">方法</td>
-<td align="left">定义对象的哈希值。可哈希（hashable）的对象可以作为字典的键或集合的元素。对于函数，其哈希值通常基于其 ID。</td>
-<td align="left">将函数作为字典键或集合元素。</td>
+<td style="text-align: left;"><code>__hash__</code></td>
+<td style="text-align: left;">方法</td>
+<td
+style="text-align: left;">定义对象的哈希值。可哈希（hashable）的对象可以作为字典的键或集合的元素。对于函数，其哈希值通常基于其
+ID。</td>
+<td style="text-align: left;">将函数作为字典键或集合元素。</td>
 </tr>
 <tr>
-<td align="left"><code>__init__</code></td>
-<td align="left">方法</td>
-<td align="left">对象的构造函数。当一个类的实例被创建时调用。<strong>函数对象自身不是通过 <code>__init__</code> 直接构造的，它们在 Python 解释器加载时被创建。</strong></td>
-<td align="left">初始化类的实例。</td>
+<td style="text-align: left;"><code>__init__</code></td>
+<td style="text-align: left;">方法</td>
+<td
+style="text-align: left;">对象的构造函数。当一个类的实例被创建时调用。<strong>函数对象自身不是通过
+<code>__init__</code> 直接构造的，它们在 Python
+解释器加载时被创建。</strong></td>
+<td style="text-align: left;">初始化类的实例。</td>
 </tr>
 <tr>
-<td align="left"><code>__init_subclass__</code></td>
-<td align="left">方法</td>
-<td align="left">当一个类被继承时，在其子类被定义时调用。</td>
-<td align="left">记录子类、注册子类等，用于元类编程。</td>
+<td style="text-align: left;"><code>__init_subclass__</code></td>
+<td style="text-align: left;">方法</td>
+<td
+style="text-align: left;">当一个类被继承时，在其子类被定义时调用。</td>
+<td style="text-align: left;">记录子类、注册子类等，用于元类编程。</td>
 </tr>
 <tr>
-<td align="left"><code>__kwdefaults__</code></td>
-<td align="left">属性</td>
-<td align="left">一个字典，包含函数的<strong>关键字参数默认值</strong>。例如 <code>def func(*, a=10):</code>，那么 <code>__kwdefaults__</code> 会是 <code>&#123;&#39;a&#39;: 10&#125;</code>。</td>
-<td align="left">运行时检查或修改关键字参数默认值。</td>
+<td style="text-align: left;"><code>__kwdefaults__</code></td>
+<td style="text-align: left;">属性</td>
+<td
+style="text-align: left;">一个字典，包含函数的<strong>关键字参数默认值</strong>。例如
+<code>def func(*, a=10):</code>，那么 <code>__kwdefaults__</code> 会是
+<code>&#123;'a': 10&#125;</code>。</td>
+<td style="text-align: left;">运行时检查或修改关键字参数默认值。</td>
 </tr>
 <tr>
-<td align="left"><code>__le__</code></td>
-<td align="left">方法</td>
-<td align="left">定义对象的“小于等于”比较（<code>&lt;=</code> 操作符）。</td>
-<td align="left">自定义对象比较行为。</td>
+<td style="text-align: left;"><code>__le__</code></td>
+<td style="text-align: left;">方法</td>
+<td
+style="text-align: left;">定义对象的“小于等于”比较（<code>&lt;=</code>
+操作符）。</td>
+<td style="text-align: left;">自定义对象比较行为。</td>
 </tr>
 <tr>
-<td align="left"><code>__lt__</code></td>
-<td align="left">方法</td>
-<td align="left">定义对象的“小于”比较（<code>&lt;</code> 操作符）。</td>
-<td align="left">自定义对象比较行为。</td>
+<td style="text-align: left;"><code>__lt__</code></td>
+<td style="text-align: left;">方法</td>
+<td style="text-align: left;">定义对象的“小于”比较（<code>&lt;</code>
+操作符）。</td>
+<td style="text-align: left;">自定义对象比较行为。</td>
 </tr>
 <tr>
-<td align="left"><code>__module__</code></td>
-<td align="left">属性</td>
-<td align="left">函数所属模块的名称。</td>
-<td align="left">反射，确定函数定义的位置。</td>
+<td style="text-align: left;"><code>__module__</code></td>
+<td style="text-align: left;">属性</td>
+<td style="text-align: left;">函数所属模块的名称。</td>
+<td style="text-align: left;">反射，确定函数定义的位置。</td>
 </tr>
 <tr>
-<td align="left"><code>__name__</code></td>
-<td align="left">属性</td>
-<td align="left">函数的名称。例如 <code>def my_func():</code>，那么 <code>__name__</code> 会是 <code>&quot;my_func&quot;</code>。</td>
-<td align="left">调试、日志、模块导入。</td>
+<td style="text-align: left;"><code>__name__</code></td>
+<td style="text-align: left;">属性</td>
+<td style="text-align: left;">函数的名称。例如
+<code>def my_func():</code>，那么 <code>__name__</code> 会是
+<code>"my_func"</code>。</td>
+<td style="text-align: left;">调试、日志、模块导入。</td>
 </tr>
 <tr>
-<td align="left"><code>__ne__</code></td>
-<td align="left">方法</td>
-<td align="left">定义对象之间的<strong>不相等性</strong>（<code>!=</code> 操作符）。</td>
-<td align="left">自定义对象比较行为。</td>
+<td style="text-align: left;"><code>__ne__</code></td>
+<td style="text-align: left;">方法</td>
+<td
+style="text-align: left;">定义对象之间的<strong>不相等性</strong>（<code>!=</code>
+操作符）。</td>
+<td style="text-align: left;">自定义对象比较行为。</td>
 </tr>
 <tr>
-<td align="left"><code>__new__</code></td>
-<td align="left">方法</td>
-<td align="left">对象的创建方法。在 <code>__init__</code> 之前调用，负责创建并返回对象的实例。<strong>函数对象不是通过 <code>__new__</code> 直接创建的。</strong></td>
-<td align="left">自定义对象创建过程，通常用于单例模式或不可变对象。</td>
+<td style="text-align: left;"><code>__new__</code></td>
+<td style="text-align: left;">方法</td>
+<td style="text-align: left;">对象的创建方法。在 <code>__init__</code>
+之前调用，负责创建并返回对象的实例。<strong>函数对象不是通过
+<code>__new__</code> 直接创建的。</strong></td>
+<td
+style="text-align: left;">自定义对象创建过程，通常用于单例模式或不可变对象。</td>
 </tr>
 <tr>
-<td align="left"><code>__qualname__</code></td>
-<td align="left">属性</td>
-<td align="left">函数的限定名称，包含了定义它的类或函数的名称（如果它是一个嵌套函数或方法）。例如 <code>MyClass.my_method</code>。</td>
-<td align="left">调试、显示更完整的函数路径。</td>
+<td style="text-align: left;"><code>__qualname__</code></td>
+<td style="text-align: left;">属性</td>
+<td
+style="text-align: left;">函数的限定名称，包含了定义它的类或函数的名称（如果它是一个嵌套函数或方法）。例如
+<code>MyClass.my_method</code>。</td>
+<td style="text-align: left;">调试、显示更完整的函数路径。</td>
 </tr>
 <tr>
-<td align="left"><code>__reduce__</code></td>
-<td align="left">方法</td>
-<td align="left">用于对象序列化（如 <code>pickle</code> 模块）。返回一个元组，描述如何重构对象。</td>
-<td align="left">自定义对象的序列化。</td>
+<td style="text-align: left;"><code>__reduce__</code></td>
+<td style="text-align: left;">方法</td>
+<td style="text-align: left;">用于对象序列化（如 <code>pickle</code>
+模块）。返回一个元组，描述如何重构对象。</td>
+<td style="text-align: left;">自定义对象的序列化。</td>
 </tr>
 <tr>
-<td align="left"><code>__reduce_ex__</code></td>
-<td align="left">方法</td>
-<td align="left">类似 <code>__reduce__</code>，但支持协议版本。</td>
-<td align="left">自定义对象的序列化。</td>
+<td style="text-align: left;"><code>__reduce_ex__</code></td>
+<td style="text-align: left;">方法</td>
+<td style="text-align: left;">类似
+<code>__reduce__</code>，但支持协议版本。</td>
+<td style="text-align: left;">自定义对象的序列化。</td>
 </tr>
 <tr>
-<td align="left"><code>__repr__</code></td>
-<td align="left">方法</td>
-<td align="left">定义对象的<strong>官方字符串表示</strong>。当你在交互式会话中直接输出对象或使用 <code>repr()</code> 函数时调用。目标是提供一个清晰、无歧义的表示，能够重新创建对象。</td>
-<td align="left">调试，生成可用于重新创建对象的字符串。</td>
+<td style="text-align: left;"><code>__repr__</code></td>
+<td style="text-align: left;">方法</td>
+<td
+style="text-align: left;">定义对象的<strong>官方字符串表示</strong>。当你在交互式会话中直接输出对象或使用
+<code>repr()</code>
+函数时调用。目标是提供一个清晰、无歧义的表示，能够重新创建对象。</td>
+<td
+style="text-align: left;">调试，生成可用于重新创建对象的字符串。</td>
 </tr>
 <tr>
-<td align="left"><code>__setattr__</code></td>
-<td align="left">方法</td>
-<td align="left">当尝试设置对象的属性时调用（例如 <code>obj.attr = value</code>）。</td>
-<td align="left">自定义属性设置行为，通常不直接在函数对象上使用。</td>
+<td style="text-align: left;"><code>__setattr__</code></td>
+<td style="text-align: left;">方法</td>
+<td style="text-align: left;">当尝试设置对象的属性时调用（例如
+<code>obj.attr = value</code>）。</td>
+<td
+style="text-align: left;">自定义属性设置行为，通常不直接在函数对象上使用。</td>
 </tr>
 <tr>
-<td align="left"><code>__sizeof__</code></td>
-<td align="left">方法</td>
-<td align="left">返回对象在内存中所占的字节数。</td>
-<td align="left">内存分析。</td>
+<td style="text-align: left;"><code>__sizeof__</code></td>
+<td style="text-align: left;">方法</td>
+<td style="text-align: left;">返回对象在内存中所占的字节数。</td>
+<td style="text-align: left;">内存分析。</td>
 </tr>
 <tr>
-<td align="left"><code>__str__</code></td>
-<td align="left">方法</td>
-<td align="left">定义对象的<strong>非正式的、用户友好的字符串表示</strong>。当使用 <code>str()</code> 函数或 <code>print()</code> 函数时调用。</td>
-<td align="left">用户友好的输出。</td>
+<td style="text-align: left;"><code>__str__</code></td>
+<td style="text-align: left;">方法</td>
+<td
+style="text-align: left;">定义对象的<strong>非正式的、用户友好的字符串表示</strong>。当使用
+<code>str()</code> 函数或 <code>print()</code> 函数时调用。</td>
+<td style="text-align: left;">用户友好的输出。</td>
 </tr>
 <tr>
-<td align="left"><code>__subclasshook__</code></td>
-<td align="left">方法</td>
-<td align="left">一个类方法，用于实现<strong>抽象基类 (ABC)</strong> 的 <code>issubclass()</code> 和 <code>isinstance()</code> 的自定义行为。</td>
-<td align="left">实现多态和类型检查。</td>
+<td style="text-align: left;"><code>__subclasshook__</code></td>
+<td style="text-align: left;">方法</td>
+<td style="text-align: left;">一个类方法，用于实现<strong>抽象基类
+(ABC)</strong> 的 <code>issubclass()</code> 和 <code>isinstance()</code>
+的自定义行为。</td>
+<td style="text-align: left;">实现多态和类型检查。</td>
 </tr>
 <tr>
-<td align="left"><code>__type_params__</code></td>
-<td align="left">属性</td>
-<td align="left">Python 3.12+ 中新增，一个元组，包含函数的<strong>类型参数</strong>（如 <code>TypeVar</code>）。用于泛型函数。</td>
-<td align="left">处理泛型代码，类型检查。</td>
+<td style="text-align: left;"><code>__type_params__</code></td>
+<td style="text-align: left;">属性</td>
+<td style="text-align: left;">Python 3.12+
+中新增，一个元组，包含函数的<strong>类型参数</strong>（如
+<code>TypeVar</code>）。用于泛型函数。</td>
+<td style="text-align: left;">处理泛型代码，类型检查。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">func</span>(<span class="hljs-params">va_test = <span class="hljs-number">1</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;doc string&quot;&quot;&quot;</span><br>    <span class="hljs-built_in">print</span>(va_test)<br><br>func.greetings = <span class="hljs-string">&quot;Hello&quot;</span><br><br><span class="hljs-built_in">print</span>(func.__dict__)<br><span class="hljs-built_in">print</span>(func.__class__)<br><span class="hljs-built_in">print</span>(func.__code__)<br><span class="hljs-built_in">print</span>(func.__name__)<br><span class="hljs-built_in">print</span>(func.__defaults__)<br><span class="hljs-built_in">print</span>(func.__hash__)<br><span class="hljs-built_in">print</span>(func.__doc__)<br><br><span class="hljs-comment"># output:</span><br><span class="hljs-comment"># &#123;&#x27;greetings&#x27;: &#x27;Hello&#x27;&#125;</span><br><span class="hljs-comment"># &lt;class &#x27;function&#x27;&gt;</span><br><span class="hljs-comment"># &lt;code object func at 0x7f3439c72cd0, file &quot;/tmp/ipykernel_7816/1690028656.py&quot;, line 1&gt;</span><br><span class="hljs-comment"># func</span><br><span class="hljs-comment"># (1,)</span><br><span class="hljs-comment"># &lt;method-wrapper &#x27;__hash__&#x27; of function object at 0x7f3439ab4180&gt;</span><br><span class="hljs-comment"># doc string</span><br></code></pre></td></tr></table></figure>
-
-<h4 id="Closure"><a href="#Closure" class="headerlink" title="Closure"></a>Closure</h4><ul>
-<li><p>Functions can be nested in another function!</p>
-</li>
-<li><p><strong>Function Factory in Design Pattern</strong>: a function that generate a function.</p>
-</li>
+<h4 id="closure">Closure</h4>
+<ul>
+<li><p>Functions can be nested in another function!</p></li>
+<li><p><strong>Function Factory in Design Pattern</strong>: a function
+that generate a function.</p></li>
 <li><p>It should satisfy:</p>
 <ul>
-<li><p>函数嵌套：内部函数 &amp; 外部函数</p>
-</li>
-<li><p>内部函数引用外部函数的数据</p>
-</li>
-<li><p>内部函数被外部函数返回</p>
-</li>
-</ul>
-</li>
+<li><p>函数嵌套：内部函数 &amp; 外部函数</p></li>
+<li><p>内部函数引用外部函数的数据</p></li>
+<li><p>内部函数被外部函数返回</p></li>
+</ul></li>
 </ul>
 <p>例如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">make</span>(<span class="hljs-params">N</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">action</span>(<span class="hljs-params">x</span>):<br>        <span class="hljs-keyword">return</span> x**N<br><br>    <span class="hljs-keyword">return</span> action<br><br><br><span class="hljs-comment"># it is a factory</span><br>result = [(make(make_func))(<span class="hljs-built_in">input</span>) <span class="hljs-keyword">for</span> make_func <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>] <span class="hljs-keyword">for</span> <span class="hljs-built_in">input</span> <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]]<br><span class="hljs-built_in">print</span>(result)<br><span class="hljs-comment"># [1, 2, 3, 1, 4, 9, 1, 8, 27]</span><br></code></pre></td></tr></table></figure>
-
 <blockquote>
 <p>当然，函数的装饰器也可以用作同等用途。被装饰的函数相当于参数被传递进去。</p>
 </blockquote>
 <blockquote>
-<p>当然 ，lambda匿名函数也可以，the return value is the value of single expression.</p>
+<p>当然 ，lambda匿名函数也可以，the return value is the value of single
+expression.</p>
 </blockquote>
-<h4 id="map-filter-reduce"><a href="#map-filter-reduce" class="headerlink" title="map &amp; filter &amp; reduce"></a><code>map</code> &amp; <code>filter</code> &amp; <code>reduce</code></h4><p>The same as <code>pipe</code> and <code>js</code>!</p>
-<h5 id="map"><a href="#map" class="headerlink" title="map"></a>map</h5><p><code>map(function, iterable)</code>: It is equivalent to for x in iterable: f(x), but returning a map.</p>
+<h4 id="map-filter-reduce"><code>map</code> &amp; <code>filter</code>
+&amp; <code>reduce</code></h4>
+<p>The same as <code>pipe</code> and <code>js</code>!</p>
+<h5 id="map">map</h5>
+<p><code>map(function, iterable)</code>: It is equivalent to for x in
+iterable: f(x), but returning a map.</p>
 <ul>
-<li>Return an <strong>iterator</strong> that applies functions to every item of this iterable, yielding the result.</li>
+<li>Return an <strong>iterator</strong> that applies functions to every
+item of this iterable, yielding the result.</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_function</span>(<span class="hljs-params">a</span>):<br>    <span class="hljs-keyword">return</span> a + a<br><br>numbers = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>))<br><br>result = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(test_function, numbers))<br><span class="hljs-built_in">print</span>(result)<br></code></pre></td></tr></table></figure>
-
-<p>A map is an iterator which can be iterated, which is different from a list.</p>
+<p>A map is an iterator which can be iterated, which is different from a
+list.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># the usage of map as an iterator</span><br><br>result_2 = <span class="hljs-built_in">map</span>(test_function, numbers)<br><br><span class="hljs-built_in">print</span>(result_2.__iter__() == result_2)<br><span class="hljs-keyword">try</span>:<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">11</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Value is <span class="hljs-subst">&#123;result_2.__next__()&#125;</span>&quot;</span>)<br><span class="hljs-keyword">except</span> StopIteration:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;The iteration has stopped&quot;</span>)<br></code></pre></td></tr></table></figure>
-
-<h5 id="filter"><a href="#filter" class="headerlink" title="filter"></a><code>filter</code></h5><p><code>filter(function, iterable)</code>: select the element <code>x</code> where <code>function(x)</code> is True.</p>
-<p>Construct an <strong>iterator</strong> from those elements of iterable for which function returns true. iterable may be either a sequence, a container which supports iteration, or an iterator. If function is None, the identity function is assumed, that is, all elements of iterable that are false are removed.</p>
+<h5 id="filter"><code>filter</code></h5>
+<p><code>filter(function, iterable)</code>: select the element
+<code>x</code> where <code>function(x)</code> is True.</p>
+<p>Construct an <strong>iterator</strong> from those elements of
+iterable for which function returns true. iterable may be either a
+sequence, a container which supports iteration, or an iterator. If
+function is None, the identity function is assumed, that is, all
+elements of iterable that are false are removed.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">is_happy</span>(<span class="hljs-params">x</span>):<br>    <span class="hljs-keyword">if</span> x % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br>result_3 = <span class="hljs-built_in">filter</span>(is_happy, <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">11</span>))<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(result_3))<br><br>result_3 = <span class="hljs-built_in">filter</span>(is_happy, <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">11</span>))<br><span class="hljs-keyword">try</span>:<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">11</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Value is <span class="hljs-subst">&#123;result_3.__next__()&#125;</span>&quot;</span>)<br><span class="hljs-keyword">except</span> StopIteration:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Stop Iteration&quot;</span>)<br></code></pre></td></tr></table></figure>
-
-<h5 id="Reduce"><a href="#Reduce" class="headerlink" title="Reduce"></a><code>Reduce</code></h5><ul>
-<li><p>The <code>reduce(fun, iterable)</code> function is used to apply a particular function passed in its argument to <strong>all of the list elements mentioned in the sequence passed along</strong>.</p>
-</li>
-<li><p>This function is defined in <code>functools</code> module</p>
-</li>
-<li><p>The same in JavaScripts.</p>
-</li>
+<h5 id="reduce"><code>Reduce</code></h5>
+<ul>
+<li><p>The <code>reduce(fun, iterable)</code> function is used to apply
+a particular function passed in its argument to <strong>all of the list
+elements mentioned in the sequence passed along</strong>.</p></li>
+<li><p>This function is defined in <code>functools</code>
+module</p></li>
+<li><p>The same in JavaScripts.</p></li>
 </ul>
 <p>params: <code>reduce(function, iterable, initial)</code>:</p>
 <ul>
-<li><p>If <code>initial</code> is given as $x_{\text{ini}}$:</p>
+<li><p>If <code>initial</code> is given as <span
+class="math inline"><em>x</em><sub>ini</sub></span>:</p>
 <ul>
-<li><p>$y_0 &#x3D; f(x_{\text{ini}}, x_0)$, where $x_0$ is the first value in the iterable object.</p>
-</li>
-<li><p>$y_1 &#x3D; f(y_0, x_1), y_2 &#x3D; f(y_1, x_2), \dots , y_{n-1} &#x3D; f(y_{n-2}, x_{n-1})$, <strong>the iteration</strong>!</p>
-</li>
-<li><p>The return value is $y_{n-1}$.</p>
-</li>
-</ul>
-</li>
+<li><p><span
+class="math inline"><em>y</em><sub>0</sub> = <em>f</em>(<em>x</em><sub>ini</sub>, <em>x</em><sub>0</sub>)</span>,
+where <span class="math inline"><em>x</em><sub>0</sub></span> is the
+first value in the iterable object.</p></li>
+<li><p><span
+class="math inline"><em>y</em><sub>1</sub> = <em>f</em>(<em>y</em><sub>0</sub>, <em>x</em><sub>1</sub>), <em>y</em><sub>2</sub> = <em>f</em>(<em>y</em><sub>1</sub>, <em>x</em><sub>2</sub>), …, <em>y</em><sub><em>n</em> − 1</sub> = <em>f</em>(<em>y</em><sub><em>n</em> − 2</sub>, <em>x</em><sub><em>n</em> − 1</sub>)</span>,
+<strong>the iteration</strong>!</p></li>
+<li><p>The return value is <span
+class="math inline"><em>y</em><sub><em>n</em> − 1</sub></span>.</p></li>
+</ul></li>
 <li><p>If <code>initial</code> is not given:</p>
 <ul>
-<li><p>$y_0 &#x3D; f(x_0, x_1), y_1 &#x3D; f(y_0, x_2), \dots , y_{n-2} &#x3D; f(y_{n-3}, x_{n-1})$.</p>
-</li>
-<li><p>The return value is $y_{n-2}$.</p>
-</li>
-</ul>
-</li>
+<li><p><span
+class="math inline"><em>y</em><sub>0</sub> = <em>f</em>(<em>x</em><sub>0</sub>, <em>x</em><sub>1</sub>), <em>y</em><sub>1</sub> = <em>f</em>(<em>y</em><sub>0</sub>, <em>x</em><sub>2</sub>), …, <em>y</em><sub><em>n</em> − 2</sub> = <em>f</em>(<em>y</em><sub><em>n</em> − 3</sub>, <em>x</em><sub><em>n</em> − 1</sub>)</span>.</p></li>
+<li><p>The return value is <span
+class="math inline"><em>y</em><sub><em>n</em> − 2</sub></span>.</p></li>
+</ul></li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> reduce<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">my_add</span>(<span class="hljs-params">a, b</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Value: <span class="hljs-subst">&#123;a&#125;</span> + <span class="hljs-subst">&#123;b&#125;</span> = <span class="hljs-subst">&#123;a + b&#125;</span>&quot;</span>)<br>    <span class="hljs-keyword">return</span> a + b<br><br>ini_list = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">30</span>, <span class="hljs-number">50</span>))<br>result = reduce(my_add, ini_list, <span class="hljs-number">0</span>)<br><span class="hljs-built_in">print</span>(result)<br><br><span class="hljs-comment"># Value: 0 + 30 = 30</span><br><span class="hljs-comment"># Value: 30 + 31 = 61</span><br><span class="hljs-comment"># Value: 61 + 32 = 93</span><br><span class="hljs-comment"># Value: 93 + 33 = 126</span><br><span class="hljs-comment"># Value: 126 + 34 = 160</span><br><span class="hljs-comment"># Value: 160 + 35 = 195</span><br><span class="hljs-comment"># Value: 195 + 36 = 231</span><br><span class="hljs-comment"># Value: 231 + 37 = 268</span><br><span class="hljs-comment"># Value: 268 + 38 = 306</span><br><span class="hljs-comment"># Value: 306 + 39 = 345</span><br><span class="hljs-comment"># Value: 345 + 40 = 385</span><br><span class="hljs-comment"># Value: 385 + 41 = 426</span><br><span class="hljs-comment"># Value: 426 + 42 = 468</span><br><span class="hljs-comment"># Value: 468 + 43 = 511</span><br><span class="hljs-comment"># Value: 511 + 44 = 555</span><br><span class="hljs-comment"># Value: 555 + 45 = 600</span><br><span class="hljs-comment"># Value: 600 + 46 = 646</span><br><span class="hljs-comment"># Value: 646 + 47 = 693</span><br><span class="hljs-comment"># Value: 693 + 48 = 741</span><br><span class="hljs-comment"># Value: 741 + 49 = 790</span><br><span class="hljs-comment"># 790</span><br></code></pre></td></tr></table></figure>
+
                 
               </div>
             

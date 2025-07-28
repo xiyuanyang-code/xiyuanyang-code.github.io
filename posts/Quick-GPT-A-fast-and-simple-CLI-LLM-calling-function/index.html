@@ -363,7 +363,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          427 words
+          426 words
         
       </span>
     
@@ -549,51 +549,59 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Quick-GPT-A-Fast-and-Easy-to-use-CLI-command"><a href="#Quick-GPT-A-Fast-and-Easy-to-use-CLI-command" class="headerlink" title="Quick-GPT: A Fast and Easy-to-use CLI command"></a>Quick-GPT: A Fast and Easy-to-use CLI command</h1><div class="note note-primary">
-            <p>All the code is open-sourced in <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Quick-GPT">GitHub</a>.</p>
+                <h1 id="quick-gpt-a-fast-and-easy-to-use-cli-command">Quick-GPT: A Fast
+and Easy-to-use CLI command</h1>
+<div class="note note-primary">
+            <p>All the code is open-sourced in <ahref="https://github.com/xiyuanyang-code/Quick-GPT">GitHub</a>.</p>
           </div>
-
-<h1 id="README"><a href="#README" class="headerlink" title="README"></a>README</h1><p>A fast, user-friendly CLI tool for multi-turn conversations with OpenAI and Google Gemini models.<br>Supports conversation history, system prompts, and easy model switching.</p>
-<p><strong>Run powerful AI conversations from your terminal in a single command!</strong></p>
-<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/xiyuanyang-code/Quick-GPT.git<br><span class="hljs-built_in">cd</span> Quick-GPT<br>pip install .<br></code></pre></td></tr></table></figure>
-
-
-<h2 id="API-Key-Configuration"><a href="#API-Key-Configuration" class="headerlink" title="API Key Configuration"></a>API Key Configuration</h2><p>Quick-GPT requires API keys for OpenAI and&#x2F;or Google Gemini.<br>You can provide them via a <code>.env</code> file in your project root, or as environment variables. You can also export these variables in your shell profile (<code>~/.bashrc</code>, <code>~/.zshrc</code>, etc).</p>
-<p><strong>Example <code>.env</code> file:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs env"># OpenAI<br>OPENAI_API_KEY=sk-xxxxxx<br>BASE_URL=&quot;your api key here&quot;<br><br># Google Gemini<br>GEMINI_API_KEY=your-gemini-api-key<br>GOOGLE_GEMINI_BASE_URL=&quot;&quot;your api key here&quot;<br></code></pre></td></tr></table></figure>
-
-
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p>After installation and API configuration, use the CLI as follows:</p>
+<h1 id="readme">README</h1>
+<p>A fast, user-friendly CLI tool for multi-turn conversations with
+OpenAI and Google Gemini models.<br />
+Supports conversation history, system prompts, and easy model
+switching.</p>
+<p><strong>Run powerful AI conversations from your terminal in a single
+command!</strong></p>
+<h2 id="installation">Installation</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/xiyuanyang-code/Quick-GPT.git<br><span class="hljs-built_in">cd</span> Quick-GPT<br>pip install .<br></code></pre></td></tr></table></figure>
+<h2 id="api-key-configuration">API Key Configuration</h2>
+<p>Quick-GPT requires API keys for OpenAI and/or Google Gemini.<br />
+You can provide them via a <code>.env</code> file in your project root,
+or as environment variables. You can also export these variables in your
+shell profile (<code>~/.bashrc</code>, <code>~/.zshrc</code>, etc).</p>
+<p><strong>Example <code>.env</code> file:</strong> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs env"># OpenAI<br>OPENAI_API_KEY=sk-xxxxxx<br>BASE_URL=&quot;your api key here&quot;<br><br># Google Gemini<br>GEMINI_API_KEY=your-gemini-api-key<br>GOOGLE_GEMINI_BASE_URL=&quot;&quot;your api key here&quot;<br></code></pre></td></tr></table></figure></p>
+<h2 id="quick-start">Quick Start</h2>
+<p>After installation and API configuration, use the CLI as follows:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">quick-gpt <span class="hljs-string">&quot;Your question here&quot;</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>Example:</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">quick-gpt <span class="hljs-string">&quot;Tell me something about Hexo Blog&quot;</span><br></code></pre></td></tr></table></figure>
-
+<p><strong>Example:</strong> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">quick-gpt <span class="hljs-string">&quot;Tell me something about Hexo Blog&quot;</span><br></code></pre></td></tr></table></figure></p>
 <ul>
-<li>The tool auto-selects the model based on your configuration and input.</li>
-<li>Conversation history is saved in the <code>history/</code> directory with a timestamped filename.</li>
+<li>The tool auto-selects the model based on your configuration and
+input.</li>
+<li>Conversation history is saved in the <code>history/</code> directory
+with a timestamped filename.</li>
 <li>View the full conversation history after each session.</li>
-<li>Use <code>@exit</code> or <code>@quit</code> to quit, and <code>@history</code> to display previous outputs.</li>
+<li>Use <code>@exit</code> or <code>@quit</code> to quit, and
+<code>@history</code> to display previous outputs.</li>
 </ul>
-<hr>
-<h2 id="Advanced-Usage"><a href="#Advanced-Usage" class="headerlink" title="Advanced Usage"></a>Advanced Usage</h2><p><strong>Switch models:</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">quick-gpt <span class="hljs-string">&quot;Hello world&quot;</span> --model_name <span class="hljs-string">&quot;gpt-4o-mini&quot;</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>Add a system prompt:</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">quick-gpt <span class="hljs-string">&quot;Hello world&quot;</span> --sys <span class="hljs-string">&quot;You should only output in English&quot;</span><br></code></pre></td></tr></table></figure>
-
+<hr />
+<h2 id="advanced-usage">Advanced Usage</h2>
+<p><strong>Switch models:</strong> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">quick-gpt <span class="hljs-string">&quot;Hello world&quot;</span> --model_name <span class="hljs-string">&quot;gpt-4o-mini&quot;</span><br></code></pre></td></tr></table></figure></p>
+<p><strong>Add a system prompt:</strong> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">quick-gpt <span class="hljs-string">&quot;Hello world&quot;</span> --sys <span class="hljs-string">&quot;You should only output in English&quot;</span><br></code></pre></td></tr></table></figure></p>
 <ul>
-<li>You can also customize system prompts and initial messages in your Python code if using Quick-GPT as a module.</li>
+<li>You can also customize system prompts and initial messages in your
+Python code if using Quick-GPT as a module.</li>
 </ul>
-<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><p>这是笔者第一次尝试<strong>中小型项目的多文件编程</strong> (对于Python来说)。</p>
+<h1 id="code">Code</h1>
+<p>这是笔者第一次尝试<strong>中小型项目的多文件编程</strong>
+(对于Python来说)。</p>
 <p>项目结构：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">git ls-files --cached --others --exclude-standard<br>.gitignore          <br>README.md<br>pyproject.toml<br>quick_gpt/__init__.py   <br>quick_gpt/history.py       <span class="hljs-comment"># 历史记录模块，包括创建json历史记录，写入和读取历史数据</span><br>quick_gpt/main.py          <span class="hljs-comment"># main函数，解析命令行参数，为主入口 </span><br>quick_gpt/quick_gpt.py     <span class="hljs-comment"># 设计核心类 Quick-GPT，负责处理init和单轮对话等核心逻辑</span><br>quick_gpt/response.py      <span class="hljs-comment"># 对不同的SDK设置对话封装函数，目前支持OpenAI和Gemini</span><br>quick_gpt/utils.py         <span class="hljs-comment"># 相关小工具</span><br></code></pre></td></tr></table></figure>
-
 <div class="note note-info">
-            <p>Code is available on GitHub!<br><a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Quick-GPT">https://github.com/xiyuanyang-code/Quick-GPT</a></p>
+            <p>Code is available on GitHub!https://github.com/xiyuanyang-code/Quick-GPT</p>
           </div>
-
-<h2 id="Todo-List"><a href="#Todo-List" class="headerlink" title="Todo List"></a>Todo List</h2><p>这个项目本身的设计是因为笔者每次在输入命令行命令的时候（<strong>现在真的是离不开命令行了</strong>），总是需要一些References的AI辅助，尝试过cursor的命令行帮手，很好用，以及Gemini CLI，但是<strong>都觉得太花里胡哨</strong>，并且<strong>响应时间太长</strong>，又是我只是不想切屏去查资料，一个开箱即用的AI CLI助手是我迫切需要的。</p>
+<h2 id="todo-list">Todo List</h2>
+<p>这个项目本身的设计是因为笔者每次在输入命令行命令的时候（<strong>现在真的是离不开命令行了</strong>），总是需要一些References的AI辅助，尝试过cursor的命令行帮手，很好用，以及Gemini
+CLI，但是<strong>都觉得太花里胡哨</strong>，并且<strong>响应时间太长</strong>，又是我只是不想切屏去查资料，一个开箱即用的AI
+CLI助手是我迫切需要的。</p>
 <p>后续项目可能不会再添加新功能，因为这个项目就是我正好需要的功能，再加反而难以维护。但是笔者在八月份会将开发的重心转移到<strong>设计模式的学习</strong>和<strong>BLOGing-AI</strong>的开发上。</p>
 
                 

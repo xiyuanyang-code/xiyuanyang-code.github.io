@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/quan.jpg">
 <meta property="article:published_time" content="2025-07-01T02:05:34.000Z">
-<meta property="article:modified_time" content="2025-07-03T08:44:27.052Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:36.484Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Finished">
 <meta property="article:tag" content="Survey">
@@ -363,7 +363,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k words
+          1.3k words
         
       </span>
     
@@ -741,163 +741,582 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h1 id="Introduction-to-Quantitative-Factor-Mining-A-survey"><a href="#Introduction-to-Quantitative-Factor-Mining-A-survey" class="headerlink" title="Introduction to Quantitative Factor Mining: A survey"></a>Introduction to Quantitative Factor Mining: A survey</h1><div class="note note-primary">
-            <p>The first part of my final assignment for <strong>Programming Practice</strong> in SJTU.</p><p>Author: Xiyuan Yang, Mowen Ruan, Zhijie Chen.</p><p>For more info: <a target="_blank" rel="noopener" href="https://latex.sjtu.edu.cn/read/yyvmgdwgvfck#ba0270">https://latex.sjtu.edu.cn/read/yyvmgdwgvfck#ba0270</a></p>
+<h1
+id="introduction-to-quantitative-factor-mining-a-survey">Introduction to
+Quantitative Factor Mining: A survey</h1>
+<div class="note note-primary">
+            <p>The first part of my final assignment for <strong>ProgrammingPractice</strong> in SJTU.</p><p>Author: Xiyuan Yang, Mowen Ruan, Zhijie Chen.</p><p>For more info: https://latex.sjtu.edu.cn/read/yyvmgdwgvfck#ba0270</p>
           </div>
-
-<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>Quantitative factor mining aims to identify systematic drivers of asset returns through mathematical and statistical modeling, with applications ranging from risk assessment to alpha generation. This survey provides a structured overview of the field by first introducing fundamental factors—such as <strong>value</strong>, <strong>momentum</strong>, <strong>quality</strong>, and <strong>size</strong>. We then discuss classical factor models like <strong>CAPM</strong> and <strong>APT</strong>, as well as the challenges posed by the growing “<strong>factor zoo</strong>“, where redundant or spurious factors complicate model selection. </p>
-<p>The core of our analysis focuses on modern factor construction methodologies, contrasting heuristic approaches with data-driven techniques. While linear composites and economic intuition remain foundational, supervised learning methods like <strong>gradient boosting</strong> and <strong>neural networks</strong> offer flexibility in capturing non-linear patterns, albeit at the risk of overfitting. Unsupervised approaches, particularly <strong>PCA</strong>, provide an alternative by extracting latent statistical factors from return covariance structures, though their interpretability remains limited.</p>
-<p> Finally, we examine rigorous frameworks for evaluating factor effectiveness, emphasizing robustness against data-mining biases. <strong>Information coefficient (IC)</strong> analysis measures predictive power, while <strong>grouped backtesting</strong> assesses economic significance through portfolio sorts. Our findings highlight the importance of balancing statistical rigor with theoretical coherence, suggesting hybrid methodologies as a promising direction for future research in quantitative finance.</p>
-<h2 id="Introduction-to-Quantitative-Factor-Mining"><a href="#Introduction-to-Quantitative-Factor-Mining" class="headerlink" title="Introduction to Quantitative Factor Mining"></a>Introduction to Quantitative Factor Mining</h2><h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Quantitative Analysis (QA)</strong> is the use of mathematical and statistical methods to ascertain the value of financial assets and inform investment decisions. <strong>Quantitative factors</strong>, often referred to as factors in quantitative finance, are characteristics or attributes of assets (like stocks) that explain their risk and return. More specifically, a factor is essentially any characteristic that can be used to explain or predict the returns and risks of a group of securities. These factors are typically identified through empirical research and statistical analysis. The core idea is that different assets respond to these underlying drivers in a systematic way.</p>
-<h3 id="Common-Quantitative-Factors"><a href="#Common-Quantitative-Factors" class="headerlink" title="Common Quantitative Factors"></a>Common Quantitative Factors</h3><p>Given that stock price fluctuations are influenced by multifaceted market dynamics and other factors, the selection of predictive factors remains highly flexible. Therefore, quantitative factors can be analyzed from both macro and micro dimensions. Generally, all factors can be categorized into <strong>style factors</strong> (such as value, momentum, quality, size, and low volatility) and <strong>macroeconomic factors</strong> (such as interest rates, inflation, and liquidity).</p>
-<p>Here is an overview of the most frequently analyzed style factors:</p>
+<h2 id="abstract">Abstract</h2>
+<p>Quantitative factor mining aims to identify systematic drivers of
+asset returns through mathematical and statistical modeling, with
+applications ranging from risk assessment to alpha generation. This
+survey provides a structured overview of the field by first introducing
+fundamental factors—such as <strong>value</strong>,
+<strong>momentum</strong>, <strong>quality</strong>, and
+<strong>size</strong>. We then discuss classical factor models like
+<strong>CAPM</strong> and <strong>APT</strong>, as well as the
+challenges posed by the growing “<strong>factor zoo</strong>”, where
+redundant or spurious factors complicate model selection.</p>
+<p>The core of our analysis focuses on modern factor construction
+methodologies, contrasting heuristic approaches with data-driven
+techniques. While linear composites and economic intuition remain
+foundational, supervised learning methods like <strong>gradient
+boosting</strong> and <strong>neural networks</strong> offer flexibility
+in capturing non-linear patterns, albeit at the risk of overfitting.
+Unsupervised approaches, particularly <strong>PCA</strong>, provide an
+alternative by extracting latent statistical factors from return
+covariance structures, though their interpretability remains
+limited.</p>
+<p>Finally, we examine rigorous frameworks for evaluating factor
+effectiveness, emphasizing robustness against data-mining biases.
+<strong>Information coefficient (IC)</strong> analysis measures
+predictive power, while <strong>grouped backtesting</strong> assesses
+economic significance through portfolio sorts. Our findings highlight
+the importance of balancing statistical rigor with theoretical
+coherence, suggesting hybrid methodologies as a promising direction for
+future research in quantitative finance.</p>
+<h2 id="introduction-to-quantitative-factor-mining">Introduction to
+Quantitative Factor Mining</h2>
+<h3 id="definition">Definition</h3>
+<p><strong>Quantitative Analysis (QA)</strong> is the use of
+mathematical and statistical methods to ascertain the value of financial
+assets and inform investment decisions. <strong>Quantitative
+factors</strong>, often referred to as factors in quantitative finance,
+are characteristics or attributes of assets (like stocks) that explain
+their risk and return. More specifically, a factor is essentially any
+characteristic that can be used to explain or predict the returns and
+risks of a group of securities. These factors are typically identified
+through empirical research and statistical analysis. The core idea is
+that different assets respond to these underlying drivers in a
+systematic way.</p>
+<h3 id="common-quantitative-factors">Common Quantitative Factors</h3>
+<p>Given that stock price fluctuations are influenced by multifaceted
+market dynamics and other factors, the selection of predictive factors
+remains highly flexible. Therefore, quantitative factors can be analyzed
+from both macro and micro dimensions. Generally, all factors can be
+categorized into <strong>style factors</strong> (such as value,
+momentum, quality, size, and low volatility) and <strong>macroeconomic
+factors</strong> (such as interest rates, inflation, and liquidity).</p>
+<p>Here is an overview of the most frequently analyzed style
+factors:</p>
 <table>
+
 <thead>
 <tr>
-<th align="left">Factor</th>
-<th align="left">Core Idea</th>
+<th style="text-align: left;">Factor</th>
+<th style="text-align: left;">Core Idea</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left"><strong>Value</strong></td>
-<td align="left">Stocks with low prices relative to their fundamental accounting values outperform growth stocks, which is known as <strong>Value Premium</strong> in Quantitative Analysis. Conceptually, it relies on the principle of mean reversion, where market prices will eventually reflect a company’s true intrinsic value. Stocks of undervalued companies with growth potential will generate profits until reaching a stable equilibrium.</td>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Value</strong></td>
+<td style="text-align: left;">Stocks with low prices relative to their
+fundamental accounting values outperform growth stocks, which is known
+as <strong>Value Premium</strong> in Quantitative Analysis.
+Conceptually, it relies on the principle of mean reversion, where market
+prices will eventually reflect a company’s true intrinsic value. Stocks
+of undervalued companies with growth potential will generate profits
+until reaching a stable equilibrium.</td>
 </tr>
 <tr>
-<td align="left"><strong>Momentum</strong></td>
-<td align="left">Over the long term, securities with higher levels of momentum typically outperform the market, the so-called <strong>momentum premium</strong>. The core logic of a momentum strategy is “buying winners and selling losers”. This strategy heavily relies on periodic portfolio adjustments to maintain consistent exposure to recent strong performers.</td>
+<td style="text-align: left;"><strong>Momentum</strong></td>
+<td style="text-align: left;">Over the long term, securities with higher
+levels of momentum typically outperform the market, the so-called
+<strong>momentum premium</strong>. The core logic of a momentum strategy
+is “buying winners and selling losers”. This strategy heavily relies on
+periodic portfolio adjustments to maintain consistent exposure to recent
+strong performers.</td>
 </tr>
 <tr>
-<td align="left"><strong>Quality</strong></td>
-<td align="left">The quality factor refers to companies with stronger profitability, more robust balance sheets, and lower financial leverage tending to perform better in the market. Common metrics used to gauge quality include <strong>return on equity (ROE)</strong>, <strong>balance sheet accruals ratio</strong>, and <strong>financial leverage ratio</strong>.</td>
+<td style="text-align: left;"><strong>Quality</strong></td>
+<td style="text-align: left;">The quality factor refers to companies
+with stronger profitability, more robust balance sheets, and lower
+financial leverage tending to perform better in the market. Common
+metrics used to gauge quality include <strong>return on equity
+(ROE)</strong>, <strong>balance sheet accruals ratio</strong>, and
+<strong>financial leverage ratio</strong>.</td>
 </tr>
 <tr>
-<td align="left"><strong>Size</strong></td>
-<td align="left">The size factor refers to the empirically observed phenomenon that mid- and small-capitalization stocks generally outperform large-capitalization stocks. The underlying logic includes risk-based compensation for factors such as higher financial distress probability and information asymmetry — smaller firms are more often mispriced by the market.</td>
+<td style="text-align: left;"><strong>Size</strong></td>
+<td style="text-align: left;">The size factor refers to the empirically
+observed phenomenon that mid- and small-capitalization stocks generally
+outperform large-capitalization stocks. The underlying logic includes
+risk-based compensation for factors such as higher financial distress
+probability and information asymmetry — smaller firms are more often
+mispriced by the market.</td>
 </tr>
 <tr>
-<td align="left"><strong>Low Volatility</strong></td>
-<td align="left">The low volatility factor refers to the empirical finding that securities with lower historical price volatility or market beta tend to generate higher risk-adjusted returns. This phenomenon, known as the <strong>Low Volatility Anomaly</strong>, challenges traditional financial theories (e.g., CAPM) where risk and expected return are positively related. Explanations for this anomaly include leverage constraints, which force investors to overweight high-beta stocks, and behavioral biases such as a lottery preference for volatile securities.</td>
+<td style="text-align: left;"><strong>Low Volatility</strong></td>
+<td style="text-align: left;">The low volatility factor refers to the
+empirical finding that securities with lower historical price volatility
+or market beta tend to generate higher risk-adjusted returns. This
+phenomenon, known as the <strong>Low Volatility Anomaly</strong>,
+challenges traditional financial theories (e.g., CAPM) where risk and
+expected return are positively related. Explanations for this anomaly
+include leverage constraints, which force investors to overweight
+high-beta stocks, and behavioral biases such as a lottery preference for
+volatile securities.</td>
 </tr>
-</tbody></table>
-<hr>
-<h4 id="Value-Factor"><a href="#Value-Factor" class="headerlink" title="Value Factor"></a>Value Factor</h4><p>Common metrics used to quantify the value factor include <strong>Price-to-Earnings (P&#x2F;E) ratio</strong>, <strong>Price-to-Book (P&#x2F;B) ratio</strong>, <strong>Dividend Yield</strong>, and <strong>Price&#x2F;Earnings to Growth (PEG) ratio</strong>.</p>
+</tbody>
+</table>
+<hr />
+<h4 id="value-factor">Value Factor</h4>
+<p>Common metrics used to quantify the value factor include
+<strong>Price-to-Earnings (P/E) ratio</strong>, <strong>Price-to-Book
+(P/B) ratio</strong>, <strong>Dividend Yield</strong>, and
+<strong>Price/Earnings to Growth (PEG) ratio</strong>.</p>
 <ul>
-<li><p><strong>Price-to-Earnings (P&#x2F;E) Ratio:</strong><br>  $$\text{P&#x2F;E} &#x3D; \frac{\text{Market Price per Share}}{\text{Earnings per Share (EPS)}}$$<br>  where a lower P&#x2F;E suggests potential undervaluation.</p>
-</li>
-<li><p><strong>Price-to-Book (P&#x2F;B) Ratio:</strong><br>  $$\text{P&#x2F;B} &#x3D; \frac{\text{Market Price per Share}}{\text{Book Value per Share}}$$</p>
-</li>
-<li><p><strong>Dividend Yield:</strong><br>  $$\text{Dividend Yield} &#x3D; \frac{\text{Annual Dividends per Share}}{\text{Market Price per Share}} \times 100%$$<br>  It reflects income generation relative to price.</p>
-</li>
-<li><p><strong>Price&#x2F;Earnings-to-Growth (PEG) Ratio:</strong><br>  $$\text{PEG} &#x3D; \frac{\text{P&#x2F;E Ratio}}{\text{Annual EPS Growth Rate}}$$<br>  where PEG &lt; 1 may signal undervaluation accounting for growth.</p>
-</li>
+<li><p><strong>Price-to-Earnings (P/E) Ratio:</strong> <span
+class="math display">$$\text{P/E} = \frac{\text{Market Price per
+Share}}{\text{Earnings per Share (EPS)}}$$</span> where a lower P/E
+suggests potential undervaluation.</p></li>
+<li><p><strong>Price-to-Book (P/B) Ratio:</strong> <span
+class="math display">$$\text{P/B} = \frac{\text{Market Price per
+Share}}{\text{Book Value per Share}}$$</span></p></li>
+<li><p><strong>Dividend Yield:</strong> <span
+class="math display">$$\text{Dividend Yield} = \frac{\text{Annual
+Dividends per Share}}{\text{Market Price per Share}} \times
+100\%$$</span> It reflects income generation relative to price.</p></li>
+<li><p><strong>Price/Earnings-to-Growth (PEG) Ratio:</strong> <span
+class="math display">$$\text{PEG} = \frac{\text{P/E Ratio}}{\text{Annual
+EPS Growth Rate}}$$</span> where PEG &lt; 1 may signal undervaluation
+accounting for growth.</p></li>
 </ul>
-<h4 id="Momentum-Factor"><a href="#Momentum-Factor" class="headerlink" title="Momentum Factor"></a>Momentum Factor</h4><p>The <strong>Momentum factor</strong> captures the tendency of assets to continue their recent performance trends. Common quantification methods include <strong>Time-Series Momentum</strong>, which measures the trend of an asset’s own performance over time, and <strong>Cross-sectional Momentum</strong>, which ranks assets by their relative performance within the same period.</p>
+<h4 id="momentum-factor">Momentum Factor</h4>
+<p>The <strong>Momentum factor</strong> captures the tendency of assets
+to continue their recent performance trends. Common quantification
+methods include <strong>Time-Series Momentum</strong>, which measures
+the trend of an asset’s own performance over time, and
+<strong>Cross-sectional Momentum</strong>, which ranks assets by their
+relative performance within the same period.</p>
 <ul>
-<li><p><strong>Time-Series Momentum (Absolute Momentum):</strong><br>  $$M_{\text{abs}} &#x3D; \text{Sign}(r_{t-k:t}) \cdot \left| \frac{r_{t-k:t}}{\sigma_{t-k:t}} \right|$$<br>  where $r_{t-k:t}$ is the past k-period return and $\sigma_{t-k:t}$ is the volatility over the same period.</p>
-</li>
-<li><p><strong>Cross-Sectional Momentum (Relative Momentum):</strong><br>  $$M_{\text{rel}} &#x3D; \text{Rank}(r_{t-k:t})$$<br>  This ranks assets based on past k-period returns within a universe (e.g., top 10% vs. bottom 10%).</p>
-</li>
+<li><p><strong>Time-Series Momentum (Absolute Momentum):</strong> <span
+class="math display">$$M_{\text{abs}} = \text{Sign}(r_{t-k:t}) \cdot
+\left| \frac{r_{t-k:t}}{\sigma_{t-k:t}} \right|$$</span> where <span
+class="math inline"><em>r</em><sub><em>t</em> − <em>k</em> : <em>t</em></sub></span>
+is the past k-period return and <span
+class="math inline"><em>σ</em><sub><em>t</em> − <em>k</em> : <em>t</em></sub></span>
+is the volatility over the same period.</p></li>
+<li><p><strong>Cross-Sectional Momentum (Relative Momentum):</strong>
+<span
+class="math display"><em>M</em><sub>rel</sub> = Rank(<em>r</em><sub><em>t</em> − <em>k</em> : <em>t</em></sub>)</span>
+This ranks assets based on past k-period returns within a universe
+(e.g., top 10% vs. bottom 10%).</p></li>
 </ul>
-<h4 id="Quality-Factor"><a href="#Quality-Factor" class="headerlink" title="Quality Factor"></a>Quality Factor</h4><p><strong>Quality</strong> is quantified through profitability, earnings stability, and balance sheet strength:</p>
+<h4 id="quality-factor">Quality Factor</h4>
+<p><strong>Quality</strong> is quantified through profitability,
+earnings stability, and balance sheet strength:</p>
 <ul>
-<li><p><strong>Profitability:</strong><br>  $$\text{ROE} &#x3D; \frac{\text{Net Income}}{\text{Shareholders’ Equity}}, \quad \text{ROA} &#x3D; \frac{\text{Net Income}}{\text{Total Assets}}$$</p>
-</li>
-<li><p><strong>Earnings Quality:</strong><br>  $$\text{Accruals} &#x3D; \frac{\text{Net Income} - \text{Operating Cash Flow}}{\text{Total Assets}}$$<br>  (Lower accruals indicate higher earnings quality)</p>
-</li>
+<li><p><strong>Profitability:</strong> <span
+class="math display">$$\text{ROE} = \frac{\text{Net
+Income}}{\text{Shareholders' Equity}}, \quad \text{ROA} =
+\frac{\text{Net Income}}{\text{Total Assets}}$$</span></p></li>
+<li><p><strong>Earnings Quality:</strong> <span
+class="math display">$$\text{Accruals} = \frac{\text{Net Income} -
+\text{Operating Cash Flow}}{\text{Total Assets}}$$</span> (Lower
+accruals indicate higher earnings quality)</p></li>
 </ul>
-<h4 id="Size-Factor"><a href="#Size-Factor" class="headerlink" title="Size Factor"></a>Size Factor</h4><p>The core principle of the <strong>size factor</strong> is to measure the total market value of a company. Hence, <strong>market capitalization</strong> (market cap) is the universal and most direct metric. Because market cap distribution is heavily skewed (a few firms with very large cap and many with small cap), quantitative analysts often take the natural logarithm of the raw data.<br>$$\text{Market Cap} &#x3D; \log(\text{Current Share Price} \cdot \text{Total Number of Shares})$$</p>
-<h4 id="Low-Volatility-Factor"><a href="#Low-Volatility-Factor" class="headerlink" title="Low Volatility Factor"></a>Low Volatility Factor</h4><p>The <strong>low volatility factor</strong> captures the stability and riskiness of a stock’s price movements. Metrics include:</p>
+<h4 id="size-factor">Size Factor</h4>
+<p>The core principle of the <strong>size factor</strong> is to measure
+the total market value of a company. Hence, <strong>market
+capitalization</strong> (market cap) is the universal and most direct
+metric. Because market cap distribution is heavily skewed (a few firms
+with very large cap and many with small cap), quantitative analysts
+often take the natural logarithm of the raw data. <span
+class="math display">Market Cap = log (Current Share Price ⋅ Total
+Number of Shares)</span></p>
+<h4 id="low-volatility-factor">Low Volatility Factor</h4>
+<p>The <strong>low volatility factor</strong> captures the stability and
+riskiness of a stock’s price movements. Metrics include:</p>
 <ul>
-<li><p><strong>Historical Volatility:</strong> It is quantified as the standard deviation of the stock’s historical returns (over a specific period backward).<br>  $$\text{Volatility} &#x3D; \sigma(R_1, R_2, \dots, R_n)$$<br>  where the $R$’s are a series of periodic returns over the chosen time period.</p>
-</li>
-<li><p><strong>Market Beta ($\beta$):</strong> It quantifies the systematic risk of a stock and is calculated by regressing a stock’s excess return against the market’s excess return.<br>  $$R_{\text{stock}} - R_f &#x3D; \alpha + \beta \cdot (R_{\text{market}} - R_f) + \varepsilon$$<br>  where $R_{\cdot}$ is the return of a placeholder asset, $R_f$ is the risk-free rate, and $\varepsilon$ is the residual.</p>
-</li>
+<li><p><strong>Historical Volatility:</strong> It is quantified as the
+standard deviation of the stock’s historical returns (over a specific
+period backward). <span
+class="math display">Volatility = <em>σ</em>(<em>R</em><sub>1</sub>, <em>R</em><sub>2</sub>, …, <em>R</em><sub><em>n</em></sub>)</span>
+where the <span class="math inline"><em>R</em></span>’s are a series of
+periodic returns over the chosen time period.</p></li>
+<li><p><strong>Market Beta (<span
+class="math inline"><em>β</em></span>):</strong> It quantifies the
+systematic risk of a stock and is calculated by regressing a stock’s
+excess return against the market’s excess return. <span
+class="math display"><em>R</em><sub>stock</sub> − <em>R</em><sub><em>f</em></sub> = <em>α</em> + <em>β</em> ⋅ (<em>R</em><sub>market</sub> − <em>R</em><sub><em>f</em></sub>) + <em>ε</em></span>
+where <span class="math inline"><em>R</em><sub>⋅</sub></span> is the
+return of a placeholder asset, <span
+class="math inline"><em>R</em><sub><em>f</em></sub></span> is the
+risk-free rate, and <span class="math inline"><em>ε</em></span> is the
+residual.</p></li>
 </ul>
-<h4 id="Macroeconomic-Factors"><a href="#Macroeconomic-Factors" class="headerlink" title="Macroeconomic Factors"></a>Macroeconomic Factors</h4><p>Unlike style factors, which affect specific firms or industries, <strong>macroeconomic factors</strong> are systematic variables that reflect the state of the broader market environment. They are primarily used for top-down asset allocation, factor timing, and building comprehensive risk models. Some of the most critical macroeconomic factors are listed below:</p>
+<h4 id="macroeconomic-factors">Macroeconomic Factors</h4>
+<p>Unlike style factors, which affect specific firms or industries,
+<strong>macroeconomic factors</strong> are systematic variables that
+reflect the state of the broader market environment. They are primarily
+used for top-down asset allocation, factor timing, and building
+comprehensive risk models. Some of the most critical macroeconomic
+factors are listed below:</p>
 <ul>
-<li><strong>Economic Growth:</strong> It measures the overall health and expansion rate of economic activity. Strong economic growth typically implies higher corporate profitability; yet it can also trigger inflation and rate hike expectations. Metrics include <strong>GDP</strong>, <strong>PMI</strong> (Purchasing Managers’ Index), and <strong>industrial production</strong>.</li>
-<li><strong>Inflation:</strong> High inflation erodes corporate profits and the future purchasing power of investment. It typically prompts central banks to tighten monetary policy, imposing pressure on both equity and bond valuations. Metrics include <strong>CPI</strong> (Consumer Price Index) and <strong>PPI</strong> (Producer Price Index).</li>
-<li><strong>Interest Rates and Monetary Policy:</strong> They reflect the cost of capital and the availability of liquidity. Metrics include <strong>Central Bank Policy Rate</strong>, <strong>Long-term Government Bond Yield</strong>, and <strong>Credit Spread</strong>.</li>
+<li><strong>Economic Growth:</strong> It measures the overall health and
+expansion rate of economic activity. Strong economic growth typically
+implies higher corporate profitability; yet it can also trigger
+inflation and rate hike expectations. Metrics include
+<strong>GDP</strong>, <strong>PMI</strong> (Purchasing Managers’ Index),
+and <strong>industrial production</strong>.</li>
+<li><strong>Inflation:</strong> High inflation erodes corporate profits
+and the future purchasing power of investment. It typically prompts
+central banks to tighten monetary policy, imposing pressure on both
+equity and bond valuations. Metrics include <strong>CPI</strong>
+(Consumer Price Index) and <strong>PPI</strong> (Producer Price
+Index).</li>
+<li><strong>Interest Rates and Monetary Policy:</strong> They reflect
+the cost of capital and the availability of liquidity. Metrics include
+<strong>Central Bank Policy Rate</strong>, <strong>Long-term Government
+Bond Yield</strong>, and <strong>Credit Spread</strong>.</li>
 </ul>
-<h3 id="Factor-Models"><a href="#Factor-Models" class="headerlink" title="Factor Models"></a>Factor Models</h3><p>A key aspect of analyzing stock trends is selecting common factors for factor analysis and modeling. As a result, economists have proposed numerous factor models which analyze several factors and make judgments, including the <strong>Capital Asset Pricing Model (CAPM)</strong> by William Sharpe and <strong>Arbitrage Pricing Theory (APT)</strong> by Stephen Ross.</p>
-<h4 id="Capital-Asset-Pricing-Model"><a href="#Capital-Asset-Pricing-Model" class="headerlink" title="Capital Asset Pricing Model"></a>Capital Asset Pricing Model</h4><p>The Capital Asset Pricing Model suggests that the expected return on the capital asset $E(R_i)$ follows:<br>$$E\left(R_{i}\right)&#x3D;R_{f}+\beta_{i}\left[E\left(R_{m}\right)-R_{f}\right]$$<br>$E(R_{m})-R_{f}$, which is sometimes known as the <strong>market premium</strong>, is the single factor in this model, thus CAPM can be seen as a simplified <strong>Single Factor Model</strong>. $\beta_i$ is the sensitivity of the expected excess asset returns to the expected excess market returns, or also:<br>$$\beta_i &#x3D; \frac {\text{Cov}(R_{i},R_{m})}{\text{Var}(R_{m})} &#x3D; \rho _{i,m}{\frac {\sigma _{i}}{\sigma _{m}}}$$</p>
-<h4 id="Arbitrage-Pricing-Theory"><a href="#Arbitrage-Pricing-Theory" class="headerlink" title="Arbitrage Pricing Theory"></a>Arbitrage Pricing Theory</h4><p>The limitation of CAPM lies in its consideration of only market risk, while in reality, stock returns are influenced by multiple factors (such as industry, size, value, etc.). As a result, economists have developed multifactor models, such as:</p>
+<h3 id="factor-models">Factor Models</h3>
+<p>A key aspect of analyzing stock trends is selecting common factors
+for factor analysis and modeling. As a result, economists have proposed
+numerous factor models which analyze several factors and make judgments,
+including the <strong>Capital Asset Pricing Model (CAPM)</strong> by
+William Sharpe and <strong>Arbitrage Pricing Theory (APT)</strong> by
+Stephen Ross.</p>
+<h4 id="capital-asset-pricing-model">Capital Asset Pricing Model</h4>
+<p>The Capital Asset Pricing Model suggests that the expected return on
+the capital asset <span
+class="math inline"><em>E</em>(<em>R</em><sub><em>i</em></sub>)</span>
+follows: <span
+class="math display"><em>E</em>(<em>R</em><sub><em>i</em></sub>) = <em>R</em><sub><em>f</em></sub> + <em>β</em><sub><em>i</em></sub>[<em>E</em>(<em>R</em><sub><em>m</em></sub>) − <em>R</em><sub><em>f</em></sub>]</span>
+<span
+class="math inline"><em>E</em>(<em>R</em><sub><em>m</em></sub>) − <em>R</em><sub><em>f</em></sub></span>,
+which is sometimes known as the <strong>market premium</strong>, is the
+single factor in this model, thus CAPM can be seen as a simplified
+<strong>Single Factor Model</strong>. <span
+class="math inline"><em>β</em><sub><em>i</em></sub></span> is the
+sensitivity of the expected excess asset returns to the expected excess
+market returns, or also: <span class="math display">$$\beta_i = \frac
+{\text{Cov}(R_{i},R_{m})}{\text{Var}(R_{m})} = \rho _{i,m}{\frac {\sigma
+_{i}}{\sigma _{m}}}$$</span></p>
+<h4 id="arbitrage-pricing-theory">Arbitrage Pricing Theory</h4>
+<p>The limitation of CAPM lies in its consideration of only market risk,
+while in reality, stock returns are influenced by multiple factors (such
+as industry, size, value, etc.). As a result, economists have developed
+multifactor models, such as:</p>
 <ul>
-<li><strong>Fama-French three-factor model</strong>: market factor, size factor and value factor.</li>
-<li><strong>Carhart four-factor model</strong>: Adding the momentum factor.</li>
+<li><strong>Fama-French three-factor model</strong>: market factor, size
+factor and value factor.</li>
+<li><strong>Carhart four-factor model</strong>: Adding the momentum
+factor.</li>
 </ul>
-<p><strong>Arbitrage Pricing Theory (APT)</strong> is a multi-factor asset pricing model based on the no-arbitrage principle. Unlike CAPM, APT does not rely on the market portfolio’s efficiency but assumes asset returns are driven by multiple systematic risk factors, which allows for any number of macroeconomic or statistical factors.</p>
-<p>APT assumes asset returns can be expressed as:<br>$$R_{i}&#x3D;E\left(R_{i}\right)+\sum_{k&#x3D;1}^{K} \beta_{i, k} F_{k}+\epsilon_{i}$$<br>In this equation, the actual return of asset i ($R_i$) is calculated by sensitivity (factor loading) of asset i to factor k ($\beta_{i,k}$) and unexpected changes in factor k ($F_k$).</p>
-<p>Under no-arbitrage, expected returns follow:<br>$$E\left(R_{i}\right)&#x3D;R_{f}+\sum_{k&#x3D;1}^{K} \beta_{i, k} \lambda_{k}$$<br>$\lambda_{k}$ represents the risk premium for factor k.<br>Factor selection is quite flexible in the APT equation. Factors in APT may include both style factors and macroeconomic factors which are mentioned in section 1.2.</p>
-<h3 id="Factor-Zoo-Phenomenon"><a href="#Factor-Zoo-Phenomenon" class="headerlink" title="Factor Zoo Phenomenon"></a>Factor Zoo Phenomenon</h3><p>Nowadays, with the rapid development of computational resources, hundreds of “significant factors” have been discovered through data analysis. While early models relied on economically grounded risk exposures, recent studies have identified over 300 factors—ranging from fundamentals (e.g., profitability) to unconventional metrics (e.g., weather data).</p>
-<p>“<strong>101 Formulaic Alphas</strong>“ is a seminal work that defines 101 quantitative trading alphas constructed from price, volume, and other market data. They represent common patterns in financial markets, with each alpha designed to capture distinct market inefficiencies or behavioral anomalies.</p>
-<p>Here are some examples from the “101 Formulaic Alphas” work:</p>
+<p><strong>Arbitrage Pricing Theory (APT)</strong> is a multi-factor
+asset pricing model based on the no-arbitrage principle. Unlike CAPM,
+APT does not rely on the market portfolio’s efficiency but assumes asset
+returns are driven by multiple systematic risk factors, which allows for
+any number of macroeconomic or statistical factors.</p>
+<p>APT assumes asset returns can be expressed as: <span
+class="math display">$$R_{i}=E\left(R_{i}\right)+\sum_{k=1}^{K}
+\beta_{i, k} F_{k}+\epsilon_{i}$$</span> In this equation, the actual
+return of asset i (<span
+class="math inline"><em>R</em><sub><em>i</em></sub></span>) is
+calculated by sensitivity (factor loading) of asset i to factor k (<span
+class="math inline"><em>β</em><sub><em>i</em>, <em>k</em></sub></span>)
+and unexpected changes in factor k (<span
+class="math inline"><em>F</em><sub><em>k</em></sub></span>).</p>
+<p>Under no-arbitrage, expected returns follow: <span
+class="math display">$$E\left(R_{i}\right)=R_{f}+\sum_{k=1}^{K}
+\beta_{i, k} \lambda_{k}$$</span> <span
+class="math inline"><em>λ</em><sub><em>k</em></sub></span> represents
+the risk premium for factor k. Factor selection is quite flexible in the
+APT equation. Factors in APT may include both style factors and
+macroeconomic factors which are mentioned in section 1.2.</p>
+<h3 id="factor-zoo-phenomenon">Factor Zoo Phenomenon</h3>
+<p>Nowadays, with the rapid development of computational resources,
+hundreds of “significant factors” have been discovered through data
+analysis. While early models relied on economically grounded risk
+exposures, recent studies have identified over 300 factors—ranging from
+fundamentals (e.g., profitability) to unconventional metrics (e.g.,
+weather data).</p>
+<p>“<strong>101 Formulaic Alphas</strong>” is a seminal work that
+defines 101 quantitative trading alphas constructed from price, volume,
+and other market data. They represent common patterns in financial
+markets, with each alpha designed to capture distinct market
+inefficiencies or behavioral anomalies.</p>
+<p>Here are some examples from the “101 Formulaic Alphas” work: *
+<strong>Alpha#12:</strong> <span
+class="math inline">(sign(<em>Δ</em>(volume, 1)) × (−1 × <em>Δ</em>(close, 1)))</span>
+* <strong>Alpha#13:</strong> <span
+class="math inline">(−1 × rank(covariance(rank(close), rank(volume), 5)))</span>
+* <strong>Alpha#14:</strong> <span
+class="math inline">(((−1 × rank(<em>Δ</em>(returns, 3))) × correlation(open, volume, 10)))</span>
+* <strong>Alpha#15:</strong> <span
+class="math inline">(−1 × sum(rank(correlation(rank(high), rank(volume), 3)), 3))</span>
+* <strong>Alpha#16:</strong> <span
+class="math inline">(−1 × rank(covariance(rank(high), rank(volume), 5)))</span>
+* <strong>Alpha#17:</strong> <span
+class="math inline">(((−1 × rank(ts_rank(close, 10))) × rank(<em>Δ</em>(<em>Δ</em>(close, 1), 1))) × rank(ts_rank((volume/adv20), 5)))</span>
+* <strong>Alpha#18:</strong> <span
+class="math inline">(−1 × rank((stddev(|(close − open)|, 5) + (close − open)) + correlation(close, open, 10))))</span>
+* <strong>Alpha#19:</strong> <span
+class="math inline">((−1 × sign(((close − delay(close, 7)) + <em>Δ</em>(close, 7)))) × (1 + rank((1 + sum(returns, 250)))))</span>
+* <strong>Alpha#20:</strong> $ (((-1 (( - (, 1)))) (( - (, 1)))) (( - (,
+1)))) $ * <strong>Alpha#21:</strong> <span class="math display">$$
+    \begin{cases}
+    -1 \times 1 &amp; \text{if } (\frac{\text{sum}(\text{close}, 8)}{8}
++ \text{stddev}(\text{close}, 8)) &lt; \frac{\text{sum}(\text{close},
+2)}{2} \\
+    1 &amp; \text{else if } \frac{\text{sum}(\text{close}, 2)}{2} &lt;
+(\frac{\text{sum}(\text{close}, 8)}{8} - \text{stddev}(\text{close}, 8))
+\\
+    1 &amp; \text{else if } (1 &lt; \frac{\text{volume}}{\text{adv20}})
+\lor (\frac{\text{volume}}{\text{adv20}} = 1) \\
+    -1 \times 1 &amp; \text{otherwise}
+    \end{cases}
+    $$</span> However, many factors suffer from <strong>data mining
+bias</strong> (in-sample overfitting), <strong>redundancy</strong> (high
+correlations between factors like ROE and ROA), or lack economic
+rationale (e.g., “Super Bowl Indicator”). Hence, the pursuit of
+parsimony represents central challenges in quantitative finance.</p>
+<h2 id="factor-construction-methodology">Factor Construction
+Methodology</h2>
+<p><strong>Factor construction</strong> is the process of translating
+financial theories and raw data into a predictive quantity (factor). A
+cornerstone principle of robust factor construction is the need for a
+concrete economic rationale or a plausible causal mechanism. This
+principle serves as a critical safeguard against data mining bias.
+Otherwise, models may identify deceptive correlations in historical data
+that yet lack genuine predictive power, a phenomenon known as
+<strong>overfitting</strong>. Simply discovering a pattern is
+insufficient; there must be a compelling reason why that pattern should
+exist and persist.</p>
+<p>Adhering to this principle, the methodologies for constructing
+factors can be classified into several distinct paradigms. The first is
+a <strong>heuristic paradigm</strong>, where factors are built directly
+from established economic concepts. Such factors boast decent
+transparency and interpretability. In stark contrast is the
+<strong>data-driven paradigm</strong> of supervised learning, which
+employs algorithms to learn complex relationships directly from data by
+mapping predictive features to future returns. A third approach is the
+<strong>unsupervised learning paradigm</strong>, which seeks to unveil
+the inherent statistical structure and patterns within the data itself,
+without reference to a future outcome.</p>
+<h3 id="heuristic-and-linear-composite-factors">Heuristic and Linear
+Composite Factors</h3>
+<p>Traditionally, quantitative analysts rely on their economic knowledge
+and intuition and linear modeling to construct factors. Those methods
+are completely transparent and interpretable, as they are directly
+motivated by and derived from economic theories.</p>
 <ul>
-<li><strong>Alpha#12:</strong> $(\text{sign}(\Delta(\text{volume}, 1)) \times (-1 \times \Delta(\text{close}, 1)))$</li>
-<li><strong>Alpha#13:</strong> $(-1 \times \text{rank}(\text{covariance}(\text{rank}(\text{close}), \text{rank}(\text{volume}), 5)))$</li>
-<li><strong>Alpha#14:</strong> $(((-1 \times \text{rank}(\Delta(\text{returns}, 3))) \times \text{correlation}(\text{open}, \text{volume}, 10)))$</li>
-<li><strong>Alpha#15:</strong> $(-1 \times \text{sum}(\text{rank}(\text{correlation}(\text{rank}(\text{high}), \text{rank}(\text{volume}), 3)), 3))$</li>
-<li><strong>Alpha#16:</strong> $(-1 \times \text{rank}(\text{covariance}(\text{rank}(\text{high}), \text{rank}(\text{volume}), 5)))$</li>
-<li><strong>Alpha#17:</strong> $(((-1 \times \text{rank}(\text{ts_rank}(\text{close}, 10))) \times \text{rank}(\Delta(\Delta(\text{close}, 1), 1))) \times \text{rank}(\text{ts_rank}((\text{volume} &#x2F; \text{adv20}), 5)))$</li>
-<li><strong>Alpha#18:</strong> $(-1 \times \text{rank}((\text{stddev}(|(\text{close} - \text{open})|, 5) + (\text{close} - \text{open})) + \text{correlation}(\text{close}, \text{open}, 10))))$</li>
-<li><strong>Alpha#19:</strong> $( ( -1 \times \text{sign}(((\text{close} - \text{delay}(\text{close}, 7)) + \Delta(\text{close}, 7)))) \times (1 + \text{rank}((1 + \text{sum}(\text{returns}, 250)))) )$</li>
-<li><strong>Alpha#20:</strong> $ (((-1 \times \text{rank}((\text{open} - \text{delay}(\text{high}, 1)))) \times \text{rank}((\text{open} - \text{delay}(\text{close}, 1)))) \times \text{rank}((\text{open} - \text{delay}(\text{low}, 1)))) $</li>
-<li><strong>Alpha#21:</strong><br>  $$<br>  \begin{cases}<br>  -1 \times 1 &amp; \text{if } (\frac{\text{sum}(\text{close}, 8)}{8} + \text{stddev}(\text{close}, 8)) &lt; \frac{\text{sum}(\text{close}, 2)}{2} \<br>  1 &amp; \text{else if } \frac{\text{sum}(\text{close}, 2)}{2} &lt; (\frac{\text{sum}(\text{close}, 8)}{8} - \text{stddev}(\text{close}, 8)) \<br>  1 &amp; \text{else if } (1 &lt; \frac{\text{volume}}{\text{adv20}}) \lor (\frac{\text{volume}}{\text{adv20}} &#x3D; 1) \<br>  -1 \times 1 &amp; \text{otherwise}<br>  \end{cases}<br>  $$<br>  However, many factors suffer from <strong>data mining bias</strong> (in-sample overfitting), <strong>redundancy</strong> (high correlations between factors like ROE and ROA), or lack economic rationale (e.g., “Super Bowl Indicator”). Hence, the pursuit of parsimony represents central challenges in quantitative finance.</li>
+<li><p><strong>Single-Variable Factors:</strong> This category of
+factors is self-explanatory and disarmingly simple. The variable is
+picked based upon established financial theories or empirical evidence.
+Examples of such factors include the <strong>Value factor</strong>,
+which is often constructed by simply using the raw B/P values after
+appropriate preprocessing.</p></li>
+<li><p><strong>Linear Composite Factors:</strong> Multiple
+single-variable factors can be combined to create a more robust factor
+with stronger predictive power, called a <strong>composite
+factor</strong>. Such factors are constructed as the weighted average of
+several indicators, where weights are determined by either economic
+rationale or by statistical methods. For example, the <strong>Quality
+factor</strong> can be constructed as a linear combination of ROE,
+Debt-to-Equity Ratio, and the volatility of earnings. Albeit more
+comprehensive than single variables, this method still assumes a linear
+relationship and picks weights manually, which is a less than
+disciplined approach.</p></li>
 </ul>
-<h2 id="Factor-Construction-Methodology"><a href="#Factor-Construction-Methodology" class="headerlink" title="Factor Construction Methodology"></a>Factor Construction Methodology</h2><p><strong>Factor construction</strong> is the process of translating financial theories and raw data into a predictive quantity (factor). A cornerstone principle of robust factor construction is the need for a concrete economic rationale or a plausible causal mechanism. This principle serves as a critical safeguard against data mining bias. Otherwise, models may identify deceptive correlations in historical data that yet lack genuine predictive power, a phenomenon known as <strong>overfitting</strong>. Simply discovering a pattern is insufficient; there must be a compelling reason why that pattern should exist and persist.</p>
-<p>Adhering to this principle, the methodologies for constructing factors can be classified into several distinct paradigms. The first is a <strong>heuristic paradigm</strong>, where factors are built directly from established economic concepts. Such factors boast decent transparency and interpretability. In stark contrast is the <strong>data-driven paradigm</strong> of supervised learning, which employs algorithms to learn complex relationships directly from data by mapping predictive features to future returns. A third approach is the <strong>unsupervised learning paradigm</strong>, which seeks to unveil the inherent statistical structure and patterns within the data itself, without reference to a future outcome.</p>
-<h3 id="Heuristic-and-Linear-Composite-Factors"><a href="#Heuristic-and-Linear-Composite-Factors" class="headerlink" title="Heuristic and Linear Composite Factors"></a>Heuristic and Linear Composite Factors</h3><p>Traditionally, quantitative analysts rely on their economic knowledge and intuition and linear modeling to construct factors. Those methods are completely transparent and interpretable, as they are directly motivated by and derived from economic theories.</p>
+<h3 id="supervised-learning-approaches">Supervised Learning
+Approaches</h3>
+<p><strong>Supervised learning models</strong> construct factors by
+explicitly learning the relationship between a series of predictive
+features and an indicator of future asset performance (the label). The
+objective is to find a set of model parameters, <span
+class="math inline"><em>θ</em></span>, that minimizes a given loss
+function <span class="math inline">ℒ</span>: <span
+class="math display">$$\theta^*=\arg\min_\theta\frac1N\sum_{i=1}^N\mathcal{L}(y_i,f(\mathbf
+X_i;\theta))$$</span> where <span
+class="math inline"><strong>X</strong><sub><em>i</em></sub>, <em>y</em><sub><em>i</em></sub></span>
+are the vector of input features and label (future return) for asset i.
+The learned mapping <span class="math inline"><em>f</em></span> is
+considered a “factor” itself: the factor value is <span
+class="math inline"><em>ŷ</em> = <em>f</em>(<strong>X</strong>) = <em>f</em>(<strong>X</strong>, <em>θ</em><sup>*</sup>)</span>,
+where <span class="math inline"><strong>X</strong></span> is the vector
+of input features.</p>
 <ul>
-<li><p><strong>Single-Variable Factors:</strong> This category of factors is self-explanatory and disarmingly simple. The variable is picked based upon established financial theories or empirical evidence. Examples of such factors include the <strong>Value factor</strong>, which is often constructed by simply using the raw B&#x2F;P values after appropriate preprocessing.</p>
-</li>
-<li><p><strong>Linear Composite Factors:</strong> Multiple single-variable factors can be combined to create a more robust factor with stronger predictive power, called a <strong>composite factor</strong>. Such factors are constructed as the weighted average of several indicators, where weights are determined by either economic rationale or by statistical methods. For example, the <strong>Quality factor</strong> can be constructed as a linear combination of ROE, Debt-to-Equity Ratio, and the volatility of earnings. Albeit more comprehensive than single variables, this method still assumes a linear relationship and picks weights manually, which is a less than disciplined approach.</p>
-</li>
+<li><p><strong>Tree-Based Models: Gradient Boosting:</strong>
+<strong>Gradient Boosting Decision Trees (GBDT)</strong> build a
+predictive model in an additive, stage-wise way. The model <span
+class="math inline"><em>F</em><sub><em>M</em></sub>(<strong>X</strong>)</span>
+is an ensemble of M individual decision trees <span
+class="math inline"><em>h</em><sub><em>m</em></sub>(<strong>X</strong>)</span>:
+<span class="math display">$$F_M(\mathbf X)=\sum_{m=1}^M\gamma_m
+h_m(\mathbf X)$$</span> where <span
+class="math inline"><em>γ</em><sub><em>m</em></sub></span> is the
+learning-rate or step-size. Every tree is trained to predict the
+negative gradient of the loss function with respect to the previous
+model’s prediction, which empowers GBDT to capture non-linearities and
+high-order feature interactions.</p></li>
+<li><p><strong>Deep Learning: Neural Networks:</strong> <strong>MLPs
+(Multi-Layer Perceptron)</strong> learn hierarchical representations of
+the data through interconnected layers of neurons. The calculation of
+the factor value involves a forward propagation process, which
+transforms the input features through successive layers, each learning a
+progressively more abstract representation of the data. The activation
+of the <span class="math inline"><em>l</em></span>-th hidden layer,
+<span
+class="math inline"><strong>h</strong><sup>(<em>l</em>)</sup></span>
+(<span
+class="math inline"><strong>h</strong><sup>(0)</sup> = <strong>X</strong></span>),
+is recursively computed with: <span
+class="math display"><strong>h</strong><sup>(<em>l</em>)</sup> = <em>σ</em><sub><em>l</em></sub>(<strong>W</strong><sup>(<em>l</em>)</sup><strong>h</strong><sup>(<em>l</em> − 1)</sup> + <strong>b</strong><sup>(<em>l</em>)</sup>)</span>
+where <span
+class="math inline"><strong>W</strong><sup>(<em>l</em>)</sup></span> and
+<span
+class="math inline"><strong>b</strong><sup>(<em>l</em>)</sup></span> are
+the weight matrix and bias vector for layer <span
+class="math inline"><em>l</em></span>, and <span
+class="math inline"><em>σ</em><sub><em>l</em></sub></span> is the
+non-linear activation function for layer <span
+class="math inline"><em>l</em></span> (e.g., ReLU, sigmoid, hyperbolic
+tangent). The final output is the value of the factor. The power of this
+approach is guaranteed by the Universal Approximation Theorem. Neural
+networks are powerful in handling high-dimensional, complex data without
+extensive manual feature engineering.</p></li>
 </ul>
-<h3 id="Supervised-Learning-Approaches"><a href="#Supervised-Learning-Approaches" class="headerlink" title="Supervised Learning Approaches"></a>Supervised Learning Approaches</h3><p><strong>Supervised learning models</strong> construct factors by explicitly learning the relationship between a series of predictive features and an indicator of future asset performance (the label). The objective is to find a set of model parameters, $\theta$, that minimizes a given loss function $\mathcal{L}$:<br>$$\theta^*&#x3D;\arg\min_\theta\frac1N\sum_{i&#x3D;1}^N\mathcal{L}(y_i,f(\mathbf X_i;\theta))$$<br>where $\mathbf X_i, y_i$ are the vector of input features and label (future return) for asset i. The learned mapping $f$ is considered a “factor” itself: the factor value is $\hat y&#x3D;f(\mathbf X)&#x3D;f(\mathbf X,\theta^*)$, where $\mathbf X$ is the vector of input features.</p>
+<h3 id="unsupervised-learning-approaches">Unsupervised Learning
+Approaches</h3>
+<p><strong>Unsupervised learning methods</strong> do not explicitly
+predict labels. They instead identify latent structures and patterns
+within the data. They are primarily employed to construct statistical
+risk factors that explain the sources of common variation in asset
+returns. This paradigm is exemplified by the statistical method of
+<strong>Principle Component Analysis (PCA)</strong>.</p>
+<p><strong>PCA</strong> is a dimensionality reduction technique used to
+construct statistical factors by analyzing the comovement of asset
+returns. Given an N by T matrix of asset returns <span
+class="math inline"><strong>R</strong></span>, where N is the number of
+assets and T is the number of time periods, PCA aims to find a set of
+orthogonal vectors (principle components) that explain the maximum
+amount of variance in the data. In other words, the k-th principle
+component is the solution of the following optimization problem: <span
+class="math display"><strong>w</strong><sub><em>k</em></sub> = arg max<sub>∥<strong>w</strong>∥ = 1</sub>Var(<strong>R</strong><sup>T</sup><strong>w</strong>)  subject
+to  <strong>w</strong><sub><em>k</em></sub><sup>T</sup><strong>w</strong><sub><em>j</em></sub> = 0, ∀<em>j</em> &lt; <em>k</em></span>
+This is equivalent to finding the eigenvectors of the sample covariance
+matrix <span class="math inline">$\frac1{T-1}\mathbf R\mathbf R^\mathrm
+T$</span>. In our context, the principle components <span
+class="math inline">{<strong>w</strong><sub><em>k</em></sub>}</span> are
+the statistical factors. These factors, despite their power for risk
+modeling, typically lack a direct economic interpretation.</p>
+<h2 id="factor-effectiveness-testing">Factor Effectiveness Testing</h2>
+<p><strong>Quantitative factor effectiveness</strong> refers to the
+ability of a factor to predict future asset returns consistently. The
+factors we have identified may not be effective, so we need to conduct
+effectiveness tests. Here are some common methods.</p>
+<h3 id="information-coefficient-analysis">Information Coefficient
+Analysis</h3>
+<p><strong>Information Coefficient (IC)</strong> analysis is a
+cornerstone technique in quantitative investing for assessing the
+effectiveness of predictive factors. By measuring the correlation
+between factor values and subsequent returns, IC provides a quantitative
+framework to evaluate factor quality, optimize portfolio construction,
+and inform trading strategies.</p>
+<p>The Information Coefficient is defined as the correlation between
+factor values and future returns. Mathematically, it is expressed as:
+<span
+class="math display">IC_<em>t</em> = Corr(<em>f</em>_<em>i</em>, <em>t</em>, <em>r</em><sub><em>i</em>, <em>t</em> + 1</sub>)</span>
+where <span
+class="math inline"><em>f</em><sub><em>i</em>, <em>t</em></sub></span>
+represents the factor value for asset <span
+class="math inline"><em>i</em></span> at time <span
+class="math inline"><em>t</em></span>, and <span
+class="math inline"><em>r</em><sub><em>i</em>, <em>t</em> + 1</sub></span>
+denotes the return from time <span class="math inline"><em>t</em></span>
+to <span class="math inline"><em>t</em> + 1</span>.</p>
 <ul>
-<li><p><strong>Tree-Based Models: Gradient Boosting:</strong> <strong>Gradient Boosting Decision Trees (GBDT)</strong> build a predictive model in an additive, stage-wise way. The model $F_M(\mathbf X)$ is an ensemble of M individual decision trees $h_m(\mathbf X)$:<br>  $$F_M(\mathbf X)&#x3D;\sum_{m&#x3D;1}^M\gamma_m h_m(\mathbf X)$$<br>  where $\gamma_m$ is the learning-rate or step-size. Every tree is trained to predict the negative gradient of the loss function with respect to the previous model’s prediction, which empowers GBDT to capture non-linearities and high-order feature interactions.</p>
-</li>
-<li><p><strong>Deep Learning: Neural Networks:</strong> <strong>MLPs (Multi-Layer Perceptron)</strong> learn hierarchical representations of the data through interconnected layers of neurons. The calculation of the factor value involves a forward propagation process, which transforms the input features through successive layers, each learning a progressively more abstract representation of the data. The activation of the $l$-th hidden layer, $\mathbf h^{(l)}$ ($\mathbf h^{(0)}&#x3D;\mathbf X$), is recursively computed with:<br>  $$\mathbf h^{(l)}&#x3D;\sigma_l\left(\mathbf W^{(l)}\mathbf h^{(l-1)}+\mathbf b^{(l)}\right)$$<br>  where $\mathbf W^{(l)}$ and $\mathbf b^{(l)}$ are the weight matrix and bias vector for layer $l$, and $\sigma_l$ is the non-linear activation function for layer $l$ (e.g., ReLU, sigmoid, hyperbolic tangent). The final output is the value of the factor. The power of this approach is guaranteed by the Universal Approximation Theorem. Neural networks are powerful in handling high-dimensional, complex data without extensive manual feature engineering.</p>
-</li>
+<li><p><strong>Pearson Information Coefficient:</strong> The Pearson IC
+measures linear correlation and is computed as: <span
+class="math display">$$\text{IC}\_t = \frac{\text{Cov}(f\_{i,t},
+r_{i,t+1})}{\sigma(f_{i,t}) \cdot \sigma(r_{i,t+1})}$$</span> where
+<span class="math inline">Cov</span> denotes covariance and <span
+class="math inline"><em>σ</em></span> represents standard
+deviation.</p></li>
+<li><p><strong>Spearman Rank Information Coefficient (RIC):</strong> To
+mitigate the impact of outliers, the Spearman RIC uses rank-transformed
+values: <span
+class="math display">RIC_<em>t</em> = Corr(rank(<em>f</em>_<em>i</em>, <em>t</em>), rank(<em>r</em><sub><em>i</em>, <em>t</em> + 1</sub>))</span>
+This is equivalent to the Pearson correlation applied to ranked
+data.</p></li>
 </ul>
-<h3 id="Unsupervised-Learning-Approaches"><a href="#Unsupervised-Learning-Approaches" class="headerlink" title="Unsupervised Learning Approaches"></a>Unsupervised Learning Approaches</h3><p><strong>Unsupervised learning methods</strong> do not explicitly predict labels. They instead identify latent structures and patterns within the data. They are primarily employed to construct statistical risk factors that explain the sources of common variation in asset returns. This paradigm is exemplified by the statistical method of <strong>Principle Component Analysis (PCA)</strong>.</p>
-<p><strong>PCA</strong> is a dimensionality reduction technique used to construct statistical factors by analyzing the comovement of asset returns. Given an N by T matrix of asset returns $\mathbf R$, where N is the number of assets and T is the number of time periods, PCA aims to find a set of orthogonal vectors (principle components) that explain the maximum amount of variance in the data. In other words, the k-th principle component is the solution of the following optimization problem:<br>$$\mathbf w_k&#x3D;\arg\max_{\mathopen{}\left\lVert\mathbf w\right\rVert&#x3D;1}\text{Var}(\mathbf R^\mathrm T\mathbf w)\quad\text{subject to}\quad\mathbf w_k^\mathrm T\mathbf w_j&#x3D;0,\forall j&lt;k$$<br>This is equivalent to finding the eigenvectors of the sample covariance matrix $\frac1{T-1}\mathbf R\mathbf R^\mathrm T$. In our context, the principle components ${\mathbf w_k}$ are the statistical factors. These factors, despite their power for risk modeling, typically lack a direct economic interpretation.</p>
-<h2 id="Factor-Effectiveness-Testing"><a href="#Factor-Effectiveness-Testing" class="headerlink" title="Factor Effectiveness Testing"></a>Factor Effectiveness Testing</h2><p><strong>Quantitative factor effectiveness</strong> refers to the ability of a factor to predict future asset returns consistently. The factors we have identified may not be effective, so we need to conduct effectiveness tests. Here are some common methods.</p>
-<h3 id="Information-Coefficient-Analysis"><a href="#Information-Coefficient-Analysis" class="headerlink" title="Information Coefficient Analysis"></a>Information Coefficient Analysis</h3><p><strong>Information Coefficient (IC)</strong> analysis is a cornerstone technique in quantitative investing for assessing the effectiveness of predictive factors. By measuring the correlation between factor values and subsequent returns, IC provides a quantitative framework to evaluate factor quality, optimize portfolio construction, and inform trading strategies.</p>
-<p>The Information Coefficient is defined as the correlation between factor values and future returns. Mathematically, it is expressed as:<br>$$\text{IC}_t &#x3D; \text{Corr}(f_{i,t}, r_{i,t+1})$$<br>where $f_{i,t}$ represents the factor value for asset $i$ at time $t$, and $r_{i,t+1}$ denotes the return from time $t$ to $t+1$.</p>
-<ul>
-<li><p><strong>Pearson Information Coefficient:</strong> The Pearson IC measures linear correlation and is computed as:<br>  $$\text{IC}_t &#x3D; \frac{\text{Cov}(f_{i,t}, r_{i,t+1})}{\sigma(f_{i,t}) \cdot \sigma(r_{i,t+1})}$$<br>  where $\text{Cov}$ denotes covariance and $\sigma$ represents standard deviation.</p>
-</li>
-<li><p><strong>Spearman Rank Information Coefficient (RIC):</strong> To mitigate the impact of outliers, the Spearman RIC uses rank-transformed values:<br>  $$\text{RIC}_t &#x3D; \text{Corr}(\text{rank}(f_{i,t}), \text{rank}(r_{i,t+1}))$$<br>  This is equivalent to the Pearson correlation applied to ranked data.</p>
-</li>
-</ul>
-<p>For each time period $t$, the cross-sectional IC is calculated as follows:</p>
-<ol>
-<li>Compute cross-sectional means:<br>$$\bar{f}_t &#x3D; \frac{1}{N} \sum_{i&#x3D;1}^N f_{i,t}, \quad \bar{r}_{t+1} &#x3D; \frac{1}{N} \sum_{i&#x3D;1}^N r_{i,t+1}$$</li>
-<li>Standardize factor values and returns:<br>$$f’_{i,t} &#x3D; f_{i,t} - \bar{f}_t, \quad r’_{i,t+1} &#x3D; r_{i,t+1} - \bar{r}_{t+1}$$</li>
-<li>Calculate covariance and standard deviations:<br>$$\text{Cov}_t &#x3D; \frac{1}{N} \sum_{i&#x3D;1}^N f’_{i,t} \cdot r’_{i,t+1}$$<br>$$\sigma_{f,t} &#x3D; \sqrt{\frac{1}{N} \sum_{i&#x3D;1}^N (f’_{i,t})^2}, \quad \sigma_{r,t} &#x3D; \sqrt{\frac{1}{N} \sum_{i&#x3D;1}^N (r’_{i,t+1})^2}$$</li>
-<li>Compute Pearson IC:<br>$$\text{IC}_t &#x3D; \frac{\text{Cov}_t}{\sigma_{f,t} \cdot \sigma_{r,t}}$$</li>
+<p>For each time period <span class="math inline"><em>t</em></span>, the
+cross-sectional IC is calculated as follows: 1. Compute cross-sectional
+means: <span class="math display">$$\bar{f}\_t = \frac{1}{N}
+\sum_{i=1}^N f\_{i,t}, \quad \bar{r}\_{t+1} = \frac{1}{N} \sum_{i=1}^N
+r_{i,t+1}$$</span> 2. Standardize factor values and returns: <span
+class="math display"><em>f</em>′_<em>i</em>, <em>t</em> = <em>f</em>_<em>i</em>, <em>t</em> − <em>f̄</em>_<em>t</em>,  <em>r</em>′_<em>i</em>, <em>t</em> + 1 = <em>r</em>_<em>i</em>, <em>t</em> + 1 − <em>r̄</em>_<em>t</em> + 1</span>
+3. Calculate covariance and standard deviations: <span
+class="math display">$$\text{Cov}\_t = \frac{1}{N} \sum\_{i=1}^N
+f'\_{i,t} \cdot r'\_{i,t+1}$$</span> <span
+class="math display">$$\sigma_{f,t} = \sqrt{\frac{1}{N} \sum_{i=1}^N
+(f'\_{i,t})^2}, \quad \sigma\_{r,t} = \sqrt{\frac{1}{N} \sum\_{i=1}^N
+(r'\_{i,t+1})^2}$$</span> 4. Compute Pearson IC: <span
+class="math display">$$\text{IC}\_t = \frac{\text{Cov}\_t}{\sigma\_{f,t}
+\cdot \sigma\_{r,t}}$$</span></p>
+<p>To assess the stability of factor performance over time, aggregate IC
+values using: * <strong>Mean IC:</strong> <span
+class="math inline">$\overline{\text{IC}} = \frac{1}{T} \sum_{t=1}^T
+\text{IC}_t$</span> * <strong>Standard Deviation of IC:</strong> <span
+class="math inline">$\sigma_{\text{IC}} = \sqrt{\frac{1}{T-1}
+\sum_{t=1}^T (\text{IC}_t - \overline{\text{IC}})^2}$</span> *
+<strong>t-Statistic:</strong> <span class="math inline">$t =
+\frac{\overline{\text{IC}} \cdot \sqrt{T}}{\sigma_{\text{IC}}}$</span>.
+A t-value greater than 1.96 indicates statistical significance at the
+95% confidence level.</p>
+<p>The <strong>Information Ratio</strong> measures the risk-adjusted
+performance of a factor: <span class="math display">$$\text{IR} =
+\frac{\overline{\text{IC}}}{\sigma_{\text{IC}}} \cdot \sqrt{M}$$</span>
+where M is the number of periods per year (e.g., M=12 for monthly
+data).</p>
+<h3 id="group-backtesting-analysis">Group Backtesting Analysis</h3>
+<p><strong>Group backtesting</strong> provides a straightforward yet
+powerful framework for factor evaluation. It helps identify factors with
+significant predictive power and assesses their monotonicity, forming
+the basis for robust quantitative strategies.</p>
+<p>Factor standardization is typically performed using z-score
+normalization: <span class="math display">$$\hat{f}\_{i,t} =
+\frac{f_{i,t} - \mu_t}{\sigma_t}$$</span> where <span
+class="math inline">$\mu_t = \frac{1}{N}\sum_{i=1}^N f_{i,t}$</span> and
+<span class="math inline">$\sigma_t = \sqrt{\frac{1}{N}\sum_{i=1}^N
+(f_{i,t} - \mu_t)^2}$</span>.</p>
+<ol type="1">
+<li>Assets are sorted into K groups (e.g., quintiles, K=5) based on
+<span class="math inline"><em>f̂</em>_<em>i</em>, <em>t</em></span>. The
+assignment rule for group k is: <span class="math display">$$G_{k,t} =
+\left \\\{ i : \frac{(k-1)N}{K} &lt; \text{rank}(\hat{f}_{i,t}) \leq
+\frac{kN}{K} \right \\\}$$</span></li>
+<li>The equal-weighted return for group k at time t+1 is: <span
+class="math display">$$R_{k,t+1} = \frac{1}{|G_{k,t}|} \sum_{i \in
+G_{k,t}} r_{i,t+1}$$</span></li>
+<li>The long-short portfolio return (factor spread) is: <span
+class="math display"><em>R</em><sub>spread, <em>t</em> + 1</sub> = <em>R</em><sub><em>K</em>, <em>t</em> + 1</sub> − <em>R</em><sub>1, <em>t</em> + 1</sub></span></li>
+<li>The mean return for each group over T periods is: <span
+class="math display">$$\bar{R}\_k = \frac{1}{T} \sum_{t=1}^T
+R_{k,t+1}$$</span></li>
+<li>The t-statistic for testing the significance of group returns: <span
+class="math display">$$t_k = \frac{\bar{R}\_k}{s_k / \sqrt{T}}$$</span>
+where <span class="math inline">$s_k = \sqrt{\frac{1}{T-1} \sum_{t=1}^T
+(R_{k,t+1} - \bar{R}_k)^2}$</span>.</li>
+<li>The information ratio (IR) for the factor spread: <span
+class="math display">$$\text{IR} =
+\frac{\bar{R}\_{\text{spread}}}{s\_{\text{spread}}}
+\sqrt{T}$$</span></li>
 </ol>
-<p>To assess the stability of factor performance over time, aggregate IC values using:</p>
-<ul>
-<li><strong>Mean IC:</strong> $\overline{\text{IC}} &#x3D; \frac{1}{T} \sum_{t&#x3D;1}^T \text{IC}_t$</li>
-<li><strong>Standard Deviation of IC:</strong> $\sigma_{\text{IC}} &#x3D; \sqrt{\frac{1}{T-1} \sum_{t&#x3D;1}^T (\text{IC}_t - \overline{\text{IC}})^2}$</li>
-<li><strong>t-Statistic:</strong> $t &#x3D; \frac{\overline{\text{IC}} \cdot \sqrt{T}}{\sigma_{\text{IC}}}$. A t-value greater than 1.96 indicates statistical significance at the 95% confidence level.</li>
-</ul>
-<p>The <strong>Information Ratio</strong> measures the risk-adjusted performance of a factor:<br>$$\text{IR} &#x3D; \frac{\overline{\text{IC}}}{\sigma_{\text{IC}}} \cdot \sqrt{M}$$<br>where M is the number of periods per year (e.g., M&#x3D;12 for monthly data).</p>
-<h3 id="Group-Backtesting-Analysis"><a href="#Group-Backtesting-Analysis" class="headerlink" title="Group Backtesting Analysis"></a>Group Backtesting Analysis</h3><p><strong>Group backtesting</strong> provides a straightforward yet powerful framework for factor evaluation. It helps identify factors with significant predictive power and assesses their monotonicity, forming the basis for robust quantitative strategies.</p>
-<p>Factor standardization is typically performed using z-score normalization:<br>$$\hat{f}_{i,t} &#x3D; \frac{f_{i,t} - \mu_t}{\sigma_t}$$<br>where $\mu_t &#x3D; \frac{1}{N}\sum_{i&#x3D;1}^N f_{i,t}$ and $\sigma_t &#x3D; \sqrt{\frac{1}{N}\sum_{i&#x3D;1}^N (f_{i,t} - \mu_t)^2}$.</p>
-<ol>
-<li>Assets are sorted into K groups (e.g., quintiles, K&#x3D;5) based on $\hat{f}_{i,t}$. The assignment rule for group k is:<br>$$G_{k,t} &#x3D; \left \{ i : \frac{(k-1)N}{K} &lt; \text{rank}(\hat{f}_{i,t}) \leq \frac{kN}{K} \right \}$$</li>
-<li>The equal-weighted return for group k at time t+1 is:<br>$$R_{k,t+1} &#x3D; \frac{1}{|G_{k,t}|} \sum_{i \in G_{k,t}} r_{i,t+1}$$</li>
-<li>The long-short portfolio return (factor spread) is:<br>$$R_{\text{spread},t+1} &#x3D; R_{K,t+1} - R_{1,t+1}$$</li>
-<li>The mean return for each group over T periods is:<br>$$\bar{R}_k &#x3D; \frac{1}{T} \sum_{t&#x3D;1}^T R_{k,t+1}$$</li>
-<li>The t-statistic for testing the significance of group returns:<br>$$t_k &#x3D; \frac{\bar{R}_k}{s_k &#x2F; \sqrt{T}}$$<br>where $s_k &#x3D; \sqrt{\frac{1}{T-1} \sum_{t&#x3D;1}^T (R_{k,t+1} - \bar{R}_k)^2}$.</li>
-<li>The information ratio (IR) for the factor spread:<br>$$\text{IR} &#x3D; \frac{\bar{R}_{\text{spread}}}{s_{\text{spread}}} \sqrt{T}$$</li>
-</ol>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Overall, factor mining is a core issue in the field of quantitative investment. It employs data analysis to eliminate irrational biases and make optimal decisions. This survey has explored the construction, evaluation, and practical challenges of quantitative factors.</p>
-<p>The “<strong>factor zoo</strong>“ problem underscores the need for disciplined model selection—balancing predictive power with theoretical coherence. Future work should prioritize ways to leverage data analytics to identify more effective factors and construct concise yet accurate multi-factor models.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Overall, factor mining is a core issue in the field of quantitative
+investment. It employs data analysis to eliminate irrational biases and
+make optimal decisions. This survey has explored the construction,
+evaluation, and practical challenges of quantitative factors.</p>
+<p>The “<strong>factor zoo</strong>” problem underscores the need for
+disciplined model selection—balancing predictive power with theoretical
+coherence. Future work should prioritize ways to leverage data analytics
+to identify more effective factors and construct concise yet accurate
+multi-factor models.</p>
 
                 
               </div>
@@ -966,7 +1385,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>July 3, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       

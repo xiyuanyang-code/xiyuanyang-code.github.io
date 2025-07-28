@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/docker.jpg">
 <meta property="article:published_time" content="2025-04-26T15:01:51.000Z">
-<meta property="article:modified_time" content="2025-04-27T13:45:39.306Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:35.357Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Finished">
@@ -630,89 +630,149 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p><img src="https://s1.imagehub.cc/images/2025/04/26/32e5576b53a0feedff1a56966fd1ec91.webp" srcset="/img/loading.gif" lazyload alt="docker"></p>
-<h2 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h2><p>使用Docker之前必须要先安装docker！参考链接 <a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/install/ubuntu">Docker安装</a><sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://yeasy.gitbook.io/docker_practice/install/ubuntu">[1]</span></a></sup>。笔者实测在如下本地环境中可以正常安装：</p>
+<h1 id="docker">Docker</h1>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/26/32e5576b53a0feedff1a56966fd1ec91.webp" srcset="/img/loading.gif" lazyload
+alt="docker" />
+<figcaption aria-hidden="true">docker</figcaption>
+</figure>
+<h2 id="preliminaries">Preliminaries</h2>
+<p>使用Docker之前必须要先安装docker！参考链接 <a
+target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/install/ubuntu">Docker安装</a><sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span
+class="hint--top hint--rounded"
+aria-label="https://yeasy.gitbook.io/docker_practice/install/ubuntu">[1]</span></a></sup>。笔者实测在如下本地环境中可以正常安装：</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Distributor</span> ID: Ubuntu<br><span class="hljs-attribute">Description</span>:    Ubuntu <span class="hljs-number">24</span>.<span class="hljs-number">04</span>.<span class="hljs-number">2</span> LTS<br><span class="hljs-attribute">Release</span>:        <span class="hljs-number">24</span>.<span class="hljs-number">04</span><br><span class="hljs-attribute">Codename</span>:       noble<br></code></pre></td></tr></table></figure>
-
 <div class="note note-warning">
             <p>Docker安装直接<code>sudo apt install</code>会报错，需要先更新软件源之后再<code>sudo apt update</code>刷新缓存之后，就可以正常的安装。</p>
           </div>
-
-<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="Why-We-Need-Docker"><a href="#Why-We-Need-Docker" class="headerlink" title="Why We Need Docker?"></a>Why We Need Docker?</h3><p><strong>依赖地狱问题</strong><sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://zh.wikipedia.org/zh-cn/%E7%9B%B8%E4%BE%9D%E6%80%A7%E5%9C%B0%E7%8B%B1">[2]</span></a></sup>,是指在计算机软件中，是指在操作系统中由于软件之间的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%80%A6%E5%90%88%E6%80%A7_(%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%B8)">依赖性</a>不能被满足而引发的问题。一个软件包依赖于其它必要的软件包（且版本要符合要求），使得软件包系统形成了复杂的依赖关系网络，并可能引发一系列问题。一些软件包可能因为依赖性无法满足，需要安装大量软件包；另一方面，一个软件包的卸载可能引发数量众多的软件包无法工作。</p>
+<h2 id="introduction">Introduction</h2>
+<h3 id="why-we-need-docker">Why We Need Docker?</h3>
+<p><strong>依赖地狱问题</strong><sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span
+class="hint--top hint--rounded"
+aria-label="https://zh.wikipedia.org/zh-cn/%E7%9B%B8%E4%BE%9D%E6%80%A7%E5%9C%B0%E7%8B%B1">[2]</span></a></sup>,是指在计算机软件中，是指在操作系统中由于软件之间的<a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/耦合性_(計算機科學)">依赖性</a>不能被满足而引发的问题。一个软件包依赖于其它必要的软件包（且版本要符合要求），使得软件包系统形成了复杂的依赖关系网络，并可能引发一系列问题。一些软件包可能因为依赖性无法满足，需要安装大量软件包；另一方面，一个软件包的卸载可能引发数量众多的软件包无法工作。</p>
 <p>这就会导致同一个软件在更换环境之后出现诸多异常的情况（对底层软件和工具链的依赖性过强），进而导致一系列的环境兼容问题。</p>
 <p>如何解决，一种很常见的方法是只要<strong>高级的包管理工具</strong>，例如<code>Debian</code>的<code>apt</code>系列（<code>apt install</code>就是在安装软件包）。而<strong>虚拟机</strong>（例如VMware）实现了另一种解决方案，即<strong>没有一致的环境就创造一致的环境</strong>，通过分系统的配置可以实现环境的统一。</p>
-<p>但是虚拟机的一大痛点就是<strong>过于笨重</strong>，因为需要模拟完整的操作系统，Windows OS动辄几十GB，同时安装VM虚拟机需要直接使用主机的内存和CPU。而<strong>Docker</strong>实现了这一问题的轻量级实现，在低资源占用，快启动，高性能的基础之上完美的实现了版本和环境的隔离！</p>
-<h3 id="CI-CD"><a href="#CI-CD" class="headerlink" title="CI&#x2F;CD"></a>CI&#x2F;CD</h3><p><strong>CI&#x2F;CD</strong>（Continuous Integration &#x2F; Continuous Delivery or Deployment）是现代软件开发的核心实践，旨在通过<strong>自动化流程</strong>快速、可靠地构建、测试和发布代码。它是 DevOps 文化的关键技术支撑。</p>
-<p>在CI&#x2F;CD中，从开发环境到测试环境中的<code>build</code>就需要使用Docker镜像！这样有助于开发和测试人员统一环境配置，更好的对代码进行审查。</p>
+<p>但是虚拟机的一大痛点就是<strong>过于笨重</strong>，因为需要模拟完整的操作系统，Windows
+OS动辄几十GB，同时安装VM虚拟机需要直接使用主机的内存和CPU。而<strong>Docker</strong>实现了这一问题的轻量级实现，在低资源占用，快启动，高性能的基础之上完美的实现了版本和环境的隔离！</p>
+<h3 id="cicd">CI/CD</h3>
+<p><strong>CI/CD</strong>（Continuous Integration / Continuous Delivery
+or
+Deployment）是现代软件开发的核心实践，旨在通过<strong>自动化流程</strong>快速、可靠地构建、测试和发布代码。它是
+DevOps 文化的关键技术支撑。</p>
+<p>在CI/CD中，从开发环境到测试环境中的<code>build</code>就需要使用Docker镜像！这样有助于开发和测试人员统一环境配置，更好的对代码进行审查。</p>
 <blockquote>
-<p>CI&#x2F;CD是一个很有意思的东西~希望以后可以开个新坑讲一讲。</p>
+<p>CI/CD是一个很有意思的东西~希望以后可以开个新坑讲一讲。</p>
 </blockquote>
-<h2 id="Quick-Startup"><a href="#Quick-Startup" class="headerlink" title="Quick Startup"></a>Quick Startup</h2><p>我们当然可以直接上代码！但是笔者希望先讲一点点的原理和基本概念~</p>
-<p><img src="https://www.altexsoft.com/static/blog-post/2023/11/50d965c7-b468-4de6-ad45-d8c8cb385a02.jpg" srcset="/img/loading.gif" lazyload alt="The Good and the Bad of Docker"></p>
-<p><a target="_blank" rel="noopener" href="https://www.altexsoft.com/static/blog-post/2023/11">图片来源</a></p>
+<h2 id="quick-startup">Quick Startup</h2>
+<p>我们当然可以直接上代码！但是笔者希望先讲一点点的原理和基本概念~</p>
+<figure>
+<img
+src="https://www.altexsoft.com/static/blog-post/2023/11/50d965c7-b468-4de6-ad45-d8c8cb385a02.jpg" srcset="/img/loading.gif" lazyload
+alt="The Good and the Bad of Docker" />
+<figcaption aria-hidden="true">The Good and the Bad of
+Docker</figcaption>
+</figure>
+<p><a
+target="_blank" rel="noopener" href="https://www.altexsoft.com/static/blog-post/2023/11">图片来源</a></p>
 <p>虚拟机笨重的很重要的一个原因就是他需要和<strong>硬件进行交互</strong>，并且模拟操作系统的运行。而Docker很聪明的绕过了这一点，将<code>Docker Engine</code>建立在了操作系统之上，作为链接各种软件和底层操作系统的<strong>拦路虎</strong>，并在此之上建立相互隔离的<code>Docker Container</code>，实现不同软件包的隔离。</p>
-<h3 id="Docker-Image"><a href="#Docker-Image" class="headerlink" title="Docker Image"></a>Docker Image</h3><p>在虚拟机中，存在<strong>快照</strong>（Snapshot）的概念，即在特定时间点<strong>保存虚拟机状态的技术</strong>。快照可以捕获虚拟机的整个运行状态，包括其内存、CPU 状态、硬盘内容和网络状态。这样，用户可以在将来恢复到这个状态，方便进行测试、备份或恢复操作。对于Docker来说，<strong>Docker Image</strong>就是一种更轻量级的快照（因为在操作系统的上层），一个<strong>只读的模板</strong>，包含运行应用所需的代码、运行时环境、库和配置。</p>
-<h3 id="Docker-Container"><a href="#Docker-Container" class="headerlink" title="Docker Container"></a>Docker Container</h3><p>在准备好镜像之后，将<strong>镜像实例化</strong>就是创建<strong>Docker Container</strong>的过程，并且不同的Container之间实现了隔离的功能，（可以把Docker Image看做抽象出来的类，而Docker Container就是实例化之后的对象），在Docker Container中，我们就有了修改的权限。</p>
-<h3 id="Docker-File"><a href="#Docker-File" class="headerlink" title="Docker File"></a>Docker File</h3><p>如何构建镜像？我们不可能手动安装每一个依赖包（这还不如虚拟机），因此我们就需要编写<strong>自动化脚本来实现镜像的构建</strong>，有点类似于<code>cmakelists.txt</code>。</p>
-<h2 id="Initial-Project"><a href="#Initial-Project" class="headerlink" title="Initial Project"></a>Initial Project</h2><p>在学习完Docker的这三个基本概念之后，就可以开始上手第一个Docker项目了！我们来看下面的示例：我们希望使用Docker“隔离”出一个环境来运行Helloworld，同时，为了增加复杂性，我们将会引入<strong>pip包管理系统</strong>，来看看Docker如何在创建image的时候自动的就把环境给配好了。</p>
+<h3 id="docker-image">Docker Image</h3>
+<p>在虚拟机中，存在<strong>快照</strong>（Snapshot）的概念，即在特定时间点<strong>保存虚拟机状态的技术</strong>。快照可以捕获虚拟机的整个运行状态，包括其内存、CPU
+状态、硬盘内容和网络状态。这样，用户可以在将来恢复到这个状态，方便进行测试、备份或恢复操作。对于Docker来说，<strong>Docker
+Image</strong>就是一种更轻量级的快照（因为在操作系统的上层），一个<strong>只读的模板</strong>，包含运行应用所需的代码、运行时环境、库和配置。</p>
+<h3 id="docker-container">Docker Container</h3>
+<p>在准备好镜像之后，将<strong>镜像实例化</strong>就是创建<strong>Docker
+Container</strong>的过程，并且不同的Container之间实现了隔离的功能，（可以把Docker
+Image看做抽象出来的类，而Docker
+Container就是实例化之后的对象），在Docker
+Container中，我们就有了修改的权限。</p>
+<h3 id="docker-file">Docker File</h3>
+<p>如何构建镜像？我们不可能手动安装每一个依赖包（这还不如虚拟机），因此我们就需要编写<strong>自动化脚本来实现镜像的构建</strong>，有点类似于<code>cmakelists.txt</code>。</p>
+<h2 id="initial-project">Initial Project</h2>
+<p>在学习完Docker的这三个基本概念之后，就可以开始上手第一个Docker项目了！我们来看下面的示例：我们希望使用Docker“隔离”出一个环境来运行Helloworld，同时，为了增加复杂性，我们将会引入<strong>pip包管理系统</strong>，来看看Docker如何在创建image的时候自动的就把环境给配好了。</p>
 <p>首先，我们需要创建一个working directory：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">.<br>├── Dockerfile<br>├── main.py<br>└── requirements.txt<br><br>1 directory, 3 files<br></code></pre></td></tr></table></figure>
-
 <p>其中Dockerfile是脚本，而剩下两个文件就是实际Python开发中需要的文件。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Hello world&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;This is my first docker project&quot;</span>)<br><br>random_number = np.random.randint(<span class="hljs-number">1</span>,<span class="hljs-number">30</span>)<br><span class="hljs-built_in">print</span>(random_number)<br></code></pre></td></tr></table></figure>
-
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta"># in requirements.txt</span><br>numpy<br></code></pre></td></tr></table></figure>
-
 <p>接下来，我们需要创建一个Image，可以来支持运行我们基础的Python文件，我们可以使用如下的Dockerfile来实现这个功能：</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment"># Using Docker image officially</span><br><span class="hljs-keyword">FROM</span> python:<span class="hljs-number">3.9</span>-slim<br><br><span class="hljs-comment"># Setting the directory</span><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /app</span><br><br><span class="hljs-comment"># 将当前目录的文件复制到容器的/app目录</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> . .</span><br><br><span class="hljs-comment"># Several commands when installing the environments</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r ./requirements.txt</span><br><br><span class="hljs-comment"># 定义容器启动时执行的命令</span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;python&quot;</span>, <span class="hljs-string">&quot;main.py&quot;</span>]</span><br></code></pre></td></tr></table></figure>
-
 <ul>
-<li><code>FROM python:3.9-slim</code>代表下载Docker官方的Python镜像，可以在Docker Hub上找到你想要的镜像。</li>
+<li><code>FROM python:3.9-slim</code>代表下载Docker官方的Python镜像，可以在Docker
+Hub上找到你想要的镜像。</li>
 <li><code>WORKDIR /app</code>是设置<strong>容器</strong>的工作目录。（这一点在后面会讲到）</li>
-<li><code>COPY . .</code>代表<strong>将当前目录的文件复制到容器的&#x2F;app目录</strong>，当然你也可以只复制你想要的。</li>
-<li><code>RUN</code>部分的指令是Docker的精髓：<ul>
-<li><code>RUN</code> 指令用于在<strong>构建镜像时</strong>执行命令（例如安装软件、配置环境等）</li>
+<li><code>COPY . .</code>代表<strong>将当前目录的文件复制到容器的/app目录</strong>，当然你也可以只复制你想要的。</li>
+<li><code>RUN</code>部分的指令是Docker的精髓：
+<ul>
+<li><code>RUN</code>
+指令用于在<strong>构建镜像时</strong>执行命令（例如安装软件、配置环境等）</li>
 <li>他支持命令行脚本语句，具体就是使用<code>/bin/sh -c</code></li>
-<li>也只是exec格式，相当于更灵活的命令行parser：<code>RUN [&quot;/bin/bash&quot;, &quot;-c&quot;, &quot;echo Hello World&quot;]</code></li>
-</ul>
-</li>
+<li>也只是exec格式，相当于更灵活的命令行parser：<code>RUN ["/bin/bash", "-c", "echo Hello World"]</code></li>
+</ul></li>
 <li><code>CMD</code>部分和<code>RUN</code>非常想，但是实在<strong>容器启动（已经被实例化）</strong>之后需要执行的命令。</li>
 </ul>
 <blockquote>
 <p>简单来说，<code>RUN</code>就是安装环境，而<code>CMD</code>就是执行命令。</p>
 </blockquote>
-<h3 id="故意报点错"><a href="#故意报点错" class="headerlink" title="故意报点错"></a>故意报点错</h3><p>我们不妨先将RUN那一行注释掉，看会发生什么：</p>
+<h3 id="故意报点错">故意报点错</h3>
+<p>我们不妨先将RUN那一行注释掉，看会发生什么：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker build -t python-helloworld .<br></code></pre></td></tr></table></figure>
-
-<p>使用<code>docker build</code>来实现<strong>构建docker镜像</strong>（Dockerfile -&gt; Docker Image的过程），<code>-t</code>后接后缀镜像的名字，注意最后的 <code>.</code> 表示当前目录是构建上下文。</p>
+<p>使用<code>docker build</code>来实现<strong>构建docker镜像</strong>（Dockerfile
+-&gt; Docker
+Image的过程），<code>-t</code>后接后缀镜像的名字，注意最后的
+<code>.</code> 表示当前目录是构建上下文。</p>
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">failed <span class="hljs-built_in">to</span> fetch metadata: fork/exec /usr/<span class="hljs-built_in">local</span>/lib/docker/cli-plugins/docker-buildx: no such <span class="hljs-built_in">file</span> <span class="hljs-keyword">or</span> <span class="hljs-built_in">directory</span><br><br>DEPRECATED: The legacy builder is deprecated <span class="hljs-keyword">and</span> will be removed <span class="hljs-keyword">in</span> <span class="hljs-keyword">a</span> future release.<br>            Install <span class="hljs-keyword">the</span> buildx component <span class="hljs-built_in">to</span> build images <span class="hljs-keyword">with</span> BuildKit:<br>            <span class="hljs-keyword">https</span>://docs.docker.com/go/buildx/<br><br>Sending build context <span class="hljs-built_in">to</span> Docker daemon  <span class="hljs-number">4.096</span>kB<br>Step <span class="hljs-number">1</span>/<span class="hljs-number">4</span> : FROM python:<span class="hljs-number">3.9</span>-slim<br> <span class="hljs-comment">---&gt; 501f96d59d70</span><br>Step <span class="hljs-number">2</span>/<span class="hljs-number">4</span> : WORKDIR /app<br> <span class="hljs-comment">---&gt; Using cache</span><br> <span class="hljs-comment">---&gt; a4e76098ab7c</span><br>Step <span class="hljs-number">3</span>/<span class="hljs-number">4</span> : COPY . .<br> <span class="hljs-comment">---&gt; 51a1c6924060</span><br>Step <span class="hljs-number">4</span>/<span class="hljs-number">4</span> : CMD [<span class="hljs-string">&quot;python&quot;</span>, <span class="hljs-string">&quot;main.py&quot;</span>]<br> <span class="hljs-comment">---&gt; Running in a3dbbb5ffd68</span><br> <span class="hljs-comment">---&gt; Removed intermediate container a3dbbb5ffd68</span><br> <span class="hljs-comment">---&gt; fb4b52ccc604</span><br>Successfully built fb4b52ccc604<br>Successfully tagged python-helloworld:latest<br></code></pre></td></tr></table></figure>
-
-<p>Docker build成功了！接下来我们使用<code>docker run</code>来<strong>实现镜像的实例化</strong>。</p>
+<p>Docker
+build成功了！接下来我们使用<code>docker run</code>来<strong>实现镜像的实例化</strong>。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run --<span class="hljs-built_in">rm</span> python-helloworld <br></code></pre></td></tr></table></figure>
-
 <p>其中<code>python-helloworld</code>就是镜像的名字，而<code>--rm</code>代表创建临时镜像，适合作为临时的调试。</p>
 <div class="note note-primary">
-            <p>非常推荐安装Vscode的Docker插件，可以实时监控Docker的镜像和示例container：</p><p><img src="https://s1.imagehub.cc/images/2025/04/27/e948a8f618de3f30e90a157dfba8d5cc.png" srcset="/img/loading.gif" lazyload alt="Docker"></p>
+            <p>非常推荐安装Vscode的Docker插件，可以实时监控Docker的镜像和示例container：</p><figure><imgsrc="https://s1.imagehub.cc/images/2025/04/27/e948a8f618de3f30e90a157dfba8d5cc.png"alt="Docker" /><figcaption aria-hidden="true">Docker</figcaption></figure>
           </div>
-
 <p>貌似<strong>出现报错</strong>了…看看报错信息</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">Traceback (most recent <span class="hljs-keyword">call</span> last):<br>  File &quot;/app/main.py&quot;, <span class="hljs-type">line</span> <span class="hljs-number">1</span>, <span class="hljs-keyword">in</span> &lt;module&gt;<br>    <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>ModuleNotFoundError: <span class="hljs-keyword">No</span> module named <span class="hljs-string">&#x27;numpy&#x27;</span><br></code></pre></td></tr></table></figure>
-
 <p>也就是说，Docker已经成功设置好了一个Python的解释器的镜像（在Python-helloworld中），但是未安装相关包<code>numpy</code>的依赖，导致脚本文件运行失败。</p>
-<h3 id="完整运行"><a href="#完整运行" class="headerlink" title="完整运行"></a>完整运行</h3><p>现在我们把注释掉的命令恢复，<code>docker build</code> again！</p>
+<h3 id="完整运行">完整运行</h3>
+<p>现在我们把注释掉的命令恢复，<code>docker build</code> again！</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">Looking <span class="hljs-keyword">in</span> indexes: https://pypi.tuna.tsinghua.edu.cn/simple<br>Collecting numpy<br>  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/b9/<span class="hljs-number">14</span>/<span class="hljs-number">78635</span>daab4b07c0930c919d451b8bf8c164774e6a3413aed04a6d95758ce/numpy<span class="hljs-number">-2.0</span><span class="hljs-number">.2</span>-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (<span class="hljs-number">19.5</span> MB)<br>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class="hljs-number">19.5</span>/<span class="hljs-number">19.5</span> MB <span class="hljs-number">15.3</span> MB/s eta <span class="hljs-number">0</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span><br>Installing collected packages: numpy<br><span class="hljs-built_in">WARNING</span>: Running pip <span class="hljs-keyword">as</span> the <span class="hljs-string">&#x27;root&#x27;</span> <span class="hljs-keyword">user</span> can result <span class="hljs-keyword">in</span> broken permissions <span class="hljs-keyword">and</span> conflicting behaviour <span class="hljs-keyword">with</span> the <span class="hljs-keyword">system</span> package manager. It <span class="hljs-keyword">is</span> recommended <span class="hljs-keyword">to</span> use a virtual environment <span class="hljs-keyword">instead</span>: https://pip.pypa.io/warnings/venv<br>Successfully installed numpy<span class="hljs-number">-2.0</span><span class="hljs-number">.2</span><br><br>[<span class="hljs-keyword">notice</span>] A <span class="hljs-built_in">new</span> <span class="hljs-keyword">release</span> <span class="hljs-keyword">of</span> pip <span class="hljs-keyword">is</span> available: <span class="hljs-number">23.0</span><span class="hljs-number">.1</span> -&gt; <span class="hljs-number">25.1</span><br>[<span class="hljs-keyword">notice</span>] <span class="hljs-keyword">To</span> <span class="hljs-keyword">update</span>, run: pip install <span class="hljs-comment">--upgrade pip</span><br></code></pre></td></tr></table></figure>
-
-<p>我们发现他成功执行了我们的脚本！这下再Docker run就可以正常输出信息了！</p>
+<p>我们发现他成功执行了我们的脚本！这下再Docker
+run就可以正常输出信息了！</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs applescript">Hello world<br>This <span class="hljs-keyword">is</span> <span class="hljs-keyword">my</span> <span class="hljs-keyword">first</span> docker project<br><span class="hljs-number">15</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="Some-tips"><a href="#Some-tips" class="headerlink" title="Some tips"></a>Some tips</h3><p>我们也可以直接使用<code>docker pull</code>来安装镜像！例如执行<code>docker pull amd64/python</code>，就拉取了一个针对 AMD64 架构的官方 Python 镜像，相当于安装了一个Python解释器，同样，我们也可以针对这个docker image进行<code>docker run</code>。</p>
-<p><img src="https://s1.imagehub.cc/images/2025/04/27/2a00dd0c15768842d52f88f8f63329b6.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<h2 id="More-Advanced-Usage"><a href="#More-Advanced-Usage" class="headerlink" title="More Advanced Usage"></a>More Advanced Usage</h2><p>到这里，Docker的基本命令就差不多了！个人感觉Docker的CLI做的还是比较清爽的，不像某些bash脚本一样要加上各种各样奇奇怪怪的后缀😅。</p>
+<h3 id="some-tips">Some tips</h3>
+<p>我们也可以直接使用<code>docker pull</code>来安装镜像！例如执行<code>docker pull amd64/python</code>，就拉取了一个针对
+AMD64 架构的官方 Python
+镜像，相当于安装了一个Python解释器，同样，我们也可以针对这个docker
+image进行<code>docker run</code>。</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/27/2a00dd0c15768842d52f88f8f63329b6.png" srcset="/img/loading.gif" lazyload
+alt="image" />
+<figcaption aria-hidden="true">image</figcaption>
+</figure>
+<h2 id="more-advanced-usage">More Advanced Usage</h2>
+<p>到这里，Docker的基本命令就差不多了！个人感觉Docker的CLI做的还是比较清爽的，不像某些bash脚本一样要加上各种各样奇奇怪怪的后缀😅。</p>
 <p>For more advanced usage, to be continued in the future.</p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/install/ubuntu">https://yeasy.gitbook.io/docker_practice/install/ubuntu</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E7%9B%B8%E4%BE%9D%E6%80%A7%E5%9C%B0%E7%8B%B1">https://zh.wikipedia.org/zh-cn/%E7%9B%B8%E4%BE%9D%E6%80%A7%E5%9C%B0%E7%8B%B1</a>
-<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<h2 id="references">References</h2>
+<section class="footnotes">
+<div class="footnote-list">
+<ol>
+<li>
+<span id="fn:1"
+class="footnote-text"><span>https://yeasy.gitbook.io/docker_practice/install/ubuntu
+<a href="#fnref:1" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:2"
+class="footnote-text"><span>https://zh.wikipedia.org/zh-cn/%E7%9B%B8%E4%BE%9D%E6%80%A7%E5%9C%B0%E7%8B%B1
+<a href="#fnref:2" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+</ol>
+</div>
+</section>
+
                 
               </div>
             
@@ -780,7 +840,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 27, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       
@@ -811,9 +871,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/AINN-Attention/" title="AINN Attention">
+                      <a href="/posts/Python-Threadings/" title="Python Threadings">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">AINN Attention</span>
+                        <span class="hidden-mobile">Python Threadings</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     

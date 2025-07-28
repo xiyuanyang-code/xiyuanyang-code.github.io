@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/scripts.jpg">
 <meta property="article:published_time" content="2025-03-30T13:56:26.000Z">
-<meta property="article:modified_time" content="2025-04-28T09:05:30.529Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:36.337Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Finished">
 <meta property="article:tag" content="Bash">
@@ -362,7 +362,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          184 words
+          177 words
         
       </span>
     
@@ -563,70 +563,94 @@
  * Do you code and make progress today?
  * Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved. 
 -->
-<h1 id="Blog-Update-Fetching-Script"><a href="#Blog-Update-Fetching-Script" class="headerlink" title="Blog Update Fetching Script"></a>Blog Update Fetching Script</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>This is an automation script I implemented in the Hexo blog update to automatically fetch blog updates, compare them with previous update statuses, and allow users to manually determine the update status of unfinished and newly added blogs, thus obtaining the new blog update status.</p>
+<h1 id="blog-update-fetching-script">Blog Update Fetching Script</h1>
+<h2 id="introduction">Introduction</h2>
+<p>This is an automation script I implemented in the Hexo blog update to
+automatically fetch blog updates, compare them with previous update
+statuses, and allow users to manually determine the update status of
+unfinished and newly added blogs, thus obtaining the new blog update
+status.</p>
 <p>All Blogs are classified into three major categories:</p>
 <ul>
-<li><p>⏸️(Still working)</p>
-</li>
-<li><p>✅(Mostly finished)</p>
-</li>
-<li><p>❌(Barely completed)</p>
-</li>
+<li><p>⏸️(Still working)</p></li>
+<li><p>✅(Mostly finished)</p></li>
+<li><p>❌(Barely completed)</p></li>
 </ul>
-<h2 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h2><div style="padding: 10px; background-color: #E7F5FF; border-left: 5px solid #4DABF7; border-radius: 4px; margin: 10px 0;">
-ℹ️ For the latest version, we strongly recommend you to run `main.py` (or `run.sh` directly)! The old version of `main.sh` will no longer be maintained.
+<h2 id="preliminaries">Preliminaries</h2>
+<div
+style="padding: 10px; background-color: #E7F5FF; border-left: 5px solid #4DABF7; border-radius: 4px; margin: 10px 0;">
+<p>ℹ️ For the latest version, we strongly recommend you to run
+<code>main.py</code> (or <code>run.sh</code> directly)! The old version
+of <code>main.sh</code> will no longer be maintained.</p>
 </div>
-
-<p>For the latest version, you need to get the <strong>Absolute address</strong> of your <code>hexo</code> directories which stores all your <strong>Markdown</strong> files and replace it with the variable of <code>BLOG_DIR</code>.</p>
+<p>For the latest version, you need to get the <strong>Absolute
+address</strong> of your <code>hexo</code> directories which stores all
+your <strong>Markdown</strong> files and replace it with the variable of
+<code>BLOG_DIR</code>.</p>
 <p>For example, in <code>main.py</code>:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/home/xiyuanyang/anaconda3/bin/python</span><br><span class="hljs-comment"># ! ATTENTION: change it to your own python interpreter.</span><br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime<br><br><span class="hljs-comment"># Configuration</span><br><span class="hljs-comment"># ! ATTENTION: replace the BLOG_DIR with your own.</span><br>BLOG_DIR = <span class="hljs-string">&quot;/mnt/d/Blog/source/_posts&quot;</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><h3 id="For-the-new-version"><a href="#For-the-new-version" class="headerlink" title="For the new version"></a>For the new version</h3><p>You can run the original python scripts:</p>
+<h2 id="usage">Usage</h2>
+<h3 id="for-the-new-version">For the new version</h3>
+<p>You can run the original python scripts:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python main.py<br></code></pre></td></tr></table></figure>
-<p>And you will see the answers and the output! Go to <a href="#Demo">Demo</a> for more details.</p>
-<p>Or you can run the bash scripts <code>run.sh</code> to achieve more refined output control!</p>
+<p>And you will see the answers and the output! Go to <a
+href="#Demo">Demo</a> for more details.</p>
+<p>Or you can run the bash scripts <code>run.sh</code> to achieve more
+refined output control!</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bash run.sh<br></code></pre></td></tr></table></figure>
-
 <details>
-<summary>For the old version (not recommended)</summary>
-
-
-<p>In <code>main.sh</code>, change the directory into your own directory:</p>
+<summary>
+For the old version (not recommended)
+</summary>
+<p>In <code>main.sh</code>, change the directory into your own
+directory:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">DIR=<span class="hljs-string">&quot;/mnt/d/Blog/source/_posts&quot;</span><br><br><span class="hljs-comment"># Change this line into your own directory!</span><br></code></pre></td></tr></table></figure>
-
 <p>Then create a new dir containing logs.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> <span class="hljs-built_in">log</span><br></code></pre></td></tr></table></figure>
-
 <p>You need to initialize <code>prev.txt</code> for your own blog!</p>
-<p>For this document, please maintain the following format: Each line should include a prefix status emoji and the title name. The prefix status emojis include ✅ and ❌, indicating the completion status of the blog. </p>
-<p>An example text is as follows:  </p>
+<p>For this document, please maintain the following format: Each line
+should include a prefix status emoji and the title name. The prefix
+status emojis include ✅ and ❌, indicating the completion status of the
+blog.</p>
+<p>An example text is as follows:</p>
 <figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs mathematica">❌<span class="hljs-variable">AI</span><span class="hljs-operator">-</span><span class="hljs-variable">Paper</span><span class="hljs-operator">-</span><span class="hljs-number">2024</span><br>❌<span class="hljs-variable">AI</span><span class="hljs-operator">-</span><span class="hljs-variable">indepth</span><span class="hljs-operator">-</span><span class="hljs-variable">reading</span><span class="hljs-operator">-</span><span class="hljs-variable">AlexNet</span><br>✅<span class="hljs-built_in">Above</span><span class="hljs-operator">-</span><span class="hljs-built_in">All</span><br>❌<span class="hljs-variable">Algorithm</span><span class="hljs-operator">-</span><span class="hljs-variable">BFS</span><span class="hljs-operator">-</span><span class="hljs-variable">DFS</span><br>✅<span class="hljs-variable">Algorithm</span><span class="hljs-operator">-</span><span class="hljs-variable">BinaryTree</span><br>❌<span class="hljs-variable">Algorithm</span><span class="hljs-operator">-</span><span class="hljs-variable">Chunking</span><br>✅<span class="hljs-variable">Algorithm</span><span class="hljs-operator">-</span><span class="hljs-variable">Introduction</span><br>✅<span class="hljs-variable">Algorithm</span><span class="hljs-operator">-</span><span class="hljs-variable">Memo</span><br>✅<span class="hljs-variable">Algorithm</span><span class="hljs-operator">-</span><span class="hljs-variable">Sorting</span><br>✅<span class="hljs-variable">Bash</span><span class="hljs-operator">-</span><span class="hljs-variable">commands</span><br>✅<span class="hljs-variable">Bash</span><span class="hljs-operator">-</span><span class="hljs-variable">exercises</span><br>✅<span class="hljs-built_in">C</span><span class="hljs-operator">-</span><span class="hljs-variable">plus</span><span class="hljs-operator">-</span><span class="hljs-variable">plus</span><span class="hljs-operator">-</span><span class="hljs-variable">Primer</span><span class="hljs-operator">-</span><span class="hljs-built_in">Plus</span><span class="hljs-operator">-</span><span class="hljs-variable">tutorial</span><br>✅<span class="hljs-variable">CMake</span><span class="hljs-operator">-</span><span class="hljs-variable">tutorial</span><span class="hljs-operator">-</span><span class="hljs-variable">episode2</span><br>✅<span class="hljs-variable">CMake</span><span class="hljs-operator">-</span><span class="hljs-variable">tutorial1</span><br>✅<span class="hljs-variable">CS294</span><span class="hljs-operator">-</span><span class="hljs-number">1</span><span class="hljs-operator">-</span><span class="hljs-variable">LLM</span><span class="hljs-operator">-</span><span class="hljs-variable">Reasoning</span><br></code></pre></td></tr></table></figure>
-
-<p>Please ensure that your output structure maintains alphabetical order. You can use the following command line to achieve this: </p>
+<p>Please ensure that your output structure maintains alphabetical
+order. You can use the following command line to achieve this:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> <span class="hljs-variable">$DIR</span> | grep -v <span class="hljs-string">&quot;.*\.md&quot;</span> | grep -v <span class="hljs-string">&quot;.*\.sh&quot;</span> &gt; ans.txt<br></code></pre></td></tr></table></figure>
-
-<p>You only need to initialize it once! The scripts will update it later.</p>
-<p>For <strong>Hexo</strong> Blog users, the directory which stores your Blog posts may be like as follows:</p>
+<p>You only need to initialize it once! The scripts will update it
+later.</p>
+<p>For <strong>Hexo</strong> Blog users, the directory which stores your
+Blog posts may be like as follows:</p>
 <ul>
 <li>Several <code>.md</code> files</li>
-<li>Several directories which has the same name with <code>.md</code> files</li>
+<li>Several directories which has the same name with <code>.md</code>
+files</li>
 </ul>
-<p>The <code>main.sh</code> will automatically get all file names using the <code>grep</code> command:</p>
+<p>The <code>main.sh</code> will automatically get all file names using
+the <code>grep</code> command:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> <span class="hljs-variable">$DIR</span> | grep -v <span class="hljs-string">&quot;.*\.md&quot;</span> | grep -v <span class="hljs-string">&quot;.*\.sh&quot;</span> &gt; ans.txt<br></code></pre></td></tr></table></figure>
-
 <blockquote>
-<p><code>grep -v &quot;.*\.sh&quot;</code> is because I add several <code>.sh</code> files into it. You can modify it with your own needs.</p>
+<p><code>grep -v ".*\.sh"</code> is because I add several
+<code>.sh</code> files into it. You can modify it with your own
+needs.</p>
 </blockquote>
-<p>Then, the file will compare the new status with the previous status stored in the <code>prev.txt</code>. Then the file will ask users to manually determine the update status of unfinished and newly added blogs.</p>
-<p>Finally, the scripts will update <code>prev.txt</code> and generate a new blog status named <code>20250330_200559.txt</code> and you can see the updated status there!</p>
+<p>Then, the file will compare the new status with the previous status
+stored in the <code>prev.txt</code>. Then the file will ask users to
+manually determine the update status of unfinished and newly added
+blogs.</p>
+<p>Finally, the scripts will update <code>prev.txt</code> and generate a
+new blog status named <code>20250330_200559.txt</code> and you can see
+the updated status there!</p>
 </details>
-
-
-
-
-<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><p><img src="https://s1.imagehub.cc/images/2025/04/28/69b4addc0f5884e404cc11b77912c327.png" srcset="/img/loading.gif" lazyload alt="demo1"><br><img src="https://s1.imagehub.cc/images/2025/04/28/a7fdd1508e2fa14477a40e20220aafe0.png" srcset="/img/loading.gif" lazyload alt="demo2"></p>
+<h2 id="demo">Demo</h2>
+<p><img
+src="https://s1.imagehub.cc/images/2025/04/28/69b4addc0f5884e404cc11b77912c327.png" srcset="/img/loading.gif" lazyload
+alt="demo1" /> <img
+src="https://s1.imagehub.cc/images/2025/04/28/a7fdd1508e2fa14477a40e20220aafe0.png" srcset="/img/loading.gif" lazyload
+alt="demo2" /></p>
 <p><strong>Enjoy Coding</strong></p>
-<h2 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h2><p>Just for fun, and just for <code>hexo</code> users.</p>
+<h2 id="discussion">Discussion</h2>
+<p>Just for fun, and just for <code>hexo</code> users.</p>
 <p>Welcome PRs.</p>
 
                 
@@ -694,7 +718,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 28, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       

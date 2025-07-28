@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Kruskal.jpg">
 <meta property="article:published_time" content="2025-05-11T12:22:14.000Z">
-<meta property="article:modified_time" content="2025-05-18T16:11:41.839Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:35.824Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Finished">
@@ -913,41 +913,84 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h1 id="Minimum-Spanning-Trees-最小生成树问题"><a href="#Minimum-Spanning-Trees-最小生成树问题" class="headerlink" title="Minimum Spanning Trees (最小生成树问题)"></a>Minimum Spanning Trees (最小生成树问题)</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>图的结构相比于树结构更加复杂，很重要的一点原因在于<strong>有向图的父亲节点</strong>（或者说入度）可以多于1个，但是<strong>树需要严格保证为1个</strong>（根节点除外）。我们当然可以把<strong>树</strong>看做一种特殊的<strong>图</strong>的结构，满足性质:$|V| &#x3D; |E| + 1$。</p>
-<p>对于一个连通图，我们可以证明$|V| \le |E| + 1$。因此，最小生成树问题就是<strong>尽可能的在保持连通性的前提下</strong>，使得权重最小。（因为树结构总是可以保证联通的）</p>
+<h1 id="minimum-spanning-trees-最小生成树问题">Minimum Spanning Trees
+(最小生成树问题)</h1>
+<h2 id="definition">Definition</h2>
+<p>图的结构相比于树结构更加复杂，很重要的一点原因在于<strong>有向图的父亲节点</strong>（或者说入度）可以多于1个，但是<strong>树需要严格保证为1个</strong>（根节点除外）。我们当然可以把<strong>树</strong>看做一种特殊的<strong>图</strong>的结构，满足性质:<span
+class="math inline">|<em>V</em>| = |<em>E</em>| + 1</span>。</p>
+<p>对于一个连通图，我们可以证明<span
+class="math inline">|<em>V</em>| ≤ |<em>E</em>| + 1</span>。因此，最小生成树问题就是<strong>尽可能的在保持连通性的前提下</strong>，使得权重最小。（因为树结构总是可以保证联通的）</p>
 <blockquote>
 <p>当然，我们需要保证原图是联通图，并且我们默认为<strong>无向图</strong>。</p>
 </blockquote>
 <div class="note note-primary">
-            <p><strong>我们可以从图的角度出发定义树</strong>！</p><p>Trees are <strong>connected</strong> <strong>acyclic(no circles)</strong> undirect graphs. </p><p>不可以使用$|V| &#x3D; |E| + 1$来定义树，因为这是必要的条件。</p>
+            <p><strong>我们可以从图的角度出发定义树</strong>！</p><p>Trees are <strong>connected</strong> <strong>acyclic(nocircles)</strong> undirect graphs.</p><p>不可以使用<spanclass="math inline">|<em>V</em>| = |<em>E</em>| + 1</span>来定义树，因为这是必要的条件。</p>
           </div>
-
 <p>因此，我们需要设计的算法需要<strong>在给定一个无向联通图</strong>的情况下，找到一颗最小生成树。</p>
-<h2 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h2><p>在学习算法之前，我们首先需要介绍一个非常重要的定理，这也是算法正确性的基础。</p>
-<p>Assume $G &#x3D; (V,E)$ is a connected graph, $U$ is a no-empty subset of $V$, if $(u,v)$ is is the edge that has lowest cost and $u \in V$ and $v \in V -U$, there exists a MST, where edge $(u,v)$ is included.</p>
-<p>证明：使用<strong>反证法</strong>。由最小生成树的存在性，我们知道存在树$T$，为其最小生成树，并且<strong>不包含</strong>$(u,v)$。</p>
-<p>将$(u,v)$加入树中，此时图会出现回路，需要<strong>删除一条边</strong>。或者换句话说，因为$T$联通，因此存在通路从$u$走向$v$。</p>
-<p>又因为$U$ 和 $V - U$构成了一个对$V$的划分，因此存在一条边$(u’,v’)$, where $u’ \in U$ and $v’ \in V - U$.</p>
-<p>Delete that edge, we can create a new tree $T’$, then we can prove $T’$ is a tree and is smaller than $T$. </p>
-<h2 id="Prim’s-Algorithm"><a href="#Prim’s-Algorithm" class="headerlink" title="Prim’s Algorithm"></a>Prim’s Algorithm</h2><p>Basic Ideas: Grow the tree in the successive stages.</p>
-<p><img src="https://s1.imagehub.cc/images/2025/05/12/ec488d9b4830a3e2852f12ebc2cad9cf.png" srcset="/img/loading.gif" lazyload alt="Prim"></p>
+<h2 id="preliminaries">Preliminaries</h2>
+<p>在学习算法之前，我们首先需要介绍一个非常重要的定理，这也是算法正确性的基础。</p>
+<p>Assume <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> is a
+connected graph, <span class="math inline"><em>U</em></span> is a
+no-empty subset of <span class="math inline"><em>V</em></span>, if <span
+class="math inline">(<em>u</em>, <em>v</em>)</span> is is the edge that
+has lowest cost and <span
+class="math inline"><em>u</em> ∈ <em>V</em></span> and <span
+class="math inline"><em>v</em> ∈ <em>V</em> − <em>U</em></span>, there
+exists a MST, where edge <span
+class="math inline">(<em>u</em>, <em>v</em>)</span> is included.</p>
+<p>证明：使用<strong>反证法</strong>。由最小生成树的存在性，我们知道存在树<span
+class="math inline"><em>T</em></span>，为其最小生成树，并且<strong>不包含</strong><span
+class="math inline">(<em>u</em>, <em>v</em>)</span>。</p>
+<p>将<span
+class="math inline">(<em>u</em>, <em>v</em>)</span>加入树中，此时图会出现回路，需要<strong>删除一条边</strong>。或者换句话说，因为<span
+class="math inline"><em>T</em></span>联通，因此存在通路从<span
+class="math inline"><em>u</em></span>走向<span
+class="math inline"><em>v</em></span>。</p>
+<p>又因为<span class="math inline"><em>U</em></span> 和 <span
+class="math inline"><em>V</em> − <em>U</em></span>构成了一个对<span
+class="math inline"><em>V</em></span>的划分，因此存在一条边<span
+class="math inline">(<em>u</em>′, <em>v</em>′)</span>, where <span
+class="math inline"><em>u</em>′ ∈ <em>U</em></span> and <span
+class="math inline"><em>v</em>′ ∈ <em>V</em> − <em>U</em></span>.</p>
+<p>Delete that edge, we can create a new tree <span
+class="math inline"><em>T</em>′</span>, then we can prove <span
+class="math inline"><em>T</em>′</span> is a tree and is smaller than
+<span class="math inline"><em>T</em></span>.</p>
+<h2 id="prims-algorithm">Prim’s Algorithm</h2>
+<p>Basic Ideas: Grow the tree in the successive stages.</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/05/12/ec488d9b4830a3e2852f12ebc2cad9cf.png" srcset="/img/loading.gif" lazyload
+alt="Prim" />
+<figcaption aria-hidden="true">Prim</figcaption>
+</figure>
 <blockquote>
-<p>The image is from: <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=GLlIaT_PxVE">Shusen Wang’s PPT</a>, so great!</p>
+<p>The image is from: <a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=GLlIaT_PxVE">Shusen Wang’s
+PPT</a>, so great!</p>
 </blockquote>
 <p>具体解释就是：</p>
 <ul>
-<li>每次更新完之后看<strong>已经被加入树的节点</strong>和<strong>没有被加入树的节点</strong>之间的连接边。即我们需要在集合$E’$中挑选权重最小的一条边：</li>
+<li>每次更新完之后看<strong>已经被加入树的节点</strong>和<strong>没有被加入树的节点</strong>之间的连接边。即我们需要在集合<span
+class="math inline"><em>E</em>′</span>中挑选权重最小的一条边：</li>
 </ul>
-<p>$$E’ &#x3D; \{ e \in E|\exists(u\in V’,v\notin V’)( e \  \text{connects } u,v) \}$$</p>
+<p><span class="math display">$$E' = \\{ e \in E|\exists(u\in V',v\notin
+V')( e \  \text{connects } u,v) \\}$$</span></p>
 <ul>
-<li>接着检查是否符合树的定义：<ul>
+<li>接着检查是否符合树的定义：
+<ul>
 <li>如果符合进入下一轮循环</li>
 <li>没有不符合的情况，因为<strong>上面的数学引理</strong>保证了类似最小生成树的存在性。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h2 id="Kruskal’s-Algorithm"><a href="#Kruskal’s-Algorithm" class="headerlink" title="Kruskal’s Algorithm"></a>Kruskal’s Algorithm</h2><p><img src="https://s1.imagehub.cc/images/2025/05/12/2cf376b2e618db08f993193a795d5347.png" srcset="/img/loading.gif" lazyload alt="Krustal"></p>
+<h2 id="kruskals-algorithm">Kruskal’s Algorithm</h2>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/05/12/2cf376b2e618db08f993193a795d5347.png" srcset="/img/loading.gif" lazyload
+alt="Krustal" />
+<figcaption aria-hidden="true">Krustal</figcaption>
+</figure>
 <p>Prim算法的关键在<strong>根据权重找节点</strong>，而Krustal算法的思想不一样，<strong>不断加入边</strong>。</p>
 <p>我们需要使用<strong>并查集</strong>来维护一个<strong>森林</strong>，或者可以看成是由联通关系构成的等价类划分，在一开始，所有节点之间两两都不联通，我们希望在算法结束的时候<strong>这个森林</strong>被Union成一个等价类，即形成联通关系，而且不存在回路。</p>
 <p>在预处理过程中，我们需要<strong>维护一个队列</strong>，按照权重大小升序排序，并且不断的尝试把边加入这个树中，（<strong>加边的过程</strong>可以看做是对联通关系的更新，也就是对等价类的合并！）</p>
@@ -955,23 +998,30 @@
 <li>如果这条边的两个endpoint本来就在一个等价类中，那么很遗憾，如果加入这条边我们会引入环路，不加</li>
 <li>如果不在，加入这条边，并做Union操作。</li>
 </ul>
-<p>一直到第一次整棵树全部联通（或者生成的树含有$|V|$个节点），算法结束。</p>
-<h3 id="A-small-question"><a href="#A-small-question" class="headerlink" title="A small question"></a>A small question</h3><p>最小生成树唯一吗？对于一般的情况，肯定是不唯一的，并且我们证明的数学定理也只是<strong>确保了存在性</strong>而非<strong>唯一性</strong>。</p>
+<p>一直到第一次整棵树全部联通（或者生成的树含有<span
+class="math inline">|<em>V</em>|</span>个节点），算法结束。</p>
+<h3 id="a-small-question">A small question</h3>
+<p>最小生成树唯一吗？对于一般的情况，肯定是不唯一的，并且我们证明的数学定理也只是<strong>确保了存在性</strong>而非<strong>唯一性</strong>。</p>
 <p>如果我们保证每一条边的权值是不一样的，那么<strong>优先级队列的排列方式</strong>唯一，我们可以得到唯一的生成树。</p>
 <p>换句话说，每一种最小生成树，都对应着一种Krustkal算法的生成结果，这是Prim算法所不能做到的。</p>
 <div class="note note-primary">
             <p><strong>当且仅当图中所有边的权重互不相同</strong>，或者<strong>在所有具有相同权重的边中，这些边不会在MST的选择过程中产生替代方案</strong>时，MST是唯一的。</p>
           </div>
-
-<h2 id="Time-complexity"><a href="#Time-complexity" class="headerlink" title="Time complexity"></a>Time complexity</h2><p>对应Kruskal算法：</p>
+<h2 id="time-complexity">Time complexity</h2>
+<p>对应Kruskal算法：</p>
 <ul>
-<li>对所有边构建优先级队列排序：$O(E\log E)$</li>
-<li>加边：$O(V)O(\alpha(V))$，可以看成$O(V)$</li>
-<li>总的时间复杂度：$O(E \log E)$</li>
+<li>对所有边构建优先级队列排序：<span
+class="math inline"><em>O</em>(<em>E</em>log <em>E</em>)</span></li>
+<li>加边：<span
+class="math inline"><em>O</em>(<em>V</em>)<em>O</em>(<em>α</em>(<em>V</em>))</span>，可以看成<span
+class="math inline"><em>O</em>(<em>V</em>)</span></li>
+<li>总的时间复杂度：<span
+class="math inline"><em>O</em>(<em>E</em>log <em>E</em>)</span></li>
 </ul>
 <p>对于Prim算法：</p>
 <ul>
-<li>$O(E \log V)$</li>
+<li><span
+class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span></li>
 </ul>
 
                 
@@ -1052,7 +1102,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 19, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       

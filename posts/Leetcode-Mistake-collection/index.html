@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Leetcode.png">
 <meta property="article:published_time" content="2024-12-09T12:06:17.000Z">
-<meta property="article:modified_time" content="2025-05-18T16:14:32.396Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:33.376Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Announcement">
 <meta property="article:tag" content="Finished">
@@ -913,70 +913,130 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h1 id="Leetcode-Mistake-collection"><a href="#Leetcode-Mistake-collection" class="headerlink" title="Leetcode-Mistake-collection"></a>Leetcode-Mistake-collection</h1><p>笔者又来开新坑啦！</p>
-<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>在笔者刚刚步入大一时（也就是这学期），仗着自己暑假为数不多的C语言语法存货，觉得学校C++的课程进度有些落后，便在网上寻寻觅觅，想通过<strong>刷题</strong>的方式提升自己的代码水平。</p>
-<p>当在网上搜索“新手小白刷编程题什么网站上最好”，十有八九跳出来的都是<strong>Leetcode</strong>。确实，<a target="_blank" rel="noopener" href="https://leetcode.cn/">Leetcode</a>可以算作是数一数二优秀的编程训练网站了，各种界面设计也很符合我的审美。（就像他自己说的，<strong>全球极客挚爱的技术成长平台</strong>）。但是，对于当时习惯于把所有代码全部放进一个臃肿的<code>main</code>函数的我来说，Leetcode犹如一座高不可攀的山峰，好不容易弄懂了什么叫<strong>函数封装</strong>，竭尽全力也没办法做出 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">第一道题</a>。🤡</p>
-<p>之后在看 <a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_hello_algo/">Hello 算法</a>的时候在序言看到了一段感同身受的话：</p>
+<h1 id="leetcode-mistake-collection">Leetcode-Mistake-collection</h1>
+<p>笔者又来开新坑啦！</p>
+<h2 id="缘起">缘起</h2>
+<p>在笔者刚刚步入大一时（也就是这学期），仗着自己暑假为数不多的C语言语法存货，觉得学校C++的课程进度有些落后，便在网上寻寻觅觅，想通过<strong>刷题</strong>的方式提升自己的代码水平。</p>
+<p>当在网上搜索“新手小白刷编程题什么网站上最好”，十有八九跳出来的都是<strong>Leetcode</strong>。确实，<a
+target="_blank" rel="noopener" href="https://leetcode.cn/">Leetcode</a>可以算作是数一数二优秀的编程训练网站了，各种界面设计也很符合我的审美。（就像他自己说的，<strong>全球极客挚爱的技术成长平台</strong>）。但是，对于当时习惯于把所有代码全部放进一个臃肿的<code>main</code>函数的我来说，Leetcode犹如一座高不可攀的山峰，好不容易弄懂了什么叫<strong>函数封装</strong>，竭尽全力也没办法做出
+<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">第一道题</a>。🤡</p>
+<p>之后在看 <a
+target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_hello_algo/">Hello
+算法</a>的时候在序言看到了一段感同身受的话：</p>
 <blockquote>
 <p>两眼一抹黑地刷题似乎是最受欢迎的方法，简单、直接且有效。然而刷题就如同玩“扫雷”游戏，自学能力强的人能够顺利将地雷逐个排掉，而基础不足的人很可能被炸得满头是包，并在挫折中步步退缩。通读教材也是一种常见做法，但对于面向求职的人来说，毕业论文、投递简历、准备笔试和面试已经消耗了大部分精力，啃厚重的书往往变成了一项艰巨的挑战。</p>
 </blockquote>
 <p>回想自己Leetcode的刷题之旅，真的是<strong>痛并快乐着</strong>，痛在算法题冷酷无情，将你所有的bug暴露无遗，根本不给你侥幸的机会，快乐在钻研一道题后终于看见<strong>超过了100%的人</strong>，快乐在从一开始的举步维艰，到逐渐能够尝试黄色中档题，再到得心应手，心平气和。</p>
 <p><strong>因此，我在此开坑，将自己过去，现在以及将来在Leetcode上所做的好题，错题，看到的优秀题解以及我自己整理一些笔记等等整理成博客的形式，一篇博客五道题，希望以此留作纪念，并能够给有相同志向的小伙伴们一点鼓励和指引。</strong></p>
-<h2 id="内容（实时更新）"><a href="#内容（实时更新）" class="headerlink" title="内容（实时更新）"></a>内容（实时更新）</h2><h3 id="第一学期（主要以语法题和最基本的算法题为主）"><a href="#第一学期（主要以语法题和最基本的算法题为主）" class="headerlink" title="第一学期（主要以语法题和最基本的算法题为主）"></a>第一学期（主要以语法题和最基本的算法题为主）</h3><ul>
-<li>基本语法题<ul>
+<h2 id="内容实时更新">内容（实时更新）</h2>
+<h3
+id="第一学期主要以语法题和最基本的算法题为主">第一学期（主要以语法题和最基本的算法题为主）</h3>
+<ul>
+<li>基本语法题
+<ul>
 <li>数组、引用和指针的相关操作</li>
 <li>OOP</li>
 <li>STL入门</li>
-</ul>
-</li>
-<li>基本算法入门<ul>
+</ul></li>
+<li>基本算法入门
+<ul>
 <li>排序算法</li>
 <li>分治算法</li>
 <li>回溯算法和递归算法</li>
 <li>动态规划</li>
 <li>贪心算法</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="第二学期（重点：数据结构）"><a href="#第二学期（重点：数据结构）" class="headerlink" title="第二学期（重点：数据结构）"></a>第二学期（重点：数据结构）</h3><p>（期待一波来年开春的疯狂更新~）</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/u/affectionate-hamiltonyhv/">我的Leetcode主页</a></p>
+<h3 id="第二学期重点数据结构">第二学期（重点：数据结构）</h3>
+<p>（期待一波来年开春的疯狂更新~）</p>
+<h2 id="参考资料">参考资料</h2>
+<p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/u/affectionate-hamiltonyhv/">我的Leetcode主页</a></p>
 <p><a target="_blank" rel="noopener" href="https://leetcode.cn/">Leetcode</a></p>
-<p><a target="_blank" rel="noopener" href="https://books.halfrost.com/leetcode/">Leetcode Cookbook</a></p>
-<hr>
+<p><a target="_blank" rel="noopener" href="https://books.halfrost.com/leetcode/">Leetcode
+Cookbook</a></p>
+<hr />
 <blockquote>
 <p>English Version</p>
 </blockquote>
-<h1 id="Starting-a-New-Adventure-Again"><a href="#Starting-a-New-Adventure-Again" class="headerlink" title="Starting a New Adventure Again!"></a>Starting a New Adventure Again!</h1><h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>When I first started university (this semester), armed with my limited knowledge of C language syntax from a short summer learning stint, I felt the pace of my C++ course at school was a bit slow. So, I searched online for ways to improve my coding skills through <strong>problem-solving practice</strong>.</p>
-<p>When looking up “best websites for beginners to practice coding,” <strong>LeetCode</strong> popped up in most results. Indeed, <a target="_blank" rel="noopener" href="https://leetcode.cn/">LeetCode</a> is one of the best programming training platforms, and its interface design aligns perfectly with my aesthetic (as they call themselves, <strong>“The beloved tech growth platform for geeks worldwide”</strong>). However, for someone like me who used to put all the code into one bloated <code>main</code> function, LeetCode seemed like an insurmountable mountain. After finally understanding what <strong>function encapsulation</strong> was, I still couldn’t manage to solve <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">the first problem</a>. 🤡</p>
-<p>While reading <a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_hello_algo/">Hello Algorithm</a>, I came across a sentiment in the preface that resonated deeply with me:</p>
+<h1 id="starting-a-new-adventure-again">Starting a New Adventure
+Again!</h1>
+<h2 id="background">Background</h2>
+<p>When I first started university (this semester), armed with my
+limited knowledge of C language syntax from a short summer learning
+stint, I felt the pace of my C++ course at school was a bit slow. So, I
+searched online for ways to improve my coding skills through
+<strong>problem-solving practice</strong>.</p>
+<p>When looking up “best websites for beginners to practice coding,”
+<strong>LeetCode</strong> popped up in most results. Indeed, <a
+target="_blank" rel="noopener" href="https://leetcode.cn/">LeetCode</a> is one of the best programming
+training platforms, and its interface design aligns perfectly with my
+aesthetic (as they call themselves, <strong>“The beloved tech growth
+platform for geeks worldwide”</strong>). However, for someone like me
+who used to put all the code into one bloated <code>main</code>
+function, LeetCode seemed like an insurmountable mountain. After finally
+understanding what <strong>function encapsulation</strong> was, I still
+couldn’t manage to solve <a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">the first problem</a>.
+🤡</p>
+<p>While reading <a
+target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_hello_algo/">Hello
+Algorithm</a>, I came across a sentiment in the preface that resonated
+deeply with me:</p>
 <blockquote>
-<p>Diving blindly into problem-solving is perhaps the most popular method—it’s simple, direct, and effective. However, it’s like playing a “Minesweeper” game: self-learners with a strong foundation can defuse the mines one by one, while those lacking fundamentals might get blown up and retreat in frustration. Reading textbooks is another common approach, but for job seekers, writing theses, submitting resumes, and preparing for tests and interviews consume most of their energy, making heavy textbooks a daunting challenge.</p>
+<p>Diving blindly into problem-solving is perhaps the most popular
+method—it’s simple, direct, and effective. However, it’s like playing a
+“Minesweeper” game: self-learners with a strong foundation can defuse
+the mines one by one, while those lacking fundamentals might get blown
+up and retreat in frustration. Reading textbooks is another common
+approach, but for job seekers, writing theses, submitting resumes, and
+preparing for tests and interviews consume most of their energy, making
+heavy textbooks a daunting challenge.</p>
 </blockquote>
-<p>Looking back on my LeetCode journey, it truly has been a mix of <strong>pain and joy</strong>. The pain lies in the ruthless nature of algorithm problems, exposing all your bugs without mercy, leaving no room for luck. The joy comes from finally solving a problem and seeing <strong>“outperformed 100% of users”</strong>, from struggling with initial problems to tackling mid-level yellow questions, and eventually solving problems calmly and confidently.</p>
-<p><strong>That’s why I’m starting this series—to document the good problems, mistakes, excellent solutions, and notes from my past, present, and future LeetCode journey in the form of blog posts. Each post will include five problems, serving as a record and hopefully providing encouragement and guidance to like-minded peers.</strong></p>
-<hr>
-<h2 id="Content-Updated-in-Real-Time"><a href="#Content-Updated-in-Real-Time" class="headerlink" title="Content (Updated in Real-Time)"></a>Content (Updated in Real-Time)</h2><h3 id="First-Semester-Primarily-syntax-and-basic-algorithm-problems"><a href="#First-Semester-Primarily-syntax-and-basic-algorithm-problems" class="headerlink" title="First Semester (Primarily syntax and basic algorithm problems)"></a>First Semester (Primarily syntax and basic algorithm problems)</h3><ul>
-<li><strong>Basic Syntax Problems</strong><ul>
+<p>Looking back on my LeetCode journey, it truly has been a mix of
+<strong>pain and joy</strong>. The pain lies in the ruthless nature of
+algorithm problems, exposing all your bugs without mercy, leaving no
+room for luck. The joy comes from finally solving a problem and seeing
+<strong>“outperformed 100% of users”</strong>, from struggling with
+initial problems to tackling mid-level yellow questions, and eventually
+solving problems calmly and confidently.</p>
+<p><strong>That’s why I’m starting this series—to document the good
+problems, mistakes, excellent solutions, and notes from my past,
+present, and future LeetCode journey in the form of blog posts. Each
+post will include five problems, serving as a record and hopefully
+providing encouragement and guidance to like-minded peers.</strong></p>
+<hr />
+<h2 id="content-updated-in-real-time">Content (Updated in
+Real-Time)</h2>
+<h3
+id="first-semester-primarily-syntax-and-basic-algorithm-problems">First
+Semester (Primarily syntax and basic algorithm problems)</h3>
+<ul>
+<li><strong>Basic Syntax Problems</strong>
+<ul>
 <li>Array, reference, and pointer operations</li>
 <li>OOP (Object-Oriented Programming)</li>
 <li>Intro to STL (Standard Template Library)</li>
-</ul>
-</li>
-<li><strong>Basic Algorithms</strong><ul>
+</ul></li>
+<li><strong>Basic Algorithms</strong>
+<ul>
 <li>Sorting algorithms</li>
 <li>Divide-and-conquer</li>
 <li>Backtracking and recursion</li>
 <li>Dynamic programming</li>
 <li>Greedy algorithms</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="Second-Semester-Focus-Data-Structures"><a href="#Second-Semester-Focus-Data-Structures" class="headerlink" title="Second Semester (Focus: Data Structures)"></a>Second Semester (Focus: Data Structures)</h3><p><em>(Looking forward to some crazy updates next spring!)</em></p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/u/affectionate-hamiltonyhv/">My LeetCode Profile</a></li>
+<h3 id="second-semester-focus-data-structures">Second Semester (Focus:
+Data Structures)</h3>
+<p><em>(Looking forward to some crazy updates next spring!)</em></p>
+<h2 id="references">References</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/u/affectionate-hamiltonyhv/">My
+LeetCode Profile</a></li>
 <li><a target="_blank" rel="noopener" href="https://leetcode.cn/">LeetCode</a></li>
-<li><a target="_blank" rel="noopener" href="https://books.halfrost.com/leetcode/">LeetCode Cookbook</a></li>
+<li><a target="_blank" rel="noopener" href="https://books.halfrost.com/leetcode/">LeetCode
+Cookbook</a></li>
 </ul>
 
                 
@@ -1057,7 +1117,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 19, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       

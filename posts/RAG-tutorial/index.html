@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/RAG.jpg">
 <meta property="article:published_time" content="2025-03-29T05:29:15.000Z">
-<meta property="article:modified_time" content="2025-04-04T03:13:03.921Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:36.777Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta property="article:tag" content="Deep Learning">
@@ -364,7 +364,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          778 words
+          777 words
         
       </span>
     
@@ -742,94 +742,189 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h1 id="Learn-RAG-from-scratch"><a href="#Learn-RAG-from-scratch" class="headerlink" title="Learn RAG from scratch!"></a>Learn RAG from scratch!</h1><p>Lecture Notes for This Youtube Class.<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://www.youtube.com/watch?v=sVcwVQRHIc8">[1]</span></a></sup></p>
-<h2 id="Basic-Knowledge"><a href="#Basic-Knowledge" class="headerlink" title="Basic Knowledge"></a>Basic Knowledge</h2><p>Retrieval-Augmented Generation (RAG) is a hybrid framework that combines the strengths of retrieval-based and generative models for natural language processing tasks. The basic principle of RAG involves two key components: <strong>a retriever and a generator</strong>. </p>
-<p>The retriever is responsible for fetching relevant documents or information from a large corpus or knowledge base, typically using dense vector representations to find the most pertinent data for a given query. This ensures that the model has access to accurate, up-to-date external information beyond its training data.</p>
-<p>The generator, usually a pre-trained language model, then uses this retrieved information to produce coherent and contextually appropriate responses. By grounding its outputs in retrieved facts, RAG reduces hallucinations and improves factual accuracy compared to purely generative models.</p>
+<h1 id="learn-rag-from-scratch">Learn RAG from scratch!</h1>
+<p>Lecture Notes for This Youtube
+Class.<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span
+class="hint--top hint--rounded"
+aria-label="https://www.youtube.com/watch?v=sVcwVQRHIc8">[1]</span></a></sup></p>
+<h2 id="basic-knowledge">Basic Knowledge</h2>
+<p>Retrieval-Augmented Generation (RAG) is a hybrid framework that
+combines the strengths of retrieval-based and generative models for
+natural language processing tasks. The basic principle of RAG involves
+two key components: <strong>a retriever and a generator</strong>.</p>
+<p>The retriever is responsible for fetching relevant documents or
+information from a large corpus or knowledge base, typically using dense
+vector representations to find the most pertinent data for a given
+query. This ensures that the model has access to accurate, up-to-date
+external information beyond its training data.</p>
+<p>The generator, usually a pre-trained language model, then uses this
+retrieved information to produce coherent and contextually appropriate
+responses. By grounding its outputs in retrieved facts, RAG reduces
+hallucinations and improves factual accuracy compared to purely
+generative models.</p>
 <p>Basic Steps:</p>
 <ul>
-<li><p><strong>Load documents using <code>bs4</code> using Crawler</strong>.</p>
-</li>
-<li><p>Split text using function of <code>RecursiveCharacterTextSplitter()</code> from <code>langchain.text_splitter</code>.</p>
-</li>
-<li><p><strong>Embedding splits into vectors</strong>, using <code>Chroma</code> from <code>langchain_community.vectorstores</code> and <code>OpenAIEmbeddings</code> and return the vector store retriever.</p>
-</li>
-<li><p>Define RAG-chain (including <strong>prompt</strong> and <strong>LLM</strong>)</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Chain</span><br>rag_chain = (<br>    &#123;<span class="hljs-string">&quot;context&quot;</span>: retriever | format_docs, <span class="hljs-string">&quot;question&quot;</span>: RunnablePassthrough()&#125;<br>    | prompt<br>    | llm<br>    | StrOutputParser()<br>)<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>Using the <code>invoke</code> function to get the generation text!</p>
-</li>
+<li><p><strong>Load documents using <code>bs4</code> using
+Crawler</strong>.</p></li>
+<li><p>Split text using function of
+<code>RecursiveCharacterTextSplitter()</code> from
+<code>langchain.text_splitter</code>.</p></li>
+<li><p><strong>Embedding splits into vectors</strong>, using
+<code>Chroma</code> from <code>langchain_community.vectorstores</code>
+and <code>OpenAIEmbeddings</code> and return the vector store
+retriever.</p></li>
+<li><p>Define RAG-chain (including <strong>prompt</strong> and
+<strong>LLM</strong>)</p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Chain</span><br>rag_chain = (<br>    &#123;<span class="hljs-string">&quot;context&quot;</span>: retriever | format_docs, <span class="hljs-string">&quot;question&quot;</span>: RunnablePassthrough()&#125;<br>    | prompt<br>    | llm<br>    | StrOutputParser()<br>)<br></code></pre></td></tr></table></figure></p></li>
+<li><p>Using the <code>invoke</code> function to get the generation
+text!</p></li>
 </ul>
-<h2 id="Query-Translation"><a href="#Query-Translation" class="headerlink" title="Query-Translation"></a>Query-Translation</h2><h3 id="Multi-Query"><a href="#Multi-Query" class="headerlink" title="Multi Query"></a>Multi Query</h3><p><strong>Intuition</strong>: For a large problem, it is likely to encounter situations where “words fail to convey meaning,” and if the answer to the problem is relatively complex, a simple RAG system may not achieve good results through direct vector comparison. Therefore, we can <strong>decompose the problem and use parallel retrieval</strong>.</p>
-<p>How to make the splitting works? You can use <strong>Prompt Engineering</strong> and add templates:</p>
+<h2 id="query-translation">Query-Translation</h2>
+<h3 id="multi-query">Multi Query</h3>
+<p><strong>Intuition</strong>: For a large problem, it is likely to
+encounter situations where “words fail to convey meaning,” and if the
+answer to the problem is relatively complex, a simple RAG system may not
+achieve good results through direct vector comparison. Therefore, we can
+<strong>decompose the problem and use parallel retrieval</strong>.</p>
+<p>How to make the splitting works? You can use <strong>Prompt
+Engineering</strong> and add templates:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> langchain.prompts <span class="hljs-keyword">import</span> ChatPromptTemplate<br><br><span class="hljs-comment"># Multi Query: Different Perspectives</span><br>template = <span class="hljs-string">&quot;&quot;&quot;You are an AI language model assistant. Your task is to generate five </span><br><span class="hljs-string">different versions of the given user question to retrieve relevant documents from a vector </span><br><span class="hljs-string">database. By generating multiple perspectives on the user question, your goal is to help</span><br><span class="hljs-string">the user overcome some of the limitations of the distance-based similarity search. </span><br><span class="hljs-string">Provide these alternative questions separated by newlines. Original question: &#123;question&#125;&quot;&quot;&quot;</span><br>prompt_perspectives = ChatPromptTemplate.from_template(template)<br><br><span class="hljs-keyword">from</span> langchain_core.output_parsers <span class="hljs-keyword">import</span> StrOutputParser<br><span class="hljs-keyword">from</span> langchain_openai <span class="hljs-keyword">import</span> ChatOpenAI<br><br>generate_queries = (<br>    prompt_perspectives <br>    | ChatOpenAI(temperature=<span class="hljs-number">0</span>,<br>                 api_key= openai.api_key,<br>                 base_url= BaseUrl) <br>    | StrOutputParser() <br>    | (<span class="hljs-keyword">lambda</span> x: x.split(<span class="hljs-string">&quot;\n&quot;</span>))<br>)<br></code></pre></td></tr></table></figure>
-
-<p>In this code, we define the workchain of <strong><code>generate_queries</code></strong>, where we let OpenAI model to split question using prompts.</p>
+<p>In this code, we define the workchain of
+<strong><code>generate_queries</code></strong>, where we let OpenAI
+model to split question using prompts.</p>
 <p>This is a demo of how AI generate:</p>
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs txt">1. How do LLM agents utilize task decomposition in their operations?<br>2. Can you explain the concept of task decomposition as applied to LLM agents?<br>3. What role does task decomposition play in the functioning of LLM agents?<br>4. How is task decomposition integrated into the workflow of LLM agents?<br>5. In what way does task decomposition enhance the capabilities of LLM agents?<br></code></pre></td></tr></table></figure>
-
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> langchain.load <span class="hljs-keyword">import</span> dumps, loads<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_unique_union</span>(<span class="hljs-params">documents: <span class="hljs-built_in">list</span>[<span class="hljs-built_in">list</span>]</span>):<br>    <span class="hljs-string">&quot;&quot;&quot; Unique union of retrieved docs &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># Flatten list of lists, and convert each Document to string</span><br>    flattened_docs = [dumps(doc) <span class="hljs-keyword">for</span> sublist <span class="hljs-keyword">in</span> documents <span class="hljs-keyword">for</span> doc <span class="hljs-keyword">in</span> sublist]<br>    <span class="hljs-comment"># Get unique documents</span><br>    unique_docs = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">set</span>(flattened_docs))<br>    <span class="hljs-comment"># Return</span><br>    <span class="hljs-keyword">return</span> [loads(doc) <span class="hljs-keyword">for</span> doc <span class="hljs-keyword">in</span> unique_docs]<br><br><span class="hljs-comment"># Retrieve</span><br>question = <span class="hljs-string">&quot;What is task decomposition for LLM agents?&quot;</span><br>retrieval_chain = generate_queries | retriever.<span class="hljs-built_in">map</span>() | get_unique_union<br>docs = retrieval_chain.invoke(&#123;<span class="hljs-string">&quot;question&quot;</span>:question&#125;)<br><span class="hljs-built_in">len</span>(docs)<br><br><span class="hljs-built_in">print</span>(docs)<br></code></pre></td></tr></table></figure>
-
-<p>The core chain of retrieval is <strong><code>retrieval_chain = generate_queries | retriever.map() | get_unique_union</code></strong>, where the input questions is first splitted into subquestions using <code>genegrate_queries</code> and through a <strong>mapping</strong> from the queries to the retriever (for every subquestion, search for the ans_vectors). Finally, using <code>get_unique_union</code> to get the unique answer.</p>
+<p>The core chain of retrieval is
+<strong><code>retrieval_chain = generate_queries | retriever.map() | get_unique_union</code></strong>,
+where the input questions is first splitted into subquestions using
+<code>genegrate_queries</code> and through a <strong>mapping</strong>
+from the queries to the retriever (for every subquestion, search for the
+ans_vectors). Finally, using <code>get_unique_union</code> to get the
+unique answer.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> operator <span class="hljs-keyword">import</span> itemgetter<br><span class="hljs-keyword">from</span> langchain_openai <span class="hljs-keyword">import</span> ChatOpenAI<br><span class="hljs-keyword">from</span> langchain_core.runnables <span class="hljs-keyword">import</span> RunnablePassthrough<br><br><span class="hljs-comment"># RAG</span><br>template = <span class="hljs-string">&quot;&quot;&quot;Answer the following question based on this context:</span><br><span class="hljs-string"></span><br><span class="hljs-string">&#123;context&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">Question: &#123;question&#125;</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br>prompt = ChatPromptTemplate.from_template(template)<br><br>llm = ChatOpenAI(temperature=<span class="hljs-number">0</span>,<br>                 api_key= openai.api_key,<br>                 base_url= BaseUrl)<br><br>final_rag_chain = (<br>    &#123;<span class="hljs-string">&quot;context&quot;</span>: retrieval_chain, <span class="hljs-string">&quot;question&quot;</span>: itemgetter(<span class="hljs-string">&quot;question&quot;</span>)&#125; <br>    | prompt<br>    | llm<br>    | StrOutputParser()<br>)<br><br>final_rag_chain.invoke(&#123;<span class="hljs-string">&quot;question&quot;</span>:question&#125;)<br></code></pre></td></tr></table></figure>
-
-<p>Finally, it is the <strong>RAG</strong> time! The <code>final_rag-chain</code> looks as follows:</p>
+<p>Finally, it is the <strong>RAG</strong> time! The
+<code>final_rag-chain</code> looks as follows:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">final_rag_chain = (<br>    &#123;<span class="hljs-string">&quot;context&quot;</span>: retrieval_chain, <span class="hljs-string">&quot;question&quot;</span>: itemgetter(<span class="hljs-string">&quot;question&quot;</span>)&#125; <br>    | prompt<br>    | llm<br>    | StrOutputParser()<br>)<br></code></pre></td></tr></table></figure>
-
-<p>We first use <code>retrieval_chain</code> defined above to get the related texts in the documents, add use the <code>itemgetter</code> to get the original problem. Then we feed these into a LLM with the predefined prompt. Finally, we use <code>StrOutputParser()</code> to get the final answer of LLM.</p>
-<h3 id="RAG-Fusions"><a href="#RAG-Fusions" class="headerlink" title="RAG Fusions"></a>RAG Fusions</h3><p><strong>Intuition</strong>: In Multi Query, RAG performs a crude deduplication and merging operation on the documents obtained for each subproblem, which is unreasonable because the weights corresponding to each problem are different, and the weights (similarities) of the answers obtained for each subproblem are also different. Therefore, the core idea of RAG fusion is to <strong>use a multi-retrieval fusion method based on Reciprocal Rank Fusion (RRF)</strong>, calculating the corresponding weights for each document before outputting them to obtain more reasonable results.</p>
+<p>We first use <code>retrieval_chain</code> defined above to get the
+related texts in the documents, add use the <code>itemgetter</code> to
+get the original problem. Then we feed these into a LLM with the
+predefined prompt. Finally, we use <code>StrOutputParser()</code> to get
+the final answer of LLM.</p>
+<h3 id="rag-fusions">RAG Fusions</h3>
+<p><strong>Intuition</strong>: In Multi Query, RAG performs a crude
+deduplication and merging operation on the documents obtained for each
+subproblem, which is unreasonable because the weights corresponding to
+each problem are different, and the weights (similarities) of the
+answers obtained for each subproblem are also different. Therefore, the
+core idea of RAG fusion is to <strong>use a multi-retrieval fusion
+method based on Reciprocal Rank Fusion (RRF)</strong>, calculating the
+corresponding weights for each document before outputting them to obtain
+more reasonable results.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> langchain.load <span class="hljs-keyword">import</span> dumps, loads<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">reciprocal_rank_fusion</span>(<span class="hljs-params">results: <span class="hljs-built_in">list</span>[<span class="hljs-built_in">list</span>], k=<span class="hljs-number">60</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot; Reciprocal_rank_fusion that takes multiple lists of ranked documents </span><br><span class="hljs-string">        and an optional parameter k used in the RRF formula &quot;&quot;&quot;</span><br>    <br>    <span class="hljs-comment"># Initialize a dictionary to hold fused scores for each unique document</span><br>    fused_scores = &#123;&#125;<br><br>    <span class="hljs-comment"># Iterate through each list of ranked documents</span><br>    <span class="hljs-keyword">for</span> docs <span class="hljs-keyword">in</span> results:<br>        <span class="hljs-comment"># Iterate through each document in the list, with its rank (position in the list)</span><br>        <span class="hljs-keyword">for</span> rank, doc <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(docs):<br>            <span class="hljs-comment"># Convert the document to a string format to use as a key (assumes documents can be serialized to JSON)</span><br>            doc_str = dumps(doc)<br>            <span class="hljs-comment"># If the document is not yet in the fused_scores dictionary, add it with an initial score of 0</span><br>            <span class="hljs-keyword">if</span> doc_str <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> fused_scores:<br>                fused_scores[doc_str] = <span class="hljs-number">0</span><br>            <span class="hljs-comment"># Retrieve the current score of the document, if any</span><br>            previous_score = fused_scores[doc_str]<br>            <span class="hljs-comment"># Update the score of the document using the RRF formula: 1 / (rank + k)</span><br>            fused_scores[doc_str] += <span class="hljs-number">1</span> / (rank + k)<br><br>    <span class="hljs-comment"># Sort the documents based on their fused scores in descending order to get the final reranked results</span><br>    reranked_results = [<br>        (loads(doc), score)<br>        <span class="hljs-keyword">for</span> doc, score <span class="hljs-keyword">in</span> <span class="hljs-built_in">sorted</span>(fused_scores.items(), key=<span class="hljs-keyword">lambda</span> x: x[<span class="hljs-number">1</span>], reverse=<span class="hljs-literal">True</span>)<br>    ]<br><br>    <span class="hljs-comment"># Return the reranked results as a list of tuples, each containing the document and its fused score</span><br>    <span class="hljs-keyword">return</span> reranked_results<br><br>retrieval_chain_rag_fusion = generate_queries | retriever.<span class="hljs-built_in">map</span>() | reciprocal_rank_fusion<br>docs = retrieval_chain_rag_fusion.invoke(&#123;<span class="hljs-string">&quot;question&quot;</span>: question&#125;)<br><span class="hljs-built_in">len</span>(docs)<br></code></pre></td></tr></table></figure>
-
-<h3 id="Decomposition"><a href="#Decomposition" class="headerlink" title="Decomposition"></a>Decomposition</h3><p>Decomposition essentially uses a simpler concatenation method to hierarchically link problems together, similar to the step-by-step reasoning in Chain of Thought (CoT). It guides the model to decompose problems through prompts and, based on the solutions to previous problems, adds new retrievals on top of the previous problem’s retrievals.</p>
+<h3 id="decomposition">Decomposition</h3>
+<p>Decomposition essentially uses a simpler concatenation method to
+hierarchically link problems together, similar to the step-by-step
+reasoning in Chain of Thought (CoT). It guides the model to decompose
+problems through prompts and, based on the solutions to previous
+problems, adds new retrievals on top of the previous problem’s
+retrievals.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> langchain.prompts <span class="hljs-keyword">import</span> ChatPromptTemplate<br><br><span class="hljs-comment"># Decomposition</span><br>template = <span class="hljs-string">&quot;&quot;&quot;You are a helpful assistant that generates multiple sub-questions related to an input question. \n</span><br><span class="hljs-string">The goal is to break down the input into a set of sub-problems / sub-questions that can be answers in isolation. \n</span><br><span class="hljs-string">Generate multiple search queries related to: &#123;question&#125; \n</span><br><span class="hljs-string">Output (3 queries):&quot;&quot;&quot;</span><br>prompt_decomposition = ChatPromptTemplate.from_template(template)<br></code></pre></td></tr></table></figure>
-
 <p>Answer recursively</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Prompt</span><br>template = <span class="hljs-string">&quot;&quot;&quot;Here is the question you need to answer:</span><br><span class="hljs-string"></span><br><span class="hljs-string">\n --- \n &#123;question&#125; \n --- \n</span><br><span class="hljs-string"></span><br><span class="hljs-string">Here is any available background question + answer pairs:</span><br><span class="hljs-string"></span><br><span class="hljs-string">\n --- \n &#123;q_a_pairs&#125; \n --- \n</span><br><span class="hljs-string"></span><br><span class="hljs-string">Here is additional context relevant to the question: </span><br><span class="hljs-string"></span><br><span class="hljs-string">\n --- \n &#123;context&#125; \n --- \n</span><br><span class="hljs-string"></span><br><span class="hljs-string">Use the above context and any background question + answer pairs to answer the question: \n &#123;question&#125;</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br>decomposition_prompt = ChatPromptTemplate.from_template(template)<br></code></pre></td></tr></table></figure>
-
 <blockquote>
-<p><strong>Parallel structures are suitable for parallel problems, while hierarchical structures are appropriate for reasoning problems</strong>. It is necessary to choose the appropriate RAG architecture based on different inquiries.</p>
+<p><strong>Parallel structures are suitable for parallel problems, while
+hierarchical structures are appropriate for reasoning problems</strong>.
+It is necessary to choose the appropriate RAG architecture based on
+different inquiries.</p>
 </blockquote>
-<h3 id="Step-Back"><a href="#Step-Back" class="headerlink" title="Step Back"></a>Step Back</h3><p>Step Back Prompting<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://arxiv.org/pdf/2310.06117">[2]</span></a></sup> is a fancy way proposed by Google DeepMind, which uses Prompt Engineering to make the Queries more abstract in order to decrease noise.</p>
-<p><img src="https://s1.imagehub.cc/images/2025/04/04/b2538ca755acad7e0bae5e08cbd91fb0.png" srcset="/img/loading.gif" lazyload alt="Step Back Prompting"> </p>
-<p>It is quite similar to <strong>Chain of Thought</strong>, but it will focus more on the <strong>abstraction</strong> process, which will distill key questions from specific contexts to achieve better results in the RAG process.</p>
+<h3 id="step-back">Step Back</h3>
+<p>Step Back
+Prompting<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span
+class="hint--top hint--rounded"
+aria-label="https://arxiv.org/pdf/2310.06117">[2]</span></a></sup> is a
+fancy way proposed by Google DeepMind, which uses Prompt Engineering to
+make the Queries more abstract in order to decrease noise.</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/04/b2538ca755acad7e0bae5e08cbd91fb0.png" srcset="/img/loading.gif" lazyload
+alt="Step Back Prompting" />
+<figcaption aria-hidden="true">Step Back Prompting</figcaption>
+</figure>
+<p>It is quite similar to <strong>Chain of Thought</strong>, but it will
+focus more on the <strong>abstraction</strong> process, which will
+distill key questions from specific contexts to achieve better results
+in the RAG process.</p>
 <p>Let’s just see the prompt!</p>
-<p>Moreover, it uses <strong>few-shot learning</strong> for learning template, which performs better than <strong>zero-shot learning</strong>.</p>
+<p>Moreover, it uses <strong>few-shot learning</strong> for learning
+template, which performs better than <strong>zero-shot
+learning</strong>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Few Shot Examples</span><br><span class="hljs-keyword">from</span> langchain_core.prompts <span class="hljs-keyword">import</span> ChatPromptTemplate, FewShotChatMessagePromptTemplate<br>examples = [<br>    &#123;<br>        <span class="hljs-string">&quot;input&quot;</span>: <span class="hljs-string">&quot;Could the members of The Police perform lawful arrests?&quot;</span>,<br>        <span class="hljs-string">&quot;output&quot;</span>: <span class="hljs-string">&quot;what can the members of The Police do?&quot;</span>,<br>    &#125;,<br>    &#123;<br>        <span class="hljs-string">&quot;input&quot;</span>: <span class="hljs-string">&quot;Jan Sindel’s was born in what country?&quot;</span>,<br>        <span class="hljs-string">&quot;output&quot;</span>: <span class="hljs-string">&quot;what is Jan Sindel’s personal history?&quot;</span>,<br>    &#125;,<br>]<br><span class="hljs-comment"># We now transform these to example messages</span><br>example_prompt = ChatPromptTemplate.from_messages(<br>    [<br>        (<span class="hljs-string">&quot;human&quot;</span>, <span class="hljs-string">&quot;&#123;input&#125;&quot;</span>),<br>        (<span class="hljs-string">&quot;ai&quot;</span>, <span class="hljs-string">&quot;&#123;output&#125;&quot;</span>),<br>    ]<br>)<br>few_shot_prompt = FewShotChatMessagePromptTemplate(<br>    example_prompt=example_prompt,<br>    examples=examples,<br>)<br>prompt = ChatPromptTemplate.from_messages(<br>    [<br>        (<br>            <span class="hljs-string">&quot;system&quot;</span>,<br>            <span class="hljs-string">&quot;&quot;&quot;You are an expert at world knowledge. Your task is to step back and paraphrase a question to a more generic step-back question, which is easier to answer. Here are a few examples:&quot;&quot;&quot;</span>,<br>        ),<br>        <span class="hljs-comment"># Few shot examples</span><br>        few_shot_prompt,<br>        <span class="hljs-comment"># New question</span><br>        (<span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;&#123;question&#125;&quot;</span>),<br>    ]<br>)<br></code></pre></td></tr></table></figure>
-
 <p>And for the response prompt:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Response prompt </span><br>response_prompt_template = <span class="hljs-string">&quot;&quot;&quot;You are an expert of world knowledge. I am going to ask you a question. Your response should be comprehensive and not contradicted with the following context if they are relevant. Otherwise, ignore them if they are not relevant.</span><br><span class="hljs-string"></span><br><span class="hljs-string"># &#123;normal_context&#125;</span><br><span class="hljs-string"># &#123;step_back_context&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string"># Original Question: &#123;question&#125;</span><br><span class="hljs-string"># Answer:&quot;&quot;&quot;</span><br>response_prompt = ChatPromptTemplate.from_template(response_prompt_template)<br><br>chain = (<br>    &#123;<br>        <span class="hljs-comment"># Retrieve context using the normal question</span><br>        <span class="hljs-string">&quot;normal_context&quot;</span>: RunnableLambda(<span class="hljs-keyword">lambda</span> x: x[<span class="hljs-string">&quot;question&quot;</span>]) | retriever,<br>        <span class="hljs-comment"># Retrieve context using the step-back question</span><br>        <span class="hljs-string">&quot;step_back_context&quot;</span>: generate_queries_step_back | retriever,<br>        <span class="hljs-comment"># Pass on the question</span><br>        <span class="hljs-string">&quot;question&quot;</span>: <span class="hljs-keyword">lambda</span> x: x[<span class="hljs-string">&quot;question&quot;</span>],<br>    &#125;<br>    | response_prompt<br>    | ChatOpenAI(temperature=<span class="hljs-number">0</span>)<br>    | StrOutputParser()<br>)<br><br>chain.invoke(&#123;<span class="hljs-string">&quot;question&quot;</span>: question&#125;)<br></code></pre></td></tr></table></figure>
-
-<p>It feed AI with both the answers <strong>with normal questions and with step_back contents</strong>.</p>
-<h3 id="HyDE"><a href="#HyDE" class="headerlink" title="HyDE"></a>HyDE</h3><p>In practical situations, questions and texts exist in two completely different spaces. Directly embedding them can lead to errors and noise interference. Therefore, we need to <strong>ensure consistency between the two spaces</strong>.</p>
+<p>It feed AI with both the answers <strong>with normal questions and
+with step_back contents</strong>.</p>
+<h3 id="hyde">HyDE</h3>
+<p>In practical situations, questions and texts exist in two completely
+different spaces. Directly embedding them can lead to errors and noise
+interference. Therefore, we need to <strong>ensure consistency between
+the two spaces</strong>.</p>
 <div class="note note-primary">
-            <p>The difficulty of zero-shot dense retrieval lies precisely: it requires learning of two embedding functions (for query and document respectively) <strong>into the same embedding space</strong> where inner product captures relevance. Without relevance judgments&#x2F;scores to fit, learning becomes intractable.</p>
+            <p>The difficulty of zero-shot dense retrieval lies precisely: itrequires learning of two embedding functions (for query and documentrespectively) <strong>into the same embedding space</strong> where innerproduct captures relevance. Without relevance judgments/scores to fit,learning becomes intractable.</p>
           </div>
-
 <p>Let’s just see the abstract part for the passage:</p>
 <div class="note note-primary">
-            <p>Given a query, HyDE first <strong>zero-shot instructs an instruction-following language model</strong> (e.g. <code>InstructGPT</code>) to generate a hypothetical document. The document captures relevance patterns but is unreal and may contain false details. Then, <strong>an unsupervised contrastively learned encoder</strong><del>(e.g. <code>Contriever</code>) encodes the document into an embedding vector. This vector identifies a neighborhood in the corpus embedding space, <strong>where similar real documents are retrieved based on vector similarity</strong>. This second step ground the generated document to the actual corpus, with the encoder’s dense bottleneck filtering out the incorrect details. Our experiments show that HyDE significantly outperforms the state-of-the-art unsupervised dense retriever Contriever and shows strong performance comparable to fine-tuned retrievers, across various tasks (e.g. web search, QA, fact verification) and languages</del>(e.g. sw, ko, ja).</p>
+            <p>Given a query, HyDE first <strong>zero-shot instructs aninstruction-following language model</strong>(e.g. <code>InstructGPT</code>) to generate a hypothetical document. Thedocument captures relevance patterns but is unreal and may contain falsedetails. Then, <strong>an unsupervised contrastively learnedencoder</strong>~(e.g. <code>Contriever</code>) encodes the documentinto an embedding vector. This vector identifies a neighborhood in thecorpus embedding space, <strong>where similar real documents areretrieved based on vector similarity</strong>. This second step groundthe generated document to the actual corpus, with the encoder’s densebottleneck filtering out the incorrect details. Our experiments showthat HyDE significantly outperforms the state-of-the-art unsuperviseddense retriever Contriever and shows strong performance comparable tofine-tuned retrievers, across various tasks (e.g. web search, QA, factverification) and languages~(e.g. sw, ko, ja).</p>
           </div>
-
-<p>That is what <strong>HyDE</strong><sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://arxiv.org/abs/2212.10496">[3]</span></a></sup> for! The core idea of HyDE is to generate a hypothetical document that provides richer contextual information for the retrieval process. In HyDE, we need to generate a new hypothetical passage to simulate all possible answers.</p>
+<p>That is what
+<strong>HyDE</strong><sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span
+class="hint--top hint--rounded"
+aria-label="https://arxiv.org/abs/2212.10496">[3]</span></a></sup> for!
+The core idea of HyDE is to generate a hypothetical document that
+provides richer contextual information for the retrieval process. In
+HyDE, we need to generate a new hypothetical passage to simulate all
+possible answers.</p>
 <p>Firstly, we need to generate a new hypothetical passage:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> langchain.prompts <span class="hljs-keyword">import</span> ChatPromptTemplate<br><br><span class="hljs-comment"># HyDE document genration</span><br>template = <span class="hljs-string">&quot;&quot;&quot;Please write a scientific paper passage to answer the question</span><br><span class="hljs-string">Question: &#123;question&#125;</span><br><span class="hljs-string">Passage:&quot;&quot;&quot;</span><br>prompt_hyde = ChatPromptTemplate.from_template(template)<br><br><span class="hljs-keyword">from</span> langchain_core.output_parsers <span class="hljs-keyword">import</span> StrOutputParser<br><span class="hljs-keyword">from</span> langchain_openai <span class="hljs-keyword">import</span> ChatOpenAI<br><br>generate_docs_for_retrieval = (<br>    prompt_hyde | ChatOpenAI(temperature=<span class="hljs-number">0</span>) | StrOutputParser() <br>)<br><br><span class="hljs-comment"># Run</span><br>question = <span class="hljs-string">&quot;What is task decomposition for LLM agents?&quot;</span><br>generate_docs_for_retrieval.invoke(&#123;<span class="hljs-string">&quot;question&quot;</span>:question&#125;)<br></code></pre></td></tr></table></figure>
-
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Retrieve</span><br>retrieval_chain = generate_docs_for_retrieval | retriever <br>retireved_docs = retrieval_chain.invoke(&#123;<span class="hljs-string">&quot;question&quot;</span>:question&#125;)<br>retireved_docs<br></code></pre></td></tr></table></figure>
-
-<p><code>retrieval_chain = generate_docs_for_retrieval | retriever</code> is the most fundamental part! After generating a hypothetical passage for retrieval, we then feed the answer into the retriever.</p>
+<p><code>retrieval_chain = generate_docs_for_retrieval | retriever</code>
+is the most fundamental part! After generating a hypothetical passage
+for retrieval, we then feed the answer into the retriever.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># RAG</span><br>template = <span class="hljs-string">&quot;&quot;&quot;Answer the following question based on this context:</span><br><span class="hljs-string"></span><br><span class="hljs-string">&#123;context&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">Question: &#123;question&#125;</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br>prompt = ChatPromptTemplate.from_template(template)<br><br>final_rag_chain = (<br>    prompt<br>    | llm<br>    | StrOutputParser()<br>)<br><br>final_rag_chain.invoke(&#123;<span class="hljs-string">&quot;context&quot;</span>:retireved_docs,<span class="hljs-string">&quot;question&quot;</span>:question&#125;)<br></code></pre></td></tr></table></figure>
-
-<h2 id="Routing"><a href="#Routing" class="headerlink" title="Routing"></a>Routing</h2><p><strong>Basic Principle</strong>: Routing the decomposed question into the right vector space.</p>
+<h2 id="routing">Routing</h2>
+<p><strong>Basic Principle</strong>: Routing the decomposed question
+into the right vector space.</p>
 <p>It includes:</p>
 <ul>
 <li>Logical Routing</li>
 <li>Semantic Routing</li>
 </ul>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=sVcwVQRHIc8">https://www.youtube.com/watch?v=sVcwVQRHIc8</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2310.06117">https://arxiv.org/pdf/2310.06117</a>
-<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.10496">https://arxiv.org/abs/2212.10496</a>
-<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<h2 id="references">References</h2>
+<section class="footnotes">
+<div class="footnote-list">
+<ol>
+<li>
+<span id="fn:1"
+class="footnote-text"><span>https://www.youtube.com/watch?v=sVcwVQRHIc8
+<a href="#fnref:1" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:2"
+class="footnote-text"><span>https://arxiv.org/pdf/2310.06117
+<a href="#fnref:2" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:3"
+class="footnote-text"><span>https://arxiv.org/abs/2212.10496
+<a href="#fnref:3" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+</ol>
+</div>
+</section>
+
                 
               </div>
             
@@ -899,7 +994,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 4, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       

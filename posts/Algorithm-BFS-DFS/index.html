@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/BFSDFS.jpg">
 <meta property="article:published_time" content="2025-03-27T12:33:56.000Z">
-<meta property="article:modified_time" content="2025-05-18T16:16:09.861Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:36.750Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Tree">
@@ -367,7 +367,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k words
+          1.9k words
         
       </span>
     
@@ -915,121 +915,359 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h1 id="BFS-DFS"><a href="#BFS-DFS" class="headerlink" title="BFS &amp; DFS"></a>BFS &amp; DFS</h1><h2 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h2><h3 id="Graph"><a href="#Graph" class="headerlink" title="Graph"></a>Graph</h3><p><img src="https://s1.imagehub.cc/images/2025/04/09/41374e84db4a0b25fe40323baf8b9a3f.png" srcset="/img/loading.gif" lazyload alt="Graph"></p>
+<h1 id="bfs-dfs">BFS &amp; DFS</h1>
+<h2 id="terminology">Terminology</h2>
+<h3 id="graph">Graph</h3>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/09/41374e84db4a0b25fe40323baf8b9a3f.png" srcset="/img/loading.gif" lazyload
+alt="Graph" />
+<figcaption aria-hidden="true">Graph</figcaption>
+</figure>
 <ul>
-<li><p>We first give the definitions of <strong>graphs</strong>! $G(V,E)$ is a set of vertices $V$ and a set of <strong>Binary Relations</strong>: $E \subseteq V \times V$.</p>
-</li>
-<li><p>We don’t consider graphs <strong>outside the simple graph</strong>, like edges of $(u,u)$.</p>
-</li>
-<li><p>We define $\left | E \right |$ as the numbers of edges in the set $E$. Obviously, $\left |  E\right | \le C_{\left | V \right |}^{2} &#x3D; O(\left | V\right |^2 )$ for undirected, and $\left |  E\right | \le 2\times C_{\left | V \right |}^{2} &#x3D; O(\left | V\right |^2 )$ for directed.</p>
-</li>
+<li><p>We first give the definitions of <strong>graphs</strong>! <span
+class="math inline"><em>G</em>(<em>V</em>, <em>E</em>)</span> is a set
+of vertices <span class="math inline"><em>V</em></span> and a set of
+<strong>Binary Relations</strong>: <span
+class="math inline"><em>E</em> ⊆ <em>V</em> × <em>V</em></span>.</p></li>
+<li><p>We don’t consider graphs <strong>outside the simple
+graph</strong>, like edges of <span
+class="math inline">(<em>u</em>, <em>u</em>)</span>.</p></li>
+<li><p>We define <span class="math inline">|<em>E</em>|</span> as the
+numbers of edges in the set <span class="math inline"><em>E</em></span>.
+Obviously, <span
+class="math inline">|<em>E</em>| ≤ <em>C</em><sub>|<em>V</em>|</sub><sup>2</sup> = <em>O</em>(|<em>V</em>|<sup>2</sup>)</span>
+for undirected, and <span
+class="math inline">|<em>E</em>| ≤ 2 × <em>C</em><sub>|<em>V</em>|</sub><sup>2</sup> = <em>O</em>(|<em>V</em>|<sup>2</sup>)</span>
+for directed.</p></li>
 </ul>
-<h3 id="Neighbor-Sets-Adjacencies"><a href="#Neighbor-Sets-Adjacencies" class="headerlink" title="Neighbor Sets&#x2F;Adjacencies"></a>Neighbor Sets&#x2F;Adjacencies</h3><ul>
-<li>The outgoing neighbor set of u ∈ V is $Adj^+(u) &#x3D; {v ∈ V | (u, v) ∈ E}$</li>
-<li>The incoming neighbor set of u ∈ V is $Adj^−(u) &#x3D; {v ∈ V | (v, u) ∈ E}$</li>
-<li>The out-degree of a vertex u ∈ V is $deg^+(u) &#x3D; |Adj^+(u)|$</li>
-<li>The in-degree of a vertex u ∈ V is $deg^−(u) &#x3D; |Adj^−(u)|$</li>
-<li>For undirected graphs, $Adj^−(u) &#x3D; Adj^+(u)$ and $deg^−(u) &#x3D; deg^+(u)$</li>
-<li>Dropping superscript defaults to outgoing, i.e., $Adj(u) &#x3D; Adj^+(u)$ and $deg(u) &#x3D; deg^+(u)$</li>
-</ul>
-<h3 id="Adjacency-list"><a href="#Adjacency-list" class="headerlink" title="Adjacency list"></a>Adjacency list</h3><p> A <strong>Set</strong> data structure to map $u$ to $Adj(u)$. Like every node in the tree needs to store the parent and child node, every elements need to store <strong>all its neighbors</strong>!</p>
+<h3 id="neighbor-setsadjacencies">Neighbor Sets/Adjacencies</h3>
 <ul>
-<li>Common to use <strong>direct access array or hash table</strong> for $Adj$, since want lookup fast by vertex.</li>
-<li>Common to use <strong>array or linked list</strong> for each $Adj(u)$ since usually only iteration is needed.</li>
+<li>The outgoing neighbor set of u ∈ V is <span
+class="math inline"><em>A</em><em>d</em><em>j</em><sup>+</sup>(<em>u</em>) = {<em>v</em> ∈ <em>V</em>|(<em>u</em>, <em>v</em>) ∈ <em>E</em>}</span></li>
+<li>The incoming neighbor set of u ∈ V is <span
+class="math inline"><em>A</em><em>d</em><em>j</em><sup>−</sup>(<em>u</em>) = {<em>v</em> ∈ <em>V</em>|(<em>v</em>, <em>u</em>) ∈ <em>E</em>}</span></li>
+<li>The out-degree of a vertex u ∈ V is <span
+class="math inline"><em>d</em><em>e</em><em>g</em><sup>+</sup>(<em>u</em>) = |<em>A</em><em>d</em><em>j</em><sup>+</sup>(<em>u</em>)|</span></li>
+<li>The in-degree of a vertex u ∈ V is <span
+class="math inline"><em>d</em><em>e</em><em>g</em><sup>−</sup>(<em>u</em>) = |<em>A</em><em>d</em><em>j</em><sup>−</sup>(<em>u</em>)|</span></li>
+<li>For undirected graphs, <span
+class="math inline"><em>A</em><em>d</em><em>j</em><sup>−</sup>(<em>u</em>) = <em>A</em><em>d</em><em>j</em><sup>+</sup>(<em>u</em>)</span>
+and <span
+class="math inline"><em>d</em><em>e</em><em>g</em><sup>−</sup>(<em>u</em>) = <em>d</em><em>e</em><em>g</em><sup>+</sup>(<em>u</em>)</span></li>
+<li>Dropping superscript defaults to outgoing, i.e., <span
+class="math inline"><em>A</em><em>d</em><em>j</em>(<em>u</em>) = <em>A</em><em>d</em><em>j</em><sup>+</sup>(<em>u</em>)</span>
+and <span
+class="math inline"><em>d</em><em>e</em><em>g</em>(<em>u</em>) = <em>d</em><em>e</em><em>g</em><sup>+</sup>(<em>u</em>)</span></li>
 </ul>
-<h3 id="Paths"><a href="#Paths" class="headerlink" title="Paths"></a>Paths</h3><ul>
-<li>A path is a sequence of vertices $p &#x3D; (v_1, v_2, . . . , v_k)$ where $(v_i, v_{i+1}) ∈ E, \ \forall 1 ≤ i &lt; k$.</li>
-<li>A path is simple if it does not <strong>repeat vertices</strong>.</li>
-<li>The length ($p$) of a path p is the number of edges in the path</li>
-<li>The distance $δ(u, v)$ from $u ∈ V$ to $v ∈ V$ is the <strong>minimum length of any path from $u$ to $v$</strong>, i.e., the length of a shortest path from $u$ to $v$. (by convention, $δ(u, v) &#x3D; ∞ $ if $u$ is not connected to $v$)</li>
-</ul>
-<h3 id="Model-Graph-Problems"><a href="#Model-Graph-Problems" class="headerlink" title="Model Graph Problems"></a>Model Graph Problems</h3><p><img src="https://s1.imagehub.cc/images/2025/04/09/9ae6883f7fe45a85bfba103b58b92af6.png" srcset="/img/loading.gif" lazyload alt="Model Graph Problems"></p>
-<p>We can construct a <strong>shortest path tree</strong> based on the graph with $O(\left |V \right |)$ size. To explain it more clearly, given $a \in V$, then the <strong>shortest path tree</strong> of $a$ is a tree whose root node is $a$ and contains all elements that are reachable to $a$ in the graph. Moreover, the way from the root node $a$ to the node $b$ is <strong>just the shortest path</strong> from $a$ to $b$ in the graph.</p>
-<h2 id="Breadth-First-Search"><a href="#Breadth-First-Search" class="headerlink" title="Breadth First Search"></a>Breadth First Search</h2><p>How to return a shortest path from <strong>source vertex</strong> $s$ for every vertex in graph? We can define $P(x)$ as the <strong>second to last vertex</strong> on a shortest path from $s$, or you can just imagine it as the parent of $x$ in the constructed shortest path tree of source vertex $s$.</p>
+<h3 id="adjacency-list">Adjacency list</h3>
+<p>A <strong>Set</strong> data structure to map <span
+class="math inline"><em>u</em></span> to <span
+class="math inline"><em>A</em><em>d</em><em>j</em>(<em>u</em>)</span>.
+Like every node in the tree needs to store the parent and child node,
+every elements need to store <strong>all its neighbors</strong>!</p>
 <ul>
-<li>Define $P(s) &#x3D;&#x3D; null$.</li>
-<li>Set of parents comprise <strong>a shortest paths tree</strong> with $O(|V|)$ size!<ul>
-<li>Math principles: Assume vertex $u$ appears in the shortest path from the source vertex $s$ to the vertex $x$, which is more remote. <strong>Then the shortest of vertex $u$</strong> is just a subset of this path!</li>
+<li>Common to use <strong>direct access array or hash table</strong> for
+<span class="math inline"><em>A</em><em>d</em><em>j</em></span>, since
+want lookup fast by vertex.</li>
+<li>Common to use <strong>array or linked list</strong> for each <span
+class="math inline"><em>A</em><em>d</em><em>j</em>(<em>u</em>)</span>
+since usually only iteration is needed.</li>
 </ul>
-</li>
-<li>In the BFS algorithm, we need to compute $δ(s, v)$ and $P(v)$ for all $v \in V$.</li>
+<h3 id="paths">Paths</h3>
+<ul>
+<li>A path is a sequence of vertices <span
+class="math inline"><em>p</em> = (<em>v</em><sub>1</sub>, <em>v</em><sub>2</sub>, ..., <em>v</em><sub><em>k</em></sub>)</span>
+where <span
+class="math inline">(<em>v</em><sub><em>i</em></sub>, <em>v</em><sub><em>i</em> + 1</sub>) ∈ <em>E</em>, ∀1 ≤ <em>i</em> &lt; <em>k</em></span>.</li>
+<li>A path is simple if it does not <strong>repeat
+vertices</strong>.</li>
+<li>The length (<span class="math inline"><em>p</em></span>) of a path p
+is the number of edges in the path</li>
+<li>The distance <span
+class="math inline"><em>δ</em>(<em>u</em>, <em>v</em>)</span> from <span
+class="math inline"><em>u</em> ∈ <em>V</em></span> to <span
+class="math inline"><em>v</em> ∈ <em>V</em></span> is the
+<strong>minimum length of any path from <span
+class="math inline"><em>u</em></span> to <span
+class="math inline"><em>v</em></span></strong>, i.e., the length of a
+shortest path from <span class="math inline"><em>u</em></span> to <span
+class="math inline"><em>v</em></span>. (by convention, $δ(u, v) = ∞ $ if
+<span class="math inline"><em>u</em></span> is not connected to <span
+class="math inline"><em>v</em></span>)</li>
 </ul>
-<p> Compute level sets $L_i &#x3D; {v | v ∈ V \ \text{and} \ d(s, v) &#x3D; i}$ (i.e., all vertices at distance $i$)</p>
-<p><img src="https://s1.imagehub.cc/images/2025/04/09/9b7a93a15a48fd8854a508068bf94504.png" srcset="/img/loading.gif" lazyload alt="BFS"></p>
-<p>The key to BFS is to categorize <strong>vertices by levels</strong>. For vertices at the same level, continuously traverse until all are visited, then proceed to the next level. Obviously, we know the shortest distance from $s$ to $s$ is 0. Then we can <strong>grow</strong> the tree based on it and find the shortest path for all vertex in the graph.</p>
+<h3 id="model-graph-problems">Model Graph Problems</h3>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/09/9ae6883f7fe45a85bfba103b58b92af6.png" srcset="/img/loading.gif" lazyload
+alt="Model Graph Problems" />
+<figcaption aria-hidden="true">Model Graph Problems</figcaption>
+</figure>
+<p>We can construct a <strong>shortest path tree</strong> based on the
+graph with <span class="math inline"><em>O</em>(|<em>V</em>|)</span>
+size. To explain it more clearly, given <span
+class="math inline"><em>a</em> ∈ <em>V</em></span>, then the
+<strong>shortest path tree</strong> of <span
+class="math inline"><em>a</em></span> is a tree whose root node is <span
+class="math inline"><em>a</em></span> and contains all elements that are
+reachable to <span class="math inline"><em>a</em></span> in the graph.
+Moreover, the way from the root node <span
+class="math inline"><em>a</em></span> to the node <span
+class="math inline"><em>b</em></span> is <strong>just the shortest
+path</strong> from <span class="math inline"><em>a</em></span> to <span
+class="math inline"><em>b</em></span> in the graph.</p>
+<h2 id="breadth-first-search">Breadth First Search</h2>
+<p>How to return a shortest path from <strong>source vertex</strong>
+<span class="math inline"><em>s</em></span> for every vertex in graph?
+We can define <span class="math inline"><em>P</em>(<em>x</em>)</span> as
+the <strong>second to last vertex</strong> on a shortest path from <span
+class="math inline"><em>s</em></span>, or you can just imagine it as the
+parent of <span class="math inline"><em>x</em></span> in the constructed
+shortest path tree of source vertex <span
+class="math inline"><em>s</em></span>.</p>
+<ul>
+<li>Define <span
+class="math inline"><em>P</em>(<em>s</em>) =  = <em>n</em><em>u</em><em>l</em><em>l</em></span>.</li>
+<li>Set of parents comprise <strong>a shortest paths tree</strong> with
+<span class="math inline"><em>O</em>(|<em>V</em>|)</span> size!
+<ul>
+<li>Math principles: Assume vertex <span
+class="math inline"><em>u</em></span> appears in the shortest path from
+the source vertex <span class="math inline"><em>s</em></span> to the
+vertex <span class="math inline"><em>x</em></span>, which is more
+remote. <strong>Then the shortest of vertex <span
+class="math inline"><em>u</em></span></strong> is just a subset of this
+path!</li>
+</ul></li>
+<li>In the BFS algorithm, we need to compute <span
+class="math inline"><em>δ</em>(<em>s</em>, <em>v</em>)</span> and <span
+class="math inline"><em>P</em>(<em>v</em>)</span> for all <span
+class="math inline"><em>v</em> ∈ <em>V</em></span>.</li>
+</ul>
+<p>Compute level sets <span
+class="math inline"><em>L</em><sub><em>i</em></sub> = {<em>v</em>|<em>v</em> ∈ <em>V</em> and <em>d</em>(<em>s</em>, <em>v</em>) = <em>i</em>}</span>
+(i.e., all vertices at distance <span
+class="math inline"><em>i</em></span>)</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/09/9b7a93a15a48fd8854a508068bf94504.png" srcset="/img/loading.gif" lazyload
+alt="BFS" />
+<figcaption aria-hidden="true">BFS</figcaption>
+</figure>
+<p>The key to BFS is to categorize <strong>vertices by levels</strong>.
+For vertices at the same level, continuously traverse until all are
+visited, then proceed to the next level. Obviously, we know the shortest
+distance from <span class="math inline"><em>s</em></span> to <span
+class="math inline"><em>s</em></span> is 0. Then we can
+<strong>grow</strong> the tree based on it and find the shortest path
+for all vertex in the graph.</p>
 <blockquote>
-<p>In real world simulations, we can use <strong>queue</strong> to store different levels of vertices, which means <strong>no vertices in $L_i$ is touched until all vertices in $L_{i-1}$ is traversed</strong>.</p>
+<p>In real world simulations, we can use <strong>queue</strong> to store
+different levels of vertices, which means <strong>no vertices in <span
+class="math inline"><em>L</em><sub><em>i</em></sub></span> is touched
+until all vertices in <span
+class="math inline"><em>L</em><sub><em>i</em> − 1</sub></span> is
+traversed</strong>.</p>
 </blockquote>
-<p><strong>Time complexity analysis</strong>: $O(|V| + |E|)$. (Linear Time!)</p>
-<h2 id="Depth-First-Search"><a href="#Depth-First-Search" class="headerlink" title="Depth First Search"></a>Depth First Search</h2><h3 id="Single-source-reachability"><a href="#Single-source-reachability" class="headerlink" title="Single source reachability"></a>Single source reachability</h3><ul>
+<p><strong>Time complexity analysis</strong>: <span
+class="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span>.
+(Linear Time!)</p>
+<h2 id="depth-first-search">Depth First Search</h2>
+<h3 id="single-source-reachability">Single source reachability</h3>
+<ul>
 <li>Graph Path Problems</li>
 <li>Single Pair Reachability(G,s,t)</li>
 <li><strong>Single Source Reachability(G,s)</strong></li>
 <li>Single Pair Shortest Path(G,s,t)</li>
 <li>Single Source Shortest Paths(G,s) (SSSP)</li>
 </ul>
-<p>If we don’t need to solve the <strong>SSSP</strong> problem, we can use another algorithm! <strong>Intuition: Visit outgoing adjacencies recursively, but never revisit a vertex</strong>.</p>
+<p>If we don’t need to solve the <strong>SSSP</strong> problem, we can
+use another algorithm! <strong>Intuition: Visit outgoing adjacencies
+recursively, but never revisit a vertex</strong>.</p>
 <blockquote>
-<p>Of course, we can use the <strong>shortest path tree to solve a harder problem (SSSP)</strong>, but it takes linear time! We can actually take less time by using the BFS algorithms.</p>
+<p>Of course, we can use the <strong>shortest path tree to solve a
+harder problem (SSSP)</strong>, but it takes linear time! We can
+actually take less time by using the BFS algorithms.</p>
 </blockquote>
-<h3 id="Algorithms"><a href="#Algorithms" class="headerlink" title="Algorithms"></a>Algorithms</h3><p>For DFS algorithms, we use <strong>recursion</strong> to reach to the deepest depth and then traceback to the previous height.</p>
-<p>Before finishing the algorithms, we define $P(u)&#x3D;v$, there exists a path from $u$ to $v$.</p>
-<p><img src="https://s1.imagehub.cc/images/2025/04/12/05369681ede643f4fc83edb46d32e7f7.png" srcset="/img/loading.gif" lazyload alt="DFS algorithms"></p>
-<p>There maybe some problems! For example, if there exists $(u_1, v)$ and $(u_2, v)$ at the same time, definitely we can say $P(v) &#x3D; u_1$ and $P(v) &#x3D; u_2$. But what $P(v)$ actually is the last vertex that is assigned to $P(v)$. Then can this algorithm correctly finds all the reachable vertexes?</p>
-<p>Let’s do the proof! Claim: <strong>DFS visits $v$ and correctly sets $P(v)$ for every vertex $v$ reachable from $s$</strong>.</p>
-<p>We use <strong>induction</strong>, induct on $k$, where $k$ means vertices that can be reachable from source $s$ with the $k$ steps.</p>
+<h3 id="algorithms">Algorithms</h3>
+<p>For DFS algorithms, we use <strong>recursion</strong> to reach to the
+deepest depth and then traceback to the previous height.</p>
+<p>Before finishing the algorithms, we define <span
+class="math inline"><em>P</em>(<em>u</em>) = <em>v</em></span>, there
+exists a path from <span class="math inline"><em>u</em></span> to <span
+class="math inline"><em>v</em></span>.</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/12/05369681ede643f4fc83edb46d32e7f7.png" srcset="/img/loading.gif" lazyload
+alt="DFS algorithms" />
+<figcaption aria-hidden="true">DFS algorithms</figcaption>
+</figure>
+<p>There maybe some problems! For example, if there exists <span
+class="math inline">(<em>u</em><sub>1</sub>, <em>v</em>)</span> and
+<span class="math inline">(<em>u</em><sub>2</sub>, <em>v</em>)</span> at
+the same time, definitely we can say <span
+class="math inline"><em>P</em>(<em>v</em>) = <em>u</em><sub>1</sub></span>
+and <span
+class="math inline"><em>P</em>(<em>v</em>) = <em>u</em><sub>2</sub></span>.
+But what <span class="math inline"><em>P</em>(<em>v</em>)</span>
+actually is the last vertex that is assigned to <span
+class="math inline"><em>P</em>(<em>v</em>)</span>. Then can this
+algorithm correctly finds all the reachable vertexes?</p>
+<p>Let’s do the proof! Claim: <strong>DFS visits <span
+class="math inline"><em>v</em></span> and correctly sets <span
+class="math inline"><em>P</em>(<em>v</em>)</span> for every vertex <span
+class="math inline"><em>v</em></span> reachable from <span
+class="math inline"><em>s</em></span></strong>.</p>
+<p>We use <strong>induction</strong>, induct on <span
+class="math inline"><em>k</em></span>, where <span
+class="math inline"><em>k</em></span> means vertices that can be
+reachable from source <span class="math inline"><em>s</em></span> with
+the <span class="math inline"><em>k</em></span> steps.</p>
 <ul>
-<li>$k &#x3D; 0$ : is just the source vertex $s$!</li>
-<li>Inductive step: Consider vertex v with $δ(s, v) &#x3D; k’ + 1$. (The minimum length of the two vertexes)</li>
-<li>Consider vertex $u$, <strong>the second to last vertex</strong> on some shortest path from $s$ to $v$.</li>
-<li>By induction, since $δ(s, u) &#x3D; k’$, DFS visits $u$ and sets $P (u)$ correctly.</li>
-<li>While visiting u, DFS considers $v ∈ Adj(u)$.</li>
-<li>Either $v$ is in $P$ , so has already been visited, or $v$ will be visited while visiting $u$.</li>
-<li>In either case, v will be visited by DFS and will be added correctly to $P$.</li>
+<li><span class="math inline"><em>k</em> = 0</span> : is just the source
+vertex <span class="math inline"><em>s</em></span>!</li>
+<li>Inductive step: Consider vertex v with <span
+class="math inline"><em>δ</em>(<em>s</em>, <em>v</em>) = <em>k</em>′ + 1</span>.
+(The minimum length of the two vertexes)</li>
+<li>Consider vertex <span class="math inline"><em>u</em></span>,
+<strong>the second to last vertex</strong> on some shortest path from
+<span class="math inline"><em>s</em></span> to <span
+class="math inline"><em>v</em></span>.</li>
+<li>By induction, since <span
+class="math inline"><em>δ</em>(<em>s</em>, <em>u</em>) = <em>k</em>′</span>,
+DFS visits <span class="math inline"><em>u</em></span> and sets <span
+class="math inline"><em>P</em>(<em>u</em>)</span> correctly.</li>
+<li>While visiting u, DFS considers <span
+class="math inline"><em>v</em> ∈ <em>A</em><em>d</em><em>j</em>(<em>u</em>)</span>.</li>
+<li>Either <span class="math inline"><em>v</em></span> is in <span
+class="math inline"><em>P</em></span> , so has already been visited, or
+<span class="math inline"><em>v</em></span> will be visited while
+visiting <span class="math inline"><em>u</em></span>.</li>
+<li>In either case, v will be visited by DFS and will be added correctly
+to <span class="math inline"><em>P</em></span>.</li>
 </ul>
-<p>Depth First Search: $O(|E|)$. (The number of edges)</p>
-<h3 id="Connectivity-of-undirected-graphs-Full-DFS"><a href="#Connectivity-of-undirected-graphs-Full-DFS" class="headerlink" title="Connectivity of undirected graphs: Full DFS"></a>Connectivity of undirected graphs: Full DFS</h3><p>Obviously, use DFS in one single vertex $s$ cannot reach all vertex in the node. Thus, if we want to reach all vertex in the graph (Graph Traverse), we can actually use <strong>Full-DFS</strong> algorithms.</p>
+<p>Depth First Search: <span
+class="math inline"><em>O</em>(|<em>E</em>|)</span>. (The number of
+edges)</p>
+<h3 id="connectivity-of-undirected-graphs-full-dfs">Connectivity of
+undirected graphs: Full DFS</h3>
+<p>Obviously, use DFS in one single vertex <span
+class="math inline"><em>s</em></span> cannot reach all vertex in the
+node. Thus, if we want to reach all vertex in the graph (Graph
+Traverse), we can actually use <strong>Full-DFS</strong> algorithms.</p>
 <p>Iterate for all vertexes in the loop:</p>
 <ul>
-<li>Choose an <strong>arbitrary unvisited vertex $s$</strong>, use <strong>BFS&#x2F;DFS</strong> to explore all vertices reachable from $s$.</li>
-<li>If the vertex $s$ is reached, then we don’t need to use DFS($s$) (let s to be the source node) again!</li>
-<li>Time complexity: $O(|V|+|E|)$.</li>
+<li>Choose an <strong>arbitrary unvisited vertex <span
+class="math inline"><em>s</em></span></strong>, use
+<strong>BFS/DFS</strong> to explore all vertices reachable from <span
+class="math inline"><em>s</em></span>.</li>
+<li>If the vertex <span class="math inline"><em>s</em></span> is
+reached, then we don’t need to use DFS(<span
+class="math inline"><em>s</em></span>) (let s to be the source node)
+again!</li>
+<li>Time complexity: <span
+class="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span>.</li>
 </ul>
-<p>Full DFS can be used to detect how many <strong>connected components (for undirected graphs) or strongly connected components (for directed graphs)</strong> exist in a graph. Each time a new DFS is initiated, it indicates the discovery of a new connected component.</p>
-<p><img src="https://s1.imagehub.cc/images/2025/04/12/77846aff8face45b5acbf56324eb63d5.png" srcset="/img/loading.gif" lazyload alt="Graph Connectivity"></p>
-<h3 id="Topological-Sort"><a href="#Topological-Sort" class="headerlink" title="Topological Sort"></a>Topological Sort</h3><h4 id="Several-Definitions"><a href="#Several-Definitions" class="headerlink" title="Several Definitions"></a>Several Definitions</h4><ul>
-<li><strong>DAGs (Directed Acyclic Graph)</strong>: a directed graph that contains cycles.<ul>
+<p>Full DFS can be used to detect how many <strong>connected components
+(for undirected graphs) or strongly connected components (for directed
+graphs)</strong> exist in a graph. Each time a new DFS is initiated, it
+indicates the discovery of a new connected component.</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/12/77846aff8face45b5acbf56324eb63d5.png" srcset="/img/loading.gif" lazyload
+alt="Graph Connectivity" />
+<figcaption aria-hidden="true">Graph Connectivity</figcaption>
+</figure>
+<h3 id="topological-sort">Topological Sort</h3>
+<h4 id="several-definitions">Several Definitions</h4>
+<ul>
+<li><strong>DAGs (Directed Acyclic Graph)</strong>: a directed graph
+that contains cycles.
+<ul>
 <li>Of course, a Binary Tree is a DAG😂.</li>
+</ul></li>
+<li>A <strong>Topological Order</strong> of a graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> is an
+ordering <span class="math inline"><em>f</em></span> on the vertices
+such that: every edge <span
+class="math inline">(<em>u</em>, <em>v</em>) ∈ <em>E</em></span>
+satisfies <span
+class="math inline"><em>f</em>(<em>u</em>) &lt; <em>f</em>(<em>v</em>)</span>.</li>
+<li>A topological order only appears in the DAGs, or it will cause
+problems! (<strong>iff</strong>)
+<ul>
+<li>Assume <span
+class="math inline">(<em>u</em>, <em>v</em>) ∈ <em>E</em></span> and
+<span class="math inline">(<em>v</em>, <em>u</em>) ∈ <em>E</em></span>,
+which means <span
+class="math inline"><em>f</em>(<em>u</em>) &lt; <em>f</em>(<em>v</em>)</span>
+and <span
+class="math inline"><em>f</em>(<em>v</em>) &lt; <em>f</em>(<em>u</em>)</span>.
+Contradiction!</li>
+</ul></li>
+<li><strong>A Finishing Order</strong> is the order in which <strong>a
+Full-DFS finishes visiting each vertex in G</strong>.</li>
 </ul>
-</li>
-<li>A <strong>Topological Order</strong> of a graph $G &#x3D; (V, E)$ is an ordering $f$ on the vertices such that: every edge $(u, v) ∈ E$ satisfies $f(u) &lt; f(v)$.</li>
-<li>A topological order only appears in the DAGs, or it will cause problems! (<strong>iff</strong>)<ul>
-<li>Assume $(u,v)\in E$ and $(v,u) \in E$, which means $f(u) &lt; f(v)$ and $f(v) &lt; f(u)$. Contradiction!</li>
-</ul>
-</li>
-<li><strong>A Finishing Order</strong> is the order in which <strong>a Full-DFS finishes visiting each vertex in G</strong>.</li>
-</ul>
-<h4 id="Claim"><a href="#Claim" class="headerlink" title="Claim"></a>Claim</h4><p>The reverse of finishing order is just the <strong>topological order</strong> of the graph.</p>
-<p><img src="https://s1.imagehub.cc/images/2025/04/12/c95d929f8fd570a477d4573bd2303797.png" srcset="/img/loading.gif" lazyload alt="Proof"></p>
-<p> <strong>Basic principle</strong>: We need to prove the ending of function $visit(u)$ is after the ending of the function $visit(v)$. In Full DFS, every vertex will only be visited once, and the existence of $(u,v)$ enables that:</p>
-<p>In the first exploration of $u$, for the recursive function, the ending of function $visit(v)$ is before $visit(u)$. ($u$ is in the lower stack frame.) (Unless that $v$ has been explored previously, which is obviously right).</p>
-<h3 id="Cycle-detection"><a href="#Cycle-detection" class="headerlink" title="Cycle detection"></a>Cycle detection</h3><p>How can we find a graph is <strong>Acyclic</strong>?</p>
-<p>Consider the full-DFS algorithms, if <strong>reverse finishing order for Full-DFS is not a topological order, then G must contain a cycle</strong>. Check if G is <strong>acyclic: for each edge (u, v), check if v is before u in reverse finishing order</strong>.</p>
-<p><strong>Claim</strong>: If $G$ contains a cycle, Full-DFS will <strong>traverse an edge</strong> from $v$ to an ancestor of $v$.</p>
-<p>To return such a cycle, maintain the set of ancestors along the path back to s in Full-DFS. (Or just the stack frame for the recursion function!)</p>
-<h1 id="Lecture-Notes-for-CS1952-SJTU"><a href="#Lecture-Notes-for-CS1952-SJTU" class="headerlink" title="Lecture Notes for CS1952 SJTU"></a>Lecture Notes for CS1952 SJTU</h1><h2 id="DFS的实现和应用"><a href="#DFS的实现和应用" class="headerlink" title="DFS的实现和应用"></a>DFS的实现和应用</h2><ul>
+<h4 id="claim">Claim</h4>
+<p>The reverse of finishing order is just the <strong>topological
+order</strong> of the graph.</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/04/12/c95d929f8fd570a477d4573bd2303797.png" srcset="/img/loading.gif" lazyload
+alt="Proof" />
+<figcaption aria-hidden="true">Proof</figcaption>
+</figure>
+<p><strong>Basic principle</strong>: We need to prove the ending of
+function <span
+class="math inline"><em>v</em><em>i</em><em>s</em><em>i</em><em>t</em>(<em>u</em>)</span>
+is after the ending of the function <span
+class="math inline"><em>v</em><em>i</em><em>s</em><em>i</em><em>t</em>(<em>v</em>)</span>.
+In Full DFS, every vertex will only be visited once, and the existence
+of <span class="math inline">(<em>u</em>, <em>v</em>)</span> enables
+that:</p>
+<p>In the first exploration of <span
+class="math inline"><em>u</em></span>, for the recursive function, the
+ending of function <span
+class="math inline"><em>v</em><em>i</em><em>s</em><em>i</em><em>t</em>(<em>v</em>)</span>
+is before <span
+class="math inline"><em>v</em><em>i</em><em>s</em><em>i</em><em>t</em>(<em>u</em>)</span>.
+(<span class="math inline"><em>u</em></span> is in the lower stack
+frame.) (Unless that <span class="math inline"><em>v</em></span> has
+been explored previously, which is obviously right).</p>
+<h3 id="cycle-detection">Cycle detection</h3>
+<p>How can we find a graph is <strong>Acyclic</strong>?</p>
+<p>Consider the full-DFS algorithms, if <strong>reverse finishing order
+for Full-DFS is not a topological order, then G must contain a
+cycle</strong>. Check if G is <strong>acyclic: for each edge (u, v),
+check if v is before u in reverse finishing order</strong>.</p>
+<p><strong>Claim</strong>: If <span
+class="math inline"><em>G</em></span> contains a cycle, Full-DFS will
+<strong>traverse an edge</strong> from <span
+class="math inline"><em>v</em></span> to an ancestor of <span
+class="math inline"><em>v</em></span>.</p>
+<p>To return such a cycle, maintain the set of ancestors along the path
+back to s in Full-DFS. (Or just the stack frame for the recursion
+function!)</p>
+<h1 id="lecture-notes-for-cs1952-sjtu">Lecture Notes for CS1952
+SJTU</h1>
+<h2 id="dfs的实现和应用">DFS的实现和应用</h2>
+<ul>
 <li>DFS需要搜索到所有的节点需要<strong>保证图是联通的</strong>。（实际上这是<strong>充分必要条件</strong>）</li>
 <li>DFS可以使用递归实现，也可以手动使用<strong>栈</strong>来实现。（本质上是一样的）</li>
 <li>BFS使用<strong>队列实现</strong>。</li>
 </ul>
-<h2 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h2><h3 id="无向图的连通性"><a href="#无向图的连通性" class="headerlink" title="无向图的连通性"></a>无向图的连通性</h3><p>使用BFS或者DFS搜索如果只会生成一棵树，说明<strong>这棵树是联通的</strong>。当然，也可以判断这个图的<strong>联通分量</strong>。</p>
-<h3 id="欧拉回路"><a href="#欧拉回路" class="headerlink" title="欧拉回路"></a>欧拉回路</h3><ul>
-<li>奇点个数为$n$, if $n &gt; 2$, then fail</li>
-<li>$n &#x3D;2$: pass</li>
-<li>$n &#x3D; 0$: pass</li>
+<h2 id="applications">Applications</h2>
+<h3 id="无向图的连通性">无向图的连通性</h3>
+<p>使用BFS或者DFS搜索如果只会生成一棵树，说明<strong>这棵树是联通的</strong>。当然，也可以判断这个图的<strong>联通分量</strong>。</p>
+<h3 id="欧拉回路">欧拉回路</h3>
+<ul>
+<li>奇点个数为<span class="math inline"><em>n</em></span>, if <span
+class="math inline"><em>n</em> &gt; 2</span>, then fail</li>
+<li><span class="math inline"><em>n</em> = 2</span>: pass</li>
+<li><span class="math inline"><em>n</em> = 0</span>: pass</li>
 </ul>
-<p>不存在$n &#x3D; 1$的情况，因为根据<strong>握手定理</strong>：在任何无向图中，所有顶点的度数之和等于图中边数的两倍。</p>
+<p>不存在<span
+class="math inline"><em>n</em> = 1</span>的情况，因为根据<strong>握手定理</strong>：在任何无向图中，所有顶点的度数之和等于图中边数的两倍。</p>
 <p>即，我们需要对一张图找到一条路径，使其：</p>
 <ul>
 <li>起点和终点重合</li>
@@ -1037,38 +1275,90 @@
 <li>不存在<strong>重复路径</strong></li>
 </ul>
 <p>如何检查欧拉回路的存在性？<strong>可以使用深度优先搜索</strong>。</p>
-<p><img src="https://s1.imagehub.cc/images/2025/05/15/ef38b76390e1f20acaf4f7fc7f0b1154.png" srcset="/img/loading.gif" lazyload alt="BFS for euler"></p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/05/15/ef38b76390e1f20acaf4f7fc7f0b1154.png" srcset="/img/loading.gif" lazyload
+alt="BFS for euler" />
+<figcaption aria-hidden="true">BFS for euler</figcaption>
+</figure>
 <div class="note note-primary">
             <p>换句话说，使用DFS找欧拉回路的过程相当于<strong>单次DFS搜索</strong>的一部分。在一般的DFS搜索中，递归到达最大深度会向上回溯，而欧拉回路<strong>不需要向上回溯</strong>的过程（因为他需要保证搜索相邻节点一定是有边直接相连的）</p><p>而是开启<strong>下一个DFS过程</strong>。（<strong>找出路径上另外一个尚有未被访问的边的节点</strong>）</p><p>接着，如果成功了，即找到了一个<strong>子环路</strong>，把这个子环路插入到上一级的环路中即可。</p>
           </div>
-
-<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;climits&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">exception</span> &#123;<br><span class="hljs-keyword">protected</span>:<br>    <span class="hljs-type">const</span> std::string variant = <span class="hljs-string">&quot;&quot;</span>;<br>    std::string detail = <span class="hljs-string">&quot;&quot;</span>;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">exception</span>() &#123;<br>    &#125;<br>    <span class="hljs-built_in">exception</span>(<span class="hljs-type">const</span> exception &amp;ec) : <span class="hljs-built_in">variant</span>(ec.variant), <span class="hljs-built_in">detail</span>(ec.detail) &#123;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> std::string <span class="hljs-title">what</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> variant + <span class="hljs-string">&quot; &quot;</span> + detail;<br>    &#125;<br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">index_out_of_bound</span> : <span class="hljs-keyword">public</span> exception &#123;<br>    <span class="hljs-comment">/* __________________________ */</span><br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">runtime_error</span> : <span class="hljs-keyword">public</span> exception &#123;<br>    <span class="hljs-comment">/* __________________________ */</span><br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">invalid_iterator</span> : <span class="hljs-keyword">public</span> exception &#123;<br>    <span class="hljs-comment">/* __________________________ */</span><br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">container_is_empty</span> : <span class="hljs-keyword">public</span> exception &#123;<br>    <span class="hljs-comment">/* __________________________ */</span><br>&#125;;<br><br><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">Ver</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">Edge</span>&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">graph</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(Ver x, Ver y, Edge weight)</span> </span>= <span class="hljs-number">0</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Ver x, Ver y)</span> </span>= <span class="hljs-number">0</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">bool</span> <span class="hljs-title">exist</span><span class="hljs-params">(Ver x, Ver y)</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>&#125;;<br><br><br><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">Ver</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">Edge</span>&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">adjListGrapgh</span> : <span class="hljs-keyword">public</span> graph&lt;Ver, Edge&gt; &#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">edge_node</span> &#123;<br>        <span class="hljs-comment">// node for edges</span><br><br>        <span class="hljs-comment">// index for the second endpoint</span><br>        <span class="hljs-type">int</span> end;<br>        Edge weight;<br>        edge_node *next;<br><br>        <span class="hljs-built_in">edge_node</span>(<span class="hljs-type">int</span> e, Edge weight_, edge_node *next_ = <span class="hljs-literal">nullptr</span>) : <span class="hljs-built_in">end</span>(e), <span class="hljs-built_in">weight</span>(weight_), <span class="hljs-built_in">next</span>(next_) &#123;&#125;<br>    &#125;;<br><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">ver_node</span> &#123;<br>        <span class="hljs-comment">// node for vertices</span><br>        Ver value;<br>        edge_node *head;<br>        <span class="hljs-built_in">ver_node</span>(Ver value_ = <span class="hljs-built_in">Ver</span>(), edge_node *head_ = <span class="hljs-literal">nullptr</span>) &#123;<br>            value = value_;<span class="hljs-comment">// FIX: assign value</span><br>            head = head_;<br>        &#125;<br>    &#125;;<br><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Eulerian_Node</span> &#123;<br>        <span class="hljs-type">int</span> Node_num;<br>        Eulerian_Node *next;<br>        <span class="hljs-built_in">Eulerian_Node</span>(<span class="hljs-type">int</span> ver) &#123;<br>            Node_num = ver;<br>            next = <span class="hljs-literal">nullptr</span>;<br>        &#125;<br>    &#125;;<br><br>    ver_node *ver_array;<br>    <span class="hljs-type">int</span> num_vers;<br>    <span class="hljs-type">int</span> num_edges;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">find</span><span class="hljs-params">(Ver v)</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; num_vers; i++) &#123;<br>            <span class="hljs-keyword">if</span> (ver_array[i].value == v) &#123;<br>                <span class="hljs-keyword">return</span> i;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">throw</span> <span class="hljs-built_in">invalid_iterator</span>();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">EulerCircuit</span><span class="hljs-params">(<span class="hljs-type">int</span> start, Eulerian_Node *&amp;beg, Eulerian_Node *&amp;end)</span> </span>&#123;<br>        <span class="hljs-comment">// initialize</span><br>        beg = end = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Eulerian_Node</span>(start);<br>        <span class="hljs-keyword">while</span> (ver_array[start].head != <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-type">int</span> next_node = ver_array[start].head-&gt;end;<br><br>            <span class="hljs-comment">// !attention, it is the undirected graph</span><br>            <span class="hljs-built_in">remove</span>(start, next_node);<br>            <span class="hljs-built_in">remove</span>(next_node, start);<br>            start = next_node;<br>            end-&gt;next = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Eulerian_Node</span>(start);<br>            end = end-&gt;next;<br>        &#125;<br>    &#125;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * @brief Construct a new adj List Grapgh object</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * @param size </span><br><span class="hljs-comment">     * @param d </span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-built_in">adjListGrapgh</span>(<span class="hljs-type">int</span> size, <span class="hljs-type">const</span> Ver *d) &#123;<br>        num_vers = size;<br>        num_edges = <span class="hljs-number">0</span>;<br><br>        ver_array = <span class="hljs-keyword">new</span> ver_node[num_vers];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; num_vers; i++) &#123;<br>            ver_array[i] = d[i];<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * @brief Destroy the adj List Grapgh object</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     */</span><br>    ~<span class="hljs-built_in">adjListGrapgh</span>() &#123;<br>        edge_node *current;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; num_vers; i++) &#123;<br>            current = ver_array[i].head;<span class="hljs-comment">// FIX: assign current</span><br>            <span class="hljs-keyword">while</span> (current != <span class="hljs-literal">nullptr</span>) &#123;<br>                edge_node *next_ = current-&gt;next;<br>                <span class="hljs-keyword">delete</span> current;<br>                current = next_;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">delete</span>[] ver_array;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">num_ver</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> num_vers;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">num_edge</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> num_edges;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(Ver x, Ver y, Edge w)</span> </span>&#123;<br>        <span class="hljs-type">int</span> u = <span class="hljs-built_in">find</span>(x);<br>        <span class="hljs-type">int</span> v = <span class="hljs-built_in">find</span>(y);<br>        ver_array[u].head = <span class="hljs-keyword">new</span> <span class="hljs-built_in">edge_node</span>(v, w, ver_array[u].head);<br>        ++num_edges;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * @brief remove the edges from u to v</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * @param x </span><br><span class="hljs-comment">     * @param y </span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Ver x, Ver y)</span> </span>&#123;<br>        <span class="hljs-type">int</span> u = <span class="hljs-built_in">find</span>(x);<br>        <span class="hljs-type">int</span> v = <span class="hljs-built_in">find</span>(y);<br>        edge_node *p = ver_array[u].head;<br><br>        <span class="hljs-keyword">if</span> (p == <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-comment">// no edges</span><br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (p-&gt;end == v) &#123;<br>            <span class="hljs-comment">// the first is the edge to be deleted</span><br>            ver_array[u].head = p-&gt;next;<br>            <span class="hljs-keyword">delete</span> p;<br>            --num_edges;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">while</span> (p-&gt;next != <span class="hljs-literal">nullptr</span> &amp;&amp; p-&gt;next-&gt;end != v) &#123;<br>            p = p-&gt;next;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (p-&gt;next != <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-comment">// p-&gt;next is the node to be deleted</span><br>            edge_node *q = p-&gt;next;<br>            p-&gt;next = q-&gt;next;<br>            <span class="hljs-keyword">delete</span> q;<br>            --num_edges;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">exist</span><span class="hljs-params">(Ver x, Ver y)</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-type">int</span> u = <span class="hljs-built_in">find</span>(x);<br>        <span class="hljs-type">int</span> v = <span class="hljs-built_in">find</span>(y);<br>        edge_node *p = ver_array[u].head;<br>        <span class="hljs-keyword">while</span> (p != <span class="hljs-literal">nullptr</span> &amp;&amp; p-&gt;end != v) &#123;<br>            p = p-&gt;next;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (p == <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// !Add new Function: Eulerian path</span><br>    <span class="hljs-function">std::vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">EulerCurcuit</span><span class="hljs-params">(Ver start)</span> </span>&#123;<br>        std::vector&lt;<span class="hljs-type">int</span>&gt; ans;<br>        <span class="hljs-keyword">if</span> (num_edges == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-comment">// absolutely there is no path</span><br>            <span class="hljs-comment">// return the empty vector</span><br>            <span class="hljs-keyword">return</span> ans;<br>        &#125;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; num_vers; i++) &#123;<br>            <span class="hljs-type">int</span> num_of_degree = <span class="hljs-number">0</span>;<br>            edge_node *r = ver_array[i].head;<br>            <span class="hljs-keyword">while</span> (r != <span class="hljs-literal">nullptr</span>) &#123;<br>                ++num_of_degree;<br>                r = r-&gt;next;<br>            &#125;<br><br>            <span class="hljs-keyword">if</span> (num_of_degree % <span class="hljs-number">2</span> != <span class="hljs-number">0</span>) &#123;<br>                <span class="hljs-comment">// no exists!</span><br>                <span class="hljs-keyword">return</span> ans;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-type">int</span> start_pos = <span class="hljs-built_in">find</span>(start);<br><br>        <span class="hljs-comment">// clone a list of adjlist</span><br>        ver_node *tmp = <span class="hljs-built_in">clone</span>();<br>        Eulerian_Node *beg, *end;<br>        <span class="hljs-built_in">EulerCircuit</span>(start_pos, beg, end);<br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>            Eulerian_Node *current = beg;<br>            <span class="hljs-keyword">while</span> (current-&gt;next != <span class="hljs-literal">nullptr</span>) &#123;<br>                <span class="hljs-comment">// check the afterward nodes of current</span><br>                <span class="hljs-keyword">if</span> (ver_array[current-&gt;next-&gt;Node_num].head != <span class="hljs-literal">nullptr</span>) &#123;<br>                    <span class="hljs-keyword">break</span>;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    current = current-&gt;next;<br>                &#125;<br>            &#125;<br><br>            <span class="hljs-comment">// all the edges have been visited</span><br>            <span class="hljs-keyword">if</span> (current-&gt;next == <span class="hljs-literal">nullptr</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br><br>            Eulerian_Node *q = current-&gt;next;<br>            <span class="hljs-comment">// q is the node yet to be visited</span><br><br>            <span class="hljs-comment">// find a subcircle and connect them</span><br>            Eulerian_Node *tb, *te;<br>            <span class="hljs-built_in">EulerCircuit</span>(q-&gt;Node_num, tb, te);<br>            te-&gt;next = q-&gt;next;<br>            current-&gt;next = tb;<br>        &#125;<br><br><br>        <span class="hljs-keyword">delete</span>[] ver_array;<br>        ver_array = tmp;<br><br><br>        Eulerian_Node *tmp_store;<br>        <span class="hljs-keyword">while</span> (beg != <span class="hljs-literal">nullptr</span>) &#123;<br>            ans.<span class="hljs-built_in">push_back</span>(ver_array[beg-&gt;Node_num].value);<br>            tmp_store = beg;<br>            beg = beg-&gt;next;<br>            <span class="hljs-keyword">delete</span> tmp_store;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br><br>    <span class="hljs-function">ver_node* <span class="hljs-title">clone</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        ver_node *tmp = <span class="hljs-keyword">new</span> ver_node[num_vers];<br>        edge_node *p;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; num_vers; i++) &#123;<br>            tmp[i].value = ver_array[i].value;<br>            p = ver_array[i].head;<br>            <span class="hljs-keyword">while</span> (p != <span class="hljs-literal">nullptr</span>) &#123;<br>                tmp[i].head = <span class="hljs-keyword">new</span> <span class="hljs-built_in">edge_node</span>(p-&gt;end, p-&gt;weight, tmp[i].head);<br>                p = p-&gt;next;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> tmp;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// Example: Eulerian circuit in an undirected graph</span><br>    <span class="hljs-comment">// Vertices: 0, 1, 2, 3</span><br>    <span class="hljs-comment">// Edges: 0-1, 1-2, 2-0, 0-3, 3-2 (all degrees are even)</span><br>    <span class="hljs-type">int</span> vertices[] = &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;;<br>    <span class="hljs-type">int</span> numVertices = <span class="hljs-built_in">sizeof</span>(vertices) / <span class="hljs-built_in">sizeof</span>(vertices[<span class="hljs-number">0</span>]);<br>    <span class="hljs-function">adjListGrapgh&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt; <span class="hljs-title">g</span><span class="hljs-params">(numVertices, vertices)</span></span>;<br><br>    <span class="hljs-comment">// Insert undirected edges (add both directions)</span><br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">4</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">5</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">4</span>, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<br><br>    std::vector&lt;<span class="hljs-type">int</span>&gt; path = g.<span class="hljs-built_in">EulerCurcuit</span>(<span class="hljs-number">0</span>);<br><br>    <span class="hljs-keyword">if</span> (path.<span class="hljs-built_in">empty</span>()) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;No Eulerian circuit exists in the graph.&quot;</span> &lt;&lt; std::endl;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Eulerian circuit: &quot;</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> v : path) &#123;<br>            std::cout &lt;&lt; v &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>        &#125;<br>        std::cout &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h4 id="哈密尔顿回路和旅行商问题"><a href="#哈密尔顿回路和旅行商问题" class="headerlink" title="哈密尔顿回路和旅行商问题"></a>哈密尔顿回路和旅行商问题</h4><p><strong>哈密尔顿回路</strong>：在无向图中找到一个回路，该回路通过每个节点一次且仅一次。</p>
+<h4 id="code">Code</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;climits&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">exception</span> &#123;<br><span class="hljs-keyword">protected</span>:<br>    <span class="hljs-type">const</span> std::string variant = <span class="hljs-string">&quot;&quot;</span>;<br>    std::string detail = <span class="hljs-string">&quot;&quot;</span>;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">exception</span>() &#123;<br>    &#125;<br>    <span class="hljs-built_in">exception</span>(<span class="hljs-type">const</span> exception &amp;ec) : <span class="hljs-built_in">variant</span>(ec.variant), <span class="hljs-built_in">detail</span>(ec.detail) &#123;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> std::string <span class="hljs-title">what</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> variant + <span class="hljs-string">&quot; &quot;</span> + detail;<br>    &#125;<br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">index_out_of_bound</span> : <span class="hljs-keyword">public</span> exception &#123;<br>    <span class="hljs-comment">/* __________________________ */</span><br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">runtime_error</span> : <span class="hljs-keyword">public</span> exception &#123;<br>    <span class="hljs-comment">/* __________________________ */</span><br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">invalid_iterator</span> : <span class="hljs-keyword">public</span> exception &#123;<br>    <span class="hljs-comment">/* __________________________ */</span><br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">container_is_empty</span> : <span class="hljs-keyword">public</span> exception &#123;<br>    <span class="hljs-comment">/* __________________________ */</span><br>&#125;;<br><br><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">Ver</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">Edge</span>&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">graph</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(Ver x, Ver y, Edge weight)</span> </span>= <span class="hljs-number">0</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Ver x, Ver y)</span> </span>= <span class="hljs-number">0</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">bool</span> <span class="hljs-title">exist</span><span class="hljs-params">(Ver x, Ver y)</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>&#125;;<br><br><br><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">Ver</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">Edge</span>&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">adjListGrapgh</span> : <span class="hljs-keyword">public</span> graph&lt;Ver, Edge&gt; &#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">edge_node</span> &#123;<br>        <span class="hljs-comment">// node for edges</span><br><br>        <span class="hljs-comment">// index for the second endpoint</span><br>        <span class="hljs-type">int</span> end;<br>        Edge weight;<br>        edge_node *next;<br><br>        <span class="hljs-built_in">edge_node</span>(<span class="hljs-type">int</span> e, Edge weight_, edge_node *next_ = <span class="hljs-literal">nullptr</span>) : <span class="hljs-built_in">end</span>(e), <span class="hljs-built_in">weight</span>(weight_), <span class="hljs-built_in">next</span>(next_) &#123;&#125;<br>    &#125;;<br><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">ver_node</span> &#123;<br>        <span class="hljs-comment">// node for vertices</span><br>        Ver value;<br>        edge_node *head;<br>        <span class="hljs-built_in">ver_node</span>(Ver value_ = <span class="hljs-built_in">Ver</span>(), edge_node *head_ = <span class="hljs-literal">nullptr</span>) &#123;<br>            value = value_;<span class="hljs-comment">// FIX: assign value</span><br>            head = head_;<br>        &#125;<br>    &#125;;<br><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Eulerian_Node</span> &#123;<br>        <span class="hljs-type">int</span> Node_num;<br>        Eulerian_Node *next;<br>        <span class="hljs-built_in">Eulerian_Node</span>(<span class="hljs-type">int</span> ver) &#123;<br>            Node_num = ver;<br>            next = <span class="hljs-literal">nullptr</span>;<br>        &#125;<br>    &#125;;<br><br>    ver_node *ver_array;<br>    <span class="hljs-type">int</span> num_vers;<br>    <span class="hljs-type">int</span> num_edges;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">find</span><span class="hljs-params">(Ver v)</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; num_vers; i++) &#123;<br>            <span class="hljs-keyword">if</span> (ver_array[i].value == v) &#123;<br>                <span class="hljs-keyword">return</span> i;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">throw</span> <span class="hljs-built_in">invalid_iterator</span>();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">EulerCircuit</span><span class="hljs-params">(<span class="hljs-type">int</span> start, Eulerian_Node *&amp;beg, Eulerian_Node *&amp;end)</span> </span>&#123;<br>        <span class="hljs-comment">// initialize</span><br>        beg = end = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Eulerian_Node</span>(start);<br>        <span class="hljs-keyword">while</span> (ver_array[start].head != <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-type">int</span> next_node = ver_array[start].head-&gt;end;<br><br>            <span class="hljs-comment">// !attention, it is the undirected graph</span><br>            <span class="hljs-built_in">remove</span>(start, next_node);<br>            <span class="hljs-built_in">remove</span>(next_node, start);<br>            start = next_node;<br>            end-&gt;next = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Eulerian_Node</span>(start);<br>            end = end-&gt;next;<br>        &#125;<br>    &#125;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * @brief Construct a new adj List Grapgh object</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * @param size </span><br><span class="hljs-comment">     * @param d </span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-built_in">adjListGrapgh</span>(<span class="hljs-type">int</span> size, <span class="hljs-type">const</span> Ver *d) &#123;<br>        num_vers = size;<br>        num_edges = <span class="hljs-number">0</span>;<br><br>        ver_array = <span class="hljs-keyword">new</span> ver_node[num_vers];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; num_vers; i++) &#123;<br>            ver_array[i] = d[i];<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * @brief Destroy the adj List Grapgh object</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     */</span><br>    ~<span class="hljs-built_in">adjListGrapgh</span>() &#123;<br>        edge_node *current;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; num_vers; i++) &#123;<br>            current = ver_array[i].head;<span class="hljs-comment">// FIX: assign current</span><br>            <span class="hljs-keyword">while</span> (current != <span class="hljs-literal">nullptr</span>) &#123;<br>                edge_node *next_ = current-&gt;next;<br>                <span class="hljs-keyword">delete</span> current;<br>                current = next_;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">delete</span>[] ver_array;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">num_ver</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> num_vers;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">num_edge</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> num_edges;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(Ver x, Ver y, Edge w)</span> </span>&#123;<br>        <span class="hljs-type">int</span> u = <span class="hljs-built_in">find</span>(x);<br>        <span class="hljs-type">int</span> v = <span class="hljs-built_in">find</span>(y);<br>        ver_array[u].head = <span class="hljs-keyword">new</span> <span class="hljs-built_in">edge_node</span>(v, w, ver_array[u].head);<br>        ++num_edges;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * @brief remove the edges from u to v</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * @param x </span><br><span class="hljs-comment">     * @param y </span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Ver x, Ver y)</span> </span>&#123;<br>        <span class="hljs-type">int</span> u = <span class="hljs-built_in">find</span>(x);<br>        <span class="hljs-type">int</span> v = <span class="hljs-built_in">find</span>(y);<br>        edge_node *p = ver_array[u].head;<br><br>        <span class="hljs-keyword">if</span> (p == <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-comment">// no edges</span><br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (p-&gt;end == v) &#123;<br>            <span class="hljs-comment">// the first is the edge to be deleted</span><br>            ver_array[u].head = p-&gt;next;<br>            <span class="hljs-keyword">delete</span> p;<br>            --num_edges;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">while</span> (p-&gt;next != <span class="hljs-literal">nullptr</span> &amp;&amp; p-&gt;next-&gt;end != v) &#123;<br>            p = p-&gt;next;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (p-&gt;next != <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-comment">// p-&gt;next is the node to be deleted</span><br>            edge_node *q = p-&gt;next;<br>            p-&gt;next = q-&gt;next;<br>            <span class="hljs-keyword">delete</span> q;<br>            --num_edges;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">exist</span><span class="hljs-params">(Ver x, Ver y)</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-type">int</span> u = <span class="hljs-built_in">find</span>(x);<br>        <span class="hljs-type">int</span> v = <span class="hljs-built_in">find</span>(y);<br>        edge_node *p = ver_array[u].head;<br>        <span class="hljs-keyword">while</span> (p != <span class="hljs-literal">nullptr</span> &amp;&amp; p-&gt;end != v) &#123;<br>            p = p-&gt;next;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (p == <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// !Add new Function: Eulerian path</span><br>    <span class="hljs-function">std::vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">EulerCurcuit</span><span class="hljs-params">(Ver start)</span> </span>&#123;<br>        std::vector&lt;<span class="hljs-type">int</span>&gt; ans;<br>        <span class="hljs-keyword">if</span> (num_edges == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-comment">// absolutely there is no path</span><br>            <span class="hljs-comment">// return the empty vector</span><br>            <span class="hljs-keyword">return</span> ans;<br>        &#125;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; num_vers; i++) &#123;<br>            <span class="hljs-type">int</span> num_of_degree = <span class="hljs-number">0</span>;<br>            edge_node *r = ver_array[i].head;<br>            <span class="hljs-keyword">while</span> (r != <span class="hljs-literal">nullptr</span>) &#123;<br>                ++num_of_degree;<br>                r = r-&gt;next;<br>            &#125;<br><br>            <span class="hljs-keyword">if</span> (num_of_degree % <span class="hljs-number">2</span> != <span class="hljs-number">0</span>) &#123;<br>                <span class="hljs-comment">// no exists!</span><br>                <span class="hljs-keyword">return</span> ans;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-type">int</span> start_pos = <span class="hljs-built_in">find</span>(start);<br><br>        <span class="hljs-comment">// clone a list of adjlist</span><br>        ver_node *tmp = <span class="hljs-built_in">clone</span>();<br>        Eulerian_Node *beg, *end;<br>        <span class="hljs-built_in">EulerCircuit</span>(start_pos, beg, end);<br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>            Eulerian_Node *current = beg;<br>            <span class="hljs-keyword">while</span> (current-&gt;next != <span class="hljs-literal">nullptr</span>) &#123;<br>                <span class="hljs-comment">// check the afterward nodes of current</span><br>                <span class="hljs-keyword">if</span> (ver_array[current-&gt;next-&gt;Node_num].head != <span class="hljs-literal">nullptr</span>) &#123;<br>                    <span class="hljs-keyword">break</span>;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    current = current-&gt;next;<br>                &#125;<br>            &#125;<br><br>            <span class="hljs-comment">// all the edges have been visited</span><br>            <span class="hljs-keyword">if</span> (current-&gt;next == <span class="hljs-literal">nullptr</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br><br>            Eulerian_Node *q = current-&gt;next;<br>            <span class="hljs-comment">// q is the node yet to be visited</span><br><br>            <span class="hljs-comment">// find a subcircle and connect them</span><br>            Eulerian_Node *tb, *te;<br>            <span class="hljs-built_in">EulerCircuit</span>(q-&gt;Node_num, tb, te);<br>            te-&gt;next = q-&gt;next;<br>            current-&gt;next = tb;<br>        &#125;<br><br><br>        <span class="hljs-keyword">delete</span>[] ver_array;<br>        ver_array = tmp;<br><br><br>        Eulerian_Node *tmp_store;<br>        <span class="hljs-keyword">while</span> (beg != <span class="hljs-literal">nullptr</span>) &#123;<br>            ans.<span class="hljs-built_in">push_back</span>(ver_array[beg-&gt;Node_num].value);<br>            tmp_store = beg;<br>            beg = beg-&gt;next;<br>            <span class="hljs-keyword">delete</span> tmp_store;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br><br>    <span class="hljs-function">ver_node* <span class="hljs-title">clone</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        ver_node *tmp = <span class="hljs-keyword">new</span> ver_node[num_vers];<br>        edge_node *p;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; num_vers; i++) &#123;<br>            tmp[i].value = ver_array[i].value;<br>            p = ver_array[i].head;<br>            <span class="hljs-keyword">while</span> (p != <span class="hljs-literal">nullptr</span>) &#123;<br>                tmp[i].head = <span class="hljs-keyword">new</span> <span class="hljs-built_in">edge_node</span>(p-&gt;end, p-&gt;weight, tmp[i].head);<br>                p = p-&gt;next;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> tmp;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// Example: Eulerian circuit in an undirected graph</span><br>    <span class="hljs-comment">// Vertices: 0, 1, 2, 3</span><br>    <span class="hljs-comment">// Edges: 0-1, 1-2, 2-0, 0-3, 3-2 (all degrees are even)</span><br>    <span class="hljs-type">int</span> vertices[] = &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;;<br>    <span class="hljs-type">int</span> numVertices = <span class="hljs-built_in">sizeof</span>(vertices) / <span class="hljs-built_in">sizeof</span>(vertices[<span class="hljs-number">0</span>]);<br>    <span class="hljs-function">adjListGrapgh&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt; <span class="hljs-title">g</span><span class="hljs-params">(numVertices, vertices)</span></span>;<br><br>    <span class="hljs-comment">// Insert undirected edges (add both directions)</span><br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">4</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">5</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">4</span>, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>);<br>    g.<span class="hljs-built_in">insert</span>(<span class="hljs-number">5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<br><br>    std::vector&lt;<span class="hljs-type">int</span>&gt; path = g.<span class="hljs-built_in">EulerCurcuit</span>(<span class="hljs-number">0</span>);<br><br>    <span class="hljs-keyword">if</span> (path.<span class="hljs-built_in">empty</span>()) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;No Eulerian circuit exists in the graph.&quot;</span> &lt;&lt; std::endl;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Eulerian circuit: &quot;</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> v : path) &#123;<br>            std::cout &lt;&lt; v &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>        &#125;<br>        std::cout &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="哈密尔顿回路和旅行商问题">哈密尔顿回路和旅行商问题</h4>
+<p><strong>哈密尔顿回路</strong>：在无向图中找到一个回路，该回路通过每个节点一次且仅一次。</p>
 <p>详见<strong>未来算法：旅行商问题</strong>。</p>
-<h3 id="有向图的强联通-Kosaraju-Algorithm"><a href="#有向图的强联通-Kosaraju-Algorithm" class="headerlink" title="有向图的强联通 (Kosaraju Algorithm)"></a>有向图的强联通 (Kosaraju Algorithm)</h3><ul>
-<li>从任意结点开始对有向图$G$进行深度优先搜索，得到一个深度优先森林。</li>
-<li>将节点遍历：<strong>按照生成树的次序 + 对每一棵树上的节点进行后序遍历</strong></li>
-<li>将图$G$逆向得到$G_r$。</li>
-<li>从编号最大的节点开始深度优先搜索$G_r$,得到的森林就是<strong>原图的强联通分量</strong>。</li>
+<h3 id="有向图的强联通-kosaraju-algorithm">有向图的强联通 (Kosaraju
+Algorithm)</h3>
+<ul>
+<li>从任意结点开始对有向图<span
+class="math inline"><em>G</em></span>进行深度优先搜索，得到一个深度优先森林。</li>
+<li>将节点遍历：<strong>按照生成树的次序 +
+对每一棵树上的节点进行后序遍历</strong></li>
+<li>将图<span class="math inline"><em>G</em></span>逆向得到<span
+class="math inline"><em>G</em><sub><em>r</em></sub></span>。</li>
+<li>从编号最大的节点开始深度优先搜索<span
+class="math inline"><em>G</em><sub><em>r</em></sub></span>,得到的森林就是<strong>原图的强联通分量</strong>。</li>
 </ul>
-<h4 id="Thm"><a href="#Thm" class="headerlink" title="Thm"></a>Thm</h4><ul>
-<li>$x$ is the root for the tree which contains $v$ in $G_r$, then $\exists x \to v \in G_r \text{ and } v \to x \in G$.</li>
-<li>$x$ is the root for the tree which contains $w$ in $G_r$, then $\exists x \to w \in G_r \text{ and } w \to x \in G$.</li>
+<h4 id="thm">Thm</h4>
+<ul>
+<li><span class="math inline"><em>x</em></span> is the root for the tree
+which contains <span class="math inline"><em>v</em></span> in <span
+class="math inline"><em>G</em><sub><em>r</em></sub></span>, then <span
+class="math inline">∃<em>x</em> → <em>v</em> ∈ <em>G</em><sub><em>r</em></sub>
+and <em>v</em> → <em>x</em> ∈ <em>G</em></span>.</li>
+<li><span class="math inline"><em>x</em></span> is the root for the tree
+which contains <span class="math inline"><em>w</em></span> in <span
+class="math inline"><em>G</em><sub><em>r</em></sub></span>, then <span
+class="math inline">∃<em>x</em> → <em>w</em> ∈ <em>G</em><sub><em>r</em></sub>
+and <em>w</em> → <em>x</em> ∈ <em>G</em></span>.</li>
 </ul>
 <p>Then it suffices to prove:</p>
 <ul>
-<li>If $v$ and $w$ are in the same BFS tree for $G_r$, then $\exists v \to w \text{ and } w \to v \in G$.</li>
+<li>If <span class="math inline"><em>v</em></span> and <span
+class="math inline"><em>w</em></span> are in the same BFS tree for <span
+class="math inline"><em>G</em><sub><em>r</em></sub></span>, then <span
+class="math inline">∃<em>v</em> → <em>w</em> and
+<em>w</em> → <em>v</em> ∈ <em>G</em></span>.</li>
 </ul>
 <p>Hence, we only need to prove:</p>
-<p>$x$ is the root for the tree which contains $v$ in $G_r$, then $\exists x \to v \in G_r \text{ and } v \to x \in G$.</p>
+<p><span class="math inline"><em>x</em></span> is the root for the tree
+which contains <span class="math inline"><em>v</em></span> in <span
+class="math inline"><em>G</em><sub><em>r</em></sub></span>, then <span
+class="math inline">∃<em>x</em> → <em>v</em> ∈ <em>G</em><sub><em>r</em></sub>
+and <em>v</em> → <em>x</em> ∈ <em>G</em></span>.</p>
 <ul>
-<li>For $x$ is the root node, there exists a path from $x$ to $v$ in $G_r$.</li>
-<li>For $x$ is the root node, the index for $x$ is greater than $v$. Hence, all work of $v$ will be finished before $x$.</li>
-<li>Hence, there exists a path from $v$ to $x$. ($v$ finishes before $x$)</li>
+<li>For <span class="math inline"><em>x</em></span> is the root node,
+there exists a path from <span class="math inline"><em>x</em></span> to
+<span class="math inline"><em>v</em></span> in <span
+class="math inline"><em>G</em><sub><em>r</em></sub></span>.</li>
+<li>For <span class="math inline"><em>x</em></span> is the root node,
+the index for <span class="math inline"><em>x</em></span> is greater
+than <span class="math inline"><em>v</em></span>. Hence, all work of
+<span class="math inline"><em>v</em></span> will be finished before
+<span class="math inline"><em>x</em></span>.</li>
+<li>Hence, there exists a path from <span
+class="math inline"><em>v</em></span> to <span
+class="math inline"><em>x</em></span>. (<span
+class="math inline"><em>v</em></span> finishes before <span
+class="math inline"><em>x</em></span>)</li>
 </ul>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=WbzNRTTrX0g&list=PLhQjrBD2T381PopUTYtMSstgk-hsTGkVm&index=2">Harvard 50.3 Introduction to artificial intelligence</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<h2 id="references">References</h2>
+<section class="footnotes">
+<div class="footnote-list">
+<ol>
+<li>
+<span id="fn:1" class="footnote-text"><span><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=WbzNRTTrX0g&amp;list=PLhQjrBD2T381PopUTYtMSstgk-hsTGkVm&amp;index=2">Harvard
+50.3 Introduction to artificial intelligence</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+</ol>
+</div>
+</section>
+
                 
               </div>
             
@@ -1151,7 +1441,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 19, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       

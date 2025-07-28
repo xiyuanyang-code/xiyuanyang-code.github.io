@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/aov.png">
 <meta property="article:published_time" content="2025-05-15T10:08:53.000Z">
-<meta property="article:modified_time" content="2025-05-23T06:46:59.772Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:35.925Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Finished">
@@ -365,7 +365,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k words
+          1.2k words
         
       </span>
     
@@ -913,63 +913,86 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>在本文，我们将会介绍<strong>两种</strong>DFS算法的基本应用：<strong>AOV</strong>网络和<strong>AOE</strong>网络</p>
-<h1 id="AOV"><a href="#AOV" class="headerlink" title="AOV"></a>AOV</h1><p>我们假设一个工作流如下：</p>
-<p>我们定义一个原子化任务为$T_k &#x3D;  \{ A_k, S_k \}$，其中$S_k \subseteq \bigcup \{T_i \}$代表<strong>前置任务的集合</strong>。</p>
-<p>在访问$T_k$之前，需要满足以下的前提条件：</p>
-<p>$$\forall x \in S_k(x \text{ is visited.})$$</p>
+<h2 id="introduction">Introduction</h2>
+<p>在本文，我们将会介绍<strong>两种</strong>DFS算法的基本应用：<strong>AOV</strong>网络和<strong>AOE</strong>网络</p>
+<h1 id="aov">AOV</h1>
+<p>我们假设一个工作流如下：</p>
+<p>我们定义一个原子化任务为<span class="math inline">$T_k =  \\{ A_k,
+S_k \\}$</span>，其中<span class="math inline">$S_k \subseteq \bigcup
+\\{T_i \\}$</span>代表<strong>前置任务的集合</strong>。</p>
+<p>在访问<span
+class="math inline"><em>T</em><sub><em>k</em></sub></span>之前，需要满足以下的前提条件：</p>
+<p><span
+class="math display">∀<em>x</em> ∈ <em>S</em><sub><em>k</em></sub>(<em>x</em>
+is visited.)</span></p>
 <div class="note note-primary">
             <p>AOV网是对现实工作的真实建模，不同的工作之间往往存在<strong>先后之分</strong>。例如，你需要在学习数据结构之前学习程序设计。</p>
           </div>
-
 <p>如何根据工作流建立<strong>数据结构</strong>？很显然，我们可以使用<strong>拓扑排序</strong>和<strong>深度优先搜索</strong>来实现！首先，我们需要保证图是<strong>有向无环图</strong>，因为我们需要建模的是不同节点之间的依赖关系。</p>
 <p>建模之后示例如下：</p>
-<p><img src="https://blog.kakaocdn.net/dn/bp3O22/btrSmrK5Ze9/zcYCnmUzYaLHao72TMCKQ1/img.png" srcset="/img/loading.gif" lazyload alt="AOV Network"></p>
-<p>可以看到有向边代表的信息是<strong>不同节点之间的继承关系</strong>，而每个节点表示具体的原子任务，上文建模中的$S_k$就是对应节点的所有first endpoint组成的集合，也就是<strong>入度</strong>。因此，我们把这种网络叫做 Activity on Vertex Network (AOV Network).</p>
-<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><p>如何实现拓扑排序？</p>
+<figure>
+<img
+src="https://blog.kakaocdn.net/dn/bp3O22/btrSmrK5Ze9/zcYCnmUzYaLHao72TMCKQ1/img.png" srcset="/img/loading.gif" lazyload
+alt="AOV Network" />
+<figcaption aria-hidden="true">AOV Network</figcaption>
+</figure>
+<p>可以看到有向边代表的信息是<strong>不同节点之间的继承关系</strong>，而每个节点表示具体的原子任务，上文建模中的<span
+class="math inline"><em>S</em><sub><em>k</em></sub></span>就是对应节点的所有first
+endpoint组成的集合，也就是<strong>入度</strong>。因此，我们把这种网络叫做
+Activity on Vertex Network (AOV Network).</p>
+<h2 id="拓扑排序">拓扑排序</h2>
+<p>如何实现拓扑排序？</p>
 <ul>
 <li>首先找到一个入度为0的点。</li>
-<li><strong>入度为0</strong>可以形象地概括为<strong>这个节点的全部预备先修节点</strong>已经被访问了，逻辑上的<ul>
+<li><strong>入度为0</strong>可以形象地概括为<strong>这个节点的全部预备先修节点</strong>已经被访问了，逻辑上的
+<ul>
 <li>从这个节点开始，访问该节点。</li>
 <li><strong>在逻辑上删除它和从它出发的所有边</strong>。</li>
 <li>对它的后继检查入度是否为0。</li>
 <li>如果其后继存在入度为0的点，继续push进入队列。</li>
-</ul>
-</li>
+</ul></li>
 <li>如果<strong>队列为空</strong>但是并没有遍历完全，说明<strong>节点存在环</strong>，不符合有向无环图的定义。</li>
 </ul>
-<p>时间复杂度：$O(|V| + |E|)$</p>
+<p>时间复杂度：<span
+class="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span></p>
 <div class="note note-primary">
-            <p>一般来说，线性的图论算法如果使用<strong>邻接表</strong>存储可以达到$O(|V| + |E|)$的时间复杂度，如果使用<strong>邻接矩阵</strong>存储可以达到$O(|V|^2)$的时间复杂度。</p><ul><li>如果为<strong>稀疏图</strong>，$|V|$很大但是$|E|$很小，此时<strong>邻接矩阵</strong>会存在严重的空间浪费问题，因此使用邻接表储存更方便。</li><li>如果为稠密图，$|V|$很小但是$|E|$很大，那此时邻接表的存储是非常高效且简单的，反而<strong>邻接表</strong>的使用更加的复杂。</li></ul>
+            <p>一般来说，线性的图论算法如果使用<strong>邻接表</strong>存储可以达到<spanclass="math inline"><em>O</em>(|<em>V</em>| + |<em>E</em>|)</span>的时间复杂度，如果使用<strong>邻接矩阵</strong>存储可以达到<spanclass="math inline"><em>O</em>(|<em>V</em>|<sup>2</sup>)</span>的时间复杂度。</p><ul><li>如果为<strong>稀疏图</strong>，<spanclass="math inline">|<em>V</em>|</span>很大但是<spanclass="math inline">|<em>E</em>|</span>很小，此时<strong>邻接矩阵</strong>会存在严重的空间浪费问题，因此使用邻接表储存更方便。</li><li>如果为稠密图，<spanclass="math inline">|<em>V</em>|</span>很小但是<spanclass="math inline">|<em>E</em>|</span>很大，那此时邻接表的存储是非常高效且简单的，反而<strong>邻接表</strong>的使用更加的复杂。</li></ul>
           </div>
-
-<h1 id="AOE"><a href="#AOE" class="headerlink" title="AOE"></a>AOE</h1><p>In contrast, we have Activity on Edge Network (AOE Network) as follows:</p>
+<h1 id="aoe">AOE</h1>
+<p>In contrast, we have Activity on Edge Network (AOE Network) as
+follows:</p>
 <p>顾名思义，我们此时需要把<strong>活动定义在有向边上</strong>，而不是在节点上。</p>
-<p>我们假设在一个工作流存在若干个时刻，$t_0,t_1, t_2, t_3, \cdots,t_n$.这里只考虑离散化的时刻。我们把第一个时间节点定义为源点($t_0$), 把最后一个时间节点定义为$t_n$，即<strong>汇点</strong>。</p>
+<p>我们假设在一个工作流存在若干个时刻，<span
+class="math inline"><em>t</em><sub>0</sub>, <em>t</em><sub>1</sub>, <em>t</em><sub>2</sub>, <em>t</em><sub>3</sub>, ⋯, <em>t</em><sub><em>n</em></sub></span>.这里只考虑离散化的时刻。我们把第一个时间节点定义为源点(<span
+class="math inline"><em>t</em><sub>0</sub></span>),
+把最后一个时间节点定义为<span
+class="math inline"><em>t</em><sub><em>n</em></sub></span>，即<strong>汇点</strong>。</p>
 <ul>
-<li><p>我们允许并行事件的发生</p>
-</li>
-<li><p>但是和AOV一样，事件之间存在<strong>严格的先后关系</strong>。</p>
-</li>
-<li><p>将活动定义在<strong>有向边</strong>上，而不是定义在<strong>节点</strong>上。</p>
-</li>
-<li><p>顶点代表事件，而有向边的权值代表某个活动的持续时间。有向边的方向代表事件先后的发生次序。</p>
-</li>
+<li><p>我们允许并行事件的发生</p></li>
+<li><p>但是和AOV一样，事件之间存在<strong>严格的先后关系</strong>。</p></li>
+<li><p>将活动定义在<strong>有向边</strong>上，而不是定义在<strong>节点</strong>上。</p></li>
+<li><p>顶点代表事件，而有向边的权值代表某个活动的持续时间。有向边的方向代表事件先后的发生次序。</p></li>
 </ul>
 <p>AOE网的关键：<strong>遍历所有节点的最长时间</strong>，以及那些节点事件是影响工程进度的关键事件。</p>
 <p>因为我们允许时间并行，因此<strong>从源点到汇点</strong>的最长时间就是完成工程的最短时间。（当最长路径上的活动完成之后，其他路径长的活动肯定已经完成）</p>
 <div class="note note-primary">
-            <p>这貌似是一件很荒谬的事情，不过是正确的。</p><p><img src="https://s1.imagehub.cc/images/2025/05/15/bda878383a5659c168910dc5172ebd47.png" srcset="/img/loading.gif" lazyload alt="AOE"></p><p>我们来看上面的图，把$t_0$作为源点，$t_3$作为汇点，我们的任务是要在<strong>尽可能的短的长度内</strong>遍历图上所有的点（允许并行）。</p><p>很显然，从起点到终点的最短路径长度为2，即走最下方的那条路。但是问题在于此时<strong>达到汇点之后</strong>需要等待上游两条路结束，此时我们的任务还没有完成。</p><p>我们可以理解为<strong>我们需要等最慢的支路完成了，此时才可以认为整体的支路完成了</strong>。</p>
+            <p>这貌似是一件很荒谬的事情，不过是正确的。</p><figure><imgsrc="https://s1.imagehub.cc/images/2025/05/15/bda878383a5659c168910dc5172ebd47.png"alt="AOE" /><figcaption aria-hidden="true">AOE</figcaption></figure><p>我们来看上面的图，把<spanclass="math inline"><em>t</em><sub>0</sub></span>作为源点，<spanclass="math inline"><em>t</em><sub>3</sub></span>作为汇点，我们的任务是要在<strong>尽可能的短的长度内</strong>遍历图上所有的点（允许并行）。</p><p>很显然，从起点到终点的最短路径长度为2，即走最下方的那条路。但是问题在于此时<strong>达到汇点之后</strong>需要等待上游两条路结束，此时我们的任务还没有完成。</p><p>我们可以理解为<strong>我们需要等最慢的支路完成了，此时才可以认为整体的支路完成了</strong>。</p>
           </div>
-
 <p>因此，我们就可以明确我们的目标：求<strong>从起点到终点最长的路径</strong>。</p>
-<p>Given the starting point $x$ and the ending point $y$, we need to find the longest path from $x$ to $y$. (Practically, it means the worst situation of an event). We call it a <strong>critical event</strong>.</p>
+<p>Given the starting point <span class="math inline"><em>x</em></span>
+and the ending point <span class="math inline"><em>y</em></span>, we
+need to find the longest path from <span
+class="math inline"><em>x</em></span> to <span
+class="math inline"><em>y</em></span>. (Practically, it means the worst
+situation of an event). We call it a <strong>critical
+event</strong>.</p>
 <p>更新的算法也很简单，使用类似于动态规划的思想：</p>
-<p>$ee(v_i) &#x3D; \max \{ ee(v_k) + L_{k,i} \}$</p>
+<p><span class="math inline">$ee(v_i) = \max \\{ ee(v_k) + L_{k,i}
+\\}$</span></p>
 <p>使用一次DFS遍历，不断更新下一个节点的最长长度。</p>
 <p>不过同时，我们还需要计算<strong>顶点的最迟发生时间</strong>，转化一下就是如果我们倒着看，就是从终点向起点的<strong>最长发生时间</strong>。（在我们已知收点的最迟发生时间的情况下），按照逆拓扑序的顺序找到最小值。</p>
-<p>如果<strong>最早发生时间 &#x3D;&#x3D; 最迟发生时间</strong>，说明这个节点很关键（被卡脖子了）。</p>
+<p>如果<strong>最早发生时间 ==
+最迟发生时间</strong>，说明这个节点很关键（被卡脖子了）。</p>
 
                 
               </div>
@@ -1049,7 +1072,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 23, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       

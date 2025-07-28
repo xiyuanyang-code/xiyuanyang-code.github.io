@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/graphds.jpg">
 <meta property="article:published_time" content="2025-05-14T16:34:14.000Z">
-<meta property="article:modified_time" content="2025-05-23T06:47:08.081Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:35.897Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Finished">
@@ -365,7 +365,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          228 words
+          178 words
         
       </span>
     
@@ -913,27 +913,48 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h1 id="Math-for-Graph-Theory"><a href="#Math-for-Graph-Theory" class="headerlink" title="Math for Graph Theory"></a>Math for Graph Theory</h1><h2 id="Connect-Components"><a href="#Connect-Components" class="headerlink" title="Connect Components"></a>Connect Components</h2><h2 id="Adding-Edges-into-Graphs"><a href="#Adding-Edges-into-Graphs" class="headerlink" title="Adding Edges into Graphs"></a>Adding Edges into Graphs</h2><h3 id="Directed-Graphs"><a href="#Directed-Graphs" class="headerlink" title="Directed Graphs"></a>Directed Graphs</h3><p>For Graph $G &#x3D; (V,E)$, we now add one edge from $u$ to $v$ to make it as $G’ &#x3D; (V’, E’)$. Now consider:</p>
+<h1 id="math-for-graph-theory">Math for Graph Theory</h1>
+<h2 id="connect-components">Connect Components</h2>
+<h2 id="adding-edges-into-graphs">Adding Edges into Graphs</h2>
+<h3 id="directed-graphs">Directed Graphs</h3>
+<p>For Graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>, we now
+add one edge from <span class="math inline"><em>u</em></span> to <span
+class="math inline"><em>v</em></span> to make it as <span
+class="math inline"><em>G</em>′ = (<em>V</em>′, <em>E</em>′)</span>. Now
+consider:</p>
 <ul>
-<li>If $u$ and $v$ are mutually connected in $G$:<ul>
+<li>If <span class="math inline"><em>u</em></span> and <span
+class="math inline"><em>v</em></span> are mutually connected in <span
+class="math inline"><em>G</em></span>:
+<ul>
 <li>Nothing Changes!</li>
-<li>Or we can say: $\forall w \in V, [w]_{conn(G)} &#x3D; [w]_{conn(G’)}$</li>
-</ul>
-</li>
-<li>If $u$ is not connected to $v$ and $v$ is connected to $u$:<ul>
-<li>The equivalent class of $u$ and $v$ is <strong>unioned</strong>!</li>
-<li>$[u]_{conn(G’)} &#x3D; [v]_{conn(G’)} &#x3D; \{ w\in V| u \text{ is reachable from } w \text{ and } w \text{ is reachable from } v\}$</li>
+<li>Or we can say: <span
+class="math inline">∀<em>w</em> ∈ <em>V</em>, [<em>w</em>]_<em>c</em><em>o</em><em>n</em><em>n</em>(<em>G</em>) = [<em>w</em>]_<em>c</em><em>o</em><em>n</em><em>n</em>(<em>G</em>′)</span></li>
+</ul></li>
+<li>If <span class="math inline"><em>u</em></span> is not connected to
+<span class="math inline"><em>v</em></span> and <span
+class="math inline"><em>v</em></span> is connected to <span
+class="math inline"><em>u</em></span>:
+<ul>
+<li>The equivalent class of <span class="math inline"><em>u</em></span>
+and <span class="math inline"><em>v</em></span> is
+<strong>unioned</strong>!</li>
+<li><span class="math inline">$[u]\_{conn(G')} = [v]\_{conn(G')} = \\{
+w\in V| u \text{ is reachable from } w \text{ and } w \text{ is
+reachable from } v\\}$</span></li>
 <li>相当于双向可达，即<strong>两个强联通块拼在一起</strong>。不过肯定不止于此，只要满足单向可达就行。</li>
-</ul>
-</li>
-<li>$u$ is not reachable from $v$.<ul>
-<li>$\forall w \in V, [w]_{conn(G)} &#x3D; [w]_{conn(G’)}$</li>
+</ul></li>
+<li><span class="math inline"><em>u</em></span> is not reachable from
+<span class="math inline"><em>v</em></span>.
+<ul>
+<li><span
+class="math inline">∀<em>w</em> ∈ <em>V</em>, [<em>w</em>]_<em>c</em><em>o</em><em>n</em><em>n</em>(<em>G</em>) = [<em>w</em>]_<em>c</em><em>o</em><em>n</em><em>n</em>(<em>G</em>′)</span></li>
 <li><strong>这个证明很经典</strong></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h2 id="Trees-in-Graph"><a href="#Trees-in-Graph" class="headerlink" title="Trees in Graph"></a>Trees in Graph</h2><p><strong>非空联通没有回路的无向图</strong>。</p>
+<h2 id="trees-in-graph">Trees in Graph</h2>
+<p><strong>非空联通没有回路的无向图</strong>。</p>
 <blockquote>
 <p>我们这里定义的是<strong>无根树</strong>，和数据结构中的<strong>有根树</strong>存在一定的差别。</p>
 </blockquote>
@@ -941,21 +962,34 @@
 <li>Adding an edge into a tree, there will be a simple circuit.</li>
 <li>Removing an edge, the tree will be unconnected.</li>
 </ul>
-<h3 id="leaf"><a href="#leaf" class="headerlink" title="leaf"></a>leaf</h3><p>A vertex is leaf when the degree of this vertex is 1.</p>
+<h3 id="leaf">leaf</h3>
+<p>A vertex is leaf when the degree of this vertex is 1.</p>
 <ul>
-<li>If a tree has at least two vertices, then it will have at least 2 leaf.</li>
-<li>A tree has $n$ vertices has $n-1$ edges.</li>
+<li>If a tree has at least two vertices, then it will have at least 2
+leaf.</li>
+<li>A tree has <span class="math inline"><em>n</em></span> vertices has
+<span class="math inline"><em>n</em> − 1</span> edges.</li>
 </ul>
 <p>因此，树在图中具有<strong>非常良好的性质</strong>：</p>
 <ul>
-<li>We define the tree $T &#x3D; (V, E_T)$ is a subgraph of graph $G &#x3D; (V, E)$:<ul>
-<li><strong>We suppose G is a connected and undirected graph</strong>. (Ensure $\exists T$)</li>
-<li>$E_T \subseteq E$</li>
-<li>$T$ is the <strong>maximum graph which has no circles</strong> for all the subgraphs in $G$.</li>
-<li>$T$ is the <strong>minimum connected graph</strong> for all the subgraphs in $G$</li>
-<li>$T$ may not be the only tree for graph $G$.</li>
-</ul>
-</li>
+<li>We define the tree <span
+class="math inline"><em>T</em> = (<em>V</em>, <em>E</em><sub><em>T</em></sub>)</span>
+is a subgraph of graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>:
+<ul>
+<li><strong>We suppose G is a connected and undirected graph</strong>.
+(Ensure <span class="math inline">∃<em>T</em></span>)</li>
+<li><span
+class="math inline"><em>E</em><sub><em>T</em></sub> ⊆ <em>E</em></span></li>
+<li><span class="math inline"><em>T</em></span> is the <strong>maximum
+graph which has no circles</strong> for all the subgraphs in <span
+class="math inline"><em>G</em></span>.</li>
+<li><span class="math inline"><em>T</em></span> is the <strong>minimum
+connected graph</strong> for all the subgraphs in <span
+class="math inline"><em>G</em></span></li>
+<li><span class="math inline"><em>T</em></span> may not be the only tree
+for graph <span class="math inline"><em>G</em></span>.</li>
+</ul></li>
 </ul>
 
                 
@@ -1036,7 +1070,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 23, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       

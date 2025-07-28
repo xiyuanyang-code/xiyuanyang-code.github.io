@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Tensorboard.png">
 <meta property="article:published_time" content="2025-07-01T04:12:49.000Z">
-<meta property="article:modified_time" content="2025-07-03T08:49:47.181Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:36.502Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Finished">
 <meta property="article:tag" content="Python">
@@ -738,178 +738,286 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Torch-Memo-Tensor-Board"><a href="#Torch-Memo-Tensor-Board" class="headerlink" title="Torch Memo: Tensor Board"></a>Torch Memo: Tensor Board</h1><p>使用Tensor Board可以更加方便的查看训练时的可视化图像，作为TensorFlow库的原生支持，不用再重复造轮子。</p>
-<p><img src="https://s1.imagehub.cc/images/2025/07/01/957b4cea13e3d7f057e64a0321247751.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p>GitHub Repo: <a target="_blank" rel="noopener" href="https://github.com/tensorflow/tensorboard">Tensor Board</a></p>
-<p>官方文档：<a target="_blank" rel="noopener" href="https://www.tensorflow.org/tensorboard/get_started">Tensor Board Official</a></p>
-<p>Relevant Website: <a target="_blank" rel="noopener" href="https://docs.pytorch.org/docs/stable//tensorboard.html">Tensor Board in torch</a></p>
+                <h1 id="torch-memo-tensor-board">Torch Memo: Tensor Board</h1>
+<p>使用Tensor
+Board可以更加方便的查看训练时的可视化图像，作为TensorFlow库的原生支持，不用再重复造轮子。</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/07/01/957b4cea13e3d7f057e64a0321247751.png" srcset="/img/loading.gif" lazyload
+alt="image" />
+<figcaption aria-hidden="true">image</figcaption>
+</figure>
+<p>GitHub Repo: <a
+target="_blank" rel="noopener" href="https://github.com/tensorflow/tensorboard">Tensor Board</a></p>
+<p>官方文档：<a
+target="_blank" rel="noopener" href="https://www.tensorflow.org/tensorboard/get_started">Tensor Board
+Official</a></p>
+<p>Relevant Website: <a
+target="_blank" rel="noopener" href="https://docs.pytorch.org/docs/stable//tensorboard.html">Tensor
+Board in torch</a></p>
 <div class="note note-primary">
-            <p><strong>本文主要聚焦于Tensor Board</strong>在Pytorch库中的使用。</p><p>All Source Code can be found in <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Torch_Memo/tree/master/src/Tensor_Board">This Repo</a></p>
+            <p><strong>本文主要聚焦于Tensor Board</strong>在Pytorch库中的使用。</p><p>All Source Code can be found in <ahref="https://github.com/xiyuanyang-code/Torch_Memo/tree/master/src/Tensor_Board">ThisRepo</a></p>
           </div>
-
-<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install torch<br></code></pre></td></tr></table></figure>
-
-<p><code>TensorBoard</code> is included in <code>torch.utils.tensorboard</code>, you don’t need to install <code>tensorboard</code> or <code>tensorflow</code> again in case the conflicted version of <strong>CUDnn</strong>.</p>
-<h2 id="Basic-Usage"><a href="#Basic-Usage" class="headerlink" title="Basic Usage"></a>Basic Usage</h2><p>For Python, it supports <code>tensorboard</code> in <code>torch.utils.tensorboard</code>.</p>
+<h2 id="installation">Installation</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install torch<br></code></pre></td></tr></table></figure>
+<p><code>TensorBoard</code> is included in
+<code>torch.utils.tensorboard</code>, you don’t need to install
+<code>tensorboard</code> or <code>tensorflow</code> again in case the
+conflicted version of <strong>CUDnn</strong>.</p>
+<h2 id="basic-usage">Basic Usage</h2>
+<p>For Python, it supports <code>tensorboard</code> in
+<code>torch.utils.tensorboard</code>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torchvision<br><span class="hljs-keyword">from</span> torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><span class="hljs-keyword">from</span> torchvision <span class="hljs-keyword">import</span> datasets, transforms<br><br><span class="hljs-comment"># Writer will output to ./runs/ directory by default</span><br>writer = SummaryWriter()<br><br>transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((<span class="hljs-number">0.5</span>,), (<span class="hljs-number">0.5</span>,))])<br>trainset = datasets.MNIST(<span class="hljs-string">&#x27;mnist_train&#x27;</span>, train=<span class="hljs-literal">True</span>, download=<span class="hljs-literal">True</span>, transform=transform)<br>trainloader = torch.utils.data.DataLoader(trainset, batch_size=<span class="hljs-number">64</span>, shuffle=<span class="hljs-literal">True</span>)<br>model = torchvision.models.resnet50(<span class="hljs-literal">False</span>)<br><span class="hljs-comment"># Have ResNet model take in grayscale rather than RGB</span><br>model.conv1 = torch.nn.Conv2d(<span class="hljs-number">1</span>, <span class="hljs-number">64</span>, kernel_size=<span class="hljs-number">7</span>, stride=<span class="hljs-number">2</span>, padding=<span class="hljs-number">3</span>, bias=<span class="hljs-literal">False</span>)<br>images, labels = <span class="hljs-built_in">next</span>(<span class="hljs-built_in">iter</span>(trainloader))<br><br>grid = torchvision.utils.make_grid(images)<br>writer.add_image(<span class="hljs-string">&#x27;images&#x27;</span>, grid, <span class="hljs-number">0</span>)<br>writer.add_graph(model, images)<br>writer.close()<br></code></pre></td></tr></table></figure>
-
 <div class="note note-primary">
-            <p>Tensor Board是如何可视化的？</p><ul><li><p><strong>数据收集</strong>：TensorBoard本身不会产生新的数据，所可视化的数据本身依赖于使用torch，TensorFlow等深度学习库等生成的<strong>日志文件</strong>。</p><ul><li>Summary Writer：<strong>摘要写入器</strong></li><li>支持的数据类型包括：<ul><li>标量（Scalars）：损失、准确率等数值。</li><li>图像（Images）：输入&#x2F;输出图像。</li><li>直方图（Histograms）：权重分布。</li><li>计算图（Graphs）：模型结构。</li><li>嵌入向量（Embeddings）：高维数据降维可视化。</li></ul></li></ul></li><li><p>数据存储：数据以<strong>二进制文件</strong>存储在日志文件中，命名文件为<code>events.out.tfevents.1751354262.DB93.4101867.0.v2</code>.</p></li><li><p>数据读取：在数据读取阶段需要指定日志文件的目录，例如：</p><ul><li><pre><code class="bash">  tensorboard --logdir=./logs  <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><br>- ```bash<br>	python -m tensorboard.main <span class="hljs-params">--logdir=</span><span class="hljs-string">./log</span><br>	<br>	<span class="hljs-comment"># 注意lsof命令可以查看端口的占用情况</span><br>	lsof -i <span class="hljs-function">:6006</span><br></code></pre></td></tr></table></figure></code></pre></li></ul></li><li><p><strong>最后的可视化展示阶段</strong>。</p></li></ul><p>因此，Tensorboard可以<strong>最小化的减少画图等代码对训练代码的侵入程度</strong>，只需要生成日志文件即可，并不需要插入大量的复杂的难调试的可视化的代码。</p>
+            <p>Tensor Board是如何可视化的？</p><ul><li><p><strong>数据收集</strong>：TensorBoard本身不会产生新的数据，所可视化的数据本身依赖于使用torch，TensorFlow等深度学习库等生成的<strong>日志文件</strong>。</p><ul><li>Summary Writer：<strong>摘要写入器</strong></li><li>支持的数据类型包括：<ul><li>标量（Scalars）：损失、准确率等数值。</li><li>图像（Images）：输入/输出图像。</li><li>直方图（Histograms）：权重分布。</li><li>计算图（Graphs）：模型结构。</li><li>嵌入向量（Embeddings）：高维数据降维可视化。</li></ul></li></ul></li><li><p>数据存储：数据以<strong>二进制文件</strong>存储在日志文件中，命名文件为<code>events.out.tfevents.1751354262.DB93.4101867.0.v2</code>.</p></li><li><p>数据读取：在数据读取阶段需要指定日志文件的目录，例如：</p><ul><li>```bash tensorboard –logdir=./logs <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><br>- ```bash<br>	python -m tensorboard.main <span class="hljs-params">--logdir=</span><span class="hljs-string">./log</span><br>	<br>	<span class="hljs-comment"># 注意lsof命令可以查看端口的占用情况</span><br>	lsof -i <span class="hljs-function">:6006</span><br></code></pre></td></tr></table></figure></li></ul></li><li><p><strong>最后的可视化展示阶段</strong>。</p></li></ul><p>因此，Tensorboard可以<strong>最小化的减少画图等代码对训练代码的侵入程度</strong>，只需要生成日志文件即可，并不需要插入大量的复杂的难调试的可视化的代码。</p>
           </div>
-
-<h1 id="Tensor-Board-Tutorial"><a href="#Tensor-Board-Tutorial" class="headerlink" title="Tensor Board Tutorial"></a>Tensor Board Tutorial</h1><h1 id="Tutorial-for-Tensor-Board-in-Pytorch"><a href="#Tutorial-for-Tensor-Board-in-Pytorch" class="headerlink" title="Tutorial for Tensor Board in Pytorch"></a>Tutorial for Tensor Board in Pytorch</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Tensor Board is supported in <code>torch.utils.tensorboard</code>.</p>
-<p>Docs: <a target="_blank" rel="noopener" href="https://docs.pytorch.org/docs/stable//tensorboard.html">Docs for tensor board</a></p>
-<h2 id="Installation-1"><a href="#Installation-1" class="headerlink" title="Installation"></a>Installation</h2><p>Actually you only need to install <code>torch</code>.</p>
+<h1 id="tensor-board-tutorial">Tensor Board Tutorial</h1>
+<h1 id="tutorial-for-tensor-board-in-pytorch">Tutorial for Tensor Board
+in Pytorch</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Tensor Board is supported in
+<code>torch.utils.tensorboard</code>.</p>
+<p>Docs: <a
+target="_blank" rel="noopener" href="https://docs.pytorch.org/docs/stable//tensorboard.html">Docs for
+tensor board</a></p>
+<h2 id="installation-1">Installation</h2>
+<p>Actually you only need to install <code>torch</code>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">%pip install torch tensorboard<br></code></pre></td></tr></table></figure>
-
-<h2 id="Quick-Setup"><a href="#Quick-Setup" class="headerlink" title="Quick Setup"></a>Quick Setup</h2><p>To use Tensor Board quickly, run this command as follow:</p>
+<h2 id="quick-setup">Quick Setup</h2>
+<p>To use Tensor Board quickly, run this command as follow:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># tutorial for using tensor board</span><br><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torchvision<br><span class="hljs-keyword">from</span> torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><span class="hljs-keyword">from</span> torchvision <span class="hljs-keyword">import</span> datasets, transforms<br><br><span class="hljs-built_in">print</span>(torch.__version__)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Numbers of GPU available: <span class="hljs-subst">&#123;torch.cuda.device_count()&#125;</span>&quot;</span>)<br><br><span class="hljs-comment"># Writer will output to ./runs/ directory by default</span><br>writer = SummaryWriter()<br><br>transform = transforms.Compose(<br>    [transforms.ToTensor(), transforms.Normalize((<span class="hljs-number">0.5</span>,), (<span class="hljs-number">0.5</span>,))]<br>)<br>trainset = datasets.MNIST(<br>    <span class="hljs-string">&quot;data/mnist_train&quot;</span>, train=<span class="hljs-literal">True</span>, download=<span class="hljs-literal">True</span>, transform=transform<br>)<br>trainloader = torch.utils.data.DataLoader(trainset, batch_size=<span class="hljs-number">64</span>, shuffle=<span class="hljs-literal">True</span>)<br>model = torchvision.models.resnet50(weights=<span class="hljs-literal">None</span>)<br><span class="hljs-comment"># Have ResNet model take in grayscale rather than RGB</span><br>model.conv1 = torch.nn.Conv2d(<span class="hljs-number">1</span>, <span class="hljs-number">64</span>, kernel_size=<span class="hljs-number">7</span>, stride=<span class="hljs-number">2</span>, padding=<span class="hljs-number">3</span>, bias=<span class="hljs-literal">False</span>)<br>images, labels = <span class="hljs-built_in">next</span>(<span class="hljs-built_in">iter</span>(trainloader))<br><br>grid = torchvision.utils.make_grid(images)<br>writer.add_image(<span class="hljs-string">&quot;images&quot;</span>, grid, <span class="hljs-number">0</span>)<br>writer.add_graph(model, images)<br>writer.close()<br><br><span class="hljs-comment"># then run tensor board in the command line!</span><br></code></pre></td></tr></table></figure>
-
 <p>Then you can open Tensor Board via this command:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tensorboard --logdir=./log<br></code></pre></td></tr></table></figure>
-
 <p>or</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python -m tensorboard.main --logdir=./log<br></code></pre></td></tr></table></figure>
-
-<h2 id="SummaryWriter"><a href="#SummaryWriter" class="headerlink" title="SummaryWriter"></a>SummaryWriter</h2><p>The <strong>SummaryWriter</strong> class provides a high-level API to create an event file in a given directory and add summaries and events to it. The class updates the file contents asynchronously. This allows a training program to call methods to add data to the file directly from the training loop, without slowing down training.</p>
-<h3 id="Scalars"><a href="#Scalars" class="headerlink" title="Scalars"></a>Scalars</h3><p>You can write Scalars into Tensor Board.</p>
-<p>This is one of the most common things to log. You can use add_scalar() to record a single numerical value, such as a loss or accuracy, at each training step. This is great for tracking your model’s performance over time.</p>
-<h4 id="Adding-scalars-for-single-data"><a href="#Adding-scalars-for-single-data" class="headerlink" title="Adding scalars for single data"></a>Adding scalars for single data</h4><p>Parameters:</p>
+<h2 id="summarywriter">SummaryWriter</h2>
+<p>The <strong>SummaryWriter</strong> class provides a high-level API to
+create an event file in a given directory and add summaries and events
+to it. The class updates the file contents asynchronously. This allows a
+training program to call methods to add data to the file directly from
+the training loop, without slowing down training.</p>
+<h3 id="scalars">Scalars</h3>
+<p>You can write Scalars into Tensor Board.</p>
+<p>This is one of the most common things to log. You can use
+add_scalar() to record a single numerical value, such as a loss or
+accuracy, at each training step. This is great for tracking your model’s
+performance over time.</p>
+<h4 id="adding-scalars-for-single-data">Adding scalars for single
+data</h4>
+<p>Parameters:</p>
 <ul>
 <li><code>tag</code> (str) – Data identifier</li>
-<li><code>scalar_value</code> (float or string&#x2F;blobname) – Value to save</li>
+<li><code>scalar_value</code> (float or string/blobname) – Value to
+save</li>
 <li><code>global_step</code> (int) – Global step value to record</li>
-<li><code>walltime</code> (float) – Optional override default walltime (time.time()) with seconds after epoch of event</li>
-<li><code>new_style</code> (boolean) – Whether to use new style (tensor field) or old style (simple_value field). New style could lead to faster data loading.</li>
+<li><code>walltime</code> (float) – Optional override default walltime
+(time.time()) with seconds after epoch of event</li>
+<li><code>new_style</code> (boolean) – Whether to use new style (tensor
+field) or old style (simple_value field). New style could lead to faster
+data loading.</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>writer = SummaryWriter(log_dir=<span class="hljs-string">&quot;test_dir&quot;</span>)<br><br><span class="hljs-keyword">for</span> n_iter <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">50</span>):<br>    writer.add_scalar(<span class="hljs-string">&quot;Loss/train&quot;</span>, np.random.random(), n_iter)<br>    writer.add_scalar(<span class="hljs-string">&quot;Loss/test&quot;</span>, np.random.random(), n_iter)<br>    writer.add_scalar(<span class="hljs-string">&quot;Accuracy/train&quot;</span>, np.random.random(), n_iter)<br>    writer.add_scalar(<span class="hljs-string">&quot;Accuracy/test&quot;</span>, np.random.random(), n_iter)<br><br><span class="hljs-comment"># then you can see the curve generated randomly in the Tensor Board!</span><br>writer_2 = SummaryWriter(log_dir=<span class="hljs-string">&quot;test_dir&quot;</span>)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_func</span>(<span class="hljs-params">x</span>):<br>    <span class="hljs-keyword">return</span> x<br><br><br><span class="hljs-keyword">for</span> n_iter <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">50</span>):<br>    writer_2.add_scalar(<span class="hljs-string">&quot;test_1/test_2&quot;</span>, test_func(n_iter), n_iter)<br><br>writer_2.close()<br></code></pre></td></tr></table></figure>
-
-<h4 id="Adding-Scalar-for-many-data"><a href="#Adding-Scalar-for-many-data" class="headerlink" title="Adding Scalar for many data"></a>Adding Scalar for many data</h4><p>Add many scalar data to summary.</p>
+<h4 id="adding-scalar-for-many-data">Adding Scalar for many data</h4>
+<p>Add many scalar data to summary.</p>
 <p>Parameters</p>
 <ul>
 <li><code>main_tag</code> (str) – The parent name for the tags</li>
-<li><code>tag_scalar_dict</code> (dict) – <strong>Key-value pair</strong> storing the tag and corresponding values (It is a <strong>dict</strong>!)</li>
+<li><code>tag_scalar_dict</code> (dict) – <strong>Key-value
+pair</strong> storing the tag and corresponding values (It is a
+<strong>dict</strong>!)</li>
 <li><code>global_step</code> (int) – Global step value to record</li>
-<li><code>walltime</code> (float) – Optional override default walltime (time.time()) seconds after epoch of event</li>
+<li><code>walltime</code> (float) – Optional override default walltime
+(time.time()) seconds after epoch of event</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>r = <span class="hljs-number">5</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>):<br>    writer_2.add_scalars(<br>        <span class="hljs-string">&quot;run_14h&quot;</span>,<br>        &#123;<br>            <span class="hljs-string">&quot;xsinx&quot;</span>: i * np.sin(i / r),<br>            <span class="hljs-string">&quot;xcosx&quot;</span>: i * np.cos(i / r),<br>            <span class="hljs-string">&quot;tanx&quot;</span>: np.tan(i / r),<br>        &#125;,  <span class="hljs-comment"># return multiple functions</span><br>        i,<br>    )<br><br><span class="hljs-comment"># !remember to add this line like plt.close()!</span><br>writer_2.close()<br><br><span class="hljs-comment"># This call adds three values to the same scalar plot with the tag</span><br><span class="hljs-comment"># &#x27;run_14h&#x27; in TensorBoard&#x27;s scalar section.</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="Images-and-videos"><a href="#Images-and-videos" class="headerlink" title="Images and videos"></a>Images and videos</h3><h4 id="Add-single-image"><a href="#Add-single-image" class="headerlink" title="Add single image"></a>Add single image</h4><p>Parameters</p>
+<h3 id="images-and-videos">Images and videos</h3>
+<h4 id="add-single-image">Add single image</h4>
+<p>Parameters</p>
 <ul>
 <li><code>tag</code> (str) – Data identifier</li>
-<li><code>img_tensor</code> (<strong>torch.Tensor, numpy.ndarray, or string&#x2F;blobname</strong>) – Image data</li>
+<li><code>img_tensor</code> (<strong>torch.Tensor, numpy.ndarray, or
+string/blobname</strong>) – Image data</li>
 <li><code>global_step</code> (int) – Global step value to record</li>
-<li><code>walltime</code> (float) – Optional override default walltime (time.time()) seconds after epoch of event</li>
-<li><code>dataformats</code> (str) – Image data format specification of the form CHW, HWC, HW, WH, etc.</li>
+<li><code>walltime</code> (float) – Optional override default walltime
+(time.time()) seconds after epoch of event</li>
+<li><code>dataformats</code> (str) – Image data format specification of
+the form CHW, HWC, HW, WH, etc.</li>
 </ul>
-<p>img_tensor: Default is (3,H,W), (<strong>CHW</strong>: Channel, Height, Width).</p>
+<p>img_tensor: Default is (3,H,W), (<strong>CHW</strong>: Channel,
+Height, Width).</p>
 <p>More dataformats include:</p>
 <ul>
-<li>(1,H,W): for grey images which have only one channel. <strong>CHW</strong></li>
+<li>(1,H,W): for grey images which have only one channel.
+<strong>CHW</strong></li>
 <li>(H,W): <strong>HW</strong></li>
 <li>(H,W,3): <strong>HWC</strong></li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># demo 1: add a image</span><br>img = np.zeros((<span class="hljs-number">3</span>, <span class="hljs-number">100</span>, <span class="hljs-number">100</span>))<br>img[<span class="hljs-number">0</span>] = np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">10000</span>).reshape(<span class="hljs-number">100</span>, <span class="hljs-number">100</span>) / <span class="hljs-number">10000</span><br>img[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span> - np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">10000</span>).reshape(<span class="hljs-number">100</span>, <span class="hljs-number">100</span>) / <span class="hljs-number">10000</span><br><br>img_HWC = np.zeros((<span class="hljs-number">100</span>, <span class="hljs-number">100</span>, <span class="hljs-number">3</span>))<br>img_HWC[:, :, <span class="hljs-number">0</span>] = np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">10000</span>).reshape(<span class="hljs-number">100</span>, <span class="hljs-number">100</span>) / <span class="hljs-number">10000</span><br>img_HWC[:, :, <span class="hljs-number">1</span>] = <span class="hljs-number">1</span> - np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">10000</span>).reshape(<span class="hljs-number">100</span>, <span class="hljs-number">100</span>) / <span class="hljs-number">10000</span><br><br>writer = SummaryWriter(<span class="hljs-string">&quot;test_dir&quot;</span>)<br>writer.add_image(<span class="hljs-string">&quot;my_image&quot;</span>, img, <span class="hljs-number">0</span>)<br><br><span class="hljs-comment"># demo 2: generate a random tensor for simulation</span><br><span class="hljs-keyword">for</span> step <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):<br>    img_random = np.zeros((<span class="hljs-number">3</span>, <span class="hljs-number">100</span>, <span class="hljs-number">100</span>))<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):<br>        img_random[i] = np.random.random((<span class="hljs-number">100</span>, <span class="hljs-number">100</span>))<br>    writer.add_image(<span class="hljs-string">&quot;random_image&quot;</span>, img_random, step)<br><br><span class="hljs-comment"># If you have non-default dimension setting, set the dataformats argument.</span><br>writer.add_image(<span class="hljs-string">&quot;my_image_HWC&quot;</span>, img_HWC, <span class="hljs-number">0</span>, dataformats=<span class="hljs-string">&quot;HWC&quot;</span>)<br>writer.close()<br></code></pre></td></tr></table></figure>
-
-<h4 id="Add-multiple-images"><a href="#Add-multiple-images" class="headerlink" title="Add multiple images"></a>Add multiple images</h4><p>Add batched image data to summary.</p>
+<h4 id="add-multiple-images">Add multiple images</h4>
+<p>Add batched image data to summary.</p>
 <p>Note that this requires the pillow package.</p>
 <p>Parameters</p>
 <ul>
 <li><code>tag</code> (str) – Data identifier</li>
-<li><code>img_tensor</code> (torch.Tensor, numpy.ndarray, or string&#x2F;blobname) – Image data</li>
+<li><code>img_tensor</code> (torch.Tensor, numpy.ndarray, or
+string/blobname) – Image data</li>
 <li><code>global_step</code> (int) – Global step value to record</li>
-<li><code>walltime</code> (float) – Optional override default walltime (time.time()) seconds after epoch of event</li>
-<li><code>dataformats</code> (str) – Image data format specification of the form NCHW, NHWC, CHW, HWC, HW, WH, etc.</li>
+<li><code>walltime</code> (float) – Optional override default walltime
+(time.time()) seconds after epoch of event</li>
+<li><code>dataformats</code> (str) – Image data format specification of
+the form NCHW, NHWC, CHW, HWC, HW, WH, etc.</li>
 </ul>
-<p>Compared to <code>add_image</code>, it will add one dimension for <strong>batches</strong>, where the image_tensor is (N,3,H,W).</p>
+<p>Compared to <code>add_image</code>, it will add one dimension for
+<strong>batches</strong>, where the image_tensor is (N,3,H,W).</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>img_batches = np.zeros((<span class="hljs-number">16</span>, <span class="hljs-number">3</span>, <span class="hljs-number">100</span>, <span class="hljs-number">100</span>))<br><br><span class="hljs-keyword">for</span> step <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">16</span>):<br>    <span class="hljs-keyword">for</span> channel <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):<br>        img_batches[step, channel] = (<br>            np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">10000</span>).reshape(<span class="hljs-number">100</span>, <span class="hljs-number">100</span>) / <span class="hljs-number">10000</span> / <span class="hljs-number">16</span> * step<br>        )<br><br>writer.add_images(<span class="hljs-string">&quot;test for batches&quot;</span>, img_batches, <span class="hljs-number">1</span>, dataformats=<span class="hljs-string">&quot;NCHW&quot;</span>)<br></code></pre></td></tr></table></figure>
-
-<p><code>add_figure(tag, figure, global_step=None, close=True, walltime=None)</code>: Render <strong>matplotlib</strong> figure into an image and add it to summary.</p>
+<p><code>add_figure(tag, figure, global_step=None, close=True, walltime=None)</code>:
+Render <strong>matplotlib</strong> figure into an image and add it to
+summary.</p>
 <p>Parameters</p>
 <ul>
 <li>tag (str) – Data identifier</li>
-<li><code>figure</code> (Union[Figure, list[‘Figure’]]) – Figure or a list of figures</li>
+<li><code>figure</code> (Union[Figure, list[‘Figure’]]) – Figure or a
+list of figures</li>
 <li>global_step (Optional[int]) – Global step value to record</li>
 <li>close (bool) – Flag to automatically close the figure</li>
-<li>walltime (Optional[float]) – Optional override default walltime (time.time()) seconds after epoch of event</li>
+<li>walltime (Optional[float]) – Optional override default walltime
+(time.time()) seconds after epoch of event</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><br>writer = SummaryWriter(<span class="hljs-string">&quot;test_dir/figure&quot;</span>)<br><br><span class="hljs-comment"># generate a matplotlib image</span><br>fig, ax = plt.subplots()<br>x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2</span> * np.pi, <span class="hljs-number">100</span>)<br>y = np.cos(x)<br>ax.plot(x, y)<br>ax.set_title(<span class="hljs-string">&quot;Cos(x)&quot;</span>)<br><br>writer.add_figure(<span class="hljs-string">&quot;cos_plot&quot;</span>, fig, global_step=<span class="hljs-number">0</span>)<br><br>plt.close(fig)<br>writer.close()<br></code></pre></td></tr></table></figure>
-
-<h3 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h3><p>Parameters</p>
+<h3 id="text">Text</h3>
+<p>Parameters</p>
 <ul>
 <li><code>tag</code> (str) – Data identifier</li>
 <li><code>text_string</code> (str) – String to save</li>
 <li><code>global_step</code> (int) – Global step value to record</li>
-<li><code>walltime</code> (float) – Optional override default walltime (time.time()) seconds after epoch of event</li>
+<li><code>walltime</code> (float) – Optional override default walltime
+(time.time()) seconds after epoch of event</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">writer_3 = SummaryWriter(<span class="hljs-string">&quot;test_dir/test_for_text&quot;</span>)<br>writer_3.add_text(<span class="hljs-string">&quot;tag-1&quot;</span>, <span class="hljs-string">&quot;Hello world&quot;</span>)<br>writer_3.add_text(<span class="hljs-string">&quot;tag-2&quot;</span>, <span class="hljs-string">&quot;wow, this is fanastic!&quot;</span>)<br></code></pre></td></tr></table></figure>
-
-<h3 id="Graph"><a href="#Graph" class="headerlink" title="Graph"></a>Graph</h3><p>add_graph(model, input_to_model&#x3D;None, verbose&#x3D;False, use_strict_trace&#x3D;True)[source][source] Add graph data to summary.</p>
+<h3 id="graph">Graph</h3>
+<p>add_graph(model, input_to_model=None, verbose=False,
+use_strict_trace=True)[source][source] Add graph data to summary.</p>
 <p>Parameters</p>
 <ul>
 <li><code>model</code> (torch.nn.Module) – Model to draw.</li>
-<li><code>input_to_model</code> (torch.Tensor or list of torch.Tensor) – A variable or a tuple of variables to be fed.</li>
-<li><code>verbose</code> (bool) – Whether to print graph structure in console.</li>
-<li><code>use_strict_trace</code> (bool) – Whether to pass keyword argument strict to torch.jit.trace. Pass False when you want the tracer to record your mutable container types (list, dict)</li>
+<li><code>input_to_model</code> (torch.Tensor or list of torch.Tensor) –
+A variable or a tuple of variables to be fed.</li>
+<li><code>verbose</code> (bool) – Whether to print graph structure in
+console.</li>
+<li><code>use_strict_trace</code> (bool) – Whether to pass keyword
+argument strict to torch.jit.trace. Pass False when you want the tracer
+to record your mutable container types (list, dict)</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">from</span> torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><br><br><span class="hljs-comment"># Define a simplified model</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SimpleModel</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.fc1 = nn.Linear(<span class="hljs-number">10</span>, <span class="hljs-number">20</span>)<br>        <span class="hljs-variable language_">self</span>.relu = nn.ReLU()<br>        <span class="hljs-variable language_">self</span>.fc2 = nn.Linear(<span class="hljs-number">20</span>, <span class="hljs-number">1</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        x = <span class="hljs-variable language_">self</span>.fc1(x)<br>        x = <span class="hljs-variable language_">self</span>.relu(x)<br>        x = <span class="hljs-variable language_">self</span>.fc2(x)<br>        <span class="hljs-keyword">return</span> x<br><br><br>model = SimpleModel()<br>writer = SummaryWriter(<span class="hljs-string">&quot;test_dir/test_graph&quot;</span>)<br><br>dummy_input = torch.randn(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>)  <span class="hljs-comment"># (batch_size, input_dim)</span><br><br>writer.add_graph(model, dummy_input, verbose=<span class="hljs-literal">True</span>)<br>writer.close()<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://s1.imagehub.cc/images/2025/07/01/f4bfc3177a9f6f53af4d0510df5a20b4.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<h3 id="Embedding"><a href="#Embedding" class="headerlink" title="Embedding"></a>Embedding</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">add_embedding(mat, metadata=<span class="hljs-literal">None</span>, label_img=<span class="hljs-literal">None</span>, global_step=<span class="hljs-literal">None</span>, tag=<span class="hljs-string">&#x27;default&#x27;</span>, metadata_header=<span class="hljs-literal">None</span>)<br></code></pre></td></tr></table></figure>
-
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/07/01/f4bfc3177a9f6f53af4d0510df5a20b4.png" srcset="/img/loading.gif" lazyload
+alt="image" />
+<figcaption aria-hidden="true">image</figcaption>
+</figure>
+<h3 id="embedding">Embedding</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">add_embedding(mat, metadata=<span class="hljs-literal">None</span>, label_img=<span class="hljs-literal">None</span>, global_step=<span class="hljs-literal">None</span>, tag=<span class="hljs-string">&#x27;default&#x27;</span>, metadata_header=<span class="hljs-literal">None</span>)<br></code></pre></td></tr></table></figure>
 <p>Add embedding projector data to summary.</p>
 <ul>
-<li><code>mat</code> (torch.Tensor or numpy.ndarray) – A matrix which each row is the feature vector of the data point, its size is (N,D), where N is the number of data and D is the feature dimension.</li>
-<li><code>metadata</code> (list) – A list of labels, each element will be converted to string</li>
-<li><code>label_img</code> (torch.Tensor) – Images correspond to each data point, (N,C,H,W).</li>
+<li><code>mat</code> (torch.Tensor or numpy.ndarray) – A matrix which
+each row is the feature vector of the data point, its size is (N,D),
+where N is the number of data and D is the feature dimension.</li>
+<li><code>metadata</code> (list) – A list of labels, each element will
+be converted to string</li>
+<li><code>label_img</code> (torch.Tensor) – Images correspond to each
+data point, (N,C,H,W).</li>
 <li><code>global_step</code> (int) – Global step value to record</li>
 <li><code>tag</code> (str) – Name for the embedding</li>
-<li><code>metadata_header</code> (list) – A list of headers for multi-column metadata. If given, each metadata must be a list with values corresponding to headers.</li>
+<li><code>metadata_header</code> (list) – A list of headers for
+multi-column metadata. If given, each metadata must be a list with
+values corresponding to headers.</li>
 </ul>
-<p><img src="https://s1.imagehub.cc/images/2025/07/01/9c90c770dfda3461dd63f1f59fce0d49.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/07/01/9c90c770dfda3461dd63f1f59fce0d49.png" srcset="/img/loading.gif" lazyload
+alt="image" />
+<figcaption aria-hidden="true">image</figcaption>
+</figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> keyword<br><span class="hljs-keyword">import</span> torch<br><br><span class="hljs-comment"># keyword is for auto-generation</span><br><br>meta = []<br><span class="hljs-keyword">while</span> <span class="hljs-built_in">len</span>(meta) &lt; <span class="hljs-number">100</span>:<br>    meta = meta + keyword.kwlist  <span class="hljs-comment"># get some strings</span><br>meta = meta[:<span class="hljs-number">100</span>]<br><br><span class="hljs-keyword">for</span> i, v <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(meta):<br>    meta[i] = v + <span class="hljs-built_in">str</span>(i)<br><br>label_img = torch.rand(<span class="hljs-number">100</span>, <span class="hljs-number">3</span>, <span class="hljs-number">10</span>, <span class="hljs-number">32</span>)<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>):<br>    label_img[i] *= i / <span class="hljs-number">100.0</span><br><br><span class="hljs-comment"># print(meta)</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(meta))  <span class="hljs-comment">#: 100</span><br><span class="hljs-comment"># print(label_img)</span><br><br><br><span class="hljs-comment"># define writer</span><br>writer = SummaryWriter(<span class="hljs-string">&quot;test_dir/test_for_embedding&quot;</span>)<br>writer.add_embedding(torch.randn(<span class="hljs-number">100</span>, <span class="hljs-number">5</span>), metadata=meta, label_img=label_img)<br>writer.add_embedding(torch.randn(<span class="hljs-number">100</span>, <span class="hljs-number">5</span>), label_img=label_img)<br>writer.add_embedding(torch.randn(<span class="hljs-number">100</span>, <span class="hljs-number">5</span>), metadata=meta)<br>add_pr_curve(tag, labels, predictions, global_step=<span class="hljs-literal">None</span>, num_thresholds=<span class="hljs-number">127</span>, weights=<span class="hljs-literal">None</span>, walltime=<span class="hljs-literal">None</span>)<br></code></pre></td></tr></table></figure>
-
 <p><strong>Add precision recall curve</strong>.</p>
-<p>Plotting a precision-recall curve lets you understand your model’s performance under different threshold settings. With this function, you provide the ground truth labeling (T&#x2F;F) and prediction confidence (usually the output of your model) for each target. The TensorBoard UI will let you choose the threshold interactively.</p>
-<p>Precision&#x3D;True PositiveTrue Positive+False Positive</p>
-<p>Recall&#x3D;True PositiveTrue Positive+False Negative</p>
+<p>Plotting a precision-recall curve lets you understand your model’s
+performance under different threshold settings. With this function, you
+provide the ground truth labeling (T/F) and prediction confidence
+(usually the output of your model) for each target. The TensorBoard UI
+will let you choose the threshold interactively.</p>
+<p>Precision=True PositiveTrue Positive+False Positive</p>
+<p>Recall=True PositiveTrue Positive+False Negative</p>
 <p>Parameters</p>
 <ul>
 <li><code>tag</code> (str) – Data identifier</li>
-<li><code>labels</code> (torch.Tensor, numpy.ndarray, or string&#x2F;blobname) – Ground truth data. Binary label for each element.</li>
-<li><code>predictions</code> (torch.Tensor, numpy.ndarray, or string&#x2F;blobname) – The probability that an element be classified as true. Value should be in [0, 1]</li>
+<li><code>labels</code> (torch.Tensor, numpy.ndarray, or
+string/blobname) – Ground truth data. Binary label for each
+element.</li>
+<li><code>predictions</code> (torch.Tensor, numpy.ndarray, or
+string/blobname) – The probability that an element be classified as
+true. Value should be in [0, 1]</li>
 <li><code>global_step</code> (int) – Global step value to record</li>
-<li><code>num_thresholds</code> (int) – Number of thresholds used to draw the curve.</li>
-<li><code>walltime</code> (float) – Optional override default walltime (time.time()) seconds after epoch of event</li>
+<li><code>num_thresholds</code> (int) – Number of thresholds used to
+draw the curve.</li>
+<li><code>walltime</code> (float) – Optional override default walltime
+(time.time()) seconds after epoch of event</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>labels = np.random.randint(<span class="hljs-number">2</span>, size=<span class="hljs-number">1000</span>)  <span class="hljs-comment"># binary label</span><br>predictions = np.random.rand(<span class="hljs-number">1000</span>)<br>writer = SummaryWriter(<span class="hljs-string">&quot;test_dir/pr_curve_2&quot;</span>)<br>writer.add_pr_curve(<span class="hljs-string">&quot;pr_curve&quot;</span>, labels, predictions, <span class="hljs-number">0</span>)<br>writer.close()<br></code></pre></td></tr></table></figure>
-
-<h3 id="Mesh"><a href="#Mesh" class="headerlink" title="Mesh"></a>Mesh</h3><p>Add meshes or 3D point clouds to TensorBoard.</p>
-<p>The visualization is based on Three.js, so it allows users to interact with the rendered object. Besides the basic definitions such as vertices, faces, users can further provide camera parameter, lighting condition, etc. Please check <a target="_blank" rel="noopener" href="https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene">https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene</a> for advanced usage.</p>
+<h3 id="mesh">Mesh</h3>
+<p>Add meshes or 3D point clouds to TensorBoard.</p>
+<p>The visualization is based on Three.js, so it allows users to
+interact with the rendered object. Besides the basic definitions such as
+vertices, faces, users can further provide camera parameter, lighting
+condition, etc. Please check
+https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene
+for advanced usage.</p>
 <p>Parameters</p>
 <ul>
 <li><code>tag</code> (str) – Data identifier</li>
-<li><code>vertices</code> (torch.Tensor) – List of the 3D coordinates of vertices. (<strong>顶点坐标</strong>)</li>
-<li><code>colors</code> (torch.Tensor) – Colors for each vertex. (<strong>顶点颜色</strong>)</li>
-<li><code>faces</code> (torch.Tensor) – Indices of vertices within each triangle. (Optional) (<strong>面片索引</strong>)</li>
-<li><code>config_dict</code> – Dictionary with ThreeJS classes names and configuration.</li>
+<li><code>vertices</code> (torch.Tensor) – List of the 3D coordinates of
+vertices. (<strong>顶点坐标</strong>)</li>
+<li><code>colors</code> (torch.Tensor) – Colors for each vertex.
+(<strong>顶点颜色</strong>)</li>
+<li><code>faces</code> (torch.Tensor) – Indices of vertices within each
+triangle. (Optional) (<strong>面片索引</strong>)</li>
+<li><code>config_dict</code> – Dictionary with ThreeJS classes names and
+configuration.</li>
 <li><code>global_step</code> (int) – Global step value to record</li>
-<li><code>walltime</code> (float) – Optional override default walltime (time.time()) seconds after epoch of event</li>
+<li><code>walltime</code> (float) – Optional override default walltime
+(time.time()) seconds after epoch of event</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><br>vertices_tensor = torch.as_tensor(<br>    [<br>        [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>],<br>        [-<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">1</span>],<br>        [<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>],<br>        [-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, -<span class="hljs-number">1</span>],<br>    ],<br>    dtype=torch.<span class="hljs-built_in">float</span>,<br>).unsqueeze(<span class="hljs-number">0</span>)<br><span class="hljs-comment"># print(vertices_tensor.shape): (1,4,3), where 1 is the batch size and 4 is the number of vertices</span><br><br>colors_tensor = torch.as_tensor(<br>    [<br>        [<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],<br>        [<span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0</span>],<br>        [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>],<br>        [<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>],<br>    ],<br>    dtype=torch.<span class="hljs-built_in">int</span>,<br>).unsqueeze(<span class="hljs-number">0</span>)<br><span class="hljs-comment"># print(colors_tensor.shape): (1,4,3), the same as above</span><br><br>faces_tensor = torch.as_tensor(<br>    [<br>        [<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],<br>        [<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>],<br>        [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>],<br>        [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>],<br>    ],<br>    dtype=torch.<span class="hljs-built_in">int</span>,<br>).unsqueeze(<span class="hljs-number">0</span>)<br><br>writer = SummaryWriter(<span class="hljs-string">&quot;test_dir/test_mesh&quot;</span>)<br>writer.add_mesh(<br>    <span class="hljs-string">&quot;my_mesh&quot;</span>, vertices=vertices_tensor, colors=colors_tensor, faces=faces_tensor<br>)<br><br>writer.close()<br></code></pre></td></tr></table></figure>
-
-<h3 id="Hparams"><a href="#Hparams" class="headerlink" title="Hparams"></a>Hparams</h3><p>Add a set of hyperparameters to be compared in TensorBoard.</p>
+<h3 id="hparams">Hparams</h3>
+<p>Add a set of hyperparameters to be compared in TensorBoard.</p>
 <ul>
-<li><code>hparam_dict</code> (dict) – Each <strong>key-value pair</strong> in the dictionary is the name of the hyper parameter and it’s corresponding value. The type of the value can be one of <strong>bool</strong>, <strong>string</strong>, <strong>float</strong>, <strong>int</strong>, or None.</li>
-<li><code>metric_dict</code> (dict) – Each key-value pair in the dictionary is the name of the metric and it’s corresponding value. Note that <strong>the key used here should be unique in the tensorboard record</strong>. Otherwise the value you added by add_scalar will be displayed in hparam plugin. In most cases, this is unwanted.</li>
-<li><code>hparam_domain_discrete</code> – (Optional[Dict[str, List[Any]]]) A dictionary that contains names of the hyperparameters and all discrete values they can hold</li>
-<li><code>run_name</code> (str) – Name of the run, to be included as part of the logdir. If unspecified, will use current timestamp.</li>
+<li><code>hparam_dict</code> (dict) – Each <strong>key-value
+pair</strong> in the dictionary is the name of the hyper parameter and
+it’s corresponding value. The type of the value can be one of
+<strong>bool</strong>, <strong>string</strong>, <strong>float</strong>,
+<strong>int</strong>, or None.</li>
+<li><code>metric_dict</code> (dict) – Each key-value pair in the
+dictionary is the name of the metric and it’s corresponding value. Note
+that <strong>the key used here should be unique in the tensorboard
+record</strong>. Otherwise the value you added by add_scalar will be
+displayed in hparam plugin. In most cases, this is unwanted.</li>
+<li><code>hparam_domain_discrete</code> – (Optional[Dict[str,
+List[Any]]]) A dictionary that contains names of the hyperparameters and
+all discrete values they can hold</li>
+<li><code>run_name</code> (str) – Name of the run, to be included as
+part of the logdir. If unspecified, will use current timestamp.</li>
 <li><code>global_step</code> (int) – Global step value to record</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><br><span class="hljs-keyword">with</span> SummaryWriter(<span class="hljs-string">&quot;test_dir/hparams&quot;</span>) <span class="hljs-keyword">as</span> w:<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):<br>        w.add_hparams(<br>            &#123;<span class="hljs-string">&quot;lr&quot;</span>: <span class="hljs-number">0.1</span> * i, <span class="hljs-string">&quot;bsize&quot;</span>: i&#125;,<br>            &#123;<span class="hljs-string">&quot;hparam/accuracy&quot;</span>: <span class="hljs-number">10</span> * i, <span class="hljs-string">&quot;hparam/loss&quot;</span>: <span class="hljs-number">10</span> * i&#125;,<br>        )<br></code></pre></td></tr></table></figure>
-
-<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><p>In this section, we will train a complex model (CNN + LSTM + Transformer), and use <code>SummaryWriter</code> to log loss curve and other parameters.</p>
-<p><img src="https://s1.imagehub.cc/images/2025/07/02/cf43cf56c80afd47a0104b86594f2cd3.png" srcset="/img/loading.gif" lazyload alt="Demo for loss curve"></p>
+<h2 id="demo">Demo</h2>
+<p>In this section, we will train a complex model (CNN + LSTM +
+Transformer), and use <code>SummaryWriter</code> to log loss curve and
+other parameters.</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/07/02/cf43cf56c80afd47a0104b86594f2cd3.png" srcset="/img/loading.gif" lazyload
+alt="Demo for loss curve" />
+<figcaption aria-hidden="true">Demo for loss curve</figcaption>
+</figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span> torch.optim <span class="hljs-keyword">as</span> optim<br><span class="hljs-keyword">from</span> torch.utils.tensorboard <span class="hljs-keyword">import</span> SummaryWriter<br><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> DataLoader, TensorDataset<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>writer = SummaryWriter(<span class="hljs-string">&#x27;runs/exp_demo&#x27;</span>)<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ComplexModel</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <br>        <span class="hljs-comment"># CNN feature</span><br>        <span class="hljs-variable language_">self</span>.cnn = nn.Sequential(<br>            nn.Conv2d(<span class="hljs-number">3</span>, <span class="hljs-number">32</span>, kernel_size=<span class="hljs-number">3</span>, stride=<span class="hljs-number">1</span>, padding=<span class="hljs-number">1</span>),<br>            nn.BatchNorm2d(<span class="hljs-number">32</span>),<br>            nn.ReLU(),<br>            nn.MaxPool2d(<span class="hljs-number">2</span>),<br>            <br>            nn.Conv2d(<span class="hljs-number">32</span>, <span class="hljs-number">64</span>, kernel_size=<span class="hljs-number">3</span>, stride=<span class="hljs-number">1</span>, padding=<span class="hljs-number">1</span>),<br>            nn.BatchNorm2d(<span class="hljs-number">64</span>),<br>            nn.ReLU(),<br>            nn.MaxPool2d(<span class="hljs-number">2</span>),<br>            <br>            nn.AdaptiveAvgPool2d((<span class="hljs-number">4</span>, <span class="hljs-number">4</span>))<br>        )<br>        <br>        <span class="hljs-comment"># LSTM section</span><br>        <span class="hljs-variable language_">self</span>.lstm = nn.LSTM(<br>            input_size=<span class="hljs-number">64</span>*<span class="hljs-number">4</span>*<span class="hljs-number">4</span>, <br>            hidden_size=<span class="hljs-number">128</span>, <br>            num_layers=<span class="hljs-number">2</span>,<br>            batch_first=<span class="hljs-literal">True</span>,<br>            bidirectional=<span class="hljs-literal">True</span><br>        )<br>        <br>        <span class="hljs-comment"># attention section</span><br>        <span class="hljs-variable language_">self</span>.attention = nn.Sequential(<br>            nn.Linear(<span class="hljs-number">256</span>, <span class="hljs-number">128</span>),<br>            nn.Tanh(),<br>            nn.Linear(<span class="hljs-number">128</span>, <span class="hljs-number">1</span>),<br>            nn.Softmax(dim=<span class="hljs-number">1</span>)<br>        )<br>        <br>        <span class="hljs-comment"># classifier</span><br>        <span class="hljs-variable language_">self</span>.classifier = nn.Sequential(<br>            nn.Linear(<span class="hljs-number">256</span>, <span class="hljs-number">64</span>),<br>            nn.Dropout(<span class="hljs-number">0.5</span>),<br>            nn.ReLU(),<br>            nn.Linear(<span class="hljs-number">64</span>, <span class="hljs-number">10</span>)<br>        )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-comment"># input shape: (batch_size, seq_len, C, H, W)</span><br>        batch_size, seq_len = x.shape[<span class="hljs-number">0</span>], x.shape[<span class="hljs-number">1</span>]<br>        <br>        cnn_features = []<br>        <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(seq_len):<br>            frame = x[:, t, :, :, :]<br>            features = <span class="hljs-variable language_">self</span>.cnn(frame)  <span class="hljs-comment"># (bs, 64, 4, 4)</span><br>            features = features.view(batch_size, -<span class="hljs-number">1</span>)  <span class="hljs-comment"># (bs, 64*4*4)</span><br>            cnn_features.append(features)<br>        <br>        cnn_features = torch.stack(cnn_features, dim=<span class="hljs-number">1</span>)  <span class="hljs-comment"># (bs, seq_len, 64*4*4)</span><br>        lstm_out, _ = <span class="hljs-variable language_">self</span>.lstm(cnn_features)  <span class="hljs-comment"># (bs, seq_len, 256)</span><br>        attention_weights = <span class="hljs-variable language_">self</span>.attention(lstm_out)  <span class="hljs-comment"># (bs, seq_len, 1)</span><br>        context_vector = torch.<span class="hljs-built_in">sum</span>(attention_weights * lstm_out, dim=<span class="hljs-number">1</span>)  <span class="hljs-comment"># (bs, 256)</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.classifier(context_vector)<br><br><span class="hljs-comment"># 3. 创建模拟数据 (视频分类任务)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_fake_data</span>(<span class="hljs-params">batch_size=<span class="hljs-number">16</span>, seq_len=<span class="hljs-number">10</span></span>):<br>    <span class="hljs-comment"># 生成随机视频数据 (batch, seq_len, 3, 64, 64)</span><br>    videos = torch.randn(batch_size, seq_len, <span class="hljs-number">3</span>, <span class="hljs-number">64</span>, <span class="hljs-number">64</span>)<br>    labels = torch.randint(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>, (batch_size,))<br>    <span class="hljs-keyword">return</span> videos, labels<br><br>train_data, train_labels = generate_fake_data(<span class="hljs-number">100</span>)<br>val_data, val_labels = generate_fake_data(<span class="hljs-number">20</span>)<br>train_dataset = TensorDataset(train_data, train_labels)<br>val_dataset = TensorDataset(val_data, val_labels)<br><br>model = ComplexModel()<br>criterion = nn.CrossEntropyLoss()<br>optimizer = optim.AdamW(model.parameters(), lr=<span class="hljs-number">3e-4</span>)<br>scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=<span class="hljs-number">100</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">train</span>(<span class="hljs-params">model, dataloader, epoch</span>):<br>    model.train()<br>    total_loss = <span class="hljs-number">0</span><br>    <br>    <span class="hljs-keyword">for</span> batch_idx, (inputs, targets) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(dataloader):<br>        optimizer.zero_grad()<br>        outputs = model(inputs)<br>        loss = criterion(outputs, targets)<br>        <br>        <span class="hljs-keyword">if</span> batch_idx % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>:  <br>            <span class="hljs-keyword">for</span> name, param <span class="hljs-keyword">in</span> model.named_parameters():<br>                <span class="hljs-keyword">if</span> param.grad <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>                    writer.add_histogram(<br>                        <span class="hljs-string">f&quot;Gradients/<span class="hljs-subst">&#123;name&#125;</span>&quot;</span>, <br>                        param.grad, <br>                        epoch * <span class="hljs-built_in">len</span>(dataloader) + batch_idx<br>                    )<br>        <br>        loss.backward()<br>        <br>        nn.utils.clip_grad_norm_(model.parameters(), max_norm=<span class="hljs-number">1.0</span>)<br>        <br>        optimizer.step()<br>        total_loss += loss.item()<br>        <br>        <span class="hljs-keyword">if</span> batch_idx == <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">for</span> name, param <span class="hljs-keyword">in</span> model.named_parameters():<br>                writer.add_histogram(<br>                    <span class="hljs-string">f&quot;Parameters/<span class="hljs-subst">&#123;name&#125;</span>&quot;</span>, <br>                    param, <br>                    epoch<br>                )<br>    <br>    <span class="hljs-keyword">return</span> total_loss / <span class="hljs-built_in">len</span>(dataloader)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">validate</span>(<span class="hljs-params">model, dataloader, epoch</span>):<br>    model.<span class="hljs-built_in">eval</span>()<br>    correct = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">with</span> torch.no_grad():<br>        <span class="hljs-keyword">for</span> inputs, targets <span class="hljs-keyword">in</span> dataloader:<br>            outputs = model(inputs)<br>            preds = outputs.argmax(dim=<span class="hljs-number">1</span>)<br>            correct += (preds == targets).<span class="hljs-built_in">sum</span>().item()<br>    <br>    accuracy = correct / <span class="hljs-built_in">len</span>(dataloader.dataset)<br>    writer.add_scalar(<span class="hljs-string">&#x27;Accuracy/val&#x27;</span>, accuracy, epoch)<br>    <span class="hljs-keyword">return</span> accuracy<br><br>train_loader = DataLoader(train_dataset, batch_size=<span class="hljs-number">16</span>, shuffle=<span class="hljs-literal">True</span>)<br>val_loader = DataLoader(val_dataset, batch_size=<span class="hljs-number">8</span>)<br><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>):<br>    train_loss = train(model, train_loader, epoch)<br>    val_acc = validate(model, val_loader, epoch)<br>    <br>    writer.add_scalar(<span class="hljs-string">&#x27;Loss/train&#x27;</span>, train_loss, epoch)<br>    writer.add_scalar(<span class="hljs-string">&#x27;Learning Rate&#x27;</span>, optimizer.param_groups[<span class="hljs-number">0</span>][<span class="hljs-string">&#x27;lr&#x27;</span>], epoch)<br>    <br>    scheduler.step()<br>    <br>    <span class="hljs-keyword">if</span> epoch == <span class="hljs-number">0</span>:<br>        dummy_input = torch.randn(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>, <span class="hljs-number">3</span>, <span class="hljs-number">64</span>, <span class="hljs-number">64</span>)  <br>        writer.add_graph(model, dummy_input)<br><br>writer.flush()<br>writer.close()<br></code></pre></td></tr></table></figure>
 
                 
@@ -990,7 +1098,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>July 3, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       

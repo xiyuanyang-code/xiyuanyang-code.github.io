@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Leetcode.png">
 <meta property="article:published_time" content="2024-12-10T05:07:14.000Z">
-<meta property="article:modified_time" content="2025-05-18T16:14:25.999Z">
+<meta property="article:modified_time" content="2025-07-10T14:01:33.331Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Finished">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -912,108 +912,151 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
-<h1 id="Leetcode-Mistake-collection-21-30"><a href="#Leetcode-Mistake-collection-21-30" class="headerlink" title="Leetcode-Mistake-collection-21-30"></a>Leetcode-Mistake-collection-21-30</h1><h1 id="程设错题-21-24-2024-11-1-2024-11-4"><a href="#程设错题-21-24-2024-11-1-2024-11-4" class="headerlink" title="程设错题 21-24 2024-11-1 2024-11-4"></a>程设错题 21-24 2024-11-1 2024-11-4</h1><h2 id="1-Leetcode-453-最小操作次数使数组元素相等"><a href="#1-Leetcode-453-最小操作次数使数组元素相等" class="headerlink" title="1. Leetcode 453 最小操作次数使数组元素相等"></a>1. Leetcode 453 最小操作次数使数组元素相等</h2><p><strong>不要所有方法都使用最原始的编程方法解决！</strong></p>
-<p>给你一个长度为 <code>n</code> 的整数数组，每次操作将会使 <code>n - 1</code> 个元素增加 <code>1</code> 。返回让数组所有元素相等的最小操作次数。</p>
+<h1
+id="leetcode-mistake-collection-21-30">Leetcode-Mistake-collection-21-30</h1>
+<h1 id="程设错题-21-24-2024-11-1-2024-11-4">程设错题 21-24 2024-11-1
+2024-11-4</h1>
+<h2 id="leetcode-453-最小操作次数使数组元素相等">1. Leetcode 453
+最小操作次数使数组元素相等</h2>
+<p><strong>不要所有方法都使用最原始的编程方法解决！</strong></p>
+<p>给你一个长度为 <code>n</code> 的整数数组，每次操作将会使
+<code>n - 1</code> 个元素增加 <code>1</code>
+。返回让数组所有元素相等的最小操作次数。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs inform7">输入：nums = <span class="hljs-comment">[1,2,3]</span><br>输出：3<br>解释：<br>只需要3次操作（注意每次操作会增加两个元素的值）：<br><span class="hljs-comment">[1,2,3]</span>  =&gt;  <span class="hljs-comment">[2,3,3]</span>  =&gt;  <span class="hljs-comment">[3,4,3]</span>  =&gt;  <span class="hljs-comment">[4,4,4]</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="解法1-最基本解法（计算-枚举）"><a href="#解法1-最基本解法（计算-枚举）" class="headerlink" title="解法1 最基本解法（计算+枚举）"></a>解法1 最基本解法（计算+枚举）</h3><p>​	<strong>时间复杂度过高</strong>（最坏时间复杂度：O(n^2)）</p>
+<h3 id="解法1-最基本解法计算枚举">解法1 最基本解法（计算+枚举）</h3>
+<p>​ <strong>时间复杂度过高</strong>（最坏时间复杂度：O(n^2)）</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">minMoves</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(nums.<span class="hljs-built_in">size</span>()==<span class="hljs-number">1</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-type">int</span> max=nums[<span class="hljs-number">0</span>];<br>        <span class="hljs-type">long</span> <span class="hljs-type">long</span> sum=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> num:nums)&#123;<br>            sum+=num;<br>            <span class="hljs-keyword">if</span>(num&gt;max)&#123;<br>                max=num;<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">long</span> <span class="hljs-type">long</span> diff=nums.<span class="hljs-built_in">size</span>()*max-sum;<br>        <span class="hljs-keyword">while</span>(diff%(nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>))&#123;<br>            diff+=(nums.<span class="hljs-built_in">size</span>());<br>        &#125;<br>        <span class="hljs-type">bool</span> flag=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">long</span> <span class="hljs-type">long</span> standard=(<span class="hljs-built_in">long</span>(diff)+sum)/nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">while</span>(!flag)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> num:nums)&#123;<br>                <span class="hljs-keyword">if</span>(standard-num&gt;(diff/(nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>)))&#123;<br>                    flag=<span class="hljs-number">0</span>;<br>                    standard+=nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>;<br>                    diff+=nums.<span class="hljs-built_in">size</span>()*(nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>);<br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>                flag=<span class="hljs-number">1</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> diff/(nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<h3 id="解法2-巧妙的转化"><a href="#解法2-巧妙的转化" class="headerlink" title="解法2 巧妙的转化"></a>解法2 巧妙的转化</h3><p>​	因为只需要找出让数组所有元素相等的最小操作次数，所以我们不需要考虑数组中各个元素的绝对大小，即不需要真正算出数组中所有元素相等时的元素值，只需要考虑数组中元素相对大小的变化即可。</p>
-<p>​	因此，每次操作既可以理解为使 n−1 个元素增加 1，也可以理解使 1 个元素减少 1。显然，后者更利于我们的计算。</p>
-<p>​	于是，要计算让数组中所有元素相等的操作数，我们只需要计算将数组中所有元素都减少到数组中元素最小值所需的操作数。</p>
+<h3 id="解法2-巧妙的转化">解法2 巧妙的转化</h3>
+<p>​
+因为只需要找出让数组所有元素相等的最小操作次数，所以我们不需要考虑数组中各个元素的绝对大小，即不需要真正算出数组中所有元素相等时的元素值，只需要考虑数组中元素相对大小的变化即可。</p>
+<p>​ 因此，每次操作既可以理解为使 n−1 个元素增加 1，也可以理解使 1
+个元素减少 1。显然，后者更利于我们的计算。</p>
+<p>​
+于是，要计算让数组中所有元素相等的操作数，我们只需要计算将数组中所有元素都减少到数组中元素最小值所需的操作数。</p>
 <p><strong>这个方法没有次数的限制，所以不用通过枚举找到可行解！</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">minMoves</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> minNum = *<span class="hljs-built_in">min_element</span>(nums.<span class="hljs-built_in">begin</span>(),nums.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-comment">//找到数组中的最小值</span><br>        <span class="hljs-type">int</span> res = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> num : nums) &#123;<br>            res += num - minNum;<br>        &#125;<br>        <span class="hljs-comment">//通过累加得到一共需要操作的次数</span><br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<h2 id="2-Leetcode-448-找到数组中消失的数字"><a href="#2-Leetcode-448-找到数组中消失的数字" class="headerlink" title="2. Leetcode 448 找到数组中消失的数字"></a>2. Leetcode 448 找到数组中消失的数字</h2><p>给你一个含 <code>n</code> 个整数的数组 <code>nums</code> ，其中 <code>nums[i]</code> 在区间 <code>[1, n]</code> 内。请你找出所有在 <code>[1, n]</code> 范围内但没有出现在 <code>nums</code> 中的数字，并以数组的形式返回结果。</p>
-<h3 id="解法1-使用动态数组（new-delete）"><a href="#解法1-使用动态数组（new-delete）" class="headerlink" title="解法1 使用动态数组（new&amp;delete）"></a>解法1 使用动态数组（new&amp;delete）</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">findDisappearedNumbers</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        vector &lt;<span class="hljs-type">int</span>&gt; successful;<br>        <span class="hljs-type">int</span> n=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">bool</span> *list=<span class="hljs-keyword">new</span> <span class="hljs-type">bool</span>[n];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            list[i]=<span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> num:nums)&#123;<br>            list[num<span class="hljs-number">-1</span>]=<span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            <span class="hljs-keyword">if</span>(!list[i])&#123;<br>                successful.<span class="hljs-built_in">push_back</span>(i<span class="hljs-number">+1</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">delete</span>[] list;<br>        <span class="hljs-keyword">return</span> successful;<br>        <br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<h3 id="解法2-原地哈希表"><a href="#解法2-原地哈希表" class="headerlink" title="解法2 原地哈希表"></a>解法2 原地哈希表</h3><p><strong>不开辟新的内存空间，在原来的数组上进行操作</strong></p>
-<p>我们可以用一个哈希表记录数组 nums 中的数字，由于数字范围均在 [1,n] 中，记录数字后我们再利用哈希表检查 [1,n] 中的每一个数是否出现，从而找到缺失的数字。</p>
-<p>由于数字范围均在 [1,n] 中，我们也可以用一个长度为 n 的数组来代替哈希表。这一做法的空间复杂度是 O(n) 的。我们的目标是优化空间复杂度到 O(1)。</p>
+<h2 id="leetcode-448-找到数组中消失的数字">2. Leetcode 448
+找到数组中消失的数字</h2>
+<p>给你一个含 <code>n</code> 个整数的数组 <code>nums</code> ，其中
+<code>nums[i]</code> 在区间 <code>[1, n]</code> 内。请你找出所有在
+<code>[1, n]</code> 范围内但没有出现在 <code>nums</code>
+中的数字，并以数组的形式返回结果。</p>
+<h3 id="解法1-使用动态数组newdelete">解法1
+使用动态数组（new&amp;delete）</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">findDisappearedNumbers</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        vector &lt;<span class="hljs-type">int</span>&gt; successful;<br>        <span class="hljs-type">int</span> n=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">bool</span> *list=<span class="hljs-keyword">new</span> <span class="hljs-type">bool</span>[n];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            list[i]=<span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> num:nums)&#123;<br>            list[num<span class="hljs-number">-1</span>]=<span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            <span class="hljs-keyword">if</span>(!list[i])&#123;<br>                successful.<span class="hljs-built_in">push_back</span>(i<span class="hljs-number">+1</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">delete</span>[] list;<br>        <span class="hljs-keyword">return</span> successful;<br>        <br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<h3 id="解法2-原地哈希表">解法2 原地哈希表</h3>
+<p><strong>不开辟新的内存空间，在原来的数组上进行操作</strong></p>
+<p>我们可以用一个哈希表记录数组 nums 中的数字，由于数字范围均在 [1,n]
+中，记录数字后我们再利用哈希表检查 [1,n]
+中的每一个数是否出现，从而找到缺失的数字。</p>
+<p>由于数字范围均在 [1,n] 中，我们也可以用一个长度为 n
+的数组来代替哈希表。这一做法的空间复杂度是 O(n)
+的。我们的目标是优化空间复杂度到 O(1)。</p>
 <p>注意到 nums 的长度恰好也为 n，能否让 nums 充当哈希表呢？</p>
-<p>由于 nums 的数字范围均在 [1,n] 中，我们可以<strong>利用这一范围之外的数字</strong>，来表达「是否存在」的含义。</p>
-<p>具体来说，遍历 nums，每遇到一个数 x，就让 nums[x−1] 增加 n。由于 nums 中所有数均在 [1,n] 中，增加以后，这些数必然大于 n。最后我们遍历 nums，若 nums[i] 未大于 n，就说明没有遇到过数 i+1。这样我们就找到了缺失的数字。</p>
-<p>注意，<strong>当我们遍历到某个位置时，其中的数可能已经被增加过，因此需要对 n 取模</strong>来还原出它本来的值。</p>
+<p>由于 nums 的数字范围均在 [1,n]
+中，我们可以<strong>利用这一范围之外的数字</strong>，来表达「是否存在」的含义。</p>
+<p>具体来说，遍历 nums，每遇到一个数 x，就让 nums[x−1] 增加 n。由于 nums
+中所有数均在 [1,n] 中，增加以后，这些数必然大于 n。最后我们遍历 nums，若
+nums[i] 未大于 n，就说明没有遇到过数
+i+1。这样我们就找到了缺失的数字。</p>
+<p>注意，<strong>当我们遍历到某个位置时，其中的数可能已经被增加过，因此需要对
+n 取模</strong>来还原出它本来的值。</p>
 <p><strong>取模&amp;加倍数（进制）</strong>可以让一个数通过不同的运算储存不同的信息，例如32以10为进制可以储存3,2两个信息</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">findDisappearedNumbers</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; num : nums) &#123;<br>            <span class="hljs-type">int</span> x = (num - <span class="hljs-number">1</span>) % n;<br>            <span class="hljs-comment">//-1 problem，注意数组下标从0开始</span><br>            <span class="hljs-comment">//通过%取余运算得到原来的值</span><br>            nums[x] += n;<br>        &#125;<br>        vector&lt;<span class="hljs-type">int</span>&gt; ret;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>            <span class="hljs-keyword">if</span> (nums[i] &lt;= n) &#123;<br>                <span class="hljs-comment">//证明这个值未出现过</span><br>                ret.<span class="hljs-built_in">push_back</span>(i + <span class="hljs-number">1</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ret;<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
-
-<h2 id="3-Leetcode-455-贪心算法分配饼干"><a href="#3-Leetcode-455-贪心算法分配饼干" class="headerlink" title="3. Leetcode 455 贪心算法分配饼干"></a>3. Leetcode 455 贪心算法分配饼干</h2><h3 id="补充：贪心算法"><a href="#补充：贪心算法" class="headerlink" title="补充：贪心算法"></a>补充：贪心算法</h3><p><strong>保证局部最优解&#x3D;全局最优解！</strong></p>
-<h4 id="1-最优子结构性质"><a href="#1-最优子结构性质" class="headerlink" title="1. 最优子结构性质"></a>1. 最优子结构性质</h4><p><strong>定义</strong>：一个问题具有最优子结构性质，意味着问题的最优解可以通过其子问题的最优解来构建。这是动态规划和贪婪算法的共同特征。</p>
+<h2 id="leetcode-455-贪心算法分配饼干">3. Leetcode 455
+贪心算法分配饼干</h2>
+<h3 id="补充贪心算法">补充：贪心算法</h3>
+<p><strong>保证局部最优解=全局最优解！</strong></p>
+<h4 id="最优子结构性质">1. 最优子结构性质</h4>
+<p><strong>定义</strong>：一个问题具有最优子结构性质，意味着问题的最优解可以通过其子问题的最优解来构建。这是动态规划和贪婪算法的共同特征。</p>
 <p><strong>作用</strong>：如果一个问题具有最优子结构性质，贪婪算法可以通过解决每个子问题的最优解来逐步构建全局最优解。例如，在最小生成树问题中，局部最优的边选择能够合并成全局最优的生成树。</p>
-<h4 id="2-无后效性"><a href="#2-无后效性" class="headerlink" title="2. 无后效性"></a>2. 无后效性</h4><p><strong>定义</strong>：无后效性是指当前选择不会影响未来选择的可行性或最优性。这意味着每一步做出的选择不会限制后续步骤中其他选择的可能性。</p>
+<h4 id="无后效性">2. 无后效性</h4>
+<p><strong>定义</strong>：无后效性是指当前选择不会影响未来选择的可行性或最优性。这意味着每一步做出的选择不会限制后续步骤中其他选择的可能性。</p>
 <p><strong>作用</strong>：无后效性确保了贪婪算法在每一步做出局部最优选择时，不会对后续步骤产生负面影响。例如，在活动选择问题中，选择结束时间最早的活动不会影响后续活动的选择空间。</p>
-<h4 id="3-贪婪选择性质的应用场景"><a href="#3-贪婪选择性质的应用场景" class="headerlink" title="3. 贪婪选择性质的应用场景"></a>3. 贪婪选择性质的应用场景</h4><p>一些典型的应用场景包括：</p>
+<h4 id="贪婪选择性质的应用场景">3. 贪婪选择性质的应用场景</h4>
+<p>一些典型的应用场景包括：</p>
 <ul>
 <li><strong>活动选择问题</strong>：选择一组互不重叠的活动，贪婪选择性质确保选择最早结束的活动是最优的。</li>
 <li><strong>最小生成树问题</strong>：通过选择权重最小且不形成环的边来构建最小生成树。</li>
 <li><strong>单源最短路径问题（无负权边）</strong>：在Dijkstra算法中，每次选择当前未访问顶点中距离最小的顶点。</li>
 </ul>
-<h4 id="4-不适用贪婪算法的问题"><a href="#4-不适用贪婪算法的问题" class="headerlink" title="4. 不适用贪婪算法的问题"></a>4. 不适用贪婪算法的问题</h4><p>并不是所有问题都适合用贪婪算法来解决。对于不具备贪婪选择性质的问题，贪婪算法可能无法找到全局最优解。例如：</p>
+<h4 id="不适用贪婪算法的问题">4. 不适用贪婪算法的问题</h4>
+<p>并不是所有问题都适合用贪婪算法来解决。对于不具备贪婪选择性质的问题，贪婪算法可能无法找到全局最优解。例如：</p>
 <ul>
 <li><strong>旅行商问题（TSP）</strong>：贪婪算法可能无法找到最短路径，因为局部最优选择可能导致全局次优解。</li>
 <li><strong>背包问题</strong>：在0-1背包问题中，贪婪算法可能无法找到最优解，因为选择价值密度最高的物品可能导致无法装入其他更有价值的组合。</li>
 </ul>
-<h4 id="5-识别适用性"><a href="#5-识别适用性" class="headerlink" title="5. 识别适用性"></a>5. 识别适用性</h4><p>在应用贪婪算法之前，识别问题是否具备贪婪选择性质和最优子结构是关键。通常需要通过理论分析或构造反例来验证贪婪策略的有效性。</p>
+<h4 id="识别适用性">5. 识别适用性</h4>
+<p>在应用贪婪算法之前，识别问题是否具备贪婪选择性质和最优子结构是关键。通常需要通过理论分析或构造反例来验证贪婪策略的有效性。</p>
 <p>总结来说，贪婪算法适用于那些具有最优子结构和无后效性的问题。在这些问题中，贪婪选择性质确保每一步的局部最优选择最终能组合成全局最优解。对于不具备这些性质的问题，可能需要其他算法（如动态规划或回溯）来找到全局最优解。</p>
-<h3 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h3><p>假设你是一位很棒的家长，想要给你的孩子们一些小饼干。但是，每个孩子最多只能给一块饼干。</p>
-<p>对每个孩子 <code>i</code>，都有一个胃口值 <code>g[i]</code>，这是能让孩子们满足胃口的饼干的最小尺寸；并且每块饼干 <code>j</code>，都有一个尺寸 <code>s[j]</code> 。如果 <code>s[j] &gt;= g[i]</code>，我们可以将这个饼干 <code>j</code> 分配给孩子 <code>i</code> ，这个孩子会得到满足。你的目标是满足尽可能多的孩子，并输出这个最大数值。</p>
-<h3 id="解法1-排序后遍历（繁琐做法）"><a href="#解法1-排序后遍历（繁琐做法）" class="headerlink" title="解法1:排序后遍历（繁琐做法）"></a>解法1:排序后遍历（繁琐做法）</h3><p>时间复杂度：<em>O</em>(<em>m</em>log<em>m</em>+<em>n</em>log<em>n</em>+<em>m</em>⋅<em>n</em>)</p>
-<p>​	mlogm和nlogn是排序的时间复杂度，mn是最后遍历的时间复杂度</p>
+<h3 id="题目">题目：</h3>
+<p>假设你是一位很棒的家长，想要给你的孩子们一些小饼干。但是，每个孩子最多只能给一块饼干。</p>
+<p>对每个孩子 <code>i</code>，都有一个胃口值
+<code>g[i]</code>，这是能让孩子们满足胃口的饼干的最小尺寸；并且每块饼干
+<code>j</code>，都有一个尺寸 <code>s[j]</code> 。如果
+<code>s[j] &gt;= g[i]</code>，我们可以将这个饼干 <code>j</code>
+分配给孩子 <code>i</code>
+，这个孩子会得到满足。你的目标是满足尽可能多的孩子，并输出这个最大数值。</p>
+<h3 id="解法1排序后遍历繁琐做法">解法1:排序后遍历（繁琐做法）</h3>
+<p>时间复杂度：<em>O</em>(<em>m</em>log<em>m</em>+<em>n</em>log<em>n</em>+<em>m</em>⋅<em>n</em>)</p>
+<p>​ mlogm和nlogn是排序的时间复杂度，mn是最后遍历的时间复杂度</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findContentChildren</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; g, vector&lt;<span class="hljs-type">int</span>&gt;&amp; s)</span> </span>&#123;<br>        <span class="hljs-built_in">sort</span>(g.<span class="hljs-built_in">begin</span>(),g.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-built_in">sort</span>(s.<span class="hljs-built_in">begin</span>(),s.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-type">int</span> count=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> select=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;g.<span class="hljs-built_in">size</span>()&amp;&amp;select&lt;s.<span class="hljs-built_in">size</span>();i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=select;j&lt;s.<span class="hljs-built_in">size</span>();j++)&#123;<br>                <span class="hljs-keyword">if</span>(s[j]&gt;=g[i])&#123;<br>                    count++;<br>                    j++;<br>                    select=j;<br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>            &#125;<br>            <span class="hljs-comment">//其实这里通过select不断提升j的枚举起点有点类似于双指针策略，但是代码的冗余之处在于如果出现遍历完还没有找到的情况，应该直接跳出外循环（我们已经排序过数组了）</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
 <p>解法1的小修改:</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findContentChildren</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; g, vector&lt;<span class="hljs-type">int</span>&gt;&amp; s)</span> </span>&#123;<br>        <span class="hljs-built_in">sort</span>(g.<span class="hljs-built_in">begin</span>(),g.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-built_in">sort</span>(s.<span class="hljs-built_in">begin</span>(),s.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-type">int</span> count=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> select=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">bool</span> flag=<span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;g.<span class="hljs-built_in">size</span>()&amp;&amp;select&lt;s.<span class="hljs-built_in">size</span>();i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=select;j&lt;s.<span class="hljs-built_in">size</span>();j++)&#123;<br>                <span class="hljs-keyword">if</span>(s[j]&gt;=g[i])&#123;<br>                    flag=<span class="hljs-literal">true</span>;<br>                    count++;<br>                    j++;<br>                    select=j;<br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(!flag)&#123;<br>                <span class="hljs-keyword">return</span> count;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> count;<br>        <br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
 <p>(这样就不会超时了，但是代码还有优化的空间)</p>
 <ul>
 <li>这里其实不需要写两层for循环控制两个指针！</li>
 </ul>
-<h3 id="解法2：优化使用双指针"><a href="#解法2：优化使用双指针" class="headerlink" title="解法2：优化使用双指针"></a>解法2：优化使用双指针</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findContentChildren</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; g, vector&lt;<span class="hljs-type">int</span>&gt;&amp; s)</span> </span>&#123;<br>        <span class="hljs-built_in">sort</span>(g.<span class="hljs-built_in">begin</span>(), g.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-built_in">sort</span>(s.<span class="hljs-built_in">begin</span>(), s.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-type">int</span> count = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;<br>        <span class="hljs-comment">//define two pointers</span><br>        <span class="hljs-keyword">while</span> (i &lt; g.<span class="hljs-built_in">size</span>() &amp;&amp; j &lt; s.<span class="hljs-built_in">size</span>()) &#123;<br>            <span class="hljs-keyword">if</span> (s[j] &gt;= g[i]) &#123;<br>                count++;<br>                i++;<br>                <span class="hljs-comment">//if allocate successfully,then the both pointers get forward</span><br>            &#125;<br>            j++;<br>            <span class="hljs-comment">//whenever the allocate, the biscuit pointer gets forward</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(mlogm)+O(nlogn)+O(m+n)&#x3D;O(mlogm+nlogn)</p>
-<h3 id="补充：双指针"><a href="#补充：双指针" class="headerlink" title="补充：双指针"></a>补充：双指针</h3><p>双指针是一种常用的算法技巧，尤其在处理数组或链表等线性数据结构时非常有效。它通过使用两个指针来遍历数据结构，能够在某些情况下优化时间复杂度或简化逻辑。以下是双指针技巧的一些常见应用场景和简单介绍：</p>
-<h3 id="1-快慢指针"><a href="#1-快慢指针" class="headerlink" title="1. 快慢指针"></a>1. 快慢指针</h3><ul>
+<h3 id="解法2优化使用双指针">解法2：优化使用双指针</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findContentChildren</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; g, vector&lt;<span class="hljs-type">int</span>&gt;&amp; s)</span> </span>&#123;<br>        <span class="hljs-built_in">sort</span>(g.<span class="hljs-built_in">begin</span>(), g.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-built_in">sort</span>(s.<span class="hljs-built_in">begin</span>(), s.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-type">int</span> count = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;<br>        <span class="hljs-comment">//define two pointers</span><br>        <span class="hljs-keyword">while</span> (i &lt; g.<span class="hljs-built_in">size</span>() &amp;&amp; j &lt; s.<span class="hljs-built_in">size</span>()) &#123;<br>            <span class="hljs-keyword">if</span> (s[j] &gt;= g[i]) &#123;<br>                count++;<br>                i++;<br>                <span class="hljs-comment">//if allocate successfully,then the both pointers get forward</span><br>            &#125;<br>            j++;<br>            <span class="hljs-comment">//whenever the allocate, the biscuit pointer gets forward</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
+<p>时间复杂度：O(mlogm)+O(nlogn)+O(m+n)=O(mlogm+nlogn)</p>
+<h3 id="补充双指针">补充：双指针</h3>
+<p>双指针是一种常用的算法技巧，尤其在处理数组或链表等线性数据结构时非常有效。它通过使用两个指针来遍历数据结构，能够在某些情况下优化时间复杂度或简化逻辑。以下是双指针技巧的一些常见应用场景和简单介绍：</p>
+<h3 id="快慢指针">1. 快慢指针</h3>
+<ul>
 <li><strong>应用场景</strong>：检测链表中的环、找到链表的中间节点。</li>
-<li><strong>方法</strong>：<ul>
+<li><strong>方法</strong>：
+<ul>
 <li>使用两个指针，一个快指针每次移动两步，一个慢指针每次移动一步。</li>
 <li>如果快指针和慢指针相遇，说明存在环。</li>
 <li>找中间节点时，当快指针到达链表末尾时，慢指针正好在中间。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="2-左右指针"><a href="#2-左右指针" class="headerlink" title="2. 左右指针"></a>2. 左右指针</h3><ul>
+<h3 id="左右指针">2. 左右指针</h3>
+<ul>
 <li><strong>应用场景</strong>：解决排序数组中的问题，如二分查找、三数之和。</li>
-<li><strong>方法</strong>：<ul>
+<li><strong>方法</strong>：
+<ul>
 <li>初始化两个指针，分别指向数组的两端。</li>
 <li>根据问题的要求，向中间移动指针。</li>
 <li>常用于查找满足某种条件的对或子序列。</li>
 <li>也可以实现动态的查找。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="3-滑动窗口"><a href="#3-滑动窗口" class="headerlink" title="3. 滑动窗口"></a>3. 滑动窗口</h3><ul>
+<h3 id="滑动窗口">3. 滑动窗口</h3>
+<ul>
 <li><strong>应用场景</strong>：解决子数组问题，如最长无重复子串、最小覆盖子串。</li>
-<li><strong>方法</strong>：<ul>
+<li><strong>方法</strong>：
+<ul>
 <li>使用两个指针定义一个窗口，初始时窗口为空。</li>
 <li>移动右指针扩展窗口，移动左指针缩小窗口，直到满足条件。</li>
 <li>在每次窗口变化时更新结果。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="示例：使用双指针解决有序数组中的两数之和"><a href="#示例：使用双指针解决有序数组中的两数之和" class="headerlink" title="示例：使用双指针解决有序数组中的两数之和"></a>示例：使用双指针解决有序数组中的两数之和</h3><p>假设我们有一个有序数组，想找到两个数，使它们的和等于目标值。</p>
+<h3
+id="示例使用双指针解决有序数组中的两数之和">示例：使用双指针解决有序数组中的两数之和</h3>
+<p>假设我们有一个有序数组，想找到两个数，使它们的和等于目标值。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">twoSum</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; numbers, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>    <span class="hljs-type">int</span> left = <span class="hljs-number">0</span>, right = numbers.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (left &lt; right) &#123;<br>        <span class="hljs-type">int</span> sum = numbers[left] + numbers[right];<br>        <span class="hljs-keyword">if</span> (sum == target) &#123;<br>            <span class="hljs-keyword">return</span> &#123;left + <span class="hljs-number">1</span>, right + <span class="hljs-number">1</span>&#125;; <span class="hljs-comment">// 返回索引从1开始</span><br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (sum &lt; target) &#123;<br>            left++; <span class="hljs-comment">// 增加左指针以增加总和</span><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            right--; <span class="hljs-comment">// 减少右指针以减少总和</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> &#123;&#125;; <span class="hljs-comment">// 如果没有找到，返回空</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>双指针技巧通过合理移动两个指针，可以有效地减少遍历次数或简化算法逻辑。选择合适的双指针策略（如快慢指针、左右指针、滑动窗口）可以帮助解决许多复杂的算法问题。</p>
-<h2 id="4-ACwing-633-两数平方和判断"><a href="#4-ACwing-633-两数平方和判断" class="headerlink" title="4. ACwing 633 两数平方和判断"></a>4. ACwing 633 两数平方和判断</h2><p>给定一个非负整数 <code>c</code> ，你要判断是否存在两个整数 <code>a</code> 和 <code>b</code>，使得 <code>a^2 + b^2 = c</code> 。</p>
+<h3 id="总结">总结</h3>
+<p>双指针技巧通过合理移动两个指针，可以有效地减少遍历次数或简化算法逻辑。选择合适的双指针策略（如快慢指针、左右指针、滑动窗口）可以帮助解决许多复杂的算法问题。</p>
+<h2 id="acwing-633-两数平方和判断">4. ACwing 633 两数平方和判断</h2>
+<p>给定一个非负整数 <code>c</code> ，你要判断是否存在两个整数
+<code>a</code> 和 <code>b</code>，使得 <code>a^2 + b^2 = c</code> 。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：c = 5<br>输出：true<br>解释：1 *<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 2 </span>*<span class="hljs-number"> 2 </span>= 5<br></code></pre></td></tr></table></figure>
-
 <p><strong>示例 2：</strong></p>
 <figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs llvm">输入：<span class="hljs-keyword">c</span> <span class="hljs-operator">=</span> <span class="hljs-number">3</span><br>输出：<span class="hljs-keyword">false</span><br></code></pre></td></tr></table></figure>
-
 <p><strong>提示：</strong></p>
 <ul>
 <li><code>0 &lt;= c &lt;= 2^31 - 1</code></li>
@@ -1021,24 +1064,30 @@
 <p>最暴力的解法：双循环暴力枚举（复杂度：O(n^2))</p>
 <p>优化方法：使用sqrt函数省去一层循环</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">judgeSquareSum</span><span class="hljs-params">(<span class="hljs-type">int</span> c)</span> </span>&#123;<br>        <span class="hljs-type">double</span> b;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">long</span> <span class="hljs-type">long</span>  i=<span class="hljs-number">0</span>;(i)*i&lt;=c;i++)&#123;<br>            b=<span class="hljs-built_in">sqrt</span>(c-i*i);&#123;<br>                <span class="hljs-keyword">if</span>(b==<span class="hljs-built_in">int</span>(b))&#123;<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<h4 id="补充方法：使用双指针枚举"><a href="#补充方法：使用双指针枚举" class="headerlink" title="补充方法：使用双指针枚举"></a>补充方法：使用双指针枚举</h4><p><img src="/1.png" srcset="/img/loading.gif" lazyload alt="two pointers"></p>
+<h4 id="补充方法使用双指针枚举">补充方法：使用双指针枚举</h4>
+<figure>
+<img src="1.png" srcset="/img/loading.gif" lazyload alt="two pointers" />
+<figcaption aria-hidden="true">two pointers</figcaption>
+</figure>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">judgeSquareSum</span><span class="hljs-params">(<span class="hljs-type">int</span> c)</span> </span>&#123;<br>        <span class="hljs-type">long</span> left = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">long</span> right = (<span class="hljs-type">int</span>)<span class="hljs-built_in">sqrt</span>(c);<br>        <span class="hljs-keyword">while</span> (left &lt;= right) &#123;<br>            <span class="hljs-type">long</span> sum = left * left + right * right;<br>            <span class="hljs-keyword">if</span> (sum == c) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (sum &gt; c) &#123;<br>                right--;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                left++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
-
-
-
-
-
-<h1 id="程序设计错题-25-30-20241105"><a href="#程序设计错题-25-30-20241105" class="headerlink" title="程序设计错题  25-30 20241105"></a>程序设计错题  25-30 20241105</h1><h2 id="1-Leetcode-877-先手必胜策略判断"><a href="#1-Leetcode-877-先手必胜策略判断" class="headerlink" title="1. Leetcode 877 先手必胜策略判断"></a>1. Leetcode 877 先手必胜策略判断</h2><p>Alice 和 Bob 用几堆石子在做游戏一共有偶数堆石子，<strong>排成一行</strong>；每堆都有 <strong>正</strong> 整数颗石子，数目为 <code>piles[i]</code> 。</p>
-<p>游戏以谁手中的石子最多来决出胜负。石子的 <strong>总数</strong> 是 <strong>奇数</strong> ，所以没有平局。</p>
-<p>Alice 和 Bob 轮流进行，<strong>Alice 先开始</strong> 。 每回合，玩家从行的 <strong>开始</strong> 或 <strong>结束</strong> 处取走整堆石头。 这种情况一直持续到没有更多的石子堆为止，此时手中 <strong>石子最多</strong> 的玩家 <strong>获胜</strong> 。</p>
-<p>假设 Alice 和 Bob 都发挥出最佳水平，当 Alice 赢得比赛时返回 <code>true</code> ，当 Bob 赢得比赛时返回 <code>false</code> 。</p>
+<h1 id="程序设计错题-25-30-20241105">程序设计错题 25-30 20241105</h1>
+<h2 id="leetcode-877-先手必胜策略判断">1. Leetcode 877
+先手必胜策略判断</h2>
+<p>Alice 和 Bob
+用几堆石子在做游戏一共有偶数堆石子，<strong>排成一行</strong>；每堆都有
+<strong>正</strong> 整数颗石子，数目为 <code>piles[i]</code> 。</p>
+<p>游戏以谁手中的石子最多来决出胜负。石子的 <strong>总数</strong> 是
+<strong>奇数</strong> ，所以没有平局。</p>
+<p>Alice 和 Bob 轮流进行，<strong>Alice 先开始</strong> 。
+每回合，玩家从行的 <strong>开始</strong> 或 <strong>结束</strong>
+处取走整堆石头。 这种情况一直持续到没有更多的石子堆为止，此时手中
+<strong>石子最多</strong> 的玩家 <strong>获胜</strong> 。</p>
+<p>假设 Alice 和 Bob 都发挥出最佳水平，当 Alice 赢得比赛时返回
+<code>true</code> ，当 Bob 赢得比赛时返回 <code>false</code> 。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：piles = [5,3,4,5]<br>输出：true<br>解释：<br>Alice 先开始，只能拿前<span class="hljs-number"> 5 </span>颗或后<span class="hljs-number"> 5 </span>颗石子 。<br>假设他取了前<span class="hljs-number"> 5 </span>颗，这一行就变成了 [3,4,5] 。<br>如果 Bob 拿走前<span class="hljs-number"> 3 </span>颗，那么剩下的是 [4,5]，Alice 拿走后<span class="hljs-number"> 5 </span>颗赢得<span class="hljs-number"> 10 </span>分。<br>如果 Bob 拿走后<span class="hljs-number"> 5 </span>颗，那么剩下的是 [3,4]，Alice 拿走后<span class="hljs-number"> 4 </span>颗赢得<span class="hljs-number"> 9 </span>分。<br>这表明，取前<span class="hljs-number"> 5 </span>颗石子对 Alice 来说是一个胜利的举动，所以返回 true 。<br></code></pre></td></tr></table></figure>
-
 <p><strong>示例 2：</strong></p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nix">输入：<span class="hljs-attr">piles</span> = [<span class="hljs-number">3</span>,<span class="hljs-number">7</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]<br>输出：<span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
-
 <p><strong>提示：</strong></p>
 <ul>
 <li><code>2 &lt;= piles.length &lt;= 500</code></li>
@@ -1047,16 +1096,25 @@
 <li><code>sum(piles[i])</code> 是 <strong>奇数</strong></li>
 </ul>
 <p><strong>分析</strong>：此题贪婪算法并不适应，因为局部最优并不是全局最优</p>
-<h4 id="为什么不能用贪婪算法？"><a href="#为什么不能用贪婪算法？" class="headerlink" title="为什么不能用贪婪算法？"></a>为什么不能用贪婪算法？</h4><ol>
+<h4 id="为什么不能用贪婪算法">为什么不能用贪婪算法？</h4>
+<ol type="1">
 <li><strong>局部最优不等于全局最优</strong>：在这种零和博弈中，贪婪策略只能保证每次选择当前最佳（即最多的石子堆），但这并不一定能得到最终的胜利。因为后续的选择会影响到剩余石子的选择，而不只是当前的选择。例如，某个玩家如果总是选择当前最多的石子堆，可能会在后续失去更多的机会，最终导致输掉游戏。</li>
 <li><strong>博弈的前瞻性</strong>：每次玩家的选择不仅仅影响当前局面，还会影响到接下来的选择。理想的策略需要考虑未来的回合，预测对方的反应，并选择一个能最终获得胜利的方案。贪婪算法通常缺乏这种全局视野。</li>
 <li><strong>博弈的相互作用</strong>：这道题的核心在于两方玩家都在做决策，而每个决策都会影响到后续的局面。需要通过动态规划来考虑在所有可能的局面下，哪种选择能够获得最终最优的结果。</li>
 </ol>
-<h3 id="解法-：区间动态规划"><a href="#解法-：区间动态规划" class="headerlink" title="解法 ：区间动态规划"></a>解法 ：区间动态规划</h3><p>为了求解这个问题，我们可以定义一个动态规划表 <code>dp[i][j]</code> 来表示在石子堆的区间 <code>[i, j]</code> 中，<strong>当前玩家</strong>（注意有可能是Bob！）与对手玩家的所得到石子之差的最大值。</p>
-<h4 id="状态转移方程"><a href="#状态转移方程" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>假设当前玩家面对的石子堆是 <code>[i, j]</code>，他可以选择：</p>
+<h3 id="解法-区间动态规划">解法 ：区间动态规划</h3>
+<p>为了求解这个问题，我们可以定义一个动态规划表 <code>dp[i][j]</code>
+来表示在石子堆的区间 <code>[i, j]</code>
+中，<strong>当前玩家</strong>（注意有可能是Bob！）与对手玩家的所得到石子之差的最大值。</p>
+<h4 id="状态转移方程">状态转移方程</h4>
+<p>假设当前玩家面对的石子堆是 <code>[i, j]</code>，他可以选择：</p>
 <ul>
-<li>从前端取走 <code>piles[i]</code>，剩下的区间是 <code>[i+1, j]</code>，这个时候，剩下的区间 <code>[i+1, j]</code> 会是对方的回合。</li>
-<li>从后端取走 <code>piles[j]</code>，剩下的区间是 <code>[i, j-1]</code>，这个时候，剩下的区间 <code>[i, j-1]</code> 会是对方的回合。</li>
+<li>从前端取走 <code>piles[i]</code>，剩下的区间是
+<code>[i+1, j]</code>，这个时候，剩下的区间 <code>[i+1, j]</code>
+会是对方的回合。</li>
+<li>从后端取走 <code>piles[j]</code>，剩下的区间是
+<code>[i, j-1]</code>，这个时候，剩下的区间 <code>[i, j-1]</code>
+会是对方的回合。</li>
 </ul>
 <p>对于每种选择，当前玩家的得分是<strong>他取走的石子的数量加上对方在剩余区间中的最差得分</strong>。为了确保当前玩家的策略最优，我们需要选取对方最差的选择（即，最小化对方得到的分数）。</p>
 <p>因此，状态转移方程为：</p>
@@ -1064,193 +1122,223 @@
 <li><code>dp[i][j] = max(piles[i] + (sum(i+1, j) - dp[i+1][j]), piles[j] + (sum(i, j-1) - dp[i][j-1]))</code></li>
 <li>这里是全局最优解！</li>
 </ul>
-<p>其中，<code>sum(i, j)</code> 是从 <code>i</code> 到 <code>j</code> 的石子堆总数。</p>
-<h4 id="动态规划实现"><a href="#动态规划实现" class="headerlink" title="动态规划实现"></a>动态规划实现</h4><p>为了避免重复计算区间和，我们可以预先计算所有区间的石子总和，并使用这些预计算的和来加速我们的 DP 计算。</p>
+<p>其中，<code>sum(i, j)</code> 是从 <code>i</code> 到 <code>j</code>
+的石子堆总数。</p>
+<h4 id="动态规划实现">动态规划实现</h4>
+<p>为了避免重复计算区间和，我们可以预先计算所有区间的石子总和，并使用这些预计算的和来加速我们的
+DP 计算。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">stoneGame</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; piles)</span> </span>&#123;<br>        <span class="hljs-type">int</span> length = piles.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">auto</span> dp = vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;(length, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(length));<br>        <span class="hljs-comment">//定义二维数组</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) &#123;<br>            dp[i][i] = piles[i];<br>        &#125;<br>        <span class="hljs-comment">//特殊情况：游戏进行到了最后一轮</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = length - <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = i + <span class="hljs-number">1</span>; j &lt; length; j++) &#123;<br>                dp[i][j] = <span class="hljs-built_in">max</span>(piles[i] - dp[i + <span class="hljs-number">1</span>][j], piles[j] - dp[i][j - <span class="hljs-number">1</span>]);<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">//特殊的检索方法。类似于一个上三角矩阵并且确定了矩阵主对角线的元素的值</span><br>        <span class="hljs-comment">//这样可以保证每个元素在递归的时候都有值！</span><br>        <span class="hljs-keyword">return</span> dp[<span class="hljs-number">0</span>][length - <span class="hljs-number">1</span>] &gt; <span class="hljs-number">0</span>;<br>        <span class="hljs-comment">//dp[0][length - 1]代表能拿到的最优解</span><br>        <span class="hljs-comment">//在这里使用了归一化的思路，这样只要判断是否&gt;0就行了</span><br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
-
 <p>使用不同的动态规划数组：</p>
-<p>​	dp代表当前玩家在当前状态下，能够得到的最优解</p>
+<p>​ dp代表当前玩家在当前状态下，能够得到的最优解</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">stoneGame</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; piles)</span> </span>&#123;<br>        <br>        <span class="hljs-type">int</span> length=piles.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">auto</span> sumcount=vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;(length,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(length));<br>        <span class="hljs-type">int</span> sum=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;length;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;length;j++)&#123;<br>                <span class="hljs-keyword">if</span>(j&lt;i)&#123;<br>                    sumcount[i][j]=<span class="hljs-number">0</span>;<br>                &#125;<span class="hljs-keyword">else</span>&#123;<br>                    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> k=i;k&lt;=j;k++)&#123;<br>                        sum+=piles[k];<br>                    &#125;<br>                    sumcount[i][j]=sum;<br>                    sum=<span class="hljs-number">0</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">auto</span> dp = vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;(length,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(length));<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;length;i++)&#123;<br>            dp[i][i]=<span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=length<span class="hljs-number">-2</span>;i&gt;=<span class="hljs-number">0</span>;i--)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=i<span class="hljs-number">+1</span>;j&lt;length;j++)&#123;<br>                dp[i][j]=<span class="hljs-built_in">max</span>(piles[i]+sumcount[i<span class="hljs-number">+1</span>][j]-dp[i<span class="hljs-number">+1</span>][j],piles[j]+sumcount[i][j<span class="hljs-number">-1</span>]-dp[i][j<span class="hljs-number">-1</span>]);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(<span class="hljs-number">2</span>*dp[<span class="hljs-number">0</span>][length<span class="hljs-number">-1</span>]&gt;sumcount[<span class="hljs-number">0</span>][length<span class="hljs-number">-1</span>])&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<h2 id="2-Leetcode-942-DI字符串序列匹配生成"><a href="#2-Leetcode-942-DI字符串序列匹配生成" class="headerlink" title="2. Leetcode 942 DI字符串序列匹配生成"></a>2. Leetcode 942 DI字符串序列匹配生成</h2><p>由范围 <code>[0,n]</code> 内所有整数组成的 <code>n + 1</code> 个整数的排列序列可以表示为长度为 <code>n</code> 的字符串 <code>s</code> ，其中:</p>
+<h2 id="leetcode-942-di字符串序列匹配生成">2. Leetcode 942
+DI字符串序列匹配生成</h2>
+<p>由范围 <code>[0,n]</code> 内所有整数组成的 <code>n + 1</code>
+个整数的排列序列可以表示为长度为 <code>n</code> 的字符串 <code>s</code>
+，其中:</p>
 <ul>
-<li>如果 <code>perm[i] &lt; perm[i + 1]</code> ，那么 <code>s[i] == &#39;I&#39;</code> </li>
-<li>如果 <code>perm[i] &gt; perm[i + 1]</code> ，那么 <code>s[i] == &#39;D&#39;</code></li>
+<li>如果 <code>perm[i] &lt; perm[i + 1]</code> ，那么
+<code>s[i] == 'I'</code></li>
+<li>如果 <code>perm[i] &gt; perm[i + 1]</code> ，那么
+<code>s[i] == 'D'</code></li>
 </ul>
-<p>给定一个字符串 <code>s</code> ，重构排列 <code>perm</code> 并返回它。如果有多个有效排列perm，则返回其中 <strong>任何一个</strong> 。</p>
+<p>给定一个字符串 <code>s</code> ，重构排列 <code>perm</code>
+并返回它。如果有多个有效排列perm，则返回其中 <strong>任何一个</strong>
+。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入：s = <span class="hljs-string">&quot;IDID&quot;</span><br>输出：[<span class="hljs-number">0</span>,<span class="hljs-number">4</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>]<br></code></pre></td></tr></table></figure>
-
 <p><strong>示例 2：</strong></p>
 <figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入：s = <span class="hljs-string">&quot;III&quot;</span><br>输出：[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]<br></code></pre></td></tr></table></figure>
-
 <p><strong>示例 3：</strong></p>
 <figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入：s = <span class="hljs-string">&quot;DDI&quot;</span><br>输出：[<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure>
-
-<h3 id="非常经典的贪心算法！"><a href="#非常经典的贪心算法！" class="headerlink" title="非常经典的贪心算法！"></a>非常经典的贪心算法！</h3><p>考虑 perm[0] 的值，根据题意：</p>
-<p>如果 s[0]&#x3D;‘I’，那么令 perm[0]&#x3D;0，则无论 perm[1] 为何值都满足 perm[0]&lt;perm[1]；<br>如果 s[0]&#x3D;‘D’，那么令 perm[0]&#x3D;n，则无论 perm[1] 为何值都满足 perm[0]&gt;perm[1]；<br>确定好 perm[0] 后，剩余的 n−1 个字符和 n 个待确定的数就变成了一个和原问题相同，但规模为 n−1 的问题。因此我们可以继续按照上述方法确定 perm[1]：如果 s[1]&#x3D;‘I’，那么令 perm[1] 为剩余数字中的最小数；如果 s[1]&#x3D;‘D’，那么令 perm[1] 为剩余数字中的最大数。如此循环直至剩下一个数，填入 perm[n] 中。</p>
+<h3 id="非常经典的贪心算法">非常经典的贪心算法！</h3>
+<p>考虑 perm[0] 的值，根据题意：</p>
+<p>如果 s[0]=‘I’，那么令 perm[0]=0，则无论 perm[1] 为何值都满足
+perm[0]&lt;perm[1]； 如果 s[0]=‘D’，那么令 perm[0]=n，则无论 perm[1]
+为何值都满足 perm[0]&gt;perm[1]； 确定好 perm[0] 后，剩余的 n−1 个字符和
+n 个待确定的数就变成了一个和原问题相同，但规模为 n−1
+的问题。因此我们可以继续按照上述方法确定 perm[1]：如果 s[1]=‘I’，那么令
+perm[1] 为剩余数字中的最小数；如果 s[1]=‘D’，那么令 perm[1]
+为剩余数字中的最大数。如此循环直至剩下一个数，填入 perm[n] 中。</p>
 <p>如何实现该贪心算法？</p>
-<h3 id="解法1：使用set容器自动削头去尾"><a href="#解法1：使用set容器自动削头去尾" class="headerlink" title="解法1：使用set容器自动削头去尾"></a>解法1：使用set容器自动削头去尾</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">diStringMatch</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        vector &lt;<span class="hljs-type">int</span>&gt; ans;<br>        <span class="hljs-type">int</span> n=s.<span class="hljs-built_in">length</span>();<br>        set &lt;<span class="hljs-type">int</span>&gt; allthenum;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;=n;i++)&#123;<br>            allthenum.<span class="hljs-built_in">insert</span>(i);<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            <span class="hljs-keyword">if</span>(s[i]==<span class="hljs-string">&#x27;I&#x27;</span>)&#123;<br>                ans.<span class="hljs-built_in">push_back</span>(*(allthenum.<span class="hljs-built_in">begin</span>()));<br>                allthenum.<span class="hljs-built_in">erase</span>(allthenum.<span class="hljs-built_in">begin</span>());<br><br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                ans.<span class="hljs-built_in">push_back</span>((*<span class="hljs-built_in">prev</span>(allthenum.<span class="hljs-built_in">end</span>())));<br>                allthenum.<span class="hljs-built_in">erase</span>(<span class="hljs-built_in">prev</span>(allthenum.<span class="hljs-built_in">end</span>()));<br>                <br>            &#125;<br>        &#125;<br>        ans.<span class="hljs-built_in">push_back</span>(*(allthenum.<span class="hljs-built_in">begin</span>()));<br>        <span class="hljs-keyword">return</span> ans;&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
+<h3
+id="解法1使用set容器自动削头去尾">解法1：使用set容器自动削头去尾</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">diStringMatch</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        vector &lt;<span class="hljs-type">int</span>&gt; ans;<br>        <span class="hljs-type">int</span> n=s.<span class="hljs-built_in">length</span>();<br>        set &lt;<span class="hljs-type">int</span>&gt; allthenum;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;=n;i++)&#123;<br>            allthenum.<span class="hljs-built_in">insert</span>(i);<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            <span class="hljs-keyword">if</span>(s[i]==<span class="hljs-string">&#x27;I&#x27;</span>)&#123;<br>                ans.<span class="hljs-built_in">push_back</span>(*(allthenum.<span class="hljs-built_in">begin</span>()));<br>                allthenum.<span class="hljs-built_in">erase</span>(allthenum.<span class="hljs-built_in">begin</span>());<br><br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                ans.<span class="hljs-built_in">push_back</span>((*<span class="hljs-built_in">prev</span>(allthenum.<span class="hljs-built_in">end</span>())));<br>                allthenum.<span class="hljs-built_in">erase</span>(<span class="hljs-built_in">prev</span>(allthenum.<span class="hljs-built_in">end</span>()));<br>                <br>            &#125;<br>        &#125;<br>        ans.<span class="hljs-built_in">push_back</span>(*(allthenum.<span class="hljs-built_in">begin</span>()));<br>        <span class="hljs-keyword">return</span> ans;&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <p><strong>set容器的底层是红黑树，可以实现自动元素的排序，但不支持元素的索引，要使用迭代器</strong></p>
-<p><code>std::set</code>的迭代器是双向迭代器（bidirectional iterator），而不是随机访问迭代器（random access iterator），因此不支持减法操作。</p>
+<p><code>std::set</code>的迭代器是双向迭代器（bidirectional
+iterator），而不是随机访问迭代器（random access
+iterator），因此不支持减法操作。</p>
 <p>如果你想获取<code>std::set</code>中最后一个元素的值，可以使用如下方法：</p>
 <p>使用<code>std::prev</code></p>
 <p><code>std::prev</code>是一个标准库函数，用于获取给定迭代器的前一个位置。你可以使用它来获取<code>set</code>的最后一个元素：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;set&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iterator&gt;</span> <span class="hljs-comment">// for std::prev</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    std::set&lt;<span class="hljs-type">int</span>&gt; allthenum = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;;<br><br>    <span class="hljs-comment">// 获取 set 的最后一个元素</span><br>    <span class="hljs-keyword">if</span> (!allthenum.<span class="hljs-built_in">empty</span>()) &#123;<br>        <span class="hljs-type">int</span> lastElement = *std::<span class="hljs-built_in">prev</span>(allthenum.<span class="hljs-built_in">end</span>());<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Last element: &quot;</span> &lt;&lt; lastElement &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-
 <ul>
 <li><code>allthenum.end()</code>返回的是一个指向<code>set</code>末尾的迭代器（即在最后一个元素之后的位置）。</li>
 <li><code>std::prev(allthenum.end())</code>返回的是指向最后一个元素的迭代器。</li>
 <li>使用<code>*</code>解引用这个迭代器来获取最后一个元素的值。</li>
 </ul>
 <p>这种方法是标准的方式来访问<code>std::set</code>的最后一个元素。确保在访问元素之前，检查集合是否为空，以避免解引用无效迭代器。</p>
-<h3 id="解法2：优化解法：这里斩头或者去尾并不会改变剩下元素的排列顺序，所以可以使用vector数组（略）"><a href="#解法2：优化解法：这里斩头或者去尾并不会改变剩下元素的排列顺序，所以可以使用vector数组（略）" class="headerlink" title="解法2：优化解法：这里斩头或者去尾并不会改变剩下元素的排列顺序，所以可以使用vector数组（略）"></a>解法2：优化解法：这里斩头或者去尾并不会改变剩下元素的排列顺序，所以可以使用vector数组（略）</h3><p>此处也可以选择不开新的数组，直接使用双指针完成</p>
+<h3
+id="解法2优化解法这里斩头或者去尾并不会改变剩下元素的排列顺序所以可以使用vector数组略">解法2：优化解法：这里斩头或者去尾并不会改变剩下元素的排列顺序，所以可以使用vector数组（略）</h3>
+<p>此处也可以选择不开新的数组，直接使用双指针完成</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">diStringMatch</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = s.<span class="hljs-built_in">length</span>(), lo = <span class="hljs-number">0</span>, hi = n;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">perm</span><span class="hljs-params">(n + <span class="hljs-number">1</span>)</span></span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>            perm[i] = (s[i] == <span class="hljs-string">&#x27;I&#x27;</span> ? lo++ : hi--);<br>        &#125;<br>        perm[n] = lo; <span class="hljs-comment">// 最后剩下一个数，此时 lo == hi</span><br>        <span class="hljs-keyword">return</span> perm;<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
-
-<h2 id="3-Leetcode-11-盛水容器"><a href="#3-Leetcode-11-盛水容器" class="headerlink" title="3. Leetcode 11 盛水容器"></a>3. Leetcode 11 盛水容器</h2><p>给定一个长度为 <code>n</code> 的整数数组 <code>height</code> 。有 <code>n</code> 条垂线，第 <code>i</code> 条线的两个端点是 <code>(i, 0)</code> 和 <code>(i, height[i])</code> 。</p>
-<p>找出其中的两条线，使得它们与 <code>x</code> 轴共同构成的容器可以容纳最多的水。</p>
+<h2 id="leetcode-11-盛水容器">3. Leetcode 11 盛水容器</h2>
+<p>给定一个长度为 <code>n</code> 的整数数组 <code>height</code> 。有
+<code>n</code> 条垂线，第 <code>i</code> 条线的两个端点是
+<code>(i, 0)</code> 和 <code>(i, height[i])</code> 。</p>
+<p>找出其中的两条线，使得它们与 <code>x</code>
+轴共同构成的容器可以容纳最多的水。</p>
 <p>返回容器可以储存的最大水量。</p>
 <p><strong>说明：</strong>你不能倾斜容器。</p>
 <p><strong>示例 1：</strong></p>
-<p><img src="https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/25/question_11.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img
+src="https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/25/question_11.jpg" srcset="/img/loading.gif" lazyload
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dns">输入：[<span class="hljs-number">1,8,6,2</span>,<span class="hljs-number">5,4,8,3</span>,<span class="hljs-number">7</span>]<br>输出：<span class="hljs-number">49</span> <br>解释：图中垂直线代表输入数组 [<span class="hljs-number">1,8,6,2</span>,<span class="hljs-number">5,4,8,3</span>,<span class="hljs-number">7</span>]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 <span class="hljs-number">49</span>。<br></code></pre></td></tr></table></figure>
-
 <p>最暴力解法：双枚举（超时）</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxArea</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; height)</span> </span>&#123;<br>        <span class="hljs-type">long</span> max=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">long</span> ans;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;height.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=i<span class="hljs-number">+1</span>;j&lt;height.<span class="hljs-built_in">size</span>();j++)&#123;<br>                ans=(j-i)*<span class="hljs-built_in">min</span>(height[i],height[j]);<br>                <span class="hljs-keyword">if</span>(ans&gt;max)&#123;<br>                    max=ans;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> max;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<h4 id="解法优化：对枚举的剪枝操作"><a href="#解法优化：对枚举的剪枝操作" class="headerlink" title="解法优化：对枚举的剪枝操作"></a>解法优化：对枚举的剪枝操作</h4><p>剪枝算法是一种在搜索算法中用于减少计算量和提高效率的技术。它通过在搜索过程中剪去不必要的分支，从而避免遍历整个搜索空间。剪枝算法在许多领域中都有应用，尤其是在解决组合优化问题和博弈树搜索（如棋类游戏）时非常有效。以下是剪枝算法的一些关键概念和常见应用：</p>
-<h5 id="关键概念"><a href="#关键概念" class="headerlink" title="关键概念"></a>关键概念</h5><ol>
-<li><p><strong>搜索空间</strong>：这是所有可能解的集合。搜索算法的目标是找到满足某些条件的解。</p>
-</li>
-<li><p><strong>剪枝条件</strong>：在搜索过程中，算法会评估当前路径或分支是否有可能产生更优解。如果确定某个分支不可能产生更优解，则可以安全地剪去该分支。</p>
-</li>
-<li><p><strong>有效性</strong>：剪枝的有效性在于它能显著减少需要评估的节点数量，从而加快搜索速度。</p>
-</li>
+<h4 id="解法优化对枚举的剪枝操作">解法优化：对枚举的剪枝操作</h4>
+<p>剪枝算法是一种在搜索算法中用于减少计算量和提高效率的技术。它通过在搜索过程中剪去不必要的分支，从而避免遍历整个搜索空间。剪枝算法在许多领域中都有应用，尤其是在解决组合优化问题和博弈树搜索（如棋类游戏）时非常有效。以下是剪枝算法的一些关键概念和常见应用：</p>
+<h5 id="关键概念">关键概念</h5>
+<ol type="1">
+<li><p><strong>搜索空间</strong>：这是所有可能解的集合。搜索算法的目标是找到满足某些条件的解。</p></li>
+<li><p><strong>剪枝条件</strong>：在搜索过程中，算法会评估当前路径或分支是否有可能产生更优解。如果确定某个分支不可能产生更优解，则可以安全地剪去该分支。</p></li>
+<li><p><strong>有效性</strong>：剪枝的有效性在于它能显著减少需要评估的节点数量，从而加快搜索速度。</p></li>
 </ol>
-<h5 id="常见类型"><a href="#常见类型" class="headerlink" title="常见类型"></a>常见类型</h5><ol>
-<li><p><strong>Alpha-Beta 剪枝</strong>：</p>
+<h5 id="常见类型">常见类型</h5>
+<ol type="1">
+<li><strong>Alpha-Beta 剪枝</strong>：
 <ul>
 <li>这是博弈树搜索中常用的剪枝算法，特别是在两人零和游戏中（如国际象棋、围棋）。</li>
-<li>它通过维护两个值（alpha 和 beta）来跟踪当前已知的最佳选择，从而剪去不可能影响最终决策的分支。</li>
-</ul>
-</li>
-<li><p><strong>分支限界法</strong>：</p>
+<li>它通过维护两个值（alpha 和
+beta）来跟踪当前已知的最佳选择，从而剪去不可能影响最终决策的分支。</li>
+</ul></li>
+<li><strong>分支限界法</strong>：
 <ul>
 <li>这是一种用于解决组合优化问题（如旅行商问题、背包问题）的算法。</li>
 <li>它通过在搜索过程中计算当前路径的下界，并与当前已知的最优解进行比较，来决定是否剪去某个分支。</li>
-</ul>
-</li>
+</ul></li>
 </ol>
-<h5 id="应用领域"><a href="#应用领域" class="headerlink" title="应用领域"></a>应用领域</h5><ul>
-<li><strong>人工智能和游戏</strong>：在游戏 AI 中，剪枝算法用于减少需要考虑的可能动作组合。</li>
+<h5 id="应用领域">应用领域</h5>
+<ul>
+<li><strong>人工智能和游戏</strong>：在游戏 AI
+中，剪枝算法用于减少需要考虑的可能动作组合。</li>
 <li><strong>组合优化</strong>：在解决诸如旅行商问题、背包问题等问题时，剪枝算法可以显著减少计算复杂度。</li>
 <li><strong>决策树</strong>：在机器学习中，剪枝用于简化决策树模型，防止过拟合。</li>
 </ul>
-<h5 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h5><ul>
+<h5 id="优势">优势</h5>
+<ul>
 <li><strong>提高效率</strong>：通过减少需要评估的节点数量，剪枝算法可以显著加快搜索速度。</li>
 <li><strong>节省资源</strong>：减少计算和内存使用，使得算法能够处理更大的问题规模。</li>
 </ul>
 <p>剪枝算法的核心在于通过合理的评估和决策，<strong>避免不必要的计算</strong>，从而提升算法的整体性能。</p>
 <p>有哪些不必要的计算？</p>
 <ul>
-<li><p>嵌套循环————双指针</p>
-</li>
+<li><p>嵌套循环————双指针</p></li>
 <li><p>在指针移动是根据判定进行移动，而不是先移动再做判断</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxArea</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; height)</span> </span>&#123;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>,j=height.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>;<br>        <span class="hljs-type">long</span> max=<span class="hljs-built_in">min</span>(height[<span class="hljs-number">0</span>],height[j])*(height.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>);<br>        <span class="hljs-type">long</span> ans;<br>        <span class="hljs-keyword">while</span>(i&lt;j)&#123;<br>            ans=<span class="hljs-built_in">min</span>(height[i],height[j])*(j-i);<br>            <span class="hljs-keyword">if</span>(ans&gt;max)&#123;<br>                max=ans;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(height[i]&lt;height[j])&#123;<br>                i++;<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                j--;<br>            &#125;<br>            <span class="hljs-comment">//关键的if—else语句，确定是哪边往哪个方向移动。</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> max;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n)</p>
-</li>
+<p>时间复杂度：O(n)</p></li>
 </ul>
-<h2 id="4-Leetcode-121-买卖股票的最佳时期"><a href="#4-Leetcode-121-买卖股票的最佳时期" class="headerlink" title="4 Leetcode 121 买卖股票的最佳时期"></a>4 Leetcode 121 买卖股票的最佳时期</h2><p>给定一个数组 <code>prices</code> ，它的第 <code>i</code> 个元素 <code>prices[i]</code> 表示一支给定股票第 <code>i</code> 天的价格。</p>
-<p>你只能选择 <strong>某一天</strong> 买入这只股票，并选择在 <strong>未来的某一个不同的日子</strong> 卖出该股票。设计一个算法来计算你所能获取的最大利润。</p>
-<p>返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 <code>0</code> 。</p>
+<h2 id="leetcode-121-买卖股票的最佳时期">4 Leetcode 121
+买卖股票的最佳时期</h2>
+<p>给定一个数组 <code>prices</code> ，它的第 <code>i</code> 个元素
+<code>prices[i]</code> 表示一支给定股票第 <code>i</code> 天的价格。</p>
+<p>你只能选择 <strong>某一天</strong> 买入这只股票，并选择在
+<strong>未来的某一个不同的日子</strong>
+卖出该股票。设计一个算法来计算你所能获取的最大利润。</p>
+<p>返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回
+<code>0</code> 。</p>
 <p>方法1：暴力方法</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; prices)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(prices.<span class="hljs-built_in">size</span>()==<span class="hljs-number">1</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <br>        <span class="hljs-type">int</span> summax=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i<span class="hljs-number">+1</span>&lt;prices.<span class="hljs-built_in">size</span>();i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=i<span class="hljs-number">+1</span>;j&lt;prices.<span class="hljs-built_in">size</span>();j++)&#123;<br>                <span class="hljs-keyword">if</span>(prices[j]-prices[i]&gt;summax)&#123;<br>                    summax=prices[j]-prices[i];<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> summax;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
 <p>方法2：优化暴力双循环（枚举剪枝）</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; prices)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(prices.<span class="hljs-built_in">size</span>()==<span class="hljs-number">1</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <br>        <span class="hljs-type">int</span> summax=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i<span class="hljs-number">+1</span>&lt;prices.<span class="hljs-built_in">size</span>();i++)&#123;<br>            <span class="hljs-keyword">if</span>(i&gt;=<span class="hljs-number">1</span>&amp;&amp;prices[i]&gt;prices[i<span class="hljs-number">-1</span>])&#123;<br>                <span class="hljs-keyword">continue</span>;<br>                <span class="hljs-comment">//去掉一些完全不可能的情况（枚举剪枝）</span><br>            &#125;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=i<span class="hljs-number">+1</span>;j&lt;prices.<span class="hljs-built_in">size</span>();j++)&#123;<br>                <span class="hljs-keyword">if</span>(j&gt;=<span class="hljs-number">1</span>&amp;&amp;prices[j]&lt;prices[j<span class="hljs-number">-1</span>])&#123;<br>                    <span class="hljs-keyword">continue</span>;<br>                &#125;<br>                <span class="hljs-keyword">if</span>(prices[j]-prices[i]&gt;summax)&#123;<br>                    summax=prices[j]-prices[i];<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> summax;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
 <p>方法3：一次遍历（双指针）</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; prices)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(prices.<span class="hljs-built_in">size</span>()==<span class="hljs-number">1</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>,j=<span class="hljs-number">1</span>;<br>        <span class="hljs-comment">//前后指针：j为前置指针，i为后置指针</span><br>        <span class="hljs-type">int</span> summax=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(j&lt;prices.<span class="hljs-built_in">size</span>())&#123;<br>            <span class="hljs-keyword">if</span>(prices[j]&lt;prices[i])&#123;<br>                i=j;<br>                <span class="hljs-comment">//更新i的位置</span><br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                <span class="hljs-keyword">if</span>(prices[j]-prices[i]&gt;summax)&#123;<br>                    summax=prices[j]-prices[i];<br>                &#125;<br>            &#125;<br>            j++;<br>        &#125;<br>        <span class="hljs-keyword">return</span> summax;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
 <p>方法4：核心：在任何时刻，最大利润等于当前价格减去最低价格</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; prices)</span> </span>&#123;<br>        <span class="hljs-comment">// 初始化一个很大的数值作为初始的股票最低价格</span><br>        <span class="hljs-type">int</span> inf = <span class="hljs-number">1e9</span>;<br>        <span class="hljs-type">int</span> minprice = inf;<br>        <span class="hljs-comment">// 初始化最大利润为0</span><br>        <span class="hljs-type">int</span> maxprofit = <span class="hljs-number">0</span>;<br>        <br>        <span class="hljs-comment">// 遍历价格数组</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> price : prices) &#123;<br>            <span class="hljs-comment">// 计算当前的利润（当前价格减去最低价格），并更新最大利润</span><br>            maxprofit = <span class="hljs-built_in">max</span>(maxprofit, price - minprice);<br>            <span class="hljs-comment">//price-mimprice就是在price之前的所有数的最小值！</span><br>            <span class="hljs-comment">// 更新最低价格</span><br>            minprice = <span class="hljs-built_in">min</span>(price, minprice);<br>        &#125;<br>        <br>        <span class="hljs-comment">// 返回最大利润</span><br>        <span class="hljs-keyword">return</span> maxprofit;<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
-
-<h2 id="5-Leetcode-136-只出现一次的数字"><a href="#5-Leetcode-136-只出现一次的数字" class="headerlink" title="5 Leetcode 136 只出现一次的数字"></a>5 Leetcode 136 只出现一次的数字</h2><p>给你一个 <strong>非空</strong> 整数数组 <code>nums</code> ，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p>
+<h2 id="leetcode-136-只出现一次的数字">5 Leetcode 136
+只出现一次的数字</h2>
+<p>给你一个 <strong>非空</strong> 整数数组 <code>nums</code>
+，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p>
 <p>你必须设计并实现线性时间复杂度的算法来解决此问题，且该算法只使用常量额外空间。</p>
 <p>方法1：哈希表存储（线性时间复杂度&amp;线性空间复杂度）</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">singleNumber</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        unordered_set&lt;<span class="hljs-type">int</span>&gt; judge;<br>        <span class="hljs-type">long</span> sum1=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> num:nums)&#123;<br>            sum1+=num;<br>            <span class="hljs-keyword">if</span>(judge.<span class="hljs-built_in">find</span>(num)==judge.<span class="hljs-built_in">end</span>())&#123;<br>                judge.<span class="hljs-built_in">insert</span>(num);<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                sum1-=<span class="hljs-number">2</span>*num;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> sum1;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
 <p>方法2：使用<strong>位运算</strong>！</p>
-<h3 id="补充：位运算中的异或运算"><a href="#补充：位运算中的异或运算" class="headerlink" title="补充：位运算中的异或运算"></a>补充：位运算中的异或运算</h3><p>异或运算（XOR，eXclusive OR）是一种逻辑运算，它在计算机科学和数学中有着广泛的应用。以下是关于异或运算的原理和运算律的简要介绍：</p>
-<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>异或运算的基本规则如下：</p>
+<h3 id="补充位运算中的异或运算">补充：位运算中的异或运算</h3>
+<p>异或运算（XOR，eXclusive
+OR）是一种逻辑运算，它在计算机科学和数学中有着广泛的应用。以下是关于异或运算的原理和运算律的简要介绍：</p>
+<h4 id="原理">原理</h4>
+<p>异或运算的基本规则如下：</p>
 <ul>
-<li><strong>0 XOR 0 &#x3D; 0</strong></li>
-<li><strong>1 XOR 0 &#x3D; 1</strong></li>
-<li><strong>0 XOR 1 &#x3D; 1</strong></li>
-<li><strong>1 XOR 1 &#x3D; 0</strong></li>
+<li><strong>0 XOR 0 = 0</strong></li>
+<li><strong>1 XOR 0 = 1</strong></li>
+<li><strong>0 XOR 1 = 1</strong></li>
+<li><strong>1 XOR 1 = 0</strong></li>
 </ul>
-<p>换句话说，两个操作数不同时结果为1，相同则结果为0。这解释了“eXclusive OR”的含义，即“排他或”。</p>
-<p>对于十进制数：a^0&#x3D;a！</p>
-<h4 id="运算律"><a href="#运算律" class="headerlink" title="运算律"></a>运算律</h4><p>异或运算具有以下特性：</p>
-<ol>
-<li><p><strong>交换律（Commutative Law）</strong>：</p>
+<p>换句话说，两个操作数不同时结果为1，相同则结果为0。这解释了“eXclusive
+OR”的含义，即“排他或”。</p>
+<p>对于十进制数：a^0=a！</p>
+<h4 id="运算律">运算律</h4>
+<p>异或运算具有以下特性：</p>
+<ol type="1">
+<li><strong>交换律（Commutative Law）</strong>：
 <ul>
 <li><code>A ^ B = B ^ A</code>，即异或操作的结果与操作数的顺序无关。</li>
-</ul>
-</li>
-<li><p><strong>结合律（Associative Law）</strong>：</p>
+</ul></li>
+<li><strong>结合律（Associative Law）</strong>：
 <ul>
 <li><code>(A ^ B) ^ C = A ^ (B ^ C)</code>，这意味着异或操作可以任意分组进行。</li>
-</ul>
-</li>
-<li><p><strong>恒等律（Identity Law）</strong>：</p>
+</ul></li>
+<li><strong>恒等律（Identity Law）</strong>：
 <ul>
 <li><code>A ^ 0 = A</code>，即任何数与0异或，结果还是该数。</li>
-</ul>
-</li>
-<li><p><strong>自反律（Self-Inverse Law）</strong>：</p>
+</ul></li>
+<li><strong>自反律（Self-Inverse Law）</strong>：
 <ul>
 <li><code>A ^ A = 0</code>，任何数与自身异或，结果为0。</li>
-</ul>
-</li>
-<li><p><strong>零元素（Zero Element）</strong>：</p>
+</ul></li>
+<li><strong>零元素（Zero Element）</strong>：
 <ul>
 <li><code>A ^ 1 = ~A</code>（即A的补码），这表明1在异或运算中起到了一种特殊的作用，它可以翻转操作数的每一位。</li>
-</ul>
-</li>
-<li><p><strong>分配律（Distributive Law）</strong>：</p>
+</ul></li>
+<li><strong>分配律（Distributive Law）</strong>：
 <ul>
-<li>异或运算不遵循传统意义上的分配律，但它与与运算（AND）有部分分配律：<ul>
+<li>异或运算不遵循传统意义上的分配律，但它与与运算（AND）有部分分配律：
+<ul>
 <li><code>A ^ (B &amp; C) = (A ^ B) &amp; (A ^ C)</code>，这在某些情况下可以用于简化计算。</li>
-</ul>
-</li>
-</ul>
-</li>
+</ul></li>
+</ul></li>
 </ol>
-<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><ul>
+<h4 id="应用">应用</h4>
+<ul>
 <li><strong>数据校验</strong>：异或运算常用于数据校验，如奇偶校验或检验和。</li>
 <li><strong>加密</strong>：在一些简单的加密算法中使用异或运算，因为它可以隐藏信息。</li>
 <li><strong>位操作</strong>：在编程中，异或运算可以用来交换变量值（不使用临时变量），翻转特定位，计算汉明距离等。</li>
 <li><strong>解决问题</strong>：在算法设计中，异或运算可以用于解决一些特殊问题，如找出数组中唯一不重复的元素。</li>
 </ul>
 <p>异或运算由于其独特的特性，在计算机编程和数字电路设计中都有广泛的应用，它提供了一种非常高效的方式来处理和操作二进制数据。</p>
-<p>所以：<strong>对这个数组的所有数进行位运算</strong>，最后通过位运算的 <strong>结合律和交换律</strong>，一定可以化成a^0&#x3D;a的形式，其中a就是目标数！</p>
+<p>所以：<strong>对这个数组的所有数进行位运算</strong>，最后通过位运算的
+<strong>结合律和交换律</strong>，一定可以化成a^0=a的形式，其中a就是目标数！</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">singleNumber</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> ret = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> e: nums) ret ^= e;<br>        <span class="hljs-keyword">return</span> ret;<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
-
-<h2 id="6-Leetcode-169-多数元素问题"><a href="#6-Leetcode-169-多数元素问题" class="headerlink" title="6 Leetcode 169 多数元素问题"></a>6 Leetcode 169 多数元素问题</h2><p><strong>非常经典的一道例题！</strong></p>
-<p>给定一个大小为 <code>n</code> 的数组 <code>nums</code> ，返回其中的多数元素。多数元素是指在数组中出现次数 <strong>大于</strong> <code>⌊ n/2 ⌋</code> 的元素。</p>
+<h2 id="leetcode-169-多数元素问题">6 Leetcode 169 多数元素问题</h2>
+<p><strong>非常经典的一道例题！</strong></p>
+<p>给定一个大小为 <code>n</code> 的数组 <code>nums</code>
+，返回其中的多数元素。多数元素是指在数组中出现次数 <strong>大于</strong>
+<code>⌊ n/2 ⌋</code> 的元素。</p>
 <p>你可以假设数组是非空的，并且给定的数组总是存在多数元素。</p>
-<h4 id="方法1：使用哈希表（unordered-map"><a href="#方法1：使用哈希表（unordered-map" class="headerlink" title="方法1：使用哈希表（unordered_map)"></a>方法1：使用哈希表（unordered_map)</h4><p>时空复杂度均为O(n)</p>
+<h4
+id="方法1使用哈希表unordered_map">方法1：使用哈希表（unordered_map)</h4>
+<p>时空复杂度均为O(n)</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">majorityElement</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">int</span> standard=n/<span class="hljs-number">2</span>;<br>        unordered_map&lt;<span class="hljs-type">int</span>,<span class="hljs-type">int</span>&gt; Mymap;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> num:nums)&#123;<br>            <span class="hljs-keyword">if</span>(Mymap.<span class="hljs-built_in">find</span>(num)!=Mymap.<span class="hljs-built_in">end</span>())&#123;<br>                Mymap[num]++;<br>                <span class="hljs-keyword">if</span>(Mymap[num]&gt;standard)&#123;<br>                    <span class="hljs-keyword">return</span> num;<br>                &#125;<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                Mymap.<span class="hljs-built_in">insert</span>(<span class="hljs-built_in">make_pair</span>(num,<span class="hljs-number">1</span>));<br>                <span class="hljs-keyword">if</span>(Mymap[num]&gt;standard)&#123;<br>                    <span class="hljs-keyword">return</span> num;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> &#123;&#125;;<br>       <br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<h4 id="方法2：字符串匹配算法"><a href="#方法2：字符串匹配算法" class="headerlink" title="方法2：字符串匹配算法"></a>方法2：字符串匹配算法</h4><p>（详细内容见补充讲义：KMP算法和BM算法）：两种十分高效的字符串检索算法</p>
+<h4 id="方法2字符串匹配算法">方法2：字符串匹配算法</h4>
+<p>（详细内容见补充讲义：KMP算法和BM算法）：两种十分高效的字符串检索算法</p>
 <p>首先：如果一个数组存在多数元素，<strong>则多数元素唯一</strong></p>
 <p>所以多数元素一定会被当选作为candidate！</p>
 <p><strong><code>Boyer-Moore 投票算法</code></strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">majorityElement</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> candidate = <span class="hljs-number">0</span>;  <span class="hljs-comment">// 假设第一个元素是候选者</span><br>        <span class="hljs-type">int</span> count = <span class="hljs-number">0</span>;      <span class="hljs-comment">// 计数器</span><br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> num : nums) &#123;<br>            <span class="hljs-keyword">if</span> (count == <span class="hljs-number">0</span>) &#123;<br>                <span class="hljs-comment">// 如果计数器为0，则将当前元素设为新的候选者(因为如果count==0,说明当前的candidate元素肯定不是多数元素！)</span><br>                candidate = num;<br>                <span class="hljs-comment">//选择了一位新的候选者！</span><br>            &#125;<br>            <br>            <span class="hljs-comment">// 如果当前元素与候选者相同，计数器加1；否则减1</span><br>            count += (num == candidate) ? <span class="hljs-number">1</span> : <span class="hljs-number">-1</span>;<br>        &#125;<br><br>        <span class="hljs-comment">// 在结束遍历后，candidate 就是多数元素</span><br>        <span class="hljs-keyword">return</span> candidate;<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
-
 <p>算法解释：</p>
 <p>这个算法基于一个关键的观察：如果一个元素是多数元素，<strong>那么它出现的次数一定超过数组长度的一半</strong>。因此：</p>
 <ul>
@@ -1264,12 +1352,18 @@
 <li>时间复杂度O(n)，空间复杂度O（1）</li>
 </ul>
 <p>算法的弊端：优化了时空复杂度，只依赖一次遍历就解决了问题，但无法解决不存在多数元素的情况！</p>
-<h4 id="方法3：分治算法"><a href="#方法3：分治算法" class="headerlink" title="方法3：分治算法"></a>方法3：分治算法</h4><p>如果数 a 是数组 nums 的众数，如果我们将 nums 分成两部分，那么 a 必定是至少一部分的众数。</p>
-<p>我们可以使用反证法来证明这个结论。假设 a 既不是左半部分的众数，也不是右半部分的众数，那么 a 出现的次数少于 l &#x2F; 2 + r &#x2F; 2 次，其中 l 和 r 分别是左半部分和右半部分的长度。由于 l &#x2F; 2 + r &#x2F; 2 &lt;&#x3D; (l + r) &#x2F; 2，说明 a 也不是数组 nums 的众数，因此出现了矛盾。所以这个结论是正确的。</p>
-<p>这样以来，我们就可以使用分治法解决这个问题：将数组分成左右两部分，分别求出左半部分的众数 a1 以及右半部分的众数 a2，随后在 a1 和 a2 中选出正确的众数。</p>
+<h4 id="方法3分治算法">方法3：分治算法</h4>
+<p>如果数 a 是数组 nums 的众数，如果我们将 nums 分成两部分，那么 a
+必定是至少一部分的众数。</p>
+<p>我们可以使用反证法来证明这个结论。假设 a
+既不是左半部分的众数，也不是右半部分的众数，那么 a 出现的次数少于 l / 2
++ r / 2 次，其中 l 和 r 分别是左半部分和右半部分的长度。由于 l / 2 + r /
+2 &lt;= (l + r) / 2，说明 a 也不是数组 nums
+的众数，因此出现了矛盾。所以这个结论是正确的。</p>
+<p>这样以来，我们就可以使用分治法解决这个问题：将数组分成左右两部分，分别求出左半部分的众数
+a1 以及右半部分的众数 a2，随后在 a1 和 a2 中选出正确的众数。</p>
 <p>根据众数的唯一性，总能通过类似的方法逼近得到最后的众数（<strong>类似于闭区间套定理</strong>）</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">count_in_range</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target, <span class="hljs-type">int</span> lo, <span class="hljs-type">int</span> hi)</span> </span>&#123;<br>        <span class="hljs-type">int</span> count = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = lo; i &lt;= hi; ++i)<br>            <span class="hljs-keyword">if</span> (nums[i] == target)<br>                ++count;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>    <span class="hljs-comment">//区间求target出现次数函数</span><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">majority_element_rec</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> lo, <span class="hljs-type">int</span> hi)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (lo == hi)<br>            <span class="hljs-keyword">return</span> nums[lo];<br>        <span class="hljs-comment">//递归的结束标志</span><br>        <span class="hljs-type">int</span> mid = (lo + hi) / <span class="hljs-number">2</span>;<br>        <span class="hljs-type">int</span> left_majority = <span class="hljs-built_in">majority_element_rec</span>(nums, lo, mid);<br>        <span class="hljs-type">int</span> right_majority = <span class="hljs-built_in">majority_element_rec</span>(nums, mid + <span class="hljs-number">1</span>, hi);<br>        <span class="hljs-comment">//此处为递归的重复调用！</span><br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">count_in_range</span>(nums, left_majority, lo, hi) &gt; (hi - lo + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>)<br>            <span class="hljs-keyword">return</span> left_majority;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">count_in_range</span>(nums, right_majority, lo, hi) &gt; (hi - lo + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>)<br>            <span class="hljs-keyword">return</span> right_majority;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">majorityElement</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">majority_element_rec</span>(nums, <span class="hljs-number">0</span>, nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>);<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
-
 
                 
               </div>
@@ -1347,7 +1441,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 19, 2025</div>
+          <div>July 10, 2025</div>
         </div>
       
       
