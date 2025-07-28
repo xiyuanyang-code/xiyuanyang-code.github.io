@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/attention.jpg">
 <meta property="article:published_time" content="2025-07-28T03:55:46.000Z">
-<meta property="article:modified_time" content="2025-07-28T06:40:06.650Z">
+<meta property="article:modified_time" content="2025-07-28T09:38:12.259Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta property="article:tag" content="Deep Learning">
@@ -1112,8 +1112,10 @@ class="math display"><strong>h</strong><sub><strong>i</strong></sub> = <em>f
 <p>这是多头注意力中<strong>多头的部分</strong>，最终经过h个Attention模块后得到一个二维矩阵，也可以写成列向量的形式：</p>
 <p><span class="math display">$$\begin{bmatrix}\mathbf h_1 \\ \vdots \\
 \mathbf h_h\end{bmatrix} \in \mathbb{R}^{h \times p_v}$$</span></p>
-<p>最终施加一个全连接层，设计一个可学习矩阵<span
-class="math inline"><strong>W</strong><sub><strong>o</strong></sub> ∈ ℝ<sup><em>p</em><sub><em>o</em></sub> × <em>h</em> × <em>p</em><sub><em>v</em></sub></sup></span>。</p>
+<p>合并维度：<span
+class="math inline"><em>h</em><sub>sum</sub> = <em>h</em> × <em>p</em><sub><em>v</em></sub></span>。</p>
+<p>最终施加一个全连接层，设计一个可学习矩阵 <span
+class="math inline"><strong>W</strong><sub><strong>o</strong></sub> ∈ ℝ<sup><em>p</em><sub><em>o</em></sub> × <em>h</em><sub>sum</sub></sup></span>。</p>
 <blockquote>
 <p>因为施加了一个可学习矩阵，因此最后输出的维度并不是 <span
 class="math inline"><em>p</em><sub><em>v</em></sub></span>，而是 <span

@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/Transformer.jpg">
 <meta property="article:published_time" content="2025-07-28T03:59:43.000Z">
-<meta property="article:modified_time" content="2025-07-28T06:18:33.569Z">
+<meta property="article:modified_time" content="2025-07-28T09:42:09.675Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta property="article:tag" content="Deep Learning">
@@ -364,7 +364,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k words
+          2.6k words
         
       </span>
     
@@ -864,9 +864,15 @@ class="math inline"><em>s</em><sub><em>t</em><sup>′</sup> − 1</sub></spa
 和编码器的隐状态在相同的空间下（因为 Attention
 的键值对都是编码器的隐藏状态序列），用公式表示就是：</p></li>
 </ul>
-<p><span
-class="math display"><strong>c</strong>_<em>t</em><sup>′</sup> = <em>Σ</em><sup><em>n</em></sup>_<em>t</em> = 1<em>α</em>(<strong>s</strong>_<em>t</em><sup>′</sup> − 1, <strong>h</strong>_<em>t</em>)<strong>h</strong>_<em>t</em></span><span
-class="math display"><strong>s</strong>_<em>t</em><sup>′</sup> = <em>g</em>(<em>y</em>_<em>t</em><sup>′</sup>, <strong>c</strong>_<em>t</em><sup>′</sup>, <strong>s</strong>_<em>t</em><sup>′</sup> − 1)</span></p>
+<p><span class="math display">$$
+\begin{split}
+\mathbf{c}_{t^\prime} = \sum^{n}_{t = 1}
+\alpha(\mathbf{s}_{t^{\prime}-1}, \mathbf{h}_t)\mathbf{h}_t
+\\
+\mathbf{s}_{t^{\prime}} = g(y_{t^{\prime}}, \mathbf{c}_{t^{\prime}},
+\mathbf{s}_{t^{\prime} - 1})
+\end{split}
+$$</span></p>
 <h2 id="model-architecture">Model Architecture</h2>
 <figure>
 <img
@@ -875,9 +881,12 @@ alt="Transformer" />
 <figcaption aria-hidden="true">Transformer</figcaption>
 </figure>
 <h3 id="overall-architecture">Overall Architecture</h3>
-<h4 id="input-and-output">Input and Output</h4>
-<p>Transformer的整体网络结构仍然保留了 <strong>Encoder-Decoder</strong>
-的网络结构。因此输入是一个 <span class="math inline">(batch × sequence
+<p>Transformer 的整体网络结构仍然保留了 <strong>Encoder-Decoder</strong>
+的网络结构。相比于上文所涉及的添加注意力层的结构，Transformer
+大胆地砍掉了循环神经网络的部分。Transformer
+的编码器和解码器是<strong>基于自注意力的模块</strong>叠加而成的，源（输入）序列和目标（输出）序列的嵌入（embedding）表示将加上<strong>位置编码（positional
+encoding）</strong>，再分别输入到编码器和解码器中。</p>
+<p>因此输入是一个 <span class="math inline">(batch × sequence
 length × embedding dimension)</span>
 的三维张量，经过位置编码之后（<strong>Positional
 Encoding</strong>）之后进入编码器。而解码器会接受（目标序列的Embeddings）和编码器的输出，不过为了保证模型的正确性，<strong>Output
@@ -889,7 +898,6 @@ Embeddings</strong>需要先做一个掩码（Masked），再进行输入。</p>
 <blockquote>
 <p>对于训练过程，目标序列y是已知的，因此我们需要使用掩码来防止模型在训练过程中未卜先知，只能利用之前的生成序列。而对应生成过程，我们不知道目标序列，因此需要模型根据自己之前的生成加上编码器的新的输出来做预测。</p>
 </blockquote>
-<h4 id="encoder-and-decoder">Encoder and Decoder</h4>
 <figure>
 <img
 src="https://s1.imagehub.cc/images/2025/04/18/2ab890cbb37661ed1d1f5ed626c55f57.png" srcset="/img/loading.gif" lazyload
@@ -900,16 +908,104 @@ alt="image" />
 class="math inline"><em>N</em> = 6</span>）。下面只对对一个单元层进行分析：</p>
 <ul>
 <li><p>在Encoder部分，我们可以看到两个子模块，第一个子模块是<strong>Multi-Head
-Attention</strong>(是用来模拟卷积神经网络的多通道特征学习来达到并行的目的，后面会详细介绍)，第二个子模块是<strong>标准的全连接前馈神经网络</strong>。</p></li>
+Attention</strong>，第二个子模块是<strong>标准的全连接前馈神经网络</strong>。</p></li>
 <li><p>不过在每一个子模块内，<strong>又加入了residual
 connection</strong>（ResNet）并且做了<strong>归一化</strong>的处理（LayerNorm）。</p></li>
 <li><p>对于解码器也是类似的结构，不过加了一个<strong>Masked MultiHead
 Attention</strong>的结构来防止模型看到后面的预测序列。</p></li>
 </ul>
-<h3 id="embeddings-and-softmax">Embeddings and softmax</h3>
+<h3 id="embeddings">Embeddings</h3>
+<p>模型的原始输入是一个个词元，每一个词元会根据<strong>单独训练的词表</strong>经过
+embedding
+的操作长成一个<strong>语义空间下的向量</strong>。不同语言的词表不一样，这并不是
+Transformer
+的重点。为了更方便的建模序列位置信息，在输入模块之前还加入了<strong>位置编码</strong>的过程。</p>
+<h3 id="encoder-1">Encoder</h3>
+<p>相比于传统的 Encoder 结构，Transformer 中的 Encoder
+大胆了抛弃了循环神经网络的部分，而改用给予自注意力模式的 attention
+module。Encoder
+部分的第一个子模块利用<strong>自注意力机制</strong>，用来学习<strong>输入文本的上下文信息</strong>（<strong>多头注意力</strong>可以聚焦到更加细节的特征学习上），接下来加入残差连接和<strong>归一化</strong>的操作。接下来第二个部分加入了一个<strong>两层的全连接神经网络</strong>，用来学习序列中的非线性部分。（因为缩放点积注意力是线性的，因此为了拟合非线性的特征，需要利用神经网络全连接层的激活函数实现这一点。）</p>
 <h3 id="feed-forward-networks">Feed-forward Networks</h3>
-<h2 id="complexity">Complexity</h2>
-<h2 id="experiments">Experiments</h2>
+<p>用来学习非线性特征，使用 <code>RELU</code> 作为激活函数。</p>
+<p><span
+class="math display">FFN(<em>x</em>) = max (0, <em>x</em><em>W</em><sub>1</sub> + <em>b</em><sub>1</sub>)<em>W</em><sub>2</sub> + <em>b</em><sub>2</sub></span></p>
+<h3 id="decoder-1">Decoder</h3>
+<p>Decoder
+的设置相对更加复杂，对于一个堆叠块内部：首先需要进入<strong>掩码自注意力模块</strong>，为了防止模型在训练时直接
+Access 到后面的参考答案。在经过 Add &amp; Norm 之后，进入第二个
+Attention 模块，<strong>这个模块和之前的不同，不再是
+Self-Attention</strong>，因为其 K, V 都来自于 Encoder 的输出序列，即
+<span
+class="math inline">(<em>z</em><sub><em>i</em></sub>, <em>z</em><sub><em>i</em></sub>)</span>
+会被作为 <span class="math inline"><em>n</em></span>
+个键值对进入这个注意力模块。</p>
+<blockquote>
+<p><strong>注意！<span
+class="math inline">(<em>z</em><sub><em>i</em></sub>, <em>z</em><sub><em>i</em></sub>)</span>
+虽然还是在原有语义下的向量，但是已经通过编码器学习到了句子的上下文关系</strong>，这种上下文关系可以被用在翻译后的语言上，但是需要融合嵌入进翻译后语言的语义空间上。</p>
+</blockquote>
+<p>经过这个注意力模块后，模型已经能够捕捉到句子的上下文了，但是还需要迁移到另一个语义空间中，因此后面还需要接一个前馈神经网络进行融合。</p>
+<p>最后，经过一个线性层将特征投影到英文词表上，并做概率分布的 softmax
+计算，最终就得到了输出 <span
+class="math inline"><em>y</em><sub><em>t</em><sup>′</sup></sub></span>
+的词汇的概率分布。</p>
+<h3 id="normalization">Normalization</h3>
+<p>todo in the future.</p>
+<h2 id="complexity-why-self-attention">Complexity: Why
+Self-Attention</h2>
+<p>在相同的 Encoder-Decoder 的基本架构下，为什么选择 Transformer
+具有优势？笔者在这个部分从时间复杂度的角度探讨了这一点：</p>
+<p>从形式化的角度去理解，编码器都完成了这样的一件事情：将输入序列 <span
+class="math inline">(<em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, …, <em>x</em><sub><em>n</em></sub>)</span>
+编码，输出新的序列 <span
+class="math inline">(<em>z</em><sub>1</sub>, <em>z</em><sub>2</sub>, …, <em>z</em><sub><em>n</em></sub>)</span>，这个序列应该包含原始文本的上下文信息，以便传递给解码器做输出。（编码编的<strong>码</strong>就是抽象的上下文信息），为了方便，这里认为
+<span
+class="math inline"><em>x</em><sub><em>i</em></sub>, <em>z</em><sub><em>i</em></sub> ∈ ℝ<sup><em>d</em></sup></span>。</p>
+<p>时间复杂度的计算主要依赖于三个指标：</p>
+<ul>
+<li><p>Total computational complexity per layer
+(这一部分的时间复杂度主要在做的矩阵乘法以及矩阵的 size)</p></li>
+<li><p>Amount of computation that can be parallelized</p></li>
+<li><p>Path length between long-range dependencies in the
+network</p></li>
+</ul>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/07/28/2efcaf8d950574b6fe5e24977c06ca93.png" srcset="/img/loading.gif" lazyload
+alt="Time Complexity" />
+<figcaption aria-hidden="true">Time Complexity</figcaption>
+</figure>
+<h2 id="experiments-results">Experiments &amp; Results</h2>
+<p>一些训练细节的内容详见论文原文，此处不介绍。</p>
+<figure>
+<img
+src="https://s1.imagehub.cc/images/2025/07/28/f1ea1b3994e60f13048fcc0a9aa7eb1c.png" srcset="/img/loading.gif" lazyload
+alt="Result" />
+<figcaption aria-hidden="true">Result</figcaption>
+</figure>
+<p>相关参数是：</p>
+<ul>
+<li><p><span class="math inline"><em>N</em></span>: 堆叠 Transformer
+块的数量</p></li>
+<li><p><span class="math inline"><em>d</em><sub>model</sub></span>:
+Embedding dimension</p></li>
+<li><p><span class="math inline"><em>d</em><sub>ff</sub></span>:
+前馈网络的深度（前馈神经网络隐藏层的深度）</p></li>
+<li><p><span class="math inline"><em>h</em></span>: number of multi
+heads</p></li>
+<li><p><span class="math inline"><em>d</em><sub><em>k</em></sub></span>:
+Dimensions of keys, <span class="math inline">$d_k =
+\frac{d_{\text{model}}}{h}$</span>，一个方面是为了学习特征，另一方面是为了拼接后保持一致。</p></li>
+<li><p><span class="math inline"><em>d</em><sub><em>v</em></sub></span>:
+Dimensions of queries</p></li>
+<li><p><span class="math inline"><em>P</em><sub>drop</sub></span>:
+Dropout rate</p></li>
+<li><p><span class="math inline"><em>ϵ</em><sub>ls</sub></span>: Label
+Smoothing</p></li>
+</ul>
+<div class="note note-primary">
+            <p>In Table 3 rows (B), we observe that <strong>reducing the attentionkey size dk hurts model quality</strong>. This suggests that determiningcompatibility is not easy and that a more sophisticated compatibilityfunction than dot product may be beneficial. We further observe in rows(C) and (D) that, as expected, <strong>bigger models arebetter</strong>, and <strong>dropout is very helpful in avoidingover-fitting</strong>. In row (E) we replace our sinusoidal positionalencoding with learned positional embeddings, and observe nearlyidentical results to the base model.</p>
+          </div>
 
                 
               </div>
