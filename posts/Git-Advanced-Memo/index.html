@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/gittutorial.jpg">
 <meta property="article:published_time" content="2025-08-01T17:35:15.000Z">
-<meta property="article:modified_time" content="2025-08-02T01:43:12.432Z">
+<meta property="article:modified_time" content="2025-08-02T03:46:52.428Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Git">
@@ -362,7 +362,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          36 words
+          106 words
         
       </span>
     
@@ -643,19 +643,52 @@
 <div class="note note-primary">
             <p>Know Git is useful is important, but knowing why Git is useful is more important!</p><p>If you are a green hand for git, just ignore this section and find other git tutorial!</p>
           </div>
+<p>This section will be done in the near future.</p>
+<p>Relevant Website: <a target="_blank" rel="noopener" href="https://missing.csail.mit.edu/2020/version-control/">Missing Semester for Git</a></p>
 <h2 id="Quick-Memo-for-Git-command">Quick Memo for Git command</h2>
+<p>Recommend this blog<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[图解 Git 命令](https://marklodato.github.io/visual-git-guide/index-zh-cn.html)">[1]</span></a></sup> for knowing more Git command.</p>
 <ul>
 <li>
-<p><code>git add &#123;file&#125;</code>: Add files from <strong>Working Directory</strong> to <strong>Staging</strong>.</p>
+<p>File movement/transfer between the Working Directory and the Staging Area.</p>
+<ul>
+<li>
+<p><code>git add &lt;file_name&gt;</code>: Add files from <strong>Working Directory</strong> to <strong>Staging</strong>.</p>
 </li>
 <li>
-<p><code>git commit -m &#123;message&#125;</code>: Commit file from <strong>Staging</strong> to <strong>Local Repo</strong>.</p>
+<p><code>git reset HEAD &lt;file_name&gt;</code> or <code>git restore --staged &lt;file_name&gt;</code>: Remove files from <strong>Staging</strong> to <strong>Working Directory</strong>.</p>
+</li>
+</ul>
 </li>
 <li>
-<p><code>git reset</code>: Remove files from <strong>Staging</strong> to <strong>Working Directory</strong>.</p>
+<p>File movement between the Staging Area and the Local Repo.</p>
+<ul>
+<li>
+<p><code>git commit -m &lt;message&gt;</code>: Commit file from <strong>Staging</strong> to <strong>Local Repo</strong>.</p>
 </li>
 <li>
-<p><code>git pull</code>: Pulling files from <strong>Remote Repo</strong> to <strong>Local Repo</strong>.</p>
+<p><code>git reset --soft HEAD~1</code>: Remove the latest commit from <strong>Local Repo</strong> to <strong>Staging Area</strong>.</p>
+<ul>
+<li><code>git reset --mixed HEAD~1</code>: Remove directly to the current working directory.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>File movement between <strong>remote branch tracking</strong> and <strong>remote branch</strong>:</p>
+<ul>
+<li><code>git fetch</code>: Fetching new updated to Remote branch tracking.</li>
+</ul>
+</li>
+<li>
+<p><code>git pull</code>: Pulling files from <strong>Remote Repo</strong> to <strong>Current Working Directory</strong>.</p>
+<ul>
+<li>
+<p>First, <code>git fetch</code>.</p>
+</li>
+<li>
+<p>Then, <code>git merge</code>, for example, merge branch <code>origin/main</code> into <code>main</code>.</p>
+</li>
+</ul>
 </li>
 <li>
 <p><code>git push</code>: Pushing files from <strong>Local Repo</strong> to <strong>Remote Repo</strong>.</p>
@@ -663,17 +696,43 @@
 <li>
 <p><code>git stash</code>: Stash from <strong>Working Directory</strong> to <strong>Stash Locations</strong>.</p>
 <ul>
-<li><code>git stash pop</code>: Get stash from <strong>stash locations</strong> to <strong>working directory</strong>.</li>
+<li>
+<p><code>git stash pop</code>: Get stash from <strong>stash locations</strong> to <strong>working directory</strong>.</p>
+</li>
+<li>
+<p><code>git stash list</code>: List all the stash.</p>
+</li>
 </ul>
 </li>
 <li>
-<p><code>git fetch</code></p>
+<p><code>git merge</code> &amp; <code>git rebase</code></p>
+<ul>
+<li>
+<p>Git Merge: Integrate all the commits of one branch into another.</p>
+<ul>
+<li>
+<p><code>git merge &lt;branch&gt;</code>: merge branch into current branch. (Fast Forward Merge &amp; 3-Way Merge)</p>
 </li>
 <li>
-<p><code>git merge</code></p>
+<p><code>git rebase &lt;branch&gt;</code>: rewrite history for branch, to rewrite history.</p>
+<ul>
+<li>Never Use <code>git rebase</code> in <code>main</code> branch or other public branches!</li>
+</ul>
 </li>
 </ul>
-
+</li>
+</ul>
+</li>
+</ul>
+<div class="note note-primary">
+            <table><thead><tr><th style="text-align:left">Command</th><th style="text-align:left">Moves HEAD</th><th style="text-align:left">Modifies Staging Area</th><th style="text-align:left">Modifies Working Directory</th><th style="text-align:left">Common Use Case</th></tr></thead><tbody><tr><td style="text-align:left"><code>git reset --soft</code></td><td style="text-align:left">Yes</td><td style="text-align:left">No</td><td style="text-align:left">No</td><td style="text-align:left">Undoes commits but keeps all changes in the staging area, ready to be re-committed.</td></tr><tr><td style="text-align:left"><code>git reset --mixed</code></td><td style="text-align:left">Yes</td><td style="text-align:left">Yes</td><td style="text-align:left">No</td><td style="text-align:left">Undoes commits and unstages changes, moving them to the working directory.</td></tr><tr><td style="text-align:left"><code>git reset --hard</code></td><td style="text-align:left">Yes</td><td style="text-align:left">Yes</td><td style="text-align:left">Yes</td><td style="text-align:left">Completely discards commits and all local changes, reverting to a previous version.</td></tr></tbody></table>
+          </div>
+<div class="note note-info">
+            <p><img src="https://s1.imagehub.cc/images/2025/08/02/d782b9153abb311986a9d4cd2b8d52d8.jpg" srcset="/img/loading.gif" lazyload alt="Git Command"></p>
+          </div>
+<h2 id="References">References</h2>
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://marklodato.github.io/visual-git-guide/index-zh-cn.html">图解 Git 命令</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
