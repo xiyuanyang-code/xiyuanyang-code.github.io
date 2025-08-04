@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/scripts.jpg">
 <meta property="article:published_time" content="2025-03-30T13:56:26.000Z">
-<meta property="article:modified_time" content="2025-07-10T14:01:36.337Z">
+<meta property="article:modified_time" content="2025-08-04T15:21:11.777Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Finished">
 <meta property="article:tag" content="Bash">
@@ -362,7 +362,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          184 words
+          587 words
         
       </span>
     
@@ -553,17 +553,12 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-<!--
- * @Author: Xiyuan Yang   xiyuan_yang@outlook.com
- * @Date: 2025-03-30 19:42:38
- * @LastEditors: Xiyuan Yang   xiyuan_yang@outlook.com
- * @LastEditTime: 2025-04-28 16:58:49
- * @FilePath: /Blog_posts_get/README.md
- * @Description: 
- * Do you code and make progress today?
- * Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved. 
--->
 <h1>Blog Update Fetching Script</h1>
+<p>Source Code: <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/Blog-Update-Fetching-Script">Github Repo</a></p>
+<h2 id="My-Blog-Updating-Status">My Blog Updating Status</h2>
+<!-- BEGIN -->
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><code class="hljs text">⏸️AI-Paper-2024<br>✅AIBasis-Neural-Networks<br>✅Above-All-ZH<br>✅Above-All-en<br>✅Agents-in-Coding-A-survey<br>✅Algorithm-BFS-DFS<br>✅Algorithm-BinaryTree<br>✅Algorithm-Chunking<br>✅Algorithm-Introduction<br>✅Algorithm-MCTS<br>✅Algorithm-Memo<br>✅Algorithm-Sorting<br>✅Announcement<br>✅Automaton-NFA<br>✅Bash-commands<br>✅Bash-exercises<br>✅Blog-Update-Fetching-Script<br>✅Blog-Word-Counter<br>✅C-plus-plus-Primer-Plus-tutorial<br>✅CLI-Roadmap<br>✅CMake-tutorial-episode2<br>✅CMake-tutorial1<br>✅CS294-1-LLM-Reasoning<br>✅CS294-3-Autogen<br>✅CamelAI-automatic-essay-modification<br>✅Class-Inheritance<br>✅Code-Line-Counter<br>✅Code-Reuse-in-OOP<br>✅DataStructure-AVL-Tree<br>✅DataStructure-Awesome<br>✅DataStructure-B-and-B-plus-Tree<br>✅DataStructure-Disjoint-Set<br>✅DataStructure-Fenwick-Tree<br>✅DataStructure-Graph-AOE-and-AOV-Network<br>✅DataStructure-Graph-Introduction<br>✅DataStructure-Graph-MST-problem<br>✅DataStructure-Graph-Mathematical-Basis<br>❌DataStructure-Graph-Network-Flow-problem<br>✅DataStructure-Graph-SCC<br>✅DataStructure-Graph-SSSP-problem<br>✅DataStructure-Hash-Table<br>✅DataStructure-LCA<br>✅DataStructure-LinearList<br>✅DataStructure-Queue<br>✅DataStructure-RBT-Tree<br>✅DataStructure-Segment-Tree<br>✅DataStructure-Set<br>✅DataStructure-Sparse-Table<br>✅DataStructure-Splay-Tree<br>✅DataStructure-Stack<br>✅DataStructure-Stack-Queue-Advanced<br>✅DataStructure-String<br>✅DataStructure-Tree<br>✅DataStructure-Tree-Binary-Heap<br>✅DataStructure-Tree-Binary-Search-Tree<br>✅DataStructure-Tree-Binary-Tree<br>✅DataStructure-Tutorial<br>✅Deep-Learning-Memo<br>✅Docker-Tutorial<br>✅Dynamic-Memory-and-Classes<br>✅Exception-Handling-in-C-plus-plus<br>✅Factor-Mining-in-Quantitative-Investing-A-Survey<br>✅Feishu-GPU-Auto-Monitoring<br>⏸️Git-Advanced-Memo<br>✅Imagenet<br>✅Input-and-Output-in-C-plus-plus<br>✅Introduction-to-OOP<br>✅Javascripts-Advanced<br>✅Javascripts-Memo<br>✅Jotting-References-and-Encapsulation-in-OOP<br>✅LLM-Evaluating<br>✅LLM-Learning-Initial<br>✅LLML-Attention<br>✅LLML-CS336-Lecture-1-Overview-and-Tokenization<br>⏸️LLML-CS336-Lecture-2-Pytorch-Resource-Accounting<br>✅LLML-Transformer<br>✅LaTeX-tutorial<br>✅Leetcode-Mistake-collection<br>✅Leetcode-Mistake-collection-1-10<br>✅Leetcode-Mistake-collection-11-20<br>✅Leetcode-Mistake-collection-21-30<br>✅Leetcode-Mistake-collection-31-40<br>✅Life-musings<br>✅Lightweight-speech-recognition-conversion-model<br>✅Linked-List-Implementation-Based-on-Structs<br>✅Linux-Bash-Introduction<br>✅Math-Integral-Cheatsheet<br>✅Missing-Semester-Notes<br>✅Modern-C<br>✅My-Bloging-Workflow<br>✅My-Memo<br>✅My-Multi-Agents<br>✅My-Posts<br>✅My-WorkFlow<br>✅Pointers-Arrays-and-Functions<br>✅Pre-training-Is-Dead<br>✅Profiling-and-Debugging<br>✅Python-Advanced-Programming<br>✅Python-Architecture-Patterns<br>✅Python-Architecture-Patterns-Multi-file-Progarmming<br>✅Python-Environment-Modules-Tutorial<br>✅Python-File-Management<br>✅Python-Package-Manager<br>✅Python-Pipe<br>✅Python-Scraping-Tutorial<br>✅Python-Threadings<br>✅Python-cheatsheet<br>✅Python-numpy-cheatsheet<br>✅Python-visualization<br>✅Pythonic-Functional-Programming<br>✅Quick-GPT-A-fast-and-simple-CLI-LLM-calling-function<br>✅RAG-Blog-Content-Retrieval<br>✅RAG-tutorial<br>⏸️RL-speeches<br>✅Regular-Expression<br>✅Rust-OwnerShip<br>✅Secure-Shell-and-Encryption<br>✅Taking-Notes<br>✅Tools-Tutorial<br>✅Torch-Memo-Tensor-Operations<br>✅Torch-Memo-TensorBoard<br>✅Torch-memo<br>✅Vim-tutorial<br>✅WSL-Proxy<br>✅hello-world<br></code></pre></td></tr></table></figure>
+<!-- END -->
 <h2 id="Introduction">Introduction</h2>
 <p>This is an automation script I implemented in the Hexo blog update to automatically fetch blog updates, compare them with previous update statuses, and allow users to manually determine the update status of unfinished and newly added blogs, thus obtaining the new blog update status.</p>
 <p>All Blogs are classified into three major categories:</p>
@@ -691,7 +686,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>July 10, 2025</div>
+          <div>August 4, 2025</div>
         </div>
       
       
