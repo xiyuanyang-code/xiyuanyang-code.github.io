@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/sort.jpg">
 <meta property="article:published_time" content="2025-03-29T14:09:03.000Z">
-<meta property="article:modified_time" content="2025-08-02T01:43:12.481Z">
+<meta property="article:modified_time" content="2025-08-06T05:16:30.436Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Finished">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -367,7 +367,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.7k words
+          6.1k words
         
       </span>
     
@@ -428,7 +428,7 @@
         aria-expanded="true"
       >
         Algorithm
-        <span class="list-group-count">(39)</span>
+        <span class="list-group-count">(38)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -592,7 +592,7 @@
         aria-expanded="true"
       >
         SJTU CS0501(H) Data Structure
-        <span class="list-group-count">(30)</span>
+        <span class="list-group-count">(29)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -700,15 +700,6 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">DataStructure-Tree-Binary-Heap</span>
-        </a>
-      
-    
-      
-      
-        <a href="/posts/DataStructure-Set/" title="DataStructure-Set"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">DataStructure-Set</span>
         </a>
       
     
@@ -906,11 +897,67 @@
     font-family: Georgia, sans, serif;
   }
 </style>
+<h1>Data Structure: Set</h1>
+<h2 id="Set-Interface">Set Interface</h2>
+<p>Remember Data Structure is an <strong>interface</strong>, don’t do some dumb jobs… All you need to do is understanding the first principle of several data structures through practicing it.</p>
+<p><img src="https://s1.imagehub.cc/images/2025/03/29/564afb3d8029f1273d4ee1f1ff07b471.png" srcset="/img/loading.gif" lazyload alt="Set interface"></p>
+<p>If you use simply an array, it will cost <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> time！</p>
+<h1>Data Structure Set</h1>
+<p>Lecture Notes from SJTU DS</p>
+<h2 id="Introduction">Introduction</h2>
+<ul>
+<li>散列表：实现<strong>映射</strong>（集合提升性能的核心问题）</li>
+</ul>
+<h2 id="集合的定义">集合的定义</h2>
+<p>集合包含两个部分：<strong>键值</strong>和<strong>关键字值</strong>。</p>
+<h2 id="静态查找表">静态查找表</h2>
+<p>问题的定义：给定一个集合，需要查找关键字<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span>对应的元素是否存在。</p>
+<p>从最基本的顺序查找（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>）到对于有序集合的<strong>二分查找</strong>(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>），还可以进一步优化为<strong>插值查找</strong>，对于数据均匀分布的情况，可以进一步优化时间复杂度：</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>p</mi><mi>o</mi><mi>s</mi><mo>=</mo><mi>l</mi><mi>o</mi><mi>w</mi><mo>+</mo><mrow><mo fence="true">⌊</mo><mfrac><mrow><mo stretchy="false">(</mo><mi>h</mi><mi>i</mi><mi>g</mi><mi>h</mi><mo>−</mo><mi>l</mi><mi>o</mi><mi>w</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>⋅</mo><mo stretchy="false">(</mo><mi>t</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi><mo>−</mo><mi>a</mi><mi>r</mi><mi>r</mi><mo stretchy="false">[</mo><mi>l</mi><mi>o</mi><mi>w</mi><mo stretchy="false">]</mo><mo stretchy="false">)</mo></mrow><mrow><mi>a</mi><mi>r</mi><mi>r</mi><mo stretchy="false">[</mo><mi>h</mi><mi>i</mi><mi>g</mi><mi>h</mi><mo stretchy="false">]</mo><mo>−</mo><mi>a</mi><mi>r</mi><mi>r</mi><mo stretchy="false">[</mo><mi>l</mi><mi>o</mi><mi>w</mi><mo stretchy="false">]</mo></mrow></mfrac><mo fence="true">⌋</mo></mrow></mrow><annotation encoding="application/x-tex">pos = low + \left\lfloor \frac{(high - low - 1) \cdot (target - arr[low])}{arr[high] - arr[low]} \right\rfloor
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">os</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">⌊</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">rr</span><span class="mopen">[</span><span class="mord mathnormal">hi</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">rr</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mclose">]</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mopen">(</span><span class="mord mathnormal">hi</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">rr</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mclose">])</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">⌋</span></span></span></span></span></span></span></p>
+<p>使用<strong>分块查找</strong>也可以进一步优化（详见分块思想）</p>
+<ul>
+<li>为了最大化发挥分块的效率，我们需要对块内元素的性质做出规定：
+<ul>
+<li>例如，第<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span></span></span></span>块的元素一定大于第<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i+ 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7429em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>块的元素（并且建立索引表）
+<ul>
+<li>每个索引包括块内元素的最大值和该索引块的起始位置</li>
+<li>这样就可以在多次查询的时候减少很多无效的比较，但是<strong>代价是需要额外空间储存索引并且在修改数组时需要更新维护这个索引表</strong>。</li>
+</ul>
+</li>
+<li>如果查找表很大，内存放不下，可以使用分块的思想高效的实现分块查找。</li>
+</ul>
+</li>
+</ul>
+<h3 id="STL-中的静态查找表">STL 中的静态查找表</h3>
+<ul>
+<li>
+<p><code>find()</code>：</p>
+<ul>
+<li><strong>模版参数</strong>
+<ul>
+<li>迭代器类型</li>
+<li>集合元素的类型</li>
+</ul>
+</li>
+<li><strong>形式参数</strong>
+<ul>
+<li>两个迭代器对象（左闭右开）</li>
+<li>需要查找的对象值</li>
+</ul>
+</li>
+<li>返回一个迭代器</li>
+</ul>
+</li>
+<li>
+<p><code>binary_search()</code>：使用二分查找的方式查找一个有序序列，返回是否存在</p>
+</li>
+</ul>
 <h1>Sorting Algorithms</h1>
 <div class="note note-danger">
             <p>此处所有的排序算法都使用<strong>0-based</strong>。</p>
           </div>
-<h2 id="Introduction">Introduction</h2>
+<h2 id="Introduction-2">Introduction</h2>
 <p>如何评价一个排序的好与坏？</p>
 <ul>
 <li>
@@ -1175,7 +1222,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>August 2, 2025</div>
+          <div>August 6, 2025</div>
         </div>
       
       
