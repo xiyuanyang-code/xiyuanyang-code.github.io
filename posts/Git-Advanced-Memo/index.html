@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/gittutorial.jpg">
 <meta property="article:published_time" content="2025-08-01T17:35:15.000Z">
-<meta property="article:modified_time" content="2025-08-02T03:46:52.428Z">
+<meta property="article:modified_time" content="2025-08-08T15:56:05.687Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Git">
@@ -50,6 +50,8 @@
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
 
 
 
@@ -362,7 +364,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          106 words
+          3.5k words
         
       </span>
     
@@ -645,6 +647,182 @@
           </div>
 <p>This section will be done in the near future.</p>
 <p>Relevant Website: <a target="_blank" rel="noopener" href="https://missing.csail.mit.edu/2020/version-control/">Missing Semester for Git</a></p>
+<blockquote>
+<p>For simplicity (My English is poor, and I want to explain the idea and the philosophy more clearly), I will use Chinese in this section.</p>
+</blockquote>
+<p><strong>Git 的版本控制哲学</strong></p>
+<p>Two topics:</p>
+<ul>
+<li>Content-Addressable Storage</li>
+<li>Delta Compression</li>
+</ul>
+<h3 id="Problems">Problems</h3>
+<p>传统的线性历史版本控制（例如 <code>history_&#123;time_stamp&#125;</code>）简单，但是有很大的缺陷：</p>
+<ul>
+<li>
+<p><strong>并行开发高度困难</strong>，而并行开发是提升开发效率的瓶颈之一，无论是用于多人合作开发还是不同 feature &amp; bugs 之间的隔离，简单的 Linear Sequence 无法完成这一点。</p>
+</li>
+<li>
+<p><strong>缺乏安全性</strong>：在复杂的代码协作中，代码极有可能会被恶意篡改。</p>
+</li>
+<li>
+<p><strong>数据冗余</strong>：这是任何一个历史备份功能都需要 tradeoff 的问题，很显然，naive的线性历史记录管理存在大量重复的代码和数据冗余。</p>
+</li>
+</ul>
+<p>Git 的出现，完美的解决了上述的三个问题。</p>
+<h3 id="Content-Addressable-Storage-内容寻址存储">Content-Addressable Storage 内容寻址存储</h3>
+<h4 id="Hash-Function-SHA-1-SHA-256">Hash Function, SHA-1, SHA-256</h4>
+<p>哈希函数的精髓在于<strong>有损压缩</strong>。即将一个极大定义域空间通过一个映射压缩到一个有限的值域空间内部。从理论上分析，哈希函数不可能是一个单射（鸽子洞原理，这可以被证明），但是我们希望<strong>哈希函数尽可能做到不存在哈希碰撞的情况出现</strong>，实际上，这已经能够做到了。</p>
+<p><code>SHA-1</code><sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[SHA-1](https://zh.wikipedia.org/wiki/SHA-1)">[2]</span></a></sup> 和 <code>SHA-256</code> 都是<strong>安全哈希算法</strong>的一部分，可以将任何长度的数据，通过不可逆的数学运算转换成一个固定长度的字符串。安全哈希算法的雪崩效应保证了其不可逆性和抗碰撞性。有关 SHA-1 和 SHA-256 的具体计算方法在此处不展开。</p>
+<blockquote>
+<p>2017年，谷歌团队通过优化算法，并利用巨大的计算资源（相当于6500年的单CPU计算时间和110年的单GPU计算时间），成功地创建了两个具有相同 SHA-1 哈希值的不同 PDF 文件。</p>
+</blockquote>
+<p>SHA-256 的安全性更高，理论抗碰撞性是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>128</mn></msup></mrow><annotation encoding="application/x-tex">2^{128}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">128</span></span></span></span></span></span></span></span></span></span></span></span>。</p>
+<p>总之，我们只需了解：<strong>SHA-256 能将任意长度的输入数据，生成一个256位（32字节）的哈希值</strong>。</p>
+<h4 id="File-Abstractions">File Abstractions</h4>
+<p>对于任何一个文件夹中的文件<code>file</code>，可以看做是一串编码好的字符串，因此可以使用上文提到的哈希算法生成一个独一无二的 SHA-256 作为统一化的身份凭证，用于安全保护和存储管理。</p>
+<p>因此，Git 对文件和文件夹做了一层高阶的抽象，这也是 Git 解决上述三个问题的第一个法宝：</p>
+<blockquote>
+<p>在Linux中，文件夹本身也会被抽象成一种文件 (一切皆文件)</p>
+</blockquote>
+<ul>
+<li>文件在 Git 中被称为 <code>blob</code>, <code>type blob = &#123;file-string, SHA-string&#125;</code>. <code>file-string</code> 是本身的文件内容。SHA-string 是加密后的哈希字符串。</li>
+</ul>
+<blockquote>
+<p><code>SHA-string</code> 本质上就是一个 string，为了方便区分，单独写成这个名字。<br>
+Git 实际上还会存储文件权限的变化，理论上就是向结构体里加东西，这里为了简化不考虑这一点</p>
+</blockquote>
+<ul>
+<li>
+<p>文件夹在 Git 中被称为 <code>tree</code>, <code>type tree = &#123;map&lt;tree | blob&gt;&#125;</code> or we can say is a list of <code>List[&#123;type, hash, name&#125;]</code>:</p>
+<ul>
+<li>type: <code>blob</code> or <code>tree</code></li>
+<li>hash: <code>SHA-string</code></li>
+<li>name: name for the folders and the files</li>
+<li>The key of the map is file_name, and the value is the three other things</li>
+<li>文件夹本身（当前的根目录文件夹）也会根据当前 tree 字段生成一个哈希值，作为递归的设计，回到顶层的root folder，最终项目的所有文件都会被抽象为一个顶层的tree，这个 tree 有一个哈希值。</li>
+</ul>
+</li>
+<li>
+<p>一次提交也会被 Git 所抽象为 <code>commit</code>：</p>
+<ul>
+<li><code>parents</code>: The previous commit’s SHA value</li>
+<li><code>author</code>: info message</li>
+<li><code>message</code>: commit message (for info)</li>
+<li><code>snapshot</code>: a tree (actually the SHA value of the tree)，因此创建一个新的快照对存储空间的消耗非常小。</li>
+</ul>
+</li>
+</ul>
+<p>最终，<code>blob</code>, <code>tree</code> 和 <code>commit</code> 都会被抽象化为一个 <code>object</code>，每一个object都有一个唯一的 SHA 凭证，这也是 File Abstraction 的关键所在。</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>object</mtext><mo>=</mo><mo stretchy="false">{</mo><mtext>blob</mtext><mo separator="true">,</mo><mtext>tree</mtext><mo separator="true">,</mo><mtext>commit</mtext><mo stretchy="false">}</mo><mo>=</mo><mtext>map</mtext><mo>&lt;</mo><mtext>content string</mtext><mo separator="true">,</mo><mtext>SHA string</mtext><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">\text{object} = \{ \text{blob}, \text{tree}, \text{commit} \} = \text{map}&lt;\text{content string}, \text{SHA string} &gt;
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">object</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord text"><span class="mord">blob</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">tree</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">commit</span></span><span class="mclose">}</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7335em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">map</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">content string</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">SHA string</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span></span></span></span></span></p>
+<p><strong>任何对象都有一个哈希值！！！</strong>：哈希值在 Git 中至关重要，一方面是为了保证安全性，任何对代码文件的隐秘修改都是不被允许的。同时，为了access到原本文件的内容，哈希值也作为指针，凭借这个唯一的凭证可以在 <code>.git/objects/</code> 目录下找到对应的不同文件的不同版本。这也就是<strong>内容寻址存储</strong>的精髓，“址”就是所谓的独一无二的哈希值，在目录中找到对应文件夹的索引就是寻找内容的过程。</p>
+<h4 id="How-this-work">How this work?</h4>
+<p>2/3：安全性 &amp; 存储效率</p>
+<ul>
+<li>
+<p>安全性的角度：任何对代码文件的微小修改都会导致对应文件及其上游封装的哈希值的变化，例如，几乎没有办法通过强制修改历史记录或者哈希值的方法实现历史记录的恶意篡改。</p>
+</li>
+<li>
+<p>存储效率的角度：当文件内容未发生变化时，对应的哈希值不会发生变化，<strong>git 把历史记录的存储粒度从版本级控制降低到文件级</strong>，即<strong>任何一个文件的任何一次版本修改</strong>都会被单独记录为一个哈希索引。这极大地优化的存储空间的浪费问题（对于代码修改而言，每一次的修改都只是针对几个特定的代码文件，有大量的未被修改的文件被存储了多次，造成了空间浪费）</p>
+</li>
+</ul>
+<blockquote>
+<p>实际上 Git 对存储空间的压缩不止与此，后续会继续深入探索 Git 的垃圾回收机制。</p>
+</blockquote>
+<h3 id="Directed-Acyclic-Graph-有向无环图">Directed Acyclic Graph 有向无环图</h3>
+<p>为了解决并行开发的设置，Git在设置文件抽象的基础之上大胆地在<strong>线性的历史顺序</strong>上做出创新。</p>
+<p>Linear History</p>
+<pre><code class=" mermaid">gitGraph
+  commit id: &quot;initial commit&quot;
+  commit id: &quot;feature/add basic feature&quot;
+  commit id: &quot;bug fix&quot;
+  commit id: &quot;feature/a new feature&quot;
+</code></pre>
+<p>Parallel History</p>
+<pre><code class=" mermaid">gitGraph
+    commit
+    commit
+    branch develop
+    commit
+    commit
+    commit
+    checkout main
+    commit
+    commit
+    merge develop
+    commit
+    commit
+</code></pre>
+<p>为了达成这样的并行结果，Git将每一个commit抽象成了一个节点，对于整个项目的历史使用一个有向无环图来存储这样若干个节点。</p>
+<p>在一般情况下，一个节点的出度为1，入度也为1，每一个节点会指向他的父节点，代表上一个历史状态<strong>父提交</strong>（哈希值在此处发挥了指针的作用）。不过也有例外：</p>
+<ul>
+<li>
+<p>一个节点的入度可以为2,3，甚至更大，这代表着<strong>新分支的创建</strong></p>
+</li>
+<li>
+<p>一个节点的出度可以为2，这代表着<strong>两个分支的合并</strong>。</p>
+</li>
+</ul>
+<div class="note note-info">
+            <p>Git 的核心哲学是历史一旦创建，就不可更改。每个提交（Commit）的哈希值是根据其所有内容计算出来的，这包括：</p><ul><li><p>根 Tree 对象的哈希值：代表了项目在那个时间点的完整目录和文件快照。</p></li><li><p>作者、提交者、时间戳、提交信息。</p></li><li><p><strong>父提交的哈希值</strong>。因为一个 Commit 的哈希值依赖于其父 Commit 的哈希值，这就在历史记录中创建了一个强大的加密信任链。</p></li></ul><p>如果一个 Commit 指向其子 Commit：那么当新的提交产生时，所有旧的 Commit 都需要被修改，以更新它们的“子”指针。这个修改会导致旧 Commit 的内容发生变化，从而改变它们的哈希值。哈希值的改变会破坏整个历史哈希链，使得历史变得可变且不可信。</p><p>如果一个 Commit 指向其父 Commit：当你创建一个新的提交时，你只需要知道你当前所在提交的哈希值（也就是 HEAD）。新提交的内容中包含旧提交的哈希值。新提交有自己的哈希值，但它不会影响旧提交的哈希值。旧提交在创建之后，就永远不会被修改，其哈希值也不会改变。</p><p>结论：反向建模使得每一个提交都成为一个不可变的对象。Git 的历史不是一个可以修改的链表，而是一个只能在末尾追加的日志。</p>
+          </div>
+<p>这就出色的解决了传统的历史记录管理过程中<strong>并行开发难度大的问题</strong>。</p>
+<h3 id="Delta-Compression">Delta Compression</h3>
+<p>Git 的 Delta Compression（增量压缩）是一种强大的存储优化机制，它的主要目的是在不牺牲 Git 核心功能的前提下，极大地节省磁盘空间。Git 的内容寻址存储（Content-Addressable Storage）模型意味着每一个文件的每一次细微改动都会创建一个新的 Blob 对象。如果没有增量压缩，一个经常修改的文本文件（比如 <code>README.md</code>）可能会迅速消耗大量空间，因为每次提交都会存储一个完整的、全新的文件快照。增量压缩正是为了解决这个问题而设计的。它将存储的单位从完整的“文件版本”转变为“文件差异”。</p>
+<p>这个过程不会在每次提交时都发生，而是在 Git 进行<strong>后台优化</strong>时执行。它通常分为两个阶段：</p>
+<h4 id="阶段一：松散对象（Loose-Objects）">阶段一：松散对象（Loose Objects）</h4>
+<p>当你执行 <code>git add</code> 和 <code>git commit</code> 时，Git 会将每个新对象（文件、目录、提交等）单独存储为一个压缩的“松散对象”（loose object）。每一个独立的压缩文件是为了提高 Git 提交的速度。</p>
+<h4 id="阶段二：打包文件（Packfiles）">阶段二：打包文件（Packfiles）</h4>
+<p>当松散对象的数量达到一定阈值，或者你手动运行 <code>git gc</code>（垃圾回收）命令时，Git 就会启动优化机制，将这些松散对象打包（pack）到一个或多个大型文件，即 <code>packfile</code>。</p>
+<p>在打包过程中，Git 会进行增量压缩：</p>
+<ol>
+<li><strong>相似对象识别</strong>：Git 会智能地识别出内容相似的对象，通常是同一个文件的不同版本。</li>
+<li><strong>基础对象选择</strong>：它会选择其中一个版本作为<strong>基础对象（base object）</strong>，并将其完整存储。</li>
+<li><strong>差异计算</strong>：对于其他相似的版本，Git 会计算它们与基础版本之间的<strong>二进制差异</strong>，并存储这些差异指令（delta）。这些差异通常比完整的文件内容小得多。</li>
+</ol>
+<p>最终，<code>packfile</code> 中存储的是一个完整的基础对象，以及多个指向它的、包含差异指令的“Delta 对象”。</p>
+<div class="note note-info">
+            <p>增量压缩是一种<strong>用读取时间换取存储空间</strong>的策略。</p><ul><li><strong>存储空间</strong>：它通过存储差异，极大地减小了 Git 仓库的体积，尤其是在包含大量小改动历史的项目中。</li><li><strong>读取速度</strong>：在需要读取一个被增量压缩过的文件时，Git 需要先找到基础对象，然后逐步应用所有的差异指令，才能重构出完整的文件。这个过程比直接读取一个完整的松散对象要慢。</li></ul><p>Git 很好地平衡了这种权衡，通过在后台自动进行优化，使得提交速度快，而仓库的长期存储效率又很高。</p>
+          </div>
+<h3 id="The-Whole-Pipeline">The Whole Pipeline</h3>
+<p>下面介绍在简单的 <code>add &amp; commit</code> 的过程中，Git 后台发生了什么：</p>
+<ul>
+<li>
+<p><code>git add file</code></p>
+<ul>
+<li><strong>计算哈希值</strong>：Git 会读取 <code>&lt;file&gt;</code> 的内容，计算其 SHA-1 哈希值。这个哈希值是内容的唯一标识。</li>
+<li><strong>创建 Blob 对象</strong>：如果暂存区中还没有这个内容哈希值的对象，Git 会将文件内容压缩并存储为一个 <strong>Blob 对象</strong> 在 <code>.git/objects/</code> 目录下。这个 Blob 对象的名称就是其内容的 SHA-1 哈希值。</li>
+<li><strong>更新暂存区</strong>：Git 会在暂存区（也叫索引，<code>.git/index</code> 文件）中记录这个文件路径、其权限以及对应的 Blob 对象的哈希值。如果一个文件的内容在多次 <code>git add</code> 之间没有变化，Git 会发现其内容哈希值与已有的 Blob 对象相同，于是不会创建新的对象，只是更新暂存区中的记录。</li>
+</ul>
+</li>
+<li>
+<p><code>git commit</code>：创建 Tree 对象</p>
+<ul>
+<li><strong>遍历暂存区</strong>：Git 会遍历暂存区中的所有文件和目录信息。</li>
+<li><strong>创建 Tree 对象</strong>：Git 会根据暂存区中的文件和目录结构，递归地创建 <strong>Tree 对象</strong>。
+<ul>
+<li>一个 Tree 对象代表一个目录。它包含了该目录下所有文件（Blob 对象）和子目录（其他 Tree 对象）的列表。</li>
+<li>每个 Tree 对象都记录了其下所有内容的哈希值、类型（blob 或 tree）、文件名和权限。</li>
+</ul>
+</li>
+<li><strong>创建根 Tree 对象</strong>：最终，Git 会为项目的根目录创建一个唯一的 Tree 对象。这个根 Tree 对象就代表了整个项目在那个时间点的完整目录结构和文件内容。</li>
+</ul>
+</li>
+<li>
+<p>创建 Commit 对象</p>
+<ul>
+<li><strong><code>tree</code></strong>：一个指向你在上一步创建的根 Tree 对象的哈希值。这是快照的核心，它将整个项目的文件和目录结构与内容联系起来。</li>
+<li><strong><code>parent</code></strong>：一个或多个指向当前分支上一个或多个父 Commit 对象的哈希值。这构成了 Git 的历史记录链。普通提交有一个父提交，合并提交有两个或更多的父提交。</li>
+<li><strong><code>author</code></strong>：提交者的姓名和邮箱，以及提交时间。</li>
+<li><strong><code>committer</code></strong>：提交操作者的姓名和邮箱，以及提交时间。</li>
+<li><strong><code>message</code></strong>：提交时输入的日志信息。</li>
+</ul>
+</li>
+<li>
+<p><strong>更新分支指针</strong>：最后，Git 会将当前分支（例如 <code>master</code> 或 <code>main</code>）的指针（<code>.git/refs/heads/&lt;branch_name&gt;</code>）更新为新创建的 Commit 对象的哈希值。至此，一个commit被正式纳入历史记录中。</p>
+</li>
+</ul>
 <h2 id="Quick-Memo-for-Git-command">Quick Memo for Git command</h2>
 <p>Recommend this blog<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[图解 Git 命令](https://marklodato.github.io/visual-git-guide/index-zh-cn.html)">[1]</span></a></sup> for knowing more Git command.</p>
 <ul>
@@ -732,7 +910,8 @@
           </div>
 <h2 id="References">References</h2>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://marklodato.github.io/visual-git-guide/index-zh-cn.html">图解 Git 命令</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/SHA-1">SHA-1</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -798,7 +977,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>August 2, 2025</div>
+          <div>August 8, 2025</div>
         </div>
       
       
@@ -942,6 +1121,26 @@
 
   
 
+
+  
+  
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
 
 
 
