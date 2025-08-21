@@ -1,0 +1,1561 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/YXY.png">
+  <link rel="icon" href="/img/YXY.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="Basic concepts of Rust programming language, including variables, data types, functions and control expressions.(while, if, loop, etc). Rust is a programming based on expressions. Finally, this blog i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rust Tutorial 1: Basic Concepts">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Rust-Tutorial-1-Basic-Concepts/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="Basic concepts of Rust programming language, including variables, data types, functions and control expressions.(while, if, loop, etc). Rust is a programming based on expressions. Finally, this blog i">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/rust1.jpg">
+<meta property="article:published_time" content="2025-08-21T15:20:07.000Z">
+<meta property="article:modified_time" content="2025-08-21T15:48:00.130Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="Finished">
+<meta property="article:tag" content="Rust">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/rust1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Rust Tutorial 1: Basic Concepts - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/posts/Above-All-en/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-clipcheck"></i>
+                <span>Record</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Daily Loggings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ReadPaper/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Reading Papers</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>Tag</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/Blog-word-counting/" target="_self">
+                    <i class="iconfont icon-plan"></i>
+                    <span>Word Counting</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/My-Posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All Posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Rust Tutorial 1: Basic Concepts"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-08-21 23:20" pubdate>
+          August 21, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.2k words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Code"
+        id="heading-ca0dbad92a874b2f69b549293387925e" role="tab" data-toggle="collapse" href="#collapse-ca0dbad92a874b2f69b549293387925e"
+        aria-expanded="true"
+      >
+        Code
+        <span class="list-group-count">(31)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-ca0dbad92a874b2f69b549293387925e"
+           role="tabpanel" aria-labelledby="heading-ca0dbad92a874b2f69b549293387925e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Regular-Expression/" title="Regular-Expression"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Regular-Expression</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Automaton-NFA/" title="Automaton NFA"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Automaton NFA</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Architecture Design"
+        id="heading-ae64194051878ec826a5a24ebf799d69" role="tab" data-toggle="collapse" href="#collapse-ae64194051878ec826a5a24ebf799d69"
+        aria-expanded="false"
+      >
+        Architecture Design
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ae64194051878ec826a5a24ebf799d69"
+           role="tabpanel" aria-labelledby="heading-ae64194051878ec826a5a24ebf799d69">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Python-Architecture-Patterns/" title="Python Architecture Patterns"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Architecture Patterns</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Architecture-Patterns-Multi-file-Progarmming/" title="Python Architecture Patterns: Multi-File Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Architecture Patterns: Multi-File Programming</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Cpp"
+        id="heading-db4a39bf594c9fbcf318dd39ea19fed3" role="tab" data-toggle="collapse" href="#collapse-db4a39bf594c9fbcf318dd39ea19fed3"
+        aria-expanded="false"
+      >
+        Cpp
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-db4a39bf594c9fbcf318dd39ea19fed3"
+           role="tabpanel" aria-labelledby="heading-db4a39bf594c9fbcf318dd39ea19fed3">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/C-plus-plus-Primer-Plus-tutorial/" title="C-Plus-Plus-Primer-Plus-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C-Plus-Plus-Primer-Plus-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Introduction-to-OOP/" title="Introduction-to-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Introduction-to-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Dynamic-Memory-and-Classes/" title="Dynamic-Memory-and-Classes"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Dynamic-Memory-and-Classes</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Linked-List-Implementation-Based-on-Structs/" title="Linked-List-Implementation-Based-on-Structs"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linked-List-Implementation-Based-on-Structs</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Class-Inheritance/" title="Class-Inheritance"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Class-Inheritance</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Code-Reuse-in-OOP/" title="Code-Reuse-in-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Code-Reuse-in-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Exception-Handling-in-C-plus-plus/" title="Exception-Handling-in-C-Plus-Plus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Exception-Handling-in-C-Plus-Plus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Pointers-Arrays-and-Functions/" title="Pointers-Arrays-and-Functions"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pointers-Arrays-and-Functions</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-Plus-Plus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Input-and-Output-in-C-Plus-Plus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Jotting-References-and-Encapsulation-in-OOP/" title="Jotting-References-and-Encapsulation-in-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jotting-References-and-Encapsulation-in-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Modern-C/" title="Modern C++"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Modern C++</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Full Stack Programming"
+        id="heading-ed70836892f4090a9d2e4a24cc30dcda" role="tab" data-toggle="collapse" href="#collapse-ed70836892f4090a9d2e4a24cc30dcda"
+        aria-expanded="false"
+      >
+        Full Stack Programming
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ed70836892f4090a9d2e4a24cc30dcda"
+           role="tabpanel" aria-labelledby="heading-ed70836892f4090a9d2e4a24cc30dcda">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Frontend"
+        id="heading-d97ba66b283564339628b71975a6e68d" role="tab" data-toggle="collapse" href="#collapse-d97ba66b283564339628b71975a6e68d"
+        aria-expanded="false"
+      >
+        Frontend
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-d97ba66b283564339628b71975a6e68d"
+           role="tabpanel" aria-labelledby="heading-d97ba66b283564339628b71975a6e68d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Javascripts-Memo/" title="Javascripts Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Javascripts Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Javascripts-Advanced/" title="Javascripts Advanced"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Javascripts Advanced</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="false"
+      >
+        Python
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Python-cheatsheet/" title="Python-Cheatsheet"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Cheatsheet</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-File-Management/" title="File Management in Python"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">File Management in Python</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-numpy-cheatsheet/" title="Python-Numpy-Cheatsheet"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Numpy-Cheatsheet</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-visualization/" title="Python-Visualization"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Visualization</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Threadings/" title="Python Threadings"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Threadings</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Environment-Modules-Tutorial/" title="Python Environment Modules Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Environment Modules Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Pipe/" title="Python Pipe &amp; Functional Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Pipe &amp; Functional Programming</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Package-Manager/" title="Python Package Manager"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Package Manager</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Advanced-Programming/" title="Python Pythonic"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Pythonic</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Pythonic-Functional-Programming/" title="Pythonic Functional Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pythonic Functional Programming</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Scraping-Tutorial/" title="Python Scraping Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Scraping Tutorial</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Rust"
+        id="heading-f5e265d607cb720058fc166e00083fe8" role="tab" data-toggle="collapse" href="#collapse-f5e265d607cb720058fc166e00083fe8"
+        aria-expanded="true"
+      >
+        Rust
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-f5e265d607cb720058fc166e00083fe8"
+           role="tabpanel" aria-labelledby="heading-f5e265d607cb720058fc166e00083fe8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Rust-Tutorial/" title="Rust Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-1-Basic-Concepts/" title="Rust Tutorial 1: Basic Concepts"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Rust Tutorial 1: Basic Concepts</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-OwnerShip/" title="Rust Tutorial 2: Rust Ownership"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 2: Rust Ownership</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Rust Tutorial 1: Basic Concepts</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+<h1>Rust Tutorial 1: Basic Concepts</h1>
+<h2 id="Hello-World-与-Cargo"><code>Hello, World!</code>与 Cargo</h2>
+<h3 id="Hello-World"><code>Hello, World!</code></h3>
+<p>每个编程语言的学习都从 <code>Hello, World!</code> 开始。在 Rust 中，这简单而经典的程序揭示了一个核心概念：宏。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// A basic &quot;Hello, World!&quot; program in Rust</span><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Hello, world!&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>代码中的 <code>println!</code> 并非一个普通的函数，而是一个<strong>宏</strong>（Macro）。宏是一种元编程工具，允许开发者编写能够生成代码的代码。与运行时调用的函数不同，宏在编译时被展开，用生成的代码替换宏调用。</p>
+<ul>
+<li><strong>编译时展开</strong>：宏在编译阶段被处理，编译器根据宏定义生成新的 Rust 代码，并用其替换宏调用。这与 C/C++ 的预处理器宏（<code>#define</code>）有相似之处，但 Rust 的宏系统更为强大和安全，因为它是在抽象语法树（AST）级别上操作。</li>
+<li><strong>作用</strong>：宏的主要作用是减少重复代码。</li>
+<li><strong>标识</strong>：宏调用通常以感叹号 <code>!</code> 结尾，例如 <code>println!</code> 和 <code>vec!</code>，这是一种特殊的语法标记，用于将其与函数调用区分开来。</li>
+<li><strong>宏与函数的区别</strong>：宏可以接受<strong>可变数量的参数</strong>，而 Rust 的函数不能。此外，宏能够生成整个结构体或枚举的定义，这在实现类似序列化（如 Serde）的复杂功能时非常有用。</li>
+</ul>
+<h3 id="Cargo：Rust-的包管理工具">Cargo：Rust 的包管理工具</h3>
+<p><strong>Cargo</strong> 是 Rust 官方的包管理和构建系统。它简化了项目的编译、运行和依赖管理。</p>
+<ul>
+<li><code>cargo build</code>：编译项目。</li>
+<li><code>cargo run</code>：编译并运行项目。</li>
+<li><code>cargo check</code>：快速检查代码是否存在编译错误，但不生成可执行文件，非常适合快速迭代。</li>
+<li><code>cargo clean</code>：清理项目编译产生的中间文件。</li>
+</ul>
+<p>Rust 的项目由 <strong>crate</strong> 构成，它是 Rust 代码的最小编译单元。</p>
+<ul>
+<li><strong>Binary crate</strong>：编译后产生一个可执行文件，必须包含 <code>main</code> 函数作为程序入口。</li>
+<li><strong>Library crate</strong>：编译后产生库文件，不包含 <code>main</code> 函数，可被其他 crate 引用。</li>
+</ul>
+<h2 id="变量">变量</h2>
+<h3 id="变量与常量">变量与常量</h3>
+<p>Rust 对变量的<strong>不可变性</strong>（immutability）有严格要求，这有助于编写更安全、更并发的代码。</p>
+<h4 id="变量：默认不可变">变量：默认不可变</h4>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// Example of an immutable variable</span><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">x</span> = <span class="hljs-number">3</span>;<br>    <span class="hljs-comment">// x = 5; // This would cause a compile-time error</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>默认情况下，变量是不可变的。若要允许变量的值在声明后被修改，必须在 <code>let</code> 关键字后添加 <code>mut</code> 关键字。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// Example of a mutable variable</span><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">x</span> = <span class="hljs-number">3</span>;<br>    x = <span class="hljs-number">5</span>; <span class="hljs-comment">// This is now allowed</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>另一种改变变量值的方式是<strong>变量遮蔽（Shadowing）</strong>。通过使用相同的变量名再次声明一个新变量，新变量会“遮蔽”旧变量。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">x</span> = <span class="hljs-number">3</span>;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">x</span> = <span class="hljs-number">5</span>; <span class="hljs-comment">// The new &#x27;x&#x27; shadows the old one</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">x</span> = x + <span class="hljs-number">1</span>; <span class="hljs-comment">// You can even use the old value to compute the new one</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>遮蔽比 <code>mut</code> 更强大，因为它允许改变变量的类型，并且可以限定在特定的作用域内。</p>
+<h4 id="常量：编译时绑定">常量：编译时绑定</h4>
+<p>常量的声明比变量更为严格，核心在于<strong>常量在编译时而不是运行时绑定</strong>。</p>
+<ul>
+<li>声明使用 <code>const</code> 关键字。</li>
+<li>必须显式提供类型注解。</li>
+<li>无法被遮蔽，也无法在运行时进行计算。</li>
+<li>始终存在于全局作用域中，且在整个程序生命周期内有效。</li>
+</ul>
+<h2 id="数据类型">数据类型</h2>
+<p>Rust 是一种静态类型的语言，即<strong>在程序编译阶段</strong>所有变量的类型都必须被确定并且检查通过。但是和 C++ 不同的是，Rust 引入了 <code>let</code> 关键字，这样创建新变量的过程中不需要显示地规定变量类型。因此，在做类型转换的时候，需要<strong>显示定义类型注解</strong>来防止编译器陷入困惑。（尤其在类型转换的结果有很多可能的时候）</p>
+<p>Rust 的数据类型可以分为两大类：<strong>标量类型 (Scalar Types)</strong> 和 <strong>复合类型 (Compound Types)</strong>。</p>
+<h3 id="标量类型-Scalar-Types">标量类型 (Scalar Types)</h3>
+<p>标量类型代表一个单一的值。Rust 内置了四种主要的标量类型：整数、浮点数、布尔值和字符。</p>
+<h4 id="整数-Integers">整数 (Integers)</h4>
+<p>整数类型用于存储没有小数部分的数字。Rust 提供了多种整数类型，每种都具有指定的大小（位数）和符号（有符号或无符号）。</p>
+<ul>
+<li><strong>有符号整数 (<code>i</code>)</strong>: 可以是正数、负数或零。类型包括 <code>i8</code>, <code>i16</code>, <code>i32</code>, <code>i64</code>, <code>i128</code>。</li>
+<li><strong>无符号整数 (<code>u</code>)</strong>: 只能是正数或零。类型包括 <code>u8</code>, <code>u16</code>, <code>u32</code>, <code>u64</code>, <code>u128</code>。</li>
+<li><strong>架构相关类型 (<code>isize</code>, <code>usize</code>)</strong>: 它们的位数取决于你的电脑架构。在 64 位系统上，它们是 64 位；在 32 位系统上，它们是 32 位。<code>usize</code> 主要用于数组索引和大小，因为它能保证在任何系统上都能表示内存中的所有位置。</li>
+</ul>
+<h4 id="浮点数-Floating-Point-Numbers">浮点数 (Floating-Point Numbers)</h4>
+<p>浮点数用于存储有小数部分的数字。Rust 有两种浮点类型：</p>
+<ul>
+<li><code>f32</code>: 32 位单精度浮点数。</li>
+<li><code>f64</code>: 64 位双精度浮点数，是默认的浮点类型。</li>
+</ul>
+<h4 id="布尔值-Booleans">布尔值 (Booleans)</h4>
+<p>布尔类型只有两个可能的值：<code>true</code> 或 <code>false</code>。它通常用于条件判断。</p>
+<h4 id="字符-Characters">字符 (Characters)</h4>
+<p>Rust 的 <code>char</code> 类型是一个 Unicode 字符，而不是简单的 ASCII 字符。这意味着它可以表示任何语言的字母、数字、标点符号，甚至是表情符号。<code>char</code> 类型占 4 个字节。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">my_char</span> = &#x27;❤️&#x27;;<br></code></pre></td></tr></table></figure>
+<h3 id="复合类型-Compound-Types">复合类型 (Compound Types)</h3>
+<p>复合类型可以将多个值组合成一个类型。Rust 提供了两种基本的复合类型：元组和数组。</p>
+<h4 id="元组-Tuples">元组 (Tuples)</h4>
+<p>元组是一种将多个不同类型的值打包成一个复合类型的方法。一旦创建，它的长度就不能改变。</p>
+<ul>
+<li>你可以使用索引来访问元组的元素。</li>
+<li>元组的类型由其内部元素的类型和顺序决定。</li>
+</ul>
+<!-- end list -->
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">my_tuple</span> = (<span class="hljs-number">500</span>, <span class="hljs-number">6.4</span>, <span class="hljs-string">&quot;hello&quot;</span>);<br><span class="hljs-keyword">let</span> (x, y, z) = my_tuple; <span class="hljs-comment">// 解构</span><br><span class="hljs-keyword">let</span> <span class="hljs-variable">first_item</span> = my_tuple.<span class="hljs-number">0</span>; <span class="hljs-comment">// 使用索引访问</span><br></code></pre></td></tr></table></figure>
+<h4 id="数组-Arrays">数组 (Arrays)</h4>
+<p>数组是一种将多个<strong>相同类型</strong>的值放入一个固定长度的集合中的方式。</p>
+<ul>
+<li><strong>数组的长度是固定的，不能改变</strong>。</li>
+<li>数组的类型由<strong>元素的类型和长度</strong>共同决定，例如 <code>[i32; 5]</code> 代表一个包含 5 个 32 位整数的数组。</li>
+<li>数组的元素在内存中是连续存储的。</li>
+<li>数组的内存在栈上分配。</li>
+</ul>
+<!-- end list -->
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">my_array</span>: [<span class="hljs-type">i32</span>; <span class="hljs-number">5</span>] = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];<br><span class="hljs-keyword">let</span> <span class="hljs-variable">first_element</span> = my_array[<span class="hljs-number">0</span>]; <span class="hljs-comment">// 使用索引访问</span><br></code></pre></td></tr></table></figure>
+<p>除了这些基本的数据类型，Rust 还提供了更高级的类型，比如 <strong>切片 (<code>&amp;[T]</code>)</strong>、<strong>字符串 (<code>String</code> 和 <code>&amp;str</code>)</strong>、<strong>枚举 (<code>enum</code>)</strong> 和 <strong>结构体 (<code>struct</code>)</strong> 等。这些类型构成了 Rust 强大而安全的类型系统的基础。</p>
+<blockquote>
+<p>一个复合类型的大小是其所有字段大小的总和，加上为了满足对齐要求而产生的填充（padding）。这一点和 C++ 保持一致。</p>
+</blockquote>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs text">--- 标量类型 ---<br>i8:    1 bytes<br>u8:    1 bytes<br>i16:   2 bytes<br>u16:   2 bytes<br>i32:   4 bytes<br>u32:   4 bytes<br>i64:   8 bytes<br>u64:   8 bytes<br>i128:  16 bytes<br>u128:  16 bytes<br>isize: 8 bytes<br>usize: 8 bytes<br>f32:   4 bytes<br>f64:   8 bytes<br>bool:  1 bytes<br>char:  4 bytes<br><br>--- 复合类型 ---<br>():      0 bytes<br>(i32, f64): 16 bytes<br>[i32; 3]: 12 bytes<br></code></pre></td></tr></table></figure>
+<h3 id="溢出">溢出</h3>
+<p>Rust 在处理整数溢出方面比 C/C++ 更安全。</p>
+<ul>
+<li>在 <strong>Debug 模式</strong>下，整数溢出会导致程序 <code>panic</code>（程序终止）。</li>
+<li>在 <strong>Release 模式</strong>下，溢出会发生“环绕”（Wrapping），从最大值重新回到最小值。</li>
+</ul>
+<p>为了显式控制溢出行为，Rust 提供了如下方法：</p>
+<ul>
+<li><code>wrapping_add</code>：环绕加法，用于模块化算术。</li>
+<li><code>checked_add</code>：检查加法，溢出时返回 <code>None</code>，否则返回 <code>Some(result)</code>。</li>
+<li><code>saturating_add</code>：饱和加法，溢出时将结果饱和到类型的最大值或最小值。</li>
+<li><code>overflowing_add</code>：返回一个元组，包含计算结果和是否溢出的布尔值。</li>
+</ul>
+<h4 id="wrapping-add（环绕加法）"><code>wrapping_add</code>（环绕加法）</h4>
+<p><strong>功能</strong>：当计算结果超出整数类型的范围时，它会<strong>环绕</strong>（或称“回卷”），从最小值或最大值重新开始。</p>
+<p><strong>用途</strong>：</p>
+<ul>
+<li>处理需要模块化算术（Modular Arithmetic）的场景，比如哈希函数、加密算法、循环数组索引等。</li>
+<li>在发布模式下，这是 Rust 整数溢出的默认行为。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">x</span>: <span class="hljs-type">u8</span> = <span class="hljs-number">250</span>;<br><span class="hljs-keyword">let</span> <span class="hljs-variable">y</span> = <span class="hljs-number">10</span>;<br><span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = x.<span class="hljs-title function_ invoke__">wrapping_add</span>(y); <span class="hljs-comment">// 250 + 10 = 260</span><br>                                <span class="hljs-comment">// 260 超过了 u8 的最大值 255</span><br>                                <span class="hljs-comment">// 结果会环绕：260 - 256 = 4</span><br><span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Result: &#123;&#125;&quot;</span>, result); <span class="hljs-comment">// 输出：4</span><br></code></pre></td></tr></table></figure>
+<h4 id="checked-add（检查加法）"><code>checked_add</code>（检查加法）</h4>
+<p><strong>功能</strong>：执行加法，并在发生溢出时返回一个 <code>Option</code> 类型。如果结果没有溢出，返回 <code>Some(result)</code>；如果溢出，返回 <code>None</code>。</p>
+<p><strong>用途</strong>：</p>
+<ul>
+<li>这是最安全的处理溢出的方法，让你有机会在运行时优雅地处理错误，而不是让程序直接恐慌。</li>
+<li>非常适合需要确保计算结果不会溢出的场景。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">x</span>: <span class="hljs-type">u8</span> = <span class="hljs-number">250</span>;<br><span class="hljs-keyword">let</span> <span class="hljs-variable">y</span> = <span class="hljs-number">10</span>;<br><span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = x.<span class="hljs-title function_ invoke__">checked_add</span>(y);<br><br><span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> <span class="hljs-variable">Some</span>(sum) = result &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Sum is &#123;&#125;&quot;</span>, sum);<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Overflow occurred!&quot;</span>); <span class="hljs-comment">// 发生了溢出，打印此行</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="saturating-add（饱和加法）"><code>saturating_add</code>（饱和加法）</h4>
+<p><strong>功能</strong>：当计算结果超出整数类型的范围时，它会将结果**“饱和”**到该类型的最大值或最小值。</p>
+<p><strong>用途</strong>：</p>
+<ul>
+<li>防止意外的环绕行为，将结果限制在可接受的范围内。</li>
+<li>常用于图形处理、音频处理或任何需要防止数据“回卷”的场景。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">x</span>: <span class="hljs-type">u8</span> = <span class="hljs-number">250</span>;<br><span class="hljs-keyword">let</span> <span class="hljs-variable">y</span> = <span class="hljs-number">10</span>;<br><span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = x.<span class="hljs-title function_ invoke__">saturating_add</span>(y); <span class="hljs-comment">// 250 + 10 = 260</span><br>                                  <span class="hljs-comment">// 260 超过了 u8 的最大值 255</span><br>                                  <span class="hljs-comment">// 结果会被“饱和”到 u8 的最大值 255</span><br><span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Result: &#123;&#125;&quot;</span>, result); <span class="hljs-comment">// 输出：255</span><br></code></pre></td></tr></table></figure>
+<h4 id="overflowing-add（溢出加法）"><code>overflowing_add</code>（溢出加法）</h4>
+<p><strong>功能</strong>：执行加法，并返回一个包含<strong>计算结果</strong>和<strong>是否溢出</strong>的元组。</p>
+<p><strong>用途</strong>：</p>
+<ul>
+<li>需要同时获取计算结果和溢出状态的场景。</li>
+<li>通常用于自定义溢出逻辑或调试。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">x</span>: <span class="hljs-type">u8</span> = <span class="hljs-number">250</span>;<br><span class="hljs-keyword">let</span> <span class="hljs-variable">y</span> = <span class="hljs-number">10</span>;<br><span class="hljs-keyword">let</span> (result, overflowed) = x.<span class="hljs-title function_ invoke__">overflowing_add</span>(y);<br><br><span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Result: &#123;&#125;, Overflowed: &#123;&#125;&quot;</span>, result, overflowed);<br><span class="hljs-comment">// 250 + 10 会环绕到 4，并标记为溢出</span><br><span class="hljs-comment">// 输出：Result: 4, Overflowed: true</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>Panic in Rust<br>
+在 Rust 中，Panic 是一种不可恢复的错误状态，它表明程序遇到了一个非常严重的问题，无法继续安全地执行下去。当 Rust 程序发生 panic 时，它会：</p>
+</blockquote>
+<ul>
+<li>打印一条错误信息。</li>
+<li>清理栈（unwind the stack），释放所有函数栈帧所拥有的资源。</li>
+<li>最终，程序会直接终止。</li>
+<li>可以把 panic 理解为程序对自己说：“我不知道该如何处理这个致命的错误，继续运行下去只会让情况更糟，所以我选择干净利落地退出。”</li>
+</ul>
+<h2 id="函数">函数</h2>
+<p>函数的定义使用 <code>fn</code> 关键字，参数需要显式提供类型注解。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// A function that returns a value</span><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">add</span>(x: <span class="hljs-type">i32</span>, y: <span class="hljs-type">i32</span>) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">i32</span> &#123;<br>    x + y <span class="hljs-comment">// No semicolon, this is an expression and will be returned</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="语句与表达式">语句与表达式</h3>
+<p>这是 Rust 与 C/C++ 哲学上的一个显著区别。</p>
+<ul>
+<li><strong>语句（Statements）</strong>：执行指令，但不返回值。例如 <code>let x = 5;</code>。</li>
+<li><strong>表达式（Expressions）</strong>：求值后产生一个值。例如 <code>x + y</code>。</li>
+</ul>
+<p>Rust 是一门<strong>基于表达式</strong>的语言。<code>if</code> 块、<code>match</code> 块以及用大括号 <code>&#123;&#125;</code> 括起来的代码块都是表达式，它们会产生一个值。函数的最后一行如果是一个表达式，并且没有分号结尾，其值将作为函数的返回值。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// An if expression</span><br><span class="hljs-keyword">let</span> <span class="hljs-variable">x</span> = <span class="hljs-keyword">if</span> <span class="hljs-number">1</span> == <span class="hljs-number">2</span> &#123; <span class="hljs-number">5</span> &#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-number">10</span> &#125;;<br><br><span class="hljs-comment">// A block expression</span><br><span class="hljs-keyword">let</span> <span class="hljs-variable">y</span> = &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">z</span> = <span class="hljs-number">1</span>;<br>    z + <span class="hljs-number">2</span> <span class="hljs-comment">// The value of this expression is 3</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>例如下面的一段代码：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Hello world!&quot;</span>);<br>    <span class="hljs-title function_ invoke__">expression</span>();<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">expression</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">x</span> = <span class="hljs-keyword">if</span> <span class="hljs-number">1</span> == <span class="hljs-number">2</span> &#123; <span class="hljs-number">5</span> &#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-number">10</span> &#125;;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">y</span> = &#123;<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">z</span> = <span class="hljs-number">1</span>;<br>        z + <span class="hljs-number">2</span><br>    &#125;;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;x value is &#123;&#125;&quot;</span>, x);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;y value is &#123;&#125;&quot;</span>, y);<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>使用 let 实现变量的创建过程是一个语句而不是表达式（因为这个过程本身不会产生返回值，并且最后使用分号结尾）</li>
+<li>但是使用 <code>&#123;&#125;</code> 括起来的部分是一个表达式（同时，他还是限定范围的作用域的开始），他的返回值是该代码块中最后一个表达式的返回值。
+<ul>
+<li>因此如果在上面的代码中多加了一个分号，写成了 <code>z + 2;</code>，那这个代码块的返回值就是<strong>空</strong>，是一个空元组，会导致编译失败。</li>
+<li>这也可以作为函数返回值的设计，同样，if else 块也遵循相同的返回值返回原理。</li>
+</ul>
+  <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">pow</span>(x: <span class="hljs-type">i32</span>, p: <span class="hljs-type">u32</span>) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">i64</span> &#123;<br><span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">result</span>: <span class="hljs-type">i64</span> = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">for</span> <span class="hljs-variable">_i</span> <span class="hljs-keyword">in</span> <span class="hljs-number">0</span>..p &#123;<br>    result = result * (x <span class="hljs-keyword">as</span> <span class="hljs-type">i64</span>);<br>&#125;<br>result<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="控制流：循环与分支">控制流：循环与分支</h2>
+<h3 id="条件语句：if">条件语句：<code>if</code></h3>
+<p>Rust 的 <code>if</code> 表达式的条件<strong>必须是布尔值</strong>。它不像 C/C++ 那样允许整数自动转换为布尔值（非零即真）。</p>
+<h3 id="循环：loop-while-for">循环：<code>loop</code>, <code>while</code>, <code>for</code></h3>
+<ul>
+<li><code>loop</code>：创建无限循环，可使用 <code>break</code> 语句退出。</li>
+<li><code>while</code>：当条件为真时执行循环。</li>
+<li><code>for</code>：遍历迭代器（如数组、切片或范围）中的每个元素。</li>
+</ul>
+<!-- end list -->
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// A for loop iterating over a range</span><br><span class="hljs-keyword">for</span> <span class="hljs-variable">number</span> <span class="hljs-keyword">in</span> (<span class="hljs-number">1</span>..<span class="hljs-number">4</span>).<span class="hljs-title function_ invoke__">rev</span>() &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;number&#125;!&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>此外，<code>loop</code> 循环可以使用<strong>循环标签</strong>（loop labels），允许 <code>break</code> 或 <code>continue</code> 跳出或跳过特定层级的嵌套循环，这在处理复杂循环逻辑时非常有用。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Hello world!&quot;</span>);<br>    <span class="hljs-title function_ invoke__">expression</span>();<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Demo for pow function: &#123;&#125;&quot;</span>, <span class="hljs-title function_ invoke__">pow</span>(<span class="hljs-number">10</span>, <span class="hljs-number">2</span>));<br><br>    if_else();<br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, <span class="hljs-title function_ invoke__">always_running</span>());<br><br>    <span class="hljs-title function_ invoke__">loop_label</span>();<br>    <span class="hljs-title function_ invoke__">loop_label_2</span>();<br>    <span class="hljs-title function_ invoke__">loop_label_3</span>();<br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Fibonacci: &#123;&#125;&quot;</span>, <span class="hljs-title function_ invoke__">fibonaci</span>(<span class="hljs-number">5</span>));<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">expression</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">x</span> = <span class="hljs-keyword">if</span> <span class="hljs-number">1</span> == <span class="hljs-number">2</span> &#123; <span class="hljs-number">5</span> &#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-number">10</span> &#125;;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">y</span> = &#123;<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">z</span> = <span class="hljs-number">1</span>;<br>        z + <span class="hljs-number">2</span><br>    &#125;;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;x value is &#123;&#125;&quot;</span>, x);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;y value is &#123;&#125;&quot;</span>, y);<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">pow</span>(x: <span class="hljs-type">i32</span>, p: <span class="hljs-type">u32</span>) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">i64</span> &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">result</span>: <span class="hljs-type">i64</span> = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span> <span class="hljs-variable">_i</span> <span class="hljs-keyword">in</span> <span class="hljs-number">0</span>..p &#123;<br>        result = result * (x <span class="hljs-keyword">as</span> <span class="hljs-type">i64</span>);<br>    &#125;<br>    result<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">if_else</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">x</span> = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">if</span> x == <span class="hljs-number">1</span> &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;It is True&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">always_running</span>() <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">i32</span> &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">counter</span> = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = <span class="hljs-keyword">loop</span> &#123;<br>        counter += <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">if</span> counter == <span class="hljs-number">10</span> &#123;<br>            <span class="hljs-keyword">break</span> counter * <span class="hljs-number">2</span>;<br>        &#125;<br>    &#125;;<br>    result<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">loop_label</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">count</span> = <span class="hljs-number">0</span>;<br>    <span class="hljs-symbol">&#x27;counting_up</span>: <span class="hljs-keyword">loop</span> &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;count = &#123;count&#125;&quot;</span>);<br>        <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">remaining</span> = <span class="hljs-number">10</span>;<br>        <span class="hljs-keyword">loop</span> &#123;<br>            <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;remaining = &#123;remaining&#125;&quot;</span>);<br>            <span class="hljs-keyword">if</span> remaining == <span class="hljs-number">9</span> &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span> count == <span class="hljs-number">2</span> &#123;<br>                <span class="hljs-keyword">break</span> <span class="hljs-symbol">&#x27;counting_up</span>;<br>            &#125;<br>            remaining -= <span class="hljs-number">1</span>;<br>        &#125;<br>        count += <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Counting up end.&quot;</span>)<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">loop_label_2</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">i</span> = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-symbol">&#x27;outer_while</span>: <span class="hljs-keyword">while</span> i &lt; <span class="hljs-number">5</span> &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;外层循环: i = &#123;&#125;&quot;</span>, i);<br><br>        <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">j</span> = <span class="hljs-number">0</span>;<br>        <span class="hljs-symbol">&#x27;inner_while</span>: <span class="hljs-keyword">while</span> j &lt; <span class="hljs-number">5</span> &#123;<br>            <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;  内层循环: j = &#123;&#125;&quot;</span>, j);<br><br>            <span class="hljs-keyword">if</span> j == <span class="hljs-number">2</span> &#123;<br>                <span class="hljs-comment">// 这个 break 语句只会退出内层循环</span><br>                <span class="hljs-keyword">break</span> <span class="hljs-symbol">&#x27;inner_while</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span> i == <span class="hljs-number">3</span> &#123;<br>                <span class="hljs-comment">// 使用循环标签，直接跳出外层循环</span><br>                <span class="hljs-keyword">break</span> <span class="hljs-symbol">&#x27;outer_while</span>;<br>            &#125;<br>            j += <span class="hljs-number">1</span>;<br>        &#125;<br><br>        i += <span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;循环结束&quot;</span>);<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">loop_label_3</span>() &#123;<br>    <span class="hljs-symbol">&#x27;outer_for</span>: <span class="hljs-keyword">for</span> <span class="hljs-variable">i</span> <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>..=<span class="hljs-number">3</span> &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;外层循环: i = &#123;&#125;&quot;</span>, i);<br><br>        <span class="hljs-symbol">&#x27;inner_for</span>: <span class="hljs-keyword">for</span> <span class="hljs-variable">j</span> <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>..=<span class="hljs-number">3</span> &#123;<br>            <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;  内层循环: j = &#123;&#125;&quot;</span>, j);<br><br>            <span class="hljs-keyword">if</span> i == <span class="hljs-number">2</span> &amp;&amp; j == <span class="hljs-number">2</span> &#123;<br>                <span class="hljs-comment">// 这个 `break` 语句会直接跳出外层的 &#x27;outer_for 循环</span><br>                <span class="hljs-comment">// 整个程序将提前结束</span><br>                <span class="hljs-keyword">break</span> <span class="hljs-symbol">&#x27;outer_for</span>;<br>            &#125;<br><br>            <span class="hljs-keyword">if</span> i == <span class="hljs-number">3</span> &#123;<br>                <span class="hljs-keyword">break</span> <span class="hljs-symbol">&#x27;inner_for</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;所有循环已结束&quot;</span>);<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">fibonaci</span>(index: <span class="hljs-type">i32</span>) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">i32</span> &#123;<br>    <span class="hljs-keyword">if</span> index == <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;;<br>    <span class="hljs-keyword">if</span> index == <span class="hljs-number">1</span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">pre</span> = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">pre_pre</span> = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> <span class="hljs-variable">_</span> <span class="hljs-keyword">in</span> <span class="hljs-number">2</span>..=index &#123;<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">next</span> = pre + pre_pre;<br>        pre_pre = pre;<br>        pre = next;<br>    &#125;;<br><br>    pre<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="Guessing-Number-Game">Guessing Number Game</h2>
+<p>这个简单的猜数字游戏项目可以帮助我们理解 Rust 的许多核心概念。</p>
+<h3 id="变量绑定与关联函数">变量绑定与关联函数</h3>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">guess</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">new</span>();<br></code></pre></td></tr></table></figure>
+<p>这里的 <code>String::new()</code> 是一个<strong>关联函数</strong>。关联函数是与特定类型（如 <code>String</code>）关联的函数，但不需要 <code>self</code> 参数。它们通过类型本身使用双冒号 <code>::</code> 调用，类似于 C++ 中的静态成员函数。<code>String::new()</code> 是一个典型的构造函数，用于创建 <code>String</code> 类型的新实例。</p>
+<h3 id="错误处理：Result-类型与-expect">错误处理：<code>Result</code> 类型与 <code>expect</code></h3>
+<p><code>std::io::stdin().read_line()</code> 方法返回一个 <code>Result</code> 类型的值。<code>Result</code> 是一个枚举（enum），它有两个成员：<code>Ok</code> 和 <code>Err</code>，代表成功或失败。</p>
+<ul>
+<li>如果 <code>read_line</code> 调用成功，它返回一个 <code>Ok</code> 成员，其中包含读取的字节数。</li>
+<li>如果失败（例如底层操作系统错误），它返回一个 <code>Err</code> 成员，其中包含错误信息。</li>
+</ul>
+<p><code>Result</code> 类型拥有 <code>expect</code> 方法。如果 <code>Result</code> 是 <code>Err</code>，<code>expect</code> 会导致程序 <code>panic</code> 并打印传递给它的错误信息；如果 <code>Result</code> 是 <code>Ok</code>，<code>expect</code> 会解封 <code>Ok</code> 中的值并返回它。这是一种快速处理可恢复错误的机制。</p>
+<h3 id="类型转换与变量遮蔽">类型转换与变量遮蔽</h3>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">guess</span>: <span class="hljs-type">u32</span> = guess.<span class="hljs-title function_ invoke__">trim</span>().<span class="hljs-title function_ invoke__">parse</span>().<span class="hljs-title function_ invoke__">expect</span>(<span class="hljs-string">&quot;Please type a number.&quot;</span>);<br></code></pre></td></tr></table></figure>
+<p>这行代码展示了类型转换和变量遮蔽。<code>guess.trim()</code> 去除字符串首尾的空白，<code>parse()</code> 将字符串解析成一个数字，但因为 <code>parse</code> 可以解析多种数字类型，编译器无法推断类型，因此需要<strong>显式类型注解</strong> <code>guess: u32</code>。</p>
+<p>新的 <code>guess</code> 变量遮蔽了旧的 <code>guess</code> 字符串变量，这在 Rust 中是一种常见的模式，允许我们在同一作用域内重用变量名，同时改变其类型。</p>
+<h3 id="Traits：Rust-的接口">Traits：Rust 的接口</h3>
+<p><strong>Trait</strong> 是 Rust 的一个核心概念，它定义了类型可以共享的功能。你可以将其理解为一种接口或协议，规定了<strong>如果一个类型实现了某个 Trait，它就必须提供特定的方法</strong>。</p>
+<ul>
+<li><strong>Trait 设计</strong>：Rust 的作用域规则要求，即使一个类型（例如 <code>rand::rng()</code> 返回的类型）实现了某个 trait，你也不能直接调用该 trait 定义的方法，除非你显式地将这个 trait 引入到你的作用域中（使用 <code>use</code> 语句）。</li>
+<li><strong>孤儿规则</strong>：这是为了防止不同库对同一个类型实现同一个 trait 时发生冲突，从而保证了类型和 trait 实现的一致性。</li>
+</ul>
+<h3 id="Source-Code">Source Code</h3>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs rust"><br><span class="hljs-keyword">use</span> rand::Rng;<br><span class="hljs-keyword">use</span> std::cmp::Ordering;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Hello World, this is a guessing number game&quot;</span>);<br><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">secret_number</span> = rand::<span class="hljs-title function_ invoke__">rng</span>().<span class="hljs-title function_ invoke__">random_range</span>(<span class="hljs-number">1</span>..=<span class="hljs-number">100</span>);<br>    <span class="hljs-comment">// println!(&quot;The secret number is &#123;secret_number&#125;&quot;);</span><br><br>    <span class="hljs-keyword">loop</span> &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;please input your guess&quot;</span>);<br>        <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">guess</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">new</span>();<br>        std::io::<span class="hljs-title function_ invoke__">stdin</span>()<br>            .<span class="hljs-title function_ invoke__">read_line</span>(&amp;<span class="hljs-keyword">mut</span> guess)<br>            .<span class="hljs-title function_ invoke__">expect</span>(<span class="hljs-string">&quot;Fail to read lines&quot;</span>);<br><br>        <span class="hljs-keyword">if</span> guess.<span class="hljs-title function_ invoke__">trim</span>() == <span class="hljs-string">&quot;quit&quot;</span> &#123;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">guess</span>: <span class="hljs-type">u32</span> = <span class="hljs-keyword">match</span> guess.<span class="hljs-title function_ invoke__">trim</span>().<span class="hljs-title function_ invoke__">parse</span>() &#123;<br>            <span class="hljs-title function_ invoke__">Ok</span>(num) =&gt; num,<br>            <span class="hljs-title function_ invoke__">Err</span>(_) =&gt; &#123;<br>                <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Error, please type a number&quot;</span>);<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>        &#125;;<br><br>        <span class="hljs-keyword">match</span> guess.<span class="hljs-title function_ invoke__">cmp</span>(&amp;secret_number) &#123;<br>            Ordering::Less =&gt; <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Too small!&quot;</span>),<br>            Ordering::Equal =&gt; &#123;<br>                <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Exactly the same!&quot;</span>);<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            Ordering::Greater =&gt; &#123;<br>                <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Too big!&quot;</span>);<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Code/" class="category-chain-item">Code</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Code/Rust/" class="category-chain-item">Rust</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+      
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
+        <a href="/tags/Rust/" class="print-no-link">#Rust</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Rust Tutorial 1: Basic Concepts</div>
+      <div>https://xiyuanyang-code.github.io/posts/Rust-Tutorial-1-Basic-Concepts/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 21, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>August 21, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/Rust-OwnerShip/" title="Rust Tutorial 2: Rust Ownership">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Rust Tutorial 2: Rust Ownership</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Rust-Tutorial/" title="Rust Tutorial">
+                        <span class="hidden-mobile">Rust Tutorial</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <a href="https://xiyuanyang-code.github.io/Loving-Count/" target="_blank" rel="nofollow noopener"><span>❤️</span></a> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
