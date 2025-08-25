@@ -1,0 +1,1519 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/rabbit.jpg">
+  <link rel="icon" href="/img/rabbit.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="In Rust, packages organize crates, which are the smallest compilation units. Modules within a crate create a hierarchical structure, managing code with visibility and privacy to promote reusability.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rust Tutorial 4: Packages, Crates, and Modules">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Rust-Tutorial-4-Packages-Crates-and-Modules/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="In Rust, packages organize crates, which are the smallest compilation units. Modules within a crate create a hierarchical structure, managing code with visibility and privacy to promote reusability.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/rust4.jpg">
+<meta property="article:published_time" content="2025-08-24T16:22:04.000Z">
+<meta property="article:modified_time" content="2025-08-25T07:25:57.477Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="Rust">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/rust4.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Rust Tutorial 4: Packages, Crates, and Modules - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/posts/Above-All-en/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-clipcheck"></i>
+                <span>Record</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Daily Loggings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ReadPaper/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Reading Papers</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>Tag</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/Blog-word-counting/" target="_self">
+                    <i class="iconfont icon-plan"></i>
+                    <span>Word Counting</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/My-Posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All Posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Rust Tutorial 4: Packages, Crates, and Modules"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-08-25 00:22" pubdate>
+          August 25, 2025 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.2k words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Code"
+        id="heading-ca0dbad92a874b2f69b549293387925e" role="tab" data-toggle="collapse" href="#collapse-ca0dbad92a874b2f69b549293387925e"
+        aria-expanded="true"
+      >
+        Code
+        <span class="list-group-count">(33)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-ca0dbad92a874b2f69b549293387925e"
+           role="tabpanel" aria-labelledby="heading-ca0dbad92a874b2f69b549293387925e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Regular-Expression/" title="Regular-Expression"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Regular-Expression</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Automaton-NFA/" title="Automaton NFA"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Automaton NFA</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Architecture Design"
+        id="heading-ae64194051878ec826a5a24ebf799d69" role="tab" data-toggle="collapse" href="#collapse-ae64194051878ec826a5a24ebf799d69"
+        aria-expanded="false"
+      >
+        Architecture Design
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ae64194051878ec826a5a24ebf799d69"
+           role="tabpanel" aria-labelledby="heading-ae64194051878ec826a5a24ebf799d69">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Python-Architecture-Patterns/" title="Python Architecture Patterns"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Architecture Patterns</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Architecture-Patterns-Multi-file-Progarmming/" title="Python Architecture Patterns: Multi-File Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Architecture Patterns: Multi-File Programming</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Cpp"
+        id="heading-db4a39bf594c9fbcf318dd39ea19fed3" role="tab" data-toggle="collapse" href="#collapse-db4a39bf594c9fbcf318dd39ea19fed3"
+        aria-expanded="false"
+      >
+        Cpp
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-db4a39bf594c9fbcf318dd39ea19fed3"
+           role="tabpanel" aria-labelledby="heading-db4a39bf594c9fbcf318dd39ea19fed3">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/C-plus-plus-Primer-Plus-tutorial/" title="C-Plus-Plus-Primer-Plus-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C-Plus-Plus-Primer-Plus-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Introduction-to-OOP/" title="Introduction-to-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Introduction-to-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Dynamic-Memory-and-Classes/" title="Dynamic-Memory-and-Classes"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Dynamic-Memory-and-Classes</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Linked-List-Implementation-Based-on-Structs/" title="Linked-List-Implementation-Based-on-Structs"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linked-List-Implementation-Based-on-Structs</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Class-Inheritance/" title="Class-Inheritance"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Class-Inheritance</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Code-Reuse-in-OOP/" title="Code-Reuse-in-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Code-Reuse-in-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Exception-Handling-in-C-plus-plus/" title="Exception-Handling-in-C-Plus-Plus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Exception-Handling-in-C-Plus-Plus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Pointers-Arrays-and-Functions/" title="Pointers-Arrays-and-Functions"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pointers-Arrays-and-Functions</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-Plus-Plus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Input-and-Output-in-C-Plus-Plus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Jotting-References-and-Encapsulation-in-OOP/" title="Jotting-References-and-Encapsulation-in-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jotting-References-and-Encapsulation-in-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Modern-C/" title="Modern C++"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Modern C++</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Full Stack Programming"
+        id="heading-ed70836892f4090a9d2e4a24cc30dcda" role="tab" data-toggle="collapse" href="#collapse-ed70836892f4090a9d2e4a24cc30dcda"
+        aria-expanded="false"
+      >
+        Full Stack Programming
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ed70836892f4090a9d2e4a24cc30dcda"
+           role="tabpanel" aria-labelledby="heading-ed70836892f4090a9d2e4a24cc30dcda">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Frontend"
+        id="heading-d97ba66b283564339628b71975a6e68d" role="tab" data-toggle="collapse" href="#collapse-d97ba66b283564339628b71975a6e68d"
+        aria-expanded="false"
+      >
+        Frontend
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-d97ba66b283564339628b71975a6e68d"
+           role="tabpanel" aria-labelledby="heading-d97ba66b283564339628b71975a6e68d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Javascripts-Memo/" title="Javascripts Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Javascripts Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Javascripts-Advanced/" title="Javascripts Advanced"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Javascripts Advanced</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="false"
+      >
+        Python
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Python-cheatsheet/" title="Python-Cheatsheet"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Cheatsheet</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-File-Management/" title="File Management in Python"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">File Management in Python</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-numpy-cheatsheet/" title="Python-Numpy-Cheatsheet"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Numpy-Cheatsheet</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-visualization/" title="Python-Visualization"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Visualization</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Threadings/" title="Python Threadings"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Threadings</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Environment-Modules-Tutorial/" title="Python Environment Modules Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Environment Modules Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Pipe/" title="Python Pipe &amp; Functional Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Pipe &amp; Functional Programming</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Package-Manager/" title="Python Package Manager"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Package Manager</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Advanced-Programming/" title="Python Pythonic"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Pythonic</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Pythonic-Functional-Programming/" title="Pythonic Functional Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pythonic Functional Programming</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Scraping-Tutorial/" title="Python Scraping Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Scraping Tutorial</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Rust"
+        id="heading-f5e265d607cb720058fc166e00083fe8" role="tab" data-toggle="collapse" href="#collapse-f5e265d607cb720058fc166e00083fe8"
+        aria-expanded="true"
+      >
+        Rust
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-f5e265d607cb720058fc166e00083fe8"
+           role="tabpanel" aria-labelledby="heading-f5e265d607cb720058fc166e00083fe8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Rust-Tutorial/" title="Rust Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-1-Basic-Concepts/" title="Rust Tutorial 1: Basic Concepts"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 1: Basic Concepts</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-OwnerShip/" title="Rust Tutorial 2: Rust Ownership"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 2: Rust Ownership</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-3-Struct-and-enums/" title="Rust Tutorial 3: Struct and Enums"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 3: Struct and Enums</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-4-Packages-Crates-and-Modules/" title="Rust Tutorial 4: Packages, Crates, and Modules"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Rust Tutorial 4: Packages, Crates, and Modules</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Rust Tutorial 4: Packages, Crates, and Modules</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+<h1>Packages, Crates and Modules in Rust</h1>
+<div class="note note-primary">
+            <p>这一部分相当的复杂，笔者暂且学一个皮毛，在后续的学习过程中会不断的更新这篇文章~</p>
+          </div>
+<p>使用包、crate 和模块管理不断增长的 Rust 项目：代码的模块化。</p>
+<p>代码模块化是代码重构的核心，主要包含以下几点：</p>
+<ul>
+<li>
+<p>复杂性管理</p>
+</li>
+<li>
+<p>定义清晰的公有接口实现代码复用</p>
+</li>
+<li>
+<p>多文件的模块化</p>
+</li>
+</ul>
+<h2 id="包和-crate">包和 crate</h2>
+<ul>
+<li>
+<p>crate：Rust 的最小编译单位。一个 crate 往往包含着一个或者多个文件。</p>
+<ul>
+<li>二进制 crate：包含 main 函数的 crate</li>
+<li>库 crate：提供复用模块（库）</li>
+<li>crate root 是编译的起始点
+<ul>
+<li>对于 binary crate：crate root 默认为 <code>src/main.rs</code></li>
+<li>对于 lib crate：crate root 默认为 <code>src/lib.rs</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>packages：提供一系列功能的多个（或者一个）crate 的捆绑。<strong>一个包会包含 <code>Cargo.toml</code> 文件</strong>，阐述如何去构建这些 crate。</p>
+<ul>
+<li>包中可以包含最多一个库 crate</li>
+<li>但是包中可以包含任意个二进制的 crate</li>
+<li>但是包中至少包含一个 crate</li>
+</ul>
+</li>
+</ul>
+<h2 id="What-will-the-compiler-do">What will the compiler do?</h2>
+<div class="note note-primary">
+            <p>先来简单的介绍一下编译器在 编译一次 crate 的时候会发生什么事情：</p><h3 id="识别-crate-根">识别 <code>crate</code> 根</h3><p>首先，编译器会根据你提供的命令或 Cargo 的设置，找到 <strong><code>crate</code> 的根文件</strong>。</p><ul><li>如果是二进制 <code>crate</code>，它会寻找 <code>src/main.rs</code>。</li><li>如果是库 <code>crate</code>，它会寻找 <code>src/lib.rs</code>。</li></ul><p>这个根文件是编译器的“起点”，它告诉编译器整个 <code>crate</code> 的入口在哪里。</p><h3 id="构建模块树-Module-Tree">构建模块树 (Module Tree)</h3><p>接下来，编译器会从 <code>crate</code> 根开始，根据 <code>mod</code> 关键字来<strong>递归地遍历和解析</strong>整个 <code>crate</code> 的所有文件。</p><ul><li>当它在 <code>src/main.rs</code> 或 <code>src/lib.rs</code> 中看到 <code>mod my_module;</code> 这行时，它就知道要去寻找 <code>src/my_module.rs</code> 或 <code>src/my_module/mod.rs</code> 这个文件。</li><li>如果 <code>my_module.rs</code> 里又包含 <code>mod another_module;</code>，编译器会继续寻找 <code>src/another_module.rs</code>。</li><li>也有可能之间内联在该文件中， Rust 也会自动识别这一点。</li></ul><p>这个过程会一直持续，直到编译器将所有相关的 <code>.rs</code> 文件都组织成一个完整的<strong>模块树</strong>。这个树状结构清晰地定义了每个模块之间的父子关系和层次结构。</p><h3 id="检查可见性-Visibility-Checks">检查可见性 (Visibility Checks)</h3><p>在构建模块树后，编译器会进行可见性检查。它会：</p><ul><li>检查每个<strong>路径</strong>（例如 <code>my_module::some_function</code>）是否合法。</li><li>验证你调用的函数、结构体或枚举是否是 <code>pub</code>（公开）的，并且在当前作用域中可以访问。</li><li>如果一个模块或项没有被标记为 <code>pub</code>，编译器会阻止外部模块对它的访问，并抛出一个编译错误。</li></ul><p>这个步骤确保了你的代码遵循 Rust 的<strong>私有性</strong>和<strong>封装</strong>规则，防止意外的外部访问。</p><blockquote><p>在 Rust 中，可见性规则是层层递进的，就像一扇扇上锁的门。要访问房间里的东西，你必须先打开所有通往那个房间的门。</p></blockquote><h3 id="编译和链接">编译和链接</h3><p>最后，在所有文件都解析完毕、所有路径和可见性都检查无误后，编译器会开始将所有 <code>.rs</code> 文件中的代码<strong>编译成目标代码</strong>（例如 <code>.o</code> 文件）。</p><ul><li>它会单独编译每个模块，但同时会根据模块树的依赖关系来处理。</li><li>编译完成后，它会将所有生成的<strong>目标代码</strong>和必要的<strong>库代码</strong>（来自标准库或其他依赖）<strong>链接</strong>在一起，最终生成一个单一的可执行文件（<code>bin</code>）或库文件（<code>lib</code>）。</li></ul>
+          </div>
+<h2 id="相关概念">相关概念</h2>
+<h3 id="模块树">模块树</h3>
+<p>模块树（Module Tree）是Rust中所有模块的层次结构，类似于文件系统的目录树。每个crate都有一个根模块，所有其他模块都是这个根模块的子模块或后代模块。</p>
+<p>模块树是理解模块之间可见性和管理模块化代码的<strong>核心</strong>，他提供了一种抽象的模式来管理多个模块之间的复杂依赖。在分析模块可视性之前，使用模块树是最好并且最清晰的分析方式。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs text">crate packages_modules<br>├── mod a: pub(crate)<br>│   ├── mod b: pub<br>│   │   └── fn fun_b: pub<br>│   ├── mod c: pub(self)<br>│   │   └── fn fun_c: pub<br>│   └── fn fun_a: pub<br>├── mod garden: pub<br>│   └── mod vegetables: pub<br>│       └── struct Asparagus: pub<br>└── fn main: pub(crate)<br></code></pre></td></tr></table></figure>
+<h3 id="mod"><code>mod</code></h3>
+<p><code>mod</code> 是 Rust 中用于<strong>声明和组织代码模块</strong>的关键字。它就像是你在 Rust 项目中创建文件夹，帮助你将代码按逻辑功能分组，提高代码的可读性、可维护性和复用性。</p>
+<ol>
+<li>
+<p><strong>内联模块（Inline Module）</strong><br>
+当模块代码量较少时，你可以直接在当前文件中使用 <code>mod</code> 关键字创建内联模块。这就像在一个文件中创建了一个私有子代码块。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// main.rs</span><br><span class="hljs-keyword">mod</span> my_utility &#123;<br>    <span class="hljs-comment">// 这个函数只在 my_utility 模块内部可见</span><br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">internal_helper</span>() &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;I&#x27;m a private helper!&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// 使用 pub 关键字，这个函数才能被外部模块访问</span><br>    <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">do_something</span>() &#123;<br>        <span class="hljs-title function_ invoke__">internal_helper</span>(); <span class="hljs-comment">// 模块内可以调用私有函数</span><br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Doing something useful.&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    my_utility::<span class="hljs-title function_ invoke__">do_something</span>();<br>    <span class="hljs-comment">// 错误：my_utility::internal_helper() 是私有的</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在这个例子中，<code>my_utility</code> 就是一个内联模块。</p>
+</li>
+<li>
+<p><strong>文件模块（File Module）</strong><br>
+这是最常见的用法，当模块代码量较大时，通常会将模块的声明和定义分开。你用 <code>mod</code> 声明模块，而实际的代码则放在一个单独的文件或文件夹中。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// main.rs (crate 根)</span><br><span class="hljs-keyword">mod</span> geometry; <span class="hljs-comment">// 声明一个名为 geometry 的模块</span><br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    geometry::shape::<span class="hljs-title function_ invoke__">circle</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>当你写下 <code>mod geometry;</code> 时，编译器会根据惯例去寻找以下两个位置之一：</p>
+<ul>
+<li><strong><code>src/geometry.rs</code></strong>：一个名为 <code>geometry.rs</code> 的文件，其内容即为 <code>geometry</code> 模块。</li>
+<li><strong><code>src/geometry/mod.rs</code></strong>：一个名为 <code>geometry</code> 的文件夹，其中包含一个 <code>mod.rs</code> 文件，其内容为 <code>geometry</code> 模块。</li>
+</ul>
+<p>如果 <code>geometry</code> 模块中还有子模块，比如 <code>shape</code>，那么 <code>src/geometry.rs</code> 的内容可能如下：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// src/geometry.rs</span><br><span class="hljs-keyword">pub</span> <span class="hljs-keyword">mod</span> shape; <span class="hljs-comment">// 声明 geometry 模块下的一个子模块 shape</span><br></code></pre></td></tr></table></figure>
+<p>然后，<code>shape</code> 模块的代码会放在 <strong><code>src/geometry/shape.rs</code></strong> 或 <strong><code>src/geometry/shape/mod.rs</code></strong> 中。(按照从左到右的优先级，先查找 <code>src/geometry/shape.rs</code>)</p>
+</li>
+</ol>
+<h3 id="path">path</h3>
+<p>在 Rust 中，要访问模块中的项（比如函数、结构体、枚举等），你需要使用<strong>路径</strong>。路径就像是文件系统中的地址，它告诉编译器如何找到你想要使用的项。</p>
+<h4 id="Absolute-Path">Absolute Path</h4>
+<p>绝对路径从 <code>crate</code> 的根开始，使用关键字 <code>crate</code>。这就像是提供一个完整的、从根目录开始的地址。当你需要访问当前 <code>crate</code> 中任何位置的项时，都可以使用绝对路径。它清晰且不易出错，因为它总是从同一起点开始。</p>
+<blockquote>
+<p>从模块树的角度，就是从根节点出发走向目标节点的路径。</p>
+</blockquote>
+<h4 id="Relative-Path">Relative Path</h4>
+<p>相对路径从当前模块开始，使用 <code>self</code>、<code>super</code> 或直接使用模块名。</p>
+<div class="note note-primary">
+            <p>在 Rust 的模块树中，每个 <code>.rs</code> 文件或 <code>mod {}</code> 代码块都代表一个模块。当你在这段代码的内部编写代码时，这段代码就处于“当前模块”的作用域。</p>
+          </div>
+<ul>
+<li><strong><code>self</code></strong>: 指代当前模块本身。</li>
+<li><strong><code>super</code></strong>: 指代父模块。你可以多次使用 <code>super</code> 来向上移动。</li>
+<li><strong>模块名</strong>: 直接使用兄弟模块或子模块的名称。</li>
+</ul>
+<p>假设你在一个名为 <code>a</code> 的模块中，它有一个子模块 <code>b</code>，还有一个兄弟模块 <code>c</code>。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">mod</span> a &#123;<br>    <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">fun_a</span>() &#123;&#125;<br><br>    <span class="hljs-keyword">mod</span> b &#123;<br>        <span class="hljs-keyword">use</span> super::fun_a; <span class="hljs-comment">// 使用 super 访问父模块 a 中的 fun_a</span><br>        <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">fun_b</span>() &#123;<br>            <span class="hljs-title function_ invoke__">fun_a</span>();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">mod</span> c &#123;<br>        <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">fun_c</span>() &#123;<br>            <span class="hljs-comment">// 在 c 中，如果要访问 b，需要从父模块 a 开始</span><br>            <span class="hljs-comment">// crate::a::b::fun_b();</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="use"><code>use</code></h3>
+<p>为了避免每次都写很长的路径，你可以使用 <code>use</code> 关键字将路径引入到当前作用域。这就像是创建了一个快捷方式。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// 不使用 use</span><br><span class="hljs-comment">// let plant = crate::garden::vegetables::Asparagus &#123;&#125;;</span><br><br><span class="hljs-comment">// 使用 use</span><br><span class="hljs-keyword">use</span> crate::garden::vegetables::Asparagus;<br><span class="hljs-keyword">let</span> <span class="hljs-variable">plant</span> = Asparagus &#123;&#125;;<br></code></pre></td></tr></table></figure>
+<p><code>use</code> 声明通常放在文件的顶部，它使得代码更简洁，更容易阅读。你可以一次性引入多个项，或为项指定别名，以避免命名冲突。</p>
+<p>可以使用 <code>as</code> 来指定别名防止命名冲突，和 Python 的 import 语法很像。</p>
+<p>使⽤ use 关键字，将某个名称导⼊当前作⽤域后，该名称<strong>对此作⽤域之外还是私有的</strong>。若要让作⽤域之外的代码能够像在当前作⽤域中⼀样使⽤该名称，可以将 pub 与 use 组合使⽤。这种技术被称为重导出（re-exporting），因为在把某个项⽬导⼊当前作⽤域的同时，也将其暴露给其他作⽤域。</p>
+<h3 id="pub">pub</h3>
+<p>Make an item visible to others.</p>
+<p>The keyword <code>pub</code> makes any module, function, or data structure accessible from inside of external modules. The pub keyword may also be used in a use declaration to re-export an identifier from a namespace.</p>
+<h2 id="Visibility-Privacy">Visibility &amp; Privacy</h2>
+<p>这一部分实在太太太复杂了，始终无法成为人型编译器。<br>
+Relevant Website:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://google.github.io/comprehensive-rust/zh-CN/modules/visibility.html">Comprehensive Rust</a></li>
+<li><a target="_blank" rel="noopener" href="https://rustwiki.org/zh-CN/reference/visibility-and-privacy.html">Rust Reference: Visibility</a></li>
+</ul>
+<p>Rust 模块化的关键在于<strong>可见性的构建</strong>，因为 Rust 没有类，为了提供封装性，Rust 在编译过程中引入了<strong>检查可见性</strong>的环节。</p>
+<blockquote>
+<p>检查可见性的环节在构建模块树之后，但是<strong>Rust不会检查依赖关系</strong>，Rust的依赖关系只和<strong>可见性有关</strong>，因此 Rust的编译器无法在编译过程中杜绝<strong>循环引用</strong>事件的发生。</p>
+</blockquote>
+<p>下面介绍三条最重要的<strong>Rust可见性规则</strong>。</p>
+<div class="note note-info">
+            <p>注意，下面的讨论内容都是<strong>默认不使用 <code>pub</code> 的行为</strong>，因为加了 pub 就相当于门户大开全局可见了。</p>
+          </div>
+<h3 id="默认情况下，模块项是私有的">默认情况下，模块项是私有的</h3>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">mod</span> my_module &#123;<br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">private_function</span>() &#123;<br>        <span class="hljs-comment">// 这个函数默认是私有的，只能在my_module内部访问</span><br>    &#125;<br>    <br>    <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">public_function</span>() &#123;<br>        <span class="hljs-comment">// 使用pub关键字使其公开</span><br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-comment">// my_module::private_function(); // ❌ 错误！无法访问私有函数</span><br>    my_module::<span class="hljs-title function_ invoke__">public_function</span>();    <span class="hljs-comment">// ✅ 正确！可以访问公共函数</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="原子操作的可见性判断">原子操作的可见性判断</h3>
+<p>关键：从<strong>模块树</strong>的角度分析可见性！</p>
+<p>理论上来说，在任何一个当前模块下，到达任何一个模块的结构（例如函数，结构体等等），理论上只需要两个原子操作：<strong>到达父亲节点 &amp; 到达儿子节点</strong>。因此，我们首先分析这两个原子操作的可见性。</p>
+<ul>
+<li>
+<p>父项可见性：在对父亲项不加 pub 的情况下，使用 <code>super::</code> 关键字访问其父项。</p>
+<ul>
+<li>并且<strong>可以直接访问父项的私有函数</strong>。</li>
+<li>以此类推，<code>super::super::</code> 也是可见的，也就是说，<strong>沿着模块树不断往上走，祖先模块的组件均可以被访问</strong>。</li>
+<li><strong>如果某个程序项是私有的，则当前模块及当前模块的后代模块都可以访问它</strong>。</li>
+</ul>
+  <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">mod</span> grandfather &#123;<br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">grandfather_fn</span>() &#123;&#125;<br>    <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">public_grandfather_fn</span>() &#123;&#125;<br>    <br>    <span class="hljs-keyword">mod</span> father &#123;<br>        <span class="hljs-keyword">fn</span> <span class="hljs-title function_">father_fn</span>() &#123;&#125;<br>        <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">public_father_fn</span>() &#123;&#125;<br>        <br>        <span class="hljs-keyword">mod</span> son &#123;<br>            <span class="hljs-keyword">fn</span> <span class="hljs-title function_">son_fn</span>() &#123;<br>                <span class="hljs-comment">// 可以访问父项</span><br>                super::<span class="hljs-title function_ invoke__">father_fn</span>();<br>                super::<span class="hljs-title function_ invoke__">public_father_fn</span>();<br>                <br>                <span class="hljs-comment">// 可以访问祖父项</span><br>                super::super::<span class="hljs-title function_ invoke__">grandfather_fn</span>();        <br>                super::super::<span class="hljs-title function_ invoke__">public_grandfather_fn</span>(); <br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>儿子项可见性：<strong>在模块内部</strong>，在对儿子项不加 pub 的情况下，可以访问<strong>自己的直接子模块</strong>（哪怕儿子的 mod 没有加 pub 修饰），但是在模块外部的访问收到了 pub 的限制（儿子可以，孙子不可以！）</p>
+<ul>
+<li>因此，可以换一种定义<strong>可见</strong>的方法：如果某个程序项是公有的，那么如果可以从外部的某一模块 m 访问到该程序项的所有祖先模块，则一定可以从这个模块 m 中访问到该程序项。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">mod</span> parent &#123;<br>    <span class="hljs-keyword">mod</span> private_child &#123;<br>        <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">child_function</span>() &#123;&#125;<br>        <span class="hljs-keyword">fn</span> <span class="hljs-title function_">child_function_private</span>() &#123;&#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">pub</span> <span class="hljs-keyword">mod</span> public_child &#123;<br>        <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">child_function</span>() &#123;&#125;<br>        <span class="hljs-keyword">fn</span> <span class="hljs-title function_">child_function_private</span>() &#123;&#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_access</span>() &#123;<br>        private_child::<span class="hljs-title function_ invoke__">child_function</span>(); <br>        <span class="hljs-comment">// private_child::child_function_private(); ❌ </span><br>        public_child::<span class="hljs-title function_ invoke__">child_function</span>();<br>        <span class="hljs-comment">// public_child::child_function_private(); ❌</span><br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 在parent外部访问</span><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">external_access</span>() &#123;<br>    <span class="hljs-comment">// parent::private_child::child_function();  ❌ </span><br>    parent::public_child::<span class="hljs-title function_ invoke__">child_function</span>();   <br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="note note-primary">
+            <ul><li><p>crate 需要一个全局可用的“辅助模块(helper module)”，但又不想将辅助模块公开为公共API。为了实现这一点，可以在整个 crate 的根模块（路径层级结构中的最顶层）下建一个私有模块，该模块在内部是“公共API”。因为整个 crate 都是根模块的后代，所以整个本地 crate 里都可以通过第二种情况访问这个私有模块。</p><ul><li>这其实和二子模块的访问是一致的，比如我希望使用一个层级比较深的模块的一个公有函数，那我需要保证这个路径下的所有都是 pub 开绿灯（不然没有访问的权限）</li></ul></li><li><p>在为模块编写单元测试时，通常的习惯做法是给要测试的模块加一个命名为 mod test 的直接子模块。这个模块可以通过第二种情况访问父模块的任何程序项，这意味着内部实现细节也可以从这个子模块里进行无缝地测试。</p><ul><li><p>在 Rust 中，一个模块可以是私有的，但其内部的程序项（如函数、结构体等）可以是公有的。这在您的 crate 内部创建公共 API 时非常有用。</p></li><li><p>当您在 crate 的根模块（crate root）下创建一个私有模块，并在其中定义公有项时，这个私有模块及其内部的公有项只能在当前 crate 的内部被访问。因为整个 crate 都是根模块的后代，所以 crate 内的任何地方都可以通过 crate::… 路径访问到这个私有模块。</p></li><li><p>核心思想：这是一种实现内部共享代码的模式。它允许您在不将模块暴露给外部用户的情况下，在自己的 crate 内部创建可复用的“辅助模块”或共享工具，从而实现代码的组织和复用，同时保持清晰的封装边界。</p></li></ul></li><li><p>在为模块编写单元测试时，通常的习惯做法是给要测试的模块加一个命名为 mod test 的直接子模块。这个模块可以通过第二种情况访问父模块的任何程序项，这意味着内部实现细节也可以从这个子模块里进行无缝地测试。</p><ul><li>这个测试模块利用了第二个概念：尽管 tests 是父模块的子模块，它仍然可以访问父模块的所有私有程序项。这意味着您可以在测试中直接访问和验证父模块的内部实现细节，而不仅仅是其公有 API。</li></ul></li></ul>
+          </div>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// 这个模块是私有的，这意味着没有外部crate 可以访问这个模块。</span><br><span class="hljs-comment">// 但是，由于它在当前 crate 的根模块下，</span><br><span class="hljs-comment">// 因此当前 crate 中的任何模块都可以访问该模块中任何公有可见性程序项。</span><br><span class="hljs-keyword">mod</span> crate_helper_module &#123;<br><br>    <span class="hljs-comment">// 这个函数可以被当前 crate 中的任何东西使用</span><br>    <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">crate_helper</span>() &#123;&#125;<br><br>    <span class="hljs-comment">// 此函数*不能*被用于 crate 中的任何其他模块中。它在 `crate_helper_module` 之外不可见，</span><br>    <span class="hljs-comment">// 因此只有当前模块及其后代可以访问它。</span><br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">implementation_detail</span>() &#123;&#125;<br>&#125;<br><br><span class="hljs-comment">// 此函数“对根模块是公有”的，这意味着它可被链接了此crate 的其他crate 使用。</span><br><span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">public_api</span>() &#123;&#125;<br><br><span class="hljs-comment">// 与 &#x27;public_api&#x27; 类似，此模块是公有的，因此其他的crate 是能够看到此模块内部的。</span><br><span class="hljs-keyword">pub</span> <span class="hljs-keyword">mod</span> submodule &#123;<br>    <span class="hljs-keyword">use</span> crate_helper_module;<br><br>    <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">my_method</span>() &#123;<br>        <span class="hljs-comment">// 本地crate 中的任何程序项都可以通过上述两个规则的组合来调用辅助模块里的公共接口。</span><br>        crate_helper_module::<span class="hljs-title function_ invoke__">crate_helper</span>();<br>    &#125;<br><br>    <span class="hljs-comment">// 此函数对任何不是 `submodule` 的后代的模块都是隐藏的</span><br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">my_implementation</span>() &#123;&#125;<br><br>    <span class="hljs-meta">#[cfg(test)]</span><br>    <span class="hljs-keyword">mod</span> test &#123;<br><br>        <span class="hljs-meta">#[test]</span><br>        <span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_my_implementation</span>() &#123;<br>            <span class="hljs-comment">// 因为此模块是 `submodule` 的后代，因此允许它访问 `submodule` 内部的私有项，而不会侵犯隐私权。</span><br>            super::<span class="hljs-title function_ invoke__">my_implementation</span>();<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="pub-in-path-pub-crate-pub-super-and-pub-self">pub(in path), pub(crate), pub(super), and pub(self)</h3>
+<blockquote>
+<p>Advanced Techniques…</p>
+</blockquote>
+<p>除了公有和私有之外，Rust 还允许用户（用关键字 pub ）声明仅在给定作用域内可见的程序项。声明形式的限制规则如下：</p>
+<ul>
+<li>pub(in path) 使一个程序项在提供的 path 中可见。path 必须是声明其可见性的程序项的祖先模块。</li>
+<li>pub(crate) 使一个程序项在当前 crate 中可见。</li>
+<li>pub(super) 使一个程序项对父模块可见。这相当于 pub(in super)。</li>
+<li>pub(self) 使一个程序项对当前模块可见。这相当于 pub(in self) 或者根本不使用 pub。</li>
+</ul>
+<blockquote>
+<p>从 2018版开始，pub(in path) 的路径必须以 crate、self或super开头。</p>
+</blockquote>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">mod</span> outer_mod &#123;<br>    <span class="hljs-keyword">pub</span> <span class="hljs-keyword">mod</span> inner_mod &#123;<br>        <span class="hljs-comment">// 此函数在 `outer_mod` 内部可见</span><br>        <span class="hljs-title function_ invoke__">pub</span>(<span class="hljs-keyword">in</span> crate::outer_mod) <span class="hljs-keyword">fn</span> <span class="hljs-title function_">outer_mod_visible_fn</span>() &#123;&#125;<br>        <span class="hljs-comment">// 此函数对整个 crate 都可见</span><br>        <span class="hljs-title function_ invoke__">pub</span>(<span class="hljs-keyword">crate</span>) <span class="hljs-keyword">fn</span> <span class="hljs-title function_">crate_visible_fn</span>() &#123;&#125;<br><br>        <span class="hljs-comment">// 此函数在 `outer_mod` 下可见</span><br>        <span class="hljs-title function_ invoke__">pub</span>(<span class="hljs-keyword">super</span>) <span class="hljs-keyword">fn</span> <span class="hljs-title function_">super_mod_visible_fn</span>() &#123;<br>            <span class="hljs-comment">// 此函数之所以可用，是因为我们在同一个模块下</span><br>            <span class="hljs-title function_ invoke__">inner_mod_visible_fn</span>();<br>        &#125;<br><br>        <span class="hljs-comment">// 这个函数只在 `inner_mod` 中可见，这与它保持私有的效果是一样的。</span><br>        <span class="hljs-title function_ invoke__">pub</span>(<span class="hljs-keyword">self</span>) <span class="hljs-keyword">fn</span> <span class="hljs-title function_">inner_mod_visible_fn</span>() &#123;&#125;<br>    &#125;<br>    <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">foo</span>() &#123;<br>        inner_mod::<span class="hljs-title function_ invoke__">outer_mod_visible_fn</span>();<br>        inner_mod::<span class="hljs-title function_ invoke__">crate_visible_fn</span>();<br>        inner_mod::<span class="hljs-title function_ invoke__">super_mod_visible_fn</span>();<br><br>        <span class="hljs-comment">// 此函数不再可见，因为我们在  `inner_mod` 之外</span><br>        <span class="hljs-comment">// 错误! `inner_mod_visible_fn` 是私有的</span><br>        <span class="hljs-comment">//inner_mod::inner_mod_visible_fn();</span><br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">bar</span>() &#123;<br>    <span class="hljs-comment">// 此函数仍可见，因为我们在同一个 crate 里</span><br>    outer_mod::inner_mod::<span class="hljs-title function_ invoke__">crate_visible_fn</span>();<br><br>    <span class="hljs-comment">// 此函数不再可见，因为我们在`outer_mod`之外</span><br>    <span class="hljs-comment">// 错误! `super_mod_visible_fn` 是私有的</span><br>    <span class="hljs-comment">//outer_mod::inner_mod::super_mod_visible_fn();</span><br><br>    <span class="hljs-comment">// 此函数不再可见，因为我们在`outer_mod`之外</span><br>    <span class="hljs-comment">// 错误! `outer_mod_visible_fn` 是私有的</span><br>    <span class="hljs-comment">//outer_mod::inner_mod::outer_mod_visible_fn();</span><br><br>    outer_mod::<span class="hljs-title function_ invoke__">foo</span>();<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123; <span class="hljs-title function_ invoke__">bar</span>() &#125;<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Code/" class="category-chain-item">Code</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Code/Rust/" class="category-chain-item">Rust</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+      
+        <a href="/tags/Rust/" class="print-no-link">#Rust</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Rust Tutorial 4: Packages, Crates, and Modules</div>
+      <div>https://xiyuanyang-code.github.io/posts/Rust-Tutorial-4-Packages-Crates-and-Modules/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 25, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>August 25, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/LLML-CS224n-Lecture-10-Post-Training/" title="LLML CS224n Lecture 10 Post-Training">
+                        <span class="hidden-mobile">LLML CS224n Lecture 10 Post-Training</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <a href="https://xiyuanyang-code.github.io/Loving-Count/" target="_blank" rel="nofollow noopener"><span>❤️</span></a> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
