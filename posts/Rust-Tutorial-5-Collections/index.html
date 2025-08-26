@@ -1,0 +1,1533 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/rabbit.jpg">
+  <link rel="icon" href="/img/rabbit.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="Introduction of several efficient data structures named collections for Rust, including vector, string and hashmap. Detailed APIs and usage codes are included in this blog.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rust Tutorial 5: Collections">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Rust-Tutorial-5-Collections/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="Introduction of several efficient data structures named collections for Rust, including vector, string and hashmap. Detailed APIs and usage codes are included in this blog.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/rust5.jpg">
+<meta property="article:published_time" content="2025-08-25T15:26:31.000Z">
+<meta property="article:modified_time" content="2025-08-26T03:22:10.751Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="Finished">
+<meta property="article:tag" content="Rust">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/rust5.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Rust Tutorial 5: Collections - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/posts/Above-All-en/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-clipcheck"></i>
+                <span>Record</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Daily Loggings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ReadPaper/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Reading Papers</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>Tag</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/Blog-word-counting/" target="_self">
+                    <i class="iconfont icon-plan"></i>
+                    <span>Word Counting</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/My-Posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All Posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Rust Tutorial 5: Collections"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-08-25 23:26" pubdate>
+          August 25, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Code"
+        id="heading-ca0dbad92a874b2f69b549293387925e" role="tab" data-toggle="collapse" href="#collapse-ca0dbad92a874b2f69b549293387925e"
+        aria-expanded="true"
+      >
+        Code
+        <span class="list-group-count">(35)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-ca0dbad92a874b2f69b549293387925e"
+           role="tabpanel" aria-labelledby="heading-ca0dbad92a874b2f69b549293387925e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Regular-Expression/" title="Regular-Expression"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Regular-Expression</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Automaton-NFA/" title="Automaton NFA"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Automaton NFA</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Architecture Design"
+        id="heading-ae64194051878ec826a5a24ebf799d69" role="tab" data-toggle="collapse" href="#collapse-ae64194051878ec826a5a24ebf799d69"
+        aria-expanded="false"
+      >
+        Architecture Design
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ae64194051878ec826a5a24ebf799d69"
+           role="tabpanel" aria-labelledby="heading-ae64194051878ec826a5a24ebf799d69">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Python-Architecture-Patterns/" title="Python Architecture Patterns"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Architecture Patterns</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Architecture-Patterns-Multi-file-Progarmming/" title="Python Architecture Patterns: Multi-File Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Architecture Patterns: Multi-File Programming</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Cpp"
+        id="heading-db4a39bf594c9fbcf318dd39ea19fed3" role="tab" data-toggle="collapse" href="#collapse-db4a39bf594c9fbcf318dd39ea19fed3"
+        aria-expanded="false"
+      >
+        Cpp
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-db4a39bf594c9fbcf318dd39ea19fed3"
+           role="tabpanel" aria-labelledby="heading-db4a39bf594c9fbcf318dd39ea19fed3">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/C-plus-plus-Primer-Plus-tutorial/" title="C-Plus-Plus-Primer-Plus-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C-Plus-Plus-Primer-Plus-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Introduction-to-OOP/" title="Introduction-to-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Introduction-to-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Dynamic-Memory-and-Classes/" title="Dynamic-Memory-and-Classes"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Dynamic-Memory-and-Classes</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Linked-List-Implementation-Based-on-Structs/" title="Linked-List-Implementation-Based-on-Structs"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linked-List-Implementation-Based-on-Structs</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Class-Inheritance/" title="Class-Inheritance"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Class-Inheritance</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Code-Reuse-in-OOP/" title="Code-Reuse-in-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Code-Reuse-in-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Exception-Handling-in-C-plus-plus/" title="Exception-Handling-in-C-Plus-Plus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Exception-Handling-in-C-Plus-Plus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Pointers-Arrays-and-Functions/" title="Pointers-Arrays-and-Functions"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pointers-Arrays-and-Functions</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-Plus-Plus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Input-and-Output-in-C-Plus-Plus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Jotting-References-and-Encapsulation-in-OOP/" title="Jotting-References-and-Encapsulation-in-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jotting-References-and-Encapsulation-in-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Modern-C/" title="Modern C++"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Modern C++</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Full Stack Programming"
+        id="heading-ed70836892f4090a9d2e4a24cc30dcda" role="tab" data-toggle="collapse" href="#collapse-ed70836892f4090a9d2e4a24cc30dcda"
+        aria-expanded="false"
+      >
+        Full Stack Programming
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ed70836892f4090a9d2e4a24cc30dcda"
+           role="tabpanel" aria-labelledby="heading-ed70836892f4090a9d2e4a24cc30dcda">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Frontend"
+        id="heading-d97ba66b283564339628b71975a6e68d" role="tab" data-toggle="collapse" href="#collapse-d97ba66b283564339628b71975a6e68d"
+        aria-expanded="false"
+      >
+        Frontend
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-d97ba66b283564339628b71975a6e68d"
+           role="tabpanel" aria-labelledby="heading-d97ba66b283564339628b71975a6e68d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Javascripts-Memo/" title="Javascripts Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Javascripts Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Javascripts-Advanced/" title="Javascripts Advanced"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Javascripts Advanced</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="false"
+      >
+        Python
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Python-cheatsheet/" title="Python-Cheatsheet"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Cheatsheet</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-File-Management/" title="File Management in Python"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">File Management in Python</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-numpy-cheatsheet/" title="Python-Numpy-Cheatsheet"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Numpy-Cheatsheet</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-visualization/" title="Python-Visualization"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Visualization</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Threadings/" title="Python Threadings"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Threadings</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Environment-Modules-Tutorial/" title="Python Environment Modules Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Environment Modules Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Pipe/" title="Python Pipe &amp; Functional Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Pipe &amp; Functional Programming</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Package-Manager/" title="Python Package Manager"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Package Manager</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Advanced-Programming/" title="Python Pythonic"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Pythonic</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Pythonic-Functional-Programming/" title="Pythonic Functional Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pythonic Functional Programming</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Scraping-Tutorial/" title="Python Scraping Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Scraping Tutorial</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Rust"
+        id="heading-f5e265d607cb720058fc166e00083fe8" role="tab" data-toggle="collapse" href="#collapse-f5e265d607cb720058fc166e00083fe8"
+        aria-expanded="true"
+      >
+        Rust
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-f5e265d607cb720058fc166e00083fe8"
+           role="tabpanel" aria-labelledby="heading-f5e265d607cb720058fc166e00083fe8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Rust-Tutorial/" title="Rust Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-1-Basic-Concepts/" title="Rust Tutorial 1: Basic Concepts"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 1: Basic Concepts</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-OwnerShip/" title="Rust Tutorial 2: Rust Ownership"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 2: Rust Ownership</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-3-Struct-and-enums/" title="Rust Tutorial 3: Struct and Enums"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 3: Struct and Enums</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-4-Packages-Crates-and-Modules/" title="Rust Tutorial 4: Packages, Crates and Modules"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 4: Packages, Crates and Modules</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-5-Collections/" title="Rust Tutorial 5: Collections"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Rust Tutorial 5: Collections</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-6-Exception-Handling/" title="Rust Tutorial 6: Exception Handling"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 6: Exception Handling</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Rust Tutorial 5: Collections</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+<h1>Collections in Rust</h1>
+<p>Rust 因为其复杂的所有权机制，因此对于开发者来说在构建数据结构的时候引入了复杂性（作为保证安全性和性能的牺牲）。这也意味着在设计数据结构时，Rust 需要考虑更多东西：</p>
+<ul>
+<li>
+<p>谁拥有数据？</p>
+</li>
+<li>
+<p>如何安全地在不同部分的代码之间共享数据？</p>
+</li>
+</ul>
+<p>例如，在 Rust 中创建一个双向链表（使用裸指针）会比在 C++ 中复杂得多。因为在 C++ 中，你可以简单地使用裸指针来相互引用，但在 Rust 中，这种裸指针的使用受到严格限制。你需要使用 Rc（引用计数）或 RefCell（运行时借用检查）等智能指针，才能实现安全的循环引用。</p>
+<p>同时，Rust 标准库内置的复合类型的数据结构无法满足现实生活复杂多变的需求。</p>
+<ul>
+<li>数组：在栈上分配内存，储存相同类型的元素，并且<strong>大小在编译时确定不可变</strong>。</li>
+<li>元组：在栈上分配内存，储存不同类型的元组，<strong>大小在编译时确定不可变</strong>。</li>
+</ul>
+<p>因此，本文将介绍 <strong>Collections in Rust</strong>，作为标准库提供更多功能更加丰富的数据结构类型。</p>
+<ul>
+<li>Vector</li>
+<li>String</li>
+<li>HashMap</li>
+</ul>
+<h2 id="Vector">Vector</h2>
+<p>类型：<code>vec&lt;T&gt;</code>，使用方式和接口完全类似于 C++ STL 中的 vector，<strong>允许可变长度的数组 &amp; 只能存储相同类型的引用</strong>。</p>
+<p>对于不同类型存储的问题，可以使用<strong>枚举</strong>的方式解决。相当于自定义一个嵌套类型。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Hello world!&quot;</span>);<br>    <span class="hljs-title function_ invoke__">test_vector</span>();<br>    <span class="hljs-title function_ invoke__">test_vector_with_different_types</span>();<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_vector</span>() &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Test the usage of vector!&quot;</span>);<br>    <span class="hljs-comment">// create a new vector</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">new_vec_test</span>: <span class="hljs-type">Vec</span>&lt;<span class="hljs-type">i32</span>&gt; = <span class="hljs-type">Vec</span>::<span class="hljs-title function_ invoke__">new</span>();<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;new_vec_test:?&#125;&quot;</span>);<br>    <span class="hljs-comment">// or we can just use macro</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">new_vec_test</span> = <span class="hljs-built_in">vec!</span>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;new_vec_test:?&#125;&quot;</span>);<br><br>    <span class="hljs-comment">// pushing elements for mutable vectors</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">v</span>: <span class="hljs-type">Vec</span>&lt;<span class="hljs-type">i32</span>&gt; = <span class="hljs-type">Vec</span>::<span class="hljs-title function_ invoke__">new</span>();<br>    v.<span class="hljs-title function_ invoke__">push</span>(<span class="hljs-number">22</span>);<br>    v.<span class="hljs-title function_ invoke__">push</span>(<span class="hljs-number">224</span>);<br>    <span class="hljs-keyword">for</span> <span class="hljs-variable">i</span> <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>..=<span class="hljs-number">100</span> &#123;<br>        v.<span class="hljs-title function_ invoke__">push</span>(i * i);<br>    &#125;<br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;v:?&#125;&quot;</span>);<br><br>    <span class="hljs-comment">// reading elements from vectors</span><br>    <span class="hljs-comment">// using borrowing</span><br>    <span class="hljs-comment">// method1: using [] slices</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">first_value</span>: &amp;<span class="hljs-type">i32</span> = &amp;v[<span class="hljs-number">0</span>];<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, first_value);<br><br>    <span class="hljs-comment">// method2: using .get method, returning None if index out of bound</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">first_value</span>: <span class="hljs-type">Option</span>&lt;&amp;<span class="hljs-type">i32</span>&gt; = v.<span class="hljs-title function_ invoke__">get</span>(<span class="hljs-number">2</span>);<br>    <span class="hljs-keyword">match</span> first_value &#123;<br>        <span class="hljs-title function_ invoke__">Some</span>(third) =&gt; &#123;<br>            <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, third);<br>        &#125;<br>        <span class="hljs-literal">None</span> =&gt; <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;None&quot;</span>),<br>    &#125;<br><br>    <span class="hljs-comment">// ! after getting the reference, we cannot modify the vector in case of data race</span><br><br>    <span class="hljs-comment">// traverse elements in vector</span><br>    <span class="hljs-keyword">for</span> <span class="hljs-variable">i</span> <span class="hljs-keyword">in</span> &amp;v &#123;<br>        <span class="hljs-comment">// borrowing</span><br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;i&#125;&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// advanced usage</span><br>    <span class="hljs-keyword">for</span> (index, value) <span class="hljs-keyword">in</span> v.<span class="hljs-title function_ invoke__">iter</span>().<span class="hljs-title function_ invoke__">enumerate</span>() &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Index: &#123;index&#125; with value: &#123;value&#125;&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// or modifying them in a mut vector!</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">v</span> = <span class="hljs-built_in">vec!</span>[<span class="hljs-number">100</span>, <span class="hljs-number">32</span>, <span class="hljs-number">57</span>];<br>    <span class="hljs-keyword">for</span> <span class="hljs-variable">i</span> <span class="hljs-keyword">in</span> &amp;<span class="hljs-keyword">mut</span> v &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;i&#125;&quot;</span>);<br>        <span class="hljs-comment">// ! attention, while modifying the value with a mutable reference, * (dereference operation) is required.</span><br>        *i += <span class="hljs-number">50</span>;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;i&#125;&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_vector_with_different_types</span>() &#123;<br>    <span class="hljs-meta">#[derive(Debug)]</span><br>    <span class="hljs-keyword">enum</span> <span class="hljs-title class_">SpreadSheetCell</span> &#123;<br>        <span class="hljs-title function_ invoke__">Int</span>(<span class="hljs-type">i32</span>),<br>        <span class="hljs-title function_ invoke__">Float</span>(<span class="hljs-type">f64</span>),<br>        <span class="hljs-title function_ invoke__">Text</span>(<span class="hljs-type">String</span>),<br>    &#125;<br><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">row</span> = <span class="hljs-built_in">vec!</span>[<br>        SpreadSheetCell::<span class="hljs-title function_ invoke__">Int</span>(<span class="hljs-number">3</span>),<br>        SpreadSheetCell::<span class="hljs-title function_ invoke__">Float</span>(<span class="hljs-number">3.444</span>),<br>        SpreadSheetCell::<span class="hljs-title function_ invoke__">Text</span>(<span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;hello world&quot;</span>)),<br>    ];<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;row:?&#125;&quot;</span>);<br>    <span class="hljs-keyword">for</span> <span class="hljs-variable">i</span> <span class="hljs-keyword">in</span> &amp;row &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;i:?&#125;&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="String">String</h2>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_string</span>()&#123;<br>    <span class="hljs-comment">// create a new string</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">string_new</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Hello world&quot;</span>);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, string_new);<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">string_new</span> = <span class="hljs-string">&quot;Hello world&quot;</span>.<span class="hljs-title function_ invoke__">to_string</span>();<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, string_new);<br><br>    <span class="hljs-comment">// support unicode</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">emoji_string</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;✅&quot;</span>);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, emoji_string);<br><br>    <span class="hljs-comment">// using push method to modify it</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">s</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;test&quot;</span>);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>,s);<br><br>    <span class="hljs-comment">// function: pub fn push_str(&amp;mut self, string: &amp;str)</span><br>    s.<span class="hljs-title function_ invoke__">push_str</span>(<span class="hljs-string">&quot;wow&quot;</span>);<br>    s.<span class="hljs-title function_ invoke__">push_str</span>(&amp;<span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;hello world&quot;</span>));<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>,s);<br><br>    <span class="hljs-comment">// concat string</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">s1</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;hello&quot;</span>);<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">s2</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot; world&quot;</span>);<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">s3</span> = s1 + &amp;s2;<br>    <span class="hljs-comment">// ! now s1 can not be used</span><br>    <span class="hljs-comment">// function: fn add(self, s: &amp;str) -&gt; String</span><br>    <span class="hljs-comment">// String can be transformed into &amp;str, with Deref Coercion</span><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>,s3);<br><br>    <span class="hljs-comment">// or using format macro</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">s4</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Hello!&quot;</span>);<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">concat_s</span> = <span class="hljs-built_in">format!</span>(<span class="hljs-string">&quot;&#123;s3&#125;-&#123;s2&#125;-&#123;s4&#125;&quot;</span>);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;concat_s&#125;&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="Index-String">Index String</h3>
+<p>在 Rust 中，直接对 String 字符串使用索引是非法的。我们先从 String 的内部原理讲起。</p>
+<p>String 是一个 <code>Vec&lt;u8&gt;</code> 的封装。在像 C 或 C++ 这样的语言中，字符串通常由一个字节（char）数组组成，每个字符都占用一个固定的字节大小（通常为 1 字节）。这种情况下，要访问第 n 个字符，只需简单地计算 n * sizeof(char) 即可，因此可以直接索引。然而，Rust 的 <code>String</code> 和 <code>&amp;str</code> 类型使用的是 UTF-8 编码。在 UTF-8 中：</p>
+<ul>
+<li>
+<p>一个字符（unicode 标量值）可能由 1 到 4 个字节组成。</p>
+</li>
+<li>
+<p>一个字符的可视外观（字形簇或 grapheme cluster）可能由一个或多个 unicode 标量值组成。例如，“é” 是一个字符，但它可以由 e 和一个重音符号的 unicode 组合而成。</p>
+</li>
+</ul>
+<p>由于字符的字节长度不固定，直接通过索引访问会变得复杂且不安全：</p>
+<ul>
+<li>
+<p>s[0] 是什么？ 如果你直接索引到 s[0]，这到底是第 1 个字节、第 1 个 unicode 字符，还是第 1 个可视字符？这些在 UTF-8 中是不同的概念。</p>
+</li>
+<li>
+<p>性能问题：如果直接索引到 s[i]，编译器不知道第 i 个字符的字节偏移量，它必须从字符串的开头开始，逐个字节地遍历，直到找到第 i 个字符。这会使得索引操作不再是 O(1) 时间复杂度，而是 O(n)。</p>
+</li>
+</ul>
+<p>Rust 通过提供三种不同的视图来安全地处理字符串，让你明确自己想要遍历的是什么：</p>
+<ol>
+<li>
+<p><strong>按字节遍历 (<code>.bytes()</code>)</strong>：如果你需要处理底层的字节数据，可以使用 <code>.bytes()</code> 方法。这会返回一个迭代器，每次迭代会得到一个 <code>u8</code> 类型的值。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">s</span> = <span class="hljs-string">&quot;你好&quot;</span>;<br><span class="hljs-keyword">for</span> <span class="hljs-variable">b</span> <span class="hljs-keyword">in</span> s.<span class="hljs-title function_ invoke__">bytes</span>() &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, b);<br>&#125;<br><span class="hljs-comment">// 输出：</span><br><span class="hljs-comment">// 228</span><br><span class="hljs-comment">// 189</span><br><span class="hljs-comment">// 160</span><br><span class="hljs-comment">// ...</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>按 Unicode 标量值遍历 (<code>.chars()</code>)</strong>：如果你想处理单个的 unicode 字符，可以使用 <code>.chars()</code> 方法。这会返回一个迭代器，每次迭代会得到一个 <code>char</code> 类型的值。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">s</span> = <span class="hljs-string">&quot;你好吗&quot;</span>;<br><span class="hljs-keyword">for</span> <span class="hljs-variable">c</span> <span class="hljs-keyword">in</span> s.<span class="hljs-title function_ invoke__">chars</span>() &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, c);<br>&#125;<br><span class="hljs-comment">// 输出：</span><br><span class="hljs-comment">// 你</span><br><span class="hljs-comment">// 好</span><br><span class="hljs-comment">// 吗</span><br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="HashMap">HashMap</h2>
+<p><code>HashMap&lt;K,V&gt;</code></p>
+<blockquote>
+<p>有关哈希函数和哈希表的具体使用方式在此处不做介绍，这里只介绍 Rust 独有的语言特性和语法。</p>
+</blockquote>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_hashmap</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">scores</span>: HashMap&lt;<span class="hljs-type">String</span>, <span class="hljs-type">i32</span>&gt; = HashMap::<span class="hljs-title function_ invoke__">new</span>();<br>    <span class="hljs-comment">// the ownership will be removed in the inserting process</span><br>    scores.<span class="hljs-title function_ invoke__">insert</span>(<span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Hello world&quot;</span>), <span class="hljs-number">33</span>);<br>    scores.<span class="hljs-title function_ invoke__">insert</span>(<span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Lili&quot;</span>), <span class="hljs-number">150</span>);<br>    scores.<span class="hljs-title function_ invoke__">insert</span>(<span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;What the fuck&quot;</span>), <span class="hljs-number">300</span>);<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">team_name</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Hello world&quot;</span>);<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">score</span> = scores.<span class="hljs-title function_ invoke__">get</span>(&amp;team_name).<span class="hljs-title function_ invoke__">copied</span>().<span class="hljs-title function_ invoke__">unwrap_or</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-comment">// .get function: pub fn get&lt;Q: ?Sized&gt;(&amp;self, k: &amp;Q) -&gt; Option&lt;&amp;V&gt;</span><br>    <span class="hljs-comment">// for the get function, it will return Option&lt;&amp;i32&gt;</span><br>    <span class="hljs-comment">// unwrap_or(): handle None</span><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, score);<br><br>    <span class="hljs-comment">// support traversing</span><br>    <span class="hljs-keyword">for</span> (key, value) <span class="hljs-keyword">in</span> &amp;scores &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;key&#125;: &#123;value&#125;&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// advanced API: entry</span><br>    <span class="hljs-comment">// if value exists, don&#x27;t do anything, else insert with the value</span><br>    <span class="hljs-title function_ invoke__">use_entry</span>();<br>    <span class="hljs-title function_ invoke__">use_if_else</span>();<br>    <span class="hljs-title function_ invoke__">use_if_let</span>();<br>    <span class="hljs-title function_ invoke__">demo</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="entry"><code>entry</code></h3>
+<p>常见操作：查找键是否存在，如果不存在则插入对应的 value，如果存在就不做任何事。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">use_entry</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">scores</span>: HashMap&lt;<span class="hljs-type">String</span>, <span class="hljs-type">i32</span>&gt; = HashMap::<span class="hljs-title function_ invoke__">new</span>();<br>    scores.<span class="hljs-title function_ invoke__">insert</span>(<span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Blue&quot;</span>), <span class="hljs-number">10</span>);<br><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">team_to_check</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Yellow&quot;</span>);<br><br>    scores.<span class="hljs-title function_ invoke__">entry</span>(team_to_check).<span class="hljs-title function_ invoke__">or_insert</span>(<span class="hljs-number">50</span>);<br>    scores.<span class="hljs-title function_ invoke__">entry</span>(<span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Blue&quot;</span>)).<span class="hljs-title function_ invoke__">or_insert</span>(<span class="hljs-number">20</span>);<br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;:?&#125;&quot;</span>, scores);<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">use_if_else</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">scores</span>: HashMap&lt;<span class="hljs-type">String</span>, <span class="hljs-type">i32</span>&gt; = HashMap::<span class="hljs-title function_ invoke__">new</span>();<br>    scores.<span class="hljs-title function_ invoke__">insert</span>(<span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Blue&quot;</span>), <span class="hljs-number">10</span>);<br><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">team_to_check</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Yellow&quot;</span>);<br><br>    <span class="hljs-keyword">if</span> scores.<span class="hljs-title function_ invoke__">get</span>(&amp;team_to_check).<span class="hljs-title function_ invoke__">is_none</span>() &#123;<br>        scores.<span class="hljs-title function_ invoke__">insert</span>(team_to_check, <span class="hljs-number">50</span>);<br>    &#125;<br>    <br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">blue_team</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Blue&quot;</span>);<br>    <span class="hljs-keyword">if</span> scores.<span class="hljs-title function_ invoke__">get</span>(&amp;blue_team).<span class="hljs-title function_ invoke__">is_none</span>() &#123;<br>        scores.<span class="hljs-title function_ invoke__">insert</span>(blue_team, <span class="hljs-number">20</span>);<br>    &#125;<br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;:?&#125;&quot;</span>, scores);<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">use_if_let</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">scores</span>: HashMap&lt;<span class="hljs-type">String</span>, <span class="hljs-type">i32</span>&gt; = HashMap::<span class="hljs-title function_ invoke__">new</span>();<br>    scores.<span class="hljs-title function_ invoke__">insert</span>(<span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Blue&quot;</span>), <span class="hljs-number">10</span>);<br><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">team_to_check</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Yellow&quot;</span>);<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> <span class="hljs-variable">None</span> = scores.<span class="hljs-title function_ invoke__">get</span>(&amp;team_to_check) &#123;<br>        scores.<span class="hljs-title function_ invoke__">insert</span>(team_to_check, <span class="hljs-number">50</span>);<br>    &#125;<br>    <br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">blue_team</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Blue&quot;</span>);<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> <span class="hljs-variable">None</span> = scores.<span class="hljs-title function_ invoke__">get</span>(&amp;blue_team) &#123;<br>        scores.<span class="hljs-title function_ invoke__">insert</span>(blue_team, <span class="hljs-number">20</span>);<br>    &#125;<br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;:?&#125;&quot;</span>, scores);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="Demo">Demo</h3>
+<p>可以使用 HashMap 来自动储存每一个单词的出现的次数。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">text</span> = <span class="hljs-string">&quot;Hello world wonderful world&quot;</span>;<br><span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">map</span>: HashMap&lt;<span class="hljs-type">String</span>, <span class="hljs-type">i32</span>&gt; = HashMap::<span class="hljs-title function_ invoke__">new</span>();<br><span class="hljs-keyword">for</span> <span class="hljs-variable">word</span> <span class="hljs-keyword">in</span> text.<span class="hljs-title function_ invoke__">split_whitespace</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">count</span> = map.<span class="hljs-title function_ invoke__">entry</span>(<span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(word)).<span class="hljs-title function_ invoke__">or_insert</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-comment">// pub fn or_insert(self, default: V) -&gt; &amp;&#x27;a mut V</span><br>    <span class="hljs-comment">// thus count is a immutable reference!</span><br>    *count += <span class="hljs-number">1</span>;<br>&#125;<br><span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;map:?&#125;&quot;</span>);<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>map.entry(...)</code>：这是 <code>HashMap</code> 的一个高级方法，它会查找给定的键。它返回一个 <code>Entry</code> 枚举，代表了两种可能的状态：
+<ul>
+<li><strong>键已存在</strong> (<code>Occupied</code>)：如果单词已经在 <code>map</code> 中，<code>entry</code> 会返回一个指向该键值对的引用。</li>
+<li><strong>键不存在</strong> (<code>Vacant</code>)：如果单词是第一次出现，<code>entry</code> 会返回一个空缺的引用。</li>
+</ul>
+</li>
+<li><code>.or_insert(0)</code>：这是一个链式调用，它处理 <code>Entry</code> 的两种状态：
+<ul>
+<li>如果键已存在，它什么也不做，并返回<strong>指向现有值的可变引用</strong>。</li>
+<li>如果键不存在，它会插入一个值为 <code>0</code> 的新键值对，并返回<strong>指向这个新值 <code>0</code> 的可变引用</strong>。</li>
+</ul>
+</li>
+<li><code>let count = ...</code>：因此，无论单词是第一次出现还是已经存在，<code>count</code> 变量都会是一个类型为 <code>&amp;mut i32</code> 的<strong>可变引用</strong>，指向 <code>map</code> 中对应的值。</li>
+</ul>
+<blockquote>
+<p>使用 entry 方法可以避免两次哈希表查找（一次 find，一次 insert），从而优化时间效率，并且代码更加美观。<br>
+It is more Rusty!</p>
+</blockquote>
+<div class="note note-primary">
+            <p>Functional Programming 简直是无处不在。</p>
+          </div>
+<h2 id="More-Collections…">More Collections…</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类别</th>
+<th style="text-align:left">数据结构</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>序列 (Sequences)</strong></td>
+<td style="text-align:left"><code>Vec&lt;T&gt;</code></td>
+<td style="text-align:left">最常用的可变长动态数组。元素在内存中连续存储，支持快速随机访问。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>VecDeque&lt;T&gt;</code></td>
+<td style="text-align:left">双端队列。支持在队列的头部和尾部高效地插入和删除元素。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>LinkedList&lt;T&gt;</code></td>
+<td style="text-align:left">双向链表。在序列中间进行插入和删除操作时性能很高。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>映射 (Maps)</strong></td>
+<td style="text-align:left"><code>HashMap&lt;K, V&gt;</code></td>
+<td style="text-align:left">基于哈希表的键值对集合。查找、插入和删除操作的平均时间复杂度为 O(1)。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>BTreeMap&lt;K, V&gt;</code></td>
+<td style="text-align:left">基于 B-Tree 的有序键值对集合。键始终保持排序，遍历时有序。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>集合 (Sets)</strong></td>
+<td style="text-align:left"><code>HashSet&lt;T&gt;</code></td>
+<td style="text-align:left">基于哈希表的集合，存储唯一的元素。操作的平均时间复杂度为 O(1)。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>BTreeSet&lt;T&gt;</code></td>
+<td style="text-align:left">基于 B-Tree 的有序集合，存储唯一的元素。遍历时按值排序。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>堆 (Heap)</strong></td>
+<td style="text-align:left"><code>BinaryHeap&lt;T&gt;</code></td>
+<td style="text-align:left">最大二叉堆。常用于实现优先队列，可以高效地获取和删除最大元素。</td>
+</tr>
+</tbody>
+</table>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Code/" class="category-chain-item">Code</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Code/Rust/" class="category-chain-item">Rust</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+      
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
+        <a href="/tags/Rust/" class="print-no-link">#Rust</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Rust Tutorial 5: Collections</div>
+      <div>https://xiyuanyang-code.github.io/posts/Rust-Tutorial-5-Collections/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 25, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>August 26, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/Rust-Tutorial-6-Exception-Handling/" title="Rust Tutorial 6: Exception Handling">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Rust Tutorial 6: Exception Handling</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Rust-Tutorial-4-Packages-Crates-and-Modules/" title="Rust Tutorial 4: Packages, Crates and Modules">
+                        <span class="hidden-mobile">Rust Tutorial 4: Packages, Crates and Modules</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <a href="https://xiyuanyang-code.github.io/Loving-Count/" target="_blank" rel="nofollow noopener"><span>❤️</span></a> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

@@ -21,16 +21,17 @@
   
     <meta name="description" content="In Rust, packages organize crates, which are the smallest compilation units. Modules within a crate create a hierarchical structure, managing code with visibility and privacy to promote reusability.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Rust Tutorial 4: Packages, Crates, and Modules">
+<meta property="og:title" content="Rust Tutorial 4: Packages, Crates and Modules">
 <meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Rust-Tutorial-4-Packages-Crates-and-Modules/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
 <meta property="og:description" content="In Rust, packages organize crates, which are the smallest compilation units. Modules within a crate create a hierarchical structure, managing code with visibility and privacy to promote reusability.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/rust4.jpg">
 <meta property="article:published_time" content="2025-08-24T16:22:04.000Z">
-<meta property="article:modified_time" content="2025-08-25T07:25:57.477Z">
+<meta property="article:modified_time" content="2025-08-26T03:22:16.502Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="Finished">
 <meta property="article:tag" content="Rust">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/rust4.jpg">
@@ -39,7 +40,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Rust Tutorial 4: Packages, Crates, and Modules - Xiyuan Yang&#39;s Blog</title>
+  <title>Rust Tutorial 4: Packages, Crates and Modules - Xiyuan Yang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -334,7 +335,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Rust Tutorial 4: Packages, Crates, and Modules"></span>
+            <span id="subtitle" data-typed-text="Rust Tutorial 4: Packages, Crates and Modules"></span>
           
         </div>
 
@@ -423,7 +424,7 @@
         aria-expanded="true"
       >
         Code
-        <span class="list-group-count">(33)</span>
+        <span class="list-group-count">(35)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -845,7 +846,7 @@
         aria-expanded="true"
       >
         Rust
-        <span class="list-group-count">(5)</span>
+        <span class="list-group-count">(7)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -895,10 +896,28 @@
     
       
       
-        <a href="/posts/Rust-Tutorial-4-Packages-Crates-and-Modules/" title="Rust Tutorial 4: Packages, Crates, and Modules"
+        <a href="/posts/Rust-Tutorial-4-Packages-Crates-and-Modules/" title="Rust Tutorial 4: Packages, Crates and Modules"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">Rust Tutorial 4: Packages, Crates, and Modules</span>
+          <span class="category-post">Rust Tutorial 4: Packages, Crates and Modules</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-5-Collections/" title="Rust Tutorial 5: Collections"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 5: Collections</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-6-Exception-Handling/" title="Rust Tutorial 6: Exception Handling"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 6: Exception Handling</span>
         </a>
       
     
@@ -924,7 +943,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Rust Tutorial 4: Packages, Crates, and Modules</h1>
+            <h1 id="seo-header">Rust Tutorial 4: Packages, Crates and Modules</h1>
             
             
               <div class="markdown-body">
@@ -1072,7 +1091,7 @@ Relevant Website:</p>
 </ul>
 </li>
 </ul>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">mod</span> parent &#123;<br>    <span class="hljs-keyword">mod</span> private_child &#123;<br>        <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">child_function</span>() &#123;&#125;<br>        <span class="hljs-keyword">fn</span> <span class="hljs-title function_">child_function_private</span>() &#123;&#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">pub</span> <span class="hljs-keyword">mod</span> public_child &#123;<br>        <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">child_function</span>() &#123;&#125;<br>        <span class="hljs-keyword">fn</span> <span class="hljs-title function_">child_function_private</span>() &#123;&#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_access</span>() &#123;<br>        private_child::<span class="hljs-title function_ invoke__">child_function</span>(); <br>        <span class="hljs-comment">// private_child::child_function_private(); ❌ </span><br>        public_child::<span class="hljs-title function_ invoke__">child_function</span>();<br>        <span class="hljs-comment">// public_child::child_function_private(); ❌</span><br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 在parent外部访问</span><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">external_access</span>() &#123;<br>    <span class="hljs-comment">// parent::private_child::child_function();  ❌ </span><br>    parent::public_child::<span class="hljs-title function_ invoke__">child_function</span>();   <br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">mod</span> parent &#123;<br>    <span class="hljs-keyword">mod</span> private_child &#123;<br>        <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">child_functigon</span>() &#123;&#125;<br>        <span class="hljs-keyword">fn</span> <span class="hljs-title function_">child_function_private</span>() &#123;&#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">pub</span> <span class="hljs-keyword">mod</span> public_child &#123;<br>        <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">child_function</span>() &#123;&#125;<br>        <span class="hljs-keyword">fn</span> <span class="hljs-title function_">child_function_private</span>() &#123;&#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_access</span>() &#123;<br>        private_child::<span class="hljs-title function_ invoke__">child_function</span>(); <br>        <span class="hljs-comment">// private_child::child_function_private(); ❌ </span><br>        public_child::<span class="hljs-title function_ invoke__">child_function</span>();<br>        <span class="hljs-comment">// public_child::child_function_private(); ❌</span><br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 在parent外部访问</span><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">external_access</span>() &#123;<br>    <span class="hljs-comment">// parent::private_child::child_function();  ❌ </span><br>    parent::public_child::<span class="hljs-title function_ invoke__">child_function</span>();   <br>&#125;<br></code></pre></td></tr></table></figure>
 <div class="note note-primary">
             <ul><li><p>crate 需要一个全局可用的“辅助模块(helper module)”，但又不想将辅助模块公开为公共API。为了实现这一点，可以在整个 crate 的根模块（路径层级结构中的最顶层）下建一个私有模块，该模块在内部是“公共API”。因为整个 crate 都是根模块的后代，所以整个本地 crate 里都可以通过第二种情况访问这个私有模块。</p><ul><li>这其实和二子模块的访问是一致的，比如我希望使用一个层级比较深的模块的一个公有函数，那我需要保证这个路径下的所有都是 pub 开绿灯（不然没有访问的权限）</li></ul></li><li><p>在为模块编写单元测试时，通常的习惯做法是给要测试的模块加一个命名为 mod test 的直接子模块。这个模块可以通过第二种情况访问父模块的任何程序项，这意味着内部实现细节也可以从这个子模块里进行无缝地测试。</p><ul><li><p>在 Rust 中，一个模块可以是私有的，但其内部的程序项（如函数、结构体等）可以是公有的。这在您的 crate 内部创建公共 API 时非常有用。</p></li><li><p>当您在 crate 的根模块（crate root）下创建一个私有模块，并在其中定义公有项时，这个私有模块及其内部的公有项只能在当前 crate 的内部被访问。因为整个 crate 都是根模块的后代，所以 crate 内的任何地方都可以通过 crate::… 路径访问到这个私有模块。</p></li><li><p>核心思想：这是一种实现内部共享代码的模式。它允许您在不将模块暴露给外部用户的情况下，在自己的 crate 内部创建可复用的“辅助模块”或共享工具，从而实现代码的组织和复用，同时保持清晰的封装边界。</p></li></ul></li><li><p>在为模块编写单元测试时，通常的习惯做法是给要测试的模块加一个命名为 mod test 的直接子模块。这个模块可以通过第二种情况访问父模块的任何程序项，这意味着内部实现细节也可以从这个子模块里进行无缝地测试。</p><ul><li>这个测试模块利用了第二个概念：尽管 tests 是父模块的子模块，它仍然可以访问父模块的所有私有程序项。这意味着您可以在测试中直接访问和验证父模块的内部实现细节，而不仅仅是其公有 API。</li></ul></li></ul>
           </div>
@@ -1134,6 +1153,8 @@ Relevant Website:</p>
       
         <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
       
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
         <a href="/tags/Rust/" class="print-no-link">#Rust</a>
       
     </div>
@@ -1146,7 +1167,7 @@ Relevant Website:</p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Rust Tutorial 4: Packages, Crates, and Modules</div>
+      <div>Rust Tutorial 4: Packages, Crates and Modules</div>
       <div>https://xiyuanyang-code.github.io/posts/Rust-Tutorial-4-Packages-Crates-and-Modules/</div>
     </div>
     <div class="license-meta">
@@ -1165,7 +1186,7 @@ Relevant Website:</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>August 25, 2025</div>
+          <div>August 26, 2025</div>
         </div>
       
       
@@ -1195,6 +1216,12 @@ Relevant Website:</p>
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/posts/Rust-Tutorial-5-Collections/" title="Rust Tutorial 5: Collections">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Rust Tutorial 5: Collections</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
