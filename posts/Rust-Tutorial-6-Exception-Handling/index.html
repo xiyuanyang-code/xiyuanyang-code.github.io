@@ -19,16 +19,16 @@
   <meta name="author" content="Xiyuan Yang">
   <meta name="keywords" content="Code">
   
-    <meta name="description" content="Exception Handling for Rust.">
+    <meta name="description" content="Exception Handling for Rust, including the usage of panic! macro (fail fast) and Result (fail quickly).">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rust Tutorial 6: Exception Handling">
 <meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Rust-Tutorial-6-Exception-Handling/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
-<meta property="og:description" content="Exception Handling for Rust.">
+<meta property="og:description" content="Exception Handling for Rust, including the usage of panic! macro (fail fast) and Result (fail quickly).">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/rust6.jpg">
 <meta property="article:published_time" content="2025-08-26T03:12:21.000Z">
-<meta property="article:modified_time" content="2025-08-26T03:21:58.203Z">
+<meta property="article:modified_time" content="2025-08-27T07:02:03.745Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="Rust">
@@ -362,7 +362,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9 words
+          2.5k words
         
       </span>
     
@@ -423,7 +423,7 @@
         aria-expanded="true"
       >
         Code
-        <span class="list-group-count">(35)</span>
+        <span class="list-group-count">(36)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -845,7 +845,7 @@
         aria-expanded="true"
       >
         Rust
-        <span class="list-group-count">(7)</span>
+        <span class="list-group-count">(8)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -920,6 +920,15 @@
         </a>
       
     
+      
+      
+        <a href="/posts/Rust-Tutorial-7-Generic-Types-Traits-and-Lifetimes/" title="Rust Tutorial 7: Generic Types, Traits and Lifetimes"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 7: Generic Types, Traits and Lifetimes</span>
+        </a>
+      
+    
   </div>
 
         
@@ -952,6 +961,111 @@
     font-family: Georgia, sans, serif;
   }
 </style>
+<h1>Exception Handling in Rust</h1>
+<blockquote>
+<p>Rust 中的错误处理机制</p>
+</blockquote>
+<h2 id="错误分类-异常处理的哲学">错误分类 &amp; 异常处理的哲学</h2>
+<ul>
+<li>
+<p>可恢复的错误通常是那些可以由程序本身处理并继续运行的错误。这些错误往往是由环境或用户输入等外部因素引起的，而不是编程逻辑上的缺陷。Rust 使用 <code>Result&lt;T, E&gt;</code> 枚举来处理这类错误。</p>
+</li>
+<li>
+<p>不可恢复的错误是指那些表明程序存在严重缺陷、无法继续安全运行的错误。这些错误通常是由于编程逻辑中的 Bug 导致的，例如访问数组越界、除以零等。Rust 使用 <code>panic!</code> 宏来处理这类错误，它会直接导致程序崩溃并打印出错误信息和调用栈。</p>
+</li>
+</ul>
+<blockquote>
+<p>和 C++ 一样，Rust 同样也有一套完整的错误处理的机制。</p>
+</blockquote>
+<h3 id="异常处理的哲学">异常处理的哲学</h3>
+<p>异常处理顾名思义，程序需要足够鲁棒来应对除了 Happy Path 之外的异常情况，面对上面两种错误分类，异常处理的哲学存在显著的区别：</p>
+<div class="note note-primary">
+            <p><strong>Fail Fast &amp; Fail Gracefully</strong></p><ul><li><p>可恢复错误是外部环境或用户行为导致的，而<strong>不是程序自身的逻辑缺陷</strong>。处理这类错误的核心是<strong>优雅地失败</strong>（Fail Gracefully），让程序能够捕获错误，然后采取补救措施，比如提示用户、重试操作或使用默认值，而不是直接崩溃。</p></li><li><p>不可恢复的错误(数组越界、内存访问错误、调用了处于无效状态的函数)是程序员的 Bug，而不是外部环境问题。处理这类错误的核心是<strong>快速失败</strong>（Fail Fast），让程序立即崩溃，并提供足够的信息（如堆栈跟踪），以帮助开发者迅速定位并修复 Bug。</p></li></ul>
+          </div>
+<h2 id="panic"><code>panic!</code></h2>
+<p><code>panic!</code> 是一个宏（和 <code>println!</code> 一样）。在代码中调用 <code>panic!</code> 会导致程序进入 panic 状态（效果和代码中出现严重错误时一样）。在这样的情况下，程序会打印错误信息，<strong>展开</strong>并且清理栈数据，然后退出。</p>
+<blockquote>
+<p>panic 只能用来处理不可恢复的错误，一般这些错误说明你的代码逻辑出现严重的 Bug，导致程序无法正常运行，此时最应该做的就是<strong>输出相关提示信息然后迅速退出，修复 Bug</strong>。<br>
+panic 是 Rust 安全性的最后一道护城河，相比于 C++ 的 UB 来说，安全性会高很多。</p>
+</blockquote>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-section">[profile.release]</span><br><span class="hljs-attr">panic</span> = <span class="hljs-string">&quot;abort&quot;</span><br><span class="hljs-comment"># abort directly without unwinding</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Hello world!&quot;</span>);<br>    <span class="hljs-built_in">panic!</span>(<span class="hljs-string">&quot;Oh No! It will crash&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs text">Hello world!<br><br>thread &#x27;main&#x27; panicked at src/bin/exceptions.rs:3:5:<br>Oh No! It will crash<br>stack backtrace:<br>   0: __rustc::rust_begin_unwind<br>             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/std/src/panicking.rs:697:5<br>   1: core::panicking::panic_fmt<br>             at /rustc/29483883eed69d5fb4db01964cdf2af4d86e9cb2/library/core/src/panicking.rs:75:14<br>   2: exceptions::main<br>             at ./src/bin/exceptions.rs:3:5<br>   3: core::ops::function::FnOnce::call_once<br>             at /home/xiyuanyang/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs:250:5<br>note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.<br></code></pre></td></tr></table></figure>
+<p>除了显示调用 <code>panic!</code> 之外，代码本身出现严重的漏洞也会引发程序的 panic。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Hello world!&quot;</span>);<br>    <span class="hljs-comment">// panic!(&quot;Oh No! It will crash&quot;);</span><br><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">v</span> = <span class="hljs-built_in">vec!</span>[<span class="hljs-number">1</span>, <span class="hljs-number">23</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>];<br>    <span class="hljs-comment">// this will cause error, but not a compile error</span><br>    <span class="hljs-comment">// index out of bounds: the len is 5 but the index is 100</span><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, v[<span class="hljs-number">100</span>]);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这是一个经典的数组越界的问题，在 C++ 中会导致 Segmentation Fault（非法的内存访问），在 Rust 中会直接报错 index out of bounds。（当然因为我们使用了封装好的容器）</p>
+<h2 id="Result">Result</h2>
+<p>对于可恢复的错误，Rust 同样引入了一套相当优雅的异常处理机制。</p>
+<div class="note note-primary">
+            <p>任何与外部世界（文件系统、网络、用户输入）交互的操作，都可能失败。因此，必须将失败的可能性显式地编码到类型系统中。</p>
+          </div>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// definition of Result enums</span><br><span class="hljs-keyword">pub</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">Result</span>&lt;T, E&gt; &#123;<br>    <span class="hljs-comment">/// Contains the success value</span><br>    <span class="hljs-meta">#[lang = <span class="hljs-string">&quot;Ok&quot;</span>]</span><br>    <span class="hljs-meta">#[stable(feature = <span class="hljs-string">&quot;rust1&quot;</span>, since = <span class="hljs-string">&quot;1.0.0&quot;</span>)]</span><br>    <span class="hljs-title function_ invoke__">Ok</span>(<span class="hljs-meta">#[stable(feature = <span class="hljs-string">&quot;rust1&quot;</span>, since = <span class="hljs-string">&quot;1.0.0&quot;</span>)]</span> T),<br><br>    <span class="hljs-comment">/// Contains the error value</span><br>    <span class="hljs-meta">#[lang = <span class="hljs-string">&quot;Err&quot;</span>]</span><br>    <span class="hljs-meta">#[stable(feature = <span class="hljs-string">&quot;rust1&quot;</span>, since = <span class="hljs-string">&quot;1.0.0&quot;</span>)]</span><br>    <span class="hljs-title function_ invoke__">Err</span>(<span class="hljs-meta">#[stable(feature = <span class="hljs-string">&quot;rust1&quot;</span>, since = <span class="hljs-string">&quot;1.0.0&quot;</span>)]</span> E),<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>以文件读写为例子：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_file_open</span>()&#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = File::<span class="hljs-title function_ invoke__">open</span>(<span class="hljs-string">&quot;./expressions.rs&quot;</span>);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;result:?&#125;&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">Err(Os &#123; code: 2, kind: NotFound, message: &quot;No such file or directory&quot; &#125;)<br></code></pre></td></tr></table></figure>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_file_open</span>()&#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = File::<span class="hljs-title function_ invoke__">open</span>(<span class="hljs-string">&quot;./README.md&quot;</span>);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;result:?&#125;&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">Ok(File &#123; fd: 3, path: &quot;/home/xiyuanyang/ProgrammingLang/Rust/rust-learning/README.md&quot;, read: true, write: false &#125;)<br></code></pre></td></tr></table></figure>
+<p>我们来看函数签名：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-meta">#[stable(feature = <span class="hljs-string">&quot;rust1&quot;</span>, since = <span class="hljs-string">&quot;1.0.0&quot;</span>)]</span><br><span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">open</span>&lt;P: <span class="hljs-built_in">AsRef</span>&lt;Path&gt;&gt;(path: P) <span class="hljs-punctuation">-&gt;</span> io::<span class="hljs-type">Result</span>&lt;File&gt; &#123;<br>    OpenOptions::<span class="hljs-title function_ invoke__">new</span>().<span class="hljs-title function_ invoke__">read</span>(<span class="hljs-literal">true</span>).<span class="hljs-title function_ invoke__">open</span>(path.<span class="hljs-title function_ invoke__">as_ref</span>())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>他返回的最终是一个枚举类型（泛型），并且如果文件读写成功，返回的是包含对应文件的句柄的 OK 实例。更进一步的，我们可以使用 match 块来对应的处理不同的结果类型。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_test_file_open</span>()&#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">file_list</span> = <span class="hljs-built_in">vec!</span>[<span class="hljs-string">&quot;./README.md&quot;</span>, <span class="hljs-string">&quot;./readme.md&quot;</span>];<br>    <span class="hljs-keyword">for</span> <span class="hljs-variable">file</span> <span class="hljs-keyword">in</span> &amp;file_list&#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Trying to read &#123;&#125;...&quot;</span>, file);<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = File::<span class="hljs-title function_ invoke__">open</span>(&amp;file);<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">greeting_file</span> = <span class="hljs-keyword">match</span> result &#123;<br>            <span class="hljs-title function_ invoke__">Ok</span>(file) =&gt; file,<br>            <span class="hljs-title function_ invoke__">Err</span>(error) =&gt; <span class="hljs-built_in">panic!</span>(<span class="hljs-string">&quot;Error! Some error occur &#123;error:?&#125;&quot;</span>)<br>        &#125;;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>上文的代码利用 match 块做了细致的分类，将 Happy Path（文件读取成功）和 Sad Path（文件读取失败）对应的路径做了清晰的切割。在 Error 内部，我们还可以进一步细分，让程序员在捕获异常时得到更多的调试信息。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">test_test_file_open</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">file_list</span> = <span class="hljs-built_in">vec!</span>[<span class="hljs-string">&quot;./README.md&quot;</span>, <span class="hljs-string">&quot;./readme.md&quot;</span>];<br>    <span class="hljs-keyword">for</span> <span class="hljs-variable">file_name</span> <span class="hljs-keyword">in</span> &amp;file_list &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Trying to read &#123;&#125;...&quot;</span>, file_name);<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = File::<span class="hljs-title function_ invoke__">open</span>(&amp;file_name);<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">greeting_file</span> = <span class="hljs-keyword">match</span> result &#123;<br>            <span class="hljs-title function_ invoke__">Ok</span>(file) =&gt; &#123;<br>                <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Loading file successfully!&quot;</span>);<br>                file<br>            &#125;<br>            <span class="hljs-title function_ invoke__">Err</span>(error) =&gt; &#123;<br>                <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Error! Trying to create a new file&quot;</span>);<br>                <span class="hljs-keyword">match</span> error.<span class="hljs-title function_ invoke__">kind</span>() &#123;<br>                    ErrorKind::NotFound =&gt; <span class="hljs-keyword">match</span> File::<span class="hljs-title function_ invoke__">create</span>(&amp;file_name) &#123;<br>                        <span class="hljs-title function_ invoke__">Ok</span>(fc) =&gt; fc,<br>                        <span class="hljs-title function_ invoke__">Err</span>(error) =&gt; <span class="hljs-built_in">panic!</span>(<span class="hljs-string">&quot;Error creating file: &#123;error:?&#125;&quot;</span>),<br>                    &#125;,<br>                    _ =&gt; &#123;<br>                        <span class="hljs-built_in">panic!</span>(<span class="hljs-string">&quot;Other problems&quot;</span>)<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>上文的代码的缩进和逻辑链条非常的清晰，但是唯一的缺点就是代码嵌套太深，影响了可读性。Rust 高级编程引入了 闭包 的概念（也是函数式编程的核心之一），可以完美替代上文的 match。同时，标准库也对异常处理做了一些必要的封装，让你不需要每次都手动 match 具体的返回结果。</p>
+<h3 id="unwrap"><code>unwrap</code></h3>
+<p>Rust 中的 unwrap 函数是 Option 和 Result 枚举类型的一个方法，它用于从这些枚举中提取值。它的核心作用是方便地获取一个可能存在或可能不存在的值。（相当于一层封装，可以少写一个 match）</p>
+<ul>
+<li>
+<p>如果 Result 是 <code>Ok(T)</code>，它会返回其中的值 T。</p>
+</li>
+<li>
+<p>如果 Result 是 <code>Err(E)</code>，它会立即导致程序 panic。</p>
+</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">unwrap_test</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">file</span> = File::<span class="hljs-title function_ invoke__">open</span>(<span class="hljs-string">&quot;./README.md&quot;</span>).<span class="hljs-title function_ invoke__">unwrap</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>来看一看源代码：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-meta">#[inline(always)]</span><br><span class="hljs-meta">#[track_caller]</span><br><span class="hljs-meta">#[stable(feature = <span class="hljs-string">&quot;rust1&quot;</span>, since = <span class="hljs-string">&quot;1.0.0&quot;</span>)]</span><br><span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">unwrap</span>(<span class="hljs-keyword">self</span>) <span class="hljs-punctuation">-&gt;</span> T<br><span class="hljs-keyword">where</span><br>    E: fmt::<span class="hljs-built_in">Debug</span>,<br>&#123;<br>    <span class="hljs-keyword">match</span> <span class="hljs-keyword">self</span> &#123;<br>        <span class="hljs-title function_ invoke__">Ok</span>(t) =&gt; t,<br>        <span class="hljs-title function_ invoke__">Err</span>(e) =&gt; <span class="hljs-title function_ invoke__">unwrap_failed</span>(<span class="hljs-string">&quot;called `Result::unwrap()` on an `Err` value&quot;</span>, &amp;e),<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="expect"><code>expect</code></h3>
+<p>和 <code>unwrap</code> 的功能完全一致，它让你的<strong>程序崩溃时能提供更有用的上下文信息</strong>。这对于调试和快速定位问题非常有帮助。</p>
+<blockquote>
+<p>这个非常有用，可以输出自定义的提示信息。</p>
+</blockquote>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">expect_test</span>()&#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">file</span> = File::<span class="hljs-title function_ invoke__">open</span>(<span class="hljs-string">&quot;./rEADME.md&quot;</span>).<span class="hljs-title function_ invoke__">expect</span>(<span class="hljs-string">&quot;Error, this is a test panic message&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="错误传播">错误传播</h3>
+<p>当函数的实现中调用了可能会失败的操作时，除了在这个函数中处理错误外，还可以选择让调用者知道这个错误并决定该如何处理。这被称为传播（propagating）错误，这样能更好的控制代码调用，因为比起你代码所拥有的上下文，调用者可能拥有更多信息或逻辑来决定应该如何处理错误。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">read_username_from_file</span>() <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Result</span>&lt;<span class="hljs-type">String</span>, io::Error&gt; &#123;<br>    <span class="hljs-comment">// this function will read the name (content) from the given file, then return a result type</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">username_file_result</span> = File::<span class="hljs-title function_ invoke__">open</span>(<span class="hljs-string">&quot;README.md&quot;</span>);<br><br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">username_file</span> = <span class="hljs-keyword">match</span> username_file_result &#123;<br>        <span class="hljs-title function_ invoke__">Ok</span>(file) =&gt; file,<br>        <span class="hljs-title function_ invoke__">Err</span>(e) =&gt; <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">Err</span>(e),<br>    &#125;;<br><br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">username</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">new</span>();<br><br>    <span class="hljs-keyword">match</span> username_file.<span class="hljs-title function_ invoke__">read_to_string</span>(&amp;<span class="hljs-keyword">mut</span> username) &#123;<br>        <span class="hljs-title function_ invoke__">Ok</span>(_) =&gt; <span class="hljs-title function_ invoke__">Ok</span>(username),<br>        <span class="hljs-title function_ invoke__">Err</span>(e) =&gt; <span class="hljs-title function_ invoke__">Err</span>(e),<br>    &#125;<br>    <span class="hljs-comment">// fn read_to_string(&amp;mut self, buf: &amp;mut String) -&gt; io::Result&lt;usize&gt; &#123;</span><br>    <span class="hljs-comment">//     (&amp;*self).read_to_string(buf)</span><br>    <span class="hljs-comment">// &#125;</span><br>    <span class="hljs-comment">// read string from files</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>相比于直接 panic 或者抛出错误，有时将错误向上传递能让程序的调用者掌握更大的主动权，即有程序的调用者本身决定如何处理这个异常。（有点类似于 try catch 块的不断向上浮动直到被捕获）。</p>
+<h3 id=""><code>?</code></h3>
+<p>对于上文的错误传播方式，Rust 专门提供了 <code>?</code> 运算符来实现这一点。</p>
+<p>Result 值之后的 ? 被定义为:</p>
+<ul>
+<li>如果 Result 的值是 Ok，这个表达式将会返回 Ok 中的值而程序将继续执行。</li>
+<li>如果值是 Err，Err 将作为<strong>整个函数的返回值</strong>，就好像使用了 return 关键字一样，这样错误值就被传播给了调用者。</li>
+</ul>
+<blockquote>
+<p>? 运算符可以极大程度的减少错误处理代码的复杂程度，提升代码的可读性（因为这一个部分的操作逻辑很简单，在传统编程语言中需要程序员手动做每一处异常处理，导致代码存在重复性。）</p>
+</blockquote>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">read_username_from_file_new_new</span>() <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Result</span>&lt;<span class="hljs-type">String</span>, io::Error&gt; &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">username</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">new</span>();<br>    File::<span class="hljs-title function_ invoke__">open</span>(<span class="hljs-string">&quot;./README.md&quot;</span>)?.<span class="hljs-title function_ invoke__">read_to_string</span>(&amp;<span class="hljs-keyword">mut</span> username)?;<br>    <span class="hljs-title function_ invoke__">Ok</span>(username)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>Make it more simple! within a line:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">read_username_from_file_new_new_new</span>() <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Result</span>&lt;<span class="hljs-type">String</span>, io::Error&gt; &#123;<br>    fs::<span class="hljs-title function_ invoke__">read_to_string</span>(<span class="hljs-string">&quot;./README.md&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>因为 ？语法糖对于错误的处理方式是直接作为<strong>当前函数的返回值返回</strong>，因此必须要保证函数的签名返回值和对应？处理的类型是匹配的。否则将无法使用该语法糖。</p>
+<h2 id="When-to-panic">When to panic?</h2>
+<ul>
+<li>
+<p>panic 可以体现你作为开发者的权力，当你认为这个异常时代码本身的错误或设计不当引起的时候，可以选择直接抛出错误，即 Fail Fast，来防止这个错误在后续造成更大的危害。</p>
+<ul>
+<li>适用与一些原型代码 &amp; 测试中（更快的发现异常）</li>
+<li>常用于一些非预期的有害行为中。</li>
+</ul>
+</li>
+<li>
+<p>Result 相当于一种更优雅的方式，将选择权交给了函数的调用者，即<strong>将错误信息包裹在返回值中</strong>，这样调用者可以选择如何处理这些异常。</p>
+<ul>
+<li>用于处理偶然性行为，来提升程序的鲁棒性</li>
+</ul>
+</li>
+</ul>
+
                 
               </div>
             
@@ -1024,7 +1138,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>August 26, 2025</div>
+          <div>August 27, 2025</div>
         </div>
       
       
@@ -1054,6 +1168,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/posts/Rust-Tutorial-7-Generic-Types-Traits-and-Lifetimes/" title="Rust Tutorial 7: Generic Types, Traits and Lifetimes">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Rust Tutorial 7: Generic Types, Traits and Lifetimes</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
