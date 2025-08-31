@@ -19,18 +19,22 @@
   <meta name="author" content="Xiyuan Yang">
   <meta name="keywords" content="Code">
   
-    <meta name="description" content="html, body, .markdown-body {     font-family: Georgia, sans, serif;   }">
+    <meta name="description" content="Advanced functional programming techniques in Rust, including closures to capture variables in outer scope and iterators.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rust Tutorial 8: Functional Programming">
 <meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Rust-Tutorial-8-Functional-programming/index.html">
 <meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
-<meta property="og:description" content="html, body, .markdown-body {     font-family: Georgia, sans, serif;   }">
+<meta property="og:description" content="Advanced functional programming techniques in Rust, including closures to capture variables in outer scope and iterators.">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/rustiter.jpg">
 <meta property="article:published_time" content="2025-08-29T07:47:14.000Z">
-<meta property="article:modified_time" content="2025-08-30T06:18:33.762Z">
+<meta property="article:modified_time" content="2025-08-31T06:41:55.069Z">
 <meta property="article:author" content="Xiyuan Yang">
-<meta property="article:tag" content="Code">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="Finished">
+<meta property="article:tag" content="Rust">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/rustiter.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -359,7 +363,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9 words
+          2.1k words
         
       </span>
     
@@ -400,6 +404,565 @@
   <div class="row nomargin-x">
     <div class="side-col d-none d-lg-block col-lg-2">
       
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Code"
+        id="heading-ca0dbad92a874b2f69b549293387925e" role="tab" data-toggle="collapse" href="#collapse-ca0dbad92a874b2f69b549293387925e"
+        aria-expanded="true"
+      >
+        Code
+        <span class="list-group-count">(38)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-ca0dbad92a874b2f69b549293387925e"
+           role="tabpanel" aria-labelledby="heading-ca0dbad92a874b2f69b549293387925e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Regular-Expression/" title="Regular-Expression"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Regular-Expression</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Automaton-NFA/" title="Automaton NFA"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Automaton NFA</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Architecture Design"
+        id="heading-ae64194051878ec826a5a24ebf799d69" role="tab" data-toggle="collapse" href="#collapse-ae64194051878ec826a5a24ebf799d69"
+        aria-expanded="false"
+      >
+        Architecture Design
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ae64194051878ec826a5a24ebf799d69"
+           role="tabpanel" aria-labelledby="heading-ae64194051878ec826a5a24ebf799d69">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Python-Architecture-Patterns/" title="Python Architecture Patterns"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Architecture Patterns</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Architecture-Patterns-Multi-file-Progarmming/" title="Python Architecture Patterns: Multi-File Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Architecture Patterns: Multi-File Programming</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Cpp"
+        id="heading-db4a39bf594c9fbcf318dd39ea19fed3" role="tab" data-toggle="collapse" href="#collapse-db4a39bf594c9fbcf318dd39ea19fed3"
+        aria-expanded="false"
+      >
+        Cpp
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-db4a39bf594c9fbcf318dd39ea19fed3"
+           role="tabpanel" aria-labelledby="heading-db4a39bf594c9fbcf318dd39ea19fed3">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/C-plus-plus-Primer-Plus-tutorial/" title="C-Plus-Plus-Primer-Plus-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C-Plus-Plus-Primer-Plus-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Introduction-to-OOP/" title="Introduction-to-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Introduction-to-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Dynamic-Memory-and-Classes/" title="Dynamic-Memory-and-Classes"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Dynamic-Memory-and-Classes</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Linked-List-Implementation-Based-on-Structs/" title="Linked-List-Implementation-Based-on-Structs"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linked-List-Implementation-Based-on-Structs</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Class-Inheritance/" title="Class-Inheritance"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Class-Inheritance</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Code-Reuse-in-OOP/" title="Code-Reuse-in-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Code-Reuse-in-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Exception-Handling-in-C-plus-plus/" title="Exception-Handling-in-C-Plus-Plus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Exception-Handling-in-C-Plus-Plus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Pointers-Arrays-and-Functions/" title="Pointers-Arrays-and-Functions"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pointers-Arrays-and-Functions</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Input-and-Output-in-C-plus-plus/" title="Input-and-Output-in-C-Plus-Plus"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Input-and-Output-in-C-Plus-Plus</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Jotting-References-and-Encapsulation-in-OOP/" title="Jotting-References-and-Encapsulation-in-OOP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jotting-References-and-Encapsulation-in-OOP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Modern-C/" title="Modern C++"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Modern C++</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Full Stack Programming"
+        id="heading-ed70836892f4090a9d2e4a24cc30dcda" role="tab" data-toggle="collapse" href="#collapse-ed70836892f4090a9d2e4a24cc30dcda"
+        aria-expanded="false"
+      >
+        Full Stack Programming
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ed70836892f4090a9d2e4a24cc30dcda"
+           role="tabpanel" aria-labelledby="heading-ed70836892f4090a9d2e4a24cc30dcda">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Frontend"
+        id="heading-d97ba66b283564339628b71975a6e68d" role="tab" data-toggle="collapse" href="#collapse-d97ba66b283564339628b71975a6e68d"
+        aria-expanded="false"
+      >
+        Frontend
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-d97ba66b283564339628b71975a6e68d"
+           role="tabpanel" aria-labelledby="heading-d97ba66b283564339628b71975a6e68d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Javascripts-Memo/" title="Javascripts Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Javascripts Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Javascripts-Advanced/" title="Javascripts Advanced"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Javascripts Advanced</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="false"
+      >
+        Python
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Python-cheatsheet/" title="Python-Cheatsheet"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Cheatsheet</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-File-Management/" title="File Management in Python"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">File Management in Python</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-numpy-cheatsheet/" title="Python-Numpy-Cheatsheet"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Numpy-Cheatsheet</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-visualization/" title="Python-Visualization"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python-Visualization</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Threadings/" title="Python Threadings"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Threadings</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Environment-Modules-Tutorial/" title="Python Environment Modules Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Environment Modules Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Pipe/" title="Python Pipe &amp; Functional Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Pipe &amp; Functional Programming</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Package-Manager/" title="Python Package Manager"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Package Manager</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Advanced-Programming/" title="Python Pythonic"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Pythonic</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Pythonic-Functional-Programming/" title="Pythonic Functional Programming"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pythonic Functional Programming</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Python-Scraping-Tutorial/" title="Python Scraping Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python Scraping Tutorial</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Rust"
+        id="heading-f5e265d607cb720058fc166e00083fe8" role="tab" data-toggle="collapse" href="#collapse-f5e265d607cb720058fc166e00083fe8"
+        aria-expanded="true"
+      >
+        Rust
+        <span class="list-group-count">(10)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-f5e265d607cb720058fc166e00083fe8"
+           role="tabpanel" aria-labelledby="heading-f5e265d607cb720058fc166e00083fe8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Rust-Tutorial/" title="Rust Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-1-Basic-Concepts/" title="Rust Tutorial 1: Basic Concepts"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 1: Basic Concepts</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-OwnerShip/" title="Rust Tutorial 2: Rust Ownership"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 2: Rust Ownership</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-3-Struct-and-enums/" title="Rust Tutorial 3: Struct and Enums"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 3: Struct and Enums</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-4-Packages-Crates-and-Modules/" title="Rust Tutorial 4: Packages, Crates and Modules"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 4: Packages, Crates and Modules</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-5-Collections/" title="Rust Tutorial 5: Collections"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 5: Collections</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-6-Exception-Handling/" title="Rust Tutorial 6: Exception Handling"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 6: Exception Handling</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-7-Generic-Types-Traits-and-Lifetimes/" title="Rust Tutorial 7: Generic Types, Traits and Lifetimes"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Tutorial 7: Generic Types, Traits and Lifetimes</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Project-Minigrep/" title="Rust Project: Minigrep"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rust Project: Minigrep</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Rust-Tutorial-8-Functional-programming/" title="Rust Tutorial 8: Functional Programming"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Rust Tutorial 8: Functional Programming</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
 
     </div>
 
@@ -417,7 +980,91 @@
     font-family: Georgia, sans, serif;
   }
 </style>
-
+<h1>Functional Programming in Rust: Closures and Iterators</h1>
+<div class="note note-primary">
+            <p>Closure 和 Iterators 本身并不是 Rust 专属的概念，或者说是因为 Rust 本身支持甚至倾向函数式编程的设计进而支持这两种函数式编程的高级技巧。因为笔者本人在学习 Advanced Pythonic 的时候本身就学过了这些函数式编程的概念，因此本文并不将重点放在抽象而脱离语言的概念解释上，而是将重心转移到在 Rust 独有的语言特性中的具体使用。</p>
+          </div>
+<h2 id="Closure">Closure</h2>
+<p>在函数式编程中，<strong>闭包</strong>（Closure）是一个非常核心且强大的概念。简单来说，一个闭包就是一个函数以及它被创建时所处的词法环境的组合。</p>
+<p>这里的“词法环境”指的是在函数定义时，它能够访问的所有局部变量、参数以及外部函数中的变量。当这个内部函数从外部函数中被返回时，即使外部函数已经执行完毕，它的词法环境并不会被销毁，而是会和内部函数一起被“打包”起来，形成一个闭包。这使得闭包能够“记住”和访问它在创建时所处的环境，即使该环境已经不存在于调用栈中。</p>
+<blockquote>
+<p>在 Python 中，闭包的重要应用在于<strong>外部函数中的内部函数</strong>，具体的使用应用场景包括<strong>装饰器</strong>、函数工厂等。</p>
+</blockquote>
+<h3 id="使用闭包捕获环境">使用闭包捕获环境</h3>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-meta">#[derive(Debug, PartialEq, Copy, Clone)]</span><br><span class="hljs-keyword">enum</span> <span class="hljs-title class_">ShirtColor</span> &#123;<br>    Red,<br>    Blue,<br>&#125;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Inventory</span> &#123;<br>    shirts: <span class="hljs-type">Vec</span>&lt;ShirtColor&gt;,<br>&#125;<br><span class="hljs-keyword">impl</span> <span class="hljs-title class_">Inventory</span> &#123;<br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">giveaway</span>(&amp;<span class="hljs-keyword">self</span>, user_preference: <span class="hljs-type">Option</span>&lt;ShirtColor&gt;) <span class="hljs-punctuation">-&gt;</span> ShirtColor &#123;<br>        user_preference.<span class="hljs-title function_ invoke__">unwrap_or_else</span>(|| <span class="hljs-keyword">self</span>.<span class="hljs-title function_ invoke__">most_stocked</span>())<br>    &#125;<br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">most_stocked</span>(&amp;<span class="hljs-keyword">self</span>) <span class="hljs-punctuation">-&gt;</span> ShirtColor &#123;<br>        <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">num_red</span> = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">num_blue</span> = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> <span class="hljs-variable">color</span> <span class="hljs-keyword">in</span> &amp;<span class="hljs-keyword">self</span>.shirts &#123;<br>            <span class="hljs-keyword">match</span> color &#123;<br>                ShirtColor::Red =&gt; num_red += <span class="hljs-number">1</span>,<br>                ShirtColor::Blue =&gt; num_blue += <span class="hljs-number">1</span>,<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">if</span> num_red &gt; num_blue &#123;<br>            ShirtColor::Red<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            ShirtColor::Blue<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">store</span> = Inventory &#123;<br>        shirts: <span class="hljs-built_in">vec!</span>[ShirtColor::Blue, ShirtColor::Red, ShirtColor::Blue],<br>    &#125;;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">user_pref1</span> = <span class="hljs-title function_ invoke__">Some</span>(ShirtColor::Red);<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">giveaway1</span> = store.<span class="hljs-title function_ invoke__">giveaway</span>(user_pref1);<br>    <span class="hljs-built_in">println!</span>(<br>        <span class="hljs-string">&quot;The user with preference &#123;:?&#125; gets &#123;:?&#125;&quot;</span>,<br>        user_pref1, giveaway1<br>    );<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">user_pref2</span> = <span class="hljs-literal">None</span>;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">giveaway2</span> = store.<span class="hljs-title function_ invoke__">giveaway</span>(user_pref2);<br>    <span class="hljs-built_in">println!</span>(<br>        <span class="hljs-string">&quot;The user with preference &#123;:?&#125; gets &#123;:?&#125;&quot;</span>,<br>        user_pref2, giveaway2<br>    );<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>闭包的设计关键在于 <code>giveaway</code> 函数的设计上。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">giveaway</span>(&amp;<span class="hljs-keyword">self</span>, user_preference: <span class="hljs-type">Option</span>&lt;ShirtColor&gt;) <span class="hljs-punctuation">-&gt;</span> ShirtColor &#123;<br>    user_preference.<span class="hljs-title function_ invoke__">unwrap_or_else</span>(|| <span class="hljs-keyword">self</span>.<span class="hljs-title function_ invoke__">most_stocked</span>())<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在 Rust 中，<strong>闭包</strong>是一种匿名函数，它可以捕获其所在环境中的变量。在这里，闭包就是 <code>|| self.most_stocked()</code>。</p>
+<ul>
+<li>作为一个匿名函数出现。</li>
+<li><strong>捕获环境中的变量</strong>：闭包 <code>|| self.most_stocked()</code> 捕获了其外部环境中的 <code>self</code> 变量。这意味着闭包可以在被调用时，访问并使用 <code>Inventory</code> 实例中的 <code>shirts</code> 数据。<br>
+让我们把它拆解开来解释：</li>
+</ul>
+<p><code>unwrap_or_else</code> 是一个 <code>Option</code> 类型的方法，它的工作机制如下：</p>
+<ol>
+<li>如果 <code>user_preference</code> 是 <code>Some(value)</code>，那么 <code>unwrap_or_else</code> 会忽略闭包，直接返回 <code>value</code>。</li>
+<li>如果 <code>user_preference</code> 是 <code>None</code>，那么 <code>unwrap_or_else</code> 就会<strong>调用这个闭包</strong>。当 <code>unwrap_or_else</code> 调用闭包 <code>|| self.most_stocked()</code> 时，闭包会执行 <code>self.most_stocked()</code> 方法，并返回计算结果。这个结果（<code>ShirtColor</code>）将作为 <code>giveaway</code> 函数的返回值。</li>
+</ol>
+<p>使用匿名函数对于开发者而言具有独特的优势，比如不用写复杂的参数列表的类型注解。因为闭包和上下文是高度相关的（捕获外部变量），因此编译器在绝大多数情况下可以推断出编译器的类型。</p>
+<h3 id="闭包匿名函数的定义">闭包匿名函数的定义</h3>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Hello world!&quot;</span>);<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">add_one</span> = |x: <span class="hljs-type">i32</span>| x + <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = <span class="hljs-title function_ invoke__">add_one</span>(<span class="hljs-number">1</span>);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, result);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="捕获引用-移动所有权">捕获引用 &amp; 移动所有权</h3>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">list</span> = <span class="hljs-built_in">vec!</span>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Before defining closure: &#123;list:?&#125;&quot;</span>);<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">only_borrows</span> = || <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;From closure: &#123;list:?&#125;&quot;</span>);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Before calling closure: &#123;list:?&#125;&quot;</span>);<br>    <span class="hljs-title function_ invoke__">only_borrows</span>();<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;After calling closure: &#123;list:?&#125;&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>Rust 的闭包的强大之处不仅仅在于匿名函数的设计，更在于<strong>外部作用域中变量的捕获</strong>。例如 <code>only_borrows</code> 的闭包使用了外部作用域中的 Vec 数组。在这里，实际上<strong>闭包捕获了其不可变的引用</strong>，这也是闭包的默认行为。</p>
+<p>同样，可以使用 <code>mut</code> 关键词声明可变的闭包，会捕获一个对外部变量的<strong>可变引用</strong>，进而允许修改对应外部变量的值。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    &#123;<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">list</span> = <span class="hljs-built_in">vec!</span>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Before defining closure: &#123;list:?&#125;&quot;</span>);<br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">only_borrows</span> = || <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;From closure: &#123;list:?&#125;&quot;</span>);<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Before calling closure: &#123;list:?&#125;&quot;</span>);<br>        <span class="hljs-title function_ invoke__">only_borrows</span>();<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;After calling closure: &#123;list:?&#125;&quot;</span>);<br>    &#125;<br><br>    &#123;<br>        <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">mut_list</span> = <span class="hljs-built_in">vec!</span>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Before defining closure: &#123;mut_list:?&#125;&quot;</span>);<br>        <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">mut_borrows</span> = || &#123;<br>            mut_list.<span class="hljs-title function_ invoke__">push</span>(<span class="hljs-number">23</span>);<br>            <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;After modification in the closure: &#123;mut_list:?&#125;&quot;</span>);<br>        &#125;;<br>        <span class="hljs-comment">// it will create a mutable reference</span><br>        <span class="hljs-comment">// println!(&quot;Before calling closure: &#123;mut_list:?&#125;&quot;);</span><br>        <span class="hljs-comment">// not allowed here</span><br>        <span class="hljs-title function_ invoke__">mut_borrows</span>();<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;After calling closure: &#123;mut_list:?&#125;&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>以上是闭包<strong>捕获外部变量的引用的例子</strong>，无论是可变的引用还是不可变的引用。但是有时候我们希望直接获取外部变量的所有权，例如将闭包传递给一个新的线程。（引用会带来复杂的生命周期问题，这在多线程管理的问题上更加的复杂）</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">list</span> = <span class="hljs-built_in">vec!</span>[<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];<br><span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Before defining: &#123;list:?&#125;&quot;</span>);<br>thread::<span class="hljs-title function_ invoke__">spawn</span>(<span class="hljs-keyword">move</span> || <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;From thread: &#123;list:?&#125;&quot;</span>))<br>    .<span class="hljs-title function_ invoke__">join</span>()<br>    .<span class="hljs-title function_ invoke__">unwrap</span>()<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>thread::spawn(...)</code>：这是 Rust 标准库中用于创建一个<strong>新线程</strong>的函数。它接收一个<strong>闭包</strong>作为参数，并在这个新线程中执行该闭包。</li>
+<li><code>move</code>：这个关键字至关重要。它强制闭包获取它所使用的<strong>所有外部变量的所有权</strong>。在这个例子中，闭包内部没有使用任何外部变量</li>
+</ul>
+<h3 id="Fn-Traits">Fn <code>Traits</code></h3>
+<p>上文介绍了三种闭包的基本使用方式：</p>
+<ul>
+<li>不可变借用（默认）</li>
+<li>可变借用（在闭包创建时创建一个可变借用）</li>
+<li>移动（移动所有权）</li>
+</ul>
+<p>在原理层面，闭包之所以能够捕获其环境中的变量，是因为它们实现了特殊的 <strong><code>Fn</code> traits</strong>。</p>
+<ul>
+<li><code>FnOnce</code>（移动所有权）：只能调用一次。</li>
+<li><code>FnMut</code>（可变借用）：可以多次调用，可以修改变量。</li>
+<li><code>Fn</code>（不可变借用）：可以多次调用，只可读取变量。</li>
+</ul>
+<p>这些 traits 定义了闭包可以以何种方式被调用，并决定了它们如何与捕获的变量进行交互（借用还是移动）。Rust 中有三种主要的 <code>Fn</code> traits：<code>Fn</code>、<code>FnMut</code> 和 <code>FnOnce</code>。它们形成一个层次结构，其中 <code>Fn</code> 是最通用的，<code>FnOnce</code> 是最不通用的。</p>
+<ul>
+<li><code>FnOnce</code> <code>trait</code> 实现了 <code>FnMut</code>。</li>
+<li><code>FnMut</code> <code>trait</code> 实现了 <code>Fn</code>。</li>
+</ul>
+<p>这意味着任何可以作为 <code>Fn</code> 使用的闭包，也可以作为 <code>FnMut</code> 或 <code>FnOnce</code> 使用。</p>
+<h4 id="FnOnce"><code>FnOnce</code></h4>
+<ul>
+<li><strong>捕获方式</strong>：<code>FnOnce</code> 闭包会<strong>获取被捕获变量的所有权</strong>。</li>
+<li><strong>调用次数</strong>：它只能被<strong>调用一次</strong>。一旦调用，它就会消耗掉自身和它捕获的变量。</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">s</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Hello&quot;</span>);<br><br><span class="hljs-keyword">let</span> <span class="hljs-variable">consume_s</span> = <span class="hljs-keyword">move</span> || &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, s);<br>    <span class="hljs-comment">// 在这里，s 的所有权被移动到闭包中</span><br>&#125;;<br><br><span class="hljs-comment">// 只能调用一次</span><br><span class="hljs-title function_ invoke__">consume_s</span>();<br><br><span class="hljs-comment">// 下面这行会报错，因为 consume_s 已经被调用并消耗了</span><br><span class="hljs-comment">// consume_s();</span><br></code></pre></td></tr></table></figure>
+<h4 id="FnMut"><code>FnMut</code></h4>
+<ul>
+<li><strong>捕获方式</strong>：<code>FnMut</code> 闭包以<strong>可变借用</strong>的方式捕获变量。</li>
+<li><strong>调用次数</strong>：可以被<strong>多次调用</strong>，并且每次调用都可以修改其捕获的变量。</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">counter</span> = <span class="hljs-number">0</span>;<br><br><span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">increment_counter</span> = || &#123;<br>    counter += <span class="hljs-number">1</span>;<br>&#125;;<br><br><span class="hljs-comment">// 可以多次调用</span><br><span class="hljs-title function_ invoke__">increment_counter</span>();<br><span class="hljs-title function_ invoke__">increment_counter</span>();<br><span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Counter: &#123;&#125;&quot;</span>, counter); <span class="hljs-comment">// 输出: Counter: 2</span><br></code></pre></td></tr></table></figure>
+<h4 id="Fn"><code>Fn</code></h4>
+<ul>
+<li><strong>捕获方式</strong>：<code>Fn</code> 闭包以<strong>不可变借用</strong>的方式捕获变量。</li>
+<li><strong>调用次数</strong>：可以被<strong>多次调用</strong>，但<strong>不能修改</strong>其捕获的变量。</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">num</span> = <span class="hljs-number">5</span>;<br><br><span class="hljs-keyword">let</span> <span class="hljs-variable">check_num</span> = || &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Number is: &#123;&#125;&quot;</span>, num);<br>&#125;;<br><br><span class="hljs-comment">// 可以多次调用</span><br><span class="hljs-title function_ invoke__">check_num</span>();<br><span class="hljs-title function_ invoke__">check_num</span>();<br></code></pre></td></tr></table></figure>
+<p>例如下面的例子，对一个列表进行原地的排序操作：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-meta">#[derive(Debug)]</span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Rectangle</span> &#123;<br>    width: <span class="hljs-type">u32</span>,<br>    height: <span class="hljs-type">u32</span>,<br>&#125;<br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">list</span> = [<br>        Rectangle &#123;<br>            width: <span class="hljs-number">10</span>,<br>            height: <span class="hljs-number">1</span>,<br>        &#125;,<br>        Rectangle &#123;<br>            width: <span class="hljs-number">3</span>,<br>            height: <span class="hljs-number">5</span>,<br>        &#125;,<br>        Rectangle &#123;<br>            width: <span class="hljs-number">7</span>,<br>            height: <span class="hljs-number">12</span>,<br>        &#125;,<br>    ];<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">num_sort_operations</span> = <span class="hljs-number">0</span>;<br>    list.<span class="hljs-title function_ invoke__">sort_by_key</span>(|r| &#123;<br>        num_sort_operations += <span class="hljs-number">1</span>;<br>        r.width<br>    &#125;);<br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, num_sort_operations);<br>    <span class="hljs-comment">// num: 6</span><br>    <br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;list:#?&#125;&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>sort_by_key()</code> 的函数需要接受一个闭包，这个闭包的函数返回值作为列表排序的依据。这个闭包允许捕获变量的修改并且需要多次调用，因此实现的是一个 <code>FnMut</code> Trait.</p>
+<h2 id="Iterator">Iterator</h2>
+<p>迭代器在惰性求值等领域中具有极高的性能优势。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// get an iterator</span><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Hello world!&quot;</span>);<br>    <span class="hljs-comment">// generate an iterator</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">v1</span> = <span class="hljs-built_in">vec!</span>[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>];<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">v1_iter</span> = v1.<span class="hljs-title function_ invoke__">iter</span>();<br>    <span class="hljs-keyword">for</span> <span class="hljs-variable">val</span> <span class="hljs-keyword">in</span> v1_iter&#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Get: &#123;&#125;&quot;</span>, val);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>和 Python 一样，迭代器的关键在于 <code>next()</code> 函数。具体到 Rust 而言，需要实现一个标准库定义的 Iterator 的 Trait。</p>
+<p>除了最基本的调用 next 的方法，Rust 还支持一系列<strong>消费适配器</strong>的实现，这些适配器会得到迭代器的所有权并且消耗这个迭代器。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-comment">// it is functional programming!</span><br><span class="hljs-keyword">let</span> <span class="hljs-variable">v1</span>: <span class="hljs-type">Vec</span>&lt;<span class="hljs-type">i32</span>&gt; = <span class="hljs-built_in">vec!</span>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];<br><span class="hljs-keyword">let</span> <span class="hljs-variable">v2</span>: <span class="hljs-type">Vec</span>&lt;_&gt; = v1.<span class="hljs-title function_ invoke__">iter</span>().<span class="hljs-title function_ invoke__">map</span>(|x| x + <span class="hljs-number">1</span>).<span class="hljs-title function_ invoke__">collect</span>();<br><span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;&#123;v2:?&#125;&quot;</span>);<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -425,6 +1072,45 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Code/" class="category-chain-item">Code</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Code/Rust/" class="category-chain-item">Rust</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+      
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
+        <a href="/tags/Rust/" class="print-no-link">#Rust</a>
+      
+    </div>
   
 </div>
 
@@ -453,7 +1139,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>August 30, 2025</div>
+          <div>August 31, 2025</div>
         </div>
       
       
@@ -479,6 +1165,29 @@
 
 
 
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/Tutorial-of-Probability-Theory/" title="Tutorial of Probability Theory">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Tutorial of Probability Theory</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Rust-Project-Minigrep/" title="Rust Project: Minigrep">
+                        <span class="hidden-mobile">Rust Project: Minigrep</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
               
             </div>
 
