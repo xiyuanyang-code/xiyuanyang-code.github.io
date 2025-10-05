@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/cicd-typst.jpg">
 <meta property="article:published_time" content="2025-10-05T09:04:51.000Z">
-<meta property="article:modified_time" content="2025-10-05T09:52:42.745Z">
+<meta property="article:modified_time" content="2025-10-05T09:59:49.825Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="Announcement">
 <meta property="article:tag" content="Finished">
@@ -362,7 +362,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1k words
+          1.1k words
         
       </span>
     
@@ -669,27 +669,33 @@
 <p>Typst 作为新型的一种文档编译语言，兼具编译能力和编译性能，于我而言，现在几乎全面转战 Typst 的原因在于：</p>
 <ul>
 <li>作为 Rust 项目简单的安装和命令行接口，免去了 TeX 复杂和庞大的命令行安装流程</li>
-<li>简单简介的语法和语法糖
+<li>简单简洁的语法和语法糖
 <ul>
 <li>数学公式和 LaTeX 保持基本一致，可移植性高</li>
-<li>并且作为一种编程语言，可读性更高（相信我，写多了你会爱上他的！）</li>
+<li>编程语言更简洁，没有那么多的转移字符
+<ul>
+<li>可读性更高</li>
+<li>在 Typst 中数学公式作为一种编程语言实现，不同的符号作为变量，一些特殊的数学函数和标记也作为函数出现</li>
 </ul>
 </li>
-<li>闪电般的编译速度</li>
+</ul>
+</li>
+<li>快速，简洁，闪电般的本地编译速度</li>
 <li>Vscode 给力的插件支持和 inline suggestions
 <ul>
 <li>支持实时查看和快速 PDF 编译</li>
-<li>支持语法高亮，就像一门编程语言！</li>
+<li>支持语法高亮和 inline suggestions</li>
 </ul>
 </li>
 <li>第三方社区支持：
 <ul>
 <li>（相对还不错的）社区支持</li>
-<li>这一点还不能和 LaTeX 比，但是仍然在快速增长，并且我个人的使用需求这一点并非痛点！</li>
+<li>该点并非个人做笔记使用的痛点。</li>
 </ul>
 </li>
+<li>和 Markdown 相比支持更多功能，例如插入丰富格式的表格、图片等等</li>
 </ul>
-<p>在 Overleaf 一再缩减编译时间的情况下，日常场景下简单的笔记文档编译再使用 LaTeX 已经显着效率低下了！</p>
+<p>在 Overleaf 一再缩减编译时间的情况下，LaTeX 已经不再是个人笔记的首选场景了！</p>
 <h2 id="Typst-Note-CLI">Typst Note CLI</h2>
 <p>A simple CLI tool for quickly generating formatted notes written in typst and deploying them in PDF.</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs stylus">.<br>├── Cargo<span class="hljs-selector-class">.lock</span><br>├── Cargo<span class="hljs-selector-class">.toml</span><br>├── LectureNote<br>│   ├── AlgorithmsNote<br>│   │   ├── algorithm<span class="hljs-selector-class">.typ</span><br>│   │   ├── bowling<span class="hljs-selector-class">.png</span><br>│   │   ├── dp<span class="hljs-selector-class">.typ</span><br>│   │   ├── leetcode<span class="hljs-selector-class">.typ</span><br>│   │   └── tex_note<br>│   │       └── code_demo<span class="hljs-selector-class">.tex</span><br>│   ├── MachineLearning<br>│   │   ├── AI1811<span class="hljs-selector-class">.typ</span><br>│   │   └── ML<br>│   │       ├── Dimensionality_reduction<span class="hljs-selector-class">.md</span><br>│   │       ├── Model_selection<span class="hljs-selector-class">.md</span><br>│   │       ├── Parameter_Estimation<span class="hljs-selector-class">.md</span><br>│   │       ├── classification<span class="hljs-selector-class">.md</span><br>│   │       ├── clustering<span class="hljs-selector-class">.md</span><br>│   │       ├── intro<span class="hljs-selector-class">.md</span><br>│   │       └── regression<span class="hljs-selector-class">.md</span><br>│   ├── NumericalAnalysis<br>│   │   ├── AI1807<span class="hljs-selector-class">.typ</span><br>│   │   └── <span class="hljs-attribute">src</span><br>│   │       └── demo<span class="hljs-selector-class">.py</span><br>│   ├── Probability<br>│   │   └── MATH1207<span class="hljs-selector-class">.typ</span><br>│   └── SoftwareEngineering<br>│       └── CS3604<span class="hljs-selector-class">.typ</span><br>├── README<span class="hljs-selector-class">.md</span><br>├── images<br>│   └── demo<span class="hljs-selector-class">.png</span><br>├── scripts<br>│   ├── install<span class="hljs-selector-class">.sh</span><br>│   └── refresh<span class="hljs-selector-class">.py</span><br>├── <span class="hljs-attribute">src</span><br>│   └── <span class="hljs-selector-tag">main</span><span class="hljs-selector-class">.rs</span><br>└── template<br>    ├── backup<span class="hljs-selector-class">.typ</span><br>    ├── empty<span class="hljs-selector-class">.typ</span><br>    ├── format<span class="hljs-selector-class">.typ</span><br>    └── <span class="hljs-selector-tag">image</span>.png<br></code></pre></td></tr></table></figure>
