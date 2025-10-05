@@ -1,0 +1,1163 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/rabbit.jpg">
+  <link rel="icon" href="/img/rabbit.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="Automated Note CI&#x2F;CD Build with a Custom Rust Crate for Efficient Command-Line Note Management">
+<meta property="og:type" content="article">
+<meta property="og:title" content="My Typst Note">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/My-Typst-Note/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="Automated Note CI&#x2F;CD Build with a Custom Rust Crate for Efficient Command-Line Note Management">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/cicd-typst.jpg">
+<meta property="article:published_time" content="2025-10-05T09:04:51.000Z">
+<meta property="article:modified_time" content="2025-10-05T09:52:42.745Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="Announcement">
+<meta property="article:tag" content="Finished">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/cicd-typst.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>My Typst Note - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/posts/Above-All-en/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-clipcheck"></i>
+                <span>Record</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Daily Loggings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ReadPaper/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Reading Papers</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>Tag</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/Blog-word-counting/" target="_self">
+                    <i class="iconfont icon-plan"></i>
+                    <span>Word Counting</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/My-Posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All Posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="My Typst Note"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-10-05 17:04" pubdate>
+          October 5, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1k words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Efficient Tools"
+        id="heading-33e232aba25463da7a1adaa960a59b1a" role="tab" data-toggle="collapse" href="#collapse-33e232aba25463da7a1adaa960a59b1a"
+        aria-expanded="true"
+      >
+        Efficient Tools
+        <span class="list-group-count">(18)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-33e232aba25463da7a1adaa960a59b1a"
+           role="tabpanel" aria-labelledby="heading-33e232aba25463da7a1adaa960a59b1a">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/LaTeX-tutorial/" title="LaTeX-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LaTeX-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/CMake-tutorial1/" title="CMake-Tutorial1"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CMake-Tutorial1</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/CMake-tutorial-episode2/" title="CMake-Tutorial-Episode2"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CMake-Tutorial-Episode2</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Tools-Tutorial/" title="Tools-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Tools-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Taking-Notes/" title="Taking-Notes"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Taking-Notes</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Docker-Tutorial/" title="Docker Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Docker Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/WSL-Proxy/" title="WSL Proxy"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">WSL Proxy</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/CLI-Roadmap/" title="CLI Roadmap"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CLI Roadmap</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Git-Advanced-Memo/" title="Git Advanced Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Git Advanced Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/My-Tmux-Memo/" title="My Tmux Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">My Tmux Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/My-Typst-Note/" title="My Typst Note"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">My Typst Note</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Missing Semesters"
+        id="heading-13dae227d9009e59b7fa6c4901fac7c3" role="tab" data-toggle="collapse" href="#collapse-13dae227d9009e59b7fa6c4901fac7c3"
+        aria-expanded="false"
+      >
+        Missing Semesters
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-13dae227d9009e59b7fa6c4901fac7c3"
+           role="tabpanel" aria-labelledby="heading-13dae227d9009e59b7fa6c4901fac7c3">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Linux-Bash-Introduction/" title="Linux-Bash-Introduction"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linux-Bash-Introduction</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Vim-tutorial/" title="Vim-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Vim-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Missing-Semester-Notes/" title="Missing-Semester-Notes"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Missing-Semester-Notes</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Bash-exercises/" title="Bash_exercises"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Bash_exercises</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Bash-commands/" title="Bash_commands"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Bash_commands</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Profiling-and-Debugging/" title="Profiling and Debugging"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Profiling and Debugging</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Secure-Shell-and-Encryption/" title="Secure Shell and Encryption"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Secure Shell and Encryption</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">My Typst Note</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+<h1>My Typst Note</h1>
+<div class="note note-primary">
+            <p>Github Source URL: <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/My-Typst-Note">https://github.com/xiyuanyang-code/My-Typst-Note</a></p>
+          </div>
+<div class="note note-primary">
+            <p>Final Download URL for all my lecture notes: <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/My-Typst-Note/releases/latest">https://github.com/xiyuanyang-code/My-Typst-Note/releases/latest</a></p>
+          </div>
+<h2 id="Typst">Typst</h2>
+<p><a target="_blank" rel="noopener" href="https://typst.app/">Typst Official Docs</a></p>
+<p>天下苦 LaTeX 久矣！</p>
+<p>Typst 作为新型的一种文档编译语言，兼具编译能力和编译性能，于我而言，现在几乎全面转战 Typst 的原因在于：</p>
+<ul>
+<li>作为 Rust 项目简单的安装和命令行接口，免去了 TeX 复杂和庞大的命令行安装流程</li>
+<li>简单简介的语法和语法糖
+<ul>
+<li>数学公式和 LaTeX 保持基本一致，可移植性高</li>
+<li>并且作为一种编程语言，可读性更高（相信我，写多了你会爱上他的！）</li>
+</ul>
+</li>
+<li>闪电般的编译速度</li>
+<li>Vscode 给力的插件支持和 inline suggestions
+<ul>
+<li>支持实时查看和快速 PDF 编译</li>
+<li>支持语法高亮，就像一门编程语言！</li>
+</ul>
+</li>
+<li>第三方社区支持：
+<ul>
+<li>（相对还不错的）社区支持</li>
+<li>这一点还不能和 LaTeX 比，但是仍然在快速增长，并且我个人的使用需求这一点并非痛点！</li>
+</ul>
+</li>
+</ul>
+<p>在 Overleaf 一再缩减编译时间的情况下，日常场景下简单的笔记文档编译再使用 LaTeX 已经显着效率低下了！</p>
+<h2 id="Typst-Note-CLI">Typst Note CLI</h2>
+<p>A simple CLI tool for quickly generating formatted notes written in typst and deploying them in PDF.</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs stylus">.<br>├── Cargo<span class="hljs-selector-class">.lock</span><br>├── Cargo<span class="hljs-selector-class">.toml</span><br>├── LectureNote<br>│   ├── AlgorithmsNote<br>│   │   ├── algorithm<span class="hljs-selector-class">.typ</span><br>│   │   ├── bowling<span class="hljs-selector-class">.png</span><br>│   │   ├── dp<span class="hljs-selector-class">.typ</span><br>│   │   ├── leetcode<span class="hljs-selector-class">.typ</span><br>│   │   └── tex_note<br>│   │       └── code_demo<span class="hljs-selector-class">.tex</span><br>│   ├── MachineLearning<br>│   │   ├── AI1811<span class="hljs-selector-class">.typ</span><br>│   │   └── ML<br>│   │       ├── Dimensionality_reduction<span class="hljs-selector-class">.md</span><br>│   │       ├── Model_selection<span class="hljs-selector-class">.md</span><br>│   │       ├── Parameter_Estimation<span class="hljs-selector-class">.md</span><br>│   │       ├── classification<span class="hljs-selector-class">.md</span><br>│   │       ├── clustering<span class="hljs-selector-class">.md</span><br>│   │       ├── intro<span class="hljs-selector-class">.md</span><br>│   │       └── regression<span class="hljs-selector-class">.md</span><br>│   ├── NumericalAnalysis<br>│   │   ├── AI1807<span class="hljs-selector-class">.typ</span><br>│   │   └── <span class="hljs-attribute">src</span><br>│   │       └── demo<span class="hljs-selector-class">.py</span><br>│   ├── Probability<br>│   │   └── MATH1207<span class="hljs-selector-class">.typ</span><br>│   └── SoftwareEngineering<br>│       └── CS3604<span class="hljs-selector-class">.typ</span><br>├── README<span class="hljs-selector-class">.md</span><br>├── images<br>│   └── demo<span class="hljs-selector-class">.png</span><br>├── scripts<br>│   ├── install<span class="hljs-selector-class">.sh</span><br>│   └── refresh<span class="hljs-selector-class">.py</span><br>├── <span class="hljs-attribute">src</span><br>│   └── <span class="hljs-selector-tag">main</span><span class="hljs-selector-class">.rs</span><br>└── template<br>    ├── backup<span class="hljs-selector-class">.typ</span><br>    ├── empty<span class="hljs-selector-class">.typ</span><br>    ├── format<span class="hljs-selector-class">.typ</span><br>    └── <span class="hljs-selector-tag">image</span>.png<br></code></pre></td></tr></table></figure>
+<h3 id="Template">Template</h3>
+<p>We use <a target="_blank" rel="noopener" href="https://github.com/DVDTSB/dvdtyp">dvdtyp</a> as the template for notes. Really awesome template!</p>
+<blockquote>
+<p>Several modifications based on personal needs are made.</p>
+</blockquote>
+<h3 id="Installation">Installation</h3>
+<p>First, ensure you have <a target="_blank" rel="noopener" href="https://www.rust-lang.org/tools/install">Rust</a> and <a target="_blank" rel="noopener" href="https://doc.rust-lang.org/cargo/">Cargo</a> installed.</p>
+<p>For Linux system or WSL, just run the quick scripts below to install all the dependencies.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bash scripts/install.sh<br></code></pre></td></tr></table></figure>
+<p>Firstly, install typst-cli using cargo:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">cargo install typst-cli<br></code></pre></td></tr></table></figure>
+<p>From the project root, build the self-contained executable:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">cargo build --release<br></code></pre></td></tr></table></figure>
+<p>Finally, install the executable locally using <code>cargo install --path .</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># install locally</span><br>cargo install --path .<br></code></pre></td></tr></table></figure>
+<p>Then restart your terminal with <code>source ~/.zshrc</code>, etc.</p>
+<h3 id="Usage">Usage</h3>
+<p>To create a new note, run the following command, replacing <code>&quot;&lt;note title&gt;&quot;</code> with your desired title:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">note new <span class="hljs-string">&quot;&lt;note title&gt;&quot;</span><br></code></pre></td></tr></table></figure>
+<p>This will create a new <code>&lt;note title&gt;.typ</code> file in the current directory.</p>
+<p>To compile a note into a PDF, run:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">note pdf <span class="hljs-string">&quot;&lt;note title&gt;&quot;</span><br></code></pre></td></tr></table></figure>
+<p>For example:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">note new algebra<br><span class="hljs-comment"># it will create a new algebra.typ file in current working directory</span><br><br>note pdf algebra<br><span class="hljs-comment"># compile algebra.typ into algebra.pdf</span><br></code></pre></td></tr></table></figure>
+<h2 id="My-CI-CD-Workflow">My CI&amp;CD Workflow</h2>
+<h3 id="MakeFile">MakeFile</h3>
+<p>我们提供了编写好的 MakeFile，实现自动化的编译构建。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs MakeFile">TYPST_ROOT ?= <span class="hljs-string">&quot;/home/xiyuanyang/Note/TypstNote/&quot;</span><br>SOURCE_FILE ?= /home/xiyuanyang/Note/TypstNote/LectureNote/AlgorithmsNote/algorithm.typ<br>OUTPUT_FILE ?= ./result/algorithm.pdf<br><br>TYPST_CMD := typst compile --root <span class="hljs-variable">$(TYPST_ROOT)</span><br><br><span class="hljs-meta"><span class="hljs-keyword">.PHONY</span>: all</span><br><span class="hljs-section">all: <span class="hljs-variable">$(OUTPUT_FILE)</span></span><br><br><span class="hljs-variable">$(OUTPUT_FILE)</span>: <span class="hljs-variable">$(SOURCE_FILE)</span><br>	<span class="hljs-variable">$(TYPST_CMD)</span> <span class="hljs-variable">$&lt;</span> <span class="hljs-variable">$@</span><br></code></pre></td></tr></table></figure>
+<h3 id="Python-Compile-Scripts">Python Compile Scripts</h3>
+<ul>
+<li>增加了自动检查冗余 PDF 文件的功能</li>
+<li>递归检索 <code>LectureNote</code> 文件夹下的所有 <code>.typ</code> 文件</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> subprocess<br><span class="hljs-keyword">from</span> tqdm <span class="hljs-keyword">import</span> tqdm<br><br>TARGET_FILE_PATH = os.path.abspath(<span class="hljs-string">&quot;./LectureNote&quot;</span>)<br>OUTPUT_DIR = <span class="hljs-string">&quot;./result&quot;</span>  <span class="hljs-comment"># Define the output directory once</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_all_notes</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Recursively finds all Typst source files (.typ) in the TARGET_FILE_PATH.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    final_results = []<br>    <span class="hljs-keyword">for</span> root, dirs, files <span class="hljs-keyword">in</span> os.walk(TARGET_FILE_PATH, topdown=<span class="hljs-literal">True</span>):<br>        <span class="hljs-keyword">for</span> file_name <span class="hljs-keyword">in</span> files:<br>            <span class="hljs-keyword">if</span> file_name.lower().endswith(<span class="hljs-string">&quot;.typ&quot;</span>):<br>                full_path = os.path.join(root, file_name)<br>                final_results.append(full_path)<br>    <span class="hljs-keyword">return</span> final_results<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_output_path</span>(<span class="hljs-params">input_path</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Generates the expected PDF output path from a Typst source file path.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># Use the defined OUTPUT_DIR</span><br>    file_name = os.path.basename(input_path)<br>    base_name, _ = os.path.splitext(file_name)<br>    base_name = <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;base_name&#125;</span>.pdf&quot;</span><br>    <span class="hljs-keyword">return</span> os.path.join(OUTPUT_DIR, base_name)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_source_path</span>(<span class="hljs-params">output_path</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Generates the expected Typst source path from a PDF output file path.</span><br><span class="hljs-string">    This assumes a flat structure for source files relative to TARGET_FILE_PATH</span><br><span class="hljs-string">    if the original Typst file was found in the top level. Since get_all_notes</span><br><span class="hljs-string">    scans recursively, we need to search the entire source tree for a match.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    pdf_name = os.path.basename(output_path)<br>    typ_name = os.path.splitext(pdf_name)[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot;.typ&quot;</span><br><br>    <span class="hljs-comment"># Search for the source file recursively</span><br>    <span class="hljs-keyword">for</span> root, _, files <span class="hljs-keyword">in</span> os.walk(TARGET_FILE_PATH):<br>        <span class="hljs-keyword">if</span> typ_name <span class="hljs-keyword">in</span> files:<br>            <span class="hljs-keyword">return</span> os.path.join(root, typ_name)<br><br>    <span class="hljs-comment"># Return None if the file isn&#x27;t found</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">cleanup_orphaned_pdfs</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Scans the output directory and deletes any PDF files for which</span><br><span class="hljs-string">    the corresponding Typst source file no longer exists.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Scanning for orphaned PDFs in &#x27;<span class="hljs-subst">&#123;OUTPUT_DIR&#125;</span>&#x27;...&quot;</span>)<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(OUTPUT_DIR):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Output directory &#x27;<span class="hljs-subst">&#123;OUTPUT_DIR&#125;</span>&#x27; does not exist. Skipping cleanup.&quot;</span>)<br>        <span class="hljs-keyword">return</span><br><br>    <span class="hljs-comment"># List all files in the result directory</span><br>    output_files = [<br>        os.path.join(OUTPUT_DIR, f)<br>        <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> os.listdir(OUTPUT_DIR)<br>        <span class="hljs-keyword">if</span> f.lower().endswith(<span class="hljs-string">&quot;.pdf&quot;</span>)<br>    ]<br><br>    orphaned_count = <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">for</span> output_pdf_path <span class="hljs-keyword">in</span> tqdm(output_files, desc=<span class="hljs-string">&quot;Checking PDFs&quot;</span>):<br>        <span class="hljs-comment"># We need to check if the corresponding .typ file exists anywhere</span><br>        <span class="hljs-comment"># under TARGET_FILE_PATH.</span><br>        source_typ_path = generate_source_path(output_pdf_path)<br><br>        <span class="hljs-comment"># Check if the generated source path is None, meaning the file wasn&#x27;t found</span><br>        <span class="hljs-keyword">if</span> source_typ_path <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-comment"># The source file is missing, so this PDF is orphaned.</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;-&gt; Deleting orphaned PDF: <span class="hljs-subst">&#123;output_pdf_path&#125;</span>&quot;</span>)<br>            <span class="hljs-keyword">try</span>:<br>                os.remove(output_pdf_path)<br>                orphaned_count += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">except</span> OSError <span class="hljs-keyword">as</span> e:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Error deleting file <span class="hljs-subst">&#123;output_pdf_path&#125;</span>: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Cleanup complete. Deleted <span class="hljs-subst">&#123;orphaned_count&#125;</span> orphaned PDF files.&quot;</span>)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">compile</span>(<span class="hljs-params">input_files</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Compiles the list of Typst input files into PDFs using the &#x27;make&#x27; command.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># Ensure the output directory exists before compiling</span><br>    os.makedirs(OUTPUT_DIR, exist_ok=<span class="hljs-literal">True</span>)<br><br>    length = <span class="hljs-built_in">len</span>(input_files)<br><br>    <span class="hljs-keyword">for</span> input_file <span class="hljs-keyword">in</span> tqdm(input_files, total=length, desc=<span class="hljs-string">&quot;Compiling&quot;</span>):<br>        output_path = generate_output_path(input_file)<br>        root_dir = <span class="hljs-string">&quot;/home/xiyuanyang/Note/TypstNote/&quot;</span><br>        command_list = [<br>            <span class="hljs-string">&quot;make&quot;</span>,<br>            <span class="hljs-string">f&quot;TYPST_ROOT=<span class="hljs-subst">&#123;root_dir&#125;</span>&quot;</span>,<br>            <span class="hljs-string">f&quot;SOURCE_FILE=<span class="hljs-subst">&#123;input_file&#125;</span>&quot;</span>,<br>            <span class="hljs-string">f&quot;OUTPUT_FILE=<span class="hljs-subst">&#123;output_path&#125;</span>&quot;</span>,<br>        ]<br><br>        <span class="hljs-keyword">try</span>:<br>            subprocess.run(<br>                command_list, capture_output=<span class="hljs-literal">True</span>, text=<span class="hljs-literal">True</span>, check=<span class="hljs-literal">True</span>, shell=<span class="hljs-literal">False</span><br>            )<br>        <span class="hljs-keyword">except</span> subprocess.CalledProcessError <span class="hljs-keyword">as</span> e:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\nError compiling <span class="hljs-subst">&#123;input_file&#125;</span>:&quot;</span>)<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;STDOUT: <span class="hljs-subst">&#123;e.stdout&#125;</span>&quot;</span>)<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;STDERR: <span class="hljs-subst">&#123;e.stderr&#125;</span>&quot;</span>)<br>            <span class="hljs-comment"># Continue to the next file even if one fails</span><br>            <span class="hljs-keyword">continue</span><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    cleanup_orphaned_pdfs()<br>    <span class="hljs-built_in">compile</span>(input_files=get_all_notes())<br></code></pre></td></tr></table></figure>
+<h3 id="CI-CD-in-one-command">CI/CD in one command</h3>
+<p>最终，复杂的 CI&amp;CD 构建流程如下：</p>
+<ul>
+<li>提交源文件的相关更新</li>
+<li>检查冗余文件并更新编译</li>
+<li>提交更新后的 PDF 文件</li>
+<li>更新 tag 并构建 CI &amp; CD 流程</li>
+<li>push tag 形成最新的 release</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><br><span class="hljs-comment"># commit changes</span><br>LATEST_TIMESTAMP=$(git <span class="hljs-built_in">log</span> -1 --format=%<span class="hljs-built_in">cd</span>)<br>git add .<br>git commit -m <span class="hljs-string">&quot;Auto Commit: <span class="hljs-variable">$LATEST_TIMESTAMP</span>&quot;</span><br>git push<br><br><span class="hljs-comment"># compile and make</span><br>python scripts/update_notes/compile.py<br><br><span class="hljs-comment"># generate new tags</span><br>LATEST_TAG=$(git describe --tags --abbrev=0 2&gt;/dev/null || <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;v0.0.0&quot;</span>)<br>VERSION_NO_V=$(<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$LATEST_TAG</span>&quot;</span> | sed <span class="hljs-string">&#x27;s/^v//&#x27;</span>)<br>IFS=<span class="hljs-string">&#x27;.&#x27;</span> <span class="hljs-built_in">read</span> -r -a VERSION_ARRAY &lt;&lt;&lt; <span class="hljs-string">&quot;<span class="hljs-variable">$VERSION_NO_V</span>&quot;</span><br><br>MAJOR=<span class="hljs-variable">$&#123;VERSION_ARRAY[0]&#125;</span><br>MINOR=<span class="hljs-variable">$&#123;VERSION_ARRAY[1]&#125;</span><br>PATCH=<span class="hljs-variable">$&#123;VERSION_ARRAY[2]&#125;</span><br>NEXT_PATCH=$((PATCH + <span class="hljs-number">1</span>))<br>NEW_TAG=<span class="hljs-string">&quot;v<span class="hljs-variable">$MAJOR</span>.<span class="hljs-variable">$MINOR</span>.<span class="hljs-variable">$NEXT_PATCH</span>&quot;</span><br><br>git add .<br>git commit -m <span class="hljs-string">&quot;Auto Commit: <span class="hljs-variable">$LATEST_TIMESTAMP</span>&quot;</span><br>git push<br><br><span class="hljs-comment"># pushing new tags</span><br>git tag <span class="hljs-string">&quot;<span class="hljs-variable">$NEW_TAG</span>&quot;</span><br>git push origin <span class="hljs-string">&quot;<span class="hljs-variable">$NEW_TAG</span>&quot;</span><br></code></pre></td></tr></table></figure>
+<h2 id="Todo-List-in-the-future">Todo List in the future</h2>
+<ul>
+<li>探索更多插件支持库</li>
+<li>构建 Typst Math Memo</li>
+<li>构建更复杂的 CI &amp; CD 流程</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Efficient-Tools/" class="category-chain-item">Efficient Tools</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Announcement/" class="print-no-link">#Announcement</a>
+      
+        <a href="/tags/Finished/" class="print-no-link">#Finished</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>My Typst Note</div>
+      <div>https://xiyuanyang-code.github.io/posts/My-Typst-Note/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>October 5, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>October 5, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/RL-Tutorial/" title="RL Tutorial: MDP Process">
+                        <span class="hidden-mobile">RL Tutorial: MDP Process</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <a href="https://xiyuanyang-code.github.io/Loving-Count/" target="_blank" rel="nofollow noopener"><span>❤️</span></a> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
