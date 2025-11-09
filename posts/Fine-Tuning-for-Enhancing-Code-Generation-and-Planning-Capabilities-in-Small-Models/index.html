@@ -1,0 +1,1343 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/rabbit.jpg">
+  <link rel="icon" href="/img/rabbit.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="Documenting a Hands-On Experiment with LLaMA Factory for Model Fine-Tuning: Leveraging Model Distillation and Data Generation to Enhance Reasoning and Planning Capabilities in Small Models for Code Ge">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fine-Tuning for Enhancing Code Generation and Planning Capabilities in Small Models">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Fine-Tuning-for-Enhancing-Code-Generation-and-Planning-Capabilities-in-Small-Models/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="Documenting a Hands-On Experiment with LLaMA Factory for Model Fine-Tuning: Leveraging Model Distillation and Data Generation to Enhance Reasoning and Planning Capabilities in Small Models for Code Ge">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/fine-tuning-planning.png">
+<meta property="article:published_time" content="2025-11-09T06:11:48.000Z">
+<meta property="article:modified_time" content="2025-11-09T06:41:09.068Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="LLM">
+<meta property="article:tag" content="Post Training">
+<meta property="article:tag" content="Code Generations">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/fine-tuning-planning.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Fine-Tuning for Enhancing Code Generation and Planning Capabilities in Small Models - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/posts/Above-All-en/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-clipcheck"></i>
+                <span>Record</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Daily Loggings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ReadPaper/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Reading Papers</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>Tag</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/Blog-word-counting/" target="_self">
+                    <i class="iconfont icon-plan"></i>
+                    <span>Word Counting</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/My-Posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All Posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Fine-Tuning for Enhancing Code Generation and Planning Capabilities in Small Models"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-11-09 14:11" pubdate>
+          November 9, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.7k words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Artificial Intelligence"
+        id="heading-5cd2adc9e2a5254e4c1da803519f298b" role="tab" data-toggle="collapse" href="#collapse-5cd2adc9e2a5254e4c1da803519f298b"
+        aria-expanded="true"
+      >
+        Artificial Intelligence
+        <span class="list-group-count">(30)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-5cd2adc9e2a5254e4c1da803519f298b"
+           role="tabpanel" aria-labelledby="heading-5cd2adc9e2a5254e4c1da803519f298b">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Pre-training-Is-Dead/" title="Pre-Training-Is-Dead?"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pre-Training-Is-Dead?</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Factor-Mining-in-Quantitative-Investing-A-Survey/" title="Factor Mining in Quantitative Investing: A Survey"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Factor Mining in Quantitative Investing: A Survey</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/The-New-Code-Sean-Grove-OpenAI/" title="The New Code: Sean Grove, OpenAI"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">The New Code: Sean Grove, OpenAI</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Andrew-Ng-Building-Faster-with-AI/" title="Andrew Ng: Building Faster With AI"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Andrew Ng: Building Faster With AI</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/SoftWare-Engineering-in-AI/" title="SoftWare Engineering in AI"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">SoftWare Engineering in AI</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="CS294 LLM Agents"
+        id="heading-031f1bdd6c7d4beec5865e47313ba4bf" role="tab" data-toggle="collapse" href="#collapse-031f1bdd6c7d4beec5865e47313ba4bf"
+        aria-expanded="false"
+      >
+        CS294 LLM Agents
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-031f1bdd6c7d4beec5865e47313ba4bf"
+           role="tabpanel" aria-labelledby="heading-031f1bdd6c7d4beec5865e47313ba4bf">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/CS294-1-LLM-Reasoning/" title="CS294-1-LLM-Reasoning"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CS294-1-LLM-Reasoning</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/CS294-3-Autogen/" title="CS294-3-Autogen"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CS294-3-Autogen</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Agents-in-Coding-A-survey/" title="Agents in Coding: A Survey"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Agents in Coding: A Survey</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Deep Learning"
+        id="heading-6a68b6412b3d8a605c374d3c59e02694" role="tab" data-toggle="collapse" href="#collapse-6a68b6412b3d8a605c374d3c59e02694"
+        aria-expanded="false"
+      >
+        Deep Learning
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-6a68b6412b3d8a605c374d3c59e02694"
+           role="tabpanel" aria-labelledby="heading-6a68b6412b3d8a605c374d3c59e02694">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Deep-Learning-Memo/" title="Deep Learning Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Deep Learning Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/AIBasis-Neural-Networks/" title="Neural Networks Introduction"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Neural Networks Introduction</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Imagenet/" title="ImageNet and ILSVRC"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ImageNet and ILSVRC</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="LLM"
+        id="heading-b8cc08c142bcf05a92faec2d6ed58b05" role="tab" data-toggle="collapse" href="#collapse-b8cc08c142bcf05a92faec2d6ed58b05"
+        aria-expanded="true"
+      >
+        LLM
+        <span class="list-group-count">(14)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-b8cc08c142bcf05a92faec2d6ed58b05"
+           role="tabpanel" aria-labelledby="heading-b8cc08c142bcf05a92faec2d6ed58b05">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/RAG-tutorial/" title="RAG-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">RAG-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLM-Evaluating/" title="LLM Evaluating"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLM Evaluating</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLM-Learning-Initial/" title="LLM Learning Initial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLM Learning Initial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-Attention/" title="Attention Mechanism"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Attention Mechanism</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-Transformer/" title="LLM Transformer"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLM Transformer</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS336-Lecture-1-Overview-and-Tokenization/" title="LLML CS336 Lecture 1 Overview and Tokenization"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS336 Lecture 1 Overview and Tokenization</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS336-Lecture-2-Pytorch-Resource-Accounting/" title="LLML CS336 Lecture 2 Pytorch Resource Accounting"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS336 Lecture 2 Pytorch Resource Accounting</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS336-Lecture-3-1-Architectures/" title="LLML CS336 Lecture 3.1: Architectures for Transformers"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS336 Lecture 3.1: Architectures for Transformers</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS336-Lecture-3-2-Hypeparameters/" title="LLML CS336 Lecture 3.2: Hyperparameter for Transformers"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS336 Lecture 3.2: Hyperparameter for Transformers</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS224n-Lecture-9-Pre-Training/" title="LLML CS224n Lecture 9 Pre-Training"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS224n Lecture 9 Pre-Training</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS224n-Lecture-10-Post-Training/" title="LLML CS224n Lecture 10 Post-Training"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS224n Lecture 10 Post-Training</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS224n-Lecture-12-Evaluation/" title="LLML CS224n Lecture 12 Evaluation"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS224n Lecture 12 Evaluation</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS224n-Lecture-10-More-about-post-training/" title="More About Post Training"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">More About Post Training</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Fine-Tuning-for-Enhancing-Code-Generation-and-Planning-Capabilities-in-Small-Models/" title="Fine-Tuning for Enhancing Code Generation and Planning Capabilities in Small Models"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Fine-Tuning for Enhancing Code Generation and Planning Capabilities in Small Models</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="RL"
+        id="heading-7f49bbe2f0af1edb6c6cee353d3e204b" role="tab" data-toggle="collapse" href="#collapse-7f49bbe2f0af1edb6c6cee353d3e204b"
+        aria-expanded="false"
+      >
+        RL
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-7f49bbe2f0af1edb6c6cee353d3e204b"
+           role="tabpanel" aria-labelledby="heading-7f49bbe2f0af1edb6c6cee353d3e204b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/RL-speeches/" title="RL_speeches"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">RL_speeches</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/RL-Tutorial/" title="RL Tutorial: MDP Process"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">RL Tutorial: MDP Process</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Torch"
+        id="heading-a8b6ce53a1cdf2ee4d3f16b939029b2b" role="tab" data-toggle="collapse" href="#collapse-a8b6ce53a1cdf2ee4d3f16b939029b2b"
+        aria-expanded="false"
+      >
+        Torch
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a8b6ce53a1cdf2ee4d3f16b939029b2b"
+           role="tabpanel" aria-labelledby="heading-a8b6ce53a1cdf2ee4d3f16b939029b2b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Torch-memo/" title="Torch-Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Torch-Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Torch-Memo-Tensor-Operations/" title="Torch Memo Tensor Operations"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Torch Memo Tensor Operations</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Torch-Memo-TensorBoard/" title="Torch Memo TensorBoard"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Torch Memo TensorBoard</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Fine-Tuning for Enhancing Code Generation and Planning Capabilities in Small Models</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+<h1>Fine-Tuning for Enhancing Code Generation and Planning Capabilities in Small Models</h1>
+<p>Just for my personal trial and error, don’t be so serious.</p>
+<p>All the code has been open sourced into my-fork-version of <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/LLaMA-Factory">LLaMa-Factory</a>.</p>
+<h2 id="Introduction">Introduction</h2>
+<p>Efficient fine-tuning taught by larger teacher models for small models has been proved to be an efficient way to enhance domain-specific capabilities. The author trying to use <strong>LLama-Factory</strong> as the main architecture to train and fine-tune <code>Qwen/Qwen2.5-3B</code>.</p>
+<h2 id="Experiment-Setup">Experiment Setup</h2>
+<ul>
+<li>Devices: A100 * 2</li>
+</ul>
+<h2 id="Workflow">Workflow</h2>
+<h3 id="SFT-for-cold-start-and-instructions">SFT for cold start and instructions</h3>
+<p>因为参数量过小的模型本身就存在输出不稳定的情况，因此首先使用通用数据集 <code>identity,alpaca_zh_demo,alpaca_en_demo</code> 来增强模型的指令遵循的基本能力作为冷启动。</p>
+<p>下面是进行微调的基本参数设置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment">### model</span><br><span class="hljs-attr">model_name_or_path:</span> <span class="hljs-string">Qwen/Qwen2.5-3B</span><br><span class="hljs-attr">trust_remote_code:</span> <span class="hljs-literal">true</span><br><br><span class="hljs-comment">### method</span><br><span class="hljs-attr">stage:</span> <span class="hljs-string">sft</span><br><span class="hljs-attr">do_train:</span> <span class="hljs-literal">true</span><br><span class="hljs-attr">finetuning_type:</span> <span class="hljs-string">lora</span><br><span class="hljs-attr">lora_rank:</span> <span class="hljs-number">8</span><br><span class="hljs-attr">lora_target:</span> <span class="hljs-string">all</span><br><br><span class="hljs-comment">### dataset</span><br><span class="hljs-attr">dataset:</span> <span class="hljs-string">identity,alpaca_zh_demo,alpaca_en_demo</span><br><span class="hljs-attr">template:</span> <span class="hljs-string">qwen</span><br><span class="hljs-attr">cutoff_len:</span> <span class="hljs-number">2048</span><br><span class="hljs-attr">max_samples:</span> <span class="hljs-number">1000</span><br><span class="hljs-attr">overwrite_cache:</span> <span class="hljs-literal">true</span><br><span class="hljs-attr">preprocessing_num_workers:</span> <span class="hljs-number">16</span><br><span class="hljs-attr">dataloader_num_workers:</span> <span class="hljs-number">4</span><br><br><span class="hljs-comment">### output</span><br><span class="hljs-attr">output_dir:</span> <span class="hljs-string">saves/qwen2_sft/lora/dpo</span><br><span class="hljs-attr">logging_steps:</span> <span class="hljs-number">2</span><br><span class="hljs-attr">overwrite_output_dir:</span> <span class="hljs-literal">true</span><br><span class="hljs-attr">save_only_model:</span> <span class="hljs-literal">true</span><br><span class="hljs-attr">report_to:</span> <span class="hljs-string">tensorboard</span>  <span class="hljs-comment"># choices: [none, wandb, tensorboard, swanlab, mlflow]</span><br><br><span class="hljs-comment">### train</span><br><span class="hljs-attr">per_device_train_batch_size:</span> <span class="hljs-number">1</span><br><span class="hljs-attr">gradient_accumulation_steps:</span> <span class="hljs-number">8</span><br><span class="hljs-attr">learning_rate:</span> <span class="hljs-number">1.0e-4</span><br><span class="hljs-attr">num_train_epochs:</span> <span class="hljs-number">3.0</span><br><span class="hljs-attr">lr_scheduler_type:</span> <span class="hljs-string">cosine</span><br><span class="hljs-attr">warmup_ratio:</span> <span class="hljs-number">0.1</span><br><span class="hljs-attr">bf16:</span> <span class="hljs-literal">true</span><br><span class="hljs-attr">ddp_timeout:</span> <span class="hljs-number">180000000</span><br><span class="hljs-attr">resume_from_checkpoint:</span> <span class="hljs-literal">null</span><br></code></pre></td></tr></table></figure>
+<h3 id="SFT-for-Planning-Enhancement">SFT for Planning Enhancement</h3>
+<p>由于受到参数量的限制，直接通过后训练显著增强高度泛化的代码能力是不现实的，因此，在第二阶段的监督微调中，作者决定<strong>自己代码蒸馏数据并且生成指令数据集</strong>，实现 Enhancement for Planning Instructions.</p>
+<h4 id="Data-Preparations">Data Preparations</h4>
+<p>考虑到数据质量，容量和成本等一系列因素，我最终采用了 <a target="_blank" rel="noopener" href="https://huggingface.co/datasets/HuggingFaceH4/CodeAlpaca_20K">CodeAlpaca_20K</a> 作为最终的原始数据集。数据集一共包含 20022 个用例（分为 train and test split），使用训练集的测试样例如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;prompt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Create a Java class which sorts the given array of numbers. [9, 2, 4, 3, 6, 1]&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;completion&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;class ArraySort &#123;</span><br><span class="hljs-string"></span><br><span class="hljs-string">void sort(int arr[]) &#123;</span><br><span class="hljs-string">int n = arr.length;</span><br><span class="hljs-string"></span><br><span class="hljs-string">// One by one move boundary of unsorted subarray</span><br><span class="hljs-string">for (int i = 0; i &lt; n-1; i++) &#123;</span><br><span class="hljs-string"></span><br><span class="hljs-string">// Find the minimum element in unsorted array</span><br><span class="hljs-string">int min_index = i;</span><br><span class="hljs-string">for (int j = i+1; j &lt; n; j++)</span><br><span class="hljs-string">if (arr[j] &lt; arr[min_index])</span><br><span class="hljs-string">min_index = j;</span><br><span class="hljs-string"></span><br><span class="hljs-string">// Swap the found minimum element with the first element</span><br><span class="hljs-string">int temp = arr[min_index];</span><br><span class="hljs-string">arr[min_index] = arr[i];</span><br><span class="hljs-string">arr[i] = temp;</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">// Prints the array</span><br><span class="hljs-string">void printArray(int arr[]) &#123;</span><br><span class="hljs-string">int n = arr.length;</span><br><span class="hljs-string">for (int i=0; i&lt;n; ++i)</span><br><span class="hljs-string">System.out.print(arr[i] + &quot;</span> <span class="hljs-string">&quot;);</span><br><span class="hljs-string">System.out.println();</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">// Driver code to test above</span><br><span class="hljs-string">public static void main(String args[])</span><br><span class="hljs-string">&#123;</span><br><span class="hljs-string">ArraySort ob = new ArraySort();</span><br><span class="hljs-string">int arr[] = &#123;9, 2, 4, 3, 6, 1&#125;;</span><br><span class="hljs-string">ob.sort(arr);</span><br><span class="hljs-string">System.out.println(\&quot;Sorted array\&quot;);</span><br><span class="hljs-string">ob.printArray(arr);</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">&#125;&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<h4 id="Data-Generation-Pipeline">Data Generation Pipeline</h4>
+<p>使用满血 DeepSeek V3.1 作为教师模型（太贵了，用不起闭源模型），使用提示词诱导等方法实现数据生成，脚本和生成的训练样例如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> json<br><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset<br><span class="hljs-keyword">import</span> openai<br><span class="hljs-keyword">from</span> tqdm <span class="hljs-keyword">import</span> tqdm<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> concurrent.futures <br><br>OUTPUT_FILE = <span class="hljs-string">&quot;data/planning_coding.jsonl&quot;</span><br>OPENAI_MODEL = <span class="hljs-string">&quot;deepseek-v3&quot;</span><br>MAX_WORKERS = <span class="hljs-number">5</span> <br>PLANNING_PROMPT = <span class="hljs-string">&quot;&quot;&quot;你是一个高级算法工程师。真正优秀的算法工程师总会在写代码之前做好任务的规划，因此，请你在解决这些问题之前**显式地做出行之有效的任务规划**，并说“真正的大师总是会在规划之后再动手”。</span><br><span class="hljs-string"></span><br><span class="hljs-string">你需要解决的问题是：</span><br><span class="hljs-string">&#123;task_description&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">你可以看到标准答案，但是**请你根据你的规划逐步生成代码**，你必须输出你的一步步完成规划的轨迹！最关键的不是答案，而是你的规划能力！</span><br><span class="hljs-string"></span><br><span class="hljs-string">&#123;GT&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">请严格按照以下格式回答：</span><br><span class="hljs-string"></span><br><span class="hljs-string">真正的大师总是需要规划之后再动手！我先做一个规划：</span><br><span class="hljs-string">### Planning</span><br><span class="hljs-string">1. ...</span><br><span class="hljs-string">2. ...</span><br><span class="hljs-string">3. ...</span><br><span class="hljs-string"></span><br><span class="hljs-string">### Code</span><br><span class="hljs-string"></span><br><span class="hljs-string">#### Solving Sub-Tasks1</span><br><span class="hljs-string">```the programming language</span><br><span class="hljs-string">...</span><br><span class="hljs-string">/`/`/`</span><br><span class="hljs-string"></span><br><span class="hljs-string">#### Solving Sub-Tasks2</span><br><span class="hljs-string">```the programming language</span><br><span class="hljs-string">...</span><br><span class="hljs-string">/```</span><br><span class="hljs-string"></span><br><span class="hljs-string">#### Solving Sub-Tasks3</span><br><span class="hljs-string">```the programming language</span><br><span class="hljs-string">...</span><br><span class="hljs-string">/```</span><br><span class="hljs-string"></span><br><span class="hljs-string">#### Solving Sub-Tasks4</span><br><span class="hljs-string">```the programming language</span><br><span class="hljs-string">...</span><br><span class="hljs-string">/```</span><br><span class="hljs-string"></span><br><span class="hljs-string">...</span><br><span class="hljs-string"></span><br><span class="hljs-string">#### Final Code</span><br><span class="hljs-string">```the programming language</span><br><span class="hljs-string">...</span><br><span class="hljs-string">/```</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_dataset</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;加载数据集并返回编码任务列表。&quot;&quot;&quot;</span><br>    ds = load_dataset(<span class="hljs-string">&quot;HuggingFaceH4/CodeAlpaca_20K&quot;</span>, split=<span class="hljs-string">&quot;train&quot;</span>)<br>    coding_tasks = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> ds]<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;The length of the coding tasks: <span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(coding_tasks)&#125;</span>&quot;</span>)<br>    <span class="hljs-keyword">return</span> coding_tasks<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_planning_code</span>(<span class="hljs-params">task_description: <span class="hljs-built_in">str</span>, GT: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;调用OpenAI API生成带规划的代码，这是I/O密集型操作。&quot;&quot;&quot;</span><br>    prompt = PLANNING_PROMPT.<span class="hljs-built_in">format</span>(task_description=task_description, GT=GT)<br>    <span class="hljs-comment"># 注意：在实际部署中，您需要确保这里的base_url和api_key配置正确</span><br>    client = openai.OpenAI(api_key=<span class="hljs-string">&quot;EMPTY&quot;</span>, base_url=<span class="hljs-string">&quot;http://127.0.0.1:18889/v1&quot;</span>)<br>    <span class="hljs-keyword">try</span>:<br>        response = client.chat.completions.create(<br>            model=OPENAI_MODEL,<br>            messages=[&#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: prompt&#125;],<br>            temperature=<span class="hljs-number">0.7</span>,<br>            max_tokens=<span class="hljs-number">2048</span>,<br>        )<br>        <span class="hljs-keyword">return</span> response.choices[<span class="hljs-number">0</span>].message.content.strip()<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-comment"># 记录错误，防止程序中断</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[ERROR] API call failed: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;[ERROR] <span class="hljs-subst">&#123;e&#125;</span>&quot;</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">process_task</span>(<span class="hljs-params">task: <span class="hljs-built_in">dict</span></span>) -&gt; <span class="hljs-built_in">dict</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;单个任务的处理器，用于在线程池中执行。&quot;&quot;&quot;</span><br>    full_response = generate_planning_code(<br>        task_description=task[<span class="hljs-string">&quot;prompt&quot;</span>],<br>        GT=task[<span class="hljs-string">&quot;completion&quot;</span>]<br>    )<br>    <span class="hljs-comment"># 构造最终要写入JSONL的字典项</span><br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;instruction&quot;</span>: task, <span class="hljs-string">&quot;input&quot;</span>: <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;output&quot;</span>: full_response&#125;<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;主函数，负责加载数据、设置并发执行和结果收集。&quot;&quot;&quot;</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Loading Datasets...&quot;</span>)<br>    coding_tasks = get_dataset()<br>    <br>    os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=<span class="hljs-literal">True</span>)<br>    <br>    tasks_completed = <span class="hljs-number">0</span><br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Starting concurrent data generation with <span class="hljs-subst">&#123;MAX_WORKERS&#125;</span> workers...&quot;</span>)<br>    <br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(OUTPUT_FILE, <span class="hljs-string">&quot;w&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) <span class="hljs-keyword">as</span> f:<br>        <span class="hljs-keyword">with</span> concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) <span class="hljs-keyword">as</span> executor:<br>            future_to_task = &#123;executor.submit(process_task, task): task <span class="hljs-keyword">for</span> task <span class="hljs-keyword">in</span> coding_tasks&#125;<br>            <br>            <span class="hljs-keyword">for</span> future <span class="hljs-keyword">in</span> tqdm(<br>                concurrent.futures.as_completed(future_to_task), <br>                total=<span class="hljs-built_in">len</span>(coding_tasks), <br>                desc=<span class="hljs-string">&quot;Generating planning data (Writing on completion)&quot;</span><br>            ):<br>                <span class="hljs-keyword">try</span>:<br>                    result_item = future.result()<br>                    f.write(json.dumps(result_item, ensure_ascii=<span class="hljs-literal">False</span>) + <span class="hljs-string">&quot;\n&quot;</span>)<br>                    f.flush() <span class="hljs-comment"># 强制写入磁盘</span><br>                    tasks_completed += <span class="hljs-number">1</span><br>                <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> exc:<br>                    task_failed = future_to_task[future]<br>                    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;\n[Task Error] Task for prompt &quot;<span class="hljs-subst">&#123;task_failed.get(<span class="hljs-string">&quot;prompt&quot;</span>, <span class="hljs-string">&quot;Unknown&quot;</span>)[:<span class="hljs-number">30</span>]&#125;</span>...&quot; generated an exception: <span class="hljs-subst">&#123;exc&#125;</span>&#x27;</span>)<br>    <br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n生成完成！成功写入 <span class="hljs-subst">&#123;tasks_completed&#125;</span> 个任务数据至：<span class="hljs-subst">&#123;OUTPUT_FILE&#125;</span>&quot;</span>)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_calling</span>():<br>    client = openai.OpenAI(api_key=<span class="hljs-string">&quot;EMPTY&quot;</span>, base_url=<span class="hljs-string">&quot;http://127.0.0.1:18889/v1&quot;</span>)<br>    response = client.chat.completions.create(<br>        model=OPENAI_MODEL,<br>        messages=[&#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;Introduce yourself&quot;</span>&#125;],<br>        temperature=<span class="hljs-number">0.7</span>,<br>        max_tokens=<span class="hljs-number">1024</span>,<br>    )<br>    <span class="hljs-built_in">print</span>(response)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_file_data</span>(<span class="hljs-params">line: <span class="hljs-built_in">str</span></span>):<br>    line_data = json.loads(line)<br>    <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-string">&quot;instruction&quot;</span>: <span class="hljs-string">&quot;Solving the problems below, remember to draft a planning in chinese, and then finish your sub-tasks step-by-step&quot;</span>,<br>        <span class="hljs-string">&quot;input&quot;</span>: line_data[<span class="hljs-string">&quot;instruction&quot;</span>][<span class="hljs-string">&quot;prompt&quot;</span>],<br>        <span class="hljs-string">&quot;output&quot;</span>: line_data[<span class="hljs-string">&quot;output&quot;</span>]<br>    &#125;<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_json_file_path</span>():<br>    file_path = <span class="hljs-string">&quot;./data/planning_coding.jsonl&quot;</span><br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(file_path, <span class="hljs-string">&quot;r&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) <span class="hljs-keyword">as</span> file:<br>        data = [get_file_data(line=line) <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> file]<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;./data/planning_coding.json&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) <span class="hljs-keyword">as</span> file:<br>        json.dump(data, file, ensure_ascii=<span class="hljs-literal">False</span>, indent=<span class="hljs-number">2</span>)<br>    <br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-comment"># main()</span><br>    get_json_file_path()<br></code></pre></td></tr></table></figure>
+<p>生成的数据样例如下，是标准的 alpaca 格式的数据集。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">[</span><br>  <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;instruction&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Solving the problems below, remember to draft a planning in chinese, and then finish your sub-tasks step-by-step&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;input&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Change the following loop so that it prints out the numbers from 10 to 1 in descending order.\nfor i in range(1, 11):\n    print(i)&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;output&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;真正的大师总是需要规划之后再动手！我先做一个规划：\n### Planning\n1. 理解当前代码：当前循环使用`range(1, 11)`生成从1到10（包括1，不包括11）的数字，并按升序打印。\n2. 确定目标：需要改为打印从10到1的降序数字。\n3. 分析`range`函数：`range(start, stop, step)`可以接受三个参数，其中step为-1时可实现反向迭代。\n4. 确定新参数：起始值应为10（包含），终止值应为0（不包含），步长应为-1。\n5. 修改循环：将`range(1, 11)`改为`range(10, 0, -1)`。\n6. 验证：确保新循环能正确生成10, 9, 8, ..., 1。\n\n### Code\n\n#### Solving Sub-Tasks1: 理解当前代码行为\n```python\n# 当前代码：打印1到10（升序）\nfor i in range(1, 11):\n    print(i)\n```\n\n#### Solving Sub-Tasks2: 分析目标需求\n```plaintext\n需要输出：10, 9, 8, 7, 6, 5, 4, 3, 2, 1\n```\n\n#### Solving Sub-Tasks3: 设计新的range参数\n```python\n# 使用range(10, 0, -1)：\n# start=10（包含）, stop=0（不包含）, step=-1（递减）\n```\n\n#### Solving Sub-Tasks4: 修改循环并验证\n```python\n# 修改后的循环\nfor i in range(10, 0, -1):\n    print(i)\n```\n\n#### Final Code\n```python\nfor i in range(10, 0, -1):\n    print(i)\n```&quot;</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br><span class="hljs-punctuation">]</span><br></code></pre></td></tr></table></figure>
+<p>接下来就是标准的 SFT 过程，和之前的 Cold-Start 的过程保持一致。</p>
+<h4 id="Result">Result</h4>
+<p>目前未使用一些 Coding Benchmark 评测表现，因为 3B 的模型的数据确实不是很稳定，后续会在积累微调经验的基础上做更多微调的尝试性工作！</p>
+<p><img src="/images/fine-tune-result.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h3 id="GRPO-for-RL-FineTuning">GRPO for RL-FineTuning</h3>
+<p>This part to be done in the future.</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Artificial-Intelligence/" class="category-chain-item">Artificial Intelligence</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Artificial-Intelligence/LLM/" class="category-chain-item">LLM</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/LLM/" class="print-no-link">#LLM</a>
+      
+        <a href="/tags/Post-Training/" class="print-no-link">#Post Training</a>
+      
+        <a href="/tags/Code-Generations/" class="print-no-link">#Code Generations</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Fine-Tuning for Enhancing Code Generation and Planning Capabilities in Small Models</div>
+      <div>https://xiyuanyang-code.github.io/posts/Fine-Tuning-for-Enhancing-Code-Generation-and-Planning-Capabilities-in-Small-Models/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>November 9, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>November 9, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/SoftWare-Engineering-in-AI/" title="SoftWare Engineering in AI">
+                        <span class="hidden-mobile">SoftWare Engineering in AI</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <a href="https://xiyuanyang-code.github.io/Loving-Count/" target="_blank" rel="nofollow noopener"><span>❤️</span></a> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
