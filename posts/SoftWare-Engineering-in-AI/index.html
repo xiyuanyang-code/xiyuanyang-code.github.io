@@ -1,0 +1,1430 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/rabbit.jpg">
+  <link rel="icon" href="/img/rabbit.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="Lecture note for CS3604, new era of AI-Human Development for software-engineering. Handmade coding is about to become the spinning jenny of the new era.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SoftWare Engineering in AI">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/SoftWare-Engineering-in-AI/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="Lecture note for CS3604, new era of AI-Human Development for software-engineering. Handmade coding is about to become the spinning jenny of the new era.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/handmade-coding.jpg">
+<meta property="article:published_time" content="2025-11-08T06:48:34.000Z">
+<meta property="article:modified_time" content="2025-11-09T05:57:56.028Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="software development">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/handmade-coding.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>SoftWare Engineering in AI - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/posts/Above-All-en/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/resume/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-clipcheck"></i>
+                <span>Record</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Daily Loggings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ReadPaper/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Reading Papers</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>Tag</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/Blog-word-counting/" target="_self">
+                    <i class="iconfont icon-plan"></i>
+                    <span>Word Counting</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/My-Posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All Posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="SoftWare Engineering in AI"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-11-08 14:48" pubdate>
+          November 8, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.6k words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Artificial Intelligence"
+        id="heading-5cd2adc9e2a5254e4c1da803519f298b" role="tab" data-toggle="collapse" href="#collapse-5cd2adc9e2a5254e4c1da803519f298b"
+        aria-expanded="true"
+      >
+        Artificial Intelligence
+        <span class="list-group-count">(29)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-5cd2adc9e2a5254e4c1da803519f298b"
+           role="tabpanel" aria-labelledby="heading-5cd2adc9e2a5254e4c1da803519f298b">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Pre-training-Is-Dead/" title="Pre-Training-Is-Dead?"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pre-Training-Is-Dead?</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Factor-Mining-in-Quantitative-Investing-A-Survey/" title="Factor Mining in Quantitative Investing: A Survey"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Factor Mining in Quantitative Investing: A Survey</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/The-New-Code-Sean-Grove-OpenAI/" title="The New Code: Sean Grove, OpenAI"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">The New Code: Sean Grove, OpenAI</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Andrew-Ng-Building-Faster-with-AI/" title="Andrew Ng: Building Faster With AI"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Andrew Ng: Building Faster With AI</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/SoftWare-Engineering-in-AI/" title="SoftWare Engineering in AI"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">SoftWare Engineering in AI</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="CS294 LLM Agents"
+        id="heading-031f1bdd6c7d4beec5865e47313ba4bf" role="tab" data-toggle="collapse" href="#collapse-031f1bdd6c7d4beec5865e47313ba4bf"
+        aria-expanded="false"
+      >
+        CS294 LLM Agents
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-031f1bdd6c7d4beec5865e47313ba4bf"
+           role="tabpanel" aria-labelledby="heading-031f1bdd6c7d4beec5865e47313ba4bf">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/CS294-1-LLM-Reasoning/" title="CS294-1-LLM-Reasoning"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CS294-1-LLM-Reasoning</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/CS294-3-Autogen/" title="CS294-3-Autogen"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CS294-3-Autogen</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Agents-in-Coding-A-survey/" title="Agents in Coding: A Survey"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Agents in Coding: A Survey</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Deep Learning"
+        id="heading-6a68b6412b3d8a605c374d3c59e02694" role="tab" data-toggle="collapse" href="#collapse-6a68b6412b3d8a605c374d3c59e02694"
+        aria-expanded="false"
+      >
+        Deep Learning
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-6a68b6412b3d8a605c374d3c59e02694"
+           role="tabpanel" aria-labelledby="heading-6a68b6412b3d8a605c374d3c59e02694">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Deep-Learning-Memo/" title="Deep Learning Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Deep Learning Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/AIBasis-Neural-Networks/" title="Neural Networks Introduction"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Neural Networks Introduction</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Imagenet/" title="ImageNet and ILSVRC"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ImageNet and ILSVRC</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="LLM"
+        id="heading-b8cc08c142bcf05a92faec2d6ed58b05" role="tab" data-toggle="collapse" href="#collapse-b8cc08c142bcf05a92faec2d6ed58b05"
+        aria-expanded="false"
+      >
+        LLM
+        <span class="list-group-count">(13)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b8cc08c142bcf05a92faec2d6ed58b05"
+           role="tabpanel" aria-labelledby="heading-b8cc08c142bcf05a92faec2d6ed58b05">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/RAG-tutorial/" title="RAG-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">RAG-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLM-Evaluating/" title="LLM Evaluating"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLM Evaluating</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLM-Learning-Initial/" title="LLM Learning Initial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLM Learning Initial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-Attention/" title="Attention Mechanism"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Attention Mechanism</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-Transformer/" title="LLM Transformer"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLM Transformer</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS336-Lecture-1-Overview-and-Tokenization/" title="LLML CS336 Lecture 1 Overview and Tokenization"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS336 Lecture 1 Overview and Tokenization</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS336-Lecture-2-Pytorch-Resource-Accounting/" title="LLML CS336 Lecture 2 Pytorch Resource Accounting"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS336 Lecture 2 Pytorch Resource Accounting</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS336-Lecture-3-1-Architectures/" title="LLML CS336 Lecture 3.1: Architectures for Transformers"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS336 Lecture 3.1: Architectures for Transformers</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS336-Lecture-3-2-Hypeparameters/" title="LLML CS336 Lecture 3.2: Hyperparameter for Transformers"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS336 Lecture 3.2: Hyperparameter for Transformers</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS224n-Lecture-9-Pre-Training/" title="LLML CS224n Lecture 9 Pre-Training"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS224n Lecture 9 Pre-Training</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS224n-Lecture-10-Post-Training/" title="LLML CS224n Lecture 10 Post-Training"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS224n Lecture 10 Post-Training</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS224n-Lecture-12-Evaluation/" title="LLML CS224n Lecture 12 Evaluation"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS224n Lecture 12 Evaluation</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS224n-Lecture-10-More-about-post-training/" title="More About Post Training"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">More About Post Training</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="RL"
+        id="heading-7f49bbe2f0af1edb6c6cee353d3e204b" role="tab" data-toggle="collapse" href="#collapse-7f49bbe2f0af1edb6c6cee353d3e204b"
+        aria-expanded="false"
+      >
+        RL
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-7f49bbe2f0af1edb6c6cee353d3e204b"
+           role="tabpanel" aria-labelledby="heading-7f49bbe2f0af1edb6c6cee353d3e204b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/RL-speeches/" title="RL_speeches"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">RL_speeches</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/RL-Tutorial/" title="RL Tutorial: MDP Process"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">RL Tutorial: MDP Process</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Torch"
+        id="heading-a8b6ce53a1cdf2ee4d3f16b939029b2b" role="tab" data-toggle="collapse" href="#collapse-a8b6ce53a1cdf2ee4d3f16b939029b2b"
+        aria-expanded="false"
+      >
+        Torch
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a8b6ce53a1cdf2ee4d3f16b939029b2b"
+           role="tabpanel" aria-labelledby="heading-a8b6ce53a1cdf2ee4d3f16b939029b2b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Torch-memo/" title="Torch-Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Torch-Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Torch-Memo-Tensor-Operations/" title="Torch Memo Tensor Operations"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Torch Memo Tensor Operations</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Torch-Memo-TensorBoard/" title="Torch Memo TensorBoard"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Torch Memo TensorBoard</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">SoftWare Engineering in AI</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+<h1>SoftWare Engineering in AI</h1>
+<div class="note note-primary">
+            <p><strong>Serves as the lecture notes for SJTU-CS3604</strong>.</p>
+          </div>
+<h2 id="Introductions">Introductions</h2>
+<p>软件工程是在现实生活中各类软件的构筑基石，包含上千个 feature，上百万行代码的大型软件的规划设计、开发、测试、部署、运维等需要成百上千人共同维护努力，是一项相当复杂的系统性工程。</p>
+<p>随着大语言模型的迅速发展，基座模型的编码能力持续增长，在单个简单任务的场景下，AI 编码的速度、准确率、代码整洁度等方面显著超越人类水平，但是仍然在面对庞大 codebase、复杂需求，需要长程记忆和任务理解的复杂软件工程项目上无法胜任。</p>
+<div class="note note-primary">
+            <p>因此，在未来，程序员的使用不再是<strong>手动编写代码</strong>，而是<strong>拆解需求和技术框架，明确到每一个原子需求，并且保持 Human in the loop</strong>，保持对代码的理解和 Debug 能力。</p><p>It is the era of AI-driven programming.</p>
+          </div>
+<p>在 AI 时代，软件工程会出现下面的变化趋势：</p>
+<ul>
+<li>从编码为主导的开发导向到以需求为导向的开发导向</li>
+<li>需求工程将会从<strong>人类可读</strong>的文档形态转向以<strong>上下文工程</strong>为主的形态。</li>
+</ul>
+<h2 id="软件工程的基本阶段">软件工程的基本阶段</h2>
+<p><img src="/images/software-base.png" srcset="/img/loading.gif" lazyload alt="软件工程的基本阶段"></p>
+<h3 id="需求工程">需求工程</h3>
+<p>产品经理：将从用户为导向的需求（我需要实现 XXX 功能）转向为技术人员为导向的需求。</p>
+<p>具体而言，这个过程可以被分解为：</p>
+<ul>
+<li>需求的获取 &amp; 整理</li>
+<li>需求的建模 &amp; 转换</li>
+<li>需求的撰写 &amp; 验证 &amp; 确认</li>
+<li>需求的管理 &amp; 变更</li>
+</ul>
+<p>同时，需求本身存在层级性，可以生成一颗非常庞大的需求树。</p>
+<ul>
+<li>需求的顶层主要是面向用户的接口</li>
+<li>需求的底层是面向 AI 编程的接口设计问题</li>
+<li>中间的需求设计<strong>需求的拆解和合并</strong></li>
+</ul>
+<h3 id="软件设计">软件设计</h3>
+<p>软件设计将需求转化为系统实现方案，决定了软件模块、接口、数据及其相互关系。</p>
+<p>We need to design an <strong>interface</strong>:</p>
+<ul>
+<li>What I should provide</li>
+<li>How you will call the interface</li>
+<li>What the result you will ensure</li>
+</ul>
+<p>For the intermediate steps, the code is programmed by AI!</p>
+<h3 id="软件测试">软件测试</h3>
+<ul>
+<li>黑盒测试：只验证输入输出是否达到了预期</li>
+<li>白盒测试：审查程序的具体接口和逻辑检查</li>
+</ul>
+<div class="note note-primary">
+            <p>从需求到测试：</p><ul><li>业务需求（面向客户）</li><li>系统需求（用户端需求）</li><li>高层设计需求（比如不同模块的接口的设计）</li><li>底层的接口内部函数设计和编码</li></ul><p>这四个不同层级的设计也有对应的测试实现！</p><ul><li>底层设计：单元测试</li><li>高层设计：模块测试</li><li>系统需求：集成测试</li><li>业务需求：验收测试</li></ul>
+          </div>
+<h4 id="Test-Driven-Development">Test-Driven Development</h4>
+<p>根据需求和设计出的接口实现测试脚本（黑盒测试）</p>
+<h3 id="软件维护">软件维护</h3>
+<ul>
+<li>版本管理系统
+<ul>
+<li>去中心化，本地化，面向多人协作</li>
+</ul>
+</li>
+<li>问题追踪系统
+<ul>
+<li>Issue Tracking Systems 问题追踪系统</li>
+<li>One single issue focus on one atomic tasks!
+<ul>
+<li>保证需求文档和软件代码能够实时同步，并且方便回滚回退，方便多人协作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>持续集成系统（CICD）
+<ul>
+<li>和问题追踪系统高度耦合</li>
+<li>降低风险，保证主干可以实时发布</li>
+</ul>
+</li>
+</ul>
+<p>以上三个自动化系统可以保证人类程序员在面对超长的 code-base 和 memory 的情况下可以提升效率，对 AI 来说，也同样如此。</p>
+<h2 id="软件工程的版本管理">软件工程的版本管理</h2>
+<p>I am quite familiar with Git and version control, thus we just skip that part!</p>
+<h2 id="需求测试和编码">需求测试和编码</h2>
+<h3 id="测试驱动的开发和实践-Test-Driven-Development">测试驱动的开发和实践 Test Driven Development</h3>
+<p>在大语言模型，testcase 的设计天生为语言模型定义了良好的奖励机制，使语言模型的能力迅速上升。</p>
+<p>在面向测试的 TDD 开发流程中，<strong>根据需求和场景确定设计接口和生成鲁棒准确全面的测试样例</strong>是开发的核心流程。（尤其是在 AI 时代）</p>
+<h3 id="软件需求测试">软件需求测试</h3>
+<ul>
+<li>功能性需求：实现什么功能，验证可实现性
+<ul>
+<li>方便验证，集成</li>
+</ul>
+</li>
+<li>非功能性需求：例如兼容性需求，速度需求，性能需求，成本需求等
+<ul>
+<li>更复杂，更具体</li>
+</ul>
+</li>
+</ul>
+<h4 id="需求场景">需求场景</h4>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>S</mi><mo>=</mo><mo>&lt;</mo><mtext mathvariant="bold">Context</mtext><mo separator="true">,</mo><mtext mathvariant="bold">Action</mtext><mo separator="true">,</mo><mtext mathvariant="bold">ExcpectedOutcome</mtext><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">S = &lt;\textbf{Context}, \textbf{Action}, \textbf{ExcpectedOutcome}&gt;
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord textbf">Context</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord textbf">Action</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord textbf">ExcpectedOutcome</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span></span></span></span></span></p>
+<ul>
+<li>Context 代表系统的初始状态和上下文</li>
+<li>Action 代表用户或系统执行的触发动作</li>
+<li>Then 代表系统应该产生的行为和输出</li>
+</ul>
+<h5 id="需求场景描述语言">需求场景描述语言</h5>
+<p>Gherkin 是一种结构化的自然语言（Structured Natural Language），用于行为驱动开发（BDD）中描述软件系统的行为。它让需求文档既能被人阅读，又能被测试工具 <a target="_blank" rel="noopener" href="https://behave.readthedocs.io/en/latest/tutorial/">Behave</a> 执行。</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs Gherkin"><span class="hljs-keyword">Feature</span>: showing off behave<br><br>  <span class="hljs-keyword">Scenario</span>: run a simple test<br>      <span class="hljs-keyword">Given</span> we have behave installed<br>      <span class="hljs-keyword">When</span> we implement a test<br>      <span class="hljs-keyword">Then</span> behave will test it for us!<br></code></pre></td></tr></table></figure>
+<p>变体需求场景（Variant Scenario）是指：在一个功能需求下，围绕同一主<br>
+目标（Main Scenario），针对不同输入条件、异常情况或交互路径而产生的<br>
+分支场景（Alternative Scenarios）或异常场景（Exception Scenarios）。</p>
+<div class="note note-primary">
+            <p><strong>变体需求场景</strong>有点类似于 Rust 中的 Happy Path</p>
+          </div>
+<h3 id="软件接口">软件接口</h3>
+<p>接口的精髓在于<strong>形成通信或者数据交换的契约</strong>，即<strong>尽可能精炼的暴露有用的信息，而不暴露一些内部的细节信息</strong>，这样保证不同模块之间的高度复用和低耦合，提升开发效率。</p>
+<ul>
+<li>User Interface</li>
+<li>Application Programming Interface</li>
+</ul>
+<h4 id="UI-接口">UI 接口</h4>
+<p>主要提供 GUI 操作的相关测试。</p>
+<ul>
+<li>设计目标</li>
+<li>约束属性</li>
+</ul>
+<p>完全从用户的角度出发，不暴露技术细节！</p>
+<h4 id="API-接口">API 接口</h4>
+<p>RESTAPI 调用：一套标准化的 API 接口实现</p>
+<ul>
+<li>URL</li>
+<li>请求参数（一个字典）</li>
+<li>返回 JSON 格式</li>
+<li>得到响应示例（一个 JSON 格式）</li>
+<li>存在调用约束</li>
+</ul>
+<p>对于一个需求场景，可以把它转换为一个接口！</p>
+<ul>
+<li>When 的触发条件即提供了 API 接口的输入和调用条件</li>
+<li>Then 代表 API 接口的执行结果</li>
+<li>Given 的验证被封装在 API 接口的内部验证</li>
+</ul>
+<h3 id="Example">Example</h3>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><code class="hljs text">1. 用户登录<br>   1.1 登录界面<br>       1.1.1 首页通过点击“亲，请登录”按钮进入登录界面。<br>       1.1.2 界面包含手机号输入框、验证码输入框、获取验证码按钮、以及“登录”按钮。<br><br>   1.2 用户发起获取验证码请求<br>       1.2.1 校验用户输入的手机号码格式是否正确<br>           Scenario: 请求验证码时手机号格式无效<br>               Given 用户在**登录页面**<br>               When 用户输入一个无效的手机号（如 &quot;123&quot;）并点击“获取验证码”<br>               Then 系统不发送验证码 并且 页面提示“请输入正确的手机号码”<br><br>       1.2.2 生成验证码<br>           Scenario: 成功获取验证码<br>               Given 用户在**登录页面**<br>               When 用户输入一个格式正确的手机号并点击“获取验证码”<br>               Then 系统为该手机号生成一个6位验证码并打印在控制台<br>               And “获取验证码”按钮进入60秒倒计时且不可点击<br>               And 数据库记录手机号和验证码，有效期为60秒<br><br>   1.3 用户提交登录信息<br>       1.3.1 校验手机号是否已注册<br>           Scenario: 使用未注册的手机号登录<br>               Given 一个手机号未被注册<br>               And 用户在**登录页面**<br>               When 用户使用该未注册的手机号和正确的验证码点击“**登录**”<br>               Then 系统不让用户登录 并且 页面提示“该手机号未注册，请先完成注册”<br><br>       1.3.2 校验验证码是否正确<br>           Scenario: 使用错误的验证码登录<br>               Given 一个手机号已被注册<br>               And 用户在**登录页面**<br>               When 用户使用该手机号和错误的验证码点击“**登录**”<br>               Then 系统不让用户登录 并且 页面提示“验证码错误”<br>       <br>       1.3.3 系统完成登录流程<br>           Scenario: 成功登录<br>               Given 一个手机号已被注册<br>               And 用户在**登录页面**<br>               When 用户使用该手机号和正确的验证码点击“**登录**”<br>               Then 系统验证成功<br>               And 页面提示“登录成功”<br>               And 页面自动跳转到首页<br><br>2. 用户注册<br>   2.1 注册界面<br>       2.1.1 **首页通过点击“免费注册”按钮进入注册界面。**<br>       2.1.2 **界面包含手机号输入框、验证码输入框、获取验证码按钮、《淘贝用户协议》同意勾选框、以及“注册”按钮。**<br><br>   2.2 用户发起获取验证码请求<br>       2.2.1 校验用户输入的手机号码格式是否正确<br>           Scenario: 请求验证码时手机号格式无效<br>               Given 用户在**注册页面**<br>               When 用户输入一个无效的手机号（如 &quot;123&quot;）并点击“获取验证码”<br>               Then 系统不发送验证码 并且 页面提示“请输入正确的手机号码”<br><br>       2.2.2 生成验证码<br>           Scenario: 成功获取验证码<br>               Given 用户在**注册页面**<br>               When 用户输入一个格式正确的手机号并点击“获取验证码”<br>               Then 系统为该手机号生成一个6位验证码并打印在控制台<br>               And “获取验证码”按钮进入60秒倒计时且不可点击<br>               And 数据库记录手机号和验证码，有效期为60秒<br><br>   2.3 用户提交注册信息<br>       2.3.1 校验手机号是否已被注册<br>           Scenario: 使用已注册的手机号进行注册<br>               Given 一个手机号已被注册<br>               And 用户在**注册页面**<br>               When 用户使用该手机号和正确的验证码点击“**注册**”<br>               Then 系统不创建新用户 并且 页面提示“该手机号已注册，将直接为您登录”<br>               And 用户成功登录并跳转到首页<br><br>       2.3.2 校验用户是否同意用户协议<br>           Scenario: 未同意用户协议时注册按钮的状态<br>               Given 用户在**注册页面**输入了手机号和验证码<br>               When 用户未勾选“同意《淘贝用户协议》”复选框<br>               Then “**注册**”按钮为不可点击状态<br>               When 用户勾选“同意《淘贝用户协议》”复选框<br>               Then “**注册**”按钮变为可点击状态<br>       <br>       2.3.3 系统完成注册流程<br>           Scenario: 成功注册<br>               Given 用户在**注册页面**<br>               When 用户输入未注册的手机号和正确的验证码，勾选协议并点击“**注册**”<br>               Then 系统在数据库中创建新用户<br>               And 页面提示“注册成功”<br>               And 用户成功登录并自动跳转到首页<br></code></pre></td></tr></table></figure>
+<p>The source code for this example above has been open sourced into <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/My-Typst-Note/tree/main/LectureNote/SoftwareDevelopment/src/behave_test/features">This Repo</a>.</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Artificial-Intelligence/" class="category-chain-item">Artificial Intelligence</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/tutorial/" class="print-no-link">#tutorial</a>
+      
+        <a href="/tags/software-development/" class="print-no-link">#software development</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>SoftWare Engineering in AI</div>
+      <div>https://xiyuanyang-code.github.io/posts/SoftWare-Engineering-in-AI/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>November 8, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>November 9, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/My-Typst-Note/" title="My Typst Note">
+                        <span class="hidden-mobile">My Typst Note</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <a href="https://xiyuanyang-code.github.io/Loving-Count/" target="_blank" rel="nofollow noopener"><span>❤️</span></a> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
