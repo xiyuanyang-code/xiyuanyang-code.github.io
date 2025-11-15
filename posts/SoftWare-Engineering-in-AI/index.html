@@ -28,7 +28,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/handmade-coding.jpg">
 <meta property="article:published_time" content="2025-11-08T06:48:34.000Z">
-<meta property="article:modified_time" content="2025-11-09T05:57:56.028Z">
+<meta property="article:modified_time" content="2025-11-15T10:12:06.040Z">
 <meta property="article:author" content="Xiyuan Yang">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="software development">
@@ -50,6 +50,8 @@
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
 
 
 
@@ -362,7 +364,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.6k words
+          4.3k words
         
       </span>
     
@@ -1019,6 +1021,158 @@
 <h3 id="Example">Example</h3>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><code class="hljs text">1. 用户登录<br>   1.1 登录界面<br>       1.1.1 首页通过点击“亲，请登录”按钮进入登录界面。<br>       1.1.2 界面包含手机号输入框、验证码输入框、获取验证码按钮、以及“登录”按钮。<br><br>   1.2 用户发起获取验证码请求<br>       1.2.1 校验用户输入的手机号码格式是否正确<br>           Scenario: 请求验证码时手机号格式无效<br>               Given 用户在**登录页面**<br>               When 用户输入一个无效的手机号（如 &quot;123&quot;）并点击“获取验证码”<br>               Then 系统不发送验证码 并且 页面提示“请输入正确的手机号码”<br><br>       1.2.2 生成验证码<br>           Scenario: 成功获取验证码<br>               Given 用户在**登录页面**<br>               When 用户输入一个格式正确的手机号并点击“获取验证码”<br>               Then 系统为该手机号生成一个6位验证码并打印在控制台<br>               And “获取验证码”按钮进入60秒倒计时且不可点击<br>               And 数据库记录手机号和验证码，有效期为60秒<br><br>   1.3 用户提交登录信息<br>       1.3.1 校验手机号是否已注册<br>           Scenario: 使用未注册的手机号登录<br>               Given 一个手机号未被注册<br>               And 用户在**登录页面**<br>               When 用户使用该未注册的手机号和正确的验证码点击“**登录**”<br>               Then 系统不让用户登录 并且 页面提示“该手机号未注册，请先完成注册”<br><br>       1.3.2 校验验证码是否正确<br>           Scenario: 使用错误的验证码登录<br>               Given 一个手机号已被注册<br>               And 用户在**登录页面**<br>               When 用户使用该手机号和错误的验证码点击“**登录**”<br>               Then 系统不让用户登录 并且 页面提示“验证码错误”<br>       <br>       1.3.3 系统完成登录流程<br>           Scenario: 成功登录<br>               Given 一个手机号已被注册<br>               And 用户在**登录页面**<br>               When 用户使用该手机号和正确的验证码点击“**登录**”<br>               Then 系统验证成功<br>               And 页面提示“登录成功”<br>               And 页面自动跳转到首页<br><br>2. 用户注册<br>   2.1 注册界面<br>       2.1.1 **首页通过点击“免费注册”按钮进入注册界面。**<br>       2.1.2 **界面包含手机号输入框、验证码输入框、获取验证码按钮、《淘贝用户协议》同意勾选框、以及“注册”按钮。**<br><br>   2.2 用户发起获取验证码请求<br>       2.2.1 校验用户输入的手机号码格式是否正确<br>           Scenario: 请求验证码时手机号格式无效<br>               Given 用户在**注册页面**<br>               When 用户输入一个无效的手机号（如 &quot;123&quot;）并点击“获取验证码”<br>               Then 系统不发送验证码 并且 页面提示“请输入正确的手机号码”<br><br>       2.2.2 生成验证码<br>           Scenario: 成功获取验证码<br>               Given 用户在**注册页面**<br>               When 用户输入一个格式正确的手机号并点击“获取验证码”<br>               Then 系统为该手机号生成一个6位验证码并打印在控制台<br>               And “获取验证码”按钮进入60秒倒计时且不可点击<br>               And 数据库记录手机号和验证码，有效期为60秒<br><br>   2.3 用户提交注册信息<br>       2.3.1 校验手机号是否已被注册<br>           Scenario: 使用已注册的手机号进行注册<br>               Given 一个手机号已被注册<br>               And 用户在**注册页面**<br>               When 用户使用该手机号和正确的验证码点击“**注册**”<br>               Then 系统不创建新用户 并且 页面提示“该手机号已注册，将直接为您登录”<br>               And 用户成功登录并跳转到首页<br><br>       2.3.2 校验用户是否同意用户协议<br>           Scenario: 未同意用户协议时注册按钮的状态<br>               Given 用户在**注册页面**输入了手机号和验证码<br>               When 用户未勾选“同意《淘贝用户协议》”复选框<br>               Then “**注册**”按钮为不可点击状态<br>               When 用户勾选“同意《淘贝用户协议》”复选框<br>               Then “**注册**”按钮变为可点击状态<br>       <br>       2.3.3 系统完成注册流程<br>           Scenario: 成功注册<br>               Given 用户在**注册页面**<br>               When 用户输入未注册的手机号和正确的验证码，勾选协议并点击“**注册**”<br>               Then 系统在数据库中创建新用户<br>               And 页面提示“注册成功”<br>               And 用户成功登录并自动跳转到首页<br></code></pre></td></tr></table></figure>
 <p>The source code for this example above has been open sourced into <a target="_blank" rel="noopener" href="https://github.com/xiyuanyang-code/My-Typst-Note/tree/main/LectureNote/SoftwareDevelopment/src/behave_test/features">This Repo</a>.</p>
+<h2 id="软件测试-2">软件测试</h2>
+<p>软件测试从信息层面上是一种<strong>交叉验证的思想</strong>。</p>
+<ul>
+<li>代码的实现源自于需求</li>
+<li>测试的实现也源自于需求！
+<ul>
+<li>测试本身就可以看作是一种对真实需求的虚拟采样和交叉验证</li>
+</ul>
+</li>
+</ul>
+<p>但是采样本身为了便携性牺牲了安全性和质量，采样就意味着总有边边角角无法被覆盖到。因此，测试主要被分为：</p>
+<ul>
+<li>黑盒测试：测试接口，不在于内部的实现细节，实现简单并且迅速</li>
+<li>白盒测试：进行透明测试检查，但是比较复杂并且需要额外的管理，但是可以提升安全性。（Code Review）</li>
+</ul>
+<h3 id="V-模型">V 模型</h3>
+<p>根据不同层级的需求，对应不同的测试细粒度：</p>
+<ul>
+<li>底层设计：执行单元测试，测试最小单元的基本实现情况</li>
+<li>高层设计：分成具体的若干模块，测试模块的功能（类），执行模块测试</li>
+<li>系统需求：分解成细粒度的子需求（系统需求），执行<strong>集成测试</strong></li>
+<li>业务需求：完成从用户角度出发，模拟用户行为进行测试（验收测试）</li>
+</ul>
+<h4 id="单元测试-Unit-Test">单元测试 Unit Test</h4>
+<p>对软件系统中的最小可测试组件（通常是一个函数或方法）进行验证的一种测试方法。其目的是独立验证该组件的逻辑是否正确工作，并且在没有依赖其他部分的情况下满足设计和功能要求。</p>
+<h4 id="模块测试">模块测试</h4>
+<p>聚焦于测试对个单元之间的组合和链接，例如测试多个相互依赖的测试和类。</p>
+<h4 id="集成测试">集成测试</h4>
+<p>验证多个模块或系统组件组合在一起后是否能够正确协同工作。它通常在模块测试之后进行，通过测试模块之间的接口和交互，确保不同模块整合后在功能和性能上符合系统设计和需求规格。</p>
+<h4 id="验收测试">验收测试</h4>
+<p>直接和用户进行交互，从用户的角度出发。</p>
+<h3 id="测试环境">测试环境</h3>
+<ul>
+<li>受控环境测试：alpha Testing</li>
+<li>不受控环境测试：beta Testing
+<ul>
+<li>测试软件面对生成环境的鲁棒性</li>
+<li>测试异常处理和兼容性能力</li>
+</ul>
+</li>
+</ul>
+<h3 id="白盒测试">白盒测试</h3>
+<ul>
+<li>程序证明：从理论层面进行白盒分析和测试
+<ul>
+<li>耗费时间长，但能 100% 保证安全性</li>
+</ul>
+</li>
+<li>黑盒测试：测试接口
+<ul>
+<li>耗费时间短，但是可能会漏掉 corner case</li>
+</ul>
+</li>
+</ul>
+<p>核心：<strong>覆盖</strong></p>
+<ul>
+<li>
+<p>语句覆盖：选择足够多的测试数据，保证被测试程序的每个语句都被测试过</p>
+<ul>
+<li>本质就是从底层的视角查看 corner case</li>
+<li>只关心执行达到，但是不关心分支的执行情况</li>
+</ul>
+</li>
+<li>
+<p><strong>分支覆盖</strong>：不仅每个语句必须至少执行一次，而且每个判定的每种可能的结果都应该至少执行一次，也就是每个判定的每个分支都至少执行一次。</p>
+</li>
+</ul>
+<p>将代码本质上建模成一颗树或者流程图的情况。</p>
+<ul>
+<li>
+<p><strong>条件覆盖</strong>：不仅每个语句至少执行一次，而且使判定表达式中的每个条件都取到各种可能的结果。（对分支覆盖的更细致的检查）</p>
+</li>
+<li>
+<p><strong>路径覆盖</strong>：检查每一个路径覆盖（含多个条件触发状态），保证状态上的鲁棒性。</p>
+<ul>
+<li>建模成对代码流程图的遍历问题</li>
+</ul>
+</li>
+</ul>
+<h4 id="循环测试">循环测试</h4>
+<p>测试循环结构的有效性。</p>
+<ul>
+<li>
+<p>简单循环：测试最简单的循环功能，假设允许通过循环的最大次数是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> 次，则涉及的测试样例应该覆盖：</p>
+<ul>
+<li>跳过循环</li>
+<li>通过 1/2/m/n-1/n/n+1 次 (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>&lt;</mo><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m &lt; n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>)</li>
+</ul>
+</li>
+<li>
+<p>嵌套循环</p>
+<ul>
+<li>更复杂的循环结构</li>
+<li>从最内层循环开始测试，把所有其他循环都设置为最小值。
+<ul>
+<li>对最内层循环使用简单循环测试方法，而使外层循环的迭代参数（例如，循环计数器）取最小值，并为越界值或非法值增加一些额外的测试。</li>
+</ul>
+</li>
+<li>由内向外，对下一个循环进行测试，但保持所有其他外层循环为最小值，其他嵌套循环为“典型”值。</li>
+</ul>
+</li>
+<li>
+<p>串接循环</p>
+<ul>
+<li>独立的串接循环</li>
+<li>依赖的串接循环：
+<ul>
+<li>核心思想：每次只测试一个简单循环，测试多次</li>
+<li>使用测试嵌套循环的方法来测试串接循环</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="note note-primary">
+            <p>在真实软件开发中，循环出现的 bug 往往出现在一些特殊的 corner case，因此在循环测试中也会额外测试一些边界条件，提升软件测试的鲁棒性。</p>
+          </div>
+<h3 id="黑盒测试">黑盒测试</h3>
+<p>白盒测试存在的问题：<strong>重视细节而非整体</strong></p>
+<ul>
+<li>本身测试复杂</li>
+<li>不考虑性能问题，不考虑功能缺失问题</li>
+<li><strong>重视逻辑覆盖而不是场景覆盖</strong></li>
+</ul>
+<p>而黑盒测试依赖<strong>测试集</strong>的设计，从整体和用户的角度测试程序的功能正确性，完整性和性能等多方面数据。</p>
+<p>如何保证测试用例尽可能覆盖到全面的样例？<strong>等价类划分 &amp; 边界值界定</strong></p>
+<p>为了测试把数字串转变成整数的程序，除了用等价划分法设计出的测试方案外，还应该用边界值分析法再补充下述测试方案。</p>
+<ul>
+<li>使输出刚好等于最小的负整数 ‘-32768’ -32768</li>
+<li>使输出刚好等于最大的正整数 ‘32767’ 32767</li>
+<li>使输出刚刚小于最小的负整数 ‘-32769’ 错误——无效输入</li>
+<li>使输出刚刚大于最大的正整数 ‘32768’ 错误——无效输入</li>
+</ul>
+<h3 id="科研拓展：自动化的白盒测试">科研拓展：自动化的白盒测试</h3>
+<p>We hope LLM can be acted as a tester for automatically doing Black-Box and White-Box Testing.</p>
+<h4 id="符号执行">符号执行</h4>
+<p>We want an algorithms to automatically let certain inputs for certain branches while doing white-box testing.</p>
+<p>关键分支的约束条件和测试的输入。可以转换为逻辑表达式，进而转化为<strong>约束求解问题</strong>，可以计算出最终的可行解。</p>
+<p>但是存在的问题是：</p>
+<ul>
+<li>SMT 解析算法时间复杂度高</li>
+<li>但是复杂的边界判断逻辑会导致生成的约束条件迅速膨胀，难以求解</li>
+<li>真实世界代码的复杂（底层代码）</li>
+</ul>
+<h4 id="基于搜索的软件测试">基于搜索的软件测试</h4>
+<p>约束求解问题本身也可以看成是一个优化问题。</p>
+<p>定义损失函数，每次 rollout 计算当前输入计算执行的分支和目标分支的距离，并在后续进行优化。（定义不同分支上的距离）</p>
+<ul>
+<li>It is the Guiding Optimization!</li>
+<li>搜索空间本身就是不连续的，因此很难施加优化方法，很容易退化成随机测试。</li>
+</ul>
+<h2 id="持续集成">持续集成</h2>
 
                 
               </div>
@@ -1085,7 +1239,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>November 9, 2025</div>
+          <div>November 15, 2025</div>
         </div>
       
       
@@ -1228,6 +1382,11 @@
 
 
   
+
+
+  
+  
+
 
 
 
