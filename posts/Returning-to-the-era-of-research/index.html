@@ -1,0 +1,1420 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/rabbit.jpg">
+  <link rel="icon" href="/img/rabbit.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c30000">
+  <meta name="author" content="Xiyuan Yang">
+  <meta name="keywords" content="Code">
+  
+    <meta name="description" content="Returning to the era of research, beyond scaling law.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Returning to the Era of Research">
+<meta property="og:url" content="https://xiyuanyang-code.github.io/posts/Returning-to-the-era-of-research/index.html">
+<meta property="og:site_name" content="Xiyuan Yang&#39;s Blog">
+<meta property="og:description" content="Returning to the era of research, beyond scaling law.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xiyuanyang-code.github.io/img/cover/returning-research.jpg">
+<meta property="article:published_time" content="2025-12-08T13:40:41.000Z">
+<meta property="article:modified_time" content="2025-12-08T13:42:35.675Z">
+<meta property="article:author" content="Xiyuan Yang">
+<meta property="article:tag" content="LLMs">
+<meta property="article:tag" content="Celebrity Speech">
+<meta property="article:tag" content="Scaling Laws">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiyuanyang-code.github.io/img/cover/returning-research.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Returning to the Era of Research - Xiyuan Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiyuanyang-code.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"red","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"L7r0uGb0fafbzNvmBADCMH42-gzGzoHsz","app_key":"2Lr1fQ2rjhwRiUrDx0VOQyUm","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Xiyuan Yang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/posts/Above-All-en/" target="_self">
+                <i class="iconfont icon-bookmark-fill"></i>
+                <span>Intro</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archive</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Category</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://xiyuanyang-code.github.io/cv/" target="_self">
+                <i class="iconfont icon-code"></i>
+                <span>Resume</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-clipcheck"></i>
+                <span>Record</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/Recordings/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Daily Loggings</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ReadPaper/" target="_self">
+                    <i class="iconfont icon-clipcheck"></i>
+                    <span>Reading Papers</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>Else</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/FAQ/" target="_self">
+                    <i class="iconfont icon-bug"></i>
+                    <span>FAQ</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links" target="_self">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>Links</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>Tag</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/Blog-word-counting/" target="_self">
+                    <i class="iconfont icon-plan"></i>
+                    <span>Word Counting</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/My-Posts/" target="_self">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>All Posts</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/xiyuanyang-code" target="_self">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>My Github</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    <i class="iconfont icon-copyright"></i>
+                    <span>About Hexo</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://xiyuanyang-code.github.io/posts/Life-musings/" target="_self">
+                    <i class="iconfont icon-brush"></i>
+                    <span>Life Musing</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/place.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Returning to the Era of Research"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xiyuan Yang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-12-08 21:40" pubdate>
+          December 8, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          426 words
+        
+      </span>
+    
+
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Artificial Intelligence"
+        id="heading-5cd2adc9e2a5254e4c1da803519f298b" role="tab" data-toggle="collapse" href="#collapse-5cd2adc9e2a5254e4c1da803519f298b"
+        aria-expanded="true"
+      >
+        Artificial Intelligence
+        <span class="list-group-count">(32)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-5cd2adc9e2a5254e4c1da803519f298b"
+           role="tabpanel" aria-labelledby="heading-5cd2adc9e2a5254e4c1da803519f298b">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Pre-training-Is-Dead/" title="Pre-Training-Is-Dead?"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pre-Training-Is-Dead?</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Factor-Mining-in-Quantitative-Investing-A-Survey/" title="Factor Mining in Quantitative Investing: A Survey"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Factor Mining in Quantitative Investing: A Survey</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/The-New-Code-Sean-Grove-OpenAI/" title="The New Code: Sean Grove, OpenAI"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">The New Code: Sean Grove, OpenAI</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Andrew-Ng-Building-Faster-with-AI/" title="Andrew Ng: Building Faster With AI"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Andrew Ng: Building Faster With AI</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/SoftWare-Engineering-in-AI/" title="SoftWare Engineering in AI"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">SoftWare Engineering in AI</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Will-RL-be-the-future/" title="Will RL Be the Future?"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Will RL Be the Future?</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Returning-to-the-era-of-research/" title="Returning to the Era of Research"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Returning to the Era of Research</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="CS294 LLM Agents"
+        id="heading-031f1bdd6c7d4beec5865e47313ba4bf" role="tab" data-toggle="collapse" href="#collapse-031f1bdd6c7d4beec5865e47313ba4bf"
+        aria-expanded="false"
+      >
+        CS294 LLM Agents
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-031f1bdd6c7d4beec5865e47313ba4bf"
+           role="tabpanel" aria-labelledby="heading-031f1bdd6c7d4beec5865e47313ba4bf">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/CS294-1-LLM-Reasoning/" title="CS294-1-LLM-Reasoning"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CS294-1-LLM-Reasoning</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/CS294-3-Autogen/" title="CS294-3-Autogen"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CS294-3-Autogen</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Agents-in-Coding-A-survey/" title="Agents in Coding: A Survey"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Agents in Coding: A Survey</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Deep Learning"
+        id="heading-6a68b6412b3d8a605c374d3c59e02694" role="tab" data-toggle="collapse" href="#collapse-6a68b6412b3d8a605c374d3c59e02694"
+        aria-expanded="false"
+      >
+        Deep Learning
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-6a68b6412b3d8a605c374d3c59e02694"
+           role="tabpanel" aria-labelledby="heading-6a68b6412b3d8a605c374d3c59e02694">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Deep-Learning-Memo/" title="Deep Learning Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Deep Learning Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/AIBasis-Neural-Networks/" title="Neural Networks Introduction"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Neural Networks Introduction</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Imagenet/" title="ImageNet and ILSVRC"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ImageNet and ILSVRC</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="LLM"
+        id="heading-b8cc08c142bcf05a92faec2d6ed58b05" role="tab" data-toggle="collapse" href="#collapse-b8cc08c142bcf05a92faec2d6ed58b05"
+        aria-expanded="false"
+      >
+        LLM
+        <span class="list-group-count">(14)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b8cc08c142bcf05a92faec2d6ed58b05"
+           role="tabpanel" aria-labelledby="heading-b8cc08c142bcf05a92faec2d6ed58b05">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/RAG-tutorial/" title="RAG-Tutorial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">RAG-Tutorial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLM-Evaluating/" title="LLM Evaluating"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLM Evaluating</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLM-Learning-Initial/" title="LLM Learning Initial"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLM Learning Initial</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-Attention/" title="Attention Mechanism"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Attention Mechanism</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-Transformer/" title="LLM Transformer"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLM Transformer</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS336-Lecture-1-Overview-and-Tokenization/" title="LLML CS336 Lecture 1 Overview and Tokenization"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS336 Lecture 1 Overview and Tokenization</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS336-Lecture-2-Pytorch-Resource-Accounting/" title="LLML CS336 Lecture 2 Pytorch Resource Accounting"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS336 Lecture 2 Pytorch Resource Accounting</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS336-Lecture-3-1-Architectures/" title="LLML CS336 Lecture 3.1: Architectures for Transformers"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS336 Lecture 3.1: Architectures for Transformers</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS336-Lecture-3-2-Hypeparameters/" title="LLML CS336 Lecture 3.2: Hyperparameter for Transformers"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS336 Lecture 3.2: Hyperparameter for Transformers</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS224n-Lecture-9-Pre-Training/" title="LLML CS224n Lecture 9 Pre-Training"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS224n Lecture 9 Pre-Training</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS224n-Lecture-10-Post-Training/" title="LLML CS224n Lecture 10 Post-Training"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS224n Lecture 10 Post-Training</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS224n-Lecture-12-Evaluation/" title="LLML CS224n Lecture 12 Evaluation"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LLML CS224n Lecture 12 Evaluation</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/LLML-CS224n-Lecture-10-More-about-post-training/" title="More About Post Training"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">More About Post Training</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Fine-Tuning-for-Enhancing-Code-Generation-and-Planning-Capabilities-in-Small-Models/" title="Fine-Tuning for Enhancing Code Generation and Planning Capabilities in Small Models"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Fine-Tuning for Enhancing Code Generation and Planning Capabilities in Small Models</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="RL"
+        id="heading-7f49bbe2f0af1edb6c6cee353d3e204b" role="tab" data-toggle="collapse" href="#collapse-7f49bbe2f0af1edb6c6cee353d3e204b"
+        aria-expanded="false"
+      >
+        RL
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-7f49bbe2f0af1edb6c6cee353d3e204b"
+           role="tabpanel" aria-labelledby="heading-7f49bbe2f0af1edb6c6cee353d3e204b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/RL-speeches/" title="RL_speeches"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">RL_speeches</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/RL-Tutorial/" title="RL Tutorial: MDP Process"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">RL Tutorial: MDP Process</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Torch"
+        id="heading-a8b6ce53a1cdf2ee4d3f16b939029b2b" role="tab" data-toggle="collapse" href="#collapse-a8b6ce53a1cdf2ee4d3f16b939029b2b"
+        aria-expanded="false"
+      >
+        Torch
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a8b6ce53a1cdf2ee4d3f16b939029b2b"
+           role="tabpanel" aria-labelledby="heading-a8b6ce53a1cdf2ee4d3f16b939029b2b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/posts/Torch-memo/" title="Torch-Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Torch-Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Torch-Memo-Tensor-Operations/" title="Torch Memo Tensor Operations"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Torch Memo Tensor Operations</span>
+        </a>
+      
+    
+      
+      
+        <a href="/posts/Torch-Memo-TensorBoard/" title="Torch Memo TensorBoard"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Torch Memo TensorBoard</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Returning to the Era of Research</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <style>
+  html, body, .markdown-body {
+    font-family: Georgia, sans, serif;
+  }
+</style>
+<h1>After the Scaling Laws</h1>
+<h2 id="Introductions">Introductions</h2>
+<p>Long time for updating the blogs!</p>
+<p>Scaling Law 给出了大语言模型在工程上迅速落地并且产生实际效果的切实路线，并在近两年被 proved right。但是很快，数据和算力的消耗增长成为阻碍基座模型能力提升的瓶颈之一，预训练数据的稀缺，大量工作的关注度被引导至后训练微调。一个棘手的问题摆在眼前： What is after the scaling laws?</p>
+<p>从一个批判性的视角来看，Scaling Law 一方面提供了一条切实可行的路径，在短期内模型的能力获得了极大的提升，<strong>但是另一方面使得当前的大语言模型发展陷入严重的路径依赖</strong>，一些可能根据潜力的架构在当前的表现上并不能比当前模型表现的更好，但是这些研究往往不能获得很高的关注度，科学研究的道路总是崎岖的。</p>
+<p>故本文分享两篇颇具前瞻性的研究报告的随手笔记，也作为作者本人对 After Scaling 的一些思考。</p>
+<div class="note note-primary">
+            <p>Maybe this is the future beyond scaling.</p>
+          </div>
+<h2 id="Rich-Sutton-Oak-Architecture">Rich Sutton - Oak Architecture</h2>
+<h3 id="Rich-Sutton-Oak-Architecture-2">Rich Sutton - Oak Architecture</h3>
+<h4 id="The-Definition-of-Intelligence">The Definition of Intelligence</h4>
+<ul>
+<li>Core View: The essence of intelligence lies in <strong>machine learning from experiments</strong> (derived from Alan Turing’s concept).</li>
+<li>Constituent Elements of an Experiment:
+<ol>
+<li><strong>Observational data</strong> during runtime</li>
+<li><strong>Reward signals</strong> for feedback</li>
+<li><strong>Autonomous action decisions</strong></li>
+</ol>
+</li>
+<li>Division of Labor Between Design and Runtime Phases:
+<ol>
+<li>Design Phase: Embed domain-specific knowledge.</li>
+<li>Runtime Phase: Complete dynamic learning based on the experimental process.</li>
+</ol>
+</li>
+<li>Limitation: Relying solely on knowledge from the design phase cannot adapt to complex real-world scenarios.</li>
+</ul>
+<h2 id="Ilya-Sutskever-–-We’re-moving-from-the-age-of-scaling-to-the-age-of-research">Ilya Sutskever – We’re moving from the age of scaling to the age of research</h2>
+<h3 id="Evals-for-Models">Evals for Models</h3>
+<ol>
+<li><strong>Disconnect Between Evaluation and Real-World Performance</strong>
+<ul>
+<li>Models perform excellently in standard evaluation tasks but yield poor results in real-world scenarios.</li>
+<li>Core Cause: Reinforcement Learning (RL) training relies on narrow datasets, which easily leads to <strong>overfitting</strong>.</li>
+</ul>
+</li>
+<li><strong>Human-Centric “Reward Hacking”</strong>
+<ul>
+<li>The real reward hacking does not come from the models themselves, but from human researchers who overly focus on evaluation metrics.</li>
+<li>Derived Issue: A large number of incorrect priors are introduced during the training phase, and the training process itself becomes a “reward hacking” behavior, making it difficult to verify the model’s generalization ability solely through evaluations.</li>
+</ul>
+</li>
+<li><strong>Specificity of Value Functions</strong>
+<ul>
+<li>Dilemma of DeepSeek R1: The trajectory space is too vast to establish a mapping between intermediate trajectories and values (i.e., limitations of token-level reward signals).</li>
+<li>Characteristics of Human Value Functions: Influenced by emotions, some perceptions are hard-coded by evolution, and overall, they exhibit strong robustness except in addiction-related cases.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Scaling-Laws">Scaling Laws</h3>
+<ol>
+<li><strong>Scaling Logic for Pre-Training</strong>: There are clear scaling laws in the pre-training phase, and model performance can be improved by expanding the scale of data, computing power, and parameters.</li>
+<li><strong>Transition of Domain Development Phases</strong>: The AI field has undergone a transformation from the <strong>Age of Research (2012-2020)</strong> to the <strong>Age of Scaling (2020-2025)</strong>, and finally back to the Age of Research. The renewed Age of Research is supported by a more massive computing resource base.</li>
+</ol>
+<h3 id="Generalizations">Generalizations</h3>
+<ol>
+<li><strong>Two Core Bottlenecks</strong>
+<ul>
+<li><strong>Sample Efficiency</strong>: Humans require far fewer samples for learning than AI models, indicating an inherent difference in capabilities.</li>
+<li><strong>Teaching Efficiency</strong>: AI agents need verifiable reward signals, yet the cost of verifying rewards for long trajectories is extremely high, highlighting the necessity of continual learning.</li>
+</ul>
+</li>
+<li><strong>Importance of Evolutionary Priors</strong>: From the perspective of human evolution, prior knowledge is crucial for improving learning efficiency and generalization ability, a mechanism that AI models have not yet replicated.</li>
+</ol>
+<h3 id="The-Era-of-Research">The Era of Research</h3>
+<ol>
+<li><strong>Drawbacks of Scaling</strong>: The trend of scaling has led to convergence in research directions across the industry, with all institutions focusing on the same paths and suppressing the diversity of innovation.</li>
+<li><strong>Core Bottlenecks in Research</strong>
+<ul>
+<li><strong>Idea Bottleneck</strong>: Difficulty in generating groundbreaking and innovative research ideas.</li>
+<li><strong>Implementation Bottleneck</strong>: Limitations in engineering capabilities and computing resources required to translate ideas into practical outcomes.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Alignment">Alignment</h3>
+<ol>
+<li><strong>Perceptual Dilemma of AGI</strong>: The capabilities and impacts of AGI are difficult to perceive intuitively in practice, and its future potential is also hard to predict due to the lack of concrete references.</li>
+<li><strong>Core Directions for AI Safety</strong>
+<ul>
+<li>Safety is strongly correlated with model capabilities; as capabilities grow, safety risks and the level of attention to safety increase simultaneously.</li>
+<li>Opposes the industry’s over-focus on “self-improving AI” and proposes a better direction: building <strong>AI that is robustly aligned and cares about sentient life</strong>. Since AI itself may be sentient, this direction is more achievable than merely aligning with human values.</li>
+</ul>
+</li>
+<li><strong>Deployment and Equilibrium of Superintelligence</strong>
+<ul>
+<li>Definition of Superintelligence: Not a “finished mind” capable of doing all jobs, but an intelligent agent with the ability to learn any job. Its deployment logic is similar to that of human workers joining an organization.</li>
+<li>Long-Term Equilibrium Vision: Humans may need to become “part AI” through technologies like “Neuralink++” to maintain understanding of and participation in an AI-dominated society. Meanwhile, it is necessary to reasonably limit the capabilities of superintelligence to avoid extreme execution of a single goal.</li>
+</ul>
+</li>
+</ol>
+<h3 id="SSI’s-Differentiated-Path">SSI’s Differentiated Path</h3>
+<ol>
+<li><strong>Core Advantage</strong>: Focuses on research into <strong>reliable generalization</strong> through a unique technical route, rather than following the industry’s scaling path.</li>
+<li><strong>Resources and Goals</strong>: SSI has raised $3 billion in funding, and its research computing power is competitive as it does not need to be allocated to inference and product-related tasks. Its goal is to verify forward-looking ideas related to generalization and become a frontier participant in the safe implementation of superintelligence.</li>
+</ol>
+<h3 id="Industry-Future-Forecast">Industry Future Forecast</h3>
+<ol>
+<li><strong>Technological Convergence</strong>: As AI capabilities improve, the technical strategies and safety solutions of frontier companies will gradually converge, forming a unified industry consensus.</li>
+<li><strong>Time Dimension</strong>: Superintelligence with human-like learning capabilities is expected to be realized in the <strong>next 5 to 20 years</strong>; existing scaling paths will stagnate in growth, but related companies will still achieve considerable revenue.</li>
+<li><strong>Benefit Distribution</strong>: The benefits of human-like learning models will not be monopolized by a single company. Market competition will drive technology diffusion and price reduction, eventually forming a pattern where multiple companies occupy different professional fields.</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Artificial-Intelligence/" class="category-chain-item">Artificial Intelligence</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/LLMs/" class="print-no-link">#LLMs</a>
+      
+        <a href="/tags/Celebrity-Speech/" class="print-no-link">#Celebrity Speech</a>
+      
+        <a href="/tags/Scaling-Laws/" class="print-no-link">#Scaling Laws</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Returning to the Era of Research</div>
+      <div>https://xiyuanyang-code.github.io/posts/Returning-to-the-era-of-research/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Xiyuan Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>December 8, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>December 8, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/Will-RL-be-the-future/" title="Will RL Be the Future?">
+                        <span class="hidden-mobile">Will RL Be the Future?</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xiyuanyang-code/xiyuanyang-code.github.io","repo-id":"R_kgDONRhvHQ","category":"Announcements","category-id":"DIC_kwDONRhvHc4ClBnp","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/xiyuanyang-code" target="_blank" rel="nofollow noopener"><span>YXY</span></a> <a href="https://xiyuanyang-code.github.io/Loving-Count/" target="_blank" rel="nofollow noopener"><span>❤️</span></a> <a href="https://github.com/Siyan-Li" target="_blank" rel="nofollow noopener"><span>LSY</span></a>
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
